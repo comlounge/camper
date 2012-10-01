@@ -28,6 +28,7 @@ setup(name='camper',
         "postmeister",
         "mongogogo",
         "setuptools",
+        "xhtml2pdf",
       ],
       entry_points="""
       [paste.app_factory]

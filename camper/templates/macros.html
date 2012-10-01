@@ -43,7 +43,7 @@
 {%- endmacro %}
 
 {% macro field(field, input) -%}
-          <div class="clearfix {{'error' if field.errors}} ">
+          <div class="clearfix field-{{field.id}} {{'error' if field.errors}} ">
             {{ field.label }}
             <div class="input">
                 {{ input }}
@@ -82,13 +82,10 @@
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
-            <label class="control-label" for="{{ field.id }}">{{field.label.text}}</label>
-            <div class="controls">
-              <label class="checkbox">
-                {{field(**kwargs)}}
-                {{ field.description }}
-              </label>
-            </div>
+<label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
+    {{field(**kwargs)}}
+    {{ field.label.text }}
+</label>
 {%- endmacro -%}
 {%- macro form_field_multicheckbox(field) -%}
     {% for subfield in field %}
@@ -108,7 +105,7 @@
 {%- endmacro -%}
 
 {%- macro form_field(field) -%}
-    <div class="control-group">
+    <div class="control-group" id="field-{{field.id}}">
     {% if field.type == 'HiddenField' %}
         {{ field() }}
     {% else %}

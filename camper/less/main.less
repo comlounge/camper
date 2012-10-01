@@ -60,4 +60,40 @@
 
 // Utility classes
 @import "utilities.less"; // Has to be last to override when necessary
-@import "bootswatch.less"; // Has to be last to override when necessary
+
+.login-container {
+    width: 400px;
+    background: #f8f8f8;
+    border: 1px solid #d8d8d8;
+    margin: 50px auto 0 auto;
+    .border-radius(3px);
+    .content {
+        padding: 16px 28px 23px;
+    }
+
+    form {
+        margin: 0 0 18px;
+        #field-username, #field-password {
+            label {
+                display: none;
+            }
+        }
+        input[type=text], input[type=password] {
+            width: 320px;
+            font-size: 130%;
+            padding: 10px 9px;
+            .box-shadow(inset 0 2px 2px rgba(0,0,0,.1)); // Redeclare so transitions work
+            margin: 10px 0;
+        }
+        #field-remember {
+            padding-top: 5px;
+        }
+    }
+
+    .btn-signin {
+        .btn();
+        .btn-large();
+        width: 130px;
+        .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
+    }
+}

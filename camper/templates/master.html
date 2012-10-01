@@ -14,6 +14,8 @@
     <![endif]-->
 
     <!-- Le styles -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
+    
     {% block css %}
     <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
     <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
@@ -94,7 +96,7 @@
       </div>
     </div>
       
-
+    {% block container %}
     <div class="container">
         <ul class="breadcrumb">
             <li>
@@ -128,29 +130,9 @@
         {% endfor %}
     
         {% block content %}
-            <div class="row">
-                <div id="loginbox" class="">
-                {#
-                    <form action="{{url_for('login')}}" method="post" class="validate">
-                        <h1>Log in</h1>
-                            <label for="email" class="uname" data-icon="u" > Ihre E-Mail Adresse </label>
-                            {{login_form.email(placeholder="email", class="required")}}
-
-                            <label for="password" class="youpasswd" data-icon="p"> Ihr Passwort</label>
-                            {{login_form.password(placeholder="Passwort", class="required")}}
-
-                            <label for="loginkeeping" class="checkbox">
-                                <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
-                                Keep me logged in 
-                            </label>
-
-                            <input type="submit" class="btn btn-large btn-primary" value="Login" />
-                    </form>
-                #}
-                </div>
-            </div>
         {% endblock %}
     </div> <!-- /container -->
+    {% endblock %}
 
     <!-- Le javascript
     ================================================== -->

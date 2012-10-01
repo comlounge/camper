@@ -78,13 +78,14 @@ class CamperApp(Application):
     }
 
     modules = [
-        userbase.email_userbase(
+        userbase.username_userbase(
             url_prefix                  = "/users",
             mongodb_name                = "camper",
             master_template             = "master.html",
             login_after_registration    = False,
             double_opt_in               = True,
             enable_registration         = True,
+            use_remember                = True,
             urls                        = {
                 'activation'            : {'endpoint' : 'userbase.activate'},
                 'activation_success'    : {'endpoint' : 'index'},

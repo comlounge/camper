@@ -1,0 +1,19 @@
+{% extends M.userbase.config.master_template %}
+{% import "macros.html" as formmacros with context %}                                                                                                           
+
+{% block container %}
+<div class="login-container">
+    <div class="content clearfix">
+        <h1>Echte Camper loggen sich ein</h1>
+        <form class="horizontal-form validate" method="POST" action="{{url}}">  
+            {{ formmacros.form_field(form.username, placeholder="Benutzername") }}
+            {{ formmacros.form_field(form.password, placeholder="Passwort") }}
+            <input type="submit" class="pull-right btn-signin" value="Einloggen">
+            {% if M.userbase.config.use_remember %}
+                {{formmacros.form_field(form.remember)}}
+            {% endif %}
+         {#       <a href="{{url_for("pw_forgot")}}">Passwort vergessen?</a>#}
+        </form>
+    </div>
+</div>
+{% endblock %}
