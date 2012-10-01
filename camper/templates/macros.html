@@ -1,0 +1,177 @@
+
+{% macro wf_button(transaction, came_from = None, css="") -%}
+    {% set client = transaction.client %}
+    {% set client_id = transaction.d.client_id %}
+    {% set tparams = {'client_id' : client_id, 'transaction_id' : transaction.d._id} %}
+    {% set state = transaction.d.wf_state %}
+    {% if state not in ['shipped', 'canceled'] %}
+        <form action="{{url_for('transaction_wf', **tparams)}}" method="POST" class="{{css}}">
+            {% if came_from %}
+            <input type="hidden" name="came_from" value="{{came_from}}">
+            {% endif %}
+            {% if state=='offered' %}
+                <button name="wf_state" 
+                        value="ordered" 
+                        class="btn btn-info">
+                        <i class="icon icon-white icon-arrow-right"></i>
+                        in Bestellung geben
+                </button>
+            {% elif state=='ordered' %}
+                <button name="wf_state" 
+                        value="checked" 
+                        class="btn btn-info">
+                        <i class="icon icon-white icon-arrow-right"></i>
+                        kontrolliert
+                </button>
+            {% elif state=='checked' %}
+                <button name="wf_state" 
+                        value="printed" 
+                        class="btn btn-info">
+                        <i class="icon icon-white icon-arrow-right"></i>
+                        gedruckt
+                </button>
+            {% elif state=='printed' %}
+                <button name="wf_state" 
+                        value="shipped" 
+                        class="btn btn-info">
+                        <i class="icon icon-white icon-arrow-right"></i>
+                        versandt
+                </button>
+            {% endif %}
+        </form>
+    {% endif %}
+{%- endmacro %}
+
+{% macro field(field, input) -%}
+          <div class="clearfix {{'error' if field.errors}} ">
+            {{ field.label }}
+            <div class="input">
+                {{ input }}
+                {% if field.errors %}
+                    <p>
+                    {% for error in field.errors %}
+                        <span class="help-inline">{{ error }}</span><br>
+                    {% endfor %}
+                    </p>
+                {% endif %}
+            </div>
+          </div>
+{%- endmacro %}
+
+{%- macro form_field_label(field) -%}
+    <label class="control-label" for="{{ field.id }}">{{ field.label.text }}
+    {%- if field.flags.required -%}
+        <abbr title="Diese Feld muss angegeben werden">*</abbr>
+    {%- endif %}</label>
+{% endmacro %}
+
+{%- macro form_field_description(field) -%}
+    {% if field.description %}
+        <p class="help-block">{{ field.description }}</p>
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro form_field_errors(field) -%}
+    <div class="errors">
+    {% if field.errors %}
+        {%- for error in field.errors -%}
+        <label class="error">{{ error }}</span>
+        {%- endfor -%}
+    {% endif %}
+    </div>
+{%- endmacro -%}
+
+{%- macro form_field_boolean(field) -%}
+            <label class="control-label" for="{{ field.id }}">{{field.label.text}}</label>
+            <div class="controls">
+              <label class="checkbox">
+                {{field(**kwargs)}}
+                {{ field.description }}
+              </label>
+            </div>
+{%- endmacro -%}
+{%- macro form_field_multicheckbox(field) -%}
+    {% for subfield in field %}
+        <label class="checkbox">
+            {{ subfield() }}
+            {{ subfield.label.text }}
+        </label>
+    {% endfor %}
+{%- endmacro -%}
+
+{%- macro action_buttons(submit_title, cancel_title="Zurück setzten", submit_class="primary") -%}
+<div class="actions">
+    <input type="submit" class="btn {{submit_class}}" value="{{submit_title}}">
+    &nbsp;
+    <button type="reset" class="btn">{{cancel_title}}</button>
+</div>
+{%- endmacro -%}
+
+{%- macro form_field(field) -%}
+    <div class="control-group">
+    {% if field.type == 'HiddenField' %}
+        {{ field() }}
+    {% else %}
+        {% if field.type == 'BooleanField' %}
+            {{ form_field_boolean(field, **kwargs) }}
+        {% else%}
+            {{ form_field_label(field) }}
+            <div class="controls" id="{{field.id}}-div">
+                {% if field.type == 'RadioField' %}
+                    {{ field(class='radio-group', **kwargs) }}
+                {% elif field.type == 'MultiCheckboxField' %}
+                    {{ form_field_multicheckbox(field) }}
+                {% else %}
+                    {{ field(**kwargs) }}
+                {% endif %}
+                {{ form_field_description(field) }}
+                {{ form_field_errors(field) }}
+            </div>
+        {% endif %}
+    {% endif %}
+    </div>
+{%- endmacro -%}
+
+{%- macro form_fields(fields, class=None, legend=None) -%}
+    <fieldset {% if class %}class="{{class}}"{% endif %}>
+        {% if legend %}
+            <legend>{{legend}}</legend>
+        {% endif %}
+    {% for field in fields %}
+        {% if field.type == 'HiddenField' %}
+            {{ field() }}
+                {% else %}
+            {{ form_field(field) }}
+        {% endif %}
+    {% endfor %}
+  </fieldset>
+{%- endmacro -%}
+
+
+
+{#
+## CLIENT WIDGETS
+#}
+
+
+{%- macro address(client, full=True) -%}
+    <address>
+        <strong>{{client.fullname}}</strong> <br>
+        {% if client.d.company %}{{client.d.company}}<br>{%endif %}
+        {{client.d.address}} <br>
+        {% if client.d.address_comment %}Kommentar: {{client.d.address_comment}}<br>{%endif %}
+        {{client.d.zip}} {{client.d.city}}<br>
+        {{client.country}}<br>
+        {% if full %}
+            {% if client.d.phone %}Telefon: {{client.d.phone}}<br>{%endif %}
+            {% if client.d.mobile %}Mobil: {{client.d.mobile}}<br>{%endif %}
+            {% if client.d.fax %}Fax: {{client.d.fax}}<br>{%endif %}
+            {% if client.d.email %}E-Mail: <a href="mailto:{{client.d.email}}">{{client.d.email}}</a><br>{%endif %}
+            Steuernummer: {{client.d.taxnr}}<br>
+            Mehrwertsteuer: {{client.d.mwst}} %<br>
+        {% endif %}
+    </address>
+{%- endmacro -%}
+{%- macro shipping_address(client) -%}
+{%- endmacro -%}
+
