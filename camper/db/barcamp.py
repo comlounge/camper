@@ -5,7 +5,7 @@ __all__=["Barcamp", "BarcampSchema", "Barcamps"]
 
 class Location(Schema):
     """a location described by name, lat and long"""
-    name = String(required=True)
+    name = String()
     lat = Float()
     lng = Float()
 
@@ -21,8 +21,8 @@ class Event(Schema):
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
 
-    created             = DateTime(default = datetime.datetime.utcnow)
-    updated             = DateTime(default = datetime.datetime.utcnow)
+    created             = DateTime()
+    updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
     workflow            = String(required = True, default = "created")
     
@@ -45,6 +45,13 @@ class BarcampSchema(Schema):
 class Barcamp(Record):
 
     schema = BarcampSchema()
+    default_values = {
+        'created'       : datetime.datetime.utcnow,
+        'updated'       : datetime.datetime.utcnow,
+        'location'      : {},
+        'events'        : [],
+    }
+
 
 class Barcamps(Collection):
     
