@@ -62,7 +62,7 @@ class CamperApp(Application):
         'script_virtual_host'   : "http://localhost:8222",
         'virtual_host'          : "http://localhost:8222",
         'virtual_path'          : "",
-        'server_name'           : "dev.localhost:9003",
+        'server_name'           : "dev.localhost:9008",
         'title'                 : "Camper - Barcamp Tools",
         'description'           : "barcamp tool",
         'debug'                 : False,
@@ -82,7 +82,7 @@ class CamperApp(Application):
             url_prefix                  = "/users",
             mongodb_name                = "camper",
             master_template             = "master.html",
-            login_after_registration    = False,
+            login_after_registration    = True,
             double_opt_in               = True,
             enable_registration         = True,
             use_remember                = True,
@@ -107,6 +107,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
     ]
 
