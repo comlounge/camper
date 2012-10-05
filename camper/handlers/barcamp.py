@@ -1,7 +1,7 @@
 #encoding=utf8
 
-from starflyer import Handler
-from camper import BaseForm
+from starflyer import Handler, redirect
+from camper import BaseForm, db
 from wtforms import *
 
 class BarcampAddForm(BaseForm):
@@ -19,8 +19,8 @@ class BarcampAddForm(BaseForm):
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
     )
-    start_date          = DateField(u"Start-Datum", [validators.Required()])
-    end_date            = DateField(u"End-Datum", [validators.Required()])
+    start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
+    end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
     location            = TextField(u"Ort", [validators.Required()],
                 description = u'Gib hier den Hauptveranstaltungsort an.',
     )
@@ -32,6 +32,20 @@ class AddView(Handler):
 
     def get(self):
         """render the view"""
-        form = BarcampAddForm()
+        form = BarcampAddForm(self.request.form, config = self.config)
+        if self.request.method == 'POST' and form.validate():
+            f = form.data
+            f['location'] = {
+                'name' : f['location']
+            }
+            barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
+            barcamp = self.config.dbs.barcamps.put(barcamp)
+            self.flash("Barcamp %s wurde angelegt" %f['name'], category="info")
+            return redirect(self.url_for("index"))
         return self.render(form = form)
+    post = get
+
+        
+
+
     post = get

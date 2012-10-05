@@ -119,6 +119,7 @@ class CamperApp(Application):
             self.config.mongodb_host,
             self.config.mongodb_port
         )[self.config.mongodb_name]
+        self.config.dbs.barcamps = db.Barcamps(mydb.barcamps)
 
 
 def app(config, **local_config):

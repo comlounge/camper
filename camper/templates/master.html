@@ -22,7 +22,6 @@
         <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         {#
         <link href="{{vpath}}/static/css/custom.css" rel="stylesheet">
-        <link type="text/css" href="url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         #}
         {% endblock %}
         <style>
@@ -97,19 +96,11 @@
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/messages_de.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
+        <script src="{{url_for("static", filename="js/jquery.ui.datepicker-de.js")}}"></script>
+        
         
         <script>
             $(document).ready( function () {
-                $('#client-form').validate({
-                    errorElement: 'span', 
-                    errorClass:'help-inline', 
-                    highlight: function (element, errorClass) {
-                        $(element).parent().parent().addClass('error');
-                    }, 
-                    unhighlight: function (element, errorClass) {
-                        $(element).parent().parent().removeClass('error');
-                    }
-                });
                 $('.popinfo').popover();
                 $('.ttip').tooltip();
                 $(".btn-toggle").click( function () {
@@ -118,31 +109,15 @@
                     if ($(this).hasClass("active")) {
                         $(this).find(".icon").addClass("icon-ok");
                         $("#"+f).attr("value", "1");
-                        console.log("on");
                     } else {
                         $(this).find(".icon").removeClass("icon-ok");
                         $("#"+f).attr("value", "0");
-                        console.log("off");
                     }
                     var form = $(this).parents("form.live");
                     $(this).parents("form.live").submit();
                     return false;
                 });
 
-                $('form.live').submit(function() {
-                    var data = {
-                        'doctor_required' : $("#doctor_required").val(),
-                        'receipt_required' : $("#receipt_required").val(),
-                        'receipt_ok' : $("#receipt_ok").val()
-                    }
-                    var url = $(this).attr("action");
-                    $.post(url, data, function(data) {  
-                        if (data.status!="ok") {
-                            alert("Leider ist ein Fehler aufgetreten, bitte versuchen Sie es noch einmal oder kontaktieren Sie einen Administrator.");
-                        }
-                    });
-                    return false;
-                });
                 $('input.currency').autoNumeric({aSep: '', aDec: ',', aSign: '', wEmpty: 'zero'});
                 $(".numeric").numeric(false, function() { alert("Bitte nur Zahlen"); this.value = ""; this.focus(); });
             });
@@ -160,6 +135,7 @@
         <script src="{{url_for("static", filename="js/bootstrap-alert.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-popover.js")}}"></script>
         <script src="{{url_for("static", filename="js/upload.js")}}"></script>
+        <script src="{{url_for("static", filename="js/forms.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
         {# 
         <script src="/static/js/bootstrap-alert.js"></script>

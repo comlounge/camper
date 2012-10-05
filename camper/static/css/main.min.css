@@ -838,3 +838,4 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .login-container .btn-signin .label,.login-container .btn-signin .badge{position:relative;top:-1px;}
 .login-container .btn-signin:hover,.login-container .btn-signin:active,.login-container .btn-signin.active,.login-container .btn-signin.disabled,.login-container .btn-signin[disabled]{color:#ffffff;background-color:#f89406;*background-color:#df8505;}
 .login-container .btn-signin:active,.login-container .btn-signin.active{background-color:#c67605 \9;}
+.popover.error{border:1px solid #f20;border-bottom:1px solid #a10;background:#c10;font-weight:600;color:#f8f8f8;}.popover.error.right .arrow{top:50%;left:-10px;margin-top:-10px;border-width:10px 10px 10px 0;border-right-color:#c10;}.popover.error.right .arrow:after{border-width:11px 11px 11px 0;border-right-color:rgba(0, 0, 0, 0.25);bottom:-11px;left:-1px;}

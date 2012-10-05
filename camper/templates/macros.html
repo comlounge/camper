@@ -72,13 +72,11 @@
 {%- endmacro -%}
 
 {%- macro form_field_errors(field) -%}
-    <div class="errors">
     {% if field.errors %}
         {%- for error in field.errors -%}
-        <label class="error">{{ error }}</span>
+        <span class="label label-important">{{ error }}</span>
         {%- endfor -%}
     {% endif %}
-    </div>
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
@@ -105,7 +103,7 @@
 {%- endmacro -%}
 
 {%- macro form_field(field) -%}
-    <div class="control-group" id="field-{{field.id}}">
+    <div class="control-group {{'error' if field.errors}}" id="field-{{field.id}}">
     {% if field.type == 'HiddenField' %}
         {{ field() }}
     {% else %}
@@ -121,8 +119,8 @@
                 {% else %}
                     {{ field(**kwargs) }}
                 {% endif %}
-                {{ form_field_description(field) }}
                 {{ form_field_errors(field) }}
+                {{ form_field_description(field) }}
             </div>
         {% endif %}
     {% endif %}

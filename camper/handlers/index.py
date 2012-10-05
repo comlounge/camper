@@ -9,5 +9,6 @@ class IndexView(Handler):
 
     def get(self):
         """render the view"""
-        return self.render()
+        barcamps = self.config.dbs.barcamps.find()
+        return self.render(barcamps = barcamps)
     post = get

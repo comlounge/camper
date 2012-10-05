@@ -2,6 +2,19 @@
 
 {% block content %}
     <h1 id="logo">Camper</h1>
+    <div class="row">
+        <div class="span8">
+            <h2>Aktuelle Barcamps</h2>
+            <ul>
+                {% for barcamp in barcamps %}
+                <li><a href="">{{barcamp.name}}</a>
+                {% endfor %}
+            </ul>
+            <a href="{{url_for("barcamp_add")}}" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> Neues Barcamp anlegen</a>
+        </div>
+        <div class="span4">
+        </div>
+    </div>
 
 {% endblock %}
 

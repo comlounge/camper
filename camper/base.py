@@ -6,6 +6,8 @@ import wtforms
 import userbase
 from xhtml2pdf import pisa
 
+from wtforms.ext.i18n.form import Form
+
 
 __all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf"]
 
@@ -39,9 +41,11 @@ class aspdf(object):
         return wrapper
 
 
-class BaseForm(wtforms.Form):   
+class BaseForm(Form):   
     """a form which also carries the config object"""
 
+    LANGUAGES = ['de', 'en']
+    
     def __init__(self, formdata=None, obj=None, prefix='', config=None, **kwargs):
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
         self.config = config

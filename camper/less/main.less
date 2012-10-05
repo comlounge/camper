@@ -97,3 +97,25 @@
         .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
     }
 }
+
+.popover.error {
+  border: 1px solid #f20;
+  border-bottom: 1px solid #a10;
+  background: #c10;
+  font-weight: 600;
+  color: #f8f8f8;
+  &.right .arrow {
+    top: 50%;
+    left: -@popoverArrowWidth;
+    margin-top: -@popoverArrowWidth;
+    border-width: @popoverArrowWidth @popoverArrowWidth @popoverArrowWidth 0;
+    border-right-color: #c10;
+    &:after {
+      border-width: @popoverArrowOuterWidth @popoverArrowOuterWidth @popoverArrowOuterWidth 0;
+      border-right-color: @popoverArrowOuterColor;
+      bottom: -@popoverArrowOuterWidth;
+      left: -1px;
+    }
+  }
+    
+}
