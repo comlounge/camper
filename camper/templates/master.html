@@ -19,9 +19,10 @@
         {% block css %}
         <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
+        <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         {#
         <link href="{{vpath}}/static/css/custom.css" rel="stylesheet">
-        <link type="text/css" href="{{vpath}}/css/smoothness/jquery-ui-1.8.20.custom.css" rel="stylesheet" /> 
+        <link type="text/css" href="url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         #}
         {% endblock %}
         <style>
@@ -95,6 +96,8 @@
         <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/messages_de.js")}}"></script>
+        <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
+        
         <script>
             $(document).ready( function () {
                 $('#client-form').validate({

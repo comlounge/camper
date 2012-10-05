@@ -109,6 +109,7 @@ class CamperApp(Application):
         URL('/', 'index', handlers.index.IndexView),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
+        URL('/b/add', 'barcamp_add', handlers.barcamp.AddView),
     ]
 
     def finalize_setup(self):

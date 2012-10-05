@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $( ".datepicker" ).datepicker();                                                                                   
+    });
+</script>
+{% endblock %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    <h1>Neues Barcamp anlegen</h1>
+    <form class="horizontal-form validate" method="POST" action="{{url}}">  
+        {{ formmacros.form_field(form.name, class="span8", placeholder="Barcamp-Name") }}
+        {{ formmacros.form_field(form.description, class="span8") }}
+        {{ formmacros.form_field(form.slug, class="span8") }}
+        {{ formmacros.form_field(form.location, class="span8", placeholder="z.B. Hamburg") }}
+        {{ formmacros.form_field(form.start_date, class="span4 datepicker") }}
+        {{ formmacros.form_field(form.end_date, class="span4 datepicker") }}
+        <input type="submit" class="btn btn-large btn-primary" value="BARCAMP ANLEGEN">
+    </form>
+{% endblock %}
