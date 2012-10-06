@@ -7,7 +7,7 @@
             <h2>Aktuelle Barcamps</h2>
             <ul>
                 {% for barcamp in barcamps %}
-                <li><a href="">{{barcamp.name}}</a>
+                <li><a href="{{url_for("barcamp", slug = barcamp.slug)}}">{{barcamp.name}}</a>
                 {% endfor %}
             </ul>
             <a href="{{url_for("barcamp_add")}}" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> Neues Barcamp anlegen</a>

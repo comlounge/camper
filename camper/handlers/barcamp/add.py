@@ -44,8 +44,3 @@ class AddView(Handler):
             return redirect(self.url_for("index"))
         return self.render(form = form)
     post = get
-
-        
-
-
-    post = get
