@@ -1,13 +1,12 @@
 #encoding=utf8
 
+import copy
 from starflyer import Handler, redirect
-from camper import BaseForm, db
+from camper import BaseForm, db, BaseHandler
 from wtforms import *
 
-class BarcampAddForm(BaseForm):
+class BarcampEditForm(BaseForm):
     """form for adding a barcamp"""
-    #created_by          = String() # TODO: should be ref to user
-    
     # base data
     name                = TextField(u"Titel", [validators.Length(max=300), validators.Required()],
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
@@ -21,27 +20,28 @@ class BarcampAddForm(BaseForm):
     )
     start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
     end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
-    location            = TextField(u"Ort", [validators.Required()],
-                description = u'Gib hier den Hauptveranstaltungsort an.',
-    )
+    location            = TextField(u"Ort", [validators.Required()], description = u'Gib hier den Hauptveranstaltungsort an.')
 
-class AddView(Handler):
+class EditView(BaseHandler):
     """an index handler"""
 
-    template = "barcamp/add.html"
+    template = "barcamp/edit.html"
 
-    def get(self):
+    # TODO: slug should only be editable if barcamp not public
+
+    def get(self, slug = None):
         """render the view"""
-        form = BarcampAddForm(self.request.form, config = self.config)
+        obj = copy.copy(self.barcamp)
+        obj['location'] = self.barcamp.location['name']
+        form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
-                'name' : f['location'],
-                'created_by' : self.user._id,
+                'name' : f['location']
             }
-            barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
-            barcamp = self.config.dbs.barcamps.put(barcamp)
-            self.flash("Barcamp %s wurde angelegt" %f['name'], category="info")
-            return redirect(self.url_for("index"))
+            self.barcamp.update(f)
+            self.barcamp.put()
+            self.flash("Barcamp aktualisiert", category="info")
+            return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
         return self.render(form = form)
     post = get

@@ -9,14 +9,18 @@
 
 {% import "macros.html" as formmacros with context %}
 {% block content %}
-    <h1>Neues Barcamp anlegen</h1>
+    {% block title %}
+        <h1>Neues Barcamp anlegen</h1>
+    {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
         {{ formmacros.form_field(form.name, class="required span8", placeholder="Barcamp-Name") }}
-        {{ formmacros.form_field(form.description, class="required span8") }}
+        {{ formmacros.form_field(form.description, class="required span8", rows=10) }}
         {{ formmacros.form_field(form.slug, class="required span8") }}
         {{ formmacros.form_field(form.location, class="required span8", placeholder="z.B. Hamburg") }}
         {{ formmacros.form_field(form.start_date, class="required span4 datepicker") }}
         {{ formmacros.form_field(form.end_date, class="required span4 datepicker") }}
-        <input type="submit" class="btn btn-large btn-primary" value="BARCAMP ANLEGEN">
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="BARCAMP ANLEGEN">
+        {% endblock %}
     </form>
 {% endblock %}

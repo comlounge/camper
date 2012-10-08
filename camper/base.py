@@ -78,6 +78,7 @@ class BaseHandler(starflyer.Handler):
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
+            barcamp = self.barcamp,
             #txt = self.config.i18n.de,
             title = self.config.title,
             description = self.config.description,

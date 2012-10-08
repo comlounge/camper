@@ -5,7 +5,7 @@ import decimal
 from camper import BaseForm
 
 from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerField, DecimalField
-from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field
+from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
 from wtforms import validators as v
 from wtforms.widgets import html_params
 
@@ -116,3 +116,72 @@ class JSONField(Field):
             self.data = json.loads(valuelist[0])
         else:
             self.data = u""
+
+
+class UploadWidget(object):
+    """
+    Renders the upload widget which consists of a subform with the actual
+    data and some html surrounding it.
+    """
+
+    tmpl = """
+        <div class="upload-widget" data-url="%(url)s">
+            %(hidden)s
+            <button class="uploadbutton btn btn-primary pull-left">%(label)s</button>
+            <div class="progressbar progress progress-striped active hide">
+                <div class="bar" style="width: 0%%;"></div>
+            </div>
+            <div class="filenamebox hide">
+                File: <span class="upload-label-filename"></span>
+            </div>
+        </div>
+    """
+
+    def __call__(self, field, **kwargs):
+        hidden = [unicode(f(**{'class':"upload-value-"+f.short_name})) for f in field]
+        hidden = unicode(''.join(hidden))
+
+        value = field.data
+        kwargs.setdefault("label", "Upload")
+        field_id = kwargs.pop('id', field.id)
+        payload = {
+            'url'   : field.url,
+            'label' : kwargs['label'],
+            'value-filename' : '',
+            'value-id' : '',
+            'name' : field.name,
+            'hidden' : hidden,
+        }
+        return self.tmpl %payload
+
+
+class UploadField(FormField):
+    """an upload field for using the valums uploader"""
+
+    widget = UploadWidget()
+
+
+    def __init__(self, label=None, validators=None, separator='-', url=u'', **kwargs):
+        class UploadForm(Form):
+            """the hidden fields"""
+            filename = HiddenField()
+            content_type = HiddenField()
+            id = HiddenField()
+        super(UploadField, self).__init__(UploadForm, label, validators, separator, **kwargs)
+        self.url = url
+
+    def process_data(self, value):
+        """process data into the form"""
+        self.data = value
+        return self.data
+
+    def process_formdata(self, valuelist):
+        """check the form data"""
+        return None
+
+    def _value(self):
+        if self.data:
+            return self.data
+        else:
+            return u''                                                                                                                                                               
+

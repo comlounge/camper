@@ -5070,30 +5070,49 @@ a.badge:hover {
   bottom: -11px;
   left: -1px;
 }
-.barcamp-header {
+#barcamp .header {
   position: relative;
 }
-.barcamp-header h1.logo {
+#barcamp .header h1.logo {
   font-size: 80px;
   text-transform: uppercase;
   line-height: 75px;
 }
-.barcamp-header h1.logo small {
+#barcamp .header h1.logo small {
   display: block;
   text-transform: none;
 }
-.barcamp-header .image-edit {
+#barcamp .actions {
   display: none;
   z-inder: 10;
   position: absolute;
   right: 10px;
   top: 10px;
 }
-.barcamp-header:hover .image-edit {
+#barcamp .action-container {
+  position: relative;
+}
+#barcamp .action-container:hover .actions {
   display: block;
 }
-.barcamp-info {
+#barcamp .info {
   display: block;
   padding-top: 4px;
   line-height: 1;
+}
+#barcamp .subline {
+  float: right;
+  margin-top: -20px;
+}
+#barcamp .description {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+#barcamp .sponsors {
+  margin-top: 20px;
+}
+#barcamp .sponsor {
+  float: left;
+  width: 220px;
+  margin-right: 15px;
 }

@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% import "macros.html" as formmacros with context %}
 
 {% block content %}
 
@@ -35,48 +36,101 @@
         </div>
     </div>
 
+    {# ****************************** Sponsor Modal **************************************** #}
+    <div class="modal sponsor-upload hide fade" id="sponsor-upload">
+        <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Neuen Sponsor anlegen</h3>
+        </div>
+        <div class="modal-body">
+            {{ formmacros.form_field(sponsor_form.name, class="required span8")}}
+            {{ formmacros.form_field(sponsor_form.url, class="required span8")}}
+            {{ formmacros.form_field(sponsor_form.image, class="required span8")}}
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn btn-primary">Anlegen</a>
+        </div>
+        </form>
+    </div>
+
     {# ************************************ Main Module **************************************** #}
+    <div id="barcamp">
     
-    <div class="barcamp-header">
-        {% if logo %}
-            <div class="image-edit">
-                <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
-                <a 
-                    data-confirm="Sind Sie sicher?" 
-                    data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
-                    role="button" 
-                    class="logo-delete btn btn-mini btn-danger">
-                    <i class="icon icon-trash icon-white"></i> Logo löschen</a>
+        <div class="header action-container">
+            {% if logo %}
+                <div class="image-edit actions">
+                    <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
+                    <a 
+                        data-confirm="Sind Sie sicher?" 
+                        data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
+                        role="button" 
+                        class="logo-delete btn btn-mini btn-danger">
+                        <i class="icon icon-trash icon-white"></i> Logo löschen</a>
+                </div>
+                {{view.logo}}
+            {% else %}
+                <a href="#logo-upload" role="button" data-toggle="modal" class="image-edit btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+                <h1 class="logo">{{name}}
+                </h1>
+            {% endif %}
+        </div>
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li class="active"><a href="#">Info</a></li>
+                    <li><a href="#">Sessionvorschläge</a></li>
+                    <li><a href="#">Events</a></li>
+                </ul>
+                <ul class="pull-right nav info">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Bearbeiten<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            {{view.logo}}
-        {% else %}
-            <a href="#logo-upload" role="button" data-toggle="modal" class="image-edit btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
-            <h1 class="logo">{{name}}
-            </h1>
-        {% endif %}
-    </div>
-    <div class="navbar navbar-inverse">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li class="active"><a href="#">Info</a></li>
-                <li><a href="#">Sessionvorschläge</a></li>
-                <li><a href="#">Events</a></li>
-            </ul>
-            <ul class="pull-right nav barcamp-info">
-                <small>{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}},<br> {{location.name}}</small>
-            </ul>
         </div>
-    </div>
+        <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>
 
-    <div class="row">
-        <div class="span8">
-            {{description}}
+        <div class="row">
+            <div class="span8">
+                <div class="widget-show">
+                    <div class="description">
+                        {{description|md}}
+                    </div>
+                    <a href="{{url_for("barcamp_edit", slug=slug)}}" class="btn btn-mini"><i class="icon icon-pencil"></i> Bearbeiten</a>
+                </div>
+                <div class="widget-edit hide">
+                    not showing
+                </div>
+            </div>
+            <div class="span4">
+            </div>
         </div>
-        <div class="span4">
+        <!-- sponsoren -->
+        <div class="sponsors">
+            {% for sponsor in view.sponsors %}
+                <div class="sponsor action-container">
+                    <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    <div class="sponsor-edit actions">
+                        <a 
+                            data-confirm="Sind Sie sicher?" 
+                            data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
+                            role="button" 
+                            class="logo-delete btn btn-mini btn-danger">
+                            <i class="icon icon-trash icon-white"></i></a>
+                    </div>
+                </div>
+            {% endfor %}
+                <div class="sponsor ">
+                    <a href="#sponsor-upload" role="button" data-toggle="modal" class="btn btn-large btn-block"><i class="icon icon-plus"></i> Neuer Sponsor</a>
+                </div>
         </div>
-    </div>
 
-    
+    </div><!-- #barcamp -->
 
 {% endblock %}
 

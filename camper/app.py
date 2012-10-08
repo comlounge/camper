@@ -8,6 +8,10 @@ from starflyer import Application, URL, AttributeMapper
 from sfext.uploader import upload_module, Assets
 from sfext.mail import mail_module
 
+import markdown                                                                                                                                                                      
+import re
+from jinja2 import evalcontextfilter, Markup, escape
+
 import userbase
 import handlers
 import db
@@ -16,8 +20,6 @@ import db
 # custom jinja filters
 #
 
-from jinja2 import evalcontextfilter, Markup, escape
-import re
 
 _paragraph_re = re.compile(r'(?:\r\n|\r|\n){2,}')
 _striptags_re = re.compile(r'(<!--.*?-->|<[^>]*>)')
@@ -48,6 +50,43 @@ else:
     _tojson_filter = json.dumps
 
 
+md = markdown.Markdown(safe_mode="remove")
+#lre_string = re.compile(r'(?P<protocol>(^|\s)((http|ftp)://.*?))(\s|$)', re.S|re.M|re.I)
+#lre_string = re.compile(r'(?P<protocol>(^|\s)((http|ftp)://.*?))(\s|$)', re.S|re.M|re.I)
+#lre_string = re.compile(r"""\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""", re.S|re.M|re.I)
+
+pattern = """
+(
+  (?:
+    https?://
+    | 
+    www\d{0,3}[.]
+    |
+    [a-z0-9.\-]+[.][a-z]{2,4}/
+  )
+  (?:
+    [^\s()<>]+
+    |        
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
+  )+
+  (?:
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
+    |
+    [^\s`!()\[\]{};:'".,<>?«»“”‘’]
+  )
+)
+"""
+pattern = "".join([p.strip() for p in pattern.split()])
+lre_string = re.compile(pattern, re.S|re.M|re.I)
+
+def linkify(text):
+    def do_sub(m):
+        url = m.groups()[0]
+        return '<a target="_blank" href="%s">%s</a>' % (url, url)
+    return re.sub(lre_string, do_sub, text)
+
+def markdownify(text):
+    return linkify(md.convert(text))
 
 
 ### 
@@ -103,6 +142,7 @@ class CamperApp(Application):
         'nl2br' : nl2br,
         'currency' : do_currency,
         'tojson' : _tojson_filter,
+        'md' : markdownify,
     }
 
     routes = [
@@ -111,6 +151,7 @@ class CamperApp(Application):
         URL('/', 'login', handlers.index.IndexView),
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
+        URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
         URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),

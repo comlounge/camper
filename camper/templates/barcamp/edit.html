@@ -1,0 +1,8 @@
+{% extends "barcamp/add.html" %}
+{% block title %}
+    <h1>Barcamp "{{barcamp.name}}" bearbeiten</h1>
+{% endblock %}
+{% block action %}
+    <input type="submit" class="btn btn-large btn-primary" value="BARCAMP SPEICHERN">
+    <a href="{{url_for("barcamp", slug = barcamp.slug)}}" class="btn btn-large">ABBRECHEN</a>
+{% endblock %}
