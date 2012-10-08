@@ -9,6 +9,12 @@ class Location(Schema):
     lat = Float()
     lng = Float()
 
+class Sponsor(Schema):
+    """a location described by name, lat and long"""
+    logo = String(required=True) # asset id
+    name = String(required=True)
+    url = String(required=True)
+
 class Event(Schema):
     """a sub schema describing one event"""
     name                = String(required=True)
@@ -40,6 +46,10 @@ class BarcampSchema(Schema):
 
     # events
     events              = List(Event)
+
+    # image stuff
+    logo                = String() # asset id
+    sponsors            = List(Sponsor())
 
 
 class Barcamp(Record):

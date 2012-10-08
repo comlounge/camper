@@ -1,10 +1,59 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <div class="page-header">
-        <h1>{{name}}
-            <small>{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</small>
-        </h1>
+
+    {# ****************************** Logo Upload Modal **************************************** #}
+    <div class="modal logo-upload hide fade" id="logo-upload">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Logo hochladen</h3>
+        </div>
+        <div class="modal-body">
+            <form class="uploadform" action="{{url_for('barcamp_logo_upload', slug = slug)}}">
+            <div class="upload-widget">
+                <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
+                <br>
+                <div class="help" style="clear: both">
+                    Du kannst hier ein Logo hochladen, das maximal 940 Pixel breit sein sollte. Erlaubte Formate sind JPEG, GIF und PNG.
+                    Die maximal erlaubte Dateigröße beträgt 10MB. Beachte, dass das Bild nicht automatisch skaliert wird, ein richtig skaliertes
+                    Bild wird also das beste Ergebnis liefern.
+                </div>
+                <div class="progressbar">
+                    <div class="progress progress-striped active hide">
+                        <div class="bar" style="width: 0%%;"></div>
+                    </div>
+                </div>
+                <div class="filenamebox hide">
+                    File: <span class="upload-label-filename"></span>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <!--<a href="#" class="btn btn-primary">Save changes</a>-->
+        </div>
+    </div>
+
+    {# ************************************ Main Module **************************************** #}
+    
+    <div class="barcamp-header">
+        {% if logo %}
+            <div class="image-edit">
+                <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
+                <a 
+                    data-confirm="Sind Sie sicher?" 
+                    data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
+                    role="button" 
+                    class="logo-delete btn btn-mini btn-danger">
+                    <i class="icon icon-trash icon-white"></i> Logo löschen</a>
+            </div>
+            {{view.logo}}
+        {% else %}
+            <a href="#logo-upload" role="button" data-toggle="modal" class="image-edit btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+            <h1 class="logo">{{name}}
+            </h1>
+        {% endif %}
     </div>
     <div class="navbar navbar-inverse">
         <div class="navbar-inner">
@@ -13,12 +62,14 @@
                 <li><a href="#">Sessionvorschläge</a></li>
                 <li><a href="#">Events</a></li>
             </ul>
+            <ul class="pull-right nav barcamp-info">
+                <small>{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}},<br> {{location.name}}</small>
+            </ul>
         </div>
     </div>
 
     <div class="row">
         <div class="span8">
-            <h4>Beschreibung</h4>
             {{description}}
         </div>
         <div class="span4">
@@ -29,3 +80,6 @@
 
 {% endblock %}
 
+{% block js %}
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+{% endblock %}

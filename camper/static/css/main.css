@@ -5070,3 +5070,30 @@ a.badge:hover {
   bottom: -11px;
   left: -1px;
 }
+.barcamp-header {
+  position: relative;
+}
+.barcamp-header h1.logo {
+  font-size: 80px;
+  text-transform: uppercase;
+  line-height: 75px;
+}
+.barcamp-header h1.logo small {
+  display: block;
+  text-transform: none;
+}
+.barcamp-header .image-edit {
+  display: none;
+  z-inder: 10;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.barcamp-header:hover .image-edit {
+  display: block;
+}
+.barcamp-info {
+  display: block;
+  padding-top: 4px;
+  line-height: 1;
+}

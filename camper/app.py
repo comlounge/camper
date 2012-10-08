@@ -5,7 +5,7 @@ import yaml
 import pkg_resources
 
 from starflyer import Application, URL, AttributeMapper
-from sfext.uploader import upload_module
+from sfext.uploader import upload_module, Assets
 from sfext.mail import mail_module
 
 import userbase
@@ -111,6 +111,9 @@ class CamperApp(Application):
         URL('/', 'login', handlers.index.IndexView),
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
+        URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
+        URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
+        URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),
     ]
 
     def finalize_setup(self):
@@ -121,6 +124,7 @@ class CamperApp(Application):
             self.config.mongodb_port
         )[self.config.mongodb_name]
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps)
+        self.module_map.uploader.config.assets = Assets(mydb.assets)                                                                                                                 
 
 
 def app(config, **local_config):

@@ -66,6 +66,10 @@ class BaseHandler(starflyer.Handler):
 
     def before(self):
         """prepare the handler"""
+        if "slug" in self.request.view_args:
+            self.barcamp = self.config.dbs.barcamps.find_one({'slug' : self.request.view_args['slug']})
+        else:
+            self.barcamp = None
         super(BaseHandler, self).before()
 
     @property

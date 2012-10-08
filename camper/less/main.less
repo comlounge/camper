@@ -98,6 +98,10 @@
     }
 }
 
+//
+// form validation
+//
+
 .popover.error {
   border: 1px solid #f20;
   border-bottom: 1px solid #a10;
@@ -117,5 +121,40 @@
       left: -1px;
     }
   }
-    
 }
+
+//
+// barcamp index page
+//
+
+.barcamp-header {
+    position: relative;
+
+    h1.logo {
+        font-size: 80px;
+        text-transform: uppercase;
+        line-height: 75px;
+        small {
+            display: block;
+            text-transform: none;
+        }
+    }
+
+    .image-edit {
+        display: none;
+        z-inder: 10;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+}
+.barcamp-header:hover .image-edit {
+    display: block;
+}
+
+.barcamp-info {
+    display: block;
+    padding-top: 4px;
+    line-height: 1;
+}
+
