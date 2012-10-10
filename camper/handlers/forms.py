@@ -125,14 +125,18 @@ class UploadWidget(object):
     """
 
     tmpl = """
-        <div class="upload-widget" data-url="%(url)s">
+        <div class="upload-widget" data-url="%(url)s" data-postproc="%(postproc)s">
             %(hidden)s
-            <button class="uploadbutton btn btn-primary pull-left">%(label)s</button>
-            <div class="progressbar progress progress-striped active hide">
-                <div class="bar" style="width: 0%%;"></div>
+            <div class="preview-area hide">
             </div>
-            <div class="filenamebox hide">
-                File: <span class="upload-label-filename"></span>
+            <div class="upload-area show">
+                <button class="uploadbutton btn btn-primary pull-left">%(label)s</button>
+                <div class="progressbar progress progress-striped active hide">
+                    <div class="bar" style="width: 0%%;"></div>
+                </div>
+                <div class="filenamebox hide">
+                    File: <span class="upload-label-filename"></span>
+                </div>
             </div>
         </div>
     """
@@ -145,10 +149,12 @@ class UploadWidget(object):
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)
         payload = {
-            'url'   : field.url,
+            'url'   : kwargs['url'],
             'label' : kwargs['label'],
             'value-filename' : '',
             'value-id' : '',
+            'name' : field.name,
+            'postproc' : kwargs.get("postproc",""),
             'name' : field.name,
             'hidden' : hidden,
         }
@@ -160,12 +166,9 @@ class UploadField(FormField):
 
     widget = UploadWidget()
 
-
     def __init__(self, label=None, validators=None, separator='-', url=u'', **kwargs):
         class UploadForm(Form):
             """the hidden fields"""
-            filename = HiddenField()
-            content_type = HiddenField()
             id = HiddenField()
         super(UploadField, self).__init__(UploadForm, label, validators, separator, **kwargs)
         self.url = url

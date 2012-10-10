@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-  return $(".form-validate").validate({
+  $(".form-validate").validate({
     showErrors: function(errorMap, errorList) {
       $.each(this.successList, function(index, value) {
         $(value).removeClass("error");
@@ -18,6 +18,26 @@ $(document).ready(function() {
         $(value.element).addClass("error");
         return $(value.element).popover('show');
       });
+    }
+  });
+  return $("#sponsor-form").validate({
+    rules: {
+      "upload-value-id": {
+        required: true
+      }
+    },
+    submitHandler: function(form) {
+      if ($(form).find(".upload-value-id").val()) {
+        return form.submit();
+      } else {
+        return alert("Bitte lade ein Logo hoch");
+      }
+    },
+    highlight: function(label) {
+      return $(label).closest('.control-group').addClass('error');
+    },
+    success: function(label) {
+      return label.text('OK!').addClass('valid').closest('.control-group').addClass('success');
     }
   });
 });

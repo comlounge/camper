@@ -45,3 +45,4 @@ class EditView(BaseHandler):
             return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
         return self.render(form = form)
     post = get
+

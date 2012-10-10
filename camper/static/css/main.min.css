@@ -839,7 +839,7 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .login-container .btn-signin:hover,.login-container .btn-signin:active,.login-container .btn-signin.active,.login-container .btn-signin.disabled,.login-container .btn-signin[disabled]{color:#ffffff;background-color:#f89406;*background-color:#df8505;}
 .login-container .btn-signin:active,.login-container .btn-signin.active{background-color:#c67605 \9;}
 .popover.error{border:1px solid #f20;border-bottom:1px solid #a10;background:#c10;font-weight:600;color:#f8f8f8;}.popover.error.right .arrow{top:50%;left:-10px;margin-top:-10px;border-width:10px 10px 10px 0;border-right-color:#c10;}.popover.error.right .arrow:after{border-width:11px 11px 11px 0;border-right-color:rgba(0, 0, 0, 0.25);bottom:-11px;left:-1px;}
-#barcamp .header{position:relative;}#barcamp .header h1.logo{font-size:80px;text-transform:uppercase;line-height:75px;}#barcamp .header h1.logo small{display:block;text-transform:none;}
+#barcamp .header{position:relative;}#barcamp .header h1.logo{font-size:80px;text-transform:uppercase;line-height:80px;}#barcamp .header h1.logo small{display:block;text-transform:none;}
 #barcamp .actions{display:none;z-inder:10;position:absolute;right:10px;top:10px;}
 #barcamp .action-container{position:relative;}
 #barcamp .action-container:hover .actions{display:block;}
@@ -848,3 +848,7 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 #barcamp .description{font-size:16px;margin-bottom:20px;}
 #barcamp .sponsors{margin-top:20px;}
 #barcamp .sponsor{float:left;width:220px;margin-right:15px;}
+form label.error{color:red;margin-top:-10px;}
+label.valid{width:24px;height:24px;background:url('/static/img/valid.png') center center no-repeat;display:inline-block;text-indent:-9999px;}
+label.error{font-weight:bold;color:red;padding:2px 8px;margin-top:2px;}
+.preview-area{float:left;margin-right:10px;}

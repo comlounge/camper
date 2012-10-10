@@ -10,8 +10,8 @@
             <h3>Logo hochladen</h3>
         </div>
         <div class="modal-body">
-            <form class="uploadform" action="{{url_for('barcamp_logo_upload', slug = slug)}}">
-            <div class="upload-widget">
+            <form class="uploadform">
+            <div class="upload-widget" action="{{url_for('barcamp_logo_upload', slug = slug)}}">
                 <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
                 <br>
                 <div class="help" style="clear: both">
@@ -31,26 +31,26 @@
             </form>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
             <!--<a href="#" class="btn btn-primary">Save changes</a>-->
         </div>
     </div>
 
     {# ****************************** Sponsor Modal **************************************** #}
     <div class="modal sponsor-upload hide fade" id="sponsor-upload">
-        <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
+        <form id="sponsor-form" class="horizontal-form" method="POST" action="{{url_for("barcamp_sponsors", slug=slug)}}">  
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Neuen Sponsor anlegen</h3>
         </div>
         <div class="modal-body">
-            {{ formmacros.form_field(sponsor_form.name, class="required span8")}}
-            {{ formmacros.form_field(sponsor_form.url, class="required span8")}}
-            {{ formmacros.form_field(sponsor_form.image, class="required span8")}}
+            {{ formmacros.form_field(sponsor_form.name, class="required span5")}}
+            {{ formmacros.form_field(sponsor_form.url, class="url required span5")}}
+            {{ formmacros.form_field(sponsor_form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload"), postproc="sponsor")}}
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Close</a>
-            <a href="#" class="btn btn-primary">Anlegen</a>
+            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
+            <input type="submit" class="btn btn-primary" value="Anlegen">
         </div>
         </form>
     </div>
@@ -66,14 +66,13 @@
                         data-confirm="Sind Sie sicher?" 
                         data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
                         role="button" 
-                        class="logo-delete btn btn-mini btn-danger">
+                        class="asset-delete btn btn-mini btn-danger">
                         <i class="icon icon-trash icon-white"></i> Logo löschen</a>
                 </div>
                 {{view.logo}}
             {% else %}
-                <a href="#logo-upload" role="button" data-toggle="modal" class="image-edit btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
-                <h1 class="logo">{{name}}
-                </h1>
+                <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+                <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
         <div class="navbar navbar-inverse">
@@ -87,7 +86,9 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Bearbeiten<strong class="caret"></strong></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
+                            <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
+                            <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                            <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -101,7 +102,6 @@
                     <div class="description">
                         {{description|md}}
                     </div>
-                    <a href="{{url_for("barcamp_edit", slug=slug)}}" class="btn btn-mini"><i class="icon icon-pencil"></i> Bearbeiten</a>
                 </div>
                 <div class="widget-edit hide">
                     not showing
@@ -111,26 +111,29 @@
             </div>
         </div>
         <!-- sponsoren -->
-        <div class="sponsors">
+        <div class="row sponsors">
+            <div class="span12">
             {% for sponsor in view.sponsors %}
                 <div class="sponsor action-container">
                     <a href="{{sponsor.url}}">{{sponsor.image}}</a>
                     <div class="sponsor-edit actions">
                         <a 
                             data-confirm="Sind Sie sicher?" 
-                            data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
+                            data-url="{{url_for('barcamp_sponsors', slug = slug)}}" 
+                            data-idx="{{sponsor.idx}}"
                             role="button" 
-                            class="logo-delete btn btn-mini btn-danger">
+                            class="asset-delete btn btn-mini btn-danger">
                             <i class="icon icon-trash icon-white"></i></a>
                     </div>
                 </div>
             {% endfor %}
-                <div class="sponsor ">
-                    <a href="#sponsor-upload" role="button" data-toggle="modal" class="btn btn-large btn-block"><i class="icon icon-plus"></i> Neuer Sponsor</a>
-                </div>
+            </div>
         </div>
 
     </div><!-- #barcamp -->
+    <footer>
+    huhu
+    </footer>
 
 {% endblock %}
 
