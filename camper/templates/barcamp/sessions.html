@@ -1,0 +1,77 @@
+{% extends "barcamp/master.html" %}
+
+{% block main_content %}
+    <h2>Sessionvorschläge</h2>  
+
+    <div class="well">
+        <h3>Dein Themenvorschlag</h3>
+        <form method="post" action="{{url}}" class="form-horizontal">
+            {{formmacros.form_field(form.title, class="required span8")}}
+            {{formmacros.form_field(form.description, rows=5, cols=80, class="span8")}}
+            <div class="form-actions">
+                <input type="submit" class="btn btn-large btn-primary" value="Vorschlagen!">
+            </div>
+        </form>
+    </div>
+    <h3>Bisherige Sessionvorschläge</h3>
+    {% for session in sessions %}
+        <section id="sessionproposals">
+            <article class="session">
+                <header>
+                    <h4>{{session.title|striptags}}</h4>
+                </header>
+                <div class="description">
+                    {{session.description|md}}
+                </div>
+                <footer>
+                    eingestellt von {{session.user}} am {{session.created.strftime("%d.%m.%Y")}}
+                </footer>
+            </article>
+        </session>
+    {% endfor %}
+    <section id="sessionproposals">
+        <article class="session">
+            <header>
+                <h4>Altersgrenzen - richtig oder falsch?</h4>
+            </header>
+            <div class="description">
+                <p>Geklärt werden soll in einer Diskussionsrunde, wer vom gescheiterten Entwurf profitiert hätte und wie man derartige Einflüsse einer etwaigen Lobby entgegentreten kann.</p>
+                <ul>
+                <li>Welche Spieler gab es?</li>
+                <li>Wo agierten die Lobbyisten?</li>
+                <li>Welche Argumente und Gegenargumente gab es?</li>
+                <li>Welche Rolle spielte die Erotikindustrie?</li>
+                <li>Wie wurden die Medien instrumentalisiert?</li>
+                <li>Was war die Rolle der öffentlich-rechtlichen Rundfunkanstalten?</li>
+                </ul>
+            </div>
+            <footer>
+                eingestellt von <a href="/user/f8326dd63799367d666e3add17a2b493">Alexander Reintzsch</a>, Piratenpartei, Landesverband NRW am 29.04.2011
+            </footer>
+        </article>
+        <article class="session">
+            <header>
+                <h3>Altersgrenzen - richtig oder falsch?</h3>
+            </header>
+            <div class="description">
+                <p>Geklärt werden soll in einer Diskussionsrunde, wer vom gescheiterten Entwurf profitiert hätte und wie man derartige Einflüsse einer etwaigen Lobby entgegentreten kann.</p>
+                <ul>
+                <li>Welche Spieler gab es?</li>
+                <li>Wo agierten die Lobbyisten?</li>
+                <li>Welche Argumente und Gegenargumente gab es?</li>
+                <li>Welche Rolle spielte die Erotikindustrie?</li>
+                <li>Wie wurden die Medien instrumentalisiert?</li>
+                <li>Was war die Rolle der öffentlich-rechtlichen Rundfunkanstalten?</li>
+                </ul>
+            </div>
+            <footer>
+                eingestellt von <a href="/user/f8326dd63799367d666e3add17a2b493">Alexander Reintzsch</a>, Piratenpartei, Landesverband NRW am 29.04.2011
+            </footer>
+        </article>
+    </section>
+
+
+    <form>
+    </form>
+
+{% endblock %}

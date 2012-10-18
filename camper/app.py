@@ -155,6 +155,7 @@ class CamperApp(Application):
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
+        URL('/<slug>/sessions', 'barcamp_sessions', handlers.barcamp.sessions.SessionList),
         URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
         URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),
@@ -168,6 +169,7 @@ class CamperApp(Application):
             self.config.mongodb_port
         )[self.config.mongodb_name]
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps)
+        self.config.dbs.sessions = db.Sessions(mydb.sessions)
         self.module_map.uploader.config.assets = Assets(mydb.assets)                                                                                                                 
 
 

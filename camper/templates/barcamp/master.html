@@ -1,0 +1,55 @@
+{% extends "master.html" %}
+{% import "macros.html" as formmacros with context %}
+
+{% block content %}
+    <div id="barcamp">
+    
+        <div class="header action-container">
+            {% if logo %}
+                <div class="image-edit actions">
+                    <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
+                    <a 
+                        data-confirm="Sind Sie sicher?" 
+                        data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
+                        role="button" 
+                        class="asset-delete btn btn-mini btn-danger">
+                        <i class="icon icon-trash icon-white"></i> Logo löschen</a>
+                </div>
+                {{view.logo}}
+            {% else %}
+                <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+                <h1 class="logo">{{name}}</h1>
+            {% endif %}
+        </div>
+        <div class="navbar navbar-inverse">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <li class="active"><a href="#">Info</a></li>
+                    <li><a href="{{url_for('barcamp_sessions', slug = slug)}}">Sessionvorschläge</a></li>
+                    <li><a href="#">Events</a></li>
+                </ul>
+                <ul class="pull-right nav info">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Bearbeiten<strong class="caret"></strong></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
+                            <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                            <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>
+
+        {% block main_content %}
+        {% endblock %}
+
+    </div><!-- #barcamp -->
+    <footer>
+    </footer>
+{% endblock %}
+
+{% block js %}
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+{% endblock %}
