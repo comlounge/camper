@@ -204,3 +204,60 @@ label.error {
     float: left;
     margin-right: 10px;
 }
+
+/*
+ * session proposals
+ */
+
+aside.votecontainer {
+    .border-radius(10px);
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: white                                                                                                                                                                    ;
+    float: left;
+    width: 50px;
+    text-align: center;
+    margin: 3px;
+    margin-right: 10px;
+    .vote-login {
+        font-size: 80%;
+        color: #888;
+    }
+}
+
+.votes {
+    font-size: 130%;
+    font-weight: bold;
+}
+.vote {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.vote.active {
+    background: url(../img/star.png) no-repeat;
+}
+.vote.inactive {
+    background: url(../img/star_empty.png) no-repeat;
+}
+
+#sessionproposals {
+    header, .description, footer {
+        margin-left: 80px;
+    }
+    article {
+        border-bottom: 1px solid #f0f0f0;
+        overflow: auto;
+        margin-bottom: 20px;
+    }
+    .description {
+        font-size: 14px;
+        margin-bottom: 0;
+    }
+    footer {
+        color: #aaa;
+        font-size: 12px;
+    }
+}

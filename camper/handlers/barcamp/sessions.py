@@ -18,7 +18,9 @@ class SessionList(BaseHandler):
     def get(self, slug = None):
         """return the list of sessions"""
         barcamp_id = self.barcamp._id
-        sessions = self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)})
+        sort = self.request.args.get("sort", "date")
+        so = 'vote_count' if sort=="votes" else "created"
+        sessions = self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)}).sort(so, -1)
         form = SessionAddForm(self.request.form)
         if self.request.method == 'POST' and form.validate():
             f = form.data
@@ -28,7 +30,7 @@ class SessionList(BaseHandler):
             session = self.config.dbs.sessions.put(session)
             self.flash("Dein Sessionvorschlag wurde erfolgreich angelegt!")
             return redirect(self.request.url)
-        return self.render(sessions = sessions, form = form, **self.barcamp)
+        return self.render(sessions = sessions, sort = sort, form = form, **self.barcamp)
 
     # TODO: Post should only work logged in!
     post = get

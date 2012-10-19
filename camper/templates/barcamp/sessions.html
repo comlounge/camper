@@ -1,10 +1,10 @@
 {% extends "barcamp/master.html" %}
 
 {% block main_content %}
-    <h2>Sessionvorschläge</h2>  
+    <h1>Sessionvorschläge</h1>  
 
-    <div class="well">
-        <h3>Dein Themenvorschlag</h3>
+    <div class="nowell">
+        <legend>Dein Themenvorschlag</legend>
         <form method="post" action="{{url}}" class="form-horizontal">
             {{formmacros.form_field(form.title, class="required span8")}}
             {{formmacros.form_field(form.description, rows=5, cols=80, class="span8")}}
@@ -13,65 +13,35 @@
             </div>
         </form>
     </div>
-    <h3>Bisherige Sessionvorschläge</h3>
+    <h1>
+        <div id="sort-buttons" class="pull-right">
+            <span class="btn-group" data-toggle="buttons-radio">
+              <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">Datum</a>
+              <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">Bewertung</a>
+            </span>
+        </div>
+    </h1>
+    
+    <section id="sessionproposals">
     {% for session in sessions %}
-        <section id="sessionproposals">
             <article class="session">
+                <aside class="votecontainer">
+                    <div class="votes" id="vote-90b5d410-2891-4516-bfa2-bc0598a2d774">{{session.vote_count}}</div>
+                    <div class="votebutton">
+                        <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"></a>
+                    </div>
+                </aside>
                 <header>
                     <h4>{{session.title|striptags}}</h4>
                 </header>
                 <div class="description">
-                    {{session.description|md}}
+                    {{session.description|md(level=3)}}
                 </div>
                 <footer>
-                    eingestellt von {{session.user}} am {{session.created.strftime("%d.%m.%Y")}}
+                    eingestellt von {{session.user.username}} am {{session.created.strftime("%d.%m.%Y")}}
                 </footer>
             </article>
-        </session>
     {% endfor %}
-    <section id="sessionproposals">
-        <article class="session">
-            <header>
-                <h4>Altersgrenzen - richtig oder falsch?</h4>
-            </header>
-            <div class="description">
-                <p>Geklärt werden soll in einer Diskussionsrunde, wer vom gescheiterten Entwurf profitiert hätte und wie man derartige Einflüsse einer etwaigen Lobby entgegentreten kann.</p>
-                <ul>
-                <li>Welche Spieler gab es?</li>
-                <li>Wo agierten die Lobbyisten?</li>
-                <li>Welche Argumente und Gegenargumente gab es?</li>
-                <li>Welche Rolle spielte die Erotikindustrie?</li>
-                <li>Wie wurden die Medien instrumentalisiert?</li>
-                <li>Was war die Rolle der öffentlich-rechtlichen Rundfunkanstalten?</li>
-                </ul>
-            </div>
-            <footer>
-                eingestellt von <a href="/user/f8326dd63799367d666e3add17a2b493">Alexander Reintzsch</a>, Piratenpartei, Landesverband NRW am 29.04.2011
-            </footer>
-        </article>
-        <article class="session">
-            <header>
-                <h3>Altersgrenzen - richtig oder falsch?</h3>
-            </header>
-            <div class="description">
-                <p>Geklärt werden soll in einer Diskussionsrunde, wer vom gescheiterten Entwurf profitiert hätte und wie man derartige Einflüsse einer etwaigen Lobby entgegentreten kann.</p>
-                <ul>
-                <li>Welche Spieler gab es?</li>
-                <li>Wo agierten die Lobbyisten?</li>
-                <li>Welche Argumente und Gegenargumente gab es?</li>
-                <li>Welche Rolle spielte die Erotikindustrie?</li>
-                <li>Wie wurden die Medien instrumentalisiert?</li>
-                <li>Was war die Rolle der öffentlich-rechtlichen Rundfunkanstalten?</li>
-                </ul>
-            </div>
-            <footer>
-                eingestellt von <a href="/user/f8326dd63799367d666e3add17a2b493">Alexander Reintzsch</a>, Piratenpartei, Landesverband NRW am 29.04.2011
-            </footer>
-        </article>
     </section>
-
-
-    <form>
-    </form>
 
 {% endblock %}

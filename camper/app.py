@@ -85,7 +85,8 @@ def linkify(text):
         return '<a target="_blank" href="%s">%s</a>' % (url, url)
     return re.sub(lre_string, do_sub, text)
 
-def markdownify(text):
+def markdownify(text, level=1):
+    return linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
     return linkify(md.convert(text))
 
 
@@ -168,9 +169,9 @@ class CamperApp(Application):
             self.config.mongodb_host,
             self.config.mongodb_port
         )[self.config.mongodb_name]
-        self.config.dbs.barcamps = db.Barcamps(mydb.barcamps)
-        self.config.dbs.sessions = db.Sessions(mydb.sessions)
-        self.module_map.uploader.config.assets = Assets(mydb.assets)                                                                                                                 
+        self.config.dbs.barcamps = db.Barcamps(mydb.barcamps, app=self, config=self.config)
+        self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
+        self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
 
 
 def app(config, **local_config):

@@ -852,3 +852,12 @@ form label.error{color:red;margin-top:-10px;}
 label.valid{width:24px;height:24px;background:url('/static/img/valid.png') center center no-repeat;display:inline-block;text-indent:-9999px;}
 label.error{font-weight:bold;color:red;padding:2px 8px;margin-top:2px;}
 .preview-area{float:left;margin-right:10px;}
+aside.votecontainer{-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;border:1px solid #ddd;padding:5px;background:white ;float:left;width:50px;text-align:center;margin:3px;margin-right:10px;}aside.votecontainer .vote-login{font-size:80%;color:#888;}
+.votes{font-size:130%;font-weight:bold;}
+.vote{width:24px;height:24px;display:block;margin:0 auto;cursor:pointer;}
+.vote.active{background:url(../img/star.png) no-repeat;}
+.vote.inactive{background:url(../img/star_empty.png) no-repeat;}
+#sessionproposals header,#sessionproposals .description,#sessionproposals footer{margin-left:80px;}
+#sessionproposals article{border-bottom:1px solid #f0f0f0;overflow:auto;margin-bottom:20px;}
+#sessionproposals .description{font-size:14px;margin-bottom:0;}
+#sessionproposals footer{color:#aaa;font-size:12px;}
