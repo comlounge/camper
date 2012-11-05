@@ -30,12 +30,14 @@ class BarcampSchema(Schema):
     created             = DateTime()
     updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
-    workflow            = String(required = True, default = "created")
+    workflow            = String(required = True, default = "created") 
+    public              = Boolean(default = False) 
     
     # base data
     name                = String(required = True)
     description         = String(required = True)
     slug                = String(required = True)
+    registration_date   = Date() # date when the registration starts
     start_date          = Date(required = True)
     end_date            = Date(required = True)
     location            = Location()

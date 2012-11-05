@@ -108,6 +108,7 @@ class LogoDelete(BaseHandler):
         asset_id = self.barcamp.logo
         self.app.module_map.uploader.remove(asset_id)
         self.barcamp.logo = None
+        print self.barcamp
         self.barcamp.put()
         return redirect(self.url_for("barcamp", slug = slug))
 

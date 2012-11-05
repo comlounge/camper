@@ -37,7 +37,9 @@ class EditView(BaseHandler):
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
-                'name' : f['location']
+                'name' : f['location'],
+                'lat' : 1,
+                'lng' : 2
             }
             self.barcamp.update(f)
             self.barcamp.put()
