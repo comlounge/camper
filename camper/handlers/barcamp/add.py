@@ -1,7 +1,7 @@
 #encoding=utf8
 
 from starflyer import Handler, redirect
-from camper import BaseForm, db
+from camper import BaseForm, db, logged_in
 from wtforms import *
 
 class BarcampAddForm(BaseForm):
@@ -30,6 +30,7 @@ class AddView(Handler):
 
     template = "barcamp/add.html"
 
+    @logged_in()
     def get(self):
         """render the view"""
         form = BarcampAddForm(self.request.form, config = self.config)

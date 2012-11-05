@@ -45,6 +45,8 @@ class BarcampSchema(Schema):
     # user related
     admins              = List(String()) # TODO: ref
     subscribers         = List(String()) # TODO: ref
+    participant         = List(String()) # TODO: ref
+    waiting_list        = List(String()) # TODO: ref
 
     # events
     events              = List(Event)
