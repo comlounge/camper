@@ -6,6 +6,7 @@
     
         <div class="header action-container">
             {% if logo %}
+                {% if is_admin %}
                 <div class="image-edit actions">
                     <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
                     <a 
@@ -15,9 +16,12 @@
                         class="asset-delete btn btn-mini btn-danger">
                         <i class="icon icon-trash icon-white"></i> Logo löschen</a>
                 </div>
+                {% endif %}
                 {{view.logo}}
             {% else %}
+                {% if is_admin %}
                 <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+                {% endif %}
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
@@ -28,6 +32,7 @@
                     <li><a href="{{url_for('barcamp_sessions', slug = slug)}}">Sessionvorschläge</a></li>
                     <li><a href="#">Events</a></li>
                 </ul>
+                {% if is_admin %}
                 <ul class="pull-right nav info">
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Bearbeiten<strong class="caret"></strong></a>
@@ -35,10 +40,11 @@
                             <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
                             <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
                             <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
-                            <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-list"></i> Zugang und Berechtigungen</a></li>
+                            <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Zugang und Berechtigungen</a></li>
                         </ul>
                     </li>
                 </ul>
+                {% endif %}
             </div>
         </div>
         <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>

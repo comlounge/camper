@@ -36,9 +36,11 @@ class AddView(Handler):
         form = BarcampAddForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
+            f['admins'] = [self.user._id]
+            f['created_by'] = self.user._id
+            f['subscribers'] = [self.user._id]
             f['location'] = {
                 'name' : f['location'],
-                'created_by' : self.user._id,
             }
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
             barcamp = self.config.dbs.barcamps.put(barcamp)

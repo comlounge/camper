@@ -5,11 +5,11 @@ import functools
 import wtforms
 import userbase
 from xhtml2pdf import pisa
+import werkzeug.exceptions
 
 from wtforms.ext.i18n.form import Form
 
-
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf"]
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin']
 
 class logged_in(object):
     """check if a valid user is present"""
@@ -21,6 +21,31 @@ class logged_in(object):
             if self.user is None:
                 self.flash('Please log in.', category="danger")
                 return redirect(self.url_for("userbase.login", force_external=True))
+            return method(self, *args, **kwargs)
+        return wrapper
+
+class ensure_barcamp(object):
+    """ensure that a valid barcamp exists"""
+
+    def __call__(self, method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if self.barcamp is None:
+                raise werkzeug.exceptions.NotFound()
+            return method(self, *args, **kwargs)
+        return wrapper
+
+class is_admin(object):
+    """ensure that the logged in user is a barcamp admin"""
+
+    def __call__(self, method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if self.barcamp is None:
+                raise werkzeug.exceptions.NotFound()
+            if unicode(self.user._id) not in self.barcamp.admins:
+                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                return redirect(self.url_for("index"))
             return method(self, *args, **kwargs)
         return wrapper
 
@@ -67,7 +92,7 @@ class BaseHandler(starflyer.Handler):
     def before(self):
         """prepare the handler"""
         if "slug" in self.request.view_args:
-            self.barcamp = self.config.dbs.barcamps.find_one({'slug' : self.request.view_args['slug']})
+            self.barcamp = self.config.dbs.barcamps.by_slug(self.request.view_args['slug'])
         else:
             self.barcamp = None
         super(BaseHandler, self).before()
@@ -85,5 +110,7 @@ class BaseHandler(starflyer.Handler):
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
         )
+        if self.barcamp is not None:
+            payload['is_admin'] = unicode(self.user._id) in self.barcamp.admins
         return payload
 

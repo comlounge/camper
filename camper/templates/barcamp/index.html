@@ -45,7 +45,7 @@
         <div class="modal-body">
             {{ formmacros.form_field(sponsor_form.name, class="required span5")}}
             {{ formmacros.form_field(sponsor_form.url, class="url required span5")}}
-            {{ formmacros.form_field(sponsor_form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload"), postproc="sponsor")}}
+            {{ formmacros.form_field(sponsor_form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
@@ -75,6 +75,7 @@
             {% for sponsor in view.sponsors %}
                 <div class="sponsor action-container">
                     <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    {% if is_admin %}
                     <div class="sponsor-edit actions">
                         <a 
                             data-confirm="Sind Sie sicher?" 
@@ -84,6 +85,7 @@
                             class="asset-delete btn btn-mini btn-danger">
                             <i class="icon icon-trash icon-white"></i></a>
                     </div>
+                    {% endif %}
                 </div>
             {% endfor %}
             </div>

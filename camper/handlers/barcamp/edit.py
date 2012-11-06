@@ -2,7 +2,7 @@
 
 import copy
 from starflyer import Handler, redirect
-from camper import BaseForm, db, BaseHandler
+from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from wtforms import *
 
 class BarcampEditForm(BaseForm):
@@ -29,6 +29,9 @@ class EditView(BaseHandler):
 
     # TODO: slug should only be editable if barcamp not public
 
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
     def get(self, slug = None):
         """render the view"""
         obj = copy.copy(self.barcamp)

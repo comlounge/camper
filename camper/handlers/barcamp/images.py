@@ -1,4 +1,4 @@
-from camper import BaseHandler, logged_in, db
+from camper import BaseHandler, logged_in, db, is_admin, ensure_barcamp
 from starflyer import asjson
 from werkzeug.utils import redirect
 import werkzeug.exceptions
@@ -7,7 +7,9 @@ class LogoUpload(BaseHandler):
     """a view for uploading the barcamp logo (display is separate because the URL
     might be served directly by the web server"""
     
-    # TODO: should only be allowed for admins of the barcamp
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
     @asjson(content_type="text/html")
     def post(self, slug = None):
         """upload a file for a barcamp"""
@@ -41,6 +43,7 @@ class LogoUpload(BaseHandler):
 class Logo(BaseHandler):
     """return the logo"""
 
+    @ensure_barcamp()
     def get(self, slug = None):
         """return the barcamp logo"""
         asset_id = self.barcamp.logo
@@ -56,9 +59,11 @@ class Logo(BaseHandler):
 class AssetUpload(BaseHandler):
     """view for uploading general assets such as sponsor logos"""
     
-    # TODO: should only be allowed for admins of the barcamp
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
     @asjson(content_type="text/html")
-    def post(self):
+    def post(self, slug = None):
         """upload a file for a barcamp"""
         filename = self.request.headers.get('X-File-Name', "unbekannt")
         content_type = self.request.headers.get('X-Mime-Type', "application/octet-stream")
@@ -89,7 +94,7 @@ class AssetUpload(BaseHandler):
 class Asset(BaseHandler):
     """return an asset"""
 
-    def get(self, asset_id = None):
+    def get(self, slug = None, asset_id = None):
         """return an asset identified by an asset id"""
         asset = self.app.module_map.uploader.get(asset_id)
         if asset is None:
@@ -103,6 +108,9 @@ class Asset(BaseHandler):
 class LogoDelete(BaseHandler):
     """delete the logo"""
 
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
     def delete(self, slug = None):
         """delete barcamp logo"""
         asset_id = self.barcamp.logo

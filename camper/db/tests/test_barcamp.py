@@ -10,4 +10,12 @@ def test_simple(barcamps):
         end_date = datetime.date(2012,7,15)
     )
     barcamps.save(barcamp)
+
+    barcamp = barcamps.by_slug("barcamp")
+    assert barcamp.name == "Barcamp"
+    assert barcamp.registration_date == None
+
+
+
+
     
