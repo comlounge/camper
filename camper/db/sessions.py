@@ -52,13 +52,14 @@ class Session(Record):
     def vote(self, user_id):
         """add a vote to the session proposal"""
         if user_id not in self.voted_for:
-            self.voted_for.append(user_id)
+            self.voted_for.append(unicode(user_id))
             self.vote_count = len(self.voted_for)
             self.save()
         return self.vote_count
 
     def unvote(self, user_id):
         """remove a vote from a session proposal"""
+        user_id = unicode(user_id) # make sure it's not an objectid
         if user_id in self.voted_for:
             self.voted_for.remove(user_id)
             self.vote_count = len(self.voted_for)
@@ -70,6 +71,9 @@ class Session(Record):
         coll = self._collection.md.config.dbs.session_comments
         return list(coll.find({'session_id' : unicode(self._id)}).sort(sort_by, sort_order))
 
+    def has_voted(self, user_id):
+        """returns True/False depending if the user has voted for this proposal"""
+        return unicode(user_id) in self.voted_for
 
 class Sessions(Collection):
     

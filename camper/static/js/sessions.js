@@ -13,7 +13,11 @@ $.fn.sessionvoter = function(opts) {
         type: "POST",
         success: function(data, status) {
           $(that).find(".votes").text(data.votes);
-          return $(that).find("a.vote").removeClass("inactive").addClass("active");
+          if (data.active) {
+            return $(that).find("a.vote").removeClass("inactive").addClass("active");
+          } else {
+            return $(that).find("a.vote").removeClass("active").addClass("inactive");
+          }
         }
       });
       return false;

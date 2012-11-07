@@ -45,9 +45,13 @@ class Vote(BaseHandler):
     @asjson()
     def post(self, slug = None, sid = None):
         """vote for a session proposal"""
-        # TODO check if user has voted already
-        print sid
-        return {'status': 'ok', 'votes' : 12}
+        sid = bson.ObjectId(sid)
+        session = self.config.dbs.sessions.get(sid)
+        if session.has_voted(self.user._id):
+            count = session.unvote(self.user._id)
+        else:
+            count = session.vote(self.user._id)
+        return {'status': 'ok', 'votes' : count, 'active' : session.has_voted(self.user._id)}
 
 
 

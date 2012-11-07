@@ -9,7 +9,10 @@ $.fn.sessionvoter = (opts = {}) ->
                 type: "POST"
                 success: (data, status) ->
                     $(that).find(".votes").text(data.votes)
-                    $(that).find("a.vote").removeClass("inactive").addClass("active")
+                    if data.active
+                        $(that).find("a.vote").removeClass("inactive").addClass("active")
+                    else
+                        $(that).find("a.vote").removeClass("active").addClass("inactive")
             )
             return false
         )
