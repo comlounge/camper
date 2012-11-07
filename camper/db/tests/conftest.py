@@ -1,6 +1,7 @@
-from camper.db import Barcamp, Barcamps, BarcampSchema
+from camper.db import Barcamp, Barcamps, BarcampSchema, Sessions, Comments
 import pymongo
 import datetime
+from starflyer import AttributeMapper
 
 DB_NAME = "camper_testing_78827628762"
 
@@ -18,8 +19,23 @@ def pytest_funcarg__db(request):
         teardown = teardown_db,
         scope = "function")
 
-def pytest_funcarg__barcamps(request):
-    """return a database object"""
+def pytest_funcarg__config(request):
+    """create a config with all the collections we need""" 
     db = request.getfuncargvalue("db")
-    return Barcamps(db.barcamps)
+    config = AttributeMapper()
+    config.dbs = AttributeMapper()
+    mydb = config.dbs.db = db
+    config.dbs.barcamps = Barcamps(mydb.barcamps, app=None, config=config)
+    config.dbs.sessions = Sessions(mydb.sessions, app=None, config=config)
+    config.dbs.session_comments = Comments(mydb.session_comments, app=None, config=config)
+    return config
 
+def pytest_funcarg__barcamps(request):
+    """return the barcamp collection"""
+    config = request.getfuncargvalue("config")
+    return config.dbs.barcamps
+
+def pytest_funcarg__sessions(request):
+    """return the sessions collection"""
+    config = request.getfuncargvalue("config")
+    return config.dbs.sessions
