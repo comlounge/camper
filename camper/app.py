@@ -159,6 +159,7 @@ class CamperApp(Application):
         URL('/<slug>/permissions', 'barcamp_permissions', handlers.barcamp.permissions.Permissions),
         URL('/<slug>/permissions/admin', 'barcamp_admin', handlers.barcamp.permissions.Admin),
         URL('/<slug>/sessions', 'barcamp_sessions', handlers.barcamp.sessions.SessionList),
+        URL('/<slug>/sessions/<sid>/vote', 'barcamp_session_vote', handlers.barcamp.sessions.Vote),
         URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
         URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),

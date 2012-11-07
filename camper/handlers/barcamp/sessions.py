@@ -1,6 +1,6 @@
 #encoding=utf8
-from starflyer import Handler, redirect
-from camper import BaseForm, db, BaseHandler
+from starflyer import Handler, redirect, asjson
+from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in
 import bson
 from wtforms import *
 from camper.handlers.forms import *
@@ -36,3 +36,18 @@ class SessionList(BaseHandler):
 
     # TODO: Post should only work logged in!
     post = get
+
+class Vote(BaseHandler):
+    """vote for a session"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @asjson()
+    def post(self, slug = None, sid = None):
+        """vote for a session proposal"""
+        # TODO check if user has voted already
+        print sid
+        return {'status': 'ok', 'votes' : 12}
+
+
+

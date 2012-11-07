@@ -1,16 +1,3 @@
-TMPL="""<div class="sponsor action-container">
-    <a href="{{sponsor.url}}">{{sponsor.image}}</a>
-    <div class="sponsor-edit actions">
-        <a 
-            data-confirm="Sind Sie sicher?" 
-            data-url="{{url_for('barcamp_logo_delete', slug = slug)}}" 
-            role="button" 
-            class="logo-delete btn btn-mini btn-danger">
-            <i class="icon icon-trash icon-white"></i></a>
-    </div>
-</div>
-"""
-
 $.fn.uploader = (opts = {}) ->
     file_completed = false     
     myfilename = null          

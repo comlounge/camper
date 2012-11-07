@@ -1,6 +1,3 @@
-var TMPL;
-
-TMPL = "<div class=\"sponsor action-container\">\n<a href=\"{{sponsor.url}}\">{{sponsor.image}}</a>\n<div class=\"sponsor-edit actions\">\n    <a \n        data-confirm=\"Sind Sie sicher?\" \n        data-url=\"{{url_for('barcamp_logo_delete', slug = slug)}}\" \n        role=\"button\" \n        class=\"logo-delete btn btn-mini btn-danger\">\n        <i class=\"icon icon-trash icon-white\"></i></a>\n</div>\n</div>";
 
 $.fn.uploader = function(opts) {
   var file_completed, init, myfilename, sponsor;
