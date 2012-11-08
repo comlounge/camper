@@ -1,5 +1,4 @@
 $.fn.sessionvoter = (opts = {}) ->
-    console.log "init"
     init = () ->
         url = $(this).data("url")
         that = this
@@ -22,6 +21,16 @@ $.fn.sessionvoter = (opts = {}) ->
 
 $(document).ready( () ->
     $(".votecontainer").sessionvoter()
+    $("#new-proposal-button").click( () ->
+        $(this).hide()
+        $("#proposal-form-container").show()
+        false
+    )
+    $("#proposal-cancel").click( () ->
+        $("#new-proposal-button").show()
+        $("#proposal-form-container").hide()
+        false
+    )
 )
 
 

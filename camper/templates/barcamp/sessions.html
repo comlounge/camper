@@ -1,18 +1,11 @@
 {% extends "barcamp/master.html" %}
 
 {% block main_content %}
-    <h1>Sessionvorschläge</h1>  
+    <h1>
+        Sessionvorschläge
+    </h1>      
 
-    <div class="nowell">
-        <legend>Dein Themenvorschlag</legend>
-        <form method="post" action="{{url}}" class="form-horizontal">
-            {{formmacros.form_field(form.title, class="required span8")}}
-            {{formmacros.form_field(form.description, rows=5, cols=80, class="span8")}}
-            <div class="form-actions">
-                <input type="submit" class="btn btn-large btn-primary" value="Vorschlagen!">
-            </div>
-        </form>
-    </div>
+
     <h1>
         <div id="sort-buttons" class="pull-right">
             <span class="btn-group" data-toggle="buttons-radio">
@@ -24,25 +17,54 @@
     
     <section id="sessionproposals">
     {% for session in sessions %}
-            <article class="session">
-                <aside class="votecontainer" data-url="{{url_for("barcamp_session_vote", slug = slug, sid = session._id)}}">
+            <article class="session media">
+                <div class="votecontainer media-object" data-url="{{url_for("barcamp_session_vote", slug = slug, sid = session._id)}}">
                     <div class="votes" id="vote-90b5d410-2891-4516-bfa2-bc0598a2d774">{{session.vote_count}}</div>
-                    <div class="votebutton">
+                    <div class="votebutton {{'disabled' if not logged_in}}">
                         <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"></a>
                     </div>
-                </aside>
-                <header>
-                    <h4>{{session.title|striptags}}</h4>
-                </header>
-                <div class="description">
-                    {{session.description|md(level=3)}}
                 </div>
-                <footer>
-                    eingestellt von {{session.user.username}} am {{session.created.strftime("%d.%m.%Y")}}
-                </footer>
+                <div class="media-body">
+                    <h4 class="media-heading">{{session.title|striptags}}</h4>
+                    <div class="description">
+                        {{session.description|md(level=3)}}
+                    </div>
+                    <footer>
+                        eingestellt von {{session.user.username}} am {{session.created.strftime("%d.%m.%Y")}}
+                    </footer>
+
+                    <div class="media comments">
+                        <a href="#" class="pull-left">
+                            <img class="media-object" src="http://placehold.it/64x64">
+                        </a>
+                        <div class="media-body">
+                            Nicht wirklich durchdacht, würde ich sagen.
+                            <footer>Christian Scholz, 3.8.2012</footer>
+                        </div>
+                    </div>
+                </div>
             </article>
     {% endfor %}
     </section>
+    {% if logged_in %}
+        <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> Eigenen Vorschlag erstellen</a>
+        <div class="well hide" id="proposal-form-container">
+            <legend>Dein Themenvorschlag</legend>
+            <form method="post" action="{{url}}" class="form-horizontal">
+                {{formmacros.form_field(form.title, class="required span8")}}
+                {{formmacros.form_field(form.description, rows=5, cols=80, class="span8")}}
+                <div class="form-actions">
+                    <button id="proposal-cancel" class="pull-right btn">Abbrechen</button>
+                    <input type="submit" class="btn btn-large btn-primary" value="Vorschlagen!">
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <b>Um Vorschläge zu bewertung und eigene Vorschläge einzureichen, musst Du eingeloggt sein.</b>
+            <a href="{{url_for("userbase.login")}}">Hier einloggen oder registrieren</a>
+        </div>
+    {% endif %}
 
 {% endblock %}
 {% block js %}

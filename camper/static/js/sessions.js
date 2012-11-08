@@ -2,7 +2,6 @@
 $.fn.sessionvoter = function(opts) {
   var init;
   if (opts == null) opts = {};
-  console.log("init");
   init = function() {
     var that, url;
     url = $(this).data("url");
@@ -28,5 +27,15 @@ $.fn.sessionvoter = function(opts) {
 };
 
 $(document).ready(function() {
-  return $(".votecontainer").sessionvoter();
+  $(".votecontainer").sessionvoter();
+  $("#new-proposal-button").click(function() {
+    $(this).hide();
+    $("#proposal-form-container").show();
+    return false;
+  });
+  return $("#proposal-cancel").click(function() {
+    $("#new-proposal-button").show();
+    $("#proposal-form-container").hide();
+    return false;
+  });
 });
