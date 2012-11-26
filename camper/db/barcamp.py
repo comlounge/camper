@@ -23,6 +23,7 @@ class Event(Schema):
     end_date            = DateTime(required = True)
     location            = Location()
     participants        = List(String()) # TODO: ref
+    waiting_list        = List(String()) # TODO: ref
 
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
@@ -46,11 +47,9 @@ class BarcampSchema(Schema):
     admins              = List(String()) # TODO: ref
     invited_admins      = List(String()) # list of invited admins who have not yet accepted TODO: ref 
     subscribers         = List(String()) # TODO: ref
-    participants        = List(String()) # TODO: ref
-    waiting_list        = List(String()) # TODO: ref
 
     # events
-    events              = List(Event)
+    events              = List(Event())
 
     # image stuff
     logo                = String() # asset id
@@ -100,7 +99,6 @@ class Barcamp(Record):
         ub = self._collection.md.app.module_map.userbase
         return list(ub.get_users_by_ids(self.subscribers))
 
-
 class Barcamps(Collection):
     
     data_class = Barcamp
@@ -109,4 +107,22 @@ class Barcamps(Collection):
         """find a barcamp by slug"""
         return self.find_one({'slug' : slug})
 
+    def before_serialize(self, obj):
+        """update or create our event information before it's saved"""
+        if obj.events == []:
+            event = {}
+        else:
+            event = obj.events[0]
+        event.update({
+            'name' : obj.name,
+            'description' : obj.description,
+            'start_date' : obj.start_date,
+            'end_date' : obj.end_date,
+            'location' : obj.location,
+        })
+        if obj.events == []:
+            obj.events.append(event)
+        else:
+            obj.events[0] = event
+        return obj
 
