@@ -80,6 +80,14 @@ class Pages(Collection):
             page.index = self.find({'slot' : page.slot, 'barcamp' : None}).count()
         return self.put(page)
 
+    def by_slug(self, slug, barcamp = None):
+        """return a page by only using the slug (and barcamp if given)"""
+        if barcamp is None:
+            return self.find_one({'slug' : slug, 'barcamp' : None})
+        else:
+            return self.find_one({'slug' : slug, 'barcamp' : unicode(barcamp._id)})
+
+
     def remove_from_slot(self, slot, index, barcamp=None):
         """removes a page at index ``index``"""
         if barcamp is None:

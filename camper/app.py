@@ -163,6 +163,13 @@ class CamperApp(Application):
         URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
         URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),
+
+        # pages for barcamps
+        URL('/<slug>/page_add/<slot>', 'barcamp_page_add', handlers.pages.add.AddView),
+        URL('/<slug>/<page_slug>', 'barcamp_page', handlers.pages.view.View),
+        URL('/<slug>/<page_slug>/upload', 'page_image_upload', handlers.pages.images.ImageUpload),
+        URL('/<slug>/<page_slug>/delete', 'page_image_delete', handlers.pages.images.ImageDelete),
+        URL('/<slug>/<page_slug>/image', 'page_image', handlers.pages.images.Image),
     ]
 
     def finalize_setup(self):

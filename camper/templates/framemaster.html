@@ -18,7 +18,6 @@
         
         {% block css %}
         <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
-        <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
         <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         {#
@@ -34,44 +33,6 @@
     </head>
 
     <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-            
-                    <a class="brand" href="{{url_for("index")}}">Camper - das Barcamp-Tool</a>
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
-                        {% for action in actions %}
-                            <li class="{{'active' if action.active}}">
-                                <a href="{{action.url}}">{{action.name}}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                        {% if not logged_in %}
-                            <div class="pull-right">
-                                <ul class="nav">
-                                    <li class="divider-vertical"></li>
-                                <li><a href="{{url_for("userbase.login")}}">Login</a></li>
-                                <li><a href="{{url_for("userbase.register")}}">Registrieren</a></li>
-                                </ul>
-                            </div>
-                        {% else %}
-                            <ul class="nav pull-right"> 
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-      
         {% block container %}
         <div class="container">
             {% for m in get_flashes(with_categories=True) %}
@@ -94,7 +55,6 @@
         <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/autonumeric.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/messages_de.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
@@ -126,10 +86,7 @@
         </script>
         {% block js %}
         {% endblock %}
-        {% block js2 %}
-        {% endblock %}
 
-       
         <script src="{{url_for("static", filename="js/bootstrap-dropdown.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-transition.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-modal.js")}}"></script>
@@ -140,13 +97,6 @@
         <script src="{{url_for("static", filename="js/bootstrap-popover.js")}}"></script>
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
-        {# 
-        <script src="/static/js/bootstrap-alert.js"></script>
-        <script src="/static/js/bootstrap-scrollspy.js"></script>
-        <script src="/static/js/bootstrap-collapse.js"></script>
-        <script src="/static/js/bootstrap-carousel.js"></script>
-        <script src="/static/js/bootstrap-typeahead.js"></script>
-        #}
         <script>
 
     </body>

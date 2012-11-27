@@ -98,6 +98,10 @@ class BaseHandler(starflyer.Handler):
             self.barcamp = self.config.dbs.barcamps.by_slug(self.request.view_args['slug'])
         else:
             self.barcamp = None
+        if "page_slug" in self.request.view_args:
+            self.page = self.config.dbs.pages.by_slug(self.request.view_args['page_slug'], barcamp = self.barcamp)
+        else:
+            self.page = None
         super(BaseHandler, self).before()
 
     @property

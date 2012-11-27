@@ -1,0 +1,21 @@
+{% extends "framemaster.html" %}
+{% block js %}
+{% endblock %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>Neue Seite anlegen</h1>
+    {% endblock %}
+    <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
+        {{ formmacros.form_field(form.title, class="required span8", maxlength=300, placeholder="Seitentitel") }}
+        {#
+        {{ formmacros.form_field(form.menutitle, class="required span8", maxlength=50, placeholder="Kurztitel für das Menü") }}
+        {{ formmacros.form_field(form.slug, class="required span8", placeholder="Bezeichnung in der URL") }}
+        {{ formmacros.form_field(form.content, class="required span8", rows=10) }}
+        #}
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="SEITE ANLEGEN">
+        {% endblock %}
+    </form>
+{% endblock %}

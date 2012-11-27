@@ -53,6 +53,29 @@ $.fn.uploader = (opts = {}) ->
 
 $(document).ready( () ->
     $(".upload-widget").uploader()
+
+    # live edit fields
+    $('[data-toggle="editfield"]').click( () ->
+        $(this).hide();
+        p = $(this).closest(".editfield")
+        f = $(p).find(".edit").show()
+    )
+    $('[data-close="editfield"]').live("click", () ->
+        $(this).closest(".edit").hide();
+        p = $(this).closest(".editfield")
+        f = $(p).find(".value").show()
+        false
+    )
+    $('form.edit').live("submit", () ->
+        console.log "triggered 2";
+        $(this).closest(".edit").hide();
+        p = $(this).closest(".editfield")
+        f = $(p).find(".value").show()
+        alert("Gespeichert")
+        false
+    )
+
+    # asset deletion
     $(".asset-delete").click( () ->
         confirm_message = $(this).data("confirm")
         url = $(this).data("url")

@@ -63,6 +63,28 @@ $.fn.uploader = function(opts) {
 
 $(document).ready(function() {
   $(".upload-widget").uploader();
+  $('[data-toggle="editfield"]').click(function() {
+    var f, p;
+    $(this).hide();
+    p = $(this).closest(".editfield");
+    return f = $(p).find(".edit").show();
+  });
+  $('[data-close="editfield"]').live("click", function() {
+    var f, p;
+    $(this).closest(".edit").hide();
+    p = $(this).closest(".editfield");
+    f = $(p).find(".value").show();
+    return false;
+  });
+  $('form.edit').live("submit", function() {
+    var f, p;
+    console.log("triggered 2");
+    $(this).closest(".edit").hide();
+    p = $(this).closest(".editfield");
+    f = $(p).find(".value").show();
+    alert("Gespeichert");
+    return false;
+  });
   return $(".asset-delete").click(function() {
     var confirm_message, idx, url;
     confirm_message = $(this).data("confirm");
