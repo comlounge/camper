@@ -50,41 +50,50 @@ class Pages(Collection):
     
     data_class = Page
 
-    def reorder_slot(self, slot, indexes):
+    def reorder_slot(self, slot, indexes, barcamp = None):
         """reorders a slot. You give it the slot id in ``slot`` and the new sequence order in indexes in form of a list.
 
         Passing in [2,3,1] will reorder the existing pages in this order
         """
-        pages = self.for_slot(slot)
+        pages = self.for_slot(slot, barcamp = barcamp)
         # do some checks
         if len(indexes) != pages.count():
             raise PageError("length of indexes (%s) does not match amount of pages (%s)" %(len(indexes), pages.count()))
            
         pages = list(pages)
         for page in pages:
-            print page.index
             if page.index not in indexes:
                 raise PageError("page with index %s missing in new indexes list" %(page.index))
             page.index = indexes.index(page.index)
-            print page.index
 
         # finally save it
         for page in pages:
             page.put()
 
-    def add_to_slot(self, slot, page):
+    def add_to_slot(self, slot, page, barcamp = None):
         """adds a new page into a slot at the end of it. You can give the page object without the slot set and it will do the rest"""
         page.slot = slot
-        page.index = self.find({'slot' : page.slot}).count()
+        if barcamp is not None:
+            page.barcamp = unicode(barcamp._id)
+            page.index = self.find({'slot' : page.slot, 'barcamp' : unicode(barcamp._id)}).count()
+        else:
+            page.index = self.find({'slot' : page.slot, 'barcamp' : None}).count()
         return self.put(page)
 
-    def remove_from_slot(self, slot, index):
+    def remove_from_slot(self, slot, index, barcamp=None):
         """removes a page at index ``index``"""
-        page = self.find_one({'slot' : slot, 'index' : index})
+        if barcamp is None:
+            page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : None})
+        else:
+            page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : unicode(barcamp._id)})
         self.remove({'_id' : page._id})
 
-    def for_slot(self, slot):
+    def for_slot(self, slot, barcamp=None):
         """return all the pages for a slot"""
-        return self.find({'slot' : slot}).sort("index", 1)
+        if barcamp is None:
+            return self.find({'slot' : slot, 'barcamp' : None}).sort("index", 1)
+        else:
+            return self.find({'slot' : slot, 'barcamp' : unicode(barcamp._id)}).sort("index", 1)
+
 
 
