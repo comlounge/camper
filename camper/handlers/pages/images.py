@@ -6,6 +6,15 @@ import werkzeug.exceptions
 class ImageUpload(BaseHandler):
     """a view for uploading a page image (display is separate because the URL
     might be served directly by the web server"""
+
+    template = "pages/image.html"
+
+    def get(self, slug = None, page_slug = None):
+        """return the contents for the image upload view"""
+        return self.render(
+            page = self.page,
+            page_slug = page_slug,
+            **self.barcamp)
     
     @logged_in()
     @is_admin()
@@ -38,12 +47,12 @@ class ImageUpload(BaseHandler):
         if self.barcamp is None:
             return {
                 'success' : True,
-                'redirect' : self.url_for("page", page_slug = page_slug),
+                'parent_redirect' : self.url_for("page", page_slug = page_slug),
             }
         else:
             return {
                 'success' : True,
-                'redirect' : self.url_for("barcamp_page", slug = slug, page_slug = page_slug),
+                'parent_redirect' : self.url_for("barcamp_page", slug = slug, page_slug = page_slug),
             }
 
 class Image(BaseHandler):

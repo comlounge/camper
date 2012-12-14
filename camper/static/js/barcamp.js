@@ -50,6 +50,11 @@ $.fn.uploader = function(opts) {
             window.location = json.redirect;
             return;
           }
+          if (json.parent_redirect) {
+            window.parent.window.location = json.parent_redirect;
+            window.close();
+            return;
+          }
           if (postproc) if (postproc === "sponsor") sponsor(widget, json);
           $(widget).find(".upload-area").show();
           return $(widget).find(".progressbar").hide();

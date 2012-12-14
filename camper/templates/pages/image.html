@@ -1,0 +1,27 @@
+{% extends "framemaster.html" %}
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    <h1>Bild bearbeiten/hochladen</h1>
+    <form class="uploadform">
+    <div class="upload-widget" data-url="{{url_for('page_image_upload', slug = slug, page_slug = page_slug)}}">
+        <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
+        <br>
+        <div class="help" style="clear: both">
+            Du kannst hier ein Bild hochladen, das maximal 940 Pixel breit sein sollte. Erlaubte Formate sind JPEG, GIF und PNG.
+            Die maximal erlaubte Dateigröße beträgt 10MB. Beachte, dass das Bild nicht automatisch skaliert wird, ein richtig skaliertes
+            Bild wird also das beste Ergebnis liefern.
+        </div>
+        <div class="progressbar">
+            <div class="progress progress-striped active hide">
+                <div class="bar" style="width: 0%%;"></div>
+            </div>
+        </div>
+        <div class="filenamebox hide">
+            File: <span class="upload-label-filename"></span>
+        </div>
+    </div>
+    </form>
+{% endblock %}
+{% block js %}
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+{% endblock %}

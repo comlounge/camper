@@ -34,6 +34,9 @@
 
                     {# here a user can add up to 3 additional menu points/pages defined in slot "menu" for a barcamp #}
                     {% for page in view.pages_for("menu") %}
+                        <li>
+                            <a href="{{url_for("barcamp_page", slug=slug, page_slug=page.slug)}}">{{page.title}}</a>
+                        </li>
                     {% endfor %}
 
                     {% if view.can_add_menu_page %}

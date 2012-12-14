@@ -1,38 +1,6 @@
 {% extends "barcamp/master.html" %}
 {% block main_content %}
 
-    {# ****************************** Logo Upload Modal **************************************** #}
-    <div class="modal image-upload hide fade" id="image-upload">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Logo hochladen</h3>
-        </div>
-        <div class="modal-body">
-            <form class="uploadform">
-            <div class="upload-widget" data-url="{{url_for('page_image_upload', slug = slug, page_slug = page_slug)}}">
-                <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
-                <br>
-                <div class="help" style="clear: both">
-                    Du kannst hier ein Logo hochladen, das maximal 940 Pixel breit sein sollte. Erlaubte Formate sind JPEG, GIF und PNG.
-                    Die maximal erlaubte Dateigröße beträgt 10MB. Beachte, dass das Bild nicht automatisch skaliert wird, ein richtig skaliertes
-                    Bild wird also das beste Ergebnis liefern.
-                </div>
-                <div class="progressbar">
-                    <div class="progress progress-striped active hide">
-                        <div class="bar" style="width: 0%%;"></div>
-                    </div>
-                </div>
-                <div class="filenamebox hide">
-                    File: <span class="upload-label-filename"></span>
-                </div>
-            </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
-            <!--<a href="#" class="btn btn-primary">Save changes</a>-->
-        </div>
-    </div>
     <h1>
         <div class="editfield" data-id="title">
             {% if is_admin %}
@@ -51,7 +19,7 @@
         {% if image %}
             {% if is_admin %}
             <div class="image-edit actions">
-                <a href="#image-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon-picture"></i> Bild austauschen</a>
+                <a href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild austauschen</a>
                 <a 
                     data-confirm="Sind Sie sicher?" 
                     data-url="{{url_for('page_image_delete', slug = slug, page_slug = page_slug)}}" 
@@ -65,7 +33,7 @@
             </div>
         {% else %}
             {% if is_admin %}
-                <a href="#image-upload" role="button" data-toggle="modal" class="btn"><i class="icon-picture"></i> Bild hochladen</a>
+                <a role="button" href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild hochladen</a>
             {% endif %}
         {% endif %}
     </div>
