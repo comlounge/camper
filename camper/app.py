@@ -168,6 +168,7 @@ class CamperApp(Application):
         URL('/<slug>/page_add/<slot>', 'barcamp_page_add', handlers.pages.add.AddView),
         URL('/<slug>/<page_slug>', 'barcamp_page', handlers.pages.view.View),
         URL('/<slug>/<page_slug>/upload', 'page_image_upload', handlers.pages.images.ImageUpload),
+        URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', handlers.pages.edit.PartialEditView),
         URL('/<slug>/<page_slug>/delete', 'page_image_delete', handlers.pages.images.ImageDelete),
         URL('/<slug>/<page_slug>/image', 'page_image', handlers.pages.images.Image),
     ]

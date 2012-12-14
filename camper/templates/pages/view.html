@@ -1,6 +1,7 @@
 {% extends "barcamp/master.html" %}
 {% block main_content %}
-
+<form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">
+    <h1 data-toggle="editable" data-field="title">{{page.title|e}}</h1>
     <h1>
         <div class="editfield" data-id="title">
             {% if is_admin %}
