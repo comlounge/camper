@@ -1,6 +1,7 @@
 #encoding=utf8
 from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler
+from camper import logged_in, is_admin
 from wtforms import *
 from camper.handlers.forms import *
 from base import BarcampView
@@ -34,8 +35,8 @@ class View(BaseHandler):
 class BarcampSponsors(BaseHandler):
     """view for adding and deleting sponsors"""
 
-    # TODO: nur für admins
-    # TODO: check, ob Barcamp gültig/vorhanden
+    @logged_in()
+    @is_admin()
     def post(self, slug = None):
         """just add the sponsor and reload the page"""
         form = SponsorForm(self.request.form, config = self.config)
@@ -50,6 +51,8 @@ class BarcampSponsors(BaseHandler):
             self.flash("Leider enthielt das Formular einen Fehler", category="error")
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
 
+    @logged_in()
+    @is_admin()
     def delete(self, slug = None):
         """delete a sponsor again and give the index via idx param"""
         idx = int(self.request.form['idx']) # index in list

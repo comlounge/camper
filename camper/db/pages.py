@@ -29,7 +29,7 @@ class PageSchema(Schema):
     barcamp         = String() # or empty for homepage
     index           = Integer() # sequence number in list of pages
     slot            = String() # slot id of the page
-     
+
 
 class Page(Record):
     schema = PageSchema()
@@ -45,6 +45,13 @@ class Page(Record):
         'layout'        : "default",
         'image'         : None
     }
+
+    layouts = ['default', 'left', 'right']
+
+    def set_layout(self, layout):
+        if layout not in self.layouts:
+            return
+        self.layout = layout
 
 class Pages(Collection):
     

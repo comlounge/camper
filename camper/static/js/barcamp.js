@@ -83,11 +83,27 @@ $(document).ready(function() {
   });
   $('form.edit').live("submit", function() {
     var f, p;
-    console.log("triggered 2");
     $(this).closest(".edit").hide();
     p = $(this).closest(".editfield");
     f = $(p).find(".value").show();
     alert("Gespeichert");
+    return false;
+  });
+  $('[data-action="set-layout"]').click(function() {
+    var layout, that, url;
+    layout = $(this).data("layout");
+    url = $(this).attr("href");
+    that = this;
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: {
+        layout: layout
+      },
+      success: function(data) {
+        return $(that).closest(".barcamp-page").removeClass("layout-left").removeClass("layout-default").removeClass("layout-right").addClass("layout-" + data.layout);
+      }
+    });
     return false;
   });
   return $(".asset-delete").click(function() {

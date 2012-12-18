@@ -9,7 +9,7 @@ import werkzeug.exceptions
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page']
 
 class logged_in(object):
     """check if a valid user is present"""
@@ -31,6 +31,17 @@ class ensure_barcamp(object):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             if self.barcamp is None:
+                raise werkzeug.exceptions.NotFound()
+            return method(self, *args, **kwargs)
+        return wrapper
+
+class ensure_page(object):
+    """ensure that a valid page exists"""
+
+    def __call__(self, method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if self.page is None:
                 raise werkzeug.exceptions.NotFound()
             return method(self, *args, **kwargs)
         return wrapper
@@ -113,13 +124,17 @@ class BaseHandler(starflyer.Handler):
             barcamp = self.barcamp,
             #txt = self.config.i18n.de,
             title = self.config.title,
+            url = self.request.url,
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
             is_admin = False,
         )
         if self.barcamp is not None:
+            payload['slug'] = self.barcamp.slug
             if self.user is not None:
                 payload['is_admin'] = unicode(self.user._id) in self.barcamp.admins
+        if self.page is not None:
+            payload['page_slug'] = self.page.slug
         return payload
 

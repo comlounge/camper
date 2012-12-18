@@ -30,12 +30,11 @@
                 <ul class="nav">
                     <li class="active"><a href="{{url_for('barcamp', slug=slug)}}">Info</a></li>
                     <li><a href="{{url_for('barcamp_sessions', slug = slug)}}">Sessionvorschläge</a></li>
-                    <li><a href="#">Events</a></li>
 
                     {# here a user can add up to 3 additional menu points/pages defined in slot "menu" for a barcamp #}
                     {% for page in view.pages_for("menu") %}
                         <li>
-                            <a href="{{url_for("barcamp_page", slug=slug, page_slug=page.slug)}}">{{page.title}}</a>
+                            <a href="{{url_for("barcamp_page", slug=slug, page_slug=page.slug)}}">{{page.menu_title}}</a>
                         </li>
                     {% endfor %}
 
@@ -63,8 +62,10 @@
         </div>
         <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>
 
-        {% block main_content %}
-        {% endblock %}
+        <div id="main-content">
+            {% block main_content %}
+            {% endblock %}
+        </div>
 
     </div><!-- #barcamp -->
     <footer>

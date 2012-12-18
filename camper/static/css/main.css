@@ -5202,6 +5202,9 @@ a.badge:hover {
 #barcamp .action-container:hover .actions {
   display: block;
 }
+#barcamp .action-container:hover .actions .btn {
+  margin: 10px;
+}
 #barcamp .info {
   display: block;
   padding-top: 4px;
@@ -5222,6 +5225,25 @@ a.badge:hover {
   float: left;
   width: 220px;
   margin-right: 15px;
+}
+#main-content {
+  margin-top: 10px;
+  overflow: auto;
+}
+#main-content .barcamp-page.layout-left .image-container,
+#main-content .barcamp-page.layout-right .image-container {
+  max-width: 200px;
+  display: block;
+  border: 1px solid #bbb;
+  padding: 3px;
+}
+#main-content .barcamp-page.layout-left .image-container {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+#main-content .barcamp-page.layout-right .image-container {
+  float: right;
+  margin: 0 0 10px 10px;
 }
 form label.error {
   color: red;
@@ -5293,4 +5315,8 @@ label.error {
 #sessionproposals footer {
   color: #aaa;
   font-size: 12px;
+}
+.upload-widget {
+  display: block;
+  overflow: auto;
 }

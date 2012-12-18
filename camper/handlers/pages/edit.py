@@ -1,8 +1,9 @@
 #encoding=utf8
 
 from starflyer import Handler, redirect, asjson
-from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin
+from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
 from wtforms import *
+from camper.handlers.forms import *
 
 __all__ = ['PageAddForm', 'AddView']
 
@@ -16,6 +17,70 @@ class EditForm(BaseForm):
                 description = u'Bezeichnung in der URL (keine Leerzeichen, max. 20 Zeichen, muss eindeutig sein)',)
     content         = TextAreaField(u"Inhalt der Seite", [validators.Required()],
                 description = u'Der eigentlich Text-Inhalt der Seite. Bestimmtes Markup kann verwendet werden.',)
+    image           = UploadField(u"Bild (optional)")
+
+class EditView(BaseHandler):
+    """view for editing a page"""
+
+    template = "pages/edit.html"
+
+    @logged_in()
+    @is_admin()
+    @ensure_page()
+    def get(self, slug = None, page_slug = None):
+        """show the form and update the page"""
+        form = EditForm(self.request.form, obj = self.page, config = self.config)
+        if self.request.method=="POST":
+            if form.validate():
+                f = form.data
+                print f
+                if f['image']['id']!='':
+                    f['image'] = f['image']['id']
+                else:
+                    del f['image']
+                self.page.update(f)
+                self.page.put()
+                self.flash("Seite bearbeitet", category="info")
+                if self.barcamp is not None:
+                    url = self.url_for("barcamp_page", slug = self.barcamp.slug, page_slug = self.page.slug)
+                else:
+                    url = self.url_for("page", page_slug = self.page.slug)
+                return redirect(url)
+            else:
+                self.flash("Leider enthielt das Formular einen Fehler", category="error")
+        return self.render(form = form)
+
+    post = get
+
+    @logged_in()
+    @is_admin()
+    @ensure_page()
+    def delete(self, slug = None, page_slug = None):
+        """delete a page"""
+        # TODO: delete page
+        self.flash("Die Seite wurde erfolgreich gelöscht")
+        if self.barcamp is not None:
+            url = self.url_for("barcamp", slug = self.barcamp.slug)
+        else:
+            url = self.url_for("index")
+        return redirect(url)
+
+
+
+class LayoutView(BaseHandler):
+    """change the layout of the page"""
+
+    @logged_in()
+    @is_admin()
+    @ensure_page()
+    @asjson()
+    def post(self, slug = None, page_slug = None):
+        """change the layout"""
+        layout = self.request.form.get("layout")
+        self.page.set_layout(layout)
+        self.page.put()
+        return {"status" : "ok", "layout" : self.page.layout}
+
 
 class PartialEditView(BaseHandler):
     """shows an inline form element for the field given and stores the result of the edit back via AJAX."""

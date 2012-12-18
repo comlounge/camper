@@ -71,12 +71,30 @@ $(document).ready( () ->
         false
     )
     $('form.edit').live("submit", () ->
-        console.log "triggered 2";
         $(this).closest(".edit").hide();
         p = $(this).closest(".editfield")
         f = $(p).find(".value").show()
         alert("Gespeichert")
         false
+    )
+
+    $('[data-action="set-layout"]').click( () ->
+        layout = $(this).data("layout")
+        url = $(this).attr("href")
+        that = this
+        $.ajax 
+            url: url
+            type: "POST"
+            data: 
+                layout: layout
+            success: (data) ->
+                $(that).closest(".barcamp-page")
+                .removeClass("layout-left")
+                .removeClass("layout-default")
+                .removeClass("layout-right")
+                .addClass("layout-"+data.layout)
+
+        return false
     )
 
     # asset deletion

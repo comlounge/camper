@@ -1,21 +1,29 @@
 {% extends "barcamp/master.html" %}
 {% block main_content %}
-<form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">
-    <h1 data-toggle="editable" data-field="title">{{page.title|e}}</h1>
-    <h1>
-        <div class="editfield" data-id="title">
-            {% if is_admin %}
-                <form class="edit form-inline hide" action="" method="POST">
-                    <input type="text" value="{{page.title|e}}" class="span3">
-                    <button href="#" data-save="editfield" class="btn btn-primary">Speichern</button>
-                    <button href="#" data-close="editfield" class="btn">Abbrechen</button>
-                </form>
-            {% endif %}
-            <div class="value show" data-toggle="editfield">
-                {{page.title|e}}
-            </div>
+<div class="barcamp-page layout-{{page.layout}}">
+    <form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">
+    {% if is_admin %}
+        <div class="page-actions pull-right">
+            <a role="button" href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild hochladen</a>
+            <a role="button" class="btn" href="{{url_for('page_edit', slug=slug, page_slug = page_slug)}}"><i class="icon-pencil"></i> Seite bearbeiten</a>
+            <a role="button" 
+                href="{{url_for('page_layout', _append=True, slug=slug, page_slug = page.slug)}}" 
+                class="btn"
+                data-action="set-layout"
+                data-layout="left"><i class="icon-arrow-left"></i></a>
+            <a role="button" 
+                href="{{url_for('page_layout', _append=True, slug=slug, page_slug = page.slug)}}" 
+                class="btn"
+                data-action="set-layout"
+                data-layout="default"><i class="icon-arrow-up"></i></a>
+            <a role="button" 
+                href="{{url_for('page_layout', _append=True, slug=slug, page_slug = page.slug)}}" 
+                class="btn"
+                data-action="set-layout"
+                data-layout="right"><i class="icon-arrow-right"></i></a>
         </div>
-    </h1>
+    {% endif %}
+    <h1 data-toggle="editable" data-field="title">{{page.title|e}}</h1>
     <div class="image-container action-container">
         {% if image %}
             {% if is_admin %}
@@ -34,15 +42,13 @@
             </div>
         {% else %}
             {% if is_admin %}
-                <a role="button" href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild hochladen</a>
             {% endif %}
         {% endif %}
     </div>
     <div class="content">
         {{page.content|md}}
     </div>
+    </form>
+</div>
 {% endblock %}
 
-{% block js %}
-    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
-{% endblock %}

@@ -154,6 +154,7 @@
     .action-container { position: relative; }
     .action-container:hover .actions {
         display: block;
+        .btn { margin: 10px; }
     }
 
     .info {
@@ -180,6 +181,30 @@
         float: left;
         width: 220px;
         margin-right: 15px;
+    }
+}
+
+#main-content {
+    margin-top: 10px;
+    overflow: auto;
+
+    .barcamp-page {
+        &.layout-left, &.layout-right {
+            .image-container { 
+                max-width: 200px; 
+                display: block;
+                border: 1px solid #bbb;
+                padding: 3px;
+            }
+        }
+        &.layout-left .image-container { 
+            float: left; 
+            margin: 0 10px 10px 0;
+        }
+        &.layout-right .image-container { 
+            float: right; 
+            margin: 0 0 10px 10px;
+        }
     }
 }
 
@@ -261,4 +286,9 @@ label.error {
     .comments {
         
     }
+}
+
+.upload-widget {
+    display: block;
+    overflow: auto;
 }
