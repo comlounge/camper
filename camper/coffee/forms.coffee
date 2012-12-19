@@ -67,10 +67,12 @@ $(document).ready( () ->
                 $(value).removeClass("error")
                 $(value).popover('hide')
             )
+            form = this.currentForm
+            position = $(form).data("errorposition") or 'right'
             $.each( errorList , (index, value) ->
                 _popover = $(value.element).popover(
                         trigger: 'manual'
-                        placement: 'right'
+                        placement: position
                         content: value.message
                         template: '<div class="popover error"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'
                 )

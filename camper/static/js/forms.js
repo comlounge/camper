@@ -83,15 +83,18 @@ $.fn.editable = function(opts) {
 $(document).ready(function() {
   $(".form-validate").validate({
     showErrors: function(errorMap, errorList) {
+      var form, position;
       $.each(this.successList, function(index, value) {
         $(value).removeClass("error");
         return $(value).popover('hide');
       });
+      form = this.currentForm;
+      position = $(form).data("errorposition") || 'right';
       return $.each(errorList, function(index, value) {
         var _popover;
         _popover = $(value.element).popover({
           trigger: 'manual',
-          placement: 'right',
+          placement: position,
           content: value.message,
           template: '<div class="popover error"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'
         });
