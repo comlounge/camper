@@ -5157,6 +5157,22 @@ a.badge:hover {
 .login-container .btn-signin.active {
   background-color: #c67605 \9;
 }
+.actions {
+  display: none;
+  z-inder: 10;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.action-container {
+  position: relative;
+}
+.action-container:hover .actions {
+  display: block;
+}
+.action-container:hover .actions .btn {
+  margin: 10px;
+}
 .popover.error {
   border: 1px solid #f20;
   border-bottom: 1px solid #a10;
@@ -5189,22 +5205,6 @@ a.badge:hover {
   display: block;
   text-transform: none;
 }
-#barcamp .actions {
-  display: none;
-  z-inder: 10;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-#barcamp .action-container {
-  position: relative;
-}
-#barcamp .action-container:hover .actions {
-  display: block;
-}
-#barcamp .action-container:hover .actions .btn {
-  margin: 10px;
-}
 #barcamp .info {
   display: block;
   padding-top: 4px;
@@ -5230,18 +5230,18 @@ a.badge:hover {
   margin-top: 10px;
   overflow: auto;
 }
-#main-content .barcamp-page.layout-left .image-container,
-#main-content .barcamp-page.layout-right .image-container {
+.barcamp-page.layout-left .image-container,
+.barcamp-page.layout-right .image-container {
   max-width: 200px;
   display: block;
   border: 1px solid #bbb;
   padding: 3px;
 }
-#main-content .barcamp-page.layout-left .image-container {
+.barcamp-page.layout-left .image-container {
   float: left;
   margin: 0 10px 10px 0;
 }
-#main-content .barcamp-page.layout-right .image-container {
+.barcamp-page.layout-right .image-container {
   float: right;
   margin: 0 0 10px 10px;
 }
@@ -5321,16 +5321,5 @@ label.error {
   overflow: auto;
 }
 #admin-menu {
-  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
   margin-top: 100px;
-  background-color: #f2f2f2;
-  background-image: -moz-linear-gradient(top, #f8f8f8, #e8e8e8);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f8f8f8), to(#e8e8e8));
-  background-image: -webkit-linear-gradient(top, #f8f8f8, #e8e8e8);
-  background-image: -o-linear-gradient(top, #f8f8f8, #e8e8e8);
-  background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff8f8f8', endColorstr='#ffe8e8e8', GradientType=0);
 }

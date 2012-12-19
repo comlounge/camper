@@ -11,10 +11,16 @@ class ImageUpload(BaseHandler):
 
     def get(self, slug = None, page_slug = None):
         """return the contents for the image upload view"""
-        return self.render(
-            page = self.page,
-            page_slug = page_slug,
-            **self.barcamp)
+        if self.barcamp is None:
+            return self.render(
+                page = self.page,
+                slug = "___",
+                page_slug = page_slug)
+        else:
+            return self.render(
+                page = self.page,
+                page_slug = page_slug,
+                **self.barcamp)
     
     @logged_in()
     @is_admin()

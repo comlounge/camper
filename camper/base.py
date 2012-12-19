@@ -52,14 +52,16 @@ class is_admin(object):
     def __call__(self, method):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
-            if self.barcamp is None:
-                raise werkzeug.exceptions.NotFound()
             if self.user is None:
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
-            if unicode(self.user._id) not in self.barcamp.admins:
-                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
-                return redirect(self.url_for("index"))
+            #if unicode(self.user._id) not in self.barcamp.admins:
+            #    self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+            #    return redirect(self.url_for("index"))
+            print "CHECK MAIN ADMIN!"
+            # TODO: check for main admin
+            #if self.barcamp is None:
+            #    raise werkzeug.exceptions.NotFound()
             return method(self, *args, **kwargs)
         return wrapper
 
@@ -151,7 +153,7 @@ class BaseHandler(starflyer.Handler):
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
-            is_admin = False,
+            is_admin = True, # TODO: check this!
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             footer_pages = footer_pages

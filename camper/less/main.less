@@ -99,6 +99,21 @@
     }
 }
 
+.actions {
+    display: none;
+    z-inder: 10;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.action-container { position: relative; }
+.action-container:hover .actions {
+    display: block;
+    .btn { margin: 10px; }
+}
+
+
 //
 // form validation
 //
@@ -143,20 +158,6 @@
         }
     }
 
-    .actions {
-        display: none;
-        z-inder: 10;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-    }
-
-    .action-container { position: relative; }
-    .action-container:hover .actions {
-        display: block;
-        .btn { margin: 10px; }
-    }
-
     .info {
         display: block;
         padding-top: 4px;
@@ -188,23 +189,23 @@
     margin-top: 10px;
     overflow: auto;
 
-    .barcamp-page {
-        &.layout-left, &.layout-right {
-            .image-container { 
-                max-width: 200px; 
-                display: block;
-                border: 1px solid #bbb;
-                padding: 3px;
-            }
+}
+.barcamp-page {
+    &.layout-left, &.layout-right {
+        .image-container { 
+            max-width: 200px; 
+            display: block;
+            border: 1px solid #bbb;
+            padding: 3px;
         }
-        &.layout-left .image-container { 
-            float: left; 
-            margin: 0 10px 10px 0;
-        }
-        &.layout-right .image-container { 
-            float: right; 
-            margin: 0 0 10px 10px;
-        }
+    }
+    &.layout-left .image-container { 
+        float: left; 
+        margin: 0 10px 10px 0;
+    }
+    &.layout-right .image-container { 
+        float: right; 
+        margin: 0 0 10px 10px;
     }
 }
 

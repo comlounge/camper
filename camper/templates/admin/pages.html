@@ -5,12 +5,11 @@
     <h3>Seiten im Header</h3>
     <ul>
     {% for page in pages_for_menu %}
-        <li><a href="#">{{page.menu_title}}</a></li>
+        <li><a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a></li>
     {% endfor %}
     </ul>
     <div class="new-page well">
-        <form class="form-inline form-validate" method="POST" action="{{url}}" class="validate" data-errorposition="top">
-            <input type="hidden" name="slot" value="menu"> 
+        <form class="form-inline form-validate" method="POST" action="{{url_for("admin_pages_add", slot="menu")}}" class="validate" data-errorposition="top">
             <input type="text" name="title" placeholder="Titel der Seite" class="required"> 
             <input type="submit" value="Neue Seite anlegen" class="btn btn-primary">
         </form>
@@ -20,12 +19,11 @@
     <h3>Seiten im Footer</h3>
     <ul>
     {% for page in pages_for_menu %}
-        <li><a href="#">{{page.menu_title}}</a></li>
+        <li><a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a></li>
     {% endfor %}
     </ul>
     <div class="new-page well">
-        <form class="form-inline form-validate" method="POST" action="{{url}}" class="validate" data-errorposition="top">
-            <input type="hidden" name="slot" value="footer"> 
+        <form class="form-inline form-validate" method="POST" action="{{url_for("admin_pages_add", slot="footer")}}" class="validate" data-errorposition="top">
             <input type="text" name="title" placeholder="Titel der Seite" class="required"> 
             <input type="submit" value="Neue Seite anlegen" class="btn btn-primary">
         </form>

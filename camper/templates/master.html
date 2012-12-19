@@ -54,7 +54,7 @@
                     </ul>
                         {% if is_main_admin %}
                             <ul class="nav pull-right"> 
-                                <li><a href="{{url_for("admin.index")}}"><b>ADMINISTRATION</b></a></li>
+                                <li><a href="{{url_for("admin_index")}}"><b>ADMINISTRATION</b></a></li>
                             </ul>
                         {% endif %}
                         {% if not logged_in %}
@@ -89,6 +89,8 @@
             {% endfor %}
     
             {% block content %}
+            {% block main_content %}
+            {% endblock %}
             {% endblock %}
         </div> <!-- /container -->
         {% endblock %}
@@ -127,6 +129,7 @@
                     return false;
                 });
 
+                $(".iframebox").colorbox({'iframe' : true, width: "60%", height: "500px"});
                 $('input.currency').autoNumeric({aSep: '', aDec: ',', aSign: '', wEmpty: 'zero'});
                 $(".numeric").numeric(false, function() { alert("Bitte nur Zahlen"); this.value = ""; this.focus(); });
             });
@@ -147,6 +150,7 @@
         <script src="{{url_for("static", filename="js/bootstrap-popover.js")}}"></script>
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
+        <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
         {# 
         <script src="/static/js/bootstrap-alert.js"></script>
         <script src="/static/js/bootstrap-scrollspy.js"></script>

@@ -153,8 +153,10 @@ class CamperApp(Application):
         URL('/assets/<asset_id>', 'asset', handlers.barcamp.images.Asset),
 
         # admin area 
-        URL('/admin/', "admin.index", handlers.admin.index.IndexView),
-        URL('/admin/pages', "admin.pages", handlers.admin.pages.PagesView),
+        URL('/admin/', "admin_index", handlers.admin.index.IndexView),
+        URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
+        URL('/admin/pages/<slot>/add', 'admin_pages_add', handlers.pages.add.AddView),
+        URL('/s/<page_slug>', 'page', handlers.pages.view.View),
 
         # barcamp stuff
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),

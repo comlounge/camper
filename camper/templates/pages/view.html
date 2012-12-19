@@ -1,4 +1,4 @@
-{% extends "barcamp/master.html" %}
+{% extends master %}
 {% block main_content %}
 <div class="barcamp-page layout-{{page.layout}}">
     <form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">

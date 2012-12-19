@@ -72,7 +72,6 @@ class LayoutView(BaseHandler):
 
     @logged_in()
     @is_admin()
-    @ensure_page()
     @asjson()
     def post(self, slug = None, page_slug = None):
         """change the layout"""

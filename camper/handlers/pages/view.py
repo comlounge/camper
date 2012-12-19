@@ -15,17 +15,33 @@ class View(BaseHandler):
     def get(self, slug = None, page_slug = None):
         """render the view"""
         page = self.config.dbs.pages.by_slug(page_slug, barcamp = self.barcamp)
-        if page.image is not None:
-            image = """<img src="%s">""" %(
-                self.url_for("page_image", slug = self.barcamp.slug, page_slug = page_slug))
+        # TODO: refactor this somehow so it's more independent of the barcamp stuff, maybe incorporate barcamp id into 
+        # the page name? Maybe intro some new unique page id which is composed like that?
+        if self.barcamp is None:
+            if page.image is not None:
+                image = """<img src="%s">""" %(
+                    self.url_for("page_image", slug = "___", page_slug = page_slug))
+            else:
+                image = None
+            return self.render(
+                master = "master.html",
+                page = page,
+                slug = "___",
+                page_slug = page_slug,
+                image = image)
         else:
-            image = None
-        return self.render(
-            page = page,
-            page_slug = page_slug,
-            image = image,
-            view = BarcampView(self.barcamp, self), 
-            title = self.barcamp.name,
-            **self.barcamp)
+            if page.image is not None:
+                image = """<img src="%s">""" %(
+                    self.url_for("page_image", slug = self.barcamp.slug, page_slug = page_slug))
+            else:
+                image = None
+            return self.render(
+                master = "barcamp/master.html",
+                page = page,
+                page_slug = page_slug,
+                image = image,
+                view = BarcampView(self.barcamp, self), 
+                title = self.barcamp.name,
+                **self.barcamp)
 
 

@@ -84,21 +84,21 @@ class Pages(Collection):
             page.barcamp = unicode(barcamp._id)
             page.index = self.find({'slot' : page.slot, 'barcamp' : unicode(barcamp._id)}).count()
         else:
-            page.index = self.find({'slot' : page.slot, 'barcamp' : None}).count()
+            page.barcamp = "___"
+            page.index = self.find({'slot' : page.slot, 'barcamp' : "___"}).count()
         return self.put(page)
 
     def by_slug(self, slug, barcamp = None):
         """return a page by only using the slug (and barcamp if given)"""
         if barcamp is None:
-            return self.find_one({'slug' : slug, 'barcamp' : None})
+            return self.find_one({'slug' : slug, 'barcamp' : "___"})
         else:
             return self.find_one({'slug' : slug, 'barcamp' : unicode(barcamp._id)})
-
 
     def remove_from_slot(self, slot, index, barcamp=None):
         """removes a page at index ``index``"""
         if barcamp is None:
-            page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : None})
+            page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : "___"})
         else:
             page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : unicode(barcamp._id)})
         self.remove({'_id' : page._id})
@@ -106,7 +106,7 @@ class Pages(Collection):
     def for_slot(self, slot, barcamp=None):
         """return all the pages for a slot"""
         if barcamp is None:
-            return self.find({'slot' : slot, 'barcamp' : None}).sort("index", 1)
+            return self.find({'slot' : slot, 'barcamp' : "___"}).sort("index", 1)
         else:
             return self.find({'slot' : slot, 'barcamp' : unicode(barcamp._id)}).sort("index", 1)
 
