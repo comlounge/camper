@@ -9,7 +9,7 @@ import werkzeug.exceptions
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin']
 
 class logged_in(object):
     """check if a valid user is present"""
@@ -58,6 +58,19 @@ class is_admin(object):
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
             if unicode(self.user._id) not in self.barcamp.admins:
+                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                return redirect(self.url_for("index"))
+            return method(self, *args, **kwargs)
+        return wrapper
+
+class is_main_admin(object):
+    """ensure that the logged in user is a main admin"""
+
+    def __call__(self, method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            # TODO: do a real check
+            if self.user is None:
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
             return method(self, *args, **kwargs)
@@ -116,8 +129,18 @@ class BaseHandler(starflyer.Handler):
         super(BaseHandler, self).before()
 
     @property
+    def is_main_admin(self):
+        """true if the logged in user is a main admin"""
+        if self.user is None:
+            return False
+        # TODO: check this!
+        return True
+
+    @property
     def render_context(self):
         """provide more information to the render method"""
+        menu_pages = self.config.dbs.pages.for_slot("menu")
+        footer_pages = self.config.dbs.pages.for_slot("footer")
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
@@ -129,6 +152,9 @@ class BaseHandler(starflyer.Handler):
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
             is_admin = False,
+            is_main_admin = self.is_main_admin,
+            menu_pages = menu_pages,
+            footer_pages = footer_pages
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug

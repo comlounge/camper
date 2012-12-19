@@ -150,8 +150,14 @@ class CamperApp(Application):
         URL('/', 'index', handlers.index.IndexView),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
-        URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
         URL('/assets/<asset_id>', 'asset', handlers.barcamp.images.Asset),
+
+        # admin area 
+        URL('/admin/', "admin.index", handlers.admin.index.IndexView),
+        URL('/admin/pages', "admin.pages", handlers.admin.pages.PagesView),
+
+        # barcamp stuff
+        URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
         URL('/<slug>/assets', 'asset_upload', handlers.barcamp.images.AssetUpload),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
@@ -173,6 +179,7 @@ class CamperApp(Application):
         URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', handlers.pages.edit.PartialEditView),
         URL('/<slug>/<page_slug>/delete', 'page_image_delete', handlers.pages.images.ImageDelete),
         URL('/<slug>/<page_slug>/image', 'page_image', handlers.pages.images.Image),
+
     ]
 
     def finalize_setup(self):

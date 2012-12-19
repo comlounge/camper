@@ -41,14 +41,22 @@
                     <a class="brand" href="{{url_for("index")}}">Camper - das Barcamp-Tool</a>
                     <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Link</a></li>
-                        <li><a href="#">Link</a></li>
+                        {% for page in menu_pages %}
+                            <li>
+                                <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
+                            </li>
+                        {% endfor %}
                         {% for action in actions %}
                             <li class="{{'active' if action.active}}">
                                 <a href="{{action.url}}">{{action.name}}</a>
                             </li>
                         {% endfor %}
                     </ul>
+                        {% if is_main_admin %}
+                            <ul class="nav pull-right"> 
+                                <li><a href="{{url_for("admin.index")}}"><b>ADMINISTRATION</b></a></li>
+                            </ul>
+                        {% endif %}
                         {% if not logged_in %}
                             <div class="pull-right">
                                 <ul class="nav">

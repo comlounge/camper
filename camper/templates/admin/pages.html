@@ -1,0 +1,33 @@
+{% extends "admin/master.html" %}
+{% block main_content %}
+    <h1>Seitenverwaltung</h1>
+    
+    <h3>Seiten im Header</h3>
+    <ul>
+    {% for page in pages_for_menu %}
+        <li><a href="#">{{page.menu_title}}</a></li>
+    {% endfor %}
+    </ul>
+    <div class="new-page well">
+        <form class="form-inline form-validate" method="POST" action="{{url}}" class="validate" data-errorposition="top">
+            <input type="hidden" name="slot" value="menu"> 
+            <input type="text" name="title" placeholder="Titel der Seite" class="required"> 
+            <input type="submit" value="Neue Seite anlegen" class="btn btn-primary">
+        </form>
+    </div>
+
+
+    <h3>Seiten im Footer</h3>
+    <ul>
+    {% for page in pages_for_menu %}
+        <li><a href="#">{{page.menu_title}}</a></li>
+    {% endfor %}
+    </ul>
+    <div class="new-page well">
+        <form class="form-inline form-validate" method="POST" action="{{url}}" class="validate" data-errorposition="top">
+            <input type="hidden" name="slot" value="footer"> 
+            <input type="text" name="title" placeholder="Titel der Seite" class="required"> 
+            <input type="submit" value="Neue Seite anlegen" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}
