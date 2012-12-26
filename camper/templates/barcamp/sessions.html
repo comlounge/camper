@@ -30,9 +30,11 @@
                         {{session.description|md(level=3)}}
                     </div>
                     <footer>
-                        eingestellt von {{session.user.username}} am {{session.created.strftime("%d.%m.%Y")}}
+                        eingestellt von 
+                            <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
+                        am {{session.created.strftime("%d.%m.%Y")}}
                     </footer>
-
+                    {#
                     <div class="media comments">
                         <a href="#" class="pull-left">
                             <img class="media-object" src="http://placehold.it/64x64">
@@ -42,6 +44,7 @@
                             <footer>Christian Scholz, 3.8.2012</footer>
                         </div>
                     </div>
+                    #}
                 </div>
             </article>
     {% endfor %}

@@ -33,7 +33,6 @@ class EditView(BaseHandler):
         if self.request.method=="POST":
             if form.validate():
                 f = form.data
-                print f
                 if f['image']['id']!='':
                     f['image'] = f['image']['id']
                 else:

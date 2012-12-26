@@ -70,6 +70,7 @@
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
                                     <ul class="dropdown-menu">
+                                        <li><a href="{{url_for('profile', username = user.username)}}">Profil anzeigen</a></li>
                                         <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
                                     </ul>
                                 </li>

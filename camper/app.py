@@ -125,6 +125,8 @@ class CamperApp(Application):
             login_after_registration    = True,
             double_opt_in               = True,
             enable_registration         = True,
+            enable_usereditor           = True,
+            user_class                  = db.CamperUser,
             use_remember                = True,
             urls                        = {
                 'activation'            : {'endpoint' : 'userbase.activate'},
@@ -157,6 +159,10 @@ class CamperApp(Application):
         URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
         URL('/admin/pages/<slot>/add', 'admin_pages_add', handlers.pages.add.AddView),
         URL('/s/<page_slug>', 'page', handlers.pages.view.View),
+
+        # user stuff
+        URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
+        URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 
         # barcamp stuff
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),

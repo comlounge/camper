@@ -42,11 +42,18 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro field(field, input) -%}
-          <div class="clearfix field-{{field.id}} {{'error' if field.errors}} ">
-            {{ field.label }}
-            <div class="input">
-                {{ input }}
+{% macro my_field(field, prepend=None, append=None) -%}
+            <div class="input {{'input-prepend' if prepend}} {{'input-append' if append}}">
+                {% if prepend %}
+                    <span class="add-on">{{prepend}}</span>
+                {% endif %}
+
+                {{ field(**kwargs) }}
+
+                {% if append %}
+                    <span class="add-on">{{append}}</span>
+                {% endif %}
+                
                 {% if field.errors %}
                     <p>
                     {% for error in field.errors %}
@@ -54,7 +61,6 @@
                     {% endfor %}
                     </p>
                 {% endif %}
-            </div>
           </div>
 {%- endmacro %}
 
@@ -117,7 +123,7 @@
                 {% elif field.type == 'MultiCheckboxField' %}
                     {{ form_field_multicheckbox(field) }}
                 {% else %}
-                    {{ field(**kwargs) }}
+                    {{ my_field(field, **kwargs) }}
                 {% endif %}
                 {{ form_field_errors(field) }}
                 {{ form_field_description(field) }}

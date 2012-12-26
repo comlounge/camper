@@ -1,0 +1,38 @@
+{% extends "master.html" %}
+{% block content %}
+<div class="row">
+    <div class="span8 offset 2">
+        <h2>{{user.fullname}}
+            <small>
+            {% if user.has_organisation %}
+            {{user.organisation}}
+            {% endif %}
+            </small>
+        </h2>
+
+        <div class="well">
+            {% if user.has_bio %}
+            <h4>Über mich</h4>
+            {{user.bio}}
+            {% endif %}
+
+            {% if user.has_twitter %}
+            <h4>Twitter</h4>
+            <a href="{{user.twitter_link}}">@{{user.twitter}}</a>
+            {% endif %}
+
+            {% if user.has_facebook %}
+            <h4>Facebook</h4>
+            <a href="{{user.facebook}}">{{user.facebook}}</a>
+            {% endif %}
+        </div>
+
+        {% if is_logged_in_user %}
+        <a href="{{url_for('profile_edit')}}" class="btn btn-info"><i class="icon-pencil icon-white"></i> Profil bearbeiten</a>
+        <a href="#" class="btn btn-danger"><i class="icon-lock icon-white"></i> Passwort ändern</a>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}
