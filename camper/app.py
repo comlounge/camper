@@ -135,7 +135,11 @@ class CamperApp(Application):
                 'login_success'         : {'endpoint' : 'index'},
                 'logout_success'        : {'endpoint' : 'userbase.login'},
                 'registration_success'  : {'endpoint' : 'userbase.login'},
-            }
+            },
+            permissions                 = AttributeMapper({
+                'userbase:admin'    : "darf Benutzer bearbeiten",
+                'admin'             : "Hauptadministrator (darf alles!)",
+            })
         ),
         upload_module(),
         mail_module(debug=True),
