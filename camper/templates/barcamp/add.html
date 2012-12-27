@@ -19,8 +19,11 @@
         {{ formmacros.form_field(form.location, class="required span8", placeholder="z.B. Hamburg") }}
         {{ formmacros.form_field(form.start_date, class="required span4 datepicker") }}
         {{ formmacros.form_field(form.end_date, class="required span4 datepicker") }}
+        {{ formmacros.form_field(form.size, class="required span4 number") }}
+        {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span2") }}
+        {{ formmacros.form_field(form.facebook, class="required span4 number") }}
         {% block action %}
-            <input type="submit" class="btn btn-large btn-primary" value="BARCAMP ANLEGEN">
+            <input type="submit" class="btn btn-large btn-primary" value="Barcamp anlegen">
         {% endblock %}
     </form>
 {% endblock %}
