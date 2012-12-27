@@ -15,7 +15,7 @@ class Sponsor(Schema):
     name = String(required=True)
     url = String(required=True)
 
-class Event(Schema):
+class EventSchema(Schema):
     """a sub schema describing one event"""
     name                = String(required=True)
     description         = String(required=True)
@@ -42,6 +42,13 @@ class BarcampSchema(Schema):
     start_date          = Date(required = True)
     end_date            = Date(required = True)
     location            = Location()
+    size                = Integer(default = 0) # amount of people allowed
+    twitter             = String() # only the username
+    facebook            = String() # ID of the page for the like button
+
+    # documentation
+    planning_pad        = String() # ID of the planning etherpad
+    documentation_pad   = String() # ID of the pad for documentation
 
     # user related
     admins              = List(String()) # TODO: ref
@@ -49,11 +56,39 @@ class BarcampSchema(Schema):
     subscribers         = List(String()) # TODO: ref
 
     # events
-    events              = List(Event())
+    events              = List(EventSchema())
 
     # image stuff
     logo                = String() # asset id
     sponsors            = List(Sponsor())
+
+
+class Event(AttributeMapper):
+    """wraps event data with a class to provider more properties etc."""
+
+    def state(self):
+        """returns the state of the event which can be one of
+
+        planning -- the event has not started
+        active -- the event is active
+        finished -- the event has finished
+
+        All of those depend on the date which will be checked in here. 
+
+        We only check for days, not timestamps, so if an event starts at 10am it still
+        is supposed to be active for the whole day.
+        """
+
+        # convert everthing to dates without time
+        today = datetime.date.today()
+        start = self.start_date.date()
+        end = self.end_date.date()
+
+        if today < start:
+            return "planning"
+        if today > end:
+            return "finished"
+        return "active"
 
 
 class Barcamp(Record):
@@ -98,6 +133,30 @@ class Barcamp(Record):
         """return a list of user objects of the admin users"""
         ub = self._collection.md.app.module_map.userbase
         return list(ub.get_users_by_ids(self.subscribers))
+
+    @property
+    def event(self):
+        """returns the main event object or None in case there is no event"""
+        if self.events == []:
+            return None
+        return Event(self.events[0])
+
+    def get_events(self):
+        """return the events wrapped in the ``Event`` class"""
+        return [Event(e) for e in self.events]
+
+    @property
+    def state(self):
+        """the same as the event state which we compute here for the main event.
+        If multiple events are possible in the future then this will check all of the events
+
+        If no event is present, ``planning`` will be returned.
+        """
+
+        if self.event is None:
+            return "planning"
+        return self.event.state
+        
 
 class Barcamps(Collection):
     
