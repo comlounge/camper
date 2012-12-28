@@ -55,14 +55,12 @@ class is_admin(object):
             if self.user is None:
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
-            #if unicode(self.user._id) not in self.barcamp.admins:
-            #    self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
-            #    return redirect(self.url_for("index"))
-            print "CHECK MAIN ADMIN!"
-            # TODO: check for main admin
-            #if self.barcamp is None:
-            #    raise werkzeug.exceptions.NotFound()
-            return method(self, *args, **kwargs)
+            if unicode(self.user._id) in self.barcamp.admins:
+                return method(self, *args, **kwargs)
+            if self.user.has_permission("admin"):
+                return method(self, *args, **kwargs)
+            self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+            return redirect(self.url_for("index"))
         return wrapper
 
 class is_main_admin(object):
@@ -135,8 +133,7 @@ class BaseHandler(starflyer.Handler):
         """true if the logged in user is a main admin"""
         if self.user is None:
             return False
-        # TODO: check this!
-        return True
+        return self.user.has_permission("admin")
 
     @property
     def render_context(self):

@@ -858,7 +858,8 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 #barcamp .description{font-size:16px;margin-bottom:20px;}
 #barcamp .sponsors{margin-top:20px;}
 #barcamp .sponsor{float:left;width:220px;margin-right:15px;}
-#main-content{margin-top:10px;overflow:auto;}
+#main-content{margin-top:40px;}
+#barcamp-buttons{overflow:auto;margin-top:20px;border-top:1px dashed #e0e0e0;padding-top:10px;}
 .barcamp-page.layout-left .image-container,.barcamp-page.layout-right .image-container{max-width:200px;display:block;border:1px solid #bbb;padding:3px;}
 .barcamp-page.layout-left .image-container{float:left;margin:0 10px 10px 0;}
 .barcamp-page.layout-right .image-container{float:right;margin:0 0 10px 10px;}

@@ -6,8 +6,18 @@
         <div class="span8">
             <h2>Aktuelle Barcamps</h2>
             <ul>
-                {% for barcamp in barcamps %}
-                <li><a href="{{url_for("barcamp", slug = barcamp.slug)}}">{{barcamp.name}}</a>
+                {% for view in barcamps %}
+                    {% if view.barcamp.public or view.is_admin or is_main_admin %}
+                        <li>
+                            <a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a>
+                            {% if not view.barcamp.public %}
+                                <span class="label label-warning">privat</span>
+                            {% endif %}
+                            {% if view.is_admin %}
+                                <span class="label label-success">Admin</span>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <a href="{{url_for("barcamp_add")}}" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> Neues Barcamp anlegen</a>

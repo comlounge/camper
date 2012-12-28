@@ -29,6 +29,33 @@ class BarcampView(object):
         return False
 
     @property
+    def is_subscriber(self):
+        """true if the logged in user is a barcamp subscriber"""
+        if self.user is None:
+            return False
+        if unicode(self.user._id) in self.barcamp.subscribers:
+            return True
+        return False
+
+    @property
+    def is_participant(self):
+        """true if the logged in user is a barcamp participant"""
+        if self.user is None:
+            return False
+        if unicode(self.user._id) in self.barcamp.event.participants:
+            return True
+        return False
+
+    @property
+    def is_on_waiting_list(self):
+        """true if the logged in user is on the barcamp waiting list"""
+        if self.user is None:
+            return False
+        if unicode(self.user._id) in self.barcamp.event.waiting_list:
+            return True
+        return False
+
+    @property
     def can_add_menu_page(self):
         """this is True if the user is an admin and there are less than 3 pages for the menu slot"""
         if not self.is_admin:

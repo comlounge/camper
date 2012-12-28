@@ -1,8 +1,9 @@
 #encoding=utf8
 
-from starflyer import Handler
+from camper import BaseHandler
+from barcamp.base import BarcampView
 
-class IndexView(Handler):
+class IndexView(BaseHandler):
     """an index handler"""
 
     template = "index.html"
@@ -10,6 +11,7 @@ class IndexView(Handler):
     def get(self):
         """render the view"""
         barcamps = self.config.dbs.barcamps.find()
+        barcamps = [BarcampView(barcamp, self) for barcamp in barcamps]
         return self.render( barcamps = barcamps )
     post = get
 

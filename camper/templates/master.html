@@ -37,7 +37,6 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-            
                     <a class="brand" href="{{url_for("index")}}">Camper - das Barcamp-Tool</a>
                     <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
@@ -52,31 +51,30 @@
                             </li>
                         {% endfor %}
                     </ul>
-                        {% if is_main_admin %}
-                            <ul class="nav pull-right"> 
-                                <li><a href="{{url_for("admin_index")}}"><b>ADMINISTRATION</b></a></li>
+                    {% if is_main_admin %}
+                        <ul class="nav pull-right"> 
+                            <li><a href="{{url_for("admin_index")}}"><b>ADMINISTRATION</b></a></li>
+                        </ul>
+                    {% endif %}
+                    {% if not logged_in %}
+                        <div class="pull-right">
+                            <ul class="nav">
+                                <li class="divider-vertical"></li>
+                            <li><a href="{{url_for("userbase.login")}}">Login</a></li>
+                            <li><a href="{{url_for("userbase.register")}}">Registrieren</a></li>
                             </ul>
-                        {% endif %}
-                        {% if not logged_in %}
-                            <div class="pull-right">
-                                <ul class="nav">
-                                    <li class="divider-vertical"></li>
-                                <li><a href="{{url_for("userbase.login")}}">Login</a></li>
-                                <li><a href="{{url_for("userbase.register")}}">Registrieren</a></li>
+                        </div>
+                    {% else %}
+                        <ul class="nav pull-right"> 
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{url_for('profile', username = user.username)}}">Profil anzeigen</a></li>
+                                    <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
                                 </ul>
-                            </div>
-                        {% else %}
-                            <ul class="nav pull-right"> 
-                                <li class="dropdown">
-                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{url_for('profile', username = user.username)}}">Profil anzeigen</a></li>
-                                        <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        {% endif %}
-                    </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </div>
             </div>
         </div>

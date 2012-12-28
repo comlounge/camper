@@ -62,10 +62,57 @@
         </div>
         <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>
 
-        <div id="main-content">
+        {% block outer_content %}
+        <div id="main-content" class="row">
+            <div class="span9">
             {% block main_content %}
             {% endblock %}
+            </div>
+            <div class="span3">
+                <div class="widget well">
+                    <a href="#">Interessenten: {{barcamp.subscribers|length}}</a><br>
+                    <a href="#">Teilnehmer: {{barcamp.event.participants|length}}</a><br>
+                    <a href="#">Warteliste: {{barcamp.event.waiting_list|length}}</a><br>
+                </div>
+
+                <div class="widget">
+                </div>
+            </div>
         </div>
+        {% endblock %}
+
+       
+        {% macro barcamp_buttons() -%}
+        {% if logged_in %}
+        <div id="barcamp-buttons">
+            {% if not view.is_subscriber %}
+                {% if not view.is_participant and not view.is_on_waiting_list %}
+                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}" class="pull-left">
+                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
+                    </form>
+                {% endif %}
+                <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="pull-right">
+                    <button class="btn btn-large btn-info">Als Interessent anmelden</button>
+                </form>
+            {% else %}
+                {% if not view.is_participant and not view.is_on_waiting_list %}
+                    <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="pull-right">
+                        <button class="btn btn-large btn-danger">Als Interessent abmelden</button>
+                    </form>
+                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}" class="pull-left">
+                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{{url_for('barcamp_unregister', slug = slug)}}" class="pull-left">
+                        <button class="btn btn-small btn-danger">Streiche mich von der Teilnehmerliste</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% endif %}
+    {%- endmacro %}
+    {{ barcamp_buttons() }}
+        
 
     </div><!-- #barcamp -->
     <footer>

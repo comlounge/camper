@@ -22,6 +22,7 @@ class BarcampEditForm(BaseForm):
     end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
+    hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
     facebook            = TextField(u"Facebook Page-ID", [validators.Length(max=100)], description="ID der Seite")
     location            = TextField(u"Ort", [validators.Required()], description = u'Gib hier den Hauptveranstaltungsort an.')
 

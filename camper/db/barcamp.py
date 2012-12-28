@@ -44,6 +44,7 @@ class BarcampSchema(Schema):
     location            = Location()
     size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
+    hashtag             = String()
     facebook            = String() # ID of the page for the like button
 
     # documentation
@@ -66,6 +67,7 @@ class BarcampSchema(Schema):
 class Event(AttributeMapper):
     """wraps event data with a class to provider more properties etc."""
 
+    @property
     def state(self):
         """returns the state of the event which can be one of
 
@@ -156,6 +158,20 @@ class Barcamp(Record):
         if self.event is None:
             return "planning"
         return self.event.state
+
+    def subscribe(self, user):
+        """subscribe a user to the barcamp"""
+        uid = unicode(user._id)
+        if uid not in self.subscribers:
+            self.subscribers.append(uid)
+        self.put()
+
+    def unsubscribe(self, user):
+        """unsubscribe a user from the barcamp"""
+        uid = unicode(user._id)
+        if uid in self.subscribers:
+            self.subscribers.remove(uid)
+        self.put()
         
 
 class Barcamps(Collection):

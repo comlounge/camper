@@ -1,0 +1,26 @@
+{% extends "barcamp/master.html" %}
+
+{% macro list(users) -%}
+    {% for user in users %}
+        <a href="{{url_for('profile', username = user.username)}}">{{user.fullname}}</a>
+        {% if user.has_organisation %}
+        , {{user.organisation}}<br>
+        {% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{% block outer_content %}
+    <div class="row">
+        <div class="span4">
+            <h2>Interessenten</h2>
+            {{list(barcamp.subscriber_users)}}
+        </div>
+        <div class="span4">
+            <h2>Teilnehmer</h2>
+        </div>
+        <div class="span4">
+            <h2>Warteliste</h2>
+        </div>
+    </div>
+    {{ barcamp_buttons() }}
+{% endblock %}

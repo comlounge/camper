@@ -27,10 +27,68 @@ class View(BaseHandler):
             raise werkzeug.exceptions.NotFound()
         return self.render(
             view = BarcampView(self.barcamp, self), 
+            barcamp = self.barcamp,
             title = self.barcamp.name,
             sponsor_form = sponsor_form,
             **self.barcamp)
 
+
+class BarcampSubscribe(BaseHandler):
+    """adds a user to the subscription list"""
+
+    def post(self, slug = None):
+        """only a post without parameters is done to add. Post again to unsubscribe"""
+        view = BarcampView(self.barcamp, self)
+        if not view.is_subscriber:
+            self.barcamp.subscribe(self.user)
+            self.flash("Du wurdest als Interessent eingetragen")
+        else:
+            self.barcamp.unsubscribe(self.user)
+            self.flash("Du wurdest als Interessent ausgetragen")
+        return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+        
+class BarcampRegister(BaseHandler):
+    """adds a user to the participants list if the list is not full, otherwise waiting list"""
+
+    def post(self, slug = None):
+        """only a post without parameters is done to add."""
+        view = BarcampView(self.barcamp, self)
+        event = self.barcamp.event
+        uid = unicode(self.user._id)
+
+        # we are a subscriber in any case now
+        self.barcamp.subscribe(self.user)
+
+        if len(event.participants) >= self.barcamp.size:
+            self.flash("Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die Warteliste gesetzt.", category="danger")
+            if uid not in event.waiting_list:
+                event.waiting_list.append(uid)
+                self.barcamp.put()
+        else:
+            self.flash("Du wurdest erfolgreich auf die Teilnehmerliste gesetzt.")
+            if uid not in event.participants:
+                event.participants.append(uid)
+                self.barcamp.put()
+        return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+
+class BarcampUnregister(BaseHandler):
+    """removes a user from the participants list and might move user up from the waiting list"""
+
+    def post(self, slug = None):
+        """only a post without parameters is done to remove."""
+        view = BarcampView(self.barcamp, self)
+        event = self.barcamp.event
+        uid = unicode(self.user._id)
+        if uid in event.participants:
+            event.participants.remove(uid)
+        if len(event.participants) < self.barcamp.size and len(event.waiting_list)>0:
+            # somebody from the waiting list can move up 
+            nuid = event.waiting_list[0]
+            event.waiting_list = event.waiting_list[1:]
+            event.participants.append(nuid)
+        self.barcamp.put()
+        self.flash("Du wurdest von der Teilnehmerliste gestrichen.", category="danger")
+        return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
 
 class BarcampSponsors(BaseHandler):
     """view for adding and deleting sponsors"""
