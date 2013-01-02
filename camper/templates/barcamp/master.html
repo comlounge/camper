@@ -30,6 +30,8 @@
                 <ul class="nav">
                     <li class="active"><a href="{{url_for('barcamp', slug=slug)}}">Info</a></li>
                     <li><a href="{{url_for('barcamp_sessions', slug = slug)}}">Sessionvorschläge</a></li>
+                    <li><a href="{{url_for('barcamp_planning_pad', slug=slug)}}">Planung</a></li>
+                    <li><a href="{{url_for('barcamp_documentation_pad', slug=slug)}}">Dokumentation</a></li>
 
                     {# here a user can add up to 3 additional menu points/pages defined in slot "menu" for a barcamp #}
                     {% for page in view.pages_for("menu") %}

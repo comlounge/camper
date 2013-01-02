@@ -3,6 +3,7 @@
 from starflyer import Handler, redirect
 from camper import BaseForm, db, logged_in
 from wtforms import *
+import uuid
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
@@ -46,8 +47,18 @@ class AddView(Handler):
             f['location'] = {
                 'name' : f['location'],
             }
+
+            pid = unicode(uuid.uuid4())[:8]
+            pid = f['planning_pad'] = "%s_%s" %(f['slug'],pid)
+            did = f['slug']
+            self.config.etherpad.createPad(padID=pid, text=u"Planung")
+            self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
+            f['documentation_pad'] = did
+            print pid
+            print did
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
             barcamp = self.config.dbs.barcamps.put(barcamp)
+
             self.flash("Barcamp %s wurde angelegt" %f['name'], category="info")
             return redirect(self.url_for("index"))
         return self.render(form = form)

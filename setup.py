@@ -30,6 +30,7 @@ setup(name='camper',
         "setuptools",
         "markdown",
         "xhtml2pdf",
+        "etherpad_lite",
       ],
       entry_points="""
       [paste.app_factory]

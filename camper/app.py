@@ -11,6 +11,7 @@ from sfext.mail import mail_module
 import markdown                                                                                                                                                                      
 import re
 from jinja2 import evalcontextfilter, Markup, escape
+from etherpad_lite import EtherpadLiteClient
 
 import userbase
 import handlers
@@ -115,6 +116,8 @@ class CamperApp(Application):
         'smtp_port'             : 25,
         'from_addr'             : "noreply@example.org",
         'from_name'             : "Barcamp-Tool",
+        'ep_api_key'            : "please fill in from APIKEY.txt",
+        'ep_endpoint'           : "http://localhost:9001/api",
     }
 
     modules = [
@@ -177,6 +180,8 @@ class CamperApp(Application):
         URL('/<slug>/subscribe', 'barcamp_subscribe', handlers.barcamp.index.BarcampSubscribe),
         URL('/<slug>/register', 'barcamp_register', handlers.barcamp.index.BarcampRegister),
         URL('/<slug>/unregister', 'barcamp_unregister', handlers.barcamp.index.BarcampUnregister),
+        URL('/<slug>/planning', 'barcamp_planning_pad', handlers.barcamp.pads.PlanningPadView),
+        URL('/<slug>/docpad', 'barcamp_documentation_pad', handlers.barcamp.pads.DocumentationPadView),
         URL('/<slug>/lists', 'barcamp_userlist', handlers.barcamp.userlist.UserLists),
         URL('/<slug>/permissions', 'barcamp_permissions', handlers.barcamp.permissions.Permissions),
         URL('/<slug>/permissions/admin', 'barcamp_admin', handlers.barcamp.permissions.Admin),
@@ -210,6 +215,12 @@ class CamperApp(Application):
         self.config.dbs.pages = db.Pages(mydb.pages, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
+
+        # etherpad connection
+        self.config.etherpad = EtherpadLiteClient(
+            base_params={'apikey': self.config.ep_api_key},
+            base_url=self.config.ep_endpoint
+        )
 
 
 def app(config, **local_config):
