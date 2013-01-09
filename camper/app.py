@@ -6,6 +6,7 @@ import pkg_resources
 
 from starflyer import Application, URL, AttributeMapper
 from sfext.uploader import upload_module, Assets
+from sfext.babel import babel_module
 from sfext.mail import mail_module
 
 import markdown                                                                                                                                                                      
@@ -16,6 +17,7 @@ from etherpad_lite import EtherpadLiteClient
 import userbase
 import handlers
 import db
+import login
 
 #
 # custom jinja filters
@@ -121,6 +123,7 @@ class CamperApp(Application):
     }
 
     modules = [
+        babel_module(),
         userbase.username_userbase(
             url_prefix                  = "/users",
             mongodb_name                = "camper",
@@ -131,6 +134,7 @@ class CamperApp(Application):
             enable_usereditor           = True,
             user_class                  = db.CamperUser,
             use_remember                = True,
+            login_form                  = login.UsernameLoginForm,
             urls                        = {
                 'activation'            : {'endpoint' : 'userbase.activate'},
                 'activation_success'    : {'endpoint' : 'index'},

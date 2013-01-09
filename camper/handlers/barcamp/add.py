@@ -1,7 +1,7 @@
 #encoding=utf8
 
 from starflyer import Handler, redirect
-from camper import BaseForm, db, logged_in
+from camper import BaseForm, db, logged_in, BaseHandler
 from wtforms import *
 import uuid
 
@@ -30,7 +30,7 @@ class BarcampAddForm(BaseForm):
                 description = u'Gib hier den Hauptveranstaltungsort an.',
     )
 
-class AddView(Handler):
+class AddView(BaseHandler):
     """an index handler"""
 
     template = "barcamp/add.html"

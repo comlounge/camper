@@ -4,23 +4,23 @@
     <h1 id="logo">Camper</h1>
     <div class="row">
         <div class="span8">
-            <h2>Aktuelle Barcamps</h2>
+            <h2>{{_("Recent Barcamps")}}</h2>
             <ul>
                 {% for view in barcamps %}
                     {% if view.barcamp.public or view.is_admin or is_main_admin %}
                         <li>
                             <a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a>
                             {% if not view.barcamp.public %}
-                                <span class="label label-warning">privat</span>
+                                <span class="label label-warning">{{_('private')}}</span>
                             {% endif %}
                             {% if view.is_admin %}
-                                <span class="label label-success">Admin</span>
+                                <span class="label label-success">{{_('ADMIN')}}</span>
                             {% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}
             </ul>
-            <a href="{{url_for("barcamp_add")}}" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> Neues Barcamp anlegen</a>
+            <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> {{_('create new barcamp')}}</a>
         </div>
         <div class="span4">
         </div>

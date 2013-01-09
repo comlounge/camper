@@ -19,7 +19,7 @@ class logged_in(object):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             if self.user is None:
-                self.flash('Please log in.', category="danger")
+                self.flash(self._('Please log in.'), category="danger")
                 return redirect(self.url_for("userbase.login", force_external=True))
             return method(self, *args, **kwargs)
         return wrapper
@@ -135,6 +135,11 @@ class BaseHandler(starflyer.Handler):
             return False
         return self.user.has_permission("admin")
 
+    def _(self, s):
+        """translate a string"""
+        m = self.app.module_map['babel']
+        return m.gettext(self, s)
+
     @property
     def render_context(self):
         """provide more information to the render method"""
@@ -163,3 +168,6 @@ class BaseHandler(starflyer.Handler):
             payload['page_slug'] = self.page.slug
         return payload
 
+    def get_locale(self):
+        """return the locale for this handler instance"""
+        return "de"

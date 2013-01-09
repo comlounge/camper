@@ -30,6 +30,7 @@ setup(name='camper',
         "setuptools",
         "markdown",
         "xhtml2pdf",
+        "sf-babel",
         "etherpad_lite",
       ],
       entry_points="""

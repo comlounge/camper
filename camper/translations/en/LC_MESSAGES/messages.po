@@ -1,0 +1,67 @@
+# English translations for Camper, the Barcamp Tool.
+# Copyright (C) 2013 COM.lounge GmbH
+# This file is distributed under the same license as the Camper project.
+# Christian Scholz <cs@comlounge.net>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  0.1\n"
+"Report-Msgid-Bugs-To: cs@comlounge.net\n"
+"POT-Creation-Date: 2013-01-09 17:18+0100\n"
+"PO-Revision-Date: 2013-01-09 16:36+0100\n"
+"Last-Translator: Christian Scholz <cs@comlounge.net>\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: base.py:22
+msgid "Please log in."
+msgstr ""
+
+#: handlers/forms.py:77
+msgid "Not a valid currency value"
+msgstr ""
+
+#: templates/index.html:7
+msgid "Recent Barcamps"
+msgstr ""
+
+#: templates/index.html:14
+msgid "private"
+msgstr ""
+
+#: templates/index.html:17
+msgid "ADMIN"
+msgstr ""
+
+#: templates/index.html:23
+msgid "create new barcamp"
+msgstr ""
+
+#: templates/macros.html:70
+msgid "Diese Feld muss angegeben werden"
+msgstr ""
+
+#: templates/userbase/login.html:16
+msgid "Echte Camper loggen sich ein"
+msgstr ""
+
+#: templates/userbase/login.html:18
+msgid "Benutzername"
+msgstr ""
+
+#: templates/userbase/login.html:19
+msgid "Passwort"
+msgstr ""
+
+#: templates/userbase/login.html:20
+msgid "Einloggen"
+msgstr ""
+
+#: templates/userbase/login.html:24
+msgid "Passwort vergessen?"
+msgstr ""
+

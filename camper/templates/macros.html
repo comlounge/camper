@@ -67,7 +67,7 @@
 {%- macro form_field_label(field) -%}
     <label class="control-label" for="{{ field.id }}">{{ field.label.text }}
     {%- if field.flags.required -%}
-        <abbr title="Diese Feld muss angegeben werden">*</abbr>
+        <abbr title="{{_('Diese Feld muss angegeben werden')}}">*</abbr>
     {%- endif %}</label>
 {% endmacro %}
 
