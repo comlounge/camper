@@ -21,8 +21,11 @@ class BarcampEditForm(BaseForm):
     start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
     end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
+    twitterwall         = TextField(u"Link zur Twitterwall", [validators.Length(max=100)], description="z.B. bei <a href='http://twitterwallr.de'>twitterwallr.de</a>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
+    gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
+    homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     facebook            = TextField(u"Facebook Page-ID", [validators.Length(max=100)], description="ID der Seite")
     location            = TextField(u"Ort", [validators.Required()], description = u'Gib hier den Hauptveranstaltungsort an.')
 

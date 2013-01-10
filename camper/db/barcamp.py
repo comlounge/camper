@@ -44,7 +44,10 @@ class BarcampSchema(Schema):
     location            = Location()
     size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
-    hashtag             = String()
+    hashtag             = String() 
+    gplus               = String() 
+    homepage            = String() # URL
+    twitterwall         = String() # URL
     facebook            = String() # ID of the page for the like button
 
     # documentation
