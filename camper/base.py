@@ -145,6 +145,12 @@ class BaseHandler(starflyer.Handler):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
+        is_admin = False
+        if self.user is not None and self.barcamp is not None:
+            if unicode(self.user._id) in self.barcamp.admins:
+                is_admin = True
+        if self.is_main_admin:
+            is_admin = True
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
@@ -155,7 +161,7 @@ class BaseHandler(starflyer.Handler):
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
-            is_admin = True, # TODO: check this!
+            is_admin = is_admin,
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             footer_pages = footer_pages
