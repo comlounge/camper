@@ -69,8 +69,22 @@
         {% block outer_content %}
         <div id="main-content" class="row">
             <div class="span9">
-            {% block main_content %}
-            {% endblock %}
+
+                {% if is_admin %}
+                    <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
+                    {% if not barcamp.public %} 
+                        <input type="hidden" name="public" value="1">
+                        <div class="well">
+                            <button class="pull-right btn btn-small btn-success">Öffentlich machen</button>
+                            <b style="color: red">Dieses Barcamp ist im Moment nicht öffentlich einsehbar!</b>
+                        </div>
+                    {% endif %}
+                    </form>
+                {% endif %}
+
+                {% block main_content %}
+                {% endblock %}
+
             </div>
             <div class="span3">
                 <div class="widget well">

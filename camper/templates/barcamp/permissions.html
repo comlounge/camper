@@ -1,8 +1,6 @@
 {% extends "barcamp/master.html" %}
 
 {% block main_content %}
-<h2>Zugang und Berechtigungen</h2>
-
 
 <form action="{{url}}" method="POST">
 {% if barcamp.public %} 
@@ -10,12 +8,6 @@
     <div class="well">
         <button class="pull-right btn btn-small btn-danger">privat schalten</button>
         Dieses Barcamp ist im Moment öffentlich
-    </div>
-{% else %}
-    <input type="hidden" name="public" value="1">
-    <div class="well">
-        <button class="pull-right btn btn-small btn-success">Öffentlich machen</button>
-        <b style="color: red">Dieses Barcamp ist im Moment nicht öffentlich einsehbar!</b>
     </div>
 {% endif %}
 </form>
