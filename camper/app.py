@@ -193,6 +193,7 @@ class CamperApp(Application):
         URL('/<slug>/register', 'barcamp_register', handlers.barcamp.index.BarcampRegister),
         URL('/<slug>/unregister', 'barcamp_unregister', handlers.barcamp.index.BarcampUnregister),
         URL('/<slug>/planning', 'barcamp_planning_pad', handlers.barcamp.pads.PlanningPadView),
+        URL('/<slug>/planning/toggle', 'barcamp_planning_pad_toggle', handlers.barcamp.pads.PadPublicToggleView),
         URL('/<slug>/docpad', 'barcamp_documentation_pad', handlers.barcamp.pads.DocumentationPadView),
         URL('/<slug>/lists', 'barcamp_userlist', handlers.barcamp.userlist.UserLists),
         URL('/<slug>/permissions', 'barcamp_permissions', handlers.barcamp.permissions.Permissions),

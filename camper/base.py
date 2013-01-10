@@ -134,23 +134,21 @@ class BaseHandler(starflyer.Handler):
         if self.user is None:
             return False
         return self.user.has_permission("admin")
-
-    def _(self, s):
-        """translate a string"""
-        m = self.app.module_map['babel']
-        return m.gettext(self, s)
+    @property
+    def is_admin(self):
+        """check if the given user is a barcamp admin"""
+        if self.is_main_admin:
+            return True
+        if self.user is not None and self.barcamp is not None:
+            if unicode(self.user._id) in self.barcamp.admins:
+                return True
+        return False
 
     @property
     def render_context(self):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
-        is_admin = False
-        if self.user is not None and self.barcamp is not None:
-            if unicode(self.user._id) in self.barcamp.admins:
-                is_admin = True
-        if self.is_main_admin:
-            is_admin = True
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
@@ -161,7 +159,7 @@ class BaseHandler(starflyer.Handler):
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
-            is_admin = is_admin,
+            is_admin = self.is_admin,
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             footer_pages = footer_pages

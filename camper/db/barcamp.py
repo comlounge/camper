@@ -50,6 +50,7 @@ class BarcampSchema(Schema):
     # documentation
     planning_pad        = String() # ID of the planning etherpad
     documentation_pad   = String() # ID of the pad for documentation
+    planning_pad_public = Boolean(default = False)
 
     # user related
     admins              = List(String()) # TODO: ref
@@ -102,6 +103,7 @@ class Barcamp(Record):
         'updated'       : datetime.datetime.utcnow,
         'location'      : {},
         'events'        : [],
+        'planning_pad_public'        : False,
     }
 
     def add_admin(self, user):
