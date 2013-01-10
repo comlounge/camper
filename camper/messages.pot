@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-09 17:18+0100\n"
+"POT-Creation-Date: 2013-01-10 12:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
+#: app.py:147
+msgid "can manage users"
+msgstr ""
+
+#: app.py:148
+msgid "main administrator"
+msgstr ""
+
 #: base.py:22
 msgid "Please log in."
-msgstr "Bitte logge Dich zunächst ein!"
+msgstr ""
 
 #: handlers/forms.py:77
 msgid "Not a valid currency value"
@@ -63,5 +71,21 @@ msgstr ""
 
 #: templates/userbase/login.html:24
 msgid "Passwort vergessen?"
+msgstr ""
+
+#: templates/userbase/registration.html:7
+msgid "Registration"
+msgstr ""
+
+#: templates/userbase/registration.html:15
+msgid "Register"
+msgstr ""
+
+#: templates/userbase/registration.html:24
+msgid "Mission activation email?"
+msgstr ""
+
+#: templates/userbase/registration.html:25
+msgid "Please send me a new activation code"
 msgstr ""
 

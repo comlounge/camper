@@ -6,7 +6,7 @@ import pkg_resources
 
 from starflyer import Application, URL, AttributeMapper
 from sfext.uploader import upload_module, Assets
-from sfext.babel import babel_module
+from sfext.babel import babel_module, T
 from sfext.mail import mail_module
 
 import markdown                                                                                                                                                                      
@@ -92,6 +92,12 @@ def markdownify(text, level=1):
     return linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
     return linkify(md.convert(text))
 
+###
+### i18n
+###
+
+def get_locale(handler):
+    return "de" # for now
 
 ### 
 ### APP
@@ -123,7 +129,9 @@ class CamperApp(Application):
     }
 
     modules = [
-        babel_module(),
+        babel_module(
+            locale_selector_func = get_locale,
+        ),
         userbase.username_userbase(
             url_prefix                  = "/users",
             mongodb_name                = "camper",
@@ -144,8 +152,8 @@ class CamperApp(Application):
                 'registration_success'  : {'endpoint' : 'userbase.login'},
             },
             permissions                 = AttributeMapper({
-                'userbase:admin'    : "darf Benutzer bearbeiten",
-                'admin'             : "Hauptadministrator (darf alles!)",
+                'userbase:admin'    : T("can manage users"),
+                'admin'             : T("main administrator"),
             })
         ),
         upload_module(),

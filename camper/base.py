@@ -167,7 +167,3 @@ class BaseHandler(starflyer.Handler):
         if self.page is not None:
             payload['page_slug'] = self.page.slug
         return payload
-
-    def get_locale(self):
-        """return the locale for this handler instance"""
-        return "de"
