@@ -1,7 +1,7 @@
 #encoding=utf8
 
 from starflyer import Handler, redirect
-from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin
+from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
 from camper.handlers.barcamp.base import BarcampView
 from wtforms import *
 
@@ -11,7 +11,8 @@ class View(BaseHandler):
     """render a page"""
 
     template = "pages/view.html"
-
+    
+    @ensure_page()
     def get(self, slug = None, page_slug = None):
         """render the view"""
         page = self.config.dbs.pages.by_slug(page_slug, barcamp = self.barcamp)
