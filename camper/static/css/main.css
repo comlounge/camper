@@ -5328,3 +5328,10 @@ label.error {
 #admin-menu {
   margin-top: 100px;
 }
+.logo-footer {
+  margin-top: 50px;
+  border-top: 1px solid #e0e0e0;
+}
+.logo-footer img {
+  margin-right: 30px;
+}
