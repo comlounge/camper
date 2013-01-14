@@ -15,3 +15,12 @@ class IndexView(BaseHandler):
         return self.render( barcamps = barcamps )
     post = get
 
+class Impressum(BaseHandler):
+    """show the impressum"""
+
+    template = "impressum.html"
+
+    def get(self):
+        """render the view"""
+        return self.render()
+

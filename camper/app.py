@@ -169,6 +169,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
         URL('/assets/<asset_id>', 'asset', handlers.barcamp.images.Asset),

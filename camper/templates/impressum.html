@@ -1,0 +1,49 @@
+{% extends "master.html" %}
+
+{% block content %}
+        <h2>Impressum</h2>
+        Camper ist ein Internetangebot von IJAB - Fachstelle für Internationale Jugendarbeit der Bundesrepublik Deutschland e.V. Verantwortlich im Sinne des § 5 TMG und §55 I und II RStV ist
+
+        <div class="row" style="margin-top: 20px;">
+            <div class="span4">
+                <a href="http://ijab.de">IJAB - Fachstelle für Internationale Jugendarbeit
+                der Bundesrepublik Deutschland e.V.</a><br>
+                Godesberger Allee 142-148<br>
+                D-53175 Bonn<br>
+                Tel.: +49 228 9506-0<br>
+                Fax: +49 228 9506-199<br>
+                E-Mail: <a href="mailto: info@ujab.de">info@ijab.de</a><br>
+            </div>
+            <div class="span8">
+                <p>
+                Vereinsregister (nach § 6 Nr. 1 TDG):<br>
+                Amtsgericht Bonn VR 3584<br>
+                </p>
+
+                <p>
+                Umsatzsteuer-Identifikationsnummer (nach § 27 Umsatzsteuergesetz)<br>
+                DE221645351<br>
+                </p>
+
+                <p>
+                Vertretungsberechtigt:<br>
+                Marie-Luise Dreber, Direktorin der Geschäftsstelle<br>
+                </p>
+            </div>
+        </div>
+
+    <div class="logo-footer row">
+        <div class="span8">
+            <h5>in Kooperation mit</h5>
+                <a target="sponsor" href="http://ijab.de"><img alt="IJAB" src="{{url_for('static', filename="img/ijab-web.gif")}}"></a>
+                <a target="sponsor" href="http://www.ijab.de/aktivitaeten/internationale-zusammenarbeit/epartizipation-youthpart/"><img alt="YouthPart" src="{{url_for('static', filename="img/youthpart2.jpg")}}"></a>
+        </div>
+        <div class="span4">
+            <h5>gefördert vom</h5>
+                <a target="sponsor" href="http://www.bmfsfj.de/"><img alt="Bundesministerium für Familie, Senioren, Frauen und Jugend" src="{{url_for('static', filename="img/bmfsfj.jpg")}}"></a>
+        </div>
+        
+    </div>
+
+{% endblock %}
+
