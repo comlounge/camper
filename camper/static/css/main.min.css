@@ -878,3 +878,6 @@ label.error{font-weight:bold;color:red;padding:2px 8px;margin-top:2px;}
 .upload-widget{display:block;overflow:auto;}
 #admin-menu{margin-top:100px;}
 .logo-footer{margin-top:50px;border-top:1px solid #e0e0e0;}.logo-footer img{margin-right:30px;}
+ul#blog-reports{margin:0;padding:0;}ul#blog-reports li{list-style:none;margin:0;padding:0;border-bottom:1px dashed #e0e0e0;padding-bottom:5px;margin-bottom:5px;}ul#blog-reports li .headline{display:block;font-weight:bold;}
+ul#blog-reports li .author{font-size:12px;}
+#blog-add-button-container{margin-top:30px;}

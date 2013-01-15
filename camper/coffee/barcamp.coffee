@@ -116,6 +116,33 @@ $(document).ready( () ->
             return
     )
 
+    $("#blog-add-button").click( () -> 
+        $("#blog-add-button-container").slideUp();
+        $("#blog-add-form").slideDown();
+    )
+    $("#blog-add-cancel-button").click( () -> 
+        $("#blog-add-form")[0].reset();
+        $("#blog-add-button-container").slideDown();
+        $("#blog-add-form").slideUp();
+        return false;
+    )
+    $(".blog-delete-button").click( () -> 
+        msg = $(this).data("msg")
+        idx = $(this).data("idx")
+        url = $("#blog-add-form").attr("action")
+        if confirm(msg)
+            $.ajax(
+                url: url
+                type: "POST"
+                data:
+                    method: "delete"
+                    idx: idx
+                success: () ->
+                    window.location.reload()
+            )
+        false
+    )
+
 )
 
 

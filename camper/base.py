@@ -6,10 +6,11 @@ import wtforms
 import userbase
 from xhtml2pdf import pisa
 import werkzeug.exceptions
+from sfext.babel import T
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant']
 
 class logged_in(object):
     """check if a valid user is present"""
@@ -48,6 +49,21 @@ class ensure_page(object):
 
 class is_admin(object):
     """ensure that the logged in user is a barcamp admin"""
+
+    def __call__(self, method):
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            if self.user is None:
+                self.flash(self._("you don't have the correct permissions to access this page."), category="error")
+                return redirect(self.url_for("index"))
+            if unicode(self.user._id) in self.barcamp.participants:
+                return method(self, *args, **kwargs)
+            self.flash(self._("You don't have the correct permissions to access this page."), category="error")
+            return redirect(self.url_for("index"))
+        return wrapper
+
+class is_participant(object):
+    """ensure that the logged in user is a barcamp participant"""
 
     def __call__(self, method):
         @functools.wraps(method)
@@ -134,6 +150,7 @@ class BaseHandler(starflyer.Handler):
         if self.user is None:
             return False
         return self.user.has_permission("admin")
+    
     @property
     def is_admin(self):
         """check if the given user is a barcamp admin"""
@@ -162,6 +179,7 @@ class BaseHandler(starflyer.Handler):
             is_admin = self.is_admin,
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
+            user_id = self.user_id,
             footer_pages = footer_pages
         )
         if self.barcamp is not None:

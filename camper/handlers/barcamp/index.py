@@ -41,10 +41,10 @@ class BarcampSubscribe(BaseHandler):
         view = BarcampView(self.barcamp, self)
         if not view.is_subscriber:
             self.barcamp.subscribe(self.user)
-            self.flash("Du wurdest als Interessent eingetragen")
+            self.flash(self._("You are now on the list of people interested in the barcamp"), category="success")
         else:
             self.barcamp.unsubscribe(self.user)
-            self.flash("Du wurdest als Interessent ausgetragen")
+            self.flash(self._("You have been removed from the list of people interested in this barcamp"), category="danger")
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
         
 class BarcampRegister(BaseHandler):
@@ -60,12 +60,12 @@ class BarcampRegister(BaseHandler):
         self.barcamp.subscribe(self.user)
 
         if len(event.participants) >= self.barcamp.size:
-            self.flash("Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die Warteliste gesetzt.", category="danger")
+            self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
             if uid not in event.waiting_list:
                 event.waiting_list.append(uid)
                 self.barcamp.put()
         else:
-            self.flash("Du wurdest erfolgreich auf die Teilnehmerliste gesetzt.")
+            self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
             if uid not in event.participants:
                 event.participants.append(uid)
                 self.barcamp.put()
@@ -87,7 +87,7 @@ class BarcampUnregister(BaseHandler):
             event.waiting_list = event.waiting_list[1:]
             event.participants.append(nuid)
         self.barcamp.put()
-        self.flash("Du wurdest von der Teilnehmerliste gestrichen.", category="danger")
+        self.flash(self._("You have been removed from the list of participants."), category="danger")
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
 
 class BarcampSponsors(BaseHandler):
@@ -114,6 +114,9 @@ class BarcampSponsors(BaseHandler):
     def delete(self, slug = None):
         """delete a sponsor again and give the index via idx param"""
         idx = int(self.request.form['idx']) # index in list
+        post = self.barcamp.blogposts[idx]
+        if self.user_id != post.user_id and not self.is_admin:
+            return {'status' : 'error', 'msg' : self._('User not allowed to delete this item')}
         del self.barcamp.sponsors[idx]
         self.barcamp.put()
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))

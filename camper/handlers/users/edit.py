@@ -16,6 +16,7 @@ TSHIRT_CHOICES = (
 
 class EditForm(BaseForm):
     """form for adding a barcamp"""
+    fullname      = TextField(u"Voller Name")
     bio           = TextAreaField(u"Über mich", description = u'Schreibe etwas über Dich',)
     organisation  = TextField(u"Organisation", [validators.Length(max=100)], description = "Deine Schule, Verein etc. (max. 100 Zeichen)")
     twitter       = TextField(u"Twitter-Name", [validators.Length(max=100)], description = "bitte nur Deinen Usernamen angeben")

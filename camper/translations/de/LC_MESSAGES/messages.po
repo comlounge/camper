@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-01-09 17:18+0100\n"
+"POT-Creation-Date: 2013-01-15 16:24+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,13 +17,76 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: base.py:22
+#: app.py:155
+msgid "can manage users"
+msgstr ""
+
+#: app.py:156
+msgid "main administrator"
+msgstr ""
+
+#: base.py:23
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
+
+#: base.py:57
+msgid "you don't have the correct permissions to access this page."
+msgstr ""
+
+#: base.py:61
+msgid "You don't have the correct permissions to access this page."
+msgstr ""
 
 #: handlers/forms.py:77
 msgid "Not a valid currency value"
 msgstr "kein gültiger Wert"
+
+#: handlers/barcamp/index.py:44
+msgid "You are now on the list of people interested in the barcamp"
+msgstr ""
+
+#: handlers/barcamp/index.py:47
+msgid "You have been removed from the list of people interested in this barcamp"
+msgstr ""
+
+#: handlers/barcamp/index.py:63
+msgid ""
+"Unfortunately list of participants is already full. You have been put "
+"onto the waiting list and will be informed should you move on to the list"
+" of participants."
+msgstr ""
+
+#: handlers/barcamp/index.py:68
+msgid "You are now on the list of participants for this barcamp."
+msgstr ""
+
+#: handlers/barcamp/index.py:90
+msgid "You have been removed from the list of participants."
+msgstr ""
+
+#: handlers/barcamp/index.py:119
+msgid "User not allowed to delete this item"
+msgstr ""
+
+#: handlers/barcamp/pads.py:10
+msgid "Post Title"
+msgstr ""
+
+#: handlers/barcamp/pads.py:11
+msgid "title of the blog post you are linking to"
+msgstr ""
+
+#: handlers/barcamp/pads.py:13
+msgid "Post URL"
+msgstr ""
+
+#: handlers/barcamp/pads.py:14
+msgid "URL of the blog post you want to link to"
+msgstr ""
+
+#: handlers/barcamp/pads.py:73
+msgid "Your blog post has been posted."
+msgstr ""
 
 #: templates/index.html:7
 msgid "Recent Barcamps"
@@ -44,6 +107,34 @@ msgstr "neues Barcamp anlegen"
 #: templates/macros.html:70
 msgid "Diese Feld muss angegeben werden"
 msgstr ""
+
+#: templates/barcamp/docs.html:10
+msgid "Blog Posts about the camp"
+msgstr "Blog-Artikel"
+
+#: templates/barcamp/docs.html:15
+msgid "Are you sure?"
+msgstr ""
+
+#: templates/barcamp/docs.html:26 templates/barcamp/docs.html:29
+msgid "Add new blog post"
+msgstr "Neuen Blogpost hinzufügen"
+
+#: templates/barcamp/docs.html:33
+msgid "Cancel"
+msgstr ""
+
+#: templates/barcamp/docs.html:34
+msgid "Save"
+msgstr "Speichern"
+
+#: templates/barcamp/pad.html:7
+msgid "This planning pad is public."
+msgstr "Das Planungs-Pad ist öffentlich"
+
+#: templates/barcamp/pad.html:12
+msgid "This planning pad is private."
+msgstr "Das Planungs-Pad ist NICHT öffentlich"
 
 #: templates/userbase/login.html:16
 msgid "Echte Camper loggen sich ein"

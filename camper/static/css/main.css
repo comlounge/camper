@@ -5335,3 +5335,25 @@ label.error {
 .logo-footer img {
   margin-right: 30px;
 }
+ul#blog-reports {
+  margin: 0;
+  padding: 0;
+}
+ul#blog-reports li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px dashed #e0e0e0;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+ul#blog-reports li .headline {
+  display: block;
+  font-weight: bold;
+}
+ul#blog-reports li .author {
+  font-size: 12px;
+}
+#blog-add-button-container {
+  margin-top: 30px;
+}

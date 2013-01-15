@@ -106,7 +106,7 @@ $(document).ready(function() {
     });
     return false;
   });
-  return $(".asset-delete").click(function() {
+  $(".asset-delete").click(function() {
     var confirm_message, idx, url;
     confirm_message = $(this).data("confirm");
     url = $(this).data("url");
@@ -126,5 +126,35 @@ $(document).ready(function() {
     } else {
 
     }
+  });
+  $("#blog-add-button").click(function() {
+    $("#blog-add-button-container").slideUp();
+    return $("#blog-add-form").slideDown();
+  });
+  $("#blog-add-cancel-button").click(function() {
+    $("#blog-add-form")[0].reset();
+    $("#blog-add-button-container").slideDown();
+    $("#blog-add-form").slideUp();
+    return false;
+  });
+  return $(".blog-delete-button").click(function() {
+    var idx, msg, url;
+    msg = $(this).data("msg");
+    idx = $(this).data("idx");
+    url = $("#blog-add-form").attr("action");
+    if (confirm(msg)) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          method: "delete",
+          idx: idx
+        },
+        success: function() {
+          return window.location.reload();
+        }
+      });
+    }
+    return false;
   });
 });

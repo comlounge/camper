@@ -15,6 +15,12 @@ class Sponsor(Schema):
     name = String(required=True)
     url = String(required=True)
 
+class BlogLinkSchema(Schema):
+    """a link to a blog for documentation"""
+    title = String(required = True)
+    url = String(required = True)
+    user_id = String(required = True)
+
 class EventSchema(Schema):
     """a sub schema describing one event"""
     name                = String(required=True)
@@ -54,6 +60,7 @@ class BarcampSchema(Schema):
     planning_pad        = String() # ID of the planning etherpad
     documentation_pad   = String() # ID of the pad for documentation
     planning_pad_public = Boolean(default = False)
+    blogposts           = List(BlogLinkSchema())
 
     # user related
     admins              = List(String()) # TODO: ref

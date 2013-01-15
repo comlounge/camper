@@ -6,6 +6,7 @@
         <h1>Profil bearbeiten</h1>
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
+        {{ formmacros.form_field(form.fullname, class="required span8") }}
         {{ formmacros.form_field(form.bio, rows=4, class="span8") }}
         {{ formmacros.form_field(form.organisation, class="span8", maxlength=100) }}
         {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span3", maxlength=100, placeholder="mrtopf") }}
