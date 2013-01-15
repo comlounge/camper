@@ -143,6 +143,8 @@ $(document).ready( () ->
         false
     )
 
+    $("#location-picker").colorbox({inline:true, width:642});
+
 )
 
 

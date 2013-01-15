@@ -137,7 +137,7 @@ $(document).ready(function() {
     $("#blog-add-form").slideUp();
     return false;
   });
-  return $(".blog-delete-button").click(function() {
+  $(".blog-delete-button").click(function() {
     var idx, msg, url;
     msg = $(this).data("msg");
     idx = $(this).data("idx");
@@ -156,5 +156,9 @@ $(document).ready(function() {
       });
     }
     return false;
+  });
+  return $("#location-picker").colorbox({
+    inline: true,
+    width: 642
   });
 });

@@ -5357,3 +5357,6 @@ ul#blog-reports li .author {
 #blog-add-button-container {
   margin-top: 30px;
 }
+.olTileImage {
+  max-width: inherit;
+}
