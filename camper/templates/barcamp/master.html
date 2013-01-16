@@ -88,6 +88,17 @@
             </div>
             <div class="span3">
                 <div class="widget well">
+                    <h4>{{_('location')}}</h4>
+                    <a href="{{url_for('barcamp_location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
+                    {{barcamp.location.street}}<br>
+                    {{barcamp.location.zip}} {{barcamp.location.city}}<br>
+                    {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
+                    {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
+                    {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
+                    <hr>
+                    <a class="btn btn-mini" href="{{url_for('barcamp_location', slug=slug)}}">{{_('Show on map')}}</a>
+                </div>
+                <div class="widget well">
                     <a href="#">Interessenten: {{barcamp.subscribers|length}}</a><br>
                     <a href="#">Teilnehmer: {{barcamp.event.participants|length}}</a><br>
                     <a href="#">Warteliste: {{barcamp.event.waiting_list|length}}</a><br>

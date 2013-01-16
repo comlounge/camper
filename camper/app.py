@@ -190,6 +190,7 @@ class CamperApp(Application):
         URL('/<slug>/assets', 'asset_upload', handlers.barcamp.images.AssetUpload),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
+        URL('/<slug>/location', 'barcamp_location', handlers.barcamp.location.LocationView),
         URL('/<slug>/subscribe', 'barcamp_subscribe', handlers.barcamp.index.BarcampSubscribe),
         URL('/<slug>/register', 'barcamp_register', handlers.barcamp.index.BarcampRegister),
         URL('/<slug>/unregister', 'barcamp_unregister', handlers.barcamp.index.BarcampUnregister),

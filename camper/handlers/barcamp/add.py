@@ -30,7 +30,15 @@ class BarcampAddForm(BaseForm):
     gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     facebook            = TextField(u"Facebook Page-ID", [validators.Length(max=100)], description="ID der Seite")
-    location            = TextField(u"Ort", [validators.Required()], description = u'Gib hier den Hauptveranstaltungsort an.',)
+
+    location_name                = TextField(T("name of location"), [validators.Required()], description = T('please enter the name of the venue here'),)
+    location_street              = TextField(T("street and number "), [validators.Required()], description = T('street and number of the venue'),)
+    location_city                = TextField(T("city"), [validators.Required()])
+    location_zip                 = TextField(T("zip"), [validators.Required()])
+    location_url                 = TextField(T("homepage"), [], description=T('web site of the venue (optional)'))
+    location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
+    location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
+    location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
 
 class AddView(BaseHandler):
     """an index handler"""
@@ -47,7 +55,15 @@ class AddView(BaseHandler):
             f['created_by'] = self.user._id
             f['subscribers'] = [self.user._id]
             f['location'] = {
-                'name' : f['location'],
+                'name'      : f['location_name'],
+                'street'    : f['location_street'],
+                'city'      : f['location_city'],
+                'zip'       : f['location_zip'],
+                'email'     : f['location_email'],
+                'phone'     : f['location_phone'],
+                'url'       : f['location_url'],
+                'description' : f['location_description'],
+                'country'   : 'de',
             }
 
             pid = unicode(uuid.uuid4())[:8]
@@ -56,8 +72,6 @@ class AddView(BaseHandler):
             self.config.etherpad.createPad(padID=pid, text=u"Planung")
             self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
             f['documentation_pad'] = did
-            print pid
-            print did
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
             barcamp = self.config.dbs.barcamps.put(barcamp)
 

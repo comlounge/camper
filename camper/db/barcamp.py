@@ -6,6 +6,15 @@ __all__=["Barcamp", "BarcampSchema", "Barcamps"]
 class Location(Schema):
     """a location described by name, lat and long"""
     name = String()
+    street = String()
+    city = String()
+    zip = String()
+    country = String()
+    url = String()
+    phone = String()
+    email = String()
+    description = String()
+
     lat = Float()
     lng = Float()
 

@@ -32,6 +32,7 @@ setup(name='camper',
         "xhtml2pdf",
         "sf-babel",
         "etherpad_lite",
+        "requests",
       ],
       entry_points="""
       [paste.app_factory]

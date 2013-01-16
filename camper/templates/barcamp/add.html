@@ -123,22 +123,41 @@
         <h1>Neues Barcamp anlegen</h1>
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
-        {{ formmacros.form_field(form.name, class="required span8", placeholder="Barcamp-Name") }}
-        {{ formmacros.form_field(form.description, class="required span8", rows=10) }}
-        {{ formmacros.form_field(form.slug, class="required span8") }}
-        {{ formmacros.form_field(form.location, class="required span8", placeholder="z.B. Hamburg") }}
-        <a href="#location-form" id="location-picker">Ort aussuchen</a>
-        {{ formmacros.form_field(form.start_date, class="required span4 datepicker") }}
-        {{ formmacros.form_field(form.end_date, class="required span4 datepicker") }}
-        {{ formmacros.form_field(form.size, class="required span2 number") }}
-        {{ formmacros.form_field(form.twitterwall, class="span4 url") }}
-        {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span2") }}
-        {{ formmacros.form_field(form.hashtag, class="span4") }}
-        {{ formmacros.form_field(form.facebook, class="required span4 number") }}
-        {{ formmacros.form_field(form.homepage, class="span4 url") }}
-        {{ formmacros.form_field(form.gplus, class="span4 url") }}
+        <fieldset>
+            <legend>{{_("Base data")}}</legend>
+            {{ formmacros.form_field(form.name, class="required span8", placeholder="Barcamp-Name") }}
+            {{ formmacros.form_field(form.description, class="required span8", rows=10) }}
+            {{ formmacros.form_field(form.slug, class="required span8") }}
+            {{ formmacros.form_field(form.size, class="required span2 number") }}
+            {{ formmacros.form_field(form.homepage, class="span4 url") }}
+        </fieldset>
+        <fieldset>
+            <legend>{{_("Dates")}}</legend>
+            {{ formmacros.form_field(form.start_date, class="required span4 datepicker") }}
+            {{ formmacros.form_field(form.end_date, class="required span4 datepicker") }}
+        </fieldset>
+        <fieldset>
+            <legend>{{_("Address")}}</legend>
+            {{ formmacros.form_field(form.location_name, class="required span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_street, class="required span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_city, class="required span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_zip, class="required span2", placeholder="") }}
+            {{ formmacros.form_field(form.location_email, class="email span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_phone, class="span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_url, class="url span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_description, rows="3", class="span8", placeholder="") }}
+        </fieldset>
+        <fieldset>
+            <legend>{{_("Social Media")}}</legend>
+            {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span2") }}
+            {{ formmacros.form_field(form.hashtag, class="span4") }}
+            {{ formmacros.form_field(form.twitterwall, class="span4 url") }}
+            {{ formmacros.form_field(form.facebook, class="required span4 number") }}
+            {{ formmacros.form_field(form.gplus, class="span4 url") }}
+        </fieldset>
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="Barcamp anlegen">
         {% endblock %}
+        <a href="#location-form" id="location-picker">Ort aussuchen</a>
     </form>
 {% endblock %}
