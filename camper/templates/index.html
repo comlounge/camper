@@ -4,6 +4,14 @@
     <h1 id="logo">Camper</h1>
     <div class="row">
         <div class="span8">
+            <div class="alert alert-info">
+            <h1>Achtung!</h1>
+            <p>
+            Dies ist eine Beta-Version, deren Inhalte nicht erhalten bleiben. Man kann das Tool hier testen, die endgültige
+            Fassung ist es aber noch nicht und diese wird unter anderer Domain und mit leerer Datenbank starten. 
+            </p>
+            Also legt keine Barcamps an, die ihr dann bewerbt, denn diese werden bald wieder gelöscht werden. 
+            </div>
             <h2>{{_("Recent Barcamps")}}</h2>
             <ul>
                 {% for view in barcamps %}
@@ -20,7 +28,9 @@
                     {% endif %}
                 {% endfor %}
             </ul>
-            <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> {{_('create new barcamp')}}</a>
+            {% if logged_in %}
+                <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> {{_('create new barcamp')}}</a>
+            {% endif %}
         </div>
         <div class="span4">
         </div>
