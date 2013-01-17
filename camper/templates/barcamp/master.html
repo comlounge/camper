@@ -1,5 +1,21 @@
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
+{% block head %}
+    <meta property="og:title" content="{{barcamp.name|striptags}}" />
+    <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{url_for("barcamp", slug = slug, _full=True)}}" />
+    <meta property="og:image" content="http://" />
+    <meta property="og:description" content="{{barcamp.description}}" />
+    {% if barcamp.fbAdminId %}
+    <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
+    {% endif %}
+
+    <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamp", slug = slug)}}" />
+    <link rel="canonical" href="{{url_for("barcamp", slug = slug, _full=True)}}" />
+    <meta name="description" content="{{barcamp.description|striptags}}" />
+    
+{% endblock %}
 
 {% block content %}
     <div id="barcamp">
@@ -102,6 +118,24 @@
                     <a href="#">Interessenten: {{barcamp.subscribers|length}}</a><br>
                     <a href="#">Teilnehmer: {{barcamp.event.participants|length}}</a><br>
                     <a href="#">Warteliste: {{barcamp.event.waiting_list|length}}</a><br>
+                </div>
+                <div class="widget well socialbuttons">
+                    <div class="fb-button">
+                        <div class="fb-like" data-href="{{url_for("barcamp", slug = slug)}}" 
+                            data-send="false" 
+                            data-layout="box_count" 
+                            data-width="60" 
+                            data-show-faces="false"></div>
+                    </div>
+                    <div class="twitter-button">
+                        <a href="https://twitter.com/share" 
+                           class="twitter-share-button" 
+                           data-url="{{_('Join us at')}} {{url_for("barcamp", slug = slug)}}" 
+                           data-text="{{barcamp.title|striptags}}" 
+                           data-via="{{barcamp.twitter}}" 
+                           data-count="vertical"
+                           data-hashtags="{{barcamp.hashtag}}">Tweet</a>
+                    </div>
                 </div>
 
                 <div class="widget">

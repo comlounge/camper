@@ -30,6 +30,8 @@
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
         </style>
+        {% block head %}
+        {% endblock %}
     
     </head>
 
@@ -156,6 +158,17 @@
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
         <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+                
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                
         {# 
         <script src="/static/js/bootstrap-alert.js"></script>
         <script src="/static/js/bootstrap-scrollspy.js"></script>

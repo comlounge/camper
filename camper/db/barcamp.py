@@ -63,7 +63,8 @@ class BarcampSchema(Schema):
     gplus               = String() 
     homepage            = String() # URL
     twitterwall         = String() # URL
-    facebook            = String() # ID of the page for the like button
+    fbAppId             = String() # optional appId
+    fbAdminId           = String() # optional admin id for facebook use
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad

@@ -5360,3 +5360,13 @@ ul#blog-reports li .author {
 .olTileImage {
   max-width: inherit;
 }
+.socialbuttons {
+  overflow: auto;
+}
+.tweet-button,
+.fb-button {
+  float: left;
+  display: block;
+  margin-right: 10px;
+  width: 50px;
+}

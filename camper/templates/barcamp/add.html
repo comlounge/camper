@@ -1,126 +1,9 @@
 {% extends "master.html" %}
-{% block js %}
-<script type="text/javascript">
-    $(document).ready(function(){
-        $( ".datepicker" ).datepicker();                                                                                   
-        var proj4326 = new OpenLayers.Projection("EPSG:4326");
-        var projmerc = new OpenLayers.Projection("EPSG:900913");
-
-        var mapCenterPositionAsLonLat = new OpenLayers.LonLat(8.80755, 53.07621);
-        var mapCenterPositionAsMercator = mapCenterPositionAsLonLat.transform(proj4326, projmerc);
-        var mapZoom = 15;
-
-        map = new OpenLayers.Map("locationPickerMap", {
-           controls: [
-              new OpenLayers.Control.KeyboardDefaults(),
-              new OpenLayers.Control.Navigation(),
-              new OpenLayers.Control.PanZoomBar(),
-              new OpenLayers.Control.MousePosition()
-            ],
-            maxExtent:
-              new OpenLayers.Bounds(-20037508.34,-20037508.34,
-                           20037508.34, 20037508.34),
-            numZoomLevels: 18,
-            maxResolution: 156543,
-            units: 'm',
-            projection: projmerc,
-            displayProjection: proj4326
-        } );
-
-        var osmLayer = new OpenLayers.Layer.OSM("OpenStreetMap");
-        map.addLayer(osmLayer);
-        map.setCenter(mapCenterPositionAsMercator, mapZoom);
-        
-
-        // location picker
-        var locationPickerLayer = new OpenLayers.Layer.Vector("LocationPicker Marker");
-        map.addLayer(locationPickerLayer);
-        var locationPickerPoint = new OpenLayers.Geometry.Point(mapCenterPositionAsMercator.lon, mapCenterPositionAsMercator.lat);
-        var locationPickerMarkerStyle = {externalGraphic: '{{url_for('static', filename='img/poi.png')}}', graphicHeight: 37, graphicWidth: 32, graphicYOffset: -37, graphicXOffset: -16 };
-        var locationPickerVector = new OpenLayers.Feature.Vector(locationPickerPoint, null, locationPickerMarkerStyle);
-        locationPickerLayer.addFeatures(locationPickerVector);
-
-        var dragFeature = new OpenLayers.Control.DragFeature(locationPickerLayer,
-        {
-          onComplete:  function( feature, pixel ) {
-            var selectedPositionAsMercator = new OpenLayers.LonLat(locationPickerPoint.x, locationPickerPoint.y);
-            var selectedPositionAsLonLat = selectedPositionAsMercator.transform(projmerc, proj4326);
-
-            document.getElementById("poiLatitude").value = selectedPositionAsLonLat.lat;
-            document.getElementById("poiLongitude").value = selectedPositionAsLonLat.lon;
-          }
-        });
-        map.addControl(dragFeature);
-        dragFeature.activate();
-
-        $("#map-search").submit( function() {
-            var locstr = $("#map-location").val();
-            $.ajax({
-                url: 'http://nominatim.openstreetmap.org/search?q='+locstr+'&format=json&polygon=0&addressdetails=1',
-                success: function(data) {
-                    if (data.length>0) {
-                        var r = data[0];
-                        console.log(r);
-                        var mapCenterPositionAsLonLat = new OpenLayers.LonLat(r.lon, r.lat);
-                        var mapCenterPositionAsMercator = mapCenterPositionAsLonLat.transform(proj4326, projmerc);
-                        map.setCenter(mapCenterPositionAsMercator, 15);
-                        locationPickerVector.move(mapCenterPositionAsLonLat);
-                    }
-                }
-            })
-            return false;
-        });
-                
-    });
-    
-</script>
-{% endblock %}
 
 {% import "macros.html" as formmacros with context %}
 {% block content %}
-    <div class="hide">
-        <div id="location-form">
-            <div id="locationPickerMap" style="width:600px; height:400px;"></div>
-
-            <div class="well">
-
-            Bitte gebe die Adresse des Veranstaltungsortes unten ein und verschiebe danach
-            evtl. den Marker auf der Karte noch an die richtige Stelle. 
-            <form class="form-search" id="map-search">
-                <div class="control-group" style="margin-top: 10px;">
-                    <input id="map-location" type="text" name="name" class="span4 search-query">
-                    <button type="submit" class="btn">{{_('Show on map')}}</button>
-                </div>
-            </form>
-            </div>
-            
-            <form action="poi" class="hide well form-horizontal" method="post">
-                <table>
-                   <tr>
-                     <td><b>Name: </b></td>
-                     <td><input id="poiName" name="poiName" type="text" size="50" value="Die Bremer Stadtmusikanten"/></td>
-                   </tr>
-                   <tr>
-                     <td><b>Adresse: </b></td>
-                     <td> <input id="poiAddress" name="poiAddress" type="text" size="50" value="Schoppensteel 1, 28195 Bremen, Germany"/></td>
-                   </tr>
-                   <tr>
-                     <td><b>Longitude: </b></td>
-                     <td><input id="poiLongitude" name="poiLongitude" type="text" size="50" value="8.80755"/></td>
-                   </tr>
-                   <tr>
-                     <td><b>Latitude: </b></td>
-                     <td><input id="poiLatitude" name="poiLatitude" type="text" size="50" value="53.07621"/></td>
-                   </tr>
-                   <tr>
-                     <td><input type="submit" class="btn btn-primary" value="Abschicken" /></td>
-                   </tr>
-                </table>
-            </form>
-        </div>
-    </div>
     {% block title %}
-        <h1>Neues Barcamp anlegen</h1>
+        <h1>{{_('Create a new Barcamp')}}</h1>
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
         <fieldset>
@@ -152,12 +35,12 @@
             {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span2") }}
             {{ formmacros.form_field(form.hashtag, class="span4") }}
             {{ formmacros.form_field(form.twitterwall, class="span4 url") }}
-            {{ formmacros.form_field(form.facebook, class="required span4 number") }}
+            {{ formmacros.form_field(form.fbAppId, class="span4 number") }}
+            {{ formmacros.form_field(form.fbAdminId, class="span4 number") }}
             {{ formmacros.form_field(form.gplus, class="span4 url") }}
         </fieldset>
         {% block action %}
-            <input type="submit" class="btn btn-large btn-primary" value="Barcamp anlegen">
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">
         {% endblock %}
-        <a href="#location-form" id="location-picker">Ort aussuchen</a>
     </form>
 {% endblock %}

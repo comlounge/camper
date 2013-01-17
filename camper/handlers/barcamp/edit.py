@@ -28,7 +28,8 @@ class BarcampEditForm(BaseForm):
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
     gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
-    facebook            = TextField(u"Facebook Page-ID", [validators.Length(max=100)], description="ID der Seite")
+    fbAppId             = TextField(u"Facebook appId", [validators.Length(max=100)], description="optionale Application ID")
+    fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
 
     location_name                = TextField(T("name of location"), [validators.Required()], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [validators.Required()], description = T('street and number of the venue'),)

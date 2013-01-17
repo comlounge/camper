@@ -220,4 +220,26 @@ class BaseHandler(starflyer.Handler):
         return s.get_data()
 
 
+    def render_lang(self, env, tmpl, **kwargs):
+        """generic renderer for rendering a language prefixed template from the given environment"""
+        params = starflyer.AttributeMapper(self.default_render_context)
+        for module in self.app.modules:
+            params.update(module.get_render_context(self))
+        params.update(self.app.get_render_context(self))
+        params.update(self.render_context)
+        params.update(kwargs)
+        tmpl = self.jinja_env.get_template("%s/%s" %(self.client.country, tmpl), globals = self.template_globals)
+        return tmpl.render(**params)
+
+    def render_email(self, tmpl, **kwargs):
+        """render a language based email template"""
+        return self.render_lang(self.config.email_templates, tmpl, **kwargs)
+
+    def mail_text(self, template_name, subject, send_to, **kwargs):
+        """render and send out a mail as mormal text"""
+        payload = self.render_email(template_name, **kwargs)
+        mailer = self.app.module_map['mail']
+        mailer.mail(send_to, subject, payload)                                                                                                                                           
+
+
 
