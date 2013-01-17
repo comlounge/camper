@@ -38,6 +38,14 @@ $(document).ready(function() {
     $("#proposal-form-container").hide();
     return false;
   });
+  $(".session-edit-button").click(function() {
+    $(this).closest(".show-box").hide();
+    return $(this).closest(".show-box").parent().find(".edit-box").show();
+  });
+  $(".session-cancel-button").click(function() {
+    $(this).closest(".edit-box").hide();
+    return $(this).closest(".edit-box").parent().find(".show-box").show();
+  });
   return $(".session-delete-button").click(function() {
     var confirm_msg, that, url;
     confirm_msg = $(this).data("confirm");

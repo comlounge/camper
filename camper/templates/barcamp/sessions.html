@@ -20,13 +20,16 @@
                         <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"></a>
                     </div>
                 </div>
-                <div class="media-body">
+                <div class="media-body show-box">
                     <h4 class="media-heading">{{session.title|striptags}}</h4>
                     {% if is_admin or user_id == session.user._id %}
                         <a data-confirm="{{_('Are you sure?')}}" 
                            data-url="{{url_for('barcamp_session', slug=slug, sid = session._id)}}" 
                            href="#" 
                            class="session-delete-button btn btn-mini btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                        <a data-url="{{url_for('barcamp_session', slug=slug, sid = session._id)}}" 
+                           href="#" 
+                           class="session-edit-button btn btn-mini pull-right"><i class="icon-pencil"></i></a>
                     {% endif %}
                     <div class="description">
                         {{session.description|md(level=3)}}
@@ -48,6 +51,16 @@
                     </div>
                     #}
                 </div>
+                {% if is_admin or user_id == session.user._id %}
+                <form class="media-body hide edit-box form-vertical well form-validate" method="POST" action="{{url_for('barcamp_session', slug = slug, sid = session._id)}}">
+                    <input type="text" class="required media-heading span6 input-big" value="{{session.title}}" name="title">
+                    <textarea name="description" class="span6" rows="3">{{session.description}}</textarea>
+                    <div class="">
+                        <input type="submit" class="btn btn-small btn-primary" value="{{_('Save')}}">
+                        <a href="#" class="session-cancel-button btn btn-small">{{_('Cancel')}}</a>
+                    </div>
+                </form>
+                {% endif %}
             </article>
     {% endfor %}
     </section>
@@ -72,5 +85,6 @@
     {% endif %}
 
 {% endblock %} {% block js %}
-<script src="{{url_for("static", filename="js/sessions.js")}}" type="text/javascript"></script>
+    <script src="{{url_for("static", filename="js/sessions.js")}}" type="text/javascript"></script>
+    <script src="{{url_for("static", filename="js/forms.js")}}" type="text/javascript"></script>
 {% endblock %}

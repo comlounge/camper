@@ -7,10 +7,25 @@ import userbase
 from xhtml2pdf import pisa
 import werkzeug.exceptions
 from sfext.babel import T
+from HTMLParser import HTMLParser
 
 from wtforms.ext.i18n.form import Form
 
 __all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant']
+
+
+class MLStripper(HTMLParser):
+    """html parser for stripping all tags from a string"""
+
+    def __init__(self):
+        self.reset()
+        self.fed = []
+
+    def handle_data(self, d):
+        self.fed.append(d)
+
+    def get_data(self):
+        return ''.join(self.fed)
 
 class logged_in(object):
     """check if a valid user is present"""
@@ -197,6 +212,12 @@ class BaseHandler(starflyer.Handler):
         # TODO: maybe create a remember decorator which remember the last page in the session which is safe to redirect to.
         # the forbidden handler should delete it though
         return redirect(self.url_for("index"))
+
+    def strip_tags(self, html):
+        """strip all html tags from the html string"""
+        s = MLStripper()
+        s.feed(html)
+        return s.get_data()
 
 
 

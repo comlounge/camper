@@ -6,6 +6,7 @@ from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
 from index import BarcampView
+import datetime
 
 class SessionAddForm(BaseForm):
     title = TextField()
@@ -55,6 +56,20 @@ class Vote(BaseHandler):
 
 class SessionHandler(BaseHandler):
     """delete a session"""
+
+    @ensure_barcamp()
+    @logged_in()
+    def post(self, slug = None, sid = None):
+        """vote for a session proposal"""
+        sid = bson.ObjectId(sid)
+        session = self.config.dbs.sessions.get(sid)
+        if not self.is_admin and not self.user_id == str(session.user._id):
+            return {'status' : 'forbidden'}
+        session.title = self.request.form['title']
+        session.description = self.request.form['description']
+        session.updated = datetime.datetime.now()
+        session.save()
+        return redirect(self.url_for("barcamp_sessions", slug = slug))
 
     @ensure_barcamp()
     @logged_in()

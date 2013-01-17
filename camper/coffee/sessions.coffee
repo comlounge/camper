@@ -32,6 +32,15 @@ $(document).ready( () ->
         false
     )
 
+    $(".session-edit-button").click( () ->
+        $(this).closest(".show-box").hide();
+        $(this).closest(".show-box").parent().find(".edit-box").show();
+    )
+    $(".session-cancel-button").click( () ->
+        $(this).closest(".edit-box").hide();
+        $(this).closest(".edit-box").parent().find(".show-box").show();
+    )
+
     $(".session-delete-button").click( () ->
         confirm_msg = $(this).data("confirm")
         that = this
