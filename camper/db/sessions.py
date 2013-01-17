@@ -45,7 +45,7 @@ class SessionSchema(Schema):
     created             = DateTime()
     updated             = DateTime()
 
-    title = String(required = True)
+    title = String(required = True, on_serialize=[HTMLFilter()])
     description = String(on_serialize=[HTMLFilter()])
     user_id = String(required = True)
     barcamp_id = String(required = True)
