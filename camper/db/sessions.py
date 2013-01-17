@@ -1,7 +1,35 @@
 from mongogogo import *
 import datetime
+from HTMLParser import HTMLParser
+from mongogogo.schema import Filter
 
 __all__=["Session", "Sessions", "Comment", "Comments"]
+
+class MLStripper(HTMLParser):
+    """html parser for stripping all tags from a string"""
+
+    def __init__(self):
+        self.reset()
+        self.fed = []
+
+    def handle_data(self, d):
+        self.fed.append(d)
+
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    """strip all html tags from the html string"""
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+
+class HTMLFilter(Filter):
+    """schema filter to filter out html tags"""
+
+    def __call__(self, value, data, **kw):
+        return strip_tags(value)
+
 
 class CommentSchema(Schema):
     created             = DateTime()
@@ -18,7 +46,7 @@ class SessionSchema(Schema):
     updated             = DateTime()
 
     title = String(required = True)
-    description = String()
+    description = String(on_serialize=[HTMLFilter()])
     user_id = String(required = True)
     barcamp_id = String(required = True)
     vote_count = Integer()
