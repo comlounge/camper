@@ -33,9 +33,31 @@ $(document).ready(function() {
     $("#proposal-form-container").show();
     return false;
   });
-  return $("#proposal-cancel").click(function() {
+  $("#proposal-cancel").click(function() {
     $("#new-proposal-button").show();
     $("#proposal-form-container").hide();
+    return false;
+  });
+  return $(".session-delete-button").click(function() {
+    var confirm_msg, that, url;
+    confirm_msg = $(this).data("confirm");
+    that = this;
+    if (confirm(confirm_msg)) {
+      $(that).closest("article").css("background-color", "red").slideUp();
+      url = $(this).data("url");
+      $.ajax({
+        url: url,
+        data: {
+          method: "delete"
+        },
+        type: "POST",
+        success: function(data, status) {
+          if (data.status === "success") {
+            return $(that).closest("article").css("background-color", "red").slideUp();
+          }
+        }
+      });
+    }
     return false;
   });
 });

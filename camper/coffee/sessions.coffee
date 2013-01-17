@@ -31,6 +31,26 @@ $(document).ready( () ->
         $("#proposal-form-container").hide()
         false
     )
+
+    $(".session-delete-button").click( () ->
+        confirm_msg = $(this).data("confirm")
+        that = this
+        if confirm(confirm_msg) 
+            $(that).closest("article").css("background-color", "red").slideUp()
+            url = $(this).data("url")
+            $.ajax(
+                url: url
+                data:
+                    method: "delete"
+                type: "POST"
+                success: (data, status) ->
+                    if (data.status == "success")
+                        $(that).closest("article").css("background-color", "red").slideUp()
+            )
+        return false
+                
+
+    )
 )
 
 

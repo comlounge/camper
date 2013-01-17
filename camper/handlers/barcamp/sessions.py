@@ -53,5 +53,20 @@ class Vote(BaseHandler):
             count = session.vote(self.user._id)
         return {'status': 'ok', 'votes' : count, 'active' : session.has_voted(self.user._id)}
 
+class SessionHandler(BaseHandler):
+    """delete a session"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @asjson()
+    def delete(self, slug = None, sid = None):
+        """vote for a session proposal"""
+        sid = bson.ObjectId(sid)
+        session = self.config.dbs.sessions.get(sid)
+        if not self.is_admin and not self.user_id == str(session.user._id):
+            return {'status' : 'forbidden'}
+        session.remove()
+        return {'status': 'success'}
+
 
 

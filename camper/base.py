@@ -189,3 +189,14 @@ class BaseHandler(starflyer.Handler):
         if self.page is not None:
             payload['page_slug'] = self.page.slug
         return payload
+
+    def forbidden(self):
+        """call this if you want to show the user a message that a permission is missing and redirect to the homepage"""
+        self.flash(self._("You don't have the correct permissions to access this page."), category="error")
+        # TODO: maybe check barcamp and permissions for the barcamp homepage and redirect there instead
+        # TODO: maybe create a remember decorator which remember the last page in the session which is safe to redirect to.
+        # the forbidden handler should delete it though
+        return redirect(self.url_for("index"))
+
+
+

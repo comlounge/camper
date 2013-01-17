@@ -2,17 +2,13 @@
 
 {% block main_content %}
     <h1>
-        Sessionvorschläge
-    </h1>      
-
-
-    <h1>
         <div id="sort-buttons" class="pull-right">
             <span class="btn-group" data-toggle="buttons-radio">
               <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">Datum</a>
               <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">Bewertung</a>
             </span>
         </div>
+        Sessionvorschläge
     </h1>
     
     <section id="sessionproposals">
@@ -26,6 +22,12 @@
                 </div>
                 <div class="media-body">
                     <h4 class="media-heading">{{session.title|striptags}}</h4>
+                    {% if is_admin or user_id == session.user._id %}
+                        <a data-confirm="{{_('Are you sure?')}}" 
+                           data-url="{{url_for('barcamp_session', slug=slug, sid = session._id)}}" 
+                           href="#" 
+                           class="session-delete-button btn btn-mini btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                    {% endif %}
                     <div class="description">
                         {{session.description|md(level=3)}}
                     </div>
