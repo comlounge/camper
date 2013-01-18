@@ -7,4 +7,5 @@ import userlist
 import pads
 import permissions
 import location
+import registration
 from base import BarcampView

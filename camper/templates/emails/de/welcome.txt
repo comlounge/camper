@@ -1,0 +1,41 @@
+Hallo {{user.name}},
+
+{% if view.is_participant and not view.is_on_waiting_list %}
+wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.  
+
+Solltest Du wider Erwarten doch nicht teilnehmen können, würden wir uns 
+über eine Änderung des Teilnahmestatus freuen, damit wir unsere Planungen 
+darauf einstellen können und evtl. Personen von der Warteliste nachrücken
+können.
+{% elif view.is_on_waiting_list %}
+wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.
+
+Leider sind aber alle Plätze schon belegt und Du bist damit auf der
+Warteliste gelandet.  Sollten Teilnehmer abspringen oder wir mehr 
+Kapazitäten zur Verfügung gestellt bekommen, so rückst Du automatisch 
+nach und erhälst eine E-Mail darüber. Trotzdem empfehlen wir, dass Du 
+zur Sicherheit auf 
+
+{{url_for("barcamp", slug = barcamp.slug, _full=True)}}
+
+noch einmal selbst nachschaust, ob Du auf der Teilenhmerliste gelistet bist.
+
+{% endif %}
+
+Die Website des {{barcamp.name}} mit allen Informationen findest Du unter
+
+{{url_for("barcamp", slug = barcamp.slug, _full=True)}}
+
+{% if barcamp.twitter %}
+Weiterhin gibt es einen Twitter-Channel unter http://twitter.com/{{barcamp.twitter}}
+für die alleraktuellsten Informationen.
+{% endif %}
+
+Vielen Dank für Dein Interesse,
+
+Dein {{barcamp.name}}-Team!
+
+--
+{{url_for('barcamp', slug = barcamp.slug, _full=True)}}
+
+
