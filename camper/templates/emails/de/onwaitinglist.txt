@@ -1,4 +1,4 @@
-Hallo {{user.name}},
+Hallo {{user.fullname}},
 
 leider ist die Teilnehmerliste schon voll und Sie wurden auf die Warteliste gesetzt.
 

@@ -1,4 +1,4 @@
-Hallo {{user.name}},
+Hallo {{user.fullname}},
 
 {% if view.is_participant and not view.is_on_waiting_list %}
 wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.  

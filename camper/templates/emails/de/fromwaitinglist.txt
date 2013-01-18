@@ -1,4 +1,4 @@
-Hallo {{user.name}},
+Hallo {{user.fullname}},
 
 Sie sind soeben von der Warteliste auf die Teilnehmerliste nachgerückt und nehmen
 damit am {{barcamp.name}} am teil.
