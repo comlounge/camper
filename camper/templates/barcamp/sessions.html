@@ -21,6 +21,11 @@
                     </div>
                 </div>
                 <div class="media-body show-box">
+                    {% if session.user_image %}
+                        <div class="pull-left">
+                            <img class="profile-image" src="{{session.user_image}}">
+                        </div>
+                    {% endif %}
                     <h4 class="media-heading">{{session.title|striptags}}</h4>
                     {% if is_admin or user_id == session.user._id %}
                         <a data-confirm="{{_('Are you sure?')}}" 

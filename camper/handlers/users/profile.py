@@ -19,8 +19,15 @@ class ProfileView(BaseHandler):
             is_logged_in_user = self.user._id == user._id
         if user is None:
             raise werkzeug.exceptions.NotFound()
+        asset_id = user.image
+        if asset_id is not None:
+            asset = self.app.module_map.uploader.get(asset_id)
+            image = self.url_for("asset", asset_id = asset.variants['medium_user']._id)
+        else:
+            image = None
         return self.render(
             user = user, 
-            is_logged_in_user = is_logged_in_user
-            )
+            is_logged_in_user = is_logged_in_user,
+            image = image
+        )
 

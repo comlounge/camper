@@ -5370,3 +5370,7 @@ ul#blog-reports li .author {
   margin-right: 10px;
   width: 50px;
 }
+.profile-image {
+  border: 1px solid #ccc;
+  padding: 1px;
+}

@@ -7,13 +7,17 @@
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
         {{ formmacros.form_field(form.fullname, class="required span8") }}
+        {{ formmacros.form_field(form.image, class="span5", label="Hochladen", url=url_for("asset_upload"))}}
         {{ formmacros.form_field(form.bio, rows=4, class="span8") }}
         {{ formmacros.form_field(form.organisation, class="span8", maxlength=100) }}
-        {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span3", maxlength=100, placeholder="mrtopf") }}
+        {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span3", maxlength=100, placeholder="") }}
         {{ formmacros.form_field(form.facebook, class="span8", maxlength=255, placeholder="https://facebook.com/...") }}
         {{ formmacros.form_field(form.tshirt) }}
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="Profil aktualisieren">
         {% endblock %}
     </form>
+{% endblock %}
+{% block js %}
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
 {% endblock %}

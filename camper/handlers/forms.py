@@ -125,9 +125,10 @@ class UploadWidget(object):
     """
 
     tmpl = """
-        <div class="upload-widget" data-url="%(url)s" data-postproc="%(postproc)s">
+        <div class="upload-widget" data-id="%(name)s" data-url="%(url)s" data-postproc="%(postproc)s">
             %(hidden)s
             <div class="preview-area hide">
+                <img width="100" height="100" style="border: 1px solid #ccc; margin: 3px; padding: 2px;" src="">
             </div>
             <div class="upload-area show">
                 <button class="uploadbutton btn btn-primary pull-left">%(label)s</button>
@@ -155,7 +156,6 @@ class UploadWidget(object):
             'value-id' : '',
             'name' : field.name,
             'postproc' : kwargs.get("postproc",""),
-            'name' : field.name,
             'hidden' : hidden,
         }
         return self.tmpl %payload
@@ -167,9 +167,16 @@ class UploadField(FormField):
     widget = UploadWidget()
 
     def __init__(self, label=None, validators=None, separator='-', url=u'', **kwargs):
+
         class UploadForm(Form):
             """the hidden fields"""
             id = HiddenField()
+
+            @property
+            def data(self):
+                """just return the value of the id field as the form data of this form instead of the full dict"""
+                return self['id'].data
+
         super(UploadField, self).__init__(UploadForm, label, validators, separator, **kwargs)
         self.url = url
 

@@ -69,6 +69,16 @@ class Session(Record):
         """return the user corresponding to the userid"""
         return self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
 
+    @property
+    def user_image(self):
+        """return the user corresponding to the userid"""
+        u = self.user
+        uf = self._collection.md.app.url_for
+        if u.image is not None:
+            return uf("asset", asset_id = self._collection.md.app.module_map.uploader.get(self.user.image).variants['thumb']._id)
+        else: 
+            return None
+
     def has_voted(self, user_id):
         """return True/False depending if user has voted for this session"""
         return user_id in self.voted_for

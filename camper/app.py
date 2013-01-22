@@ -5,7 +5,7 @@ import yaml
 import pkg_resources
 
 from starflyer import Application, URL, AttributeMapper
-from sfext.uploader import upload_module, Assets
+from sfext.uploader import upload_module, Assets, ImageSizeProcessor
 from sfext.babel import babel_module, T
 from sfext.mail import mail_module
 
@@ -156,7 +156,16 @@ class CamperApp(Application):
                 'admin'             : T("main administrator"),
             })
         ),
-        upload_module(),
+        upload_module(
+            processors = [
+                ImageSizeProcessor({
+                    'thumb' : "50x50!",
+                    'small' : "100x",
+                    'medium_user' : "296x",
+                    'large' : "1200x",
+                })
+            ],
+        ),
         mail_module(debug=True),
     ]
 
@@ -172,7 +181,8 @@ class CamperApp(Application):
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
-        URL('/assets/<asset_id>', 'asset', handlers.barcamp.images.Asset),
+        URL('/assets/', 'asset_upload', handlers.images.AssetUploadView),
+        URL('/assets/<asset_id>', 'asset', handlers.images.AssetView),
 
         # admin area 
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
@@ -182,12 +192,13 @@ class CamperApp(Application):
 
         # user stuff
         URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
+        URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 
         # barcamp stuff
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
-        URL('/<slug>/assets', 'asset_upload', handlers.barcamp.images.AssetUpload),
+        #URL('/<slug>/assets', 'asset_upload', handlers.barcamp.images.AssetUpload),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
         URL('/<slug>/location', 'barcamp_location', handlers.barcamp.location.LocationView),
