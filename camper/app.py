@@ -161,6 +161,8 @@ class CamperApp(Application):
                 ImageSizeProcessor({
                     'thumb' : "50x50!",
                     'small' : "100x",
+                    'logo_full' : "940x",
+
                     'medium_user' : "296x",
                     'large' : "1200x",
                 })

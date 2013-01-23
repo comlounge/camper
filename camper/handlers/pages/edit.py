@@ -2,6 +2,7 @@
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
+from ..barcamp.base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
 
@@ -19,7 +20,7 @@ class EditForm(BaseForm):
                 description = u'Der eigentlich Text-Inhalt der Seite. Bestimmtes Markup kann verwendet werden.',)
     image           = UploadField(u"Bild (optional)")
 
-class EditView(BaseHandler):
+class EditView(BarcampBaseHandler):
     """view for editing a page"""
 
     template = "pages/edit.html"
@@ -66,7 +67,7 @@ class EditView(BaseHandler):
 
 
 
-class LayoutView(BaseHandler):
+class LayoutView(BarcampBaseHandler):
     """change the layout of the page"""
 
     @logged_in()
@@ -80,7 +81,7 @@ class LayoutView(BaseHandler):
         return {"status" : "ok", "layout" : self.page.layout}
 
 
-class PartialEditView(BaseHandler):
+class PartialEditView(BarcampBaseHandler):
     """shows an inline form element for the field given and stores the result of the edit back via AJAX."""
 
     #template = "pages/partialform.html"

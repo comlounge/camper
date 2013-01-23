@@ -1,6 +1,7 @@
 #encoding=utf8
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in, is_admin, is_participant
+from .base import BarcampBaseHandler
 from wtforms import *
 from sfext.babel import T
 
@@ -14,7 +15,7 @@ class BlogAddForm(BaseForm):
     )
     
 
-class PlanningPadView(BaseHandler):
+class PlanningPadView(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
     template = "barcamp/pad.html"
@@ -33,7 +34,7 @@ class PlanningPadView(BaseHandler):
             title = self.barcamp.name,
             **self.barcamp)
 
-class DocumentationPadView(BaseHandler):
+class DocumentationPadView(BarcampBaseHandler):
     """shows documentation pad"""
 
     template = "barcamp/docs.html"
@@ -79,13 +80,16 @@ class DocumentationPadView(BaseHandler):
     @asjson()
     def delete(self, slug = None):
         idx = int(self.request.form['idx']) # index in list
+        post = self.barcamp.blogposts[idx]
+        if self.user_id != post.user_id and not self.is_admin:
+            return {'status' : 'error', 'msg' : self._('User not allowed to delete this item')}
         del self.barcamp.blogposts[idx]
         self.barcamp.put()
         return {'status' : 'success'}
 
 
 
-class PadPublicToggleView(BaseHandler): 
+class PadPublicToggleView(BarcampBaseHandler): 
     """handler for toggeling the public switch for the planning pad"""
 
     @ensure_barcamp()

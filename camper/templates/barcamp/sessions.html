@@ -89,7 +89,7 @@
         </div>
     {% endif %}
 
-{% endblock %} {% block js %}
+{% endblock %} 
+{% block js2 %}
     <script src="{{url_for("static", filename="js/sessions.js")}}" type="text/javascript"></script>
-    <script src="{{url_for("static", filename="js/forms.js")}}" type="text/javascript"></script>
 {% endblock %}

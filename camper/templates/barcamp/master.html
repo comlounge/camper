@@ -18,6 +18,58 @@
 {% endblock %}
 
 {% block content %}
+
+    {# ****************************** Logo Upload Modal **************************************** #}
+    <div class="modal logo-upload hide fade" id="logo-upload">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Logo hochladen</h3>
+        </div>
+        <div class="modal-body">
+            <form class="uploadform">
+            <div class="upload-widget" data-url="{{url_for('barcamp_logo_upload', slug = slug)}}">
+                <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
+                <br>
+                <div class="help" style="clear: both">
+                    Du kannst hier ein Logo hochladen, das maximal 940 Pixel breit sein sollte. Erlaubte Formate sind JPEG, GIF und PNG.
+                    Die maximal erlaubte Dateigröße beträgt 10MB. Beachte, dass das Bild nicht automatisch skaliert wird, ein richtig skaliertes
+                    Bild wird also das beste Ergebnis liefern.
+                </div>
+                <div class="progressbar">
+                    <div class="progress progress-striped active hide">
+                        <div class="bar" style="width: 0%%;"></div>
+                    </div>
+                </div>
+                <div class="filenamebox hide">
+                    File: <span class="upload-label-filename"></span>
+                </div>
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
+            <!--<a href="#" class="btn btn-primary">Save changes</a>-->
+        </div>
+    </div>
+
+    {# ****************************** Sponsor Modal **************************************** #}
+    <div class="modal sponsor-upload hide fade" id="sponsor-upload">
+        <form id="sponsor-form" class="horizontal-form" method="POST" action="{{url_for("barcamp_sponsors", slug=slug)}}">  
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Neuen Sponsor anlegen</h3>
+        </div>
+        <div class="modal-body">
+            {{ formmacros.form_field(sponsor_form.name, class="required span5")}}
+            {{ formmacros.form_field(sponsor_form.url, class="url required span5")}}
+            {{ formmacros.form_field(sponsor_form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
+            <input type="submit" class="btn btn-primary" value="Anlegen">
+        </div>
+        </form>
+    </div>
     <div id="barcamp">
     
         <div class="header action-container">
@@ -65,37 +117,20 @@
                     {% endif %}
 
                 </ul>
-                {% if is_admin %}
-                <ul class="pull-right nav info">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">Bearbeiten<strong class="caret"></strong></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
-                            <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
-                            <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
-                            <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Zugang und Berechtigungen</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {% endif %}
             </div>
         </div>
-        <div class="subline">{{start_date.strftime("%d.%m.%Y")}} - {{end_date.strftime("%d.%m.%Y")}}, {{location.name}}</div>
 
         {% block outer_content %}
         <div id="main-content" class="row">
             <div class="span9">
-
-                {% if is_admin %}
-                    <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
-                    {% if not barcamp.public %} 
-                        <input type="hidden" name="public" value="1">
-                        <div class="well">
-                            <button class="pull-right btn btn-small btn-success">Öffentlich machen</button>
-                            <b style="color: red">Dieses Barcamp ist im Moment nicht öffentlich einsehbar!</b>
-                        </div>
-                    {% endif %}
-                    </form>
+                {% if is_admin and not barcamp.public%}
+                <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
+                    <input type="hidden" name="public" value="1">
+                    <div class="well">
+                        <button class="pull-right btn btn-small btn-success">Öffentlich machen</button>
+                        <b style="color: red">Dieses Barcamp ist im Moment nicht öffentlich einsehbar!</b>
+                    </div>
+                </form>
                 {% endif %}
 
                 {% block main_content %}
@@ -103,7 +138,18 @@
 
             </div>
             <div class="span3">
-                <div class="widget well">
+                {% if is_admin %}
+                <div class="widget widget-admin">
+                    <h4>{{_('Administration')}}</h4>
+                    <ul class="nav nav-list">
+                        <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
+                        <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                        <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
+                        <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Zugang und Berechtigungen</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+                <div class="widget">
                     <h4>{{_('location')}}</h4>
                     <a href="{{url_for('barcamp_location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
                     {{barcamp.location.street}}<br>
@@ -114,12 +160,14 @@
                     <hr>
                     <a class="btn btn-mini" href="{{url_for('barcamp_location', slug=slug)}}">{{_('Show on map')}}</a>
                 </div>
-                <div class="widget well">
-                    <a href="#">Interessenten: {{barcamp.subscribers|length}}</a><br>
-                    <a href="#">Teilnehmer: {{barcamp.event.participants|length}}</a><br>
-                    <a href="#">Warteliste: {{barcamp.event.waiting_list|length}}</a><br>
+                <div class="widget">
+                    <h4>{{_('People')}}</h4>
+                    {{barcamp.subscribers|length}} {{_('subscribers')}} <br>
+                    {{barcamp.event.participants|length}} {{_('participants')}} <br>
+                    {{barcamp.event.waiting_list|length}} {{_('on waiting list')}} <br>
+                    <a class="btn btn-mini" href="{{url_for("barcamp_userlist", slug = slug)}}">{{_("view participants")}}</a>
                 </div>
-                <div class="widget well socialbuttons">
+                <div class="widget socialbuttons">
                     <div class="fb-button">
                         <div class="fb-like" data-href="{{url_for("barcamp", slug = slug)}}" 
                             data-send="false" 
@@ -180,6 +228,10 @@
     </div><!-- #barcamp -->
     <footer>
     </footer>
-    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+    {% block js %}
+        <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+        {% block bcjs %}
+        {% endblock %}
+    {% endblock %}
 {% endblock %}
 

@@ -36,7 +36,10 @@ $.fn.uploader = function(opts) {
         return $(widget).find(".preview-area").hide();
       },
       onComplete: function(id, filename, json) {
-        if (json.error) {
+        var field_id;
+        console.log("opa");
+        console.log(json);
+        if (json.status === "error") {
           file_completed = false;
           myfilename = null;
           alert(json.msg);
@@ -44,8 +47,15 @@ $.fn.uploader = function(opts) {
           $(widget).find(".progressbar").hide();
           return false;
         }
-        if (json.success) {
+        if (json.status === "success") {
           file_completed = true;
+          field_id = $(widget).data("id") + "-id";
+          $("#" + field_id).val(json.asset_id);
+          if (json.url) {
+            $(widget).find(".preview-area img").attr("src", json.url);
+            $(widget).find(".progressbar").hide();
+            $(widget).find(".preview-area").show();
+          }
           if (json.redirect) {
             window.location = json.redirect;
             return;

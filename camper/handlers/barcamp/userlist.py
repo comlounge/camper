@@ -3,9 +3,10 @@ from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from camper.handlers.forms import *
+from .base import BarcampBaseHandler
 import werkzeug.exceptions
 
-class UserLists(BaseHandler):
+class UserLists(BarcampBaseHandler):
     """shows the lists of subscribers, participants, waiting list"""
 
     template = "barcamp/userlist.html"

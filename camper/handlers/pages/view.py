@@ -2,11 +2,12 @@
 
 from starflyer import Handler, redirect
 from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
+from ..barcamp.base import BarcampBaseHandler
 from wtforms import *
 
 __all__ = ['View']
 
-class View(BaseHandler):
+class View(BarcampBaseHandler):
     """render a page"""
 
     template = "pages/view.html"
@@ -40,7 +41,6 @@ class View(BaseHandler):
                 page = page,
                 page_slug = page_slug,
                 image = image,
-                view = self.barcamp_view,
                 title = self.barcamp.name,
                 **self.barcamp)
 

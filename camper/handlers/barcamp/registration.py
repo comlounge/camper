@@ -1,11 +1,12 @@
 from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
+from .base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
 
-class BarcampSubscribe(BaseHandler):
+class BarcampSubscribe(BarcampBaseHandler):
     """adds a user to the subscription list"""
 
     @ensure_barcamp()
@@ -20,7 +21,7 @@ class BarcampSubscribe(BaseHandler):
             self.flash(self._("You have been removed from the list of people interested in this barcamp"), category="danger")
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
         
-class BarcampRegister(BaseHandler):
+class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
 
     @ensure_barcamp()
@@ -55,13 +56,12 @@ class BarcampRegister(BaseHandler):
                     **self.barcamp)
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
 
-class BarcampUnregister(BaseHandler):
+class BarcampUnregister(BarcampBaseHandler):
     """removes a user from the participants list and might move user up from the waiting list"""
 
     @ensure_barcamp()
     def post(self, slug = None):
         """only a post without parameters is done to remove."""
-        view = self.barcamp_view
         event = self.barcamp.event
         uid = unicode(self.user._id)
         if uid in event.participants:

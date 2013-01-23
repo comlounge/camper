@@ -2,15 +2,15 @@
 
 {% block main_content %}
 
-<form action="{{url}}" method="POST">
 {% if barcamp.public %} 
+<form action="{{url}}" method="POST">
     <input type="hidden" name="public" value="0">
     <div class="well">
         <button class="pull-right btn btn-small btn-danger">privat schalten</button>
         Dieses Barcamp ist im Moment öffentlich
     </div>
-{% endif %}
 </form>
+{% endif %}
 
 <h2>Barcamp-Administratoren</h2>
 

@@ -28,9 +28,12 @@ class BarcampView(object):
     @property
     def logo(self):
         """show the logo tag"""
-        return """<a href="%s"><img src="%s" nwidth="600"></a>""" %(
-            self.handler.url_for("barcamp", slug = self.barcamp.slug), 
-            self.handler.url_for("barcamp_logo", slug = self.barcamp.slug))
+        asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        if asset:
+            url = self.app.url_for("asset", asset_id = asset.variants['logo_full']._id)
+        else:
+            return u""
+        return """<a href="%s"><img src="%s" width="940"></a>""" %(self.handler.url_for("barcamp", slug = self.barcamp.slug), url)
 
     @property
     def is_admin(self):

@@ -4,6 +4,7 @@ from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in
 import bson
 from wtforms import *
 from camper.handlers.forms import *
+from .base import BarcampBaseHandler
 import werkzeug.exceptions
 import datetime
 
@@ -11,7 +12,7 @@ class SessionAddForm(BaseForm):
     title = TextField()
     description = TextAreaField()
 
-class SessionList(BaseHandler):
+class SessionList(BarcampBaseHandler):
     """shows a list of all the proposed sessions"""
 
     template = "barcamp/sessions.html"
@@ -36,7 +37,7 @@ class SessionList(BaseHandler):
     # TODO: Post should only work logged in!
     post = get
 
-class Vote(BaseHandler):
+class Vote(BarcampBaseHandler):
     """vote for a session"""
 
     @ensure_barcamp()
@@ -52,7 +53,7 @@ class Vote(BaseHandler):
             count = session.vote(self.user._id)
         return {'status': 'ok', 'votes' : count, 'active' : session.has_voted(self.user._id)}
 
-class SessionHandler(BaseHandler):
+class SessionHandler(BarcampBaseHandler):
     """delete a session"""
 
     @ensure_barcamp()

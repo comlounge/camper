@@ -5,43 +5,35 @@ from camper import logged_in, is_admin
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
+from .base import BarcampBaseHandler, SponsorForm
 
-class SponsorForm(BaseForm):
-    """form for adding a new sponsor"""
-    # base data
-    name                = TextField(u"Name des Sponsors", [validators.Length(max=300), validators.Required()])
-    url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
-    image               = UploadField(u"Sponsor-Logo")
-
-
-class View(BaseHandler):
+class View(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
     template = "barcamp/index.html"
 
     def get(self, slug = None):
         """render the view"""
-        sponsor_form = SponsorForm(self.request.form, config = self.config)
         if not self.barcamp:
             raise werkzeug.exceptions.NotFound()
         return self.render(
-            view = self.barcamp_view, 
             barcamp = self.barcamp,
             title = self.barcamp.name,
-            sponsor_form = sponsor_form,
             **self.barcamp)
 
-class BarcampSponsors(BaseHandler):
+
+class BarcampSponsors(BarcampBaseHandler):
     """view for adding and deleting sponsors"""
 
     @logged_in()
     @is_admin()
     def post(self, slug = None):
         """just add the sponsor and reload the page"""
+        print "huhu"
         form = SponsorForm(self.request.form, config = self.config)
         if form.validate():
             f = form.data
-            f['logo'] = f['image']['id']
+            f['logo'] = f['image']
             del f['image']
             self.barcamp.sponsors.append(f)
             self.barcamp.put()
@@ -55,9 +47,6 @@ class BarcampSponsors(BaseHandler):
     def delete(self, slug = None):
         """delete a sponsor again and give the index via idx param"""
         idx = int(self.request.form['idx']) # index in list
-        post = self.barcamp.blogposts[idx]
-        if self.user_id != post.user_id and not self.is_admin:
-            return {'status' : 'error', 'msg' : self._('User not allowed to delete this item')}
         del self.barcamp.sponsors[idx]
         self.barcamp.put()
         return redirect(self.url_for("barcamp", slug = self.barcamp.slug))

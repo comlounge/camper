@@ -34,7 +34,6 @@ $.fn.uploader = function(opts) {
           return false;
         }
         if (json.status === "success") {
-          console.log(json);
           file_completed = true;
           field_id = $(widget).data("id") + "-id";
           $("#" + field_id).val(json.asset_id);

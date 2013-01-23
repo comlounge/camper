@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from camper import BaseForm, db, BaseHandler, logged_in, ensure_barcamp, is_admin
+from .base import BarcampBaseHandler
 from starflyer import redirect
 
-class Permissions(BaseHandler):
+class Permissions(BarcampBaseHandler):
     """screen for private/public and admin management"""
 
     template = "barcamp/permissions.html"
@@ -13,9 +14,7 @@ class Permissions(BaseHandler):
     def get(self, slug = None):
         """render the view"""
         return self.render(
-            view = self.barcamp_view,
             title = self.barcamp.name,
-            barcamp = self.barcamp,
             **self.barcamp)
 
     @ensure_barcamp()
@@ -28,7 +27,7 @@ class Permissions(BaseHandler):
         return self.get(slug)
 
 
-class Admin(BaseHandler):
+class Admin(BarcampBaseHandler):
     """add a new administrator.
     """
 
