@@ -3,9 +3,7 @@ from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from wtforms import *
 from camper.handlers.forms import *
-from base import BarcampView
 import werkzeug.exceptions
-
 
 class BarcampSubscribe(BaseHandler):
     """adds a user to the subscription list"""
@@ -13,7 +11,7 @@ class BarcampSubscribe(BaseHandler):
     @ensure_barcamp()
     def post(self, slug = None):
         """only a post without parameters is done to add. Post again to unsubscribe"""
-        view = BarcampView(self.barcamp, self)
+        view = self.barcamp_view
         if not view.is_subscriber:
             self.barcamp.subscribe(self.user)
             self.flash(self._("You are now on the list of people interested in the barcamp"), category="success")
@@ -28,7 +26,7 @@ class BarcampRegister(BaseHandler):
     @ensure_barcamp()
     def post(self, slug = None):
         """only a post without parameters is done to add."""
-        view = BarcampView(self.barcamp, self)
+        view = self.barcamp_view
         event = self.barcamp.event
         uid = unicode(self.user._id)
 
@@ -41,7 +39,7 @@ class BarcampRegister(BaseHandler):
                 event.waiting_list.append(uid)
                 self.barcamp.put()
                 self.mail_text("emails/welcome.txt", self._('You are now on the waiting list for %s' %self.barcamp.name),
-                    view = BarcampView(self.barcamp, self), 
+                    view = view,
                     barcamp = self.barcamp,
                     title = self.barcamp.name,
                     **self.barcamp)
@@ -51,7 +49,7 @@ class BarcampRegister(BaseHandler):
                 event.participants.append(uid)
                 self.barcamp.put()
                 self.mail_text("emails/welcome.txt", self._('Welcome to %s' %self.barcamp.name),
-                    view = BarcampView(self.barcamp, self), 
+                    view = view,
                     barcamp = self.barcamp,
                     title = self.barcamp.name,
                     **self.barcamp)
@@ -63,7 +61,7 @@ class BarcampUnregister(BaseHandler):
     @ensure_barcamp()
     def post(self, slug = None):
         """only a post without parameters is done to remove."""
-        view = BarcampView(self.barcamp, self)
+        view = self.barcamp_view
         event = self.barcamp.event
         uid = unicode(self.user._id)
         if uid in event.participants:

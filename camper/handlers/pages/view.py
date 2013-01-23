@@ -2,7 +2,6 @@
 
 from starflyer import Handler, redirect
 from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
-from camper.handlers.barcamp.base import BarcampView
 from wtforms import *
 
 __all__ = ['View']
@@ -41,7 +40,7 @@ class View(BaseHandler):
                 page = page,
                 page_slug = page_slug,
                 image = image,
-                view = BarcampView(self.barcamp, self), 
+                view = self.barcamp_view,
                 title = self.barcamp.name,
                 **self.barcamp)
 

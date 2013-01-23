@@ -4,7 +4,6 @@ from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from wtforms import *
 from camper.handlers.forms import *
-from base import BarcampView
 import werkzeug.exceptions
 
 class SponsorForm(BaseForm):
@@ -26,7 +25,7 @@ class View(BaseHandler):
         if not self.barcamp:
             raise werkzeug.exceptions.NotFound()
         return self.render(
-            view = BarcampView(self.barcamp, self), 
+            view = self.barcamp_view, 
             barcamp = self.barcamp,
             title = self.barcamp.name,
             sponsor_form = sponsor_form,

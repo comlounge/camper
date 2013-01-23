@@ -3,7 +3,6 @@ from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from camper.handlers.forms import *
-from base import BarcampView
 import werkzeug.exceptions
 
 class UserLists(BaseHandler):
@@ -14,7 +13,7 @@ class UserLists(BaseHandler):
     def get(self, slug = None):
         """render the view"""
         return self.render(
-            view = BarcampView(self.barcamp, self), 
+            view = self.barcamp_view,
             barcamp = self.barcamp,
             title = self.barcamp.name,
             **self.barcamp)

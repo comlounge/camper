@@ -1,7 +1,7 @@
 #encoding=utf8
 
 from camper import BaseHandler
-from barcamp.base import BarcampView
+from ..base import BarcampView
 
 class IndexView(BaseHandler):
     """an index handler"""

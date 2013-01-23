@@ -5,7 +5,6 @@ import bson
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
-from index import BarcampView
 import datetime
 
 class SessionAddForm(BaseForm):
@@ -32,8 +31,7 @@ class SessionList(BaseHandler):
             session = self.config.dbs.sessions.put(session)
             self.flash("Dein Sessionvorschlag wurde erfolgreich angelegt!")
             return redirect(self.request.url)
-        view = BarcampView(self.barcamp, self)
-        return self.render(sessions = sessions, sort = sort, form = form, view = view, **self.barcamp)
+        return self.render(sessions = sessions, sort = sort, form = form, view = self.barcamp_view, **self.barcamp)
 
     # TODO: Post should only work logged in!
     post = get

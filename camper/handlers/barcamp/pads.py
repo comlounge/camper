@@ -1,7 +1,6 @@
 #encoding=utf8
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in, is_admin, is_participant
-from base import BarcampView
 from wtforms import *
 from sfext.babel import T
 
@@ -27,7 +26,7 @@ class PlanningPadView(BaseHandler):
             self.flash(self._(self._('You are not allowed to access this page as you are not an administrator of this barcamp.')), category="danger")
             return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
         return self.render(
-            view = BarcampView(self.barcamp, self), 
+            view = self.barcamp_view,
             barcamp = self.barcamp,
             show_public_switch = True,
             pad = self.barcamp.planning_pad,
@@ -49,7 +48,7 @@ class DocumentationPadView(BaseHandler):
         usermap = dict([(str(u._id), u) for u in users])
 
         return self.render(
-            view = BarcampView(self.barcamp, self), 
+            view = self.barcamp_view,
             barcamp = self.barcamp,
             posts = posts,
             usermap = usermap,

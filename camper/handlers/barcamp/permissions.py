@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from camper import BaseForm, db, BaseHandler, logged_in, ensure_barcamp, is_admin
-from base import BarcampView
 from starflyer import redirect
 
 class Permissions(BaseHandler):
@@ -14,7 +13,7 @@ class Permissions(BaseHandler):
     def get(self, slug = None):
         """render the view"""
         return self.render(
-            view = BarcampView(self.barcamp, self), 
+            view = self.barcamp_view,
             title = self.barcamp.name,
             barcamp = self.barcamp,
             **self.barcamp)
