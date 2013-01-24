@@ -11,6 +11,11 @@ class View(BarcampBaseHandler):
     """render a page"""
 
     template = "pages/view.html"
+
+    @property
+    def action(self):
+        """return the active action based on page id"""
+        return "page_%s" %self.page._id
     
     @ensure_page()
     def get(self, slug = None, page_slug = None):

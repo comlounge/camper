@@ -11,6 +11,7 @@ class View(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
     template = "barcamp/index.html"
+    action = "home"
 
     def get(self, slug = None):
         """render the view"""

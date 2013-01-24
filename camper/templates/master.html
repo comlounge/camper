@@ -47,7 +47,7 @@
                                 <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
                             </li>
                         {% endfor %}
-                        {% for action in actions %}
+                        {% for action in top_actions %}
                             <li class="{{'active' if action.active}}">
                                 <a href="{{action.url}}">{{action.name}}</a>
                             </li>

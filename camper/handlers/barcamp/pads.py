@@ -19,6 +19,7 @@ class PlanningPadView(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
     template = "barcamp/pad.html"
+    action = "planning"
 
     @ensure_barcamp()
     def get(self, slug = None):
@@ -38,6 +39,7 @@ class DocumentationPadView(BarcampBaseHandler):
     """shows documentation pad"""
 
     template = "barcamp/docs.html"
+    action = "docs"
 
     @ensure_barcamp()
     def get(self, slug = None):

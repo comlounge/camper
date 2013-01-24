@@ -16,6 +16,7 @@ class SessionList(BarcampBaseHandler):
     """shows a list of all the proposed sessions"""
 
     template = "barcamp/sessions.html"
+    action = "sessions"
 
     def get(self, slug = None):
         """return the list of sessions"""
