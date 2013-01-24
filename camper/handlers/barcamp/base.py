@@ -50,6 +50,7 @@ class BarcampBaseHandler(BaseHandler):
         for page in self.barcamp_view.pages_for("menu"):
             pid = "page_%s" %page._id
             actions.append(Action(pid, page.menu_title, uf('barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))
+        actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
         return actions
 
 

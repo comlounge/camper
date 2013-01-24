@@ -99,29 +99,6 @@
                     {% for action in actions %}
                         <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
                     {% endfor %}
-                    {#
-                    <li class="active"><a href="{{url_for('barcamp', slug=slug)}}">Info</a></li>
-                    <li><a href="{{url_for('barcamp_sessions', slug = slug)}}">Sessionvorschläge</a></li>
-                    {% if planning_pad_public or is_admin %}
-                        <li><a href="{{url_for('barcamp_planning_pad', slug=slug)}}">Planung</a></li>
-                    {% endif %}
-                    <li><a href="{{url_for('barcamp_documentation_pad', slug=slug)}}">Dokumentation</a></li>
-
-                    {# here a user can add up to 3 additional menu points/pages defined in slot "menu" for a barcamp #}
-                    {#
-                    {% for page in view.pages_for("menu") %}
-                        <li>
-                            <a href="{{url_for("barcamp_page", slug=slug, page_slug=page.slug)}}">{{page.menu_title}}</a>
-                        </li>
-                    {% endfor %}
-
-                    {% if view.can_add_menu_page %}
-                        <li>
-                            <a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="icon-plus icon-white"></i> Neue Seite</a>
-                        </li>
-                    {% endif %}
-                    #}
-
                 </ul>
             </div>
         </div>
@@ -190,9 +167,6 @@
                            data-count="vertical"
                            data-hashtags="{{barcamp.hashtag}}">Tweet</a>
                     </div>
-                </div>
-
-                <div class="widget">
                 </div>
             </div>
         </div>
