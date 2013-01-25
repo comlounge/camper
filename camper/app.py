@@ -202,6 +202,7 @@ class CamperApp(Application):
         URL('/b/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView, defaults = {'slug' : None}),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
         URL('/<slug>/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView),
+        URL('/<slug>/delete', 'barcamp_delete', handlers.barcamp.delete.DeleteConfirmView),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
         URL('/<slug>/location', 'barcamp_location', handlers.barcamp.location.LocationView),

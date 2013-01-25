@@ -1,0 +1,27 @@
+{% extends "barcamp/master.html" %}
+
+{% block outer_content %}
+        <div class="row">
+            <div class="span8 offset2">
+                <div class="alert alert-danger">
+                    <h1>{{_("Delete barcamp '%s'?" %barcamp.name)}}</h1>
+                    {{_('If you delete this barcamp, the following information will be deleted PERMANENTLY:')}}
+                    <ul>
+                        <li>{{_('all information about the barcamp')}}</li>
+                        <li>{{_('all your pages')}}</li>
+                        <li>{{_('all participants lists')}}</li>
+                        <li>{{_('all documentation if not hosted externally')}}</li>
+                        <li>{{_('all session proposals')}}</li>
+                    </ul>
+                    <hr>
+                    <div>
+                        <form method="POST" action="{{url}}">
+                            <input type="submit" class="pull-right btn btn-danger btn-large" value="{{_('yes, DELETE the barcamp')}}">
+                            <a href="{{url_for('barcamp', slug = slug)}}" class="btn btn-primary btn-large">{{_("No, DO NOT delete the barcamp")}}</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
+

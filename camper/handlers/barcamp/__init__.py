@@ -8,3 +8,4 @@ import pads
 import permissions
 import location
 import registration
+import delete
