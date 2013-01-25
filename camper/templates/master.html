@@ -139,6 +139,7 @@
                 $(".iframebox").colorbox({'iframe' : true, width: "60%", height: "500px"});
                 $('input.currency').autoNumeric({aSep: '', aDec: ',', aSign: '', wEmpty: 'zero'});
                 $(".numeric").numeric(false, function() { alert("Bitte nur Zahlen"); this.value = ""; this.focus(); });
+                $( ".datepicker" ).datepicker();                                                                                   
             });
         </script>
         {% block js %}
