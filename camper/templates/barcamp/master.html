@@ -128,7 +128,8 @@
                         <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
                         <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
                         <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
-                        <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Zugang und Berechtigungen</a></li>
+                        <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
+                        <li><a class="btn-danger" href="{{url_for("barcamp_delete", slug=slug)}}"><i class="icon icon-trash"></i> Barcamp löschen</a></li>
                     </ul>
                 </div>
                 {% endif %}
