@@ -62,8 +62,8 @@
                         <div class="pull-right">
                             <ul class="nav">
                                 <li class="divider-vertical"></li>
-                            <li><a href="{{url_for("userbase.login")}}">Login</a></li>
-                            <li><a href="{{url_for("userbase.register")}}">Registrieren</a></li>
+                            <li><a href="{{url_for("userbase.login")}}">{{_('Login')}}</a></li>
+                            <li><a href="{{url_for("userbase.register")}}">{{_('Register')}}</a></li>
                             </ul>
                         </div>
                     {% else %}
@@ -71,8 +71,8 @@
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{{url_for('profile', username = user.username)}}">Profil anzeigen</a></li>
-                                    <li><a href="{{url_for('userbase.logout')}}">Logout</a></li>
+                                    <li><a href="{{url_for('profile', username = user.username)}}">{{_('my profile')}}</a></li>
+                                    <li><a href="{{url_for('userbase.logout')}}">{{_('Log out')}}</a></li>
                                 </ul>
                             </li>
                         </ul>
