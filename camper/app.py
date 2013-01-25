@@ -199,8 +199,9 @@ class CamperApp(Application):
 
         # barcamp stuff
         URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
+        URL('/b/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView, defaults = {'slug' : None}),
         URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
-        #URL('/<slug>/assets', 'asset_upload', handlers.barcamp.images.AssetUpload),
+        URL('/<slug>/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView),
         URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
         URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
         URL('/<slug>/location', 'barcamp_location', handlers.barcamp.location.LocationView),

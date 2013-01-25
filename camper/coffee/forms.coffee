@@ -58,9 +58,26 @@ $.fn.editable = (opts = {}) ->
     $(this).each(init)
     this
 
-
+# run this on input fields to limit the input to only chars and numbers without spaces
+$.fn.limitchars = (opts = {}) ->
+    init = (opts) ->
+        $this = $(this)
+        allowed ='1234567890abcdefghijklmnopqrstuvwxyz-_'
+        $(this).keypress( (e) ->
+            k = parseInt(e.which)
+            if k!=13 and k!=8 and k!=0
+                if (e.ctrlKey == false) and (e.altKey == false) 
+                    return allowed.indexOf(String.fromCharCode(k)) != -1
+                else
+                    return true
+            else
+                return true
+        )
+    $(this).each(init)
+    this
 
 $(document).ready( () ->
+    $(".urlscheme").limitchars()
     $(".form-validate").validate(
         showErrors: (errorMap, errorList) ->
             $.each( this.successList , (index, value) ->

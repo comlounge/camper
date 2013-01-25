@@ -1,6 +1,6 @@
 #encoding=utf8
 
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, logged_in, BaseHandler
 from wtforms import *
 from sfext.babel import T
@@ -78,5 +78,30 @@ class AddView(BaseHandler):
 
             self.flash("Barcamp %s wurde angelegt" %f['name'], category="info")
             return redirect(self.url_for("index"))
-        return self.render(form = form)
+        return self.render(form = form, slug = None)
     post = get
+
+class ValidateView(BaseHandler):
+    """a handler for remote barcamp data validation"""
+
+    @logged_in()
+    @asjson()
+    def get(self, slug = None):
+        """retrieve the data via params and validate the given fields
+
+        This can be used for both the add and edit view. On edit views it will
+        make sure that e.g. a urlname is not checked against the edited barcamp
+        itself.
+        
+        """
+        if "slug" in self.request.args:
+            bc = self.config.dbs.barcamps.by_slug(self.request.args['slug'])
+            if bc is None:
+                return True
+            if self.barcamp is not None and self.barcamp._id == bc._id:
+                return True
+            return self._("This name is already taken. Please choose a different one")
+        return True                                                                                                                                                                      
+        
+
+

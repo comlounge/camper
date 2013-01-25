@@ -10,7 +10,7 @@
             <legend>{{_("Base data")}}</legend>
             {{ formmacros.form_field(form.name, class="required span8", placeholder="Barcamp-Name") }}
             {{ formmacros.form_field(form.description, class="required span8", rows=10) }}
-            {{ formmacros.form_field(form.slug, class="required span8") }}
+            {{ formmacros.form_field(form.slug, class="required urlscheme span4", maxlength="32", minlength="4", remote=url_for("barcamp_validate", slug = slug))}}
             {{ formmacros.form_field(form.size, class="required span2 number") }}
             {{ formmacros.form_field(form.homepage, class="span4 url") }}
         </fieldset>

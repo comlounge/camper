@@ -80,7 +80,33 @@ $.fn.editable = function(opts) {
   return this;
 };
 
+$.fn.limitchars = function(opts) {
+  var init;
+  if (opts == null) opts = {};
+  init = function(opts) {
+    var $this, allowed;
+    $this = $(this);
+    allowed = '1234567890abcdefghijklmnopqrstuvwxyz-_';
+    return $(this).keypress(function(e) {
+      var k;
+      k = parseInt(e.which);
+      if (k !== 13 && k !== 8 && k !== 0) {
+        if ((e.ctrlKey === false) && (e.altKey === false)) {
+          return allowed.indexOf(String.fromCharCode(k)) !== -1;
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    });
+  };
+  $(this).each(init);
+  return this;
+};
+
 $(document).ready(function() {
+  $(".urlscheme").limitchars();
   $(".form-validate").validate({
     showErrors: function(errorMap, errorList) {
       var form, position;
