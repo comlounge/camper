@@ -70,13 +70,17 @@ class AddView(BaseHandler):
             pid = unicode(uuid.uuid4())[:8]
             pid = f['planning_pad'] = "%s_%s" %(f['slug'],pid)
             did = f['slug']
-            self.config.etherpad.createPad(padID=pid, text=u"Planung")
-            self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
+            try:
+                self.config.etherpad.createPad(padID=pid, text=u"Planung")
+                self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
+            except:
+                self.flash(self._("Attention: One or both of the etherpads exist already!"), category="warning")
+                pass
             f['documentation_pad'] = did
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
             barcamp = self.config.dbs.barcamps.put(barcamp)
 
-            self.flash("Barcamp %s wurde angelegt" %f['name'], category="info")
+            self.flash(self._("%s wurde angelegt" %f['name']), category="info")
             return redirect(self.url_for("index"))
         return self.render(form = form, slug = None)
     post = get
