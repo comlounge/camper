@@ -36,7 +36,7 @@ class LogoUpload(BaseHandler):
         self.barcamp.logo = asset._id
         self.barcamp.put()
         return {
-            'success' : True,
+            'status' : "success",
             'redirect' : self.url_for("barcamp", slug = slug),
         }
 
@@ -86,7 +86,7 @@ class AssetUpload(BaseHandler):
             )
         asset_id = asset._id
         return {
-            'success' : True,
+            'status' : "success",
             'url' : self.url_for("asset", asset_id=asset_id),
             'asset_id' : asset_id,
         }
