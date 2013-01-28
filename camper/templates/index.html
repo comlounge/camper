@@ -13,26 +13,47 @@
             Also legt keine Barcamps an, die ihr dann bewerbt, denn diese werden bald wieder gelöscht werden. 
             </div>
             <h2>{{_("Recent Barcamps")}}</h2>
-            <ul>
                 {% for view in barcamps %}
                     {% if view.barcamp.public or view.is_admin or is_main_admin %}
-                        <li>
-                            <a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a>
+                    <article class="barcamp">
+                        <header>
+                            {% if view.barcamp.logo %}
+                                <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.logo}}</a></h4>
+                            {% else %}
+                                <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
+                            {% endif %}
+                        </header>
+                        <div class="pull-right">
                             {% if not view.barcamp.public %}
                                 <span class="label label-warning">{{_('private')}}</span>
                             {% endif %}
                             {% if view.is_admin %}
                                 <span class="label label-success">{{_('ADMIN')}}</span>
                             {% endif %}
-                        </li>
+                        </div>
+                        <div class="byline">
+                            {{view.barcamp.start_date.strftime('%d.%m.%Y')}} - 
+                            {{view.barcamp.end_date.strftime('%d.%m.%Y')}}, 
+                            {{view.barcamp.location.name}}, {{view.barcamp.location.city}}
+                        </div>
+                        <footer>
+                        </footer>
+                    </article>
                     {% endif %}
                 {% endfor %}
-            </ul>
-            {% if logged_in %}
-                <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn btn-large btn-primary"><i class="icon icon-white icon-plus"></i> {{_('create new barcamp')}}</a>
-            {% endif %}
         </div>
         <div class="span4">
+            {% if logged_in %}
+                <div class="well">
+                    <p>
+                        <strong>Willst Du ein Barcamp organisieren?</strong>
+                    </p>
+                    <p>
+                        Mit diesem Tool ist es ganz einfach! 
+                    </p>
+                    <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn">{{_('create new barcamp')}}</a>
+                </div>
+            {% endif %}
         </div>
     </div>
 
