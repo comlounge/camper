@@ -74,7 +74,7 @@ class Session(Record):
         """return the user corresponding to the userid"""
         u = self.user
         uf = self._collection.md.app.url_for
-        if u.image is not None:
+        if u.image is not None and u.image!="":
             return uf("asset", asset_id = self._collection.md.app.module_map.uploader.get(self.user.image).variants['thumb']._id)
         else: 
             return None
