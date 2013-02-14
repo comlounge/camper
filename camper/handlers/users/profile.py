@@ -21,8 +21,11 @@ class ProfileView(BaseHandler):
             raise werkzeug.exceptions.NotFound()
         asset_id = user.image
         if asset_id is not None:
-            asset = self.app.module_map.uploader.get(asset_id)
-            image = self.url_for("asset", asset_id = asset.variants['medium_user']._id)
+            try:
+                asset = self.app.module_map.uploader.get(asset_id)
+                image = self.url_for("asset", asset_id = asset.variants['medium_user']._id)
+            except:
+                image = None
         else:
             image = None
         return self.render(
