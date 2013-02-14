@@ -7,6 +7,7 @@ import userbase
 from xhtml2pdf import pisa
 import werkzeug.exceptions
 from sfext.babel import T
+from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
 
 from wtforms.ext.i18n.form import Form
@@ -28,7 +29,10 @@ class BarcampView(object):
     @property
     def logo(self):
         """show the logo tag"""
-        asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        except AssetNotFound:
+            asset = None
         if asset:
             url = self.app.url_for("asset", asset_id = asset.variants['logo_full']._id)
         else:

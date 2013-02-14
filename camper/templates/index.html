@@ -17,7 +17,7 @@
                     {% if view.barcamp.public or view.is_admin or is_main_admin %}
                     <article class="barcamp">
                         <header>
-                            {% if view.barcamp.logo %}
+                            {% if view.logo %}
                                 <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.logo}}</a></h4>
                             {% else %}
                                 <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>

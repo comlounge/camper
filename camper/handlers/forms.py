@@ -172,6 +172,15 @@ class UploadField(FormField):
             """the hidden fields"""
             id = HiddenField()
 
+            def process(self, formdata=None, obj=None, **kwargs):
+                class D(object):
+                    pass
+
+                d = D()
+                d.id = obj
+                super(UploadForm, self).process(formdata, d, **kwargs)
+                
+
             @property
             def data(self):
                 """just return the value of the id field as the form data of this form instead of the full dict"""
