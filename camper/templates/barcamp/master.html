@@ -62,7 +62,9 @@
         <div class="modal-body">
             {{ formmacros.form_field(sponsor_form.name, class="required span5")}}
             {{ formmacros.form_field(sponsor_form.url, class="url required span5")}}
-            {{ formmacros.form_field(sponsor_form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+            {{ formmacros.form_field(sponsor_form.image, class="span5", 
+                label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
@@ -213,10 +215,11 @@
     </div><!-- #barcamp -->
     <footer>
     </footer>
+{% endblock %}
     {% block js %}
+        <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
         <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
         {% block bcjs %}
         {% endblock %}
     {% endblock %}
-{% endblock %}
 

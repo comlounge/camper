@@ -80,8 +80,9 @@ class AssetView(BaseHandler):
 
     def get(self, asset_id = None):
         """return the asset"""
-        asset = self.app.module_map.uploader.get(asset_id)
-        if asset is None:
+        try:
+            asset = self.app.module_map.uploader.get(asset_id)
+        except:
             raise werkzeug.exceptions.NotFound()
         response = self.app.response_class()
         response.headers['Content-Length'] = asset['content_length']

@@ -1,4 +1,4 @@
-$.fn.uploader = (opts = {}) ->
+$.fn.uploader2 = (opts = {}) ->
     file_completed = false     
     myfilename = null          
 
@@ -30,8 +30,6 @@ $.fn.uploader = (opts = {}) ->
                 $(widget).find(".progressbar").show()
                 $(widget).find(".preview-area").hide()
             onComplete: (id, filename, json) ->
-                console.log "opa"
-                console.log json
                 if json.status == "error" 
                     file_completed = false
                     myfilename = null

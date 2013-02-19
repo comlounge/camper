@@ -170,17 +170,17 @@ class UploadWidget(object):
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)
         payload = {
-            'preview_url'   : kwargs['preview_url'],
-            'upload_url'   : kwargs['upload_url'],
-            'delete_url'   : kwargs['delete_url'],
-            'label' : kwargs['label'],
-            'delete_label' : kwargs['delete_label'],
-            'revert_label' : kwargs['revert_label'],
+            'preview_url'   : kwargs.get('preview_url',''),
+            'upload_url'    : kwargs['upload_url'],
+            'delete_url'    : kwargs.get('delete_url',''),
+            'label'         : kwargs['label'],
+            'delete_label'  : kwargs['delete_label'],
+            'revert_label'  : kwargs['revert_label'],
             'value-filename' : '',
-            'value-id' : '',
-            'name' : field.name,
-            'postproc' : kwargs.get("postproc",""),
-            'hidden' : hidden,
+            'value-id'      : '',
+            'name'          : field.name,
+            'postproc'      : kwargs.get("postproc",""),
+            'hidden'        : hidden,
         }
         return self.tmpl.render(**payload)
 

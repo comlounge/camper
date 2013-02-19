@@ -1,5 +1,5 @@
 
-$.fn.uploader = function(opts) {
+$.fn.uploader2 = function(opts) {
   var file_completed, init, myfilename, sponsor;
   if (opts == null) opts = {};
   file_completed = false;
@@ -37,8 +37,6 @@ $.fn.uploader = function(opts) {
       },
       onComplete: function(id, filename, json) {
         var field_id;
-        console.log("opa");
-        console.log(json);
         if (json.status === "error") {
           file_completed = false;
           myfilename = null;

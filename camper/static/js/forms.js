@@ -137,7 +137,7 @@ $(document).ready(function() {
       }
     },
     submitHandler: function(form) {
-      if ($(form).find(".upload-value-id").val()) {
+      if ($(form).find("#image").val()) {
         return form.submit();
       } else {
         return alert("Bitte lade ein Logo hoch");

@@ -107,7 +107,7 @@ $(document).ready( () ->
         },
 
         submitHandler: (form) ->
-            if $(form).find(".upload-value-id").val()
+            if $(form).find("#image").val()
                 form.submit()
             else
                 alert("Bitte lade ein Logo hoch")
