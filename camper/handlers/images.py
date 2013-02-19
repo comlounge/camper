@@ -44,11 +44,9 @@ class AssetUploadView(BaseHandler):
         """upload a generic asset. You can use this handler for barcamps as well and
         pass in slugs but in order to actually store the asset you have to do that yourself
         or derive from this handler and add a ``postprocess()`` method as described above."""
-        print 1
 
         filename = self.request.headers.get('X-File-Name', "unknown")
         content_type = self.request.headers.get('X-Mime-Type', "application/octet-stream")
-        print filename, content_type
 
         # check IE
         if "qqfile" in self.request.files:

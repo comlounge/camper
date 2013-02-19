@@ -3,12 +3,16 @@ $.fn.uploader = (opts = {}) ->
     myfilename = null          
 
     init = () ->
-        url = $(this).data("url")
-        postproc = $(this).data("postproc")
         widget = this
+        postproc = $(this).data("postproc")
+        preview_url = $(this).data("preview-url")
+        upload_url = $(this).data("upload-url")
+        delete_url = $(this).data("delete-url")
+        field_id = $(this).data("id")
+        original_id = $("#"+field_id).val()
         uploader = new qq.FileUploaderBasic(
             button: $(widget).find(".uploadbutton")[0]
-            action: url
+            action: upload_url
             multiple: false
             sizeLimit: 10*1024*1024
             allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']
@@ -27,7 +31,7 @@ $.fn.uploader = (opts = {}) ->
                     return false
                 if json.status == "success"
                     file_completed = true
-                    field_id = $(widget).data("id")+"-id"
+                    $(widget).find(".revertbutton").show()
                     $("#"+field_id).val(json.asset_id)
                     if json.url
                         $(widget).find(".preview-area img").attr("src", json.url)
@@ -43,6 +47,31 @@ $.fn.uploader = (opts = {}) ->
                     $(widget).find(".upload-area").show()
                     $(widget).find(".progressbar").hide()
         )
+        $(this).find(".deletebutton").click () ->
+            if confirm("Sind Sie sicher?")
+                $.ajax(
+                    url: delete_url
+                    type: "POST"
+                    data:
+                        method: "delete"
+                    success: () ->
+                        $(widget).find(".preview-area img").attr("src", "")
+                        $(widget).find(".preview-area").hide()
+                        $(widget).find(".deletebutton").hide()
+                        $("#"+field_id).val("")
+                        false
+                )
+                false
+            false
+        $(this).find(".revertbutton").click () ->
+            $(widget).find(".revertbutton").hide()
+            $(widget).find(".preview-area img").attr("src", preview_url)
+            $("#"+field_id).val(original_id)
+            if not original_id
+                $(widget).find(".preview-area img").attr("src", "")
+                $(widget).find(".preview-area").hide()
+                $(widget).find(".deletebutton").hide()
+            false
     $(this).each(init)
     this
 

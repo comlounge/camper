@@ -7,7 +7,8 @@ from camper import BaseForm
 from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerField, DecimalField
 from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
 from wtforms import validators as v
-from wtforms.widgets import html_params
+from wtforms.widgets import html_params, HTMLString
+from jinja2 import Template
 
 ###
 ### CUSTOM WIDGETS etc.
@@ -124,14 +125,24 @@ class UploadWidget(object):
     data and some html surrounding it.
     """
 
-    tmpl = """
-        <div class="upload-widget" data-id="%(name)s" data-url="%(url)s" data-postproc="%(postproc)s">
-            %(hidden)s
-            <div class="preview-area hide">
-                <img width="100" height="100" style="border: 1px solid #ccc; margin: 3px; padding: 2px;" src="">
+    tmpl = Template("""
+        <div class="upload-widget" 
+                data-id="{{name}}" 
+                data-original-id="{{asset_id}}" 
+                data-preview-url="{{preview_url}}" 
+                data-delete-url="{{delete_url}}" 
+                data-upload-url="{{upload_url}}" 
+                data-postproc="{{postproc}}">
+            {{hidden}}
+            <div class="preview-area {{'show' if preview_url else 'hide'}}">
+                <img src="{{preview_url}}">
             </div>
             <div class="upload-area show">
-                <button class="uploadbutton btn btn-primary pull-left">%(label)s</button>
+                <div class="">
+                    <button class="uploadbutton btn-inline btn btn-primary">{{label}}</button>
+                    <button class="deletebutton {{'hide' if not preview_url}} btn-inline btn btn-danger">{{delete_label}}</button>
+                    <button class="revertbutton hide btn-inline btn btn-danger">{{revert_label}}</button>
+                </div>
                 <div class="progressbar progress progress-striped active hide">
                     <div class="bar" style="width: 0%%;"></div>
                 </div>
@@ -140,28 +151,41 @@ class UploadWidget(object):
                 </div>
             </div>
         </div>
-    """
+    """)
+    html_params = staticmethod(html_params)
 
     def __call__(self, field, **kwargs):
-        hidden = [unicode(f(**{'class':"upload-value-"+f.short_name})) for f in field]
-        hidden = unicode(''.join(hidden))
 
+        # create the hidden field with the asset_id
+        kwargs.setdefault('id', field.id)
+        kwargs.setdefault('type', "text")
+
+        if 'value' not in kwargs:
+            asset_id = kwargs['value'] = field._value()
+        else:
+            asset_id = kwargs['value']
+
+        hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="text", id = field.id, value=asset_id))
         value = field.data
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)
         payload = {
-            'url'   : kwargs['url'],
+            'preview_url'   : kwargs['preview_url'],
+            'upload_url'   : kwargs['upload_url'],
+            'delete_url'   : kwargs['delete_url'],
             'label' : kwargs['label'],
+            'delete_label' : kwargs['delete_label'],
+            'revert_label' : kwargs['revert_label'],
             'value-filename' : '',
             'value-id' : '',
             'name' : field.name,
             'postproc' : kwargs.get("postproc",""),
             'hidden' : hidden,
         }
-        return self.tmpl %payload
+        return self.tmpl.render(**payload)
 
 
-class UploadField(FormField):
+class UploadFieldOld(FormField):
     """an upload field for using the valums uploader"""
 
     widget = UploadWidget()
@@ -199,6 +223,23 @@ class UploadField(FormField):
         return None
 
     def _value(self):
+        if self.data:
+            return self.data
+        else:
+            return u''                                                                                                                                                               
+
+class UploadField(Field):
+    """an upload field for using the valums uploader."""
+
+    widget = UploadWidget()
+
+    def __init__(self, label=None, validators=None, uploader = None, app = None, **kwargs):
+        super(UploadField, self).__init__(label, validators, **kwargs)
+        self.uploader = uploader
+        self.app = app
+
+    def _value(self):
+        """return the value necessary for the widget"""
         if self.data:
             return self.data
         else:

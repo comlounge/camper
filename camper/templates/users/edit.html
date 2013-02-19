@@ -7,7 +7,11 @@
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
         {{ formmacros.form_field(form.fullname, class="required span8") }}
-        {{ formmacros.form_field(form.image, class="span5", label="Hochladen", url=url_for("asset_upload"))}}
+        {{ formmacros.form_field(form.image, class="span5", 
+                label="Hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
+                preview_url = image,
+                delete_url=url_for("profile_image_delete"),
+                upload_url=url_for("asset_upload"))}}
         {{ formmacros.form_field(form.bio, rows=4, class="span8") }}
         {{ formmacros.form_field(form.organisation, class="span8", maxlength=100) }}
         {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span3", maxlength=100, placeholder="") }}

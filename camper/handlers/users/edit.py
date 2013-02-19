@@ -1,5 +1,5 @@
 #encoding=utf8
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from wtforms import *
@@ -29,9 +29,18 @@ class ProfileEditView(BaseHandler):
 
     template = "users/edit.html"
 
+    @logged_in()
     def get(self):
         """render the view"""
         form = EditForm(self.request.form, obj = self.user, config = self.config)
+        if self.user.image:
+            try:
+                asset = self.app.module_map.uploader.get(self.user.image)
+                image = self.url_for("asset", asset_id = asset.variants['thumb']._id)
+            except:
+                image = None
+        else:
+            image = None
         if self.request.method=="POST":
             if form.validate():
                 self.user.update(form.data)
@@ -41,12 +50,17 @@ class ProfileEditView(BaseHandler):
                 return redirect(url)
             else:
                 self.flash("Leider enthielt das Formular einen Fehler", category="error")
-        return self.render(form = form)
+        return self.render(form = form, user = self.user, image = image)
 
     post = get
 
 class ProfileImageDeleteView(BaseHandler):
     """delete the profile image"""
+
+   
+    @asjson()
+    def json(self, d):
+        return d
 
     @logged_in()
     def delete(self):
@@ -57,5 +71,9 @@ class ProfileImageDeleteView(BaseHandler):
             self.user.image = None
             self.user.save()
             self.flash(self._("Your profile image has been deleted"), category="info")
-        url = self.url_for("profile", username = self.user.username)
-        return redirect(url)
+        fmt = self.request.form.get("fmt", "html")
+        if fmt=="html":
+            url = self.url_for("profile", username = self.user.username)
+            return redirect(url)
+        else:
+            return self.json({"status": "ok"})

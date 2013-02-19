@@ -227,9 +227,10 @@ class BaseForm(Form):
 
     LANGUAGES = ['de', 'en']
     
-    def __init__(self, formdata=None, obj=None, prefix='', config=None, **kwargs):
+    def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, **kwargs):
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
         self.config = config
+        self.app = app
 
 
 class BaseHandler(starflyer.Handler):

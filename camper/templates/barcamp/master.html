@@ -129,7 +129,11 @@
                         <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
                         <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
                         <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
+                        {% if view.can_add_menu_page %}
+                            <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="icon-plus"></i> Neue Seite anlegen</a></li>
+                        {% endif %}
                         <li><a class="btn-danger" href="{{url_for("barcamp_delete", slug=slug)}}"><i class="icon icon-trash"></i> Barcamp löschen</a></li>
+                        
                     </ul>
                 </div>
                 {% endif %}

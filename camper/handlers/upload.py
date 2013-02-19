@@ -47,7 +47,6 @@ class Downloader(BaseHandler):
     @logged_in()
     def get(self, client_id = None, transaction_id = None, asset_id = None):
         """return the file given that you have the permission to do that"""
-        print asset_id
         for a in self.transaction.d.attachments:
             if a['asset_id'] == asset_id:
                 asset = self.app.module_map.uploader.get(asset_id)
