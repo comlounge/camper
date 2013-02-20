@@ -134,6 +134,11 @@ class Comment(Record):
         'updated'       : datetime.datetime.utcnow,
     }
 
+    @property
+    def user(self):
+        """return the user corresponding to the userid"""
+        return self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
+
 
 class Comments(Collection):
     

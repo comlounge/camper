@@ -42,3 +42,4 @@ class CamperUser(User):
     @property
     def has_organisation(self):
         return self.organisation is not None and self.organisation.strip()!=""
+

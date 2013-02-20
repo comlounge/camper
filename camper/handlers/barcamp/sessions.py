@@ -55,7 +55,7 @@ class Vote(BarcampBaseHandler):
         return {'status': 'ok', 'votes' : count, 'active' : session.has_voted(self.user._id)}
 
 class SessionHandler(BarcampBaseHandler):
-    """delete a session"""
+    """update and delete a session"""
 
     @ensure_barcamp()
     @logged_in()
@@ -83,5 +83,37 @@ class SessionHandler(BarcampBaseHandler):
         session.remove()
         return {'status': 'success'}
 
+class CommentHandler(BarcampBaseHandler):
+    """create and delete session comments"""
 
+    @ensure_barcamp()
+    @logged_in()
+    def post(self, slug = None, sid = None):
+        """add a new comment to a session"""
+        sid = bson.ObjectId(sid)
+        session = self.config.dbs.sessions.get(sid)
+
+        comment_text = self.request.form.get("comment","").strip()
+        if comment_text != "":
+            f = {
+                'user_id' : self.user._id,
+                'session_id' : str(sid),
+                'comment' : comment_text,
+            }
+            comment = db.Comment(f, collection = self.config.dbs.sessions)
+            comment = self.config.dbs.session_comments.put(comment)
+            self.flash(self._("your comment has been added."))
+        return redirect(self.url_for("barcamp_sessions", slug = slug))
+
+    @ensure_barcamp()
+    @logged_in()
+    @asjson()
+    def delete(self, slug = None, sid = None):
+        """vote for a session proposal"""
+        sid = bson.ObjectId(sid)
+        session = self.config.dbs.sessions.get(sid)
+        if not self.is_admin and not self.user_id == str(session.user._id):
+            return {'status' : 'forbidden'}
+        session.remove()
+        return {'status': 'success'}
 

@@ -44,17 +44,33 @@
                             <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
                         am {{session.created.strftime("%d.%m.%Y")}}
                     </footer>
-                    {#
+                    {% for comment in session.get_comments() %}
                     <div class="media comments">
                         <a href="#" class="pull-left">
-                            <img class="media-object" src="http://placehold.it/64x64">
+                            <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
                         </a>
-                        <div class="media-body">
-                            Nicht wirklich durchdacht, würde ich sagen.
-                            <footer>Christian Scholz, 3.8.2012</footer>
+                        <div class="media-body">{{comment.comment}}
+                            <footer>{{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
                         </div>
                     </div>
-                    #}
+                    {% endfor %}
+                    <div class="media comments">
+                        <a href="#" class="pull-left">
+                            <img class="profile-image" src="{{userview(user).image_thumb}}">
+                        </a>
+                        <div class="media-body">
+                            {% if logged_in %}
+                            <form method="post" class="form-horizontal clearfix" action="{{url_for('barcamp_session_comments', slug = slug, sid = session._id)}}">
+                                <fieldset>
+                                <div class="control-group">
+                                    <textarea placeholder="{{_('your comment')}}" name="comment" class="span8" cols=50 rows=3></textarea>
+                                </div>
+                                <button href="#" class="btn">neuer Kommentar</button>
+                                </fieldset>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
                 {% if is_admin or user_id == session.user._id %}
                 <form class="media-body hide edit-box form-vertical well form-validate" method="POST" action="{{url_for('barcamp_session', slug = slug, sid = session._id)}}">

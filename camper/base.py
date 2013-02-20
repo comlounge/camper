@@ -9,11 +9,31 @@ import werkzeug.exceptions
 from sfext.babel import T
 from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
+from functools import partial
 
 from wtforms.ext.i18n.form import Form
 
 __all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
 
+class UserView(object):
+    """adapter for a user object to provide additional data such as profile image etc."""
+
+    def __init__(self, app, user):
+        """initialize the adapter with the app object and the user object"""
+
+        self.app = app
+        self.user = user
+
+    @property
+    def image_thumb(self):
+        """return the image"""
+        u = self.user
+        uf = self.app.url_for
+        if u.image is not None and u.image!="":
+            return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['thumb']._id)
+        else: 
+            # here we should return a dummy image
+            return None
 
 class BarcampView(object):
     """wrapper around the barcamp to provide view functions"""
@@ -297,7 +317,8 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
-            footer_pages = footer_pages
+            footer_pages = footer_pages,
+            userview = partial(UserView, self.app)
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug
