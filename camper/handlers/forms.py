@@ -165,7 +165,7 @@ class UploadWidget(object):
         else:
             asset_id = kwargs['value']
 
-        hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="text", id = field.id, value=asset_id))
+        hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="hidden", id = field.id, value=asset_id))
         value = field.data
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)

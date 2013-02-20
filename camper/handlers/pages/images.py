@@ -52,12 +52,12 @@ class ImageUpload(BaseHandler):
         self.page.put()
         if self.barcamp is None:
             return {
-                'success' : True,
+                'status' : "success",
                 'parent_redirect' : self.url_for("page", page_slug = page_slug),
             }
         else:
             return {
-                'success' : True,
+                'status' : "success",
                 'parent_redirect' : self.url_for("barcamp_page", slug = slug, page_slug = page_slug),
             }
 

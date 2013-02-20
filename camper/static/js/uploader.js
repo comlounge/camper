@@ -29,6 +29,7 @@ $.fn.uploader = function(opts) {
         return $(widget).find(".preview-area").hide();
       },
       onComplete: function(id, filename, json) {
+        console.log(json);
         if (json.status === "error") {
           file_completed = false;
           myfilename = null;

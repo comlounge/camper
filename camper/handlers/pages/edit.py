@@ -34,10 +34,6 @@ class EditView(BarcampBaseHandler):
         if self.request.method=="POST":
             if form.validate():
                 f = form.data
-                if f['image']['id']!='':
-                    f['image'] = f['image']['id']
-                else:
-                    del f['image']
                 self.page.update(f)
                 self.page.put()
                 self.flash("Seite bearbeitet", category="info")

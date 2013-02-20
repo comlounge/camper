@@ -23,6 +23,7 @@ $.fn.uploader = (opts = {}) ->
                 $(widget).find(".progressbar").show()
                 $(widget).find(".preview-area").hide()
             onComplete: (id, filename, json) ->
+                console.log json
                 if json.status == "error" 
                     file_completed = false
                     myfilename = null

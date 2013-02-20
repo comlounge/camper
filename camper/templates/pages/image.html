@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Bild bearbeiten/hochladen</h1>
     <form class="uploadform">
-    <div class="upload-widget" data-url="{{url_for('page_image_upload', slug = slug, page_slug = page_slug)}}">
+    <div class="upload-widget" data-upload-url="{{url_for('page_image_upload', slug = slug, page_slug = page_slug)}}">
         <button class="uploadbutton btn btn-primary pull-left">Datei auswählen</button>
         <br>
         <div class="help" style="clear: both">
@@ -23,5 +23,5 @@
     </form>
 {% endblock %}
 {% block js %}
-    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
 {% endblock %}

@@ -10,7 +10,9 @@
         {{ formmacros.form_field(form.menu_title, class="required span8", maxlength=50, placeholder="Kurztitel für das Menü") }}
         {{ formmacros.form_field(form.slug, class="required span8", placeholder="Bezeichnung in der URL") }}
         {{ formmacros.form_field(form.content, class="required span8", rows=10) }}
-        {{ formmacros.form_field(form.image, class="span5", label="Bild hochladen", url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+        {{ formmacros.form_field(form.image, class="span5", 
+                label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
+                upload_url=url_for("asset_upload", slug = slug))}}
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="SEITE AKTUALISIEREN">
         {% endblock %}
