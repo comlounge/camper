@@ -4,9 +4,11 @@ from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in
 import bson
 from wtforms import *
 from camper.handlers.forms import *
-from .base import BarcampBaseHandler
+from .base import BarcampBaseHandler, is_admin
 import werkzeug.exceptions
 import datetime
+import xlwt
+from cStringIO import StringIO
 
 class SessionAddForm(BaseForm):
     title = TextField()
@@ -108,12 +110,54 @@ class CommentHandler(BarcampBaseHandler):
     @ensure_barcamp()
     @logged_in()
     @asjson()
+    @is_admin()
     def delete(self, slug = None, sid = None):
         """vote for a session proposal"""
         sid = bson.ObjectId(sid)
         session = self.config.dbs.sessions.get(sid)
-        if not self.is_admin and not self.user_id == str(session.user._id):
-            return {'status' : 'forbidden'}
-        session.remove()
+        cid = self.request.form.get("cid", None)
+        if cid is None:
+            print "nop"
+            return {'status' : 'notfound'}
+        cid = bson.ObjectId(cid)
+        comment = self.config.dbs.session_comments.get(cid)
+        comment.remove()
         return {'status': 'success'}
 
+class SessionExport(BarcampBaseHandler):
+    """export all the session proposals as excel"""
+
+    def get(self, slug = None):
+        """return the list of sessions"""
+        filename = "%s-%s-sessions.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
+        barcamp_id = self.barcamp._id
+        sort = self.request.args.get("sort", "date")
+        so = 'vote_count' if sort=="votes" else "created"
+        sessions = self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)}).sort(so, -1)
+
+        # do the actual excel export
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('Teilnehmer')
+        i = 1
+        fieldnames = ['date', 'fullname', 'title', 'description', 'votes']
+
+        # headlines
+        c = 0
+        for k in fieldnames:
+            ws.write(0,c,k)
+            c = c + 1
+
+        # data
+        for session in sessions:
+            c = 0
+            ws.write(i, 0, unicode(session.created.strftime("%d.%m.%Y")))
+            ws.write(i, 1, unicode(session.user.fullname))
+            ws.write(i, 2, unicode(session.title))
+            ws.write(i, 3, unicode(session.description))
+            ws.write(i, 4, unicode(session.vote_count))
+            i = i + 1
+        stream = StringIO()
+        wb.save(stream)
+        response = self.app.response_class(stream.getvalue(), content_type="application/excel")
+        response.headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
+        return response

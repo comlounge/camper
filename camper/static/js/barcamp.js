@@ -135,6 +135,32 @@ $(document).ready(function() {
 
     }
   });
+  $(".comment .deletebutton").click(function() {
+    var cid, confirm_message, elem, url;
+    confirm_message = $(this).data("confirm");
+    url = $(this).data("url");
+    cid = $(this).data("cid");
+    elem = $(this).closest(".comment");
+    if (confirm(confirm_message)) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          method: "delete",
+          cid: cid
+        },
+        success: function(data) {
+          if (data.status === "success") {
+            elem.css("background", "red");
+            return elem.slideUp();
+          }
+        }
+      });
+    } else {
+      return false;
+    }
+    return false;
+  });
   $("#blog-add-button").click(function() {
     $("#blog-add-button-container").slideUp();
     return $("#blog-add-form").slideDown();

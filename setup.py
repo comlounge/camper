@@ -33,6 +33,7 @@ setup(name='camper',
         "sf-babel",
         "etherpad_lite",
         "requests",
+        "xlwt",
       ],
       entry_points="""
       [paste.app_factory]

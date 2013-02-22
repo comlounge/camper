@@ -45,12 +45,19 @@
                         am {{session.created.strftime("%d.%m.%Y")}}
                     </footer>
                     {% for comment in session.get_comments() %}
-                    <div class="media comments">
+                    <div class="media comment">
+                        {% if is_admin %}
+                            <a href="#" 
+                                data-confirm="{{_('Are you sure?')}}"
+                                data-url="{{url_for('barcamp_session_comments', slug = slug, sid = session._id)}}"
+                                data-cid="{{comment._id}}"
+                                class="deletebutton btn-mini btn btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                        {% endif %}
                         <a href="#" class="pull-left">
                             <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
                         </a>
                         <div class="media-body">{{comment.comment}}
-                            <footer>{{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                            <footer>{{_("comment by")}} {{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
                         </div>
                     </div>
                     {% endfor %}
@@ -63,9 +70,9 @@
                             <form method="post" class="form-horizontal clearfix" action="{{url_for('barcamp_session_comments', slug = slug, sid = session._id)}}">
                                 <fieldset>
                                 <div class="control-group">
-                                    <textarea placeholder="{{_('your comment')}}" name="comment" class="span8" cols=50 rows=3></textarea>
+                                    <textarea placeholder="{{_('your comment')}}" name="comment" class="span7" cols=50 rows=3></textarea>
                                 </div>
-                                <button href="#" class="btn">neuer Kommentar</button>
+                                <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
                                 </fieldset>
                             </form>
                             {% endif %}
@@ -85,6 +92,9 @@
             </article>
     {% endfor %}
     </section>
+    {% if is_admin %}
+        <a target="_new" href="{{url_for('barcamp_session_export', slug = slug)}}" class="pull-right btn"><i class="icon icon-download-alt"></i> Vorschläge als Excel exportieren</a>
+    {% endif %}
     {% if logged_in %}
         <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> Eigenen Vorschlag erstellen</a>
         <div class="well hide" id="proposal-form-container">
