@@ -129,6 +129,7 @@
                     <ul class="nav nav-list">
                         <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
                         <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                        <li><a href="{{url_for("barcamp_participants_edit", slug=slug)}}"><i class="icon icon-user"></i> Teilnehmerzahl erhöhen</a></li>
                         <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
                         <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
                         {% if view.can_add_menu_page %}

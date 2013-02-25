@@ -7,6 +7,9 @@ from wtforms import *
 from sfext.babel import T
 import requests
 
+class ParticipantCountForm(BaseForm):
+    size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
+
 class BarcampEditForm(BaseForm):
     """form for adding a barcamp"""
     # base data
@@ -22,7 +25,7 @@ class BarcampEditForm(BaseForm):
     )
     start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
     end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
-    size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
+    #size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
     twitterwall         = TextField(u"Link zur Twitterwall", [validators.Length(max=100)], description="z.B. bei <a href='http://twitterwallr.de'>twitterwallr.de</a>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
@@ -45,8 +48,6 @@ class EditView(BaseHandler):
 
     template = "barcamp/edit.html"
 
-    # TODO: slug should only be editable if barcamp not public
-
     @ensure_barcamp()
     @logged_in()
     @is_admin()
@@ -63,6 +64,8 @@ class EditView(BaseHandler):
         obj['location_url'] = self.barcamp.location['url']
         obj['location_description'] = self.barcamp.location['description']
         form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
+        if self.barcamp.public:
+            del form['slug']
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
@@ -106,3 +109,24 @@ class EditView(BaseHandler):
         return self.render(form = form)
     post = get
 
+class ParticipantsEditView(BaseHandler):
+    """let the user increase the number of participants"""
+
+    template = "barcamp/participants_edit.html"
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """render the view"""
+        form = ParticipantCountForm(self.request.form, obj = self.barcamp, config = self.config)
+        min_count = self.barcamp.size
+        form['size'].validators = [validators.Required(), validators.NumberRange(min=min_count, message=self._("you cannot reduce the participant number, the minimum amount is %s") %min_count)]
+        if self.request.method == 'POST' and form.validate():
+            size = form.data['size']
+            self.barcamp.size = size
+            self.barcamp.put()
+            self.flash("Barcamp aktualisiert", category="info")
+            return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+        return self.render(form = form, barcamp = self.barcamp)
+    post = get
