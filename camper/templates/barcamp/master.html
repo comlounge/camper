@@ -14,7 +14,7 @@
     <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamp", slug = slug)}}" />
     <link rel="canonical" href="{{url_for("barcamp", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
-    
+
 {% endblock %}
 
 {% block content %}
@@ -148,8 +148,8 @@
                     {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
                     {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
                     {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
-                    <hr>
-                    <a class="btn btn-mini" href="{{url_for('barcamp_location', slug=slug)}}">{{_('Show on map')}}</a>
+                    <a class="" href="{{url_for('barcamp_location', slug=slug)}}"><img src="http://staticmap.openstreetmap.de/staticmap.php?center={{barcamp.location.lat}},{{barcamp.location.lng}}&zoom=14&size=200x200&markers={{barcamp.location.lat}},{{barcamp.location.lng}},ltblu-pushpin" /></a>
+                    
                 </div>
                 <div class="widget">
                     <h4>{{_('People')}}</h4>
@@ -217,10 +217,10 @@
     <footer>
     </footer>
 {% endblock %}
-    {% block js %}
-        <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
-        <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
-        {% block bcjs %}
-        {% endblock %}
+{% block js %}
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+    {% block bcjs %}
     {% endblock %}
+{% endblock %}
 

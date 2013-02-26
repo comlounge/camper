@@ -83,9 +83,8 @@ class EditView(BaseHandler):
             if (form.data['location_street']!=self.barcamp.location['street'] or 
                form.data['location_city']!=self.barcamp.location['city'] or 
                form.data['location_zip']!=self.barcamp.location['zip']) or True:
-                    url = "http://nominatim.openstreetmap.org/search?q=%s, %s %s&format=json&polygon=0&addressdetails=1" %(
+                    url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
                         form.data['location_street'],
-                        form.data['location_zip'],
                         form.data['location_city'],
                     )
                     data = requests.get(url).json()
