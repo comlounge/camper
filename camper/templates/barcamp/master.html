@@ -74,7 +74,7 @@
     </div>
     <div id="barcamp">
     
-        <div class="header action-container">
+        <div class="header action-container content-area">
             {% if logo %}
                 {% if is_admin %}
                 <div class="image-edit actions">
@@ -95,7 +95,7 @@
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
-        <div class="navbar navbar-inverse">
+        <div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">
                     {% for action in actions %}
@@ -209,7 +209,6 @@
                             {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
                             {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
                             <a class="" href="{{url_for('barcamp_location', slug=slug)}}"><img src="http://staticmap.openstreetmap.de/staticmap.php?center={{barcamp.location.lat}},{{barcamp.location.lng}}&zoom=14&size=200x200&markers={{barcamp.location.lat}},{{barcamp.location.lng}},ltblu-pushpin" /></a>
-                            
                         </div>
                     {% endblock %}
                 </div>{# -- widget -- #}

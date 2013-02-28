@@ -5007,6 +5007,11 @@ body {
   width: 210px;
   margin-left: 20px;
 }
+.navbar {
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+}
 .login-container {
   width: 400px;
   background: #f8f8f8;
