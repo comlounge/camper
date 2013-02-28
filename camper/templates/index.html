@@ -1,50 +1,51 @@
 {% extends "master.html" %}
 
 {% block content %}
-    <h1 id="logo">Camper</h1>
-    <div class="row">
-        <div class="span8">
-            <div class="alert alert-info">
-            <h1>Achtung!</h1>
-            <p>
+    <h1 id="logo">
+        <img src="{{url_for("static", filename="/img/camperfull.png")}}">
+    </h1>
+    <div class="alert alert-danger">
+        <h1>Achtung!</h1>
+        <p>
             Dies ist eine Beta-Version, deren Inhalte nicht erhalten bleiben. Man kann das Tool hier testen, die endgültige
             Fassung ist es aber noch nicht und diese wird unter anderer Domain und mit leerer Datenbank starten. 
-            </p>
-            Also legt keine Barcamps an, die ihr dann bewerbt, denn diese werden bald wieder gelöscht werden. 
-            </div>
-            <h2>{{_("Recent Barcamps")}}</h2>
-                {% for view in barcamps %}
-                    {% if view.barcamp.public or view.is_admin or is_main_admin %}
-                    <article class="barcamp">
-                        <header>
-                            {% if view.logo %}
-                                <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.logo}}</a></h4>
-                            {% else %}
-                                <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
-                            {% endif %}
-                        </header>
-                        <div class="pull-right">
-                            {% if not view.barcamp.public %}
-                                <span class="label label-warning">{{_('private')}}</span>
-                            {% endif %}
-                            {% if view.is_admin %}
-                                <span class="label label-success">{{_('ADMIN')}}</span>
-                            {% endif %}
-                        </div>
-                        <div class="byline">
-                            {{view.barcamp.start_date.strftime('%d.%m.%Y')}} - 
-                            {{view.barcamp.end_date.strftime('%d.%m.%Y')}}, 
-                            {{view.barcamp.location.name}}, {{view.barcamp.location.city}}
-                        </div>
-                        <footer>
-                        </footer>
-                    </article>
+        </p>
+        Also legt keine Barcamps an, die ihr dann bewerbt, denn diese werden bald wieder gelöscht werden. 
+    </div>
+    <div class="row">
+        <div class="span9">
+        {% for view in barcamps %}
+            {% if view.barcamp.public or view.is_admin or is_main_admin %}
+            <article class="barcamp content-area">
+                <header>
+                    {% if view.logo %}
+                        <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.logo}}</a></h4>
+                    {% else %}
+                        <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
                     {% endif %}
-                {% endfor %}
+                </header>
+                <div class="pull-right">
+                    {% if not view.barcamp.public %}
+                        <span class="label label-warning">{{_('private')}}</span>
+                    {% endif %}
+                    {% if view.is_admin %}
+                        <span class="label label-success">{{_('ADMIN')}}</span>
+                    {% endif %}
+                </div>
+                <div class="byline">
+                    {{view.barcamp.start_date.strftime('%d.%m.%Y')}} - 
+                    {{view.barcamp.end_date.strftime('%d.%m.%Y')}}, 
+                    {{view.barcamp.location.name}}, {{view.barcamp.location.city}}
+                </div>
+                <footer>
+                </footer>
+            </article>
+            {% endif %}
+        {% endfor %}
         </div>
-        <div class="span4">
+        <div class="widgets">
             {% if logged_in %}
-                <div class="well">
+                <div class="widget">
                     <p>
                         <strong>Willst Du ein Barcamp organisieren?</strong>
                     </p>
