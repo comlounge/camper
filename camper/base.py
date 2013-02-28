@@ -30,7 +30,10 @@ class UserView(object):
         u = self.user
         uf = self.app.url_for
         if u.image is not None and u.image!="":
-            return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['thumb']._id)
+            try:
+                return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['thumb']._id)
+            except:
+                return None
         else: 
             # here we should return a dummy image
             return None

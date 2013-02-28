@@ -63,7 +63,6 @@ class BarcampSchema(Schema):
     gplus               = String() 
     homepage            = String() # URL
     twitterwall         = String() # URL
-    fbAppId             = String() # optional appId
     fbAdminId           = String() # optional admin id for facebook use
 
     # documentation
@@ -154,9 +153,21 @@ class Barcamp(Record):
 
     @property
     def subscriber_users(self):
-        """return a list of user objects of the admin users"""
+        """return a list of user objects of the subscribed users"""
         ub = self._collection.md.app.module_map.userbase
         return list(ub.get_users_by_ids(self.subscribers))
+
+    @property
+    def participant_users(self):
+        """return a list of user objects of the participants"""
+        ub = self._collection.md.app.module_map.userbase
+        return list(ub.get_users_by_ids(self.event.participants))
+
+    @property
+    def waitinglist_users(self):
+        """return a list of user objects of the people on the waitinglist"""
+        ub = self._collection.md.app.module_map.userbase
+        return list(ub.get_users_by_ids(self.event.waiting_list))
 
     @property
     def event(self):

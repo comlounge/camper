@@ -39,9 +39,7 @@
             {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", class="span2") }}
             {{ formmacros.form_field(form.hashtag, class="span4") }}
             {{ formmacros.form_field(form.twitterwall, class="span4 url") }}
-            {{ formmacros.form_field(form.fbAppId, class="span4 number") }}
             {{ formmacros.form_field(form.fbAdminId, class="span4 number") }}
-            {{ formmacros.form_field(form.gplus, class="span4 url") }}
         </fieldset>
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">

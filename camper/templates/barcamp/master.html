@@ -105,113 +105,116 @@
             </div>
         </div>
 
-        {% block outer_content %}
-        <div id="main-content" class="row">
-            <div class="span9">
-                {% if is_admin and not barcamp.public%}
-                <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
-                    <input type="hidden" name="public" value="1">
-                    <div class="well">
-                        <button class="pull-right btn btn-small btn-success">Öffentlich machen</button>
-                        <b style="color: red">Dieses Barcamp ist im Moment nicht öffentlich einsehbar!</b>
-                    </div>
-                </form>
-                {% endif %}
-
-                {% block main_content %}
-                {% endblock %}
-
-            </div>
-            <div class="span3">
-                {% if is_admin %}
-                <div class="widget widget-admin">
-                    <h4>{{_('Administration')}}</h4>
-                    <ul class="nav nav-list">
-                        <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
-                        <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
-                        <li><a href="{{url_for("barcamp_participants_edit", slug=slug)}}"><i class="icon icon-user"></i> Teilnehmerzahl erhöhen</a></li>
-                        <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
-                        <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
-                        {% if view.can_add_menu_page %}
-                            <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="icon-plus"></i> Neue Seite anlegen</a></li>
-                        {% endif %}
-                        <li><a class="btn-danger" href="{{url_for("barcamp_delete", slug=slug)}}"><i class="icon icon-trash"></i> Barcamp löschen</a></li>
-                        
-                    </ul>
-                </div>
-                {% endif %}
-                <div class="widget">
-                    <h4>{{_('location')}}</h4>
-                    <a href="{{url_for('barcamp_location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
-                    {{barcamp.location.street}}<br>
-                    {{barcamp.location.zip}} {{barcamp.location.city}}<br>
-                    {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
-                    {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
-                    {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
-                    <a class="" href="{{url_for('barcamp_location', slug=slug)}}"><img src="http://staticmap.openstreetmap.de/staticmap.php?center={{barcamp.location.lat}},{{barcamp.location.lng}}&zoom=14&size=200x200&markers={{barcamp.location.lat}},{{barcamp.location.lng}},ltblu-pushpin" /></a>
-                    
-                </div>
-                <div class="widget">
-                    <h4>{{_('People')}}</h4>
-                    {{barcamp.subscribers|length}} {{_('subscribers')}} <br>
-                    {{barcamp.event.participants|length}} {{_('participants')}} <br>
-                    {{barcamp.event.waiting_list|length}} {{_('on waiting list')}} <br>
-                    <a class="btn btn-mini" href="{{url_for("barcamp_userlist", slug = slug)}}">{{_("view participants")}}</a>
-                </div>
-                <div class="widget socialbuttons">
-                    <div class="fb-button">
-                        <div class="fb-like" data-href="{{url_for("barcamp", slug = slug)}}" 
-                            data-send="false" 
-                            data-layout="box_count" 
-                            data-width="60" 
-                            data-show-faces="false"></div>
-                    </div>
-                    <div class="twitter-button">
-                        <a href="https://twitter.com/share" 
-                           class="twitter-share-button" 
-                           data-url="{{_('Join us at')}} {{url_for("barcamp", slug = slug)}}" 
-                           data-text="{{barcamp.title|striptags}}" 
-                           data-via="{{barcamp.twitter}}" 
-                           data-count="vertical"
-                           data-hashtags="{{barcamp.hashtag}}">Tweet</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% block headline %}
         {% endblock %}
 
-       
-        {% macro barcamp_buttons() -%}
-        {% if logged_in %}
-        <div id="barcamp-buttons">
-            {% if not view.is_subscriber %}
-                {% if not view.is_participant and not view.is_on_waiting_list %}
-                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}" class="pull-left">
-                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
+        {% block outer_content %}
+            <div id="main-content" class="row">
+                <div class="span9" id="content-area">
+                    {% if is_admin and not barcamp.public%}
+                    <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
+                        <input type="hidden" name="public" value="1">
+                        <div class="well">
+                            <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
+                            <b style="color: red">{{_('this barcamp is not public')}}</b>
+                        </div>
                     </form>
-                {% endif %}
-                <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="pull-right">
-                    <button class="btn btn-large btn-info">Als Interessent anmelden</button>
-                </form>
-            {% else %}
-                {% if not view.is_participant and not view.is_on_waiting_list %}
-                    <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="pull-right">
-                        <button class="btn btn-large btn-danger">Als Interessent abmelden</button>
-                    </form>
-                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}" class="pull-left">
-                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
-                    </form>
-                {% else %}
-                    <form method="post" action="{{url_for('barcamp_unregister', slug = slug)}}" class="pull-left">
-                        <button class="btn btn-small btn-danger">Streiche mich von der Teilnehmerliste</button>
-                    </form>
-                {% endif %}
-            {% endif %}
-        </div>
-        {% endif %}
-    {%- endmacro %}
-    {{ barcamp_buttons() }}
-        
+                    {% endif %}
+
+                    {% block main_content %}
+                    {% endblock %}
+
+                </div>
+                <div class="widgets">
+                    {% block widgets %}
+                        {% macro barcamp_buttons() -%}
+                        {% if logged_in %}
+                        <div class="widget-join">
+                            {% if not view.is_subscriber and not view.is_participant and not view.is_on_waitinglist %}
+                                <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="center">
+                                    <button class="btn btn-large btn-info">Als Interessent anmelden</button>
+                                </form>
+                                {% if not view.is_participant and not view.is_on_waiting_list %}
+                                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}">
+                                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
+                                    </form>
+                                {% endif %}
+                            {% else %}
+                                {% if not view.is_participant and not view.is_on_waiting_list %}
+                                    <form method="post" action="{{url_for('barcamp_register', slug = slug)}}">
+                                        <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
+                                    </form>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                        {%- endmacro %}
+
+                        {{barcamp_buttons()}}
+
+                        <div class="socialmedia">
+                            <div class="fb-button">
+                                <a name="fb_share" type="button" href="http://www.facebook.com/sharer.php?u={{url_for("barcamp", slug=slug)}}">Teilen</a>
+                            </div>
+                            <div class="twitter-button">
+                                <a href="https://twitter.com/share" 
+                                   class="twitter-share-button" 
+                                   data-url="{{_('Join us at')}} {{url_for("barcamp", slug = slug)}}" 
+                                   data-text="{{barcamp.title|striptags}}" 
+                                   data-via="{{barcamp.twitter}}" 
+                                   data-count="none"
+                                   data-hashtags="{{barcamp.hashtag}}">Tweet</a>
+                            </div>
+                            <div class="gplus-button">
+                                <!-- Place this tag where you want the +1 button to render. -->
+                                <div class="g-plusone" data-size="medium" data-annotation="none"></div>
+
+                                <!-- Place this tag after the last +1 button tag. -->
+                                <script type="text/javascript">
+                                  window.___gcfg = {lang: 'de'};
+
+                                  (function() {
+                                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                    po.src = 'https://apis.google.com/js/plusone.js';
+                                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                  })();
+                                </script>
+                            </div>
+                            
+                        </div>
+
+                        {% if is_admin %}
+                        <div class="widget widget-admin">
+                            <h4>{{_('Administration')}}</h4>
+                            <ul class="nav nav-list">
+                                <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
+                                <li><a href="{{url_for("barcamp_edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                                <li><a href="{{url_for("barcamp_participants_edit", slug=slug)}}"><i class="icon icon-user"></i> Teilnehmerzahl erhöhen</a></li>
+                                <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
+                                <li><a href="{{url_for("barcamp_permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
+                                {% if view.can_add_menu_page %}
+                                    <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="icon-plus"></i> Neue Seite anlegen</a></li>
+                                {% endif %}
+                                <li><a class="btn-danger" href="{{url_for("barcamp_delete", slug=slug)}}"><i class="icon icon-trash"></i> Barcamp löschen</a></li>
+                                
+                            </ul>
+                        </div>
+                        {% endif %}
+                        <div class="widget">
+                            <h4>{{_('location')}}</h4>
+                            <a href="{{url_for('barcamp_location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
+                            {{barcamp.location.street}}<br>
+                            {{barcamp.location.zip}} {{barcamp.location.city}}<br>
+                            {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
+                            {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
+                            {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
+                            <a class="" href="{{url_for('barcamp_location', slug=slug)}}"><img src="http://staticmap.openstreetmap.de/staticmap.php?center={{barcamp.location.lat}},{{barcamp.location.lng}}&zoom=14&size=200x200&markers={{barcamp.location.lat}},{{barcamp.location.lng}},ltblu-pushpin" /></a>
+                            
+                        </div>
+                    {% endblock %}
+                </div>{# -- widget -- #}
+            </div>{# -- #main-content --#}
+        {% endblock %}
 
     </div><!-- #barcamp -->
     <footer>
@@ -222,5 +225,6 @@
     <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
     {% block bcjs %}
     {% endblock %}
+    <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
 {% endblock %}
 

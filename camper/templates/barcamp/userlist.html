@@ -1,25 +1,42 @@
 {% extends "barcamp/master.html" %}
 
-{% macro list(users) -%}
+{% macro list(users, remove_url=None) -%}
+    <ul class="media-list participants">
     {% for user in users %}
-        <a href="{{url_for('profile', username = user.username)}}">{{user.fullname}}</a>
-        {% if user.has_organisation %}
-        , {{user.organisation}}<br>
-        {% endif %}
+        <li class="media">
+            <a class="pull-left" href="{{url_for('profile', username = user.username)}}">
+                <img class="profile-image-mini" src="{{userview(user).image_thumb}}">
+            </a>
+            <div class="media-body">
+                {% if remove_url %}
+                    <form method="post" class="pull-right" action="{{remove_url}}">
+                        <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
+                    </form>
+                {% endif %}
+                <h5 class="media-heading"><a href="{{url_for('profile', username = user.username)}}">{{user.fullname}}</a>
+                    {% if user.has_organisation %}
+                    <br><small>{{user.organisation}}</small>
+                    {% endif %}
+                </h5>
+            </div>
+        </li>
     {% endfor %}
+    </ul>
 {%- endmacro %}
 
 {% block main_content %}
     <div class="row">
-        <div class="span4">
-            <h2>Interessenten</h2>
-            {{list(barcamp.subscriber_users)}}
-        </div>
-        <div class="span4">
+        <div class="span3">
             <h2>Teilnehmer</h2>
+            {{list(barcamp.participant_users, remove_url=url_for('barcamp_unregister', slug = slug))}}
         </div>
-        <div class="span4">
+        <div class="span3">
+            <h2>Interessenten</h2>
+            {{list(barcamp.subscriber_users, remove_url=url_for('barcamp_subscribe', slug = slug))}}
+        </div>
+        <div class="span3">
             <h2>Warteliste</h2>
+            {{list(barcamp.waitinglist_users, remove_url=url_for('barcamp_unregister', slug = slug))}}
         </div>
     </div>
 {% endblock %}

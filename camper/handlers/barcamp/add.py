@@ -24,12 +24,12 @@ class BarcampAddForm(BaseForm):
     start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
     end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
-    twitterwall         = TextField(u"Link zur Twitterwall", [validators.Length(max=100)], description="z.B. bei <a href='http://twitterwallr.de'>twitterwallr.de</a>")
+    twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)], 
+            description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
     gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
-    fbAppId             = TextField(u"Facebook appId", [validators.Length(max=100)], description="optionale Application ID")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
 
     location_name                = TextField(T("name of location"), [validators.Required()], description = T('please enter the name of the venue here'),)

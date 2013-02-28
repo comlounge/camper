@@ -174,6 +174,9 @@ $(document).ready( () ->
 
     $("#location-picker").colorbox({inline:true, width:642});
 
+    $("a.form-submit").click ->
+        $(this).closest("form").submit();
+
 )
 
 

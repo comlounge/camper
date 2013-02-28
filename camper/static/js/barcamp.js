@@ -191,8 +191,11 @@ $(document).ready(function() {
     }
     return false;
   });
-  return $("#location-picker").colorbox({
+  $("#location-picker").colorbox({
     inline: true,
     width: 642
+  });
+  return $("a.form-submit").click(function() {
+    return $(this).closest("form").submit();
   });
 });

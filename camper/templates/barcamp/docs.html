@@ -1,14 +1,13 @@
 {% extends "barcamp/master.html" %}
 {% import "macros.html" as formmacros with context %}
 
-{% block outer_content %}
-    <div class="row clearfix" id="pad-content">
-        <div class="span9">
-            <iframe name='embed_readwrite' src='http://yourpart.eu/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' 
-                    width=680 height=600>
-            </iframe>
-        </div>
-        <div class="span3">
+{% block main_content %}
+    <iframe name='embed_readwrite' src='http://yourpart.eu/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' 
+            width=789 height=600>
+    </iframe>
+{% endblock %}
+{% block widgets %}
+        <div class="widget">
             <h5>{{_("Blog Posts about the camp")}}</h5>
             <ul id="blog-reports">
                 {% for post in posts %}
@@ -39,5 +38,4 @@
             {% endif %}
         </div>
     </div>
-
 {% endblock %}

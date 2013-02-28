@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-01-15 16:24+0100\n"
+"POT-Creation-Date: 2013-02-26 17:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,47 +25,119 @@ msgstr ""
 msgid "main administrator"
 msgstr ""
 
-#: base.py:23
+#: base.py:153
 msgid "Please log in."
 msgstr ""
 
-#: base.py:57
+#: base.py:190
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:61
+#: base.py:194 base.py:336
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: handlers/forms.py:77
+#: handlers/forms.py:78
 msgid "Not a valid currency value"
 msgstr ""
 
-#: handlers/barcamp/index.py:44
-msgid "You are now on the list of people interested in the barcamp"
+#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:37
+msgid "name of location"
 msgstr ""
 
-#: handlers/barcamp/index.py:47
-msgid "You have been removed from the list of people interested in this barcamp"
+#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:37
+msgid "please enter the name of the venue here"
 msgstr ""
 
-#: handlers/barcamp/index.py:63
-msgid ""
-"Unfortunately list of participants is already full. You have been put "
-"onto the waiting list and will be informed should you move on to the list"
-" of participants."
+#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:38
+msgid "street and number "
 msgstr ""
 
-#: handlers/barcamp/index.py:68
-msgid "You are now on the list of participants for this barcamp."
+#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:38
+msgid "street and number of the venue"
 msgstr ""
 
-#: handlers/barcamp/index.py:90
-msgid "You have been removed from the list of participants."
+#: handlers/barcamp/add.py:37 handlers/barcamp/edit.py:39
+msgid "city"
 msgstr ""
 
-#: handlers/barcamp/index.py:119
-msgid "User not allowed to delete this item"
+#: handlers/barcamp/add.py:38 handlers/barcamp/edit.py:40
+msgid "zip"
+msgstr ""
+
+#: handlers/barcamp/add.py:39 handlers/barcamp/edit.py:41
+msgid "homepage"
+msgstr ""
+
+#: handlers/barcamp/add.py:39 handlers/barcamp/add.py:40
+#: handlers/barcamp/edit.py:41 handlers/barcamp/edit.py:42
+msgid "web site of the venue (optional)"
+msgstr ""
+
+#: handlers/barcamp/add.py:40 handlers/barcamp/edit.py:42
+msgid "phone"
+msgstr ""
+
+#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:43
+msgid "email"
+msgstr ""
+
+#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:43
+msgid "email address of the venue (optional)"
+msgstr ""
+
+#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:44
+msgid "description"
+msgstr ""
+
+#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:44
+msgid "an optional description of the venue"
+msgstr ""
+
+#: handlers/barcamp/add.py:77
+msgid "Attention: One or both of the etherpads exist already!"
+msgstr ""
+
+#: handlers/barcamp/add.py:83
+#, python-format
+msgid "%s wurde angelegtname"
+msgstr ""
+
+#: handlers/barcamp/add.py:107
+msgid "This name is already taken. Please choose a different one"
+msgstr ""
+
+#: handlers/barcamp/base.py:45
+msgid "Home"
+msgstr ""
+
+#: handlers/barcamp/base.py:46
+msgid "session proposals"
+msgstr ""
+
+#: handlers/barcamp/base.py:48
+msgid "planning"
+msgstr ""
+
+#: handlers/barcamp/base.py:49
+msgid "documentation"
+msgstr ""
+
+#: handlers/barcamp/base.py:53
+msgid "Twitterwall"
+msgstr ""
+
+#: handlers/barcamp/delete.py:36
+msgid "The barcamp and all it's contents have been deleted!"
+msgstr ""
+
+#: handlers/barcamp/edit.py:98
+msgid "the city was not found in the geo database"
+msgstr ""
+
+#: handlers/barcamp/edit.py:123
+#, python-format
+msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
 
 #: handlers/barcamp/pads.py:10
@@ -84,75 +156,275 @@ msgstr ""
 msgid "URL of the blog post you want to link to"
 msgstr ""
 
-#: handlers/barcamp/pads.py:73
+#: handlers/barcamp/pads.py:75
 msgid "Your blog post has been posted."
 msgstr ""
 
-#: templates/index.html:7
+#: handlers/barcamp/pads.py:87
+msgid "User not allowed to delete this item"
+msgstr ""
+
+#: handlers/barcamp/registration.py:18
+msgid "You are now on the list of people interested in the barcamp"
+msgstr ""
+
+#: handlers/barcamp/registration.py:21
+msgid "You have been removed from the list of people interested in this barcamp"
+msgstr ""
+
+#: handlers/barcamp/registration.py:38
+msgid ""
+"Unfortunately list of participants is already full. You have been put "
+"onto the waiting list and will be informed should you move on to the list"
+" of participants."
+msgstr ""
+
+#: handlers/barcamp/registration.py:42
+#, python-format
+msgid "You are now on the waiting list for %s"
+msgstr ""
+
+#: handlers/barcamp/registration.py:48
+msgid "You are now on the list of participants for this barcamp."
+msgstr ""
+
+#: handlers/barcamp/registration.py:52
+#, python-format
+msgid "Welcome to %s"
+msgstr ""
+
+#: handlers/barcamp/registration.py:75
+msgid "You have been removed from the list of participants."
+msgstr ""
+
+#: handlers/barcamp/sessions.py:107
+msgid "your comment has been added."
+msgstr ""
+
+#: handlers/users/edit.py:73
+msgid "Your profile image has been deleted"
+msgstr ""
+
+#: templates/index.html:15
 msgid "Recent Barcamps"
 msgstr ""
 
-#: templates/index.html:14
+#: templates/index.html:28
 msgid "private"
 msgstr ""
 
-#: templates/index.html:17
+#: templates/index.html:31
 msgid "ADMIN"
 msgstr ""
 
-#: templates/index.html:23
+#: templates/index.html:54
 msgid "create new barcamp"
 msgstr ""
 
-#: templates/macros.html:70
+#: templates/macros.html:63
 msgid "Diese Feld muss angegeben werden"
 msgstr ""
 
-#: templates/barcamp/docs.html:10
+#: templates/master.html:65
+msgid "Login"
+msgstr ""
+
+#: templates/master.html:66
+msgid "Register"
+msgstr ""
+
+#: templates/master.html:74
+msgid "my profile"
+msgstr ""
+
+#: templates/master.html:75
+msgid "Log out"
+msgstr ""
+
+#: templates/barcamp/add.html:6
+msgid "Create a new Barcamp"
+msgstr ""
+
+#: templates/barcamp/add.html:10
+msgid "Base data"
+msgstr ""
+
+#: templates/barcamp/add.html:22
+msgid "Dates"
+msgstr ""
+
+#: templates/barcamp/add.html:27
+msgid "Address"
+msgstr ""
+
+#: templates/barcamp/add.html:38
+msgid "Social Media"
+msgstr ""
+
+#: templates/barcamp/add.html:47
+msgid "create Barcamp"
+msgstr ""
+
+#: templates/barcamp/delete.html:8
+msgid ""
+"If you delete this barcamp, the following information will be deleted "
+"PERMANENTLY:"
+msgstr ""
+
+#: templates/barcamp/delete.html:10
+msgid "all information about the barcamp"
+msgstr ""
+
+#: templates/barcamp/delete.html:11
+msgid "all your pages"
+msgstr ""
+
+#: templates/barcamp/delete.html:12
+msgid "all participants lists"
+msgstr ""
+
+#: templates/barcamp/delete.html:13
+msgid "all documentation if not hosted externally"
+msgstr ""
+
+#: templates/barcamp/delete.html:14
+msgid "all session proposals"
+msgstr ""
+
+#: templates/barcamp/delete.html:19
+msgid "yes, DELETE the barcamp"
+msgstr ""
+
+#: templates/barcamp/delete.html:20
+msgid "No, DO NOT delete the barcamp"
+msgstr ""
+
+#: templates/barcamp/docs.html:11
 msgid "Blog Posts about the camp"
 msgstr ""
 
-#: templates/barcamp/docs.html:15
+#: templates/barcamp/docs.html:16 templates/barcamp/sessions.html:29
+#: templates/barcamp/sessions.html:49
 msgid "Are you sure?"
 msgstr ""
 
-#: templates/barcamp/docs.html:26 templates/barcamp/docs.html:29
+#: templates/barcamp/docs.html:27 templates/barcamp/docs.html:30
 msgid "Add new blog post"
 msgstr ""
 
-#: templates/barcamp/docs.html:33
+#: templates/barcamp/docs.html:34 templates/barcamp/sessions.html:86
 msgid "Cancel"
 msgstr ""
 
-#: templates/barcamp/docs.html:34
+#: templates/barcamp/docs.html:35 templates/barcamp/sessions.html:85
 msgid "Save"
+msgstr ""
+
+#: templates/barcamp/location.html:70
+msgid "Event location"
+msgstr ""
+
+#: templates/barcamp/master.html:118
+msgid "publish barcamp"
+msgstr ""
+
+#: templates/barcamp/master.html:119
+msgid "this barcamp is not public"
+msgstr ""
+
+#: templates/barcamp/master.html:162
+msgid "Administration"
+msgstr ""
+
+#: templates/barcamp/master.html:178
+msgid "location"
+msgstr ""
+
+#: templates/barcamp/master.html:189
+msgid "People"
+msgstr ""
+
+#: templates/barcamp/master.html:190
+msgid "subscribers"
+msgstr ""
+
+#: templates/barcamp/master.html:191
+msgid "participants"
+msgstr ""
+
+#: templates/barcamp/master.html:192
+msgid "on waiting list"
+msgstr ""
+
+#: templates/barcamp/master.html:193
+msgid "view participants"
+msgstr ""
+
+#: templates/barcamp/master.html:206
+msgid "Join us at"
 msgstr ""
 
 #: templates/barcamp/pad.html:7
 msgid "This planning pad is public."
 msgstr ""
 
+#: templates/barcamp/pad.html:8
+msgid "Make private"
+msgstr ""
+
 #: templates/barcamp/pad.html:12
 msgid "This planning pad is private."
 msgstr ""
 
+#: templates/barcamp/pad.html:13
+msgid "Make public"
+msgstr ""
+
+#: templates/barcamp/participants_edit.html:6
+msgid "Increase number of participants"
+msgstr ""
+
+#: templates/barcamp/participants_edit.html:12
+msgid "update"
+msgstr ""
+
+#: templates/barcamp/sessions.html:58
+msgid "comment by"
+msgstr ""
+
+#: templates/barcamp/sessions.html:71
+msgid "your comment"
+msgstr ""
+
+#: templates/barcamp/sessions.html:73
+msgid "add your comment"
+msgstr ""
+
 #: templates/userbase/login.html:16
-msgid "Echte Camper loggen sich ein"
+msgid "Real camper log in!"
 msgstr ""
 
 #: templates/userbase/login.html:18
-msgid "Benutzername"
+msgid "username"
 msgstr ""
 
 #: templates/userbase/login.html:19
-msgid "Passwort"
+msgid "password"
 msgstr ""
 
-#: templates/userbase/login.html:20
-msgid "Einloggen"
+#: templates/userbase/login.html:22
+msgid "login"
 msgstr ""
 
-#: templates/userbase/login.html:24
-msgid "Passwort vergessen?"
+#: templates/userbase/login.html:25
+msgid "register a new user"
+msgstr ""
+
+#: templates/userbase/login.html:31
+msgid "password forgotten?"
+msgstr ""
+
+#: templates/users/profile.html:41
+msgid "delete profile image"
 msgstr ""
 

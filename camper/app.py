@@ -214,6 +214,7 @@ class CamperApp(Application):
         URL('/<slug>/planning/toggle', 'barcamp_planning_pad_toggle', handlers.barcamp.pads.PadPublicToggleView),
         URL('/<slug>/docpad', 'barcamp_documentation_pad', handlers.barcamp.pads.DocumentationPadView),
         URL('/<slug>/lists', 'barcamp_userlist', handlers.barcamp.userlist.UserLists),
+        URL('/<slug>/tweetwally', 'barcamp_tweetwally', handlers.barcamp.tweetwally.TweetWallyView),
         URL('/<slug>/permissions', 'barcamp_permissions', handlers.barcamp.permissions.Permissions),
         URL('/<slug>/permissions/admin', 'barcamp_admin', handlers.barcamp.permissions.Admin),
         URL('/<slug>/sessions', 'barcamp_sessions', handlers.barcamp.sessions.SessionList),
