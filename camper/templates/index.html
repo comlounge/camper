@@ -19,7 +19,7 @@
             <article class="barcamp content-area">
                 <header>
                     {% if view.logo %}
-                        <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.logo}}</a></h4>
+                        <h4>{{view.logo}}</h4>
                     {% else %}
                         <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
                     {% endif %}

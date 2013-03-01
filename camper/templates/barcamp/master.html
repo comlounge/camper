@@ -111,14 +111,24 @@
         {% block outer_content %}
             <div id="main-content" class="row">
                 <div class="span9" id="content-area">
-                    {% if is_admin and not barcamp.public%}
-                    <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
-                        <input type="hidden" name="public" value="1">
-                        <div class="well">
-                            <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
-                            <b style="color: red">{{_('this barcamp is not public')}}</b>
-                        </div>
-                    </form>
+                    {% if is_admin %}
+                        {% if barcamp.workflow=="created" %}
+                            <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
+                                <input type="hidden" name="wf" value="public">
+                                <div class="well">
+                                    <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
+                                    <b style="color: red">{{_('this barcamp is not public')}}</b>
+                                </div>
+                            </form>
+                        {% elif barcamp.workflow == "public" %}
+                            <form action="{{url_for('barcamp_permissions', slug=slug)}}" method="POST">
+                                <input type="hidden" name="wf" value="registration">
+                                <div class="well">
+                                    <button class="pull-right btn btn-small btn-success">{{_('open registration')}}</button>
+                                    <b style="color: red">{{_('Registration for this barcamp is not yet open. People can only subscribe to it but not take part.')}}</b>
+                                </div>
+                            </form>
+                        {% endif %}
                     {% endif %}
 
                     {% block main_content %}
@@ -134,13 +144,13 @@
                                 <form method="post" action="{{url_for('barcamp_subscribe', slug = slug)}}" class="center">
                                     <button class="btn btn-large btn-info">Als Interessent anmelden</button>
                                 </form>
-                                {% if not view.is_participant and not view.is_on_waiting_list %}
+                                {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
                                     <form method="post" action="{{url_for('barcamp_register', slug = slug)}}">
                                         <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
                                     </form>
                                 {% endif %}
                             {% else %}
-                                {% if not view.is_participant and not view.is_on_waiting_list %}
+                                {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
                                     <form method="post" action="{{url_for('barcamp_register', slug = slug)}}">
                                         <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
                                     </form>

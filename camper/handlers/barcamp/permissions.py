@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from camper import BaseForm, db, BaseHandler, logged_in, ensure_barcamp, is_admin
 from .base import BarcampBaseHandler
+from camper.db.barcamp import WorkflowError
 from starflyer import redirect
 
 class Permissions(BarcampBaseHandler):
@@ -21,10 +22,17 @@ class Permissions(BarcampBaseHandler):
     @logged_in()
     @is_admin()
     def post(self, slug = None):
-        """set the visibility of the barcamp"""
-        self.barcamp.public = int(self.request.form.get("public",0)) == 1
-        self.barcamp.save()
-        return self.get(slug)
+        """set the workflow state for the barcamp"""
+        try:
+            self.barcamp.set_workflow(self.request.form.get("wf",""))
+            self.barcamp.save()
+        except WorkflowError:
+            self.flash(self._("you cannot perform this action."), category="error")
+        if self.last_url:
+            url = self.last_url
+        else:
+            url = self.url_for("barcamp", slug=slug)
+        return redirect(url)
 
 
 class Admin(BarcampBaseHandler):

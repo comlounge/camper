@@ -3,6 +3,28 @@ import datetime
 
 __all__=["Barcamp", "BarcampSchema", "Barcamps"]
 
+class BaseError(Exception):
+    """base class for exceptions"""
+
+    def __init__(self, msg):
+        """initialize the error with a message"""
+        self.msg = msg
+
+class WorkflowError(BaseError):
+    """error in workflow e.g. transition not allowed"""
+
+    def __init__(self, msg = u"Transition nicht erlaubt" , old_state = None, new_state = None):
+        """initialize the error with a message"""
+        self.msg = msg
+        self.old_state = old_state
+        self.new_state = new_state
+
+    def __str__(self):
+        """return a printable representation"""
+        return """<WorkflowError: %s (old=%s, new=%s)>""" %(self.msg, self.old_state, self.new_state)
+
+
+
 class Location(Schema):
     """a location described by name, lat and long"""
     name = String()
@@ -47,7 +69,7 @@ class BarcampSchema(Schema):
     updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
     workflow            = String(required = True, default = "created") 
-    public              = Boolean(default = False) 
+    #public              = Boolean(default = False) 
     
     # base data
     name                = String(required = True)
@@ -116,14 +138,50 @@ class Event(AttributeMapper):
 class Barcamp(Record):
 
     schema = BarcampSchema()
-    _protected = ['schema', 'collection', '_protected', '_schemaless', 'default_values', 'admin_users']
+    _protected = ['schema', 'collection', '_protected', '_schemaless', 'default_values', 'admin_users', 'workflow_states', 'initial_workflow_state']
+    initial_workflow_state = "created"
     default_values = {
         'created'       : datetime.datetime.utcnow,
         'updated'       : datetime.datetime.utcnow,
         'location'      : {},
+        'workflow'      : "created",
         'events'        : [],
         'planning_pad_public'        : False,
     }
+
+    workflow_states = {
+        'created'       : ['public', 'deleted', 'canceled'],
+        'public'        : ['registration', 'deleted', 'canceled'],
+        'registration'  : ['deleted', 'canceled'],
+        'canceled'      : ['deleted'],
+    }
+
+    def set_workflow(self, new_state):
+        """set the workflow to a new state"""
+        old_state = self.workflow                                                                                                                                                      
+        if old_state is None:
+            old_state = self.initial_workflow_state
+        allowed_states = self.workflow_states[old_state]
+
+        # check if transition is allowed
+        if hasattr(self, "check_wf_"+new_state):
+            m = getattr(self, "check_wf_"+new_state)
+            if not m(old_state = old_state): # this should raise WorkflowError if not allowed otherwise return True
+                raise WorkflowError(old_state = old_state, new_state = new_state) # fallback
+
+        if new_state not in allowed_states:
+            raise WorkflowError(old_state = old_state, new_state = new_state)
+
+        # Trigger
+        if hasattr(self, "on_wf_"+new_state):
+            m = getattr(self, "on_wf_"+new_state)
+            m(old_state = old_state)
+        self.workflow = new_state
+   
+    @property
+    def public(self):
+        """return whether the barcamp is public or not"""
+        return self.workflow in ['public', 'registration', 'canceled']
 
     def add_admin(self, user):
         """add a new admin to the invited admins list"""

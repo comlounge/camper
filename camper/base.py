@@ -56,11 +56,15 @@ class BarcampView(object):
             asset = self.app.module_map.uploader.get(self.barcamp.logo)
         except AssetNotFound:
             asset = None
-        if asset:
-            url = self.app.url_for("asset", asset_id = asset.variants['logo_full']._id)
-        else:
+        if not asset:
             return u""
-        return """<a href="%s"><img src="%s" width="940"></a>""" %(self.handler.url_for("barcamp", slug = self.barcamp.slug), url)
+        v = asset.variants['logo_full']
+        url = self.app.url_for("asset", asset_id = v._id)
+        return """<a href="%s"><img src="%s" width="%s" height="%s"></a>""" %(
+            self.handler.url_for("barcamp", slug = self.barcamp.slug), 
+            url,
+            v.metadata['width'],
+            v.metadata['height'])
 
     @property
     def is_admin(self):
