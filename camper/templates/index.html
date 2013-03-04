@@ -4,14 +4,6 @@
     <h1 id="logo">
         <img src="{{url_for("static", filename="/img/camperfull.png")}}">
     </h1>
-    <div class="alert alert-danger">
-        <h1>Achtung!</h1>
-        <p>
-            Dies ist eine Beta-Version, deren Inhalte nicht erhalten bleiben. Man kann das Tool hier testen, die endgültige
-            Fassung ist es aber noch nicht und diese wird unter anderer Domain und mit leerer Datenbank starten. 
-        </p>
-        Also legt keine Barcamps an, die ihr dann bewerbt, denn diese werden bald wieder gelöscht werden. 
-    </div>
     <div class="row">
         <div class="span9">
         {% for view in barcamps %}

@@ -5229,6 +5229,9 @@ footer {
   bottom: -11px;
   left: -1px;
 }
+#logo {
+  margin-bottom: 40px;
+}
 #barcamp .header {
   position: relative;
 }
