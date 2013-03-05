@@ -8,7 +8,6 @@ class IndexView(Handler):
 
     template = "admin/index.html"
 
-    @logged_in()
     @is_main_admin()
     def get(self):
         """render the view"""

@@ -228,6 +228,9 @@ class is_main_admin(object):
             if self.user is None:
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
+            elif not self.user.has_permission("admin"):
+                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                return redirect(self.url_for("index"))
             return method(self, *args, **kwargs)
         return wrapper
 
