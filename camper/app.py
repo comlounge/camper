@@ -151,6 +151,31 @@ class CamperApp(Application):
                 'logout_success'        : {'endpoint' : 'userbase.login'},
                 'registration_success'  : {'endpoint' : 'userbase.login'},
             },
+            messages                    = AttributeMapper({
+                'user_unknown'          : T('User unknown'),
+                'email_unknown'         : T('This email address cannot not be found in our user database'),
+                'password_incorrect'    : T('Your password is not correct'),
+                'user_not_active'       : T('Your user has not yet been activated.'), # maybe provide link here? Needs to be constructed in handler
+                'login_failed'          : T('Login failed'),
+                'login_success'         : T('Welcome, %(fullname)s'),
+                'logout_success'        : T('Your are now logged out'),
+                'double_opt_in_pending' : T('To finish the registration process please check your email with instructions on how to activate your account.'),
+                'registration_success'  : T('Your user registration has been successful'),
+                'activation_success'    : T('Your account has been activated'),
+                'activation_failed'     : T('The activation code is not valid. Please try again or click <a href="%(url)s">here</a> to get a new one.'),
+                'activation_code_sent'  : T('A new activation code has been sent out, please check your email'),
+                'already_active'        : T('The user is already active. Please log in.'),
+                'pw_code_sent'          : T('A link to set a new password has been sent to you'),
+                'pw_changed'            : T('Your password has been changed'),
+                
+                # for user manager
+                'user_edited'           : T('The user has been updated.'),
+                'user_added'            : T('The user has been added.'),
+                'user_deleted'          : T('The user has been deleted.'),
+                'user_activated'        : T('The user has been activated.'),
+                'user_deactivated'      : T('The user has been deactivated.'),
+            }),
+
             permissions                 = AttributeMapper({
                 'userbase:admin'    : T("can manage users"),
                 'admin'             : T("main administrator"),
