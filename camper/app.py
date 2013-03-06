@@ -6,6 +6,7 @@ import pkg_resources
 
 from starflyer import Application, URL, AttributeMapper
 from sfext.uploader import upload_module, Assets, ImageSizeProcessor
+from sfext.uploader.stores import FilesystemStore
 from sfext.babel import babel_module, T
 from sfext.mail import mail_module
 
@@ -183,6 +184,7 @@ class CamperApp(Application):
             })
         ),
         upload_module(
+            store = FilesystemStore("/home/cs/camper_images"),
             processors = [
                 ImageSizeProcessor({
                     'thumb' : "50x50!",
