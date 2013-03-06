@@ -126,6 +126,7 @@ class CamperApp(Application):
         'from_name'             : "Barcamp-Tool",
         'ep_api_key'            : "please fill in from APIKEY.txt",
         'ep_endpoint'           : "http://localhost:9001/api",
+        'ga'                    : 'none', #GA key
     }
 
     modules = [

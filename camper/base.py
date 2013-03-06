@@ -328,6 +328,7 @@ class BaseHandler(starflyer.Handler):
             menu_pages = menu_pages,
             user_id = self.user_id,
             footer_pages = footer_pages,
+            ga = self.config.ga,
             userview = partial(UserView, self.app)
         )
         if self.barcamp is not None:
