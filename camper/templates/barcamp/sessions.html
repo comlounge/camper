@@ -22,7 +22,7 @@
                 </div>
                 <div class="media-body show-box">
                         <div class="pull-left">
-                            <img class="profile-image" src="{{userview(session.user).user_thumb}}">
+                            <img class="profile-image" src="{{userview(session.user).image_thumb}}">
                         </div>
                     <h4 class="media-heading">{{session.title|striptags}}</h4>
                     {% if is_admin or user_id == session.user._id %}

@@ -31,12 +31,11 @@ class UserView(object):
         uf = self.app.url_for
         if u.image is not None and u.image!="":
             try:
+                asset = self.app.module_map.uploader.get(u.image).variants['thumb']
                 return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['thumb']._id)
-            except:
-                return None
-        else: 
-            # here we should return a dummy image
-            return None
+            except AssetNotFound:
+                pass
+        return uf("static", filename="img/anon50x50.png")
 
 class BarcampView(object):
     """wrapper around the barcamp to provide view functions"""
