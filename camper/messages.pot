@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-03-06 12:13+0100\n"
+"POT-Creation-Date: 2013-04-04 17:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,109 +17,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:155
+#: app.py:158
 msgid "User unknown"
 msgstr ""
 
-#: app.py:156
+#: app.py:159
 msgid "This email address cannot not be found in our user database"
 msgstr ""
 
-#: app.py:157
+#: app.py:160
 msgid "Your password is not correct"
 msgstr ""
 
-#: app.py:158
+#: app.py:161
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:159
+#: app.py:162
 msgid "Login failed"
 msgstr ""
 
-#: app.py:160
+#: app.py:163
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:161
+#: app.py:164
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:162
+#: app.py:165
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:163
+#: app.py:166
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:164
+#: app.py:167
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:165
+#: app.py:168
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:166
+#: app.py:169
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:167
+#: app.py:170
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:168
+#: app.py:171
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:169
+#: app.py:172
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:172
+#: app.py:175
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:173
+#: app.py:176
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:174
+#: app.py:177
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:175
+#: app.py:178
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:176
+#: app.py:179
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:180
+#: app.py:183
 msgid "can manage users"
 msgstr ""
 
-#: app.py:181
+#: app.py:184
 msgid "main administrator"
 msgstr ""
 
-#: base.py:157
+#: base.py:77
+msgid "date to be announced"
+msgstr ""
+
+#: base.py:87
+msgid "location to be announced"
+msgstr ""
+
+#: base.py:177
 msgid "Please log in."
 msgstr ""
 
-#: base.py:194
+#: base.py:214
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:198 base.py:343
+#: base.py:218 base.py:364
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
@@ -127,69 +135,77 @@ msgstr ""
 msgid "Not a valid currency value"
 msgstr ""
 
-#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:38
+#: handlers/barcamp/add.py:29
+msgid "Not a valid date value"
+msgstr ""
+
+#: handlers/barcamp/add.py:58 handlers/barcamp/edit.py:37
 msgid "name of location"
 msgstr ""
 
-#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:38
+#: handlers/barcamp/add.py:58 handlers/barcamp/edit.py:37
 msgid "please enter the name of the venue here"
 msgstr ""
 
-#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:39
+#: handlers/barcamp/add.py:59 handlers/barcamp/edit.py:38
 msgid "street and number "
 msgstr ""
 
-#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:39
+#: handlers/barcamp/add.py:59 handlers/barcamp/edit.py:38
 msgid "street and number of the venue"
 msgstr ""
 
-#: handlers/barcamp/add.py:37 handlers/barcamp/edit.py:40
+#: handlers/barcamp/add.py:60 handlers/barcamp/edit.py:39
 msgid "city"
 msgstr ""
 
-#: handlers/barcamp/add.py:38 handlers/barcamp/edit.py:41
+#: handlers/barcamp/add.py:61 handlers/barcamp/edit.py:40
 msgid "zip"
 msgstr ""
 
-#: handlers/barcamp/add.py:39 handlers/barcamp/edit.py:42
+#: handlers/barcamp/add.py:62 handlers/barcamp/edit.py:41
 msgid "homepage"
 msgstr ""
 
-#: handlers/barcamp/add.py:39 handlers/barcamp/add.py:40
-#: handlers/barcamp/edit.py:42 handlers/barcamp/edit.py:43
+#: handlers/barcamp/add.py:62 handlers/barcamp/add.py:63
+#: handlers/barcamp/edit.py:41 handlers/barcamp/edit.py:42
 msgid "web site of the venue (optional)"
 msgstr ""
 
-#: handlers/barcamp/add.py:40 handlers/barcamp/edit.py:43
+#: handlers/barcamp/add.py:63 handlers/barcamp/edit.py:42
 msgid "phone"
 msgstr ""
 
-#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:44
+#: handlers/barcamp/add.py:64 handlers/barcamp/edit.py:43
 msgid "email"
 msgstr ""
 
-#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:44
+#: handlers/barcamp/add.py:64 handlers/barcamp/edit.py:43
 msgid "email address of the venue (optional)"
 msgstr ""
 
-#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:45
+#: handlers/barcamp/add.py:65 handlers/barcamp/edit.py:44
 msgid "description"
 msgstr ""
 
-#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:45
+#: handlers/barcamp/add.py:65 handlers/barcamp/edit.py:44
 msgid "an optional description of the venue"
 msgstr ""
 
-#: handlers/barcamp/add.py:77
+#: handlers/barcamp/add.py:100
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr ""
 
-#: handlers/barcamp/add.py:83
-#, python-format
-msgid "%s wurde angelegtname"
+#: handlers/barcamp/add.py:117 handlers/barcamp/edit.py:98
+msgid "the city was not found in the geo database"
 msgstr ""
 
-#: handlers/barcamp/add.py:107
+#: handlers/barcamp/add.py:128
+#, python-format
+msgid "%s has been created"
+msgstr ""
+
+#: handlers/barcamp/add.py:152
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
@@ -221,11 +237,7 @@ msgstr ""
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr ""
 
-#: handlers/barcamp/edit.py:99
-msgid "the city was not found in the geo database"
-msgstr ""
-
-#: handlers/barcamp/edit.py:124
+#: handlers/barcamp/edit.py:123
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
@@ -307,7 +319,7 @@ msgstr ""
 msgid "ADMIN"
 msgstr ""
 
-#: templates/index.html:47
+#: templates/index.html:45
 msgid "create new barcamp"
 msgstr ""
 
@@ -393,8 +405,8 @@ msgstr ""
 msgid "Blog Posts about the camp"
 msgstr ""
 
-#: templates/barcamp/docs.html:16 templates/barcamp/sessions.html:29
-#: templates/barcamp/sessions.html:49
+#: templates/barcamp/docs.html:16 templates/barcamp/sessions.html:31
+#: templates/barcamp/sessions.html:51
 msgid "Are you sure?"
 msgstr ""
 
@@ -402,11 +414,11 @@ msgstr ""
 msgid "Add new blog post"
 msgstr ""
 
-#: templates/barcamp/docs.html:34 templates/barcamp/sessions.html:86
+#: templates/barcamp/docs.html:34 templates/barcamp/sessions.html:88
 msgid "Cancel"
 msgstr ""
 
-#: templates/barcamp/docs.html:35 templates/barcamp/sessions.html:85
+#: templates/barcamp/docs.html:35 templates/barcamp/sessions.html:87
 msgid "Save"
 msgstr ""
 
@@ -464,15 +476,15 @@ msgstr ""
 msgid "update"
 msgstr ""
 
-#: templates/barcamp/sessions.html:58
+#: templates/barcamp/sessions.html:60
 msgid "comment by"
 msgstr ""
 
-#: templates/barcamp/sessions.html:71
+#: templates/barcamp/sessions.html:73
 msgid "your comment"
 msgstr ""
 
-#: templates/barcamp/sessions.html:73
+#: templates/barcamp/sessions.html:75
 msgid "add your comment"
 msgstr ""
 
@@ -492,12 +504,12 @@ msgstr ""
 msgid "login"
 msgstr ""
 
-#: templates/userbase/login.html:25
-msgid "register a new user"
+#: templates/userbase/login.html:30
+msgid "password forgotten?"
 msgstr ""
 
-#: templates/userbase/login.html:31
-msgid "password forgotten?"
+#: templates/userbase/login.html:33
+msgid "register a new user"
 msgstr ""
 
 #: templates/users/profile.html:41

@@ -56,8 +56,8 @@ class EventSchema(Schema):
     """a sub schema describing one event"""
     name                = String(required=True)
     description         = String(required=True)
-    start_date          = DateTime(required = True)
-    end_date            = DateTime(required = True)
+    start_date          = DateTime()
+    end_date            = DateTime()
     location            = Location()
     participants        = List(String()) # TODO: ref
     waiting_list        = List(String()) # TODO: ref
@@ -69,15 +69,14 @@ class BarcampSchema(Schema):
     updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
     workflow            = String(required = True, default = "created") 
-    #public              = Boolean(default = False) 
     
     # base data
     name                = String(required = True)
     description         = String(required = True)
     slug                = String(required = True)
     registration_date   = Date() # date when the registration starts
-    start_date          = Date(required = True)
-    end_date            = Date(required = True)
+    start_date          = Date()
+    end_date            = Date()
     location            = Location()
     size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
@@ -290,5 +289,6 @@ class Barcamps(Collection):
             obj.events.append(event)
         else:
             obj.events[0] = event
+
         return obj
 

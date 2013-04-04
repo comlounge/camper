@@ -1,6 +1,6 @@
 # encoding=utf-8
 import starflyer
-from starflyer import redirect
+from starflyer import redirect, AttributeMapper
 import functools
 import wtforms
 import userbase
@@ -64,6 +64,27 @@ class BarcampView(object):
             url,
             v.metadata['width'],
             v.metadata['height'])
+
+    @property
+    def date(self):
+        """properly format the start and end date if given"""
+        bc = self.barcamp
+        if bc.start_date and bc.end_date:
+            return "%s - %s" %(
+                bc.start_date.strftime('%d.%m.%Y'),
+                bc.end_date.strftime('%d.%m.%Y'))
+        else:
+            return self.handler._("date to be announced")
+
+    @property
+    def short_location(self):
+        """properly format the location of the barcamp if given"""
+        bc = self.barcamp
+        location = AttributeMapper(bc.location)
+        if location.name and location.city:
+            return "%s, %s" %(location.name, location.city)
+        else:
+            return self.handler._("location to be announced")
 
     @property
     def is_admin(self):

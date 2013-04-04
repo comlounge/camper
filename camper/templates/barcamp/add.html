@@ -20,15 +20,15 @@
         </fieldset>
         <fieldset>
             <legend>{{_("Dates")}}</legend>
-            {{ formmacros.form_field(form.start_date, class="required span4 datepicker") }}
-            {{ formmacros.form_field(form.end_date, class="required span4 datepicker") }}
+            {{ formmacros.form_field(form.start_date, class="span4 datepicker") }}
+            {{ formmacros.form_field(form.end_date, class="span4 datepicker") }}
         </fieldset>
         <fieldset>
             <legend>{{_("Address")}}</legend>
-            {{ formmacros.form_field(form.location_name, class="required span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_street, class="required span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_city, class="required span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_zip, class="required span2", placeholder="") }}
+            {{ formmacros.form_field(form.location_name, class="span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_street, class="span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_city, class="span8", placeholder="") }}
+            {{ formmacros.form_field(form.location_zip, class="span2", placeholder="") }}
             {{ formmacros.form_field(form.location_email, class="email span8", placeholder="") }}
             {{ formmacros.form_field(form.location_phone, class="span8", placeholder="") }}
             {{ formmacros.form_field(form.location_url, class="url span8", placeholder="") }}

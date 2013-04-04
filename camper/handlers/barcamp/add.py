@@ -5,6 +5,29 @@ from camper import BaseForm, db, logged_in, BaseHandler
 from wtforms import *
 from sfext.babel import T
 import uuid
+import datetime
+import requests
+
+class MyDateField(DateTimeField):
+    """
+    Same as DateField, but accepts None as answer
+    """
+
+    def __init__(self, label=None, validators=None, format='%Y-%m-%d', **kwargs):
+        super(MyDateField, self).__init__(label, validators, format, **kwargs)
+
+    def process_formdata(self, valuelist):
+        if valuelist:
+            date_str = ' '.join(valuelist)
+            if date_str == '':
+                self.data = None
+                return
+            try:
+                self.data = datetime.datetime.strptime(date_str, self.format).date()
+            except ValueError:
+                self.data = None
+                raise ValueError(self.gettext('Not a valid date value'))
+
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
@@ -21,8 +44,8 @@ class BarcampAddForm(BaseForm):
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
     )
-    start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
-    end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
+    start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
+    end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)], 
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
@@ -32,10 +55,10 @@ class BarcampAddForm(BaseForm):
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
 
-    location_name                = TextField(T("name of location"), [validators.Required()], description = T('please enter the name of the venue here'),)
-    location_street              = TextField(T("street and number "), [validators.Required()], description = T('street and number of the venue'),)
-    location_city                = TextField(T("city"), [validators.Required()])
-    location_zip                 = TextField(T("zip"), [validators.Required()])
+    location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
+    location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
+    location_city                = TextField(T("city"), [])
+    location_zip                 = TextField(T("zip"), [])
     location_url                 = TextField(T("homepage"), [], description=T('web site of the venue (optional)'))
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
@@ -77,10 +100,33 @@ class AddView(BaseHandler):
                 self.flash(self._("Attention: One or both of the etherpads exist already!"), category="warning")
                 pass
             f['documentation_pad'] = did
+
+            # retrieve geo location
+            if form.data['location_street']:
+                url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
+                    form.data['location_street'],
+                    form.data['location_city'],
+                )
+                data = requests.get(url).json()
+                if len(data)==0:
+                    # trying again but only with city
+                    url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
+                        form.data['location_city'],
+                    )
+                    data = requests.get(url).json()
+                if len(data)==0:
+                    self.flash(self._("the city was not found in the geo database"), category="danger")
+                    return self.render(form = form)
+                # we have at least one entry, take the first one
+                result = data[0]
+                f['location']['lat'] = result['lat']
+                f['location']['lng'] = result['lon']
+
+            # create and save the barcamp object
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
             barcamp = self.config.dbs.barcamps.put(barcamp)
 
-            self.flash(self._("%s wurde angelegt" %f['name']), category="info")
+            self.flash(self._("%s has been created") %f['name'], category="info")
             return redirect(self.url_for("index"))
         return self.render(form = form, slug = None)
     post = get

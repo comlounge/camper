@@ -23,9 +23,8 @@ class BarcampEditForm(BaseForm):
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
     )
-    start_date          = DateField(u"Start-Datum", [validators.Required()], format="%d.%m.%Y")
-    end_date            = DateField(u"End-Datum", [validators.Required()], format="%d.%m.%Y")
-    #size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
+    start_date          = DateField(u"Start-Datum", [], format="%d.%m.%Y")
+    end_date            = DateField(u"End-Datum", [], format="%d.%m.%Y")
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)], 
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")

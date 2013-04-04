@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-03-06 12:13+0100\n"
+"POT-Creation-Date: 2013-04-04 17:58+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:155
+#: app.py:158
 msgid "User unknown"
 msgstr ""
 
-#: app.py:156
+#: app.py:159
 msgid "This email address cannot not be found in our user database"
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: app.py:157
+#: app.py:160
 msgid "Your password is not correct"
 msgstr "Das Passwort ist nicht korrekt"
 
-#: app.py:158
+#: app.py:161
 #, fuzzy
 msgid "Your user has not yet been activated."
 msgstr "Dein Kommentar wurde hinzugefügt."
 
-#: app.py:159
+#: app.py:162
 msgid "Login failed"
 msgstr "Login fehlgeschlagen"
 
-#: app.py:160
+#: app.py:163
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr "Willkommen, %(fullname)s"
 
-#: app.py:161
+#: app.py:164
 msgid "Your are now logged out"
 msgstr "Du bist jetzt eingeloggt"
 
-#: app.py:162
+#: app.py:165
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
@@ -55,77 +55,85 @@ msgstr ""
 "Bitte checke Deine E-Mail, den Registrierungsprozess abzuschliessen. Alle"
 " weiteren Informationen dazu findest Du in der E-Mail."
 
-#: app.py:163
+#: app.py:166
 msgid "Your user registration has been successful"
 msgstr "Die Benutzerregistrierung war erfolgreich."
 
-#: app.py:164
+#: app.py:167
 #, fuzzy
 msgid "Your account has been activated"
 msgstr "Dein Kommentar wurde hinzugefügt."
 
-#: app.py:165
+#: app.py:168
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:166
+#: app.py:169
 msgid "A new activation code has been sent out, please check your email"
 msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
 
-#: app.py:167
+#: app.py:170
 msgid "The user is already active. Please log in."
 msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
 
-#: app.py:168
+#: app.py:171
 msgid "A link to set a new password has been sent to you"
 msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
 
-#: app.py:169
+#: app.py:172
 #, fuzzy
 msgid "Your password has been changed"
 msgstr "Dein Kommentar wurde hinzugefügt."
 
-#: app.py:172
+#: app.py:175
 msgid "The user has been updated."
 msgstr "Benutzerdaten aktualisiert"
 
-#: app.py:173
+#: app.py:176
 #, fuzzy
 msgid "The user has been added."
 msgstr "Der Benutzer wurde hinzugefügt."
 
-#: app.py:174
+#: app.py:177
 msgid "The user has been deleted."
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
 
-#: app.py:175
+#: app.py:178
 msgid "The user has been activated."
 msgstr "Der Benutzer wurde aktiviert."
 
-#: app.py:176
+#: app.py:179
 msgid "The user has been deactivated."
 msgstr "Der Benutzer wurde deaktiviert."
 
-#: app.py:180
+#: app.py:183
 msgid "can manage users"
 msgstr "Kann Benutzer verwalten"
 
-#: app.py:181
+#: app.py:184
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
-#: base.py:157
+#: base.py:77
+msgid "date to be announced"
+msgstr ""
+
+#: base.py:87
+msgid "location to be announced"
+msgstr ""
+
+#: base.py:177
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
 
-#: base.py:194
+#: base.py:214
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:198 base.py:343
+#: base.py:218 base.py:364
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -133,69 +141,78 @@ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 msgid "Not a valid currency value"
 msgstr "kein gültiger Wert"
 
-#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:38
+#: handlers/barcamp/add.py:29
+#, fuzzy
+msgid "Not a valid date value"
+msgstr "kein gültiger Wert"
+
+#: handlers/barcamp/add.py:58 handlers/barcamp/edit.py:37
 msgid "name of location"
 msgstr "Veranstaltungsort"
 
-#: handlers/barcamp/add.py:35 handlers/barcamp/edit.py:38
+#: handlers/barcamp/add.py:58 handlers/barcamp/edit.py:37
 msgid "please enter the name of the venue here"
 msgstr "Bitte gebe hier den Namen des Veranstaltungsortes ein"
 
-#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:39
+#: handlers/barcamp/add.py:59 handlers/barcamp/edit.py:38
 msgid "street and number "
 msgstr "Strasse und Hausnummer"
 
-#: handlers/barcamp/add.py:36 handlers/barcamp/edit.py:39
+#: handlers/barcamp/add.py:59 handlers/barcamp/edit.py:38
 msgid "street and number of the venue"
 msgstr "Strasse und Hausnummer des Veranstaltungsortes"
 
-#: handlers/barcamp/add.py:37 handlers/barcamp/edit.py:40
+#: handlers/barcamp/add.py:60 handlers/barcamp/edit.py:39
 msgid "city"
 msgstr "Stadt"
 
-#: handlers/barcamp/add.py:38 handlers/barcamp/edit.py:41
+#: handlers/barcamp/add.py:61 handlers/barcamp/edit.py:40
 msgid "zip"
 msgstr "PLZ"
 
-#: handlers/barcamp/add.py:39 handlers/barcamp/edit.py:42
+#: handlers/barcamp/add.py:62 handlers/barcamp/edit.py:41
 msgid "homepage"
 msgstr "Homepage"
 
-#: handlers/barcamp/add.py:39 handlers/barcamp/add.py:40
-#: handlers/barcamp/edit.py:42 handlers/barcamp/edit.py:43
+#: handlers/barcamp/add.py:62 handlers/barcamp/add.py:63
+#: handlers/barcamp/edit.py:41 handlers/barcamp/edit.py:42
 msgid "web site of the venue (optional)"
 msgstr "Homepage des Veranstaltungsortes (optional)"
 
-#: handlers/barcamp/add.py:40 handlers/barcamp/edit.py:43
+#: handlers/barcamp/add.py:63 handlers/barcamp/edit.py:42
 msgid "phone"
 msgstr "Telefon"
 
-#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:44
+#: handlers/barcamp/add.py:64 handlers/barcamp/edit.py:43
 msgid "email"
 msgstr "E-Mail"
 
-#: handlers/barcamp/add.py:41 handlers/barcamp/edit.py:44
+#: handlers/barcamp/add.py:64 handlers/barcamp/edit.py:43
 msgid "email address of the venue (optional)"
 msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
 
-#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:45
+#: handlers/barcamp/add.py:65 handlers/barcamp/edit.py:44
 msgid "description"
 msgstr "Beschreibung"
 
-#: handlers/barcamp/add.py:42 handlers/barcamp/edit.py:45
+#: handlers/barcamp/add.py:65 handlers/barcamp/edit.py:44
 msgid "an optional description of the venue"
 msgstr "Beschreibung des Veranstaltungsortes (optional)"
 
-#: handlers/barcamp/add.py:77
+#: handlers/barcamp/add.py:100
 msgid "Attention: One or both of the etherpads exist already!"
-msgstr "Achtung: Eines oder beider der Etherpads existieren schon!"
+msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 
-#: handlers/barcamp/add.py:83
+#: handlers/barcamp/add.py:117 handlers/barcamp/edit.py:98
+msgid "the city was not found in the geo database"
+msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
+
+#: handlers/barcamp/add.py:128
 #, python-format
-msgid "%s wurde angelegtname"
-msgstr ""
+msgid "%s has been created"
+msgstr "%s wurde angelegt."
 
-#: handlers/barcamp/add.py:107
+#: handlers/barcamp/add.py:152
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
@@ -227,11 +244,7 @@ msgstr "Twitterwall"
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr "Das Barcamp und all seine Inhalte wurden erfolgreich gelöscht!"
 
-#: handlers/barcamp/edit.py:99
-msgid "the city was not found in the geo database"
-msgstr "Die angegebene Stadt wurde in der Datenbank nicht gefunden"
-
-#: handlers/barcamp/edit.py:124
+#: handlers/barcamp/edit.py:123
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
@@ -315,7 +328,7 @@ msgstr "privat"
 msgid "ADMIN"
 msgstr "ADMIN"
 
-#: templates/index.html:47
+#: templates/index.html:45
 msgid "create new barcamp"
 msgstr "neues Barcamp anlegen"
 
@@ -401,8 +414,8 @@ msgstr "NEEEEIN, lösche dieses Barcamp doch nicht!"
 msgid "Blog Posts about the camp"
 msgstr "Blog-Artikel über das Barcamp"
 
-#: templates/barcamp/docs.html:16 templates/barcamp/sessions.html:29
-#: templates/barcamp/sessions.html:49
+#: templates/barcamp/docs.html:16 templates/barcamp/sessions.html:31
+#: templates/barcamp/sessions.html:51
 msgid "Are you sure?"
 msgstr "Bist Du sicher? (wirklich?)"
 
@@ -410,11 +423,11 @@ msgstr "Bist Du sicher? (wirklich?)"
 msgid "Add new blog post"
 msgstr "Neuen Blogpost hinzufügen"
 
-#: templates/barcamp/docs.html:34 templates/barcamp/sessions.html:86
+#: templates/barcamp/docs.html:34 templates/barcamp/sessions.html:88
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: templates/barcamp/docs.html:35 templates/barcamp/sessions.html:85
+#: templates/barcamp/docs.html:35 templates/barcamp/sessions.html:87
 msgid "Save"
 msgstr "Speichern"
 
@@ -473,15 +486,15 @@ msgstr "Erhöhre die Teilnehmerzahl"
 msgid "update"
 msgstr "Aktualisieren"
 
-#: templates/barcamp/sessions.html:58
+#: templates/barcamp/sessions.html:60
 msgid "comment by"
 msgstr "Kommentar von "
 
-#: templates/barcamp/sessions.html:71
+#: templates/barcamp/sessions.html:73
 msgid "your comment"
 msgstr "Dein Kommentar"
 
-#: templates/barcamp/sessions.html:73
+#: templates/barcamp/sessions.html:75
 msgid "add your comment"
 msgstr "Füge Deinen Kommentar hinzu"
 
@@ -501,13 +514,13 @@ msgstr "Passwort"
 msgid "login"
 msgstr "Einloggen"
 
-#: templates/userbase/login.html:25
-msgid "register a new user"
-msgstr "Neuen Benutzer registrieren"
-
-#: templates/userbase/login.html:31
+#: templates/userbase/login.html:30
 msgid "password forgotten?"
 msgstr "Passwort vergessen?"
+
+#: templates/userbase/login.html:33
+msgid "register a new user"
+msgstr "Neuen Benutzer registrieren"
 
 #: templates/users/profile.html:41
 msgid "delete profile image"
