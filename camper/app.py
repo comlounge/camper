@@ -128,6 +128,7 @@ class CamperApp(Application):
         'ep_api_key'            : "please fill in from APIKEY.txt",
         'ep_endpoint'           : "http://localhost:9001/api",
         'ga'                    : 'none', #GA key
+        'base_asset_path'       : '/tmp', # where to store assets
     }
 
     modules = [
@@ -182,19 +183,6 @@ class CamperApp(Application):
                 'userbase:admin'    : T("can manage users"),
                 'admin'             : T("main administrator"),
             })
-        ),
-        upload_module(
-            store = FilesystemStore("/home/cs/camper_images"),
-            processors = [
-                ImageSizeProcessor({
-                    'thumb' : "50x50!",
-                    'small' : "100x",
-                    'logo_full' : "940x",
-
-                    'medium_user' : "296x",
-                    'large' : "1200x",
-                })
-            ],
         ),
         mail_module(debug=True),
     ]
@@ -285,6 +273,20 @@ class CamperApp(Application):
             base_url=self.config.ep_endpoint
         )
 
+    def finalize_modules(self):
+        """finalize all modules"""
+        fsstore = FilesystemStore(base_path = self.config.base_asset_path)
+        self.modules.append(upload_module(store = fsstore,
+            processors = [
+                ImageSizeProcessor({
+                    'thumb' : "50x50!",
+                    'small' : "100x",
+                    'logo_full' : "940x",
+                    'medium_user' : "296x",
+                    'large' : "1200x",
+                })
+            ],
+        ))
 
 def app(config, **local_config):
     """return the config""" 
