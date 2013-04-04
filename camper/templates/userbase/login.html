@@ -22,7 +22,6 @@
                 <input type="submit" class="pull-right btn-signin" value="{{_('login')}}"><br>
                 </p>
                 <p>
-                or <a class="" href="{{url_for("userbase.register")}}">{{_('register a new user')}}</a>
                 </p>
             </div>
             {% if M.userbase.config.use_remember %}
@@ -30,6 +29,8 @@
             {% endif %}
             <a href="{{url_for("userbase.pw_forgot")}}">{{_('password forgotten?')}}</a>
         </form>
+        <hr>
+        <a class="btn btn-block btn-info" href="{{url_for("userbase.register")}}">{{_('register a new user')}}</a>
     </div>
 </div>
 {% endblock %}
