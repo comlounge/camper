@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-04-04 17:58+0200\n"
+"POT-Creation-Date: 2013-04-05 17:54+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:218 base.py:364
+#: base.py:220 base.py:365
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
@@ -196,16 +196,16 @@ msgstr ""
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr ""
 
-#: handlers/barcamp/add.py:117 handlers/barcamp/edit.py:98
+#: handlers/barcamp/add.py:118 handlers/barcamp/edit.py:98
 msgid "the city was not found in the geo database"
 msgstr ""
 
-#: handlers/barcamp/add.py:128
+#: handlers/barcamp/add.py:129
 #, python-format
 msgid "%s has been created"
 msgstr ""
 
-#: handlers/barcamp/add.py:152
+#: handlers/barcamp/add.py:153
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
@@ -270,37 +270,53 @@ msgstr ""
 msgid "you cannot perform this action."
 msgstr ""
 
-#: handlers/barcamp/registration.py:18
+#: handlers/barcamp/registration.py:24 handlers/barcamp/registration.py:91
+msgid "You are not allowed to change this."
+msgstr ""
+
+#: handlers/barcamp/registration.py:28
 msgid "You are now on the list of people interested in the barcamp"
 msgstr ""
 
-#: handlers/barcamp/registration.py:21
+#: handlers/barcamp/registration.py:32
 msgid "You have been removed from the list of people interested in this barcamp"
 msgstr ""
 
-#: handlers/barcamp/registration.py:35
+#: handlers/barcamp/registration.py:34
+#, python-format
+msgid ""
+"%(fullname)s has been removed from the list of people interested in this "
+"barcamp"
+msgstr ""
+
+#: handlers/barcamp/registration.py:48
 msgid ""
 "Unfortunately list of participants is already full. You have been put "
 "onto the waiting list and will be informed should you move on to the list"
 " of participants."
 msgstr ""
 
-#: handlers/barcamp/registration.py:40
+#: handlers/barcamp/registration.py:53
 #, python-format
 msgid "You are now on the waiting list for %s"
 msgstr ""
 
-#: handlers/barcamp/registration.py:46
+#: handlers/barcamp/registration.py:59
 msgid "You are now on the list of participants for this barcamp."
 msgstr ""
 
-#: handlers/barcamp/registration.py:51
+#: handlers/barcamp/registration.py:65
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: handlers/barcamp/registration.py:78
+#: handlers/barcamp/registration.py:107
 msgid "You have been removed from the list of participants."
+msgstr ""
+
+#: handlers/barcamp/registration.py:109
+#, python-format
+msgid "%(fullname)s has been removed from the list of participants."
 msgstr ""
 
 #: handlers/barcamp/sessions.py:107

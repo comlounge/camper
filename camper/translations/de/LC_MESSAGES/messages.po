@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-04-04 17:58+0200\n"
+"POT-Creation-Date: 2013-04-05 17:54+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgstr "Bitte logge Dich zunächst ein!"
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:218 base.py:364
+#: base.py:220 base.py:365
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -203,16 +203,16 @@ msgstr "Beschreibung des Veranstaltungsortes (optional)"
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 
-#: handlers/barcamp/add.py:117 handlers/barcamp/edit.py:98
+#: handlers/barcamp/add.py:118 handlers/barcamp/edit.py:98
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
 
-#: handlers/barcamp/add.py:128
+#: handlers/barcamp/add.py:129
 #, python-format
 msgid "%s has been created"
 msgstr "%s wurde angelegt."
 
-#: handlers/barcamp/add.py:152
+#: handlers/barcamp/add.py:153
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
@@ -277,15 +277,29 @@ msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
 msgid "you cannot perform this action."
 msgstr ""
 
-#: handlers/barcamp/registration.py:18
-msgid "You are now on the list of people interested in the barcamp"
-msgstr "Du bist nicht in der Liste der Barcamp-Interessenten."
+#: handlers/barcamp/registration.py:24 handlers/barcamp/registration.py:91
+#, fuzzy
+msgid "You are not allowed to change this."
+msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
 
-#: handlers/barcamp/registration.py:21
+#: handlers/barcamp/registration.py:28
+msgid "You are now on the list of people interested in the barcamp"
+msgstr "Du bist nun auf der Liste der Barcamp-Interessenten."
+
+#: handlers/barcamp/registration.py:32
 msgid "You have been removed from the list of people interested in this barcamp"
 msgstr "Du wurdest erfolgreich von der Liste der Barcamp-Interessenten entfernt"
 
-#: handlers/barcamp/registration.py:35
+#: handlers/barcamp/registration.py:34
+#, python-format
+msgid ""
+"%(fullname)s has been removed from the list of people interested in this "
+"barcamp"
+msgstr ""
+"%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
+"entfernt."
+
+#: handlers/barcamp/registration.py:48
 msgid ""
 "Unfortunately list of participants is already full. You have been put "
 "onto the waiting list and will be informed should you move on to the list"
@@ -294,23 +308,28 @@ msgstr ""
 "Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
 "Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
 
-#: handlers/barcamp/registration.py:40
+#: handlers/barcamp/registration.py:53
 #, python-format
 msgid "You are now on the waiting list for %s"
 msgstr "Du bist nun auf der Warteliste für das %s"
 
-#: handlers/barcamp/registration.py:46
+#: handlers/barcamp/registration.py:59
 msgid "You are now on the list of participants for this barcamp."
 msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
 
-#: handlers/barcamp/registration.py:51
+#: handlers/barcamp/registration.py:65
 #, python-format
 msgid "Welcome to %s"
 msgstr "Willkommen zu %s"
 
-#: handlers/barcamp/registration.py:78
+#: handlers/barcamp/registration.py:107
 msgid "You have been removed from the list of participants."
 msgstr "Du wurdest erfolgreich von der Teilnehmerliste entfernt."
+
+#: handlers/barcamp/registration.py:109
+#, python-format
+msgid "%(fullname)s has been removed from the list of participants."
+msgstr "%(fullname)s wurde erfolgreich von der Teilnehmerliste entfernt."
 
 #: handlers/barcamp/sessions.py:107
 msgid "your comment has been added."

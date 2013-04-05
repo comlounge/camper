@@ -13,12 +13,25 @@ class BarcampSubscribe(BarcampBaseHandler):
     def post(self, slug = None):
         """only a post without parameters is done to add. Post again to unsubscribe"""
         view = self.barcamp_view
-        if not view.is_subscriber:
-            self.barcamp.subscribe(self.user)
+        username = self.request.form.get("u", None)
+        if username is not None:
+            user = self.app.module_map.userbase.get_user_by_username(username)
+        else:
+            user = self.user
+
+        # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
+        if not view.is_admin and not user==self.user:
+            self.flash(self._("You are not allowed to change this."), category="danger")
+            return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+        if unicode(user._id) not in self.barcamp.subscribers:
+            self.barcamp.subscribe(self.user) # we can only subscribe our own user, thus self.user and not user
             self.flash(self._("You are now on the list of people interested in the barcamp"), category="success")
         else:
-            self.barcamp.unsubscribe(self.user)
-            self.flash(self._("You have been removed from the list of people interested in this barcamp"), category="danger")
+            self.barcamp.unsubscribe(user) # we can remove any user if we have the permission (see above for the check)
+            if user == self.user:
+                self.flash(self._("You have been removed from the list of people interested in this barcamp"), category="danger")
+            else:
+                self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
         return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
         
 class BarcampRegister(BarcampBaseHandler):
@@ -63,7 +76,21 @@ class BarcampUnregister(BarcampBaseHandler):
     def post(self, slug = None):
         """only a post without parameters is done to remove."""
         event = self.barcamp.event
-        uid = unicode(self.user._id)
+        view = self.barcamp_view
+
+        # get the username from the form
+        username = self.request.form.get("u", None)
+        if username is not None:
+            user = self.app.module_map.userbase.get_user_by_username(username)
+        else:
+            user = self.user
+        uid = unicode(user._id)
+
+        # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
+        if not view.is_admin and not user==self.user:
+            self.flash(self._("You are not allowed to change this."), category="danger")
+            return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+
         if uid in event.participants:
             event.participants.remove(uid)
         if len(event.participants) < self.barcamp.size and len(event.waiting_list)>0:
@@ -73,9 +100,12 @@ class BarcampUnregister(BarcampBaseHandler):
             event.participants.append(nuid)
 
         # you are now still a subscriber 
-        self.barcamp.subscribe(self.user)
+        self.barcamp.subscribe(user)
 
         self.barcamp.put()
-        self.flash(self._("You have been removed from the list of participants."), category="danger")
+        if user == self.user:
+            self.flash(self._("You have been removed from the list of participants."), category="danger")
+        else:
+            self.flash(self._("%(fullname)s has been removed from the list of participants.") %user, category="danger")
         return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
 

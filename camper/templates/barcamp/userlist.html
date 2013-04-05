@@ -10,6 +10,7 @@
             <div class="media-body">
                 {% if (is_admin or user == myuser) and remove_url %}
                     <form method="post" class="pull-right" action="{{remove_url}}">
+                        <input type="hidden" name="u" value="{{myuser.username}}">
                         <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
                     </form>
                 {% endif %}
