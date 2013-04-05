@@ -246,7 +246,6 @@ class is_main_admin(object):
     def __call__(self, method):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
-            # TODO: do a real check
             if self.user is None:
                 self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
                 return redirect(self.url_for("index"))
