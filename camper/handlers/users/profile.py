@@ -29,7 +29,7 @@ class ProfileView(BaseHandler):
         else:
             image = None
         return self.render(
-            user = user, 
+            profile_user = user, 
             is_logged_in_user = is_logged_in_user,
             image = image
         )
