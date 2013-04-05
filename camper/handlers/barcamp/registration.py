@@ -46,7 +46,8 @@ class BarcampRegister(BarcampBaseHandler):
             self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
             if uid not in event.participants:
                 event.participants.append(uid)
-                self.barcamp.subscribers.remove(uid)
+                if uid in self.barcamp.subscribers:
+                    self.barcamp.subscribers.remove(uid)
                 self.barcamp.put()
                 self.mail_text("emails/welcome.txt", self._('Welcome to %s' %self.barcamp.name),
                     view = view,
