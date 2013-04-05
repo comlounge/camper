@@ -43,3 +43,8 @@ class CamperUser(User):
     def has_organisation(self):
         return self.organisation is not None and self.organisation.strip()!=""
 
+    def __eq__(self, other):
+        """check if this user is equal to another one by checking the usernames. It also checks for the other one being None"""
+        if other is None:
+            return False
+        return self.username == other.username

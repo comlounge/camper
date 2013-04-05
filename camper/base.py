@@ -213,6 +213,8 @@ class is_admin(object):
             if self.user is None:
                 self.flash(self._("you don't have the correct permissions to access this page."), category="error")
                 return redirect(self.url_for("index"))
+            if self.user.has_permission("admin"):
+                return method(self, *args, **kwargs)
             if unicode(self.user._id) in self.barcamp.admins:
                 return method(self, *args, **kwargs)
             self.flash(self._("You don't have the correct permissions to access this page."), category="error")

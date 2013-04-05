@@ -2,20 +2,20 @@
 
 {% macro list(users, remove_url=None) -%}
     <ul class="media-list participants">
-    {% for user in users %}
+    {% for myuser in users %}
         <li class="media">
-            <a class="pull-left" href="{{url_for('profile', username = user.username)}}">
-                <img class="profile-image-mini" src="{{userview(user).image_thumb}}">
+            <a class="pull-left" href="{{url_for('profile', username = myuser.username)}}">
+                <img class="profile-image-mini" src="{{userview(myuser).image_thumb}}">
             </a>
             <div class="media-body">
-                {% if remove_url %}
+                {% if (is_admin or user == myuser) and remove_url %}
                     <form method="post" class="pull-right" action="{{remove_url}}">
                         <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
                     </form>
                 {% endif %}
-                <h5 class="media-heading"><a href="{{url_for('profile', username = user.username)}}">{{user.fullname}}</a>
-                    {% if user.has_organisation %}
-                    <br><small>{{user.organisation}}</small>
+                <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
+                    {% if myuser.has_organisation %}
+                    <br><small>{{myuser.organisation}}</small>
                     {% endif %}
                 </h5>
             </div>
