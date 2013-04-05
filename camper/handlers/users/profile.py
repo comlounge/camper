@@ -14,11 +14,9 @@ class ProfileView(BaseHandler):
     def get(self, username = None):
         """render the view"""
         user = self.app.module_map.userbase.get_user_by_username(username)
-        is_logged_in_user = False
-        if self.user is not None:
-            is_logged_in_user = self.user._id == user._id
         if user is None:
             raise werkzeug.exceptions.NotFound()
+        is_logged_in_user = user == self.user
         asset_id = user.image
         if asset_id is not None:
             try:

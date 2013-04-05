@@ -27,7 +27,7 @@
             {% endif %}
         </div>
 
-        {% if is_logged_in_profile_user %}
+        {% if is_logged_in_user %}
         <a href="{{url_for('profile_edit')}}" class="btn btn-info"><i class="icon-pencil icon-white"></i> Profil bearbeiten</a>
         <a href="#" class="btn btn-danger"><i class="icon-lock icon-white"></i> Passwort ändern</a>
         {% endif %}
@@ -35,7 +35,7 @@
     <div class="span4">
         {% if image %}
             <img src="{{image}}" class="profile-image" />
-            {% if is_logged_in_profile_user %}
+            {% if is_logged_in_user %}
                 <form method="POST" action="{{url_for('profile_image_delete')}}">
                     <input type="hidden" name="method" value="delete">
                     <button class="btn btn-danger btn-block"><i class="icon-trash icon-white"></i>{{_("delete profile image")}}</button>
