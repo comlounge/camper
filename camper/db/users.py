@@ -43,6 +43,11 @@ class CamperUser(User):
     def has_organisation(self):
         return self.organisation is not None and self.organisation.strip()!=""
 
+    @property
+    def is_admin(self):
+        """return if user is admin or not"""
+        return self.has_permission("admin")
+
     def __eq__(self, other):
         """check if this user is equal to another one by checking the usernames. It also checks for the other one being None"""
         if other is None:
