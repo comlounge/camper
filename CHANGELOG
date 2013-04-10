@@ -1,0 +1,19 @@
+0.9 - initial relase (March 2013)
+=================================
+
+
+0.9.1 - (unreleased)
+====================
+
+- added dummy image for profiles without image
+- path to uploaded assets not configurable via config 
+- layout fixes
+- translation fixes
+- barcamp can now be created without date and location
+- closed issue #4 where the username on the top bar was replaced by the one of the profile you are viewing
+- you now can become a barcamp participant without being a subscriber first (closes #5)
+- delete button on user list only shown now when you can use it (closes #18)
+- fixed edit button for own profile
+- users can now be deleted by barcamp and main admin from within user list (closes #19)
+- profile images are now linked
+
