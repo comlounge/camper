@@ -44,7 +44,7 @@
                 <div class="container">
                     <a class="brand" href="{{url_for("index")}}">Camper - das Barcamp-Tool</a>
                     <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="/">{{_('Home')}}</a></li>
                         {% for page in menu_pages %}
                             <li>
                                 <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
@@ -55,6 +55,8 @@
                                 <a href="{{action.url}}">{{action.name}}</a>
                             </li>
                         {% endfor %}
+                        <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
+                        <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideen/Feedback')}}</a></li>
                     </ul>
                     {% if is_main_admin %}
                         <ul class="nav pull-right"> 
