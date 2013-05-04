@@ -38,7 +38,7 @@
     
     </head>
 
-    <body>
+    <body data-i18n-areyousure="{{_("Are you sure?")}}">
     <div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
@@ -184,18 +184,13 @@
         <script src="{{url_for("static", filename="js/bootstrap-alert.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-popover.js")}}"></script>
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
-        <script src="{{url_for("static", filename="js/i18next.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
                 
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         <script>
-            $(document).load(function() {
-                i18n.init({ 
-                    lng: 'de-DE',
-                    resGetPath: 'locales/__lng__/__ns__.json'
-                });
+            $(document).ready(function() {
                 $(".confirm").click( function() {
-                    return confirm(i18n.t("Are you sure?"));
+                    return confirm($("body").data("i18n-areyousure"));
                 });
             });
         </script>

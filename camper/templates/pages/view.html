@@ -4,8 +4,18 @@
     <form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">
     {% if is_admin %}
         <div class="page-actions pull-right">
-            <a role="button" href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild hochladen</a>
-            <a role="button" class="btn" href="{{url_for('page_edit', slug=slug, page_slug = page_slug)}}"><i class="icon-pencil"></i> Seite bearbeiten</a>
+            <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                    Seite administrieren 
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="iframebox"><i class="icon-picture"></i> Bild hochladen</a></li>
+                    <li><a href="{{url_for('page_edit', slug=slug, page_slug = page_slug)}}"><i class="icon-pencil"></i> Seite bearbeiten</a></li>
+                    <li><a class="confirm" href="{{url_for('page', method=delete, slug=slug, page_slug = page_slug, _append=True)}}"><i class="icon-trash"></i> Seite löschen</a></li>
+                </ul>
+            </div>
+            
             <a role="button" 
                 href="{{url_for('page_layout', _append=True, slug=slug, page_slug = page.slug)}}" 
                 class="btn"
