@@ -9,6 +9,7 @@ from sfext.uploader import upload_module, Assets, ImageSizeProcessor
 from sfext.uploader.stores import FilesystemStore
 from sfext.babel import babel_module, T
 from sfext.mail import mail_module
+from exceptions import *
 
 import markdown                                                                                                                                                                      
 import re
@@ -288,6 +289,18 @@ class CamperApp(Application):
                 })
             ],
         ))
+
+    def get_barcamp(self, slug):
+        """return a barcamp by it's slug
+
+        :param slug: slug of the barcamp to retrieve
+        :returns: barcamp object or 
+        """
+        barcamp = self.config.dbs.barcamps.by_slug(slug)
+        if barcamp is None:
+            raise BarcampNotFound(slug = slug)
+        return barcamp
+
 
 def app(config, **local_config):
     """return the config""" 

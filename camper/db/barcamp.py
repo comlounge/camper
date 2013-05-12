@@ -1,5 +1,6 @@
 from mongogogo import *
 import datetime
+from camper.exceptions import *
 
 __all__=["Barcamp", "BarcampSchema", "Barcamps"]
 
@@ -62,6 +63,66 @@ class EventSchema(Schema):
     participants        = List(String()) # TODO: ref
     waiting_list        = List(String()) # TODO: ref
 
+class Event(Record):
+    """wraps event data with a class to provider more properties etc."""
+
+    schema = EventSchema()
+    _protected = ['barcamp']
+
+    def __init__(self, *args, **kwargs):
+        """initialize the event"""
+        super(Event, self).__init__(*args, **kwargs)
+        self.barcamp = None
+
+    @property
+    def state(self):
+        """returns the state of the event which can be one of
+
+        planning -- the event has not started
+        active -- the event is active
+        finished -- the event has finished
+
+        All of those depend on the date which will be checked in here. 
+
+        We only check for days, not timestamps, so if an event starts at 10am it still
+        is supposed to be active for the whole day.
+        """
+
+        # convert everthing to dates without time
+        today = datetime.date.today()
+        start = self.start_date.date()
+        end = self.end_date.date()
+
+        if today < start:
+            return "planning"
+        if today > end:
+            return "finished"
+        return "active"
+
+    def add_participant(self, user):
+        """register a new user via the user object
+
+        :param user: user object
+        :raises ParticipantListFull: in case the participant list was full. The uses
+            is moved to the waiting list then instead
+        :returns: nothing which means everthing went ok. Don't forget to save the barcamp
+            afterwards
+        """
+        uid = unicode(user._id)
+        if uid in self.participants:
+            return
+
+        if len(self.participants) >= self.barcamp.size:
+            if uid not in self.waiting_list:
+                self.waiting_list.append(uid)
+            raise ParticipantListFull()
+
+        # all checks ok, add it to the list of participants
+        self.participants.append(uid)
+
+        # any mail will be sent by the application logic
+
+
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
 
@@ -98,46 +159,17 @@ class BarcampSchema(Schema):
     subscribers         = List(String()) # TODO: ref
 
     # events
-    events              = List(EventSchema())
+    events              = List(EventSchema(kls=Event))
 
     # image stuff
     logo                = String() # asset id
     sponsors            = List(Sponsor())
 
 
-class Event(AttributeMapper):
-    """wraps event data with a class to provider more properties etc."""
-
-    @property
-    def state(self):
-        """returns the state of the event which can be one of
-
-        planning -- the event has not started
-        active -- the event is active
-        finished -- the event has finished
-
-        All of those depend on the date which will be checked in here. 
-
-        We only check for days, not timestamps, so if an event starts at 10am it still
-        is supposed to be active for the whole day.
-        """
-
-        # convert everthing to dates without time
-        today = datetime.date.today()
-        start = self.start_date.date()
-        end = self.end_date.date()
-
-        if today < start:
-            return "planning"
-        if today > end:
-            return "finished"
-        return "active"
-
-
 class Barcamp(Record):
 
     schema = BarcampSchema()
-    _protected = ['schema', 'collection', '_protected', '_schemaless', 'default_values', 'admin_users', 'workflow_states', 'initial_workflow_state']
+    _protected = ['event', 'schema', 'collection', '_protected', '_schemaless', 'default_values', 'admin_users', 'workflow_states', 'initial_workflow_state']
     initial_workflow_state = "created"
     default_values = {
         'created'       : datetime.datetime.utcnow,
@@ -220,6 +252,8 @@ class Barcamp(Record):
         ub = self._collection.md.app.module_map.userbase
         return list(ub.get_users_by_ids(self.event.participants))
 
+    registered_users = participant_users
+
     @property
     def waitinglist_users(self):
         """return a list of user objects of the people on the waitinglist"""
@@ -231,7 +265,9 @@ class Barcamp(Record):
         """returns the main event object or None in case there is no event"""
         if self.events == []:
             return None
-        return Event(self.events[0])
+        event = self.events[0]
+        event.barcamp = self
+        return event
 
     def get_events(self):
         """return the events wrapped in the ``Event`` class"""
@@ -275,7 +311,7 @@ class Barcamps(Collection):
     def before_serialize(self, obj):
         """update or create our event information before it's saved"""
         if obj.events == []:
-            event = {}
+            event = Event()
         else:
             event = obj.events[0]
         event.update({
@@ -291,4 +327,3 @@ class Barcamps(Collection):
             obj.events[0] = event
 
         return obj
-
