@@ -9,7 +9,7 @@ from sfext.babel import T
 class TweetWallyView(BarcampBaseHandler):
     """shows an embedded tweetwally view"""
 
-    template = "barcamp/tweetwally.html"
+    template = "tweetwally.html"
     action = "twitterwall"
 
     @ensure_barcamp()

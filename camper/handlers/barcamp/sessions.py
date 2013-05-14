@@ -17,7 +17,7 @@ class SessionAddForm(BaseForm):
 class SessionList(BarcampBaseHandler):
     """shows a list of all the proposed sessions"""
 
-    template = "barcamp/sessions.html"
+    template = "sessions.html"
     action = "sessions"
 
     def get(self, slug = None):
@@ -71,7 +71,7 @@ class SessionHandler(BarcampBaseHandler):
         session.description = self.request.form['description']
         session.updated = datetime.datetime.now()
         session.save()
-        return redirect(self.url_for("barcamp_sessions", slug = slug))
+        return redirect(self.url_for(".sessions", slug = slug))
 
     @ensure_barcamp()
     @logged_in()
@@ -105,7 +105,7 @@ class CommentHandler(BarcampBaseHandler):
             comment = db.Comment(f, collection = self.config.dbs.sessions)
             comment = self.config.dbs.session_comments.put(comment)
             self.flash(self._("your comment has been added."))
-        return redirect(self.url_for("barcamp_sessions", slug = slug))
+        return redirect(self.url_for(".sessions", slug = slug))
 
     @ensure_barcamp()
     @logged_in()

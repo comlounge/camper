@@ -46,7 +46,7 @@ class BarcampEditForm(BaseForm):
 class EditView(BaseHandler):
     """an index handler"""
 
-    template = "barcamp/edit.html"
+    template = "edit.html"
 
     @ensure_barcamp()
     @logged_in()

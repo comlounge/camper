@@ -53,18 +53,18 @@ class BarcampBaseHandler(BaseHandler):
         bc = self.barcamp
         # we need to check for barcamp as pages use this handler, too and pages can also be on the top level 
         if bc is not None:
-            actions.append(Action('home', T("Home"), uf('barcamp', slug = self.barcamp.slug), self.action == 'home'))
-            actions.append(Action('sessions', T("session proposals"), uf('barcamp_sessions', slug = bc.slug), self.action == 'sessions'))
-            actions.append(Action('participants', T("participants"), uf('barcamp_userlist', slug = bc.slug), self.action == 'participants'))
+            actions.append(Action('home', T("Home"), uf('barcamps.index', slug = self.barcamp.slug), self.action == 'home'))
+            actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
+            actions.append(Action('participants', T("participants"), uf('barcamps.userlist', slug = bc.slug), self.action == 'participants'))
             if bc.planning_pad_public or self.is_admin:
-                actions.append(Action('planning', T("planning"), uf('barcamp_planning_pad', slug = bc.slug), self.action == 'planning'))
-            actions.append(Action('docs', T("documentation"), uf('barcamp_documentation_pad', slug = bc.slug), self.action == 'docs'))
+                actions.append(Action('planning', T("planning"), uf('barcamps.planning_pad', slug = bc.slug), self.action == 'planning'))
+            actions.append(Action('docs', T("documentation"), uf('barcamps.documentation_pad', slug = bc.slug), self.action == 'docs'))
             for page in self.barcamp_view.pages_for("menu"):
                 pid = "page_%s" %page._id
                 actions.append(Action(pid, page.menu_title, uf('barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))
             if bc.twitterwall:
                 if bc.twitterwall.find("tweetwally") != -1:
-                    actions.append(Action('twitterwall', T("Twitterwall"), uf("barcamp_tweetwally", slug = bc.slug), self.action == 'twitterwall'))
+                    actions.append(Action('twitterwall', T("Twitterwall"), uf("barcamps.tweetwally", slug = bc.slug), self.action == 'twitterwall'))
                 else:
                     actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
         return actions

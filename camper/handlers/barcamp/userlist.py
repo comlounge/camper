@@ -9,7 +9,7 @@ import werkzeug.exceptions
 class UserLists(BarcampBaseHandler):
     """shows the lists of subscribers, participants, waiting list"""
 
-    template = "barcamp/userlist.html"
+    template = "userlist.html"
 
     def get(self, slug = None):
         """render the view"""

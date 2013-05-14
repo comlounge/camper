@@ -1,4 +1,4 @@
-{% extends "barcamp/master.html" %}
+{% extends "_m/barcamps/master.html" %}
 
 {% macro list(users, remove_url=None) -%}
     <ul class="media-list participants">
@@ -29,15 +29,15 @@
     <div class="row">
         <div class="span3">
             <h2>Teilnehmer</h2>
-            {{list(barcamp.participant_users, remove_url=url_for('barcamp_unregister', slug = slug))}}
+            {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
         </div>
         <div class="span3">
             <h2>Interessenten</h2>
-            {{list(barcamp.subscriber_users, remove_url=url_for('barcamp_subscribe', slug = slug))}}
+            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug))}}
         </div>
         <div class="span3">
             <h2>Warteliste</h2>
-            {{list(barcamp.waitinglist_users, remove_url=url_for('barcamp_unregister', slug = slug))}}
+            {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
         </div>
     </div>
 {% endblock %}

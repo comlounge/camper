@@ -1,14 +1,14 @@
-{% extends "barcamp/master.html" %}
+{% extends "_m/barcamps/master.html" %}
 
 {% block main_content %}
     {% if show_public_switch and is_admin %}
         {% if barcamp.planning_pad_public %}
-            <form class="alert alert-success" method="POST" action="{{url_for("barcamp_planning_pad_toggle", slug = barcamp.slug)}}">
+            <form class="alert alert-success" method="POST" action="{{url_for(".planning_pad_toggle", slug = barcamp.slug)}}">
                 {{_("This planning pad is public.")}}
                 <button class="txt-danger btn btn-mini btn-danger">{{_('Make private')}}</button>
             </form>
         {% else %}
-            <form class="alert alert-danger" method="POST" action="{{url_for("barcamp_planning_pad_toggle", slug = barcamp.slug)}}">
+            <form class="alert alert-danger" method="POST" action="{{url_for(".planning_pad_toggle", slug = barcamp.slug)}}">
                 {{_("This planning pad is private.")}}
                 <button class="txt-danger btn btn-mini btn-success">{{_('Make public')}}</button>
             </form>

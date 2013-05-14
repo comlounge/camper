@@ -22,7 +22,7 @@ class BarcampSubscribe(BarcampBaseHandler):
         # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
         if not view.is_admin and not user==self.user:
             self.flash(self._("You are not allowed to change this."), category="danger")
-            return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+            return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
         if unicode(user._id) not in self.barcamp.subscribers:
             self.barcamp.subscribe(self.user) # we can only subscribe our own user, thus self.user and not user
             self.flash(self._("You are now on the list of people interested in the barcamp"), category="success")
@@ -32,7 +32,7 @@ class BarcampSubscribe(BarcampBaseHandler):
                 self.flash(self._("You have been removed from the list of people interested in this barcamp"), category="danger")
             else:
                 self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
-        return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
         
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
@@ -67,7 +67,7 @@ class BarcampRegister(BarcampBaseHandler):
                     barcamp = self.barcamp,
                     title = self.barcamp.name,
                     **self.barcamp)
-        return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class BarcampUnregister(BarcampBaseHandler):
     """removes a user from the participants list and might move user up from the waiting list"""
@@ -89,7 +89,7 @@ class BarcampUnregister(BarcampBaseHandler):
         # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
         if not view.is_admin and not user==self.user:
             self.flash(self._("You are not allowed to change this."), category="danger")
-            return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+            return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
         if uid in event.participants:
             event.participants.remove(uid)
@@ -107,5 +107,5 @@ class BarcampUnregister(BarcampBaseHandler):
             self.flash(self._("You have been removed from the list of participants."), category="danger")
         else:
             self.flash(self._("%(fullname)s has been removed from the list of participants.") %user, category="danger")
-        return redirect(self.url_for("barcamp_userlist", slug = self.barcamp.slug))
+        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 

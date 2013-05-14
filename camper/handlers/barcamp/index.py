@@ -10,7 +10,7 @@ from .base import BarcampBaseHandler, SponsorForm
 class View(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
-    template = "barcamp/index.html"
+    template = "index.html"
     action = "home"
 
     def get(self, slug = None):

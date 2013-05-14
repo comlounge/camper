@@ -18,7 +18,7 @@ class BlogAddForm(BaseForm):
 class PlanningPadView(BarcampBaseHandler):
     """shows the main page of a barcamp"""
 
-    template = "barcamp/pad.html"
+    template = "pad.html"
     action = "planning"
 
     @ensure_barcamp()
@@ -26,7 +26,7 @@ class PlanningPadView(BarcampBaseHandler):
         """render the view"""
         if not self.barcamp.planning_pad_public and not self.is_admin:
             self.flash(self._(self._('You are not allowed to access this page as you are not an administrator of this barcamp.')), category="danger")
-            return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+            return redirect(self.url_for(".index", slug = self.barcamp.slug))
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -38,7 +38,7 @@ class PlanningPadView(BarcampBaseHandler):
 class DocumentationPadView(BarcampBaseHandler):
     """shows documentation pad"""
 
-    template = "barcamp/docs.html"
+    template = "docs.html"
     action = "docs"
 
     @ensure_barcamp()
@@ -73,7 +73,7 @@ class DocumentationPadView(BarcampBaseHandler):
             self.barcamp.blogposts.append(blog)
             self.barcamp.save()
             self.flash(self._("Your blog post has been posted."), category="success")
-            return redirect(self.url_for("barcamp_documentation_pad", slug = slug))
+            return redirect(self.url_for(".documentation_pad", slug = slug))
 
 
         return self.get(slug)
@@ -100,6 +100,6 @@ class PadPublicToggleView(BarcampBaseHandler):
     def post(self, slug = None):
         self.barcamp.planning_pad_public = not self.barcamp.planning_pad_public
         self.barcamp.put()
-        return redirect(self.url_for("barcamp_planning_pad", slug = self.barcamp.slug))
+        return redirect(self.url_for(".planning_pad", slug = self.barcamp.slug))
 
 
