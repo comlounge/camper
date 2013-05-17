@@ -6,7 +6,7 @@ Test support for handlers
 
 # reuse configuration options from database
 from camper.db.tests.conftest import *
-from camper.app import app
+from camper.app import test_app
 import werkzeug
 
 env = werkzeug.test.EnvironBuilder(base_url="http://dev.localhost")
@@ -20,7 +20,7 @@ app_config = {
 }
 
 def setup_app():
-    return app({}, **app_config)
+    return test_app({}, **app_config)
 
 def teardown_app(app):
     #pymongo.Connection().drop_database(DB_NAME)
