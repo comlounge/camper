@@ -2,7 +2,7 @@
 
 from starflyer import Handler, redirect
 from camper import BaseForm, db, logged_in, string2filename, BaseHandler, is_admin, ensure_page
-from ..barcamp.base import BarcampBaseHandler
+from camper.barcamps.base import BarcampBaseHandler
 from wtforms import *
 
 __all__ = ['View']

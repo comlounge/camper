@@ -18,6 +18,8 @@ from etherpad_lite import EtherpadLiteClient
 
 import userbase
 import handlers
+import barcamps
+import pages
 import db
 import login
 
@@ -187,7 +189,7 @@ class CamperApp(Application):
             })
         ),
         mail_module(debug=True),
-        handlers.barcamp.barcamp_module(url_prefix="/"),
+        barcamps.barcamp_module(url_prefix="/"),
     ]
 
     jinja_filters = {
@@ -208,52 +210,23 @@ class CamperApp(Application):
         # admin area 
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
         URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
-        URL('/admin/pages/<slot>/add', 'admin_pages_add', handlers.pages.add.AddView),
-        URL('/s/<page_slug>', 'page', handlers.pages.view.View),
+        URL('/admin/pages/<slot>/add', 'admin_pages_add', pages.add.AddView),
+        URL('/s/<page_slug>', 'page', pages.view.View),
 
         # user stuff
         URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 
-        # barcamp stuff
-        #URL('/b/add', 'barcamp_add', handlers.barcamp.add.AddView),
-        #URL('/b/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView, defaults = {'slug' : None}),
-        #URL('/<slug>', 'barcamp', handlers.barcamp.index.View),
-        #URL('/<slug>/validate', 'barcamp_validate', handlers.barcamp.add.ValidateView),
-        #URL('/<slug>/delete', 'barcamp_delete', handlers.barcamp.delete.DeleteConfirmView),
-        #URL('/<slug>/edit', 'barcamp_edit', handlers.barcamp.edit.EditView),
-        #URL('/<slug>/participants_edit', 'barcamp_participants_edit', handlers.barcamp.edit.ParticipantsEditView),
-        #URL('/<slug>/sponsors', 'barcamp_sponsors', handlers.barcamp.index.BarcampSponsors),
-        #URL('/<slug>/location', 'barcamp_location', handlers.barcamp.location.LocationView),
-        #URL('/<slug>/subscribe', 'barcamp_subscribe', handlers.barcamp.registration.BarcampSubscribe),
-        #URL('/<slug>/register', 'barcamp_register', handlers.barcamp.registration.BarcampRegister),
-        #URL('/<slug>/unregister', 'barcamp_unregister', handlers.barcamp.registration.BarcampUnregister),
-        #URL('/<slug>/planning', 'barcamp_planning_pad', handlers.barcamp.pads.PlanningPadView),
-        #URL('/<slug>/planning/toggle', 'barcamp_planning_pad_toggle', handlers.barcamp.pads.PadPublicToggleView),
-        #URL('/<slug>/docpad', 'barcamp_documentation_pad', handlers.barcamp.pads.DocumentationPadView),
-        #URL('/<slug>/lists', 'barcamp_userlist', handlers.barcamp.userlist.UserLists),
-        #URL('/<slug>/tweetwally', 'barcamp_tweetwally', handlers.barcamp.tweetwally.TweetWallyView),
-        #URL('/<slug>/permissions', 'barcamp_permissions', handlers.barcamp.permissions.Permissions),
-        #URL('/<slug>/permissions/admin', 'barcamp_admin', handlers.barcamp.permissions.Admin),
-        #URL('/<slug>/sessions', 'barcamp_sessions', handlers.barcamp.sessions.SessionList),
-        #URL('/<slug>/sessions.xls', 'barcamp_session_export', handlers.barcamp.sessions.SessionExport),
-        #URL('/<slug>/sessions/<sid>', 'barcamp_session', handlers.barcamp.sessions.SessionHandler),
-        #URL('/<slug>/sessions/<sid>/vote', 'barcamp_session_vote', handlers.barcamp.sessions.Vote),
-        #URL('/<slug>/sessions/<sid>/comments', 'barcamp_session_comments', handlers.barcamp.sessions.CommentHandler),
-        #URL('/<slug>/logo/upload', 'barcamp_logo_upload', handlers.barcamp.images.LogoUpload),
-        #URL('/<slug>/logo/delete', 'barcamp_logo_delete', handlers.barcamp.images.LogoDelete),
-        #URL('/<slug>/logo', 'barcamp_logo', handlers.barcamp.images.Logo),
-
         # pages for barcamps
-        URL('/<slug>/page_add/<slot>', 'barcamp_page_add', handlers.pages.add.AddView),
-        URL('/<slug>/<page_slug>', 'barcamp_page', handlers.pages.view.View),
-        URL('/<slug>/<page_slug>/upload', 'page_image_upload', handlers.pages.images.ImageUpload),
-        URL('/<slug>/<page_slug>/layout', 'page_layout', handlers.pages.edit.LayoutView),
-        URL('/<slug>/<page_slug>/edit', 'page_edit', handlers.pages.edit.EditView),
-        URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', handlers.pages.edit.PartialEditView),
-        URL('/<slug>/<page_slug>/delete', 'page_image_delete', handlers.pages.images.ImageDelete),
-        URL('/<slug>/<page_slug>/image', 'page_image', handlers.pages.images.Image),
+        URL('/<slug>/page_add/<slot>', 'barcamp_page_add', pages.add.AddView),
+        URL('/<slug>/<page_slug>', 'barcamp_page', pages.view.View),
+        URL('/<slug>/<page_slug>/upload', 'page_image_upload', pages.images.ImageUpload),
+        URL('/<slug>/<page_slug>/layout', 'page_layout', pages.edit.LayoutView),
+        URL('/<slug>/<page_slug>/edit', 'page_edit', pages.edit.EditView),
+        URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', pages.edit.PartialEditView),
+        URL('/<slug>/<page_slug>/delete', 'page_image_delete', pages.images.ImageDelete),
+        URL('/<slug>/<page_slug>/image', 'page_image', pages.images.Image),
 
     ]
 
