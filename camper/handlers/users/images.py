@@ -35,10 +35,6 @@ class ProfileImageUploadOld(BaseHandler):
         # store it in the user
         self.user.image = asset._id
         self.user.save()
-        print {
-            'preview' : self.url_for("asset", asset_id = asset.variants['thumb']._id),
-            'success' : True,
-        }
         return {
             'preview' : self.url_for("asset", asset_id = asset.variants['thumb']._id),
             'success' : True,
