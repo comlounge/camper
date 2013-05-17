@@ -29,10 +29,10 @@
                     <h4 class="media-heading">{{session.title|striptags}}</h4>
                     {% if is_admin or user_id == session.user._id %}
                         <a data-confirm="{{_('Are you sure?')}}" 
-                           data-url="{{url_for('.session', slug=slug, sid = session._id)}}" 
+                           data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
                            href="#" 
                            class="session-delete-button btn btn-mini btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
-                        <a data-url="{{url_for('.session', slug=slug, sid = session._id)}}" 
+                        <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
                            href="#" 
                            class="session-edit-button btn btn-mini pull-right"><i class="icon-pencil"></i></a>
                     {% endif %}

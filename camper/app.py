@@ -277,6 +277,11 @@ class CamperApp(Application):
 
 from werkzeug import DebuggedApplication
 
+def test_app(config, **local_config):
+    """return the app for testing"""
+    return CamperApp(__name__, local_config)
+
+
 def app(config, **local_config):
     """return the config""" 
     app = CamperApp(__name__, local_config)

@@ -14,7 +14,6 @@ env = werkzeug.test.EnvironBuilder(base_url="http://dev.localhost")
 app_config = {
         'mongodb_name'          : "testcamper",
         'testing'               : True,
-        'testing'               : True,
         'modules.userbase.mongodb_name' : "testcamper",
         'session_cookie_domain' : "dev.localhost",
 }
@@ -82,6 +81,7 @@ def pytest_funcarg__bclient(request):
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
+        size = "10",
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",

@@ -7,7 +7,7 @@ from starflyer import redirect
 class Permissions(BarcampBaseHandler):
     """screen for private/public and admin management"""
 
-    template = "barcamp/permissions.html"
+    template = "permissions.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -39,7 +39,7 @@ class Admin(BarcampBaseHandler):
     """add a new administrator.
     """
 
-    template = "barcamp/permissions.html"
+    template = "permissions.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -50,7 +50,7 @@ class Admin(BarcampBaseHandler):
         user = self.app.module_map.userbase.get_user_by_email(email)
         if user is None:
             self.flash("Ein Benutzer mit dieser E-Mail-Adresse wurde leider nicht gefunden.", category="error")
-            return redirect(self.url_for("barcamp_permissions", slug = slug))
+            return redirect(self.url_for("barcamps.permissions", slug = slug))
 
         uid = str(user._id)
         if uid not in self.barcamp.admins:
@@ -58,7 +58,7 @@ class Admin(BarcampBaseHandler):
             self.barcamp.save()
             self.flash(u"%s ist nun ebenfalls ein Admin für dieses Barcamp." %user.fullname)
 
-        return redirect(self.url_for("barcamp_permissions", slug = slug))
+        return redirect(self.url_for("barcamps.permissions", slug = slug))
 
     @ensure_barcamp()
     @logged_in()
@@ -67,12 +67,12 @@ class Admin(BarcampBaseHandler):
         uid = self.request.args.get("uid")
         if uid == self.barcamp.created_by:
             self.flash(u"Dem Ersteller des Barcamps kann das Admin-Recht nicht entzogen werden.", category="error")
-            return redirect(self.url_for("barcamp_permissions", slug = slug))
+            return redirect(self.url_for("barcamps.permissions", slug = slug))
         if len(self.barcamp.admins)<2:
             self.flash(u"Es muss mindestens einen Administrator geben.", category="error")
-            return redirect(self.url_for("barcamp_permissions", slug = slug))
+            return redirect(self.url_for("barcamps.permissions", slug = slug))
         if uid in self.barcamp.admins:
             self.barcamp.remove_admin_by_id(uid)
             self.barcamp.save()
         self.flash(u"Administrator gelöscht.")
-        return redirect(self.url_for("barcamp_permissions", slug = slug))
+        return redirect(self.url_for("barcamps.permissions", slug = slug))

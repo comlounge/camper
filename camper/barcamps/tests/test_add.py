@@ -6,6 +6,7 @@ def test_barcamp_add_without_login(client):
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
+        size = "10",
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
@@ -20,13 +21,13 @@ def test_barcamp_add(logged_in_client):
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
+        size = "10",
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
-
     ))
     lh = logged_in_client.application.last_handler
-    assert lh.get_flashes() == [u'Barcamp Barcamp 1 wurde angelegt']
+    assert lh.get_flashes() == [u'Barcamp 1 wurde angelegt.']
     
 def test_barcamp_initialadmin(logged_in_client):
     """test adding a barcamp"""
@@ -34,6 +35,7 @@ def test_barcamp_initialadmin(logged_in_client):
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
+        size = "10",
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
