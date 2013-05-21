@@ -29,7 +29,7 @@ def create_user(app, username="user"):
 
 @pytest.fixture
 def app(request, config):
-    app = camper.app.app({},**config)
+    app = camper.app.test_app({},**config)
     app.testdata = AttributeMapper() # for testing purposes
     app.testdata.users = AttributeMapper()
     app.testdata.users.admin = create_user(app, "admin") # TODO: actually make this user an admin

@@ -53,7 +53,7 @@ class BarcampAddForm(BaseForm):
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
     gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
-    nofbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
+    fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
 
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
@@ -93,16 +93,17 @@ class AddView(BaseHandler):
             pid = unicode(uuid.uuid4())[:8]
             pid = f['planning_pad'] = "%s_%s" %(f['slug'],pid)
             did = f['slug']
-            try:
-                self.config.etherpad.createPad(padID=pid, text=u"Planung")
-                self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
-            except:
-                self.flash(self._("Attention: One or both of the etherpads exist already!"), category="warning")
-                pass
+            if not self.config.testing:
+                try:
+                    self.config.etherpad.createPad(padID=pid, text=u"Planung")
+                    self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
+                except:
+                    self.flash(self._("Attention: One or both of the etherpads exist already!"), category="warning")
+                    pass
             f['documentation_pad'] = did
 
-            # retrieve geo location
-            if form.data['location_street']:
+            # retrieve geo location (but only when not in test mode as we might be offline)
+            if form.data['location_street'] and not self.config.testing:
                 url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
                     form.data['location_street'],
                     form.data['location_city'],

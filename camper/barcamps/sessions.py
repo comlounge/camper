@@ -117,7 +117,6 @@ class CommentHandler(BarcampBaseHandler):
         session = self.config.dbs.sessions.get(sid)
         cid = self.request.form.get("cid", None)
         if cid is None:
-            print "nop"
             return {'status' : 'notfound'}
         cid = bson.ObjectId(cid)
         comment = self.config.dbs.session_comments.get(cid)

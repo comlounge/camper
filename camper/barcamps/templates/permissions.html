@@ -24,7 +24,7 @@
         <td>{{admin.fullname}}</td>
         <td>
             {% if admin._id|e != barcamp.created_by %}
-            <a onClick="return confirm('Bist Du sicher?')" href="{{url_for("barcamp_admin", slug=slug, _append=True, method="delete", uid=admin._id)}}" class="btn btn-small btn-danger"><i class="icon icon-white icon-trash"></i> Löschen</a>
+            <a onClick="return confirm('Bist Du sicher?')" href="{{url_for("barcamps.admin", slug=slug, _append=True, method="delete", uid=admin._id)}}" class="btn btn-small btn-danger"><i class="icon icon-white icon-trash"></i> Löschen</a>
             {% endif %}
         </td>
     </tr>
@@ -37,7 +37,7 @@
 </div>
 
 <div class="well" style="margin-top: 20px">
-    <form action="{{url_for("barcamp_admin", slug = slug)}}" method="POST" class="form form-horizontal form-validate">
+    <form action="{{url_for("barcamps.admin", slug = slug)}}" method="POST" class="form form-horizontal form-validate">
         <fieldset>
         <label for="email">E-Mail-Adresse der Person, die Administrator werden soll</label>
         <input type="text" class="span8 email required xxlarge" name="email" id="email" maxlength="100" placeholder="name@domain.de"><br>

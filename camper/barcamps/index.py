@@ -30,7 +30,6 @@ class BarcampSponsors(BarcampBaseHandler):
     @is_admin()
     def post(self, slug = None):
         """just add the sponsor and reload the page"""
-        print "huhu"
         form = SponsorForm(self.request.form, config = self.config)
         if form.validate():
             f = form.data
