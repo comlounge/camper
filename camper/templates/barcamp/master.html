@@ -169,8 +169,8 @@
                             <div class="twitter-button">
                                 <a href="https://twitter.com/share" 
                                    class="twitter-share-button" 
-                                   data-url="{{_('Join us at')}} {{url_for("barcamp", slug = slug)}}" 
-                                   data-text="{{barcamp.title|striptags}}" 
+                                   data-url="{{url_for("barcamp", slug = slug, _full=True)}}" 
+                                   data-text="Nimm auch Du teil am {{barcamp.name|striptags}}!" 
                                    data-via="{{barcamp.twitter}}" 
                                    data-count="none"
                                    data-hashtags="{{barcamp.hashtag}}">Tweet</a>
