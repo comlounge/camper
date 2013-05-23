@@ -1,21 +1,24 @@
 import camper.app
 from starflyer import AttributeMapper
+import werkzeug
 import ConfigParser
 import pytest
 import pprint
 import datetime
 
-def pytest_addoption(parser):
-    parser.addoption("--config", action="store", default="etc/test.ini",
-        help="path to test configuratin file")
+#def pytest_addoption(parser):
+    #parser.addoption("--config", action="store", default="etc/test.ini",
+        #help="path to test configuratin file")
 
 @pytest.fixture(scope="session")
 def config(request):
     """read the test config"""
-    filename = request.config.option.config
-    config = ConfigParser.ConfigParser()
-    config.read(filename)
-    return dict(config.items("DEFAULT"))
+    return {
+        'mongodb_name'  : 'camper_test_database_do_not_use',
+        'modules.userbase.mongodb_name'  : 'camper_test_database_do_not_use',
+        'testing'       : True,
+        'debug'         : True,
+    }
 
 def create_user(app, username="user"):
     """create a user with username=pw and email=<username>@example.org"""
@@ -36,7 +39,6 @@ def app(request, config):
     app.testdata.users.user = create_user(app, "user")
     def fin():
         """finalizer to delete the database again"""
-        #app.config.dbs.db.connection.drop_database(app.config.mongodb_name)
         app.config.dbs.db.users.remove()
         app.config.dbs.db.barcamps.remove()
         app.config.dbs.db.sessions.remove()
@@ -72,5 +74,8 @@ def barcamp(request, app):
     barcamp.save()
     return barcamp
 
+@pytest.fixture
+def client(request, app):
+    return werkzeug.Client(app, werkzeug.BaseResponse)                                                                                                                                                                      
 
 
