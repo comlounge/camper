@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pytest
 import re
 from camper.app import lre_string
@@ -41,7 +43,7 @@ def test_user_send_activation_code_again(app, client):
 
     # ask for a new activation code
     resp = client.get("/users/activation_code")
-    assert "Please enter the email address" in resp.data
+    assert "damit wir Dir einen neuen Code zusenden können" in resp.data
 
     resp = client.post("/users/activation_code", data = {'email' : 'foobar@example.org'})
     assert "neuen Aktivierungscode an Deine E-Mail gesendet" in str(app.last_handler.session['_flashes'])
@@ -54,7 +56,7 @@ def test_user_send_activation_code_again(app, client):
     resp = client.get(url)
 
 
-def test_user_no_login_withou_activation(app, client):  
+def test_user_no_login_without_activation(app, client):  
 
     # create a user
     mail = app.module_map['mail']
@@ -95,4 +97,27 @@ def test_user_login(app, client):
     # login
     resp = client.post("/users/login", data = {'username' : 'user1', 'password' : 'password1'})
     assert "Du bist jetzt eingeloggt" in str(app.last_handler.session['_flashes'])
+
+
+def test_no_same_email(app, client):
+    mail = app.module_map['mail']
+    resp = client.get("/users/register")
+    post_data = {
+        'username'  : 'user1',
+        'password'  : 'password1',
+        'password2' : 'password1',
+        'email'     : 'foobar@example.org',
+        'fullname'  : 'Mr. Foo Bar',
+    }
+    resp = client.post("/users/register", data = post_data)
+
+    post_data = {
+        'username'  : 'user1',
+        'password'  : 'password1',
+        'password2' : 'password1',
+        'email'     : 'foobar@example.org',
+        'fullname'  : 'Mr. Neu Foo Bar',
+    }
+    resp = client.post("/users/register", data = post_data)
+    assert "this email address is already" in resp.data
 
