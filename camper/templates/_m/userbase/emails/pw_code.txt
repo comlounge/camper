@@ -1,14 +1,16 @@
-<p>
-Hi {{user.fullname}},
-</p>
+Hallo {{user.fullname}},
 
-<p>
-in order to reset your password you have to click on the following 
-link:
-</p>
+Du hast anscheinend den Link zum Neusetzen Deines Passworts geklickt.
 
-<p>
+Wenn dem so ist, klicke bitte auf den folgenden Link, um ein neues Passwort zu setzen:
+
 {{url}}
-</p>
 
+Wenn Du das nicht gewesen sein solltest, ignoriere diese Mail einfach.
+
+
+-- 
+
+Camper - das Barcamptool
+http://barcamptools.eu
 
