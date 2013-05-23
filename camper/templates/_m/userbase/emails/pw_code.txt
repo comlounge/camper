@@ -1,0 +1,14 @@
+<p>
+Hi {{user.fullname}},
+</p>
+
+<p>
+in order to reset your password you have to click on the following 
+link:
+</p>
+
+<p>
+{{url}}
+</p>
+
+
