@@ -68,7 +68,7 @@ def test_user_no_login_without_activation(app, client):
         'email'     : 'foobar@example.org',
         'fullname'  : 'Mr. Foo Bar',
     }
-    resp = client.post("/users/register", data = post_data)
+    resp = client.post("/users/register", data = post_data, follow_redirects=True)
 
     # try to login
     resp = client.post("/users/login", data = {'username' : 'user1', 'password' : 'password1'})
