@@ -37,7 +37,7 @@ class LogoUpload(BaseHandler):
         self.barcamp.put()
         return {
             'status' : "success",
-            'redirect' : self.url_for("barcamp", slug = slug),
+            'redirect' : self.url_for("barcamps.index", slug = slug),
         }
 
 class Logo(BaseHandler):
@@ -117,5 +117,5 @@ class LogoDelete(BaseHandler):
         self.app.module_map.uploader.remove(asset_id)
         self.barcamp.logo = None
         self.barcamp.put()
-        return redirect(self.url_for("barcamp", slug = slug))
+        return redirect(self.url_for("barcamps.index", slug = slug))
 

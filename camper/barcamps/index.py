@@ -40,7 +40,7 @@ class BarcampSponsors(BarcampBaseHandler):
             self.flash("Neuen Sponsor angelegt", category="info")
         else:
             self.flash("Leider enthielt das Formular einen Fehler", category="error")
-        return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+        return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
 
     @logged_in()
     @is_admin()
@@ -49,7 +49,7 @@ class BarcampSponsors(BarcampBaseHandler):
         idx = int(self.request.form['idx']) # index in list
         del self.barcamp.sponsors[idx]
         self.barcamp.put()
-        return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+        return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
 
 
 

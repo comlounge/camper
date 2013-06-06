@@ -139,9 +139,9 @@ class UploadWidget(object):
             </div>
             <div class="upload-area show">
                 <div class="">
-                    <button class="uploadbutton btn-inline btn btn-primary">{{label}}</button>
-                    <button class="deletebutton {{'hide' if not preview_url}} btn-inline btn btn-danger">{{delete_label}}</button>
-                    <button class="revertbutton hide btn-inline btn btn-danger">{{revert_label}}</button>
+                    <span class="uploadbutton btn-inline btn btn-primary">{{label}}</span>
+                    <span class="deletebutton {{'hide' if not preview_url}} btn-inline btn btn-danger">{{delete_label}}</span>
+                    <span class="revertbutton hide btn-inline btn btn-danger">{{revert_label}}</span>
                 </div>
                 <div class="progressbar progress progress-striped active hide">
                     <div class="bar" style="width: 0%%;"></div>
