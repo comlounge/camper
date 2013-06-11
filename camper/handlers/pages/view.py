@@ -24,7 +24,7 @@ class View(BarcampBaseHandler):
         # TODO: refactor this somehow so it's more independent of the barcamp stuff, maybe incorporate barcamp id into 
         # the page name? Maybe intro some new unique page id which is composed like that?
         if self.barcamp is None:
-            if page.image is not None:
+            if page.has_image:
                 image = """<img src="%s">""" %(
                     self.url_for("page_image", slug = "___", page_slug = page_slug))
             else:
@@ -36,7 +36,7 @@ class View(BarcampBaseHandler):
                 page_slug = page_slug,
                 image = image)
         else:
-            if page.image is not None:
+            if page.has_image:
                 image = """<img src="%s">""" %(
                     self.url_for("page_image", slug = self.barcamp.slug, page_slug = page_slug))
             else:

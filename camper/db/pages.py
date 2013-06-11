@@ -53,6 +53,11 @@ class Page(Record):
             return
         self.layout = layout
 
+    @property
+    def has_image(self):
+        """return whether a page has an image attached or not"""
+        return self.image is not None and self.image!=""
+
 class Pages(Collection):
     
     data_class = Page
