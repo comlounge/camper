@@ -34,6 +34,7 @@ setup(name='camper',
         "etherpad_lite",
         "requests",
         "xlwt",
+        "bleach",
       ],
       entry_points="""
       [paste.app_factory]

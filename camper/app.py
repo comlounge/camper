@@ -10,7 +10,9 @@ from sfext.uploader.stores import FilesystemStore
 from sfext.babel import babel_module, T
 from sfext.mail import mail_module
 
-import markdown                                                                                                                                                                      
+import markdown
+import bleach
+
 import re
 from jinja2 import evalcontextfilter, Markup, escape
 from etherpad_lite import EtherpadLiteClient
@@ -53,45 +55,8 @@ if '\\/' not in json.dumps('/'):
 else:
     _tojson_filter = json.dumps
 
-
-md = markdown.Markdown(safe_mode="remove")
-#lre_string = re.compile(r'(?P<protocol>(^|\s)((http|ftp)://.*?))(\s|$)', re.S|re.M|re.I)
-#lre_string = re.compile(r'(?P<protocol>(^|\s)((http|ftp)://.*?))(\s|$)', re.S|re.M|re.I)
-#lre_string = re.compile(r"""\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))""", re.S|re.M|re.I)
-
-pattern = """
-(
-  (?:
-    https?://
-    | 
-    www\d{0,3}[.]
-    |
-    [a-z0-9.\-]+[.][a-z]{2,4}/
-  )
-  (?:
-    [^\s()<>]+
-    |        
-    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
-  )+
-  (?:
-    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
-    |
-    [^\s`!()\[\]{};:'".,<>?«»“”‘’]
-  )
-)
-"""
-pattern = "".join([p.strip() for p in pattern.split()])
-lre_string = re.compile(pattern, re.S|re.M|re.I)
-
-def linkify(text):
-    def do_sub(m):
-        url = m.groups()[0]
-        return '<a target="_blank" href="%s">%s</a>' % (url, url)
-    return re.sub(lre_string, do_sub, text)
-
 def markdownify(text, level=1):
-    return linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
-    return linkify(md.convert(text))
+    return bleach.linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
 
 ###
 ### i18n
