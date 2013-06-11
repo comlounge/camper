@@ -94,6 +94,7 @@ class CamperApp(Application):
         'ep_endpoint'           : "http://localhost:9001/api",
         'ga'                    : 'none', #GA key
         'base_asset_path'       : '/tmp', # where to store assets
+        'fb_app_id'             : 'PLEASE FILL IN', # get this from developers.facebook.com
     }
 
     modules = [
