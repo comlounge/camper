@@ -49,4 +49,18 @@ class View(BarcampBaseHandler):
                 title = self.barcamp.name,
                 **self.barcamp)
 
+    @logged_in()
+    @is_admin()
+    @ensure_page()
+    def delete(self, slug = None, page_slug = None):
+        """delete a page"""
+        # TODO: delete page
+        self.page.remove()
+        self.flash(u"Die Seite wurde erfolgreich gelöscht")
+        if self.barcamp is not None:
+            url = self.url_for("barcamp", slug = self.barcamp.slug)
+        else:
+            url = self.url_for("index")
+        return redirect(url)
+
 

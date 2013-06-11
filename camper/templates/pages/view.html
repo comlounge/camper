@@ -12,7 +12,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="iframebox"><i class="icon-picture"></i> Bild hochladen</a></li>
                     <li><a href="{{url_for('page_edit', slug=slug, page_slug = page_slug)}}"><i class="icon-pencil"></i> Seite bearbeiten</a></li>
-                    <li><a class="confirm" href="{{url_for('page', method=delete, slug=slug, page_slug = page_slug, _append=True)}}"><i class="icon-trash"></i> Seite löschen</a></li>
+                    <li><a class="confirm" href="{{url_for('barcamp_page', method='delete', slug = slug, page_slug = page_slug, _append=True)}}"><i class="icon-trash"></i> Seite löschen</a></li>
                 </ul>
             </div>
             

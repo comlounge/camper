@@ -48,19 +48,6 @@ class EditView(BarcampBaseHandler):
 
     post = get
 
-    @logged_in()
-    @is_admin()
-    @ensure_page()
-    def delete(self, slug = None, page_slug = None):
-        """delete a page"""
-        # TODO: delete page
-        self.flash("Die Seite wurde erfolgreich gelöscht")
-        if self.barcamp is not None:
-            url = self.url_for("barcamp", slug = self.barcamp.slug)
-        else:
-            url = self.url_for("index")
-        return redirect(url)
-
 
 
 class LayoutView(BarcampBaseHandler):
