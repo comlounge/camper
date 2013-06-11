@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-04-05 17:54+0200\n"
+"POT-Creation-Date: 2013-04-10 17:07+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr "%s wurde angelegt."
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
-#: handlers/barcamp/base.py:56
+#: handlers/barcamp/base.py:56 templates/master.html:47
 msgid "Home"
 msgstr "Startseite"
 
@@ -355,19 +355,28 @@ msgstr "neues Barcamp anlegen"
 msgid "Diese Feld muss angegeben werden"
 msgstr ""
 
-#: templates/master.html:68
+#: templates/master.html:58
+#, fuzzy
+msgid "Blog"
+msgstr "Einloggen"
+
+#: templates/master.html:59
+msgid "Ideen/Feedback"
+msgstr ""
+
+#: templates/master.html:70
 msgid "Login"
 msgstr ""
 
-#: templates/master.html:69
+#: templates/master.html:71
 msgid "Register"
 msgstr "Registrieren"
 
-#: templates/master.html:77
+#: templates/master.html:79
 msgid "my profile"
 msgstr "Mein Profile"
 
-#: templates/master.html:78
+#: templates/master.html:80
 msgid "Log out"
 msgstr "Ausloggen"
 
