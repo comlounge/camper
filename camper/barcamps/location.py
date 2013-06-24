@@ -8,7 +8,7 @@ from sfext.babel import T
 class LocationView(BarcampBaseHandler):
     """shows the location of the barcamp"""
 
-    template = "barcamp/location.html"
+    template = "location.html"
 
     @ensure_barcamp()
     def get(self, slug = None):

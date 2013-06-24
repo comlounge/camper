@@ -111,7 +111,7 @@ class EditView(BaseHandler):
 class ParticipantsEditView(BaseHandler):
     """let the user increase the number of participants"""
 
-    template = "barcamp/participants_edit.html"
+    template = "participants_edit.html"
 
     @ensure_barcamp()
     @logged_in()
