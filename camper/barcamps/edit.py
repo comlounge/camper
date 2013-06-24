@@ -104,7 +104,7 @@ class EditView(BaseHandler):
             self.barcamp.update(f)
             self.barcamp.put()
             self.flash("Barcamp aktualisiert", category="info")
-            return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
         return self.render(form = form)
     post = get
 
@@ -126,6 +126,6 @@ class ParticipantsEditView(BaseHandler):
             self.barcamp.size = size
             self.barcamp.put()
             self.flash("Barcamp aktualisiert", category="info")
-            return redirect(self.url_for("barcamp", slug = self.barcamp.slug))
+            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
         return self.render(form = form, barcamp = self.barcamp)
     post = get

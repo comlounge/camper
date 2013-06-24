@@ -1,6 +1,6 @@
-{% extends "barcamp/master.html" %}
+{% extends "master.html" %}
 
-{% block outer_content %}
+{% block content %}
         <div class="row">
             <div class="span8 offset2">
                 <div class="alert alert-danger">
@@ -17,7 +17,7 @@
                     <div>
                         <form method="POST" action="{{url}}">
                             <input type="submit" class="pull-right btn btn-danger btn-large" value="{{_('yes, DELETE the barcamp')}}">
-                            <a href="{{url_for('barcamp', slug = slug)}}" class="btn btn-primary btn-large">{{_("No, DO NOT delete the barcamp")}}</a>
+                            <a href="{{url_for('barcamps.index', slug = slug)}}" class="btn btn-primary btn-large">{{_("No, DO NOT delete the barcamp")}}</a>
                         </form>
                     </div>
                 </div>
