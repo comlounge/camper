@@ -121,7 +121,7 @@
                                 </div>
                             </form>
                         {% elif barcamp.workflow == "public" %}
-                            <form action="{{url_for('.permissions', slug=slug)}}" method="POST">
+                            <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
                                 <input type="hidden" name="wf" value="registration">
                                 <div class="well">
                                     <button class="pull-right btn btn-small btn-success">{{_('open registration')}}</button>
