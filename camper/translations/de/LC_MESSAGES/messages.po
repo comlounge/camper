@@ -499,7 +499,7 @@ msgstr "Öffentlich machen!"
 
 #: templates/barcamp/participants_edit.html:6
 msgid "Increase number of participants"
-msgstr "Erhöhre die Teilnehmerzahl"
+msgstr "Erhöhe die Teilnehmerzahl"
 
 #: templates/barcamp/participants_edit.html:12
 msgid "update"
