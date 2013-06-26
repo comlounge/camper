@@ -2,7 +2,7 @@
 {% block main_content %}
 <div class="barcamp-page layout-{{page.layout}}">
     <form action="{{url_for('page_edit_partial', slug = slug, page_slug = page_slug)}}" method="POST">
-    {% if is_admin %}
+    {% if is_admin  or is_main_admin %}
         <div class="page-actions pull-right">
             <div class="btn-group">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -12,7 +12,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="iframebox"><i class="icon-picture"></i> Bild hochladen</a></li>
                     <li><a href="{{url_for('page_edit', slug=slug, page_slug = page_slug)}}"><i class="icon-pencil"></i> Seite bearbeiten</a></li>
-                    <li><a class="confirm" href="{{url_for('page', method=delete, slug=slug, page_slug = page_slug, _append=True)}}"><i class="icon-trash"></i> Seite löschen</a></li>
+                    <li><a class="confirm" href="{{url_for('barcamp_page', method="delete", slug=slug, page_slug = page_slug, _append=True)}}"><i class="icon-trash"></i> Seite löschen</a></li>
                 </ul>
             </div>
             
@@ -36,7 +36,7 @@
     <h1 data-toggle="editable" data-field="title">{{page.title|e}}</h1>
     <div class="image-container action-container">
         {% if image %}
-            {% if is_admin %}
+            {% if is_admin or is_main_admin %}
             <div class="image-edit actions">
                 <a href="{{url_for('page_image_upload', slug=slug, page_slug = page.slug)}}" class="btn iframebox"><i class="icon-picture"></i> Bild austauschen</a>
                 <a 
@@ -51,7 +51,7 @@
                 {{image}}
             </div>
         {% else %}
-            {% if is_admin %}
+            {% if is_admin or is_main_admin %}
             {% endif %}
         {% endif %}
     </div>
