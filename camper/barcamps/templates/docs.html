@@ -1,0 +1,41 @@
+{% extends "_m/barcamps/master.html" %}
+{% import "macros.html" as formmacros with context %}
+
+{% block main_content %}
+    <iframe name='embed_readwrite' src='http://yourpart.eu/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' 
+            width=789 height=600>
+    </iframe>
+{% endblock %}
+{% block widgets %}
+        <div class="widget">
+            <h5>{{_("Blog Posts about the camp")}}</h5>
+            <ul id="blog-reports">
+                {% for post in posts %}
+                    <li>
+                        {% if post.user_id == user_id or is_admin %}
+                            <a href="#" data-msg="{{_('Are you sure?')}}" 
+                                        data-idx="{{loop.index0}}" 
+                                        class="blog-delete-button pull-right"><i class="icon-trash"></i></a>
+                        {% endif %}
+                        <a href="{{post.url}}" class="headline">{{post.title}}</a>
+                        <span class="author">von <a href="{{url_for('profile', username = usermap[post.user_id].username)}}">{{usermap[post.user_id].fullname}}</a></span>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if view.is_participant %}
+            <div class="show" id="blog-add-button-container">
+                <a href="#" id="blog-add-button" class="btn btn-large"><b>{{_("Add new blog post")}}<b></a>
+            </div>
+            <form id="blog-add-form" class="form form-vertical form-validate validate hide" method="POST" action="{{url}}">
+                <h5>{{_("Add new blog post")}}</h5>
+                {{ formmacros.form_field(form.title, class="required span3", placeholder="") }}
+                {{ formmacros.form_field(form.url, class="required url span3", placeholder="http://") }}
+                <div class="form-actions">
+                    <button class="hide btn pull-right" id="blog-add-cancel-button">{{_('Cancel')}}</button>
+                    <input type="submit" value="{{_('Save')}}" class="btn btn-primary">
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

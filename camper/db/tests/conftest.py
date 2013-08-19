@@ -10,7 +10,6 @@ def setup_db():
     return db
 
 def teardown_db(db):
-    #pymongo.Connection().drop_database(DB_NAME)
     db.persons.remove()
     db.pages.remove()
     db.barcamps.remove()

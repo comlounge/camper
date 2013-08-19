@@ -16,7 +16,7 @@ Kapazitäten zur Verfügung gestellt bekommen, so rückst Du automatisch
 nach und erhälst eine E-Mail darüber. Trotzdem empfehlen wir, dass Du 
 zur Sicherheit auf 
 
-{{url_for("barcamp", slug = barcamp.slug, _full=True)}}
+{{url_for("barcamps.index", slug = barcamp.slug, _full=True)}}
 
 noch einmal selbst nachschaust, ob Du auf der Teilenhmerliste gelistet bist.
 
@@ -24,7 +24,7 @@ noch einmal selbst nachschaust, ob Du auf der Teilenhmerliste gelistet bist.
 
 Die Website des {{barcamp.name}} mit allen Informationen findest Du unter
 
-{{url_for("barcamp", slug = barcamp.slug, _full=True)}}
+{{url_for("barcamps.index", slug = barcamp.slug, _full=True)}}
 
 {% if barcamp.twitter %}
 Weiterhin gibt es einen Twitter-Channel unter http://twitter.com/{{barcamp.twitter}}
@@ -36,6 +36,6 @@ Vielen Dank für Dein Interesse,
 Dein {{barcamp.name}}-Team!
 
 --
-{{url_for('barcamp', slug = barcamp.slug, _full=True)}}
+{{url_for('barcamps.index', slug = barcamp.slug, _full=True)}}
 
 

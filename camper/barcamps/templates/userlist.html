@@ -1,0 +1,43 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% macro list(users, remove_url=None) -%}
+    <ul class="media-list participants">
+    {% for myuser in users %}
+        <li class="media">
+            <a class="pull-left" href="{{url_for('profile', username = myuser.username)}}">
+                <img class="profile-image-mini" src="{{userview(myuser).image_thumb}}">
+            </a>
+            <div class="media-body">
+                {% if (is_admin or user == myuser) and remove_url %}
+                    <form method="post" class="pull-right" action="{{remove_url}}">
+                        <input type="hidden" name="u" value="{{myuser.username}}">
+                        <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
+                    </form>
+                {% endif %}
+                <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
+                    {% if myuser.has_organisation %}
+                    <br><small>{{myuser.organisation}}</small>
+                    {% endif %}
+                </h5>
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+{%- endmacro %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="span3">
+            <h2>Teilnehmer</h2>
+            {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
+        </div>
+        <div class="span3">
+            <h2>Interessenten</h2>
+            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug))}}
+        </div>
+        <div class="span3">
+            <h2>Warteliste</h2>
+            {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
+        </div>
+    </div>
+{% endblock %}
