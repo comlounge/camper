@@ -49,14 +49,14 @@ class Admin(BarcampBaseHandler):
         email = self.request.form.get("email")
         user = self.app.module_map.userbase.get_user_by_email(email)
         if user is None:
-            self.flash("Ein Benutzer mit dieser E-Mail-Adresse wurde leider nicht gefunden.", category="error")
+            self.flash(self._(u"a user with this email address wasn't found in our database."), category="error")
             return redirect(self.url_for("barcamps.permissions", slug = slug))
 
         uid = str(user._id)
         if uid not in self.barcamp.admins:
             self.barcamp.add_admin(user)
             self.barcamp.save()
-            self.flash(u"%s ist nun ebenfalls ein Admin für dieses Barcamp." %user.fullname)
+            self.flash(self._(u"%s is not an administrator for this barcamp.") %user.fullname)
 
         return redirect(self.url_for("barcamps.permissions", slug = slug))
 
@@ -66,13 +66,13 @@ class Admin(BarcampBaseHandler):
     def delete(self, slug = None):
         uid = self.request.args.get("uid")
         if uid == self.barcamp.created_by:
-            self.flash(u"Dem Ersteller des Barcamps kann das Admin-Recht nicht entzogen werden.", category="error")
+            self.flash(self._(u"you cannot remove admin rights from the creator of this barcamp."), category="error")
             return redirect(self.url_for("barcamps.permissions", slug = slug))
         if len(self.barcamp.admins)<2:
-            self.flash(u"Es muss mindestens einen Administrator geben.", category="error")
+            self.flash(self._(u"you at least need to have one administrator."), category="error")
             return redirect(self.url_for("barcamps.permissions", slug = slug))
         if uid in self.barcamp.admins:
             self.barcamp.remove_admin_by_id(uid)
             self.barcamp.save()
-        self.flash(u"Administrator gelöscht.")
+        self.flash(self._(u"Administrator deleted."))
         return redirect(self.url_for("barcamps.permissions", slug = slug))

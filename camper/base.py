@@ -229,13 +229,13 @@ class is_participant(object):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             if self.user is None:
-                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                self.flash(self._(u"you don't have the permission to access this page."), category="error")
                 return redirect(self.url_for("index"))
             if unicode(self.user._id) in self.barcamp.admins:
                 return method(self, *args, **kwargs)
             if self.user.has_permission("admin"):
                 return method(self, *args, **kwargs)
-            self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+            self.flash(self._(u"you don't have the permission to access this page."), category="error")
             return redirect(self.url_for("index"))
         return wrapper
 
@@ -247,10 +247,10 @@ class is_main_admin(object):
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             if self.user is None:
-                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                self.flash(self._(u"you don't have the permission to access this page."), category="error")
                 return redirect(self.url_for("index"))
             elif not self.user.has_permission("admin"):
-                self.flash(u"Sie haben keine Berechtigung, diese Seite aufzurufen.", category="error")
+                self.flash(self._(u"you don't have the permission to access this page."), category="error")
                 return redirect(self.url_for("index"))
             return method(self, *args, **kwargs)
         return wrapper

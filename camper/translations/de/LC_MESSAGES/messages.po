@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-06-26 15:42+0200\n"
+"POT-Creation-Date: 2013-08-19 13:57+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -15,11 +15,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 1.3\n"
 
 #: app.py:162
 msgid "User unknown"
-msgstr ""
+msgstr "Benutzer unbekannt."
 
 #: app.py:163
 msgid "This email address cannot not be found in our user database"
@@ -69,7 +69,7 @@ msgstr "Dein Kommentar wurde hinzugefügt."
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
-msgstr ""
+msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
 
 #: app.py:173
 msgid "A new activation code has been sent out, please check your email"
@@ -84,22 +84,20 @@ msgid "A link to set a new password has been sent to you"
 msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
 
 #: app.py:176
-#, fuzzy
 msgid "Your password has been changed"
-msgstr "Dein Kommentar wurde hinzugefügt."
+msgstr "Dein Passwort wurde geändert."
 
 #: app.py:179
 msgid "The user has been updated."
 msgstr "Benutzerdaten aktualisiert"
 
 #: app.py:180
-#, fuzzy
 msgid "The user has been added."
 msgstr "Der Benutzer wurde hinzugefügt."
 
 #: app.py:181
 msgid "The user has been deleted."
-msgstr "Dein Profilbild wurde erfolgreich gelöscht"
+msgstr "The user has been deleted."
 
 #: app.py:182
 msgid "The user has been activated."
@@ -119,11 +117,11 @@ msgstr "Hauptadministrator"
 
 #: base.py:77
 msgid "date to be announced"
-msgstr ""
+msgstr "Termin wird noch bekannt gegeben"
 
 #: base.py:87
 msgid "location to be announced"
-msgstr ""
+msgstr "Ort wird noch bekannt gegeben."
 
 #: base.py:177
 msgid "Please log in."
@@ -137,8 +135,11 @@ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
+#: base.py:232 base.py:238 base.py:250 base.py:253
+msgid "you don't have the permission to access this page."
+msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
+
 #: barcamps/add.py:29
-#, fuzzy
 msgid "Not a valid date value"
 msgstr "kein gültiger Wert"
 
@@ -271,12 +272,32 @@ msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
 
 #: barcamps/permissions.py:30
 msgid "you cannot perform this action."
-msgstr ""
+msgstr "Du kannst diese Aktion nicht durchführen."
+
+#: barcamps/permissions.py:52
+msgid "a user with this email address wasn't found in our database."
+msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
+
+#: barcamps/permissions.py:59
+#, python-format
+msgid "%s is not an administrator for this barcamp."
+msgstr "%s is kein Administrator für dieses Barcamp"
+
+#: barcamps/permissions.py:69
+msgid "you cannot remove admin rights from the creator of this barcamp."
+msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
+
+#: barcamps/permissions.py:72
+msgid "you at least need to have one administrator."
+msgstr "Es wird mindestens ein Administrator benötigt."
+
+#: barcamps/permissions.py:77
+msgid "Administrator deleted."
+msgstr "Admin gelöscht."
 
 #: barcamps/registration.py:24 barcamps/registration.py:91
-#, fuzzy
 msgid "You are not allowed to change this."
-msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
+msgstr "Du hast nicht die erforderlichen Rechte, um dies zu ändern."
 
 #: barcamps/registration.py:28
 msgid "You are now on the list of people interested in the barcamp"
@@ -360,6 +381,8 @@ msgid ""
 "If you delete this barcamp, the following information will be deleted "
 "PERMANENTLY:"
 msgstr ""
+"Wenn Du dieses Barcamp löschst, werden die folgenden Informationen "
+"PERMANENT gelöscht:"
 
 #: barcamps/templates/delete.html:10
 msgid "all information about the barcamp"
@@ -419,15 +442,17 @@ msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
 #: barcamps/templates/master.html:127
-#, fuzzy
 msgid "open registration"
-msgstr "Verwaltung"
+msgstr "Eröffne die Registrierung"
 
 #: barcamps/templates/master.html:128
 msgid ""
 "Registration for this barcamp is not yet open. People can only subscribe "
 "to it but not take part."
 msgstr ""
+"Die Registrierung für dieses Barcamp ist noch nicht eröffnet. Besucher "
+"können nur Informationen abonnieren, sich aber nicht als Teilnehmer "
+"registrieren"
 
 #: barcamps/templates/master.html:174
 msgid "Join us at"
@@ -481,6 +506,11 @@ msgstr "Füge Deinen Kommentar hinzu"
 msgid "Not a valid currency value"
 msgstr "kein gültiger Wert"
 
+#: handlers/upload.py:77
+#, python-format
+msgid "file '%s' has been deleted"
+msgstr "Die Datei '%s' wurde erfolgreich gelöscht"
+
 #: handlers/users/edit.py:73
 msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
@@ -506,17 +536,16 @@ msgid "Diese Feld muss angegeben werden"
 msgstr ""
 
 #: templates/master.html:80
-#, fuzzy
 msgid "Blog"
-msgstr "Einloggen"
+msgstr "Blog"
 
 #: templates/master.html:81
 msgid "Ideen/Feedback"
-msgstr ""
+msgstr "Ideas / Feedback"
 
 #: templates/master.html:92
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: templates/master.html:93
 msgid "Register"
@@ -527,9 +556,8 @@ msgid "my profile"
 msgstr "Mein Profile"
 
 #: templates/master.html:102
-#, fuzzy
 msgid "Change Password"
-msgstr "Passwort"
+msgstr "Passwort ändern"
 
 #: templates/master.html:103
 msgid "Log out"

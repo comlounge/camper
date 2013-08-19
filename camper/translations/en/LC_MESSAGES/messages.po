@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-06-26 15:42+0200\n"
+"POT-Creation-Date: 2013-08-19 13:57+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 1.3\n"
 
 #: app.py:162
 msgid "User unknown"
@@ -129,6 +129,10 @@ msgstr ""
 
 #: base.py:220 base.py:365
 msgid "You don't have the correct permissions to access this page."
+msgstr ""
+
+#: base.py:232 base.py:238 base.py:250 base.py:253
+msgid "you don't have the permission to access this page."
 msgstr ""
 
 #: barcamps/add.py:29
@@ -264,6 +268,27 @@ msgstr ""
 
 #: barcamps/permissions.py:30
 msgid "you cannot perform this action."
+msgstr ""
+
+#: barcamps/permissions.py:52
+msgid "a user with this email address wasn't found in our database."
+msgstr ""
+
+#: barcamps/permissions.py:59
+#, python-format
+msgid "%s is not an administrator for this barcamp."
+msgstr ""
+
+#: barcamps/permissions.py:69
+msgid "you cannot remove admin rights from the creator of this barcamp."
+msgstr ""
+
+#: barcamps/permissions.py:72
+msgid "you at least need to have one administrator."
+msgstr ""
+
+#: barcamps/permissions.py:77
+msgid "Administrator deleted."
 msgstr ""
 
 #: barcamps/registration.py:24 barcamps/registration.py:91
@@ -466,6 +491,11 @@ msgstr ""
 
 #: handlers/forms.py:78
 msgid "Not a valid currency value"
+msgstr ""
+
+#: handlers/upload.py:77
+#, python-format
+msgid "file '%s' has been deleted"
 msgstr ""
 
 #: handlers/users/edit.py:73
