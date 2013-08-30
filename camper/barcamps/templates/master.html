@@ -54,7 +54,7 @@
 
     {# ****************************** Sponsor Modal **************************************** #}
     <div class="modal sponsor-upload hide fade" id="sponsor-upload">
-        <form id="sponsor-form" class="horizontal-form" method="POST" action="{{url_for("barcamps.sponsors", slug=slug)}}">  
+        <form id="sponsor-form" class="horizontal-form" method="POST" action="{{url_for("barcamps.sponsors", slug=slug)}}">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Neuen Sponsor anlegen</h3>
@@ -62,7 +62,7 @@
         <div class="modal-body">
             {{ formmacros.form_field(sponsor_form.name, class="required span5")}}
             {{ formmacros.form_field(sponsor_form.url, class="url required span5")}}
-            {{ formmacros.form_field(sponsor_form.image, class="span5", 
+            {{ formmacros.form_field(sponsor_form.image, class="span5",
                 label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
         </div>
@@ -73,16 +73,16 @@
         </form>
     </div>
     <div id="barcamp">
-    
+
         <div class="header action-container content-area">
             {% if logo %}
                 {% if is_admin %}
                 <div class="image-edit actions">
                     <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
-                    <a 
-                        data-confirm="Sind Sie sicher?" 
-                        data-url="{{url_for('barcamps.logo_delete', slug = slug)}}" 
-                        role="button" 
+                    <a
+                        data-confirm="Sind Sie sicher?"
+                        data-url="{{url_for('barcamps.logo_delete', slug = slug)}}"
+                        role="button"
                         class="asset-delete btn btn-mini btn-danger">
                         <i class="icon icon-trash icon-white"></i> Logo löschen</a>
                 </div>
@@ -145,9 +145,10 @@
                                     <button class="btn btn-large btn-info">Als Interessent anmelden</button>
                                 </form>
                                 {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
-                                    <form method="post" action="{{url_for('barcamps.register', slug = slug)}}">
+                                    <a href="{{url_for('barcamps.register', slug = slug)}}" class="btn btn-large btn-info" title="Als Teilnehmer anmelden">Als Teilnehmer anmelden</a>
+                                    <!--form method="post" action="{{url_for('barcamps.register', slug = slug)}}">
                                         <button class="btn btn-large btn-info">Als Teilnehmer anmelden</button>
-                                    </form>
+                                    </form-->
                                 {% endif %}
                             {% else %}
                                 {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
@@ -163,17 +164,17 @@
                         {{barcamp_buttons()}}
 
                         <div class="socialmedia">
-                        
+
                             <div class="fb-button">
                                 <fb:share-button href="{{url}}" type="button">
                                 </fb:share-button>
                             </div>
                             <div class="twitter-button">
-                                <a href="https://twitter.com/share" 
-                                   class="twitter-share-button" 
-                                   data-url="{{_('Join us at')}} {{url_for("barcamps.index", slug = slug)}}" 
-                                   data-text="{{barcamp.title|striptags}}" 
-                                   data-via="{{barcamp.twitter}}" 
+                                <a href="https://twitter.com/share"
+                                   class="twitter-share-button"
+                                   data-url="{{_('Join us at')}} {{url_for("barcamps.index", slug = slug)}}"
+                                   data-text="{{barcamp.title|striptags}}"
+                                   data-via="{{barcamp.twitter}}"
                                    data-count="none"
                                    data-hashtags="{{barcamp.hashtag}}">Tweet</a>
                             </div>
@@ -192,7 +193,7 @@
                                   })();
                                 </script>
                             </div>
-                            
+
                         </div>
 
                         {% if is_admin or is_main_admin %}
@@ -201,6 +202,7 @@
                             <ul class="nav nav-list">
                                 <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i> Logo hochladen</a></li>
                                 <li><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="icon icon-pencil"></i> Informationen bearbeiten</a></li>
+                                <li><a href="{{url_for("barcamps.participants_data_edit", slug=slug)}}"><i class="icon icon-tags"></i> Teilnehmerdatenfelder</a></li>
                                 <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="icon icon-user"></i> Teilnehmerzahl erhöhen</a></li>
                                 <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i> Neuer Sponsor</a></li>
                                 <li><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="icon icon-list"></i> Berechtigungen</a></li>
@@ -208,7 +210,7 @@
                                     <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="icon-plus"></i> Neue Seite anlegen</a></li>
                                 {% endif %}
                                 <li><a class="btn-danger" href="{{url_for("barcamps.delete", slug=slug)}}"><i class="icon icon-trash"></i> Barcamp löschen</a></li>
-                                
+
                             </ul>
                         </div>
                         {% endif %}

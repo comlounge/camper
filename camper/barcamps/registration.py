@@ -33,9 +33,20 @@ class BarcampSubscribe(BarcampBaseHandler):
             else:
                 self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
-        
+
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
+
+    template = 'participant_data.html'
+
+    @ensure_barcamp()
+    def get(self, slug = None):
+        """show paticipants data form"""
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            **self.barcamp)
 
     @ensure_barcamp()
     def post(self, slug = None):
@@ -94,12 +105,12 @@ class BarcampUnregister(BarcampBaseHandler):
         if uid in event.participants:
             event.participants.remove(uid)
         if len(event.participants) < self.barcamp.size and len(event.waiting_list)>0:
-            # somebody from the waiting list can move up 
+            # somebody from the waiting list can move up
             nuid = event.waiting_list[0]
             event.waiting_list = event.waiting_list[1:]
             event.participants.append(nuid)
 
-        # you are now still a subscriber 
+        # you are now still a subscriber
         self.barcamp.subscribe(user)
 
         self.barcamp.put()

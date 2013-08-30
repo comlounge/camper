@@ -11,7 +11,7 @@ from sfext.babel import babel_module, T
 from sfext.mail import mail_module
 from exceptions import *
 
-import markdown                                                                                                                                                                      
+import markdown
 import re
 from jinja2 import evalcontextfilter, Markup, escape
 from etherpad_lite import EtherpadLiteClient
@@ -66,14 +66,14 @@ pattern = """
 (
   (?:
     https?://
-    | 
+    |
     www\d{0,3}[.]
     |
     [a-z0-9.\-]+[.][a-z]{2,4}/
   )
   (?:
     [^\s()<>]+
-    |        
+    |
     \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
   )+
   (?:
@@ -103,7 +103,7 @@ def markdownify(text, level=1):
 def get_locale(handler):
     return "de" # for now
 
-### 
+###
 ### APP
 ###
 
@@ -174,7 +174,7 @@ class CamperApp(Application):
                 'already_active'        : T('The user is already active. Please log in.'),
                 'pw_code_sent'          : T('A link to set a new password has been sent to you'),
                 'pw_changed'            : T('Your password has been changed'),
-                
+
                 # for user manager
                 'user_edited'           : T('The user has been updated.'),
                 'user_added'            : T('The user has been added.'),
@@ -207,7 +207,7 @@ class CamperApp(Application):
         URL('/assets/', 'asset_upload', handlers.images.AssetUploadView),
         URL('/assets/<asset_id>', 'asset', handlers.images.AssetView),
 
-        # admin area 
+        # admin area
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
         URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
         URL('/admin/pages/<slot>/add', 'admin_pages_add', pages.add.AddView),
@@ -241,6 +241,7 @@ class CamperApp(Application):
         self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
         self.config.dbs.pages = db.Pages(mydb.pages, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
+        self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
 
         # etherpad connection
@@ -268,7 +269,7 @@ class CamperApp(Application):
         """return a barcamp by it's slug
 
         :param slug: slug of the barcamp to retrieve
-        :returns: barcamp object or 
+        :returns: barcamp object or
         """
         barcamp = self.config.dbs.barcamps.by_slug(slug)
         if barcamp is None:
@@ -283,7 +284,7 @@ def test_app(config, **local_config):
 
 
 def app(config, **local_config):
-    """return the config""" 
+    """return the config"""
     app = CamperApp(__name__, local_config)
     if app.config.debug:
         return DebuggedApplication(app)

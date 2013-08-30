@@ -1,0 +1,77 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {# ****************************** Data field Modal **************************************** #}
+    <div class="modal datafield-modal hide fade" id="datafield-modal">
+        <form id="datafield-form" class="horizontal-form validate" method="POST">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Neues Datenfeld anlegen</h3>
+        </div>
+        <div class="modal-body">
+            <fieldset>
+                {{ formmacros.form_field(form.name, class="required span6") }}
+                {{ formmacros.form_field(form.title, class="required span6") }}
+                {{ formmacros.form_field(form.description, class="required span6", rows=4) }}
+                {{ formmacros.form_field(form.fieldtype, class="span4 url") }}
+                {{ formmacros.form_field(form.required, class="span4 url") }}
+            </fieldset>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Schlie&szlig;en</a>
+            <input type="submit" class="btn btn-primary" value="Anlegen">
+        </div>
+        </form>
+    </div>
+
+    {% block title %}
+        <h1>{{_('Define participant data')}}</h1>
+    {% endblock %}
+    <div id="participant_datafields">
+        <table id="participant_datafields" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kurzname</th>
+                    <th>Titel</th>
+                    <th>Beschreibung</th>
+                    <th>Feldtyp</th>
+                    <th width="5%">Erforderlich</th>
+                    <th></th>
+                </tr>
+            <thead>
+            <tbody>
+                {% for f in fields%}
+                <tr data-name="{{f.name}}"
+                    data-title="{{f.title}}"
+                    data-description="{{f.description}}"
+                    data-fieldtype="{{f.fieldtype}}"
+                    data-required="{{f.required}}">
+                    <td>{{f.name}}</td>
+                    <td>{{f.title}}</td>
+                    <td>{{f.fieldtype}}</td>
+                    <td>{{f.description}}</td>
+                    <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
+                    <td>
+                        <button class="btn btn-mini btn-info edit-datafield" type="button"><i class="icon-white icon-pencil"></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-mini btn-danger remove-datafield" type="button"><i class="icon-white icon-trash"></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a href="#datafield-modal" role="button" data-toggle="modal" class="btn btn-mini btn-success"><i class="icon icon-white icon-plus"></i> Datenfeld hinzufügen</a>
+    <form id="pdatafield-form" class="horizontal-form validate" method="POST" action="{{url_for('.participants_data_edit', slug=slug)}}">
+        <fieldset>
+            <input type="hidden" id="pdatafields" name="pdatafields" value="">
+            <input type="submit" class="btn btn-primary pull-right" value="Speichern">
+        </fieldset>
+    </form>
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+{% endblock %}

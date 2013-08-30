@@ -26,6 +26,7 @@ class BarcampModule(Module):
         URL('/<slug>/delete',       'delete',           delete.DeleteConfirmView),
         URL('/<slug>/edit',         'edit',             edit.EditView),
         URL('/<slug>/participants_edit', 'participants_edit', edit.ParticipantsEditView),
+        URL('/<slug>/participants_data_edit', 'participants_data_edit', edit.ParticipantsDataEditView),
         URL('/<slug>/sponsors',     'sponsors',         index.BarcampSponsors),
         URL('/<slug>/location',     'location',         location.LocationView),
         URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),

@@ -1,10 +1,12 @@
 #encoding=utf8
 
 import copy
+import json
 from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from wtforms import *
 from sfext.babel import T
+from .base import BarcampBaseHandler
 import requests
 
 class ParticipantCountForm(BaseForm):
@@ -16,7 +18,7 @@ class BarcampEditForm(BaseForm):
     name                = TextField(u"Titel", [validators.Length(max=300), validators.Required()],
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
     )
-    
+
     description         = TextAreaField(u"Beschreibung", [validators.Required()],
                 description = u'Bitte beschreibe Dein Barcamp hier',
     )
@@ -25,7 +27,7 @@ class BarcampEditForm(BaseForm):
     )
     start_date          = DateField(u"Start-Datum", [], format="%d.%m.%Y")
     end_date            = DateField(u"End-Datum", [], format="%d.%m.%Y")
-    twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)], 
+    twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
@@ -80,8 +82,8 @@ class EditView(BaseHandler):
                 'country'   : 'de',
             }
             # do the nominatim request to find out lat/long but only if street and city have not changed
-            if (form.data['location_street']!=self.barcamp.location['street'] or 
-               form.data['location_city']!=self.barcamp.location['city'] or 
+            if (form.data['location_street']!=self.barcamp.location['street'] or
+               form.data['location_city']!=self.barcamp.location['city'] or
                form.data['location_zip']!=self.barcamp.location['zip']) or True:
                     url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
                         form.data['location_street'],
@@ -108,6 +110,7 @@ class EditView(BaseHandler):
         return self.render(form = form)
     post = get
 
+
 class ParticipantsEditView(BaseHandler):
     """let the user increase the number of participants"""
 
@@ -128,4 +131,58 @@ class ParticipantsEditView(BaseHandler):
             self.flash("Barcamp aktualisiert", category="info")
             return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
         return self.render(form = form, barcamp = self.barcamp)
+    post = get
+
+
+class ParticipantDataEditForm(BaseForm):
+    """form for defining a pareticipant data form"""
+    # base data
+    name                = TextField(u"Kurzname", [validators.Length(max=20), validators.Required()],
+                #description = u'Der Kurzname wird nicht öffentlich angezeigt, sondern dient nur der eindeutigen Identifizierung des Feldes.',
+    )
+    title               = TextField(u"Titel", [validators.Length(max=300), validators.Required()],
+                #description = u'Der Titel wird im Formular angezeigt.',
+    )
+    description         = TextAreaField(u"Beschreibung",
+                #description = u'Bitte beschreibe das Feld hier.',
+    )
+    fieldtype           = SelectField(u"Feldtyp", [validators.Required()], choices=[('textfield','Textfeld'),('textarea','Textbereich')],
+                #description = u'Textfeld (einzeilig), Textbereich (mehrzeilig)',
+    )
+    required            = BooleanField(u"Erforderlich?",
+                #description = u'Soll das Feld zwingend erforderlich sein?',
+    )
+
+class ParticipantsDataEditView(BarcampBaseHandler):
+    """let the user define the participant data form fields"""
+
+    template = "participants_data_edit.html"
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """render the view"""
+        form = ParticipantDataEditForm(self.request.form, config = self.config)
+        df = self.config.dbs.participant_data.find_one(barcamp_id=self.barcamp._id)
+        if df is not None:
+            fields = df['fields']
+        else:
+            fields = []
+        if self.request.method == 'POST':
+            f = self.request.form
+            if df is None:
+                df = db.DataForm({'barcamp_id':self.barcamp._id})
+            df.update({'fields':json.loads(f['pdatafields'])})
+            self.config.dbs.participant_data.put(df)
+            self.flash('Teilnehmerfelder gespeichert.')
+            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            form = form,
+            fields = fields,
+            **self.barcamp
+        )
     post = get
