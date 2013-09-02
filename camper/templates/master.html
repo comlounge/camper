@@ -80,15 +80,25 @@
                         <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
                         <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideen/Feedback')}}</a></li>
                     </ul>
+                    <div class="pull-right">
+                    <ul class="nav"> 
+                            <li class="divider-vertical"></li>
+                        {% if LANGUAGE=="de" %}
+                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                        {% else %}
+                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                        {% endif %}
+                    </ul>
+                    </div>
                     {% if is_main_admin %}
                         <ul class="nav pull-right"> 
-                            <li><a href="{{url_for("admin_index")}}"><b>ADMINISTRATION</b></a></li>
+                            <li><a href="{{url_for("admin_index")}}"><b>{{_('ADMINISTRATION')}}</b></a></li>
                         </ul>
                     {% endif %}
                     {% if not logged_in %}
                         <div class="pull-right">
                             <ul class="nav">
-                                <li class="divider-vertical"></li>
+                            <li class="divider-vertical"></li>
                             <li><a href="{{url_for("userbase.login")}}">{{_('Login')}}</a></li>
                             <li><a href="{{url_for("userbase.register")}}">{{_('Register')}}</a></li>
                             </ul>
