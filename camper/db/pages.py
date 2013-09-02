@@ -106,7 +106,7 @@ class Pages(Collection):
             page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : "___"})
         else:
             page = self.find_one({'slot' : slot, 'index' : index, 'barcamp' : unicode(barcamp._id)})
-        self.remove({'_id' : page._id})
+        self.remove(page)
 
     def for_slot(self, slot, barcamp=None):
         """return all the pages for a slot"""

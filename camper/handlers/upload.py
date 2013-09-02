@@ -74,7 +74,7 @@ class FileDeleteHandler(BaseHandler):
                 asset = self.app.module_map.uploader.remove(asset_id)
                 self.transaction.d.attachments.remove(a)
                 self.transaction.save()
-                self.flash(u"Datei '%s' gelöscht" %a['filename'])
+                self.flash(self._(u"file '%s' has been deleted") %a['filename'])
                 return redirect(self.url_for("transaction", client_id=client_id, transaction_id = transaction_id))
         raise werkzeug.exceptions.NotFound()
 

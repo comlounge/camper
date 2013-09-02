@@ -1,0 +1,56 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+
+{% if barcamp.public %} 
+<form action="{{url}}" method="POST">
+    <input type="hidden" name="public" value="0">
+    <div class="well">
+        <button class="pull-right btn btn-small btn-danger">privat schalten</button>
+        Dieses Barcamp ist im Moment öffentlich
+    </div>
+</form>
+{% endif %}
+
+<h2>Barcamp-Administratoren</h2>
+
+<table class="table">
+    <tr>    
+        <th>Name</th>
+        <th>Aktionen</th>
+    </tr>
+    {% for admin in barcamp.admin_users %}
+    <tr>    
+        <td>{{admin.fullname}}</td>
+        <td>
+            {% if admin._id|e != barcamp.created_by %}
+            <a onClick="return confirm('Bist Du sicher?')" href="{{url_for("barcamps.admin", slug=slug, _append=True, method="delete", uid=admin._id)}}" class="btn btn-small btn-danger"><i class="icon icon-white icon-trash"></i> Löschen</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="help">
+    Hier kannst Du weitere Personen einladen, Administratoren des Barcamps zu sein. Tippe einfach die E-Mail-Adresse der entsprechenden Person ein, 
+    mit der diese sich an diesem System angemeldet hat. Danach ist diese Person Administrator. 
+</div>
+
+<div class="well" style="margin-top: 20px">
+    <form action="{{url_for("barcamps.admin", slug = slug)}}" method="POST" class="form form-horizontal form-validate">
+        <fieldset>
+        <label for="email">E-Mail-Adresse der Person, die Administrator werden soll</label>
+        <input type="text" class="span8 email required xxlarge" name="email" id="email" maxlength="100" placeholder="name@domain.de"><br>
+        </fieldset>
+        <div style="margin-top: 10px;">
+            <input type="submit" value="Einladen" class="btn btn-primary btn-large">
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+{% endblock %}

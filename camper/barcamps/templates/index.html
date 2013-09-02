@@ -1,0 +1,42 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {# ************************************ Main Module **************************************** #}
+        <div class="row">
+            <div class="span8">
+                <div class="widget-show">
+                    <div class="description">
+                        {{description|md}}
+                    </div>
+                </div>
+                <div class="widget-edit hide">
+                    not showing
+                </div>
+            </div>
+            <div class="span4">
+            </div>
+        </div>
+
+        <!-- sponsoren -->
+        <div class="row sponsors">
+            <div class="span9">
+            {% for sponsor in view.sponsors %}
+                <div class="sponsor action-container" style="margin: 10px;">
+                    <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    {% if is_admin %}
+                    <div class="sponsor-edit actions">
+                        <a 
+                            data-confirm="Sind Sie sicher?" 
+                            data-url="{{url_for('barcamps.sponsors', slug = slug)}}" 
+                            data-idx="{{sponsor.idx}}"
+                            role="button" 
+                            class="asset-delete btn btn-mini btn-danger">
+                            <i class="icon icon-trash icon-white"></i></a>
+                    </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+{% endblock %}
+

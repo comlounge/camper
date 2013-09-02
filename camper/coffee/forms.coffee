@@ -120,7 +120,17 @@ $(document).ready( () ->
                 .closest('.control-group').addClass('success')
     )
 
+    # generic confirm button
+    $(".action-confirm").click( () ->
+        console.log("clicked")
+        confirm_msg = $(this).data("confirm")
+        if confirm(confirm_msg) 
+            return true
+        return false
+    )
+
     $('body').on("click.editable", '[data-toggle="editable"]', (e) ->
         $(e.target).editable()
     )
+
 )

@@ -150,6 +150,13 @@ $(document).ready(function() {
       return label.text('OK!').addClass('valid').closest('.control-group').addClass('success');
     }
   });
+  $(".action-confirm").click(function() {
+    var confirm_msg;
+    console.log("clicked");
+    confirm_msg = $(this).data("confirm");
+    if (confirm(confirm_msg)) return true;
+    return false;
+  });
   return $('body').on("click.editable", '[data-toggle="editable"]', function(e) {
     return $(e.target).editable();
   });

@@ -1,0 +1,16 @@
+Hallo {{user.fullname}},
+
+Du hast anscheinend den Link zum Neusetzen Deines Passworts geklickt.
+
+Wenn dem so ist, klicke bitte auf den folgenden Link, um ein neues Passwort zu setzen:
+
+{{url}}
+
+Wenn Du das nicht gewesen sein solltest, ignoriere diese Mail einfach.
+
+
+-- 
+
+Camper - das Barcamptool
+http://barcamptools.eu
+

@@ -1,6 +1,7 @@
 from camper.db import Barcamp, Barcamps, BarcampSchema, Sessions, Comments, Pages
 import pymongo
 import datetime
+import pytest
 from starflyer import AttributeMapper
 
 DB_NAME = "camper_testing_78827628762"
@@ -10,7 +11,6 @@ def setup_db():
     return db
 
 def teardown_db(db):
-    #pymongo.Connection().drop_database(DB_NAME)
     db.persons.remove()
     db.pages.remove()
     db.barcamps.remove()
@@ -48,3 +48,15 @@ def pytest_funcarg__sessions(request):
     """return the sessions collection"""
     config = request.getfuncargvalue("config")
     return config.dbs.sessions
+
+@pytest.fixture()
+def barcamp(request):
+    """example barcamp"""
+    return Barcamp(
+        name = "Barcamp",
+        description = "cool barcamp",
+        slug = "barcamp",
+        start_date = datetime.date(2012,7,13),
+        end_date = datetime.date(2012,7,15)
+    )
+    

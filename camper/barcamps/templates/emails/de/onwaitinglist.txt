@@ -1,0 +1,15 @@
+Hallo {{user.fullname}},
+
+leider ist die Teilnehmerliste schon voll und Sie wurden auf die Warteliste gesetzt.
+
+Sollten sich Teilnehmer abmelden, so rücken Personen von der Warteliste automatisch
+nach und werden per E-Mail informiert.
+
+Trotzdem empfiehlt es sich, kurz vor der Veranstaltung noch einmal auf der Website
+auf {{url_for('barcamp', slug = barcamp.slug, _full=True)}} nachzuschauen, ob Sie auf der 
+Teilnehmerliste sind.
+
+Dein {{barcamp.name}}-Team!
+
+--
+{{url_for('barcamp', slug = barcamp.slug, _full=True)}}

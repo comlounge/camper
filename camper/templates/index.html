@@ -13,7 +13,7 @@
                     {% if view.logo %}
                         <h4>{{view.logo}}</h4>
                     {% else %}
-                        <h4><a href="{{url_for("barcamp", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
+                        <h4><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
                     {% endif %}
                 </header>
                 <div class="pull-right">
@@ -42,7 +42,7 @@
                     <p>
                         Mit diesem Tool ist es ganz einfach! 
                     </p>
-                    <a href="{{url_for("barcamp_add")}}" id="create-new-barcamp-button" class="btn">{{_('create new barcamp')}}</a>
+                    <a href="{{url_for("barcamps.add")}}" id="create-new-barcamp-button" class="btn">{{_('create new barcamp')}}</a>
                 </div>
             {% endif %}
         </div>

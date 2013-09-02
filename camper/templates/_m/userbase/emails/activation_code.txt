@@ -1,0 +1,11 @@
+Hallo {{user.fullname}},
+
+um Deinen Account zu aktivieren, klicke auf den folgenden Link:
+
+{{url}}
+
+-- 
+
+Camper - das Barcamptool
+http://barcamptools.eu
+

@@ -1,0 +1,121 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    <h1>
+        <div id="sort-buttons" class="pull-right">
+            <span class="btn-group" data-toggle="buttons-radio">
+              <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">Datum</a>
+              <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">Bewertung</a>
+            </span>
+        </div>
+        Sessionvorschläge
+    </h1>
+    
+    <section id="sessionproposals">
+    {% for session in sessions %}
+            <article class="session media">
+                <div class="votecontainer media-object" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
+                    <div class="votes" id="vote-90b5d410-2891-4516-bfa2-bc0598a2d774">{{session.vote_count}}</div>
+                    <div class="votebutton {{'disabled' if not logged_in}}">
+                        <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"></a>
+                    </div>
+                </div>
+                <div class="media-body show-box">
+                        <div class="pull-left">
+                            <a href="{{url_for('profile', username = session.user.username)}}">
+                                <img class="profile-image" src="{{userview(session.user).image_thumb}}">
+                            </a>
+                        </div>
+                    <h4 class="media-heading">{{session.title|striptags}}</h4>
+                    {% if is_admin or user_id == session.user._id %}
+                        <a data-confirm="{{_('Are you sure?')}}" 
+                           data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           href="#" 
+                           class="session-delete-button btn btn-mini btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                        <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           href="#" 
+                           class="session-edit-button btn btn-mini pull-right"><i class="icon-pencil"></i></a>
+                    {% endif %}
+                    <div class="description">
+                        {{session.description|md(level=3)}}
+                    </div>
+                    <footer>
+                        eingestellt von 
+                            <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
+                        am {{session.created.strftime("%d.%m.%Y")}}
+                    </footer>
+                    {% for comment in session.get_comments() %}
+                    <div class="media comment">
+                        {% if is_admin %}
+                            <a href="#" 
+                                data-confirm="{{_('Are you sure?')}}"
+                                data-url="{{url_for('.session_comments', slug = slug, sid = session._id)}}"
+                                data-cid="{{comment._id}}"
+                                class="deletebutton btn-mini btn btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                        {% endif %}
+                        <a href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
+                            <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
+                        </a>
+                        <div class="media-body">{{comment.comment}}
+                            <footer>{{_("comment by")}} {{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="media comments">
+                        <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
+                            <img class="profile-image" src="{{userview(user).image_thumb}}">
+                        </a>
+                        <div class="media-body">
+                            {% if logged_in %}
+                            <form method="post" class="form-horizontal clearfix" action="{{url_for('.session_comments', slug = slug, sid = session._id)}}">
+                                <fieldset>
+                                <div class="control-group">
+                                    <textarea placeholder="{{_('your comment')}}" name="comment" class="span7" cols=50 rows=3></textarea>
+                                </div>
+                                <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
+                                </fieldset>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if is_admin or user_id == session.user._id %}
+                <form class="media-body hide edit-box form-vertical well form-validate" method="POST" action="{{url_for('.session', slug = slug, sid = session._id)}}">
+                    <input type="text" class="required media-heading span6 input-big" value="{{session.title}}" name="title">
+                    <textarea name="description" class="span6" rows="3">{{session.description}}</textarea>
+                    <div class="">
+                        <input type="submit" class="btn btn-small btn-primary" value="{{_('Save')}}">
+                        <a href="#" class="session-cancel-button btn btn-small">{{_('Cancel')}}</a>
+                    </div>
+                </form>
+                {% endif %}
+            </article>
+    {% endfor %}
+    </section>
+    {% if is_admin %}
+        <a target="_new" href="{{url_for('.session_export', slug = slug)}}" class="pull-right btn"><i class="icon icon-download-alt"></i> Vorschläge als Excel exportieren</a>
+    {% endif %}
+    {% if logged_in %}
+        <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> Eigenen Vorschlag erstellen</a>
+        <div class="well hide" id="proposal-form-container">
+            <legend>Dein Themenvorschlag</legend>
+            <form method="post" action="{{url}}" class="form-horizontal">
+                {{formmacros.form_field(form.title, class="required span6")}}
+                {{formmacros.form_field(form.description, rows=5, cols=60, class="span6")}}
+                <div class="form-actions">
+                    <button id="proposal-cancel" class="pull-right btn">Abbrechen</button>
+                    <input type="submit" class="btn btn-large btn-primary" value="Vorschlagen!">
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <b>Um Vorschläge zu bewertung und eigene Vorschläge einzureichen, musst Du eingeloggt sein.</b>
+            <a href="{{url_for("userbase.login")}}">Hier einloggen oder registrieren</a>
+        </div>
+    {% endif %}
+
+{% endblock %} 
+{% block js2 %}
+    <script src="{{url_for("static", filename="js/sessions.js")}}" type="text/javascript"></script>
+{% endblock %}

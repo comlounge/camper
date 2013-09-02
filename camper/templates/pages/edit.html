@@ -1,9 +1,9 @@
-{% extends "barcamp/master.html" %}
+{% extends "_m/barcamps/master.html" %}
 
 {% import "macros.html" as formmacros with context %}
 {% block content %}
     {% block title %}
-        <h1>Seite anlegen</h1>
+        <h1>Seite bearbeiten</h1>
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
         {{ formmacros.form_field(form.title, class="required span8", maxlength=300, placeholder="Seitentitel") }}
