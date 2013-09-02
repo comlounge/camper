@@ -198,6 +198,7 @@
                                 <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i>{{_('Upload Logo')}}</a></li>
                                 <li><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="icon icon-pencil"></i>{{_('edit base information')}}</a></li>
                                 <li><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="icon icon-tags"></i>{{_('edit registration form')}}</a></li>
+                                <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="icon icon-download"></i>{{_('download participants')}}</a></li>
                                 <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="icon icon-user"></i>{{_('increase participants')}}</a></li>
                                 <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i>{{_('new sponsor')}}</a></li>
                                 <li><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="icon icon-list"></i>{{_('edit permissions')}}</a></li>

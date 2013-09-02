@@ -5,6 +5,9 @@ from .base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
+import xlwt
+from cStringIO import StringIO
+import datetime
 
 class BarcampSubscribe(BarcampBaseHandler):
     """adds a user to the subscription list"""
@@ -33,6 +36,7 @@ class BarcampSubscribe(BarcampBaseHandler):
             else:
                 self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
+
 
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
@@ -153,4 +157,49 @@ class BarcampUnregister(BarcampBaseHandler):
         else:
             self.flash(self._("%(fullname)s has been removed from the list of participants.") %user, category="danger")
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
+
+class RegistrationDataExport(BarcampBaseHandler):
+    """exports the barcamp registration data"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """export all the participant registration data"""
+        form = self.barcamp.registration_form
+        data = self.barcamp.registration_data
+
+        filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
+
+        # do the actual excel export
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('Registration Data')
+        i = 1
+
+        # headlines
+        c = 1
+        ws.write(0,0,"Name")
+        for k in [f['title'] for f in form]:
+            ws.write(0,c,k)
+            c = c + 1
+
+        # data
+        for uid, record in data.items():
+            # write participant name
+            user = self.app.module_map.userbase.get_user_by_id(uid)
+            ws.write(i, 0, unicode(user['fullname']))
+
+            # write rest
+            c = 1
+            for field in [f['name'] for f in form]:
+                ws.write(i, c, unicode(record.get(field, "n/a")))
+                c = c + 1
+            i = i + 1
+        stream = StringIO()
+        wb.save(stream)
+        response = self.app.response_class(stream.getvalue(), content_type="application/excel")
+        response.headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
+        return response
+
+
 
