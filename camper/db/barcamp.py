@@ -191,6 +191,8 @@ class Barcamp(Record):
         'location'      : {},
         'workflow'      : "created",
         'events'        : [],
+        'registration_form'        : [],
+        'registration_data'        : {},
         'planning_pad_public'        : False,
     }
 
