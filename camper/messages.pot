@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-03 17:35+0200\n"
+"POT-Creation-Date: 2013-09-03 17:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,7 @@ msgid "Add new blog post"
 msgstr ""
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:88
+#: barcamps/templates/sessions.html:106
 msgid "Cancel"
 msgstr ""
 
@@ -696,16 +697,62 @@ msgstr ""
 msgid "update"
 msgstr ""
 
+#: barcamps/templates/sessions.html:7
+msgid "Date"
+msgstr ""
+
+#: barcamps/templates/sessions.html:8
+msgid "Votes"
+msgstr ""
+
+#: barcamps/templates/sessions.html:11
+msgid "Session Proposals"
+msgstr ""
+
+#: barcamps/templates/sessions.html:43
+msgid "added by"
+msgstr ""
+
+#: barcamps/templates/sessions.html:45
+msgid "on"
+msgstr ""
+
 #: barcamps/templates/sessions.html:60
 msgid "comment by"
 msgstr ""
 
 #: barcamps/templates/sessions.html:73
-msgid "your comment"
+msgid "Your comment"
 msgstr ""
 
 #: barcamps/templates/sessions.html:75
 msgid "add your comment"
+msgstr ""
+
+#: barcamps/templates/sessions.html:96
+msgid "Download as excel"
+msgstr ""
+
+#: barcamps/templates/sessions.html:99
+msgid "Create proposal"
+msgstr ""
+
+#: barcamps/templates/sessions.html:101
+msgid "Your proposal"
+msgstr ""
+
+#: barcamps/templates/sessions.html:107
+msgid "Add proposal"
+msgstr ""
+
+#: barcamps/templates/sessions.html:113
+msgid ""
+"In order to be able to create or vote for proposals, you need to be "
+"logged in."
+msgstr ""
+
+#: barcamps/templates/sessions.html:114
+msgid "you can log in and register here"
 msgstr ""
 
 #: handlers/forms.py:78

@@ -4,11 +4,11 @@
     <h1>
         <div id="sort-buttons" class="pull-right">
             <span class="btn-group" data-toggle="buttons-radio">
-              <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">Datum</a>
-              <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">Bewertung</a>
+              <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">{{_('Date')}}</a>
+              <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">{{_('Votes')}}</a>
             </span>
         </div>
-        Sessionvorschläge
+        {{_('Session Proposals')}}
     </h1>
     
     <section id="sessionproposals">
@@ -40,9 +40,9 @@
                         {{session.description|md(level=3)}}
                     </div>
                     <footer>
-                        eingestellt von 
+                        {{_('added by')}}
                             <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
-                        am {{session.created.strftime("%d.%m.%Y")}}
+                        {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
                     </footer>
                     {% for comment in session.get_comments() %}
                     <div class="media comment">
@@ -70,7 +70,7 @@
                             <form method="post" class="form-horizontal clearfix" action="{{url_for('.session_comments', slug = slug, sid = session._id)}}">
                                 <fieldset>
                                 <div class="control-group">
-                                    <textarea placeholder="{{_('your comment')}}" name="comment" class="span7" cols=50 rows=3></textarea>
+                                    <textarea placeholder="{{_('Your comment')}}" name="comment" class="span7" cols=50 rows=3></textarea>
                                 </div>
                                 <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
                                 </fieldset>
@@ -93,25 +93,25 @@
     {% endfor %}
     </section>
     {% if is_admin %}
-        <a target="_new" href="{{url_for('.session_export', slug = slug)}}" class="pull-right btn"><i class="icon icon-download-alt"></i> Vorschläge als Excel exportieren</a>
+        <a target="_new" href="{{url_for('.session_export', slug = slug)}}" class="pull-right btn"><i class="icon icon-download-alt"></i> {{_('Download as excel')}}</a>
     {% endif %}
     {% if logged_in %}
-        <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> Eigenen Vorschlag erstellen</a>
+        <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> {{_('Create proposal')}}</a>
         <div class="well hide" id="proposal-form-container">
-            <legend>Dein Themenvorschlag</legend>
+            <legend>{{_('Your proposal')}}</legend>
             <form method="post" action="{{url}}" class="form-horizontal">
                 {{formmacros.form_field(form.title, class="required span6")}}
                 {{formmacros.form_field(form.description, rows=5, cols=60, class="span6")}}
                 <div class="form-actions">
-                    <button id="proposal-cancel" class="pull-right btn">Abbrechen</button>
-                    <input type="submit" class="btn btn-large btn-primary" value="Vorschlagen!">
+                    <button id="proposal-cancel" class="pull-right btn">{{_('Cancel')}}</button>
+                    <input type="submit" class="btn btn-large btn-primary" value="{{_('Add proposal')}}">
                 </div>
             </form>
         </div>
     {% else %}
         <div class="alert alert-warning">
-            <b>Um Vorschläge zu bewertung und eigene Vorschläge einzureichen, musst Du eingeloggt sein.</b>
-            <a href="{{url_for("userbase.login")}}">Hier einloggen oder registrieren</a>
+            <b>{{_('In order to be able to create or vote for proposals, you need to be logged in.')}}</b>
+            <a href="{{url_for("userbase.login")}}">{{_('you can log in and register here')}}</a>
         </div>
     {% endif %}
 

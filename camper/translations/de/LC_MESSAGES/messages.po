@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 17:35+0200\n"
+"POT-Creation-Date: 2013-09-03 17:56+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -30,9 +30,8 @@ msgid "Your password is not correct"
 msgstr "Das Passwort ist nicht korrekt"
 
 #: app.py:175
-#, fuzzy
 msgid "Your user has not yet been activated."
-msgstr "Dein Kommentar wurde hinzugefügt."
+msgstr "Der Benutzer wurde noch nicht aktiviert."
 
 #: app.py:176
 msgid "Login failed"
@@ -52,8 +51,8 @@ msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
-"Bitte checke Deine E-Mail, den Registrierungsprozess abzuschliessen. Alle"
-" weiteren Informationen dazu findest Du in der E-Mail."
+"Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschliessen. "
+"Alle weiteren Informationen dazu findest Du in der E-Mail."
 
 #: app.py:180
 msgid "Your user registration has been successful"
@@ -62,7 +61,7 @@ msgstr "Die Benutzerregistrierung war erfolgreich."
 #: app.py:181
 #, fuzzy
 msgid "Your account has been activated"
-msgstr "Dein Kommentar wurde hinzugefügt."
+msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
 #: app.py:182
 #, python-format
@@ -572,6 +571,7 @@ msgid "Add new blog post"
 msgstr "Neuen Blogpost hinzufügen"
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:88
+#: barcamps/templates/sessions.html:106
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -722,17 +722,67 @@ msgstr "Erhöhe die Teilnehmerzahl"
 msgid "update"
 msgstr "Aktualisieren"
 
+#: barcamps/templates/sessions.html:7
+#, fuzzy
+msgid "Date"
+msgstr "Aktualisieren"
+
+#: barcamps/templates/sessions.html:8
+#, fuzzy
+msgid "Votes"
+msgstr "Datumsangaben"
+
+#: barcamps/templates/sessions.html:11
+msgid "Session Proposals"
+msgstr "Sessionvorschläge"
+
+#: barcamps/templates/sessions.html:43
+msgid "added by"
+msgstr "hinzugefügt von"
+
+#: barcamps/templates/sessions.html:45
+msgid "on"
+msgstr "am"
+
 #: barcamps/templates/sessions.html:60
 msgid "comment by"
 msgstr "Kommentar von "
 
 #: barcamps/templates/sessions.html:73
-msgid "your comment"
+msgid "Your comment"
 msgstr "Dein Kommentar"
 
 #: barcamps/templates/sessions.html:75
 msgid "add your comment"
 msgstr "Füge Deinen Kommentar hinzu"
+
+#: barcamps/templates/sessions.html:96
+msgid "Download as excel"
+msgstr "Als Excel herunterladen"
+
+#: barcamps/templates/sessions.html:99
+msgid "Create proposal"
+msgstr "Sessionvorschläge"
+
+#: barcamps/templates/sessions.html:101
+msgid "Your proposal"
+msgstr "Dein Vorschlag"
+
+#: barcamps/templates/sessions.html:107
+msgid "Add proposal"
+msgstr "Vorschlag hinzufügen"
+
+#: barcamps/templates/sessions.html:113
+msgid ""
+"In order to be able to create or vote for proposals, you need to be "
+"logged in."
+msgstr ""
+"Um eigene Vorschläge hinzuzufügen oder bestehende zu bewerten, musst Du "
+"eingeloggt sein."
+
+#: barcamps/templates/sessions.html:114
+msgid "you can log in and register here"
+msgstr "Du kannst Dich hier einloggen oder registrieren"
 
 #: handlers/forms.py:78
 msgid "Not a valid currency value"
@@ -776,7 +826,6 @@ msgid "Blog"
 msgstr "Blog"
 
 #: templates/master.html:81
-#, fuzzy
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
@@ -801,7 +850,6 @@ msgid "Log out"
 msgstr "Ausloggen"
 
 #: templates/M/userbase/login.html:14
-#, fuzzy
 msgid "Real camper log in!"
 msgstr "Richtige Camper loggen sich ein!"
 

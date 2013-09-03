@@ -28,15 +28,15 @@
 {% block main_content %}
     <div class="row">
         <div class="span3">
-            <h2>Teilnehmer</h2>
+            <h2>{{_('Participants')}}</h2>
             {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
         </div>
         <div class="span3">
-            <h2>Interessenten</h2>
+            <h2>{{_('Subscribers')}}</h2>
             {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug))}}
         </div>
         <div class="span3">
-            <h2>Warteliste</h2>
+            <h2>{{_('Waiting list')}}</h2>
             {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
         </div>
     </div>
