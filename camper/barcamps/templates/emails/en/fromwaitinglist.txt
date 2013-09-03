@@ -1,0 +1,15 @@
+Hello {{user.fullname}}!
+
+Congratulations!  
+
+You just have been moved from the waiting list to the participant list and
+thus will take part in the event {{barcamp.name}}. 
+
+Should you cannot make it to the event please remove yourself from the list again
+so that other people from the waiting list can move up! Thank you!
+
+Your {{barcamp.name}} team!
+
+
+--
+{{url_for('barcamp', slug = barcamp.slug, _full=True)}}
