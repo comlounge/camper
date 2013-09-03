@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 12:22+0200\n"
+"POT-Creation-Date: 2013-09-03 15:11+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -238,9 +238,130 @@ msgstr ""
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr ""
 
+#: barcamps/edit.py:19
+msgid "Title"
+msgstr ""
+
+#: barcamps/edit.py:20
+msgid ""
+"every barcamp needs a title. examples: \"Barcamp Aachen 2012\", "
+"\"JMStVCamp\""
+msgstr ""
+
+#: barcamps/edit.py:23 barcamps/edit.py:144
+msgid "Description"
+msgstr ""
+
+#: barcamps/edit.py:24
+msgid "please describe your barcamp here"
+msgstr ""
+
+#: barcamps/edit.py:26
+msgid "slug / url name"
+msgstr ""
+
+#: barcamps/edit.py:29
+msgid "start date"
+msgstr ""
+
+#: barcamps/edit.py:30
+msgid "end date"
+msgstr ""
+
+#: barcamps/edit.py:31
+msgid "link to tweetwally twitterall"
+msgstr ""
+
+#: barcamps/edit.py:32
+msgid ""
+"create your own twitterwall at <a "
+"href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, "
+"e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"
+msgstr ""
+
+#: barcamps/edit.py:33 barcamps/edit.py:34
+msgid "Twitter-Username"
+msgstr ""
+
+#: barcamps/edit.py:33 barcamps/edit.py:34
+msgid "only the username, max. 100 characters"
+msgstr ""
+
+#: barcamps/edit.py:35
+msgid "Twitter-Hashtag"
+msgstr ""
+
+#: barcamps/edit.py:35
+msgid "max. 100 characters"
+msgstr ""
+
+#: barcamps/edit.py:36
+msgid "Google Plus URL"
+msgstr ""
+
+#: barcamps/edit.py:36
+msgid "URL of the Google Plus Profile"
+msgstr ""
+
+#: barcamps/edit.py:37
+msgid "Homepage URL"
+msgstr ""
+
+#: barcamps/edit.py:37
+msgid "link to the homepage of this barcamp in case one exists."
+msgstr ""
+
+#: barcamps/edit.py:38
+msgid "Facebook Admin-ID"
+msgstr ""
+
+#: barcamps/edit.py:38
+msgid ""
+"ID of the facebook admin for the facebook page for this barcamp if one "
+"exists"
+msgstr ""
+
 #: barcamps/edit.py:127
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
+msgstr ""
+
+#: barcamps/edit.py:141
+msgid "Name of field"
+msgstr ""
+
+#: barcamps/edit.py:142
+msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
+msgstr ""
+
+#: barcamps/edit.py:145
+msgid "please describe what the user should enter in this field."
+msgstr ""
+
+#: barcamps/edit.py:147 barcamps/templates/participants_data_edit.html:13
+msgid "field type"
+msgstr ""
+
+#: barcamps/edit.py:147
+msgid "Textfeld"
+msgstr ""
+
+#: barcamps/edit.py:147
+msgid "Textbereich"
+msgstr ""
+
+#: barcamps/edit.py:148
+msgid "please chose between a one-line text field or multi-line text area"
+msgstr ""
+
+#: barcamps/edit.py:150
+msgid "field required?"
+msgstr ""
+
+#: barcamps/edit.py:151
+msgid ""
+"If you enable this then the user cannot register before this field has "
+"been filled in."
 msgstr ""
 
 #: barcamps/pads.py:10
@@ -448,51 +569,63 @@ msgid ""
 "to it but not take part."
 msgstr ""
 
-#: barcamps/templates/master.html:170
+#: barcamps/templates/master.html:145
+msgid "subscribe to barcamp"
+msgstr ""
+
+#: barcamps/templates/master.html:150 barcamps/templates/master.html:153
+msgid "register as participant"
+msgstr ""
+
+#: barcamps/templates/master.html:150 barcamps/templates/master.html:153
+msgid "Register as participant"
+msgstr ""
+
+#: barcamps/templates/master.html:172
 msgid "Join us at"
 msgstr ""
 
-#: barcamps/templates/master.html:196
+#: barcamps/templates/master.html:198
 msgid "Administration"
 msgstr ""
 
-#: barcamps/templates/master.html:198
+#: barcamps/templates/master.html:200
 msgid "Upload Logo"
 msgstr ""
 
-#: barcamps/templates/master.html:199
+#: barcamps/templates/master.html:201
 msgid "edit base information"
 msgstr ""
 
-#: barcamps/templates/master.html:200
+#: barcamps/templates/master.html:202
 msgid "edit registration form"
 msgstr ""
 
-#: barcamps/templates/master.html:201
+#: barcamps/templates/master.html:203
 msgid "download participants"
 msgstr ""
 
-#: barcamps/templates/master.html:202
+#: barcamps/templates/master.html:204
 msgid "increase participants"
 msgstr ""
 
-#: barcamps/templates/master.html:203
+#: barcamps/templates/master.html:205
 msgid "new sponsor"
 msgstr ""
 
-#: barcamps/templates/master.html:204
+#: barcamps/templates/master.html:206
 msgid "edit permissions"
 msgstr ""
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:208
 msgid "create new page"
 msgstr ""
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:210
 msgid "DELETE BARCAMP"
 msgstr ""
 
-#: barcamps/templates/master.html:214
+#: barcamps/templates/master.html:216
 msgid "location"
 msgstr ""
 
@@ -533,10 +666,6 @@ msgstr ""
 
 #: barcamps/templates/participants_data_edit.html:11
 msgid "title"
-msgstr ""
-
-#: barcamps/templates/participants_data_edit.html:13
-msgid "field type"
 msgstr ""
 
 #: barcamps/templates/participants_data_edit.html:14
@@ -596,7 +725,11 @@ msgstr ""
 msgid "ADMIN"
 msgstr ""
 
-#: templates/index.html:45
+#: templates/index.html:40
+msgid "I want to organize a barcamp!"
+msgstr ""
+
+#: templates/index.html:42
 msgid "create new barcamp"
 msgstr ""
 
@@ -635,10 +768,4 @@ msgstr ""
 #: templates/users/profile.html:41
 msgid "delete profile image"
 msgstr ""
-
-#~ msgid "Edit participant data"
-#~ msgstr ""
-
-#~ msgid "Define participant data"
-#~ msgstr ""
 

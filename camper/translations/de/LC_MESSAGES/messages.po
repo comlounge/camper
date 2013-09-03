@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 12:22+0200\n"
+"POT-Creation-Date: 2013-09-03 15:11+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -242,10 +242,142 @@ msgstr "Twitterwall"
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr "Das Barcamp und all seine Inhalte wurden erfolgreich gelöscht!"
 
+#: barcamps/edit.py:19
+msgid "Title"
+msgstr "Titel"
+
+#: barcamps/edit.py:20
+msgid ""
+"every barcamp needs a title. examples: \"Barcamp Aachen 2012\", "
+"\"JMStVCamp\""
+msgstr ""
+"Jedes Barcamp brauch einen Titel, z.B. 'Barcamp Aachen 2012' or "
+"'JugendBarcamp'"
+
+#: barcamps/edit.py:23 barcamps/edit.py:144
+msgid "Description"
+msgstr "Beschreibung"
+
+#: barcamps/edit.py:24
+msgid "please describe your barcamp here"
+msgstr "Bitte beschreibe Dein Barcamp hier"
+
+#: barcamps/edit.py:26
+msgid "slug / url name"
+msgstr "Kurzname in URL"
+
+#: barcamps/edit.py:29
+msgid "start date"
+msgstr "Beginn"
+
+#: barcamps/edit.py:30
+msgid "end date"
+msgstr "Ende"
+
+#: barcamps/edit.py:31
+msgid "link to tweetwally twitterall"
+msgstr "Link zur tweetwally Twitterwall"
+
+#: barcamps/edit.py:32
+msgid ""
+"create your own twitterwall at <a "
+"href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, "
+"e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"
+msgstr ""
+"erzeuge Deine eigene Twitterwall unter <a "
+"href='http://tweetwally.com'>tweetwally.com</a> und gib die URL hier ein,"
+" z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>"
+
+#: barcamps/edit.py:33 barcamps/edit.py:34
+msgid "Twitter-Username"
+msgstr "Twitter-Benutzername"
+
+#: barcamps/edit.py:33 barcamps/edit.py:34
+msgid "only the username, max. 100 characters"
+msgstr "bitte nur den Benutzername, max. 100 Zeichen"
+
+#: barcamps/edit.py:35
+msgid "Twitter-Hashtag"
+msgstr "Twitter-Hashtag"
+
+#: barcamps/edit.py:35
+msgid "max. 100 characters"
+msgstr "max. 100 Zeichen"
+
+#: barcamps/edit.py:36
+msgid "Google Plus URL"
+msgstr "Google Plus-URL"
+
+#: barcamps/edit.py:36
+msgid "URL of the Google Plus Profile"
+msgstr "URL des Google Plus Profils"
+
+#: barcamps/edit.py:37
+msgid "Homepage URL"
+msgstr "URL der Homepage"
+
+#: barcamps/edit.py:37
+msgid "link to the homepage of this barcamp in case one exists."
+msgstr "Link zur Homepage des Barcamps, soweit sie existiert"
+
+#: barcamps/edit.py:38
+msgid "Facebook Admin-ID"
+msgstr ""
+
+#: barcamps/edit.py:38
+msgid ""
+"ID of the facebook admin for the facebook page for this barcamp if one "
+"exists"
+msgstr ""
+
 #: barcamps/edit.py:127
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
+
+#: barcamps/edit.py:141
+msgid "Name of field"
+msgstr "Name des Feldes"
+
+#: barcamps/edit.py:142
+msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
+msgstr ""
+"Der Name des Feldes, das im Formular angezeigt werden soll, z.B. 'T"
+"-Shirt-Größe'"
+
+#: barcamps/edit.py:145
+msgid "please describe what the user should enter in this field."
+msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
+
+#: barcamps/edit.py:147 barcamps/templates/participants_data_edit.html:13
+msgid "field type"
+msgstr "Art des Feldes"
+
+#: barcamps/edit.py:147
+msgid "Textfeld"
+msgstr "Textfeld"
+
+#: barcamps/edit.py:147
+msgid "Textbereich"
+msgstr "Textbereich"
+
+#: barcamps/edit.py:148
+msgid "please chose between a one-line text field or multi-line text area"
+msgstr ""
+"Bitte wähle zwischen einem einzeiligen Textfeld oder einem mehrzeiligen "
+"Textbereich"
+
+#: barcamps/edit.py:150
+msgid "field required?"
+msgstr "Feld erforderlich?"
+
+#: barcamps/edit.py:151
+msgid ""
+"If you enable this then the user cannot register before this field has "
+"been filled in."
+msgstr ""
+"Wenn Du diese Checkbox aktiviest, dann kann der Benutzer sich nicht "
+"registrieren, bevor er dieses Feld ausgefüllt hat."
 
 #: barcamps/pads.py:10
 msgid "Post Title"
@@ -318,7 +450,7 @@ msgstr ""
 "entfernt."
 
 #: barcamps/registration.py:77
-#, fuzzy, python-format
+#, fuzzy
 msgid "You have been registered!"
 msgstr "%s wurde angelegt."
 
@@ -462,56 +594,71 @@ msgstr ""
 "können nur Informationen abonnieren, sich aber nicht als Teilnehmer "
 "registrieren"
 
-#: barcamps/templates/master.html:170
+#: barcamps/templates/master.html:145
+#, fuzzy
+msgid "subscribe to barcamp"
+msgstr "neues Barcamp anlegen"
+
+#: barcamps/templates/master.html:150 barcamps/templates/master.html:153
+#, fuzzy
+msgid "register as participant"
+msgstr "Erhöhe die Teilnehmerzahl"
+
+#: barcamps/templates/master.html:150 barcamps/templates/master.html:153
+#, fuzzy
+msgid "Register as participant"
+msgstr "Erhöhe die Teilnehmerzahl"
+
+#: barcamps/templates/master.html:172
 msgid "Join us at"
 msgstr ""
 
-#: barcamps/templates/master.html:196
+#: barcamps/templates/master.html:198
 msgid "Administration"
 msgstr "Verwaltung"
 
-#: barcamps/templates/master.html:198
+#: barcamps/templates/master.html:200
 msgid "Upload Logo"
 msgstr ""
 
-#: barcamps/templates/master.html:199
+#: barcamps/templates/master.html:201
 msgid "edit base information"
 msgstr ""
 
-#: barcamps/templates/master.html:200
+#: barcamps/templates/master.html:202
 #, fuzzy
 msgid "edit registration form"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:201
+#: barcamps/templates/master.html:203
 #, fuzzy
 msgid "download participants"
 msgstr "Teilnehmer"
 
-#: barcamps/templates/master.html:202
+#: barcamps/templates/master.html:204
 #, fuzzy
 msgid "increase participants"
 msgstr "Erhöhe die Teilnehmerzahl"
 
-#: barcamps/templates/master.html:203
+#: barcamps/templates/master.html:205
 msgid "new sponsor"
 msgstr ""
 
-#: barcamps/templates/master.html:204
+#: barcamps/templates/master.html:206
 msgid "edit permissions"
 msgstr ""
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:208
 #, fuzzy
 msgid "create new page"
 msgstr "neues Barcamp anlegen"
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:210
 #, fuzzy
 msgid "DELETE BARCAMP"
 msgstr "neues Barcamp anlegen"
 
-#: barcamps/templates/master.html:214
+#: barcamps/templates/master.html:216
 msgid "location"
 msgstr "Veranstaltungsort"
 
@@ -532,45 +679,41 @@ msgid "Make public"
 msgstr "Öffentlich machen!"
 
 #: barcamps/templates/participant_data.html:5
-#, fuzzy, python-format
+#, python-format
 msgid "Register for %s"
-msgstr "Registrieren"
+msgstr "Registrieren für %s"
 
 #: barcamps/templates/participant_data.html:8
 msgid ""
 "Please fill out this form in order to register your participation in this"
 " barcamp"
 msgstr ""
+"Bitte fülle dieses Formular aus, um Dich für das Barcamp als Teilnehmer "
+"zu registrieren"
 
 #: barcamps/templates/participant_data.html:17 templates/master.html:103
 msgid "Register"
 msgstr "Registrieren"
 
 #: barcamps/templates/participants_data_edit.html:5
-#, fuzzy
 msgid "Edit the participant registration form"
-msgstr "Teilnehmer"
+msgstr "Bearbeite das Registrierungsformular"
 
 #: barcamps/templates/participants_data_edit.html:11
-#, fuzzy
 msgid "title"
-msgstr "Titel des Artikels"
-
-#: barcamps/templates/participants_data_edit.html:13
-msgid "field type"
-msgstr ""
+msgstr "Titel"
 
 #: barcamps/templates/participants_data_edit.html:14
 msgid "required?"
-msgstr ""
+msgstr "erforderlich?"
 
 #: barcamps/templates/participants_data_edit.html:40
 msgid "Add a new field"
-msgstr ""
+msgstr "Füge ein neues Feld hinzu"
 
 #: barcamps/templates/participants_data_edit.html:48
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: barcamps/templates/participants_edit.html:6
 msgid "Increase number of participants"
@@ -617,7 +760,11 @@ msgstr "privat"
 msgid "ADMIN"
 msgstr "ADMIN"
 
-#: templates/index.html:45
+#: templates/index.html:40
+msgid "I want to organize a barcamp!"
+msgstr "Ich will ein Barcamp organisieren!"
+
+#: templates/index.html:42
 msgid "create new barcamp"
 msgstr "neues Barcamp anlegen"
 
@@ -626,22 +773,20 @@ msgid "Diese Feld muss angegeben werden"
 msgstr ""
 
 #: templates/master.html:80
-#, fuzzy
 msgid "Blog"
-msgstr "Einloggen"
+msgstr "Blog"
 
 #: templates/master.html:81
 msgid "Ideen/Feedback"
-msgstr ""
+msgstr "Ideas / Feedback"
 
 #: templates/master.html:95
-#, fuzzy
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
 #: templates/master.html:102
 msgid "Login"
-msgstr ""
+msgstr "Einloggen"
 
 #: templates/master.html:111
 msgid "my profile"
@@ -658,7 +803,4 @@ msgstr "Ausloggen"
 #: templates/users/profile.html:41
 msgid "delete profile image"
 msgstr "Profilbild löschen"
-
-#~ msgid "Define participant data"
-#~ msgstr "Teilnehmer"
 

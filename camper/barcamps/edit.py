@@ -16,26 +16,26 @@ class ParticipantCountForm(BaseForm):
 class BarcampEditForm(BaseForm):
     """form for adding a barcamp"""
     # base data
-    name                = TextField(u"Titel", [validators.Length(max=300), validators.Required()],
-                description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
+    name                = TextField(T("Title"), [validators.Length(max=300), validators.Required()],
+                description = T('every barcamp needs a title. examples: "Barcamp Aachen 2012", "JMStVCamp"'),
     )
 
-    description         = TextAreaField(u"Beschreibung", [validators.Required()],
-                description = u'Bitte beschreibe Dein Barcamp hier',
+    description         = TextAreaField(T("Description"), [validators.Required()],
+                description = T('please describe your barcamp here'),
     )
-    slug                = TextField(u"URL-Name", [validators.Required()],
-                description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
+    slug                = TextField(T("slug / url name"), [validators.Required()],
+                description = t('this is the short name, which appears in the URL. It can only contain letters and numbers as well as the characters _ and -. Examples are "barcamp_aachen" or "bcac"'),
     )
-    start_date          = DateField(u"Start-Datum", [], format="%d.%m.%Y")
-    end_date            = DateField(u"End-Datum", [], format="%d.%m.%Y")
-    twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
-            description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
-    twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
-    twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
-    hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
-    gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
-    homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
-    fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
+    start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
+    end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
+    twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
+            description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
+    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
+    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
+    hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
+    gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
+    homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
+    fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
 
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
@@ -138,20 +138,17 @@ class ParticipantsEditView(BaseHandler):
 class ParticipantDataEditForm(BaseForm):
     """form for defining a pareticipant data form"""
     # base data
-    #name                = TextField(u"Kurzname", [validators.Length(max=20), validators.Required()],
-                ##description = u'Der Kurzname wird nicht öffentlich angezeigt, sondern dient nur der eindeutigen Identifizierung des Feldes.',
-    #)
-    title               = TextField(u"Titel", [validators.Length(max=300), validators.Required()],
-                #description = u'Der Titel wird im Formular angezeigt.',
+    title               = TextField(T("Name of field"), [validators.Length(max=300), validators.Required()],
+                description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    description         = TextAreaField(u"Beschreibung",
-                #description = u'Bitte beschreibe das Feld hier.',
+    description         = TextAreaField(T("Description"),
+                description = T('please describe what the user should enter in this field.'),
     )
-    fieldtype           = SelectField(u"Feldtyp", [validators.Required()], choices=[('textfield','Textfeld'),('textarea','Textbereich')],
-                #description = u'Textfeld (einzeilig), Textbereich (mehrzeilig)',
+    fieldtype           = SelectField(T("field type"), [validators.Required()], choices=[('textfield',T('Textfeld')),('textarea',T('Textbereich'))],
+                description = T('please chose between a one-line text field or multi-line text area'),
     )
-    required            = BooleanField(u"Erforderlich?",
-                #description = u'Soll das Feld zwingend erforderlich sein?',
+    required            = BooleanField(T("field required?"),
+                description = T('If you enable this then the user cannot register before this field has been filled in.'),
     )
 
 class ParticipantsDataEditView(BarcampBaseHandler):
