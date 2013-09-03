@@ -79,12 +79,12 @@
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
-            <div class="controls" id="{{field.id}}-div">
-<label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
-    {{field(**kwargs)}}
-    {{ _(field.label.text) }}
-    <p class="help-block">{{ _(field.description) }}</p>
-</label>
+<div class="controls" id="{{field.id}}-div">
+    <label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
+        {{field(**kwargs)}}
+        {{ _(field.label.text) }}
+        <p class="help-block">{{ _(field.description) }}</p>
+    </label>
 </div>
 {%- endmacro -%}
 {%- macro form_field_multicheckbox(field) -%}

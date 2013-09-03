@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 15:19+0200\n"
+"POT-Creation-Date: 2013-09-03 17:35+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -690,6 +690,7 @@ msgstr ""
 "zu registrieren"
 
 #: barcamps/templates/participant_data.html:17 templates/master.html:103
+#: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr "Registrieren"
 
@@ -775,8 +776,9 @@ msgid "Blog"
 msgstr "Blog"
 
 #: templates/master.html:81
-msgid "Ideen/Feedback"
-msgstr "Ideas / Feedback"
+#, fuzzy
+msgid "Ideas / Feedback"
+msgstr "Ideen / Feedback"
 
 #: templates/master.html:95
 msgid "ADMINISTRATION"
@@ -797,6 +799,47 @@ msgstr "Passwort ändern"
 #: templates/master.html:113
 msgid "Log out"
 msgstr "Ausloggen"
+
+#: templates/M/userbase/login.html:14
+#, fuzzy
+msgid "Real camper log in!"
+msgstr "Richtige Camper loggen sich ein!"
+
+#: templates/M/userbase/login.html:16
+msgid "username"
+msgstr "Benutzername"
+
+#: templates/M/userbase/login.html:17
+msgid "password"
+msgstr "Passwort"
+
+#: templates/M/userbase/login.html:20
+msgid "login"
+msgstr "Einloggen"
+
+#: templates/M/userbase/login.html:27
+msgid "remember me"
+msgstr "erinnere Dich an mich"
+
+#: templates/M/userbase/login.html:31
+msgid "password forgotten?"
+msgstr "Passwort vergessen?"
+
+#: templates/M/userbase/login.html:34
+msgid "register a new user"
+msgstr "neues Barcamp anlegen"
+
+#: templates/M/userbase/registration.html:7
+msgid "Please register"
+msgstr "Bitte registriere Dich"
+
+#: templates/M/userbase/registration.html:24
+msgid "missing activation email?"
+msgstr "Fehlt die Aktivierungs-EMail?"
+
+#: templates/M/userbase/registration.html:25
+msgid "Please send me a new activation code"
+msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
 
 #: templates/users/profile.html:41
 msgid "delete profile image"

@@ -19,11 +19,14 @@
                 <p>
                 <input type="submit" class="pull-right btn-signin" value="{{_('login')}}"><br>
                 </p>
-                <p>
-                </p>
             </div>
             {% if M.userbase.config.use_remember %}
-                {{formmacros.form_field(form.remember, label="{{_('remember me')}}")}}
+                <div class="controls" id="{{form.remember.id}}-div">
+                    <label class="checkbox" for="{{ form.remember.id }}" id="field-{{form.remember.id}}">
+                        {{form.remember()}}
+                        {{_('remember me')}}
+                    </label>
+                </div>
             {% endif %}
             <a href="{{url_for("userbase.pw_forgot")}}">{{_('password forgotten?')}}</a>
         </form>

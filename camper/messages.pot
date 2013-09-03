@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-03 15:19+0200\n"
+"POT-Creation-Date: 2013-09-03 17:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -664,6 +664,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/templates/participant_data.html:17 templates/master.html:103
+#: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
 
@@ -749,7 +750,7 @@ msgid "Blog"
 msgstr ""
 
 #: templates/master.html:81
-msgid "Ideen/Feedback"
+msgid "Ideas / Feedback"
 msgstr ""
 
 #: templates/master.html:95
@@ -770,6 +771,46 @@ msgstr ""
 
 #: templates/master.html:113
 msgid "Log out"
+msgstr ""
+
+#: templates/M/userbase/login.html:14
+msgid "Real camper log in!"
+msgstr ""
+
+#: templates/M/userbase/login.html:16
+msgid "username"
+msgstr ""
+
+#: templates/M/userbase/login.html:17
+msgid "password"
+msgstr ""
+
+#: templates/M/userbase/login.html:20
+msgid "login"
+msgstr ""
+
+#: templates/M/userbase/login.html:27
+msgid "remember me"
+msgstr ""
+
+#: templates/M/userbase/login.html:31
+msgid "password forgotten?"
+msgstr ""
+
+#: templates/M/userbase/login.html:34
+msgid "register a new user"
+msgstr ""
+
+#: templates/M/userbase/registration.html:7
+msgid "Please register"
+msgstr ""
+
+#: templates/M/userbase/registration.html:24
+msgid "missing activation email?"
+msgstr ""
+
+#: templates/M/userbase/registration.html:25
+msgid "Please send me a new activation code"
 msgstr ""
 
 #: templates/users/profile.html:41
