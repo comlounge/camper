@@ -65,8 +65,53 @@ def markdownify(text, level=1):
 ### i18n
 ###
 
+# TODO: retrieve available languages from the i18n module
+ACCEPTED_LANGUAGES = ['de', 'en']
+
+def parseAcceptLanguage(acceptLanguage):
+  languages = acceptLanguage.split(",")
+  locale_q_pairs = []
+
+  for language in languages:
+    if language.split(";")[0] == language:
+      # no q => q = 1
+      locale_q_pairs.append((language.strip(), "1"))
+    else:
+      locale = language.split(";")[0].strip()
+      q = language.split(";")[1].split("=")[1]
+      locale_q_pairs.append((locale, q))
+
+  return locale_q_pairs
+
 def get_locale(handler):
-    return "de" # for now
+    al = handler.request.headers.get('Accept-Language')
+    languages = parseAcceptLanguage(al)
+
+    # default
+    l = "en"
+
+    # find language from request
+    for lang,q in languages:
+        if lang in ACCEPTED_LANGUAGES:
+            l = lang
+            break
+
+    # check cookie now if it needs to override
+    if handler.session.has_key("LANG"):
+        if handler.session['LANG'] in ACCEPTED_LANGUAGES:
+            print "found cookie", l
+            l = handler.session['LANG']
+
+    # or maybe the user wants to force it
+    if handler.request.args.has_key("__l"):
+        if handler.request.args['__l'] in ACCEPTED_LANGUAGES:
+            print "found request", l
+            l = handler.request.args['__l']
+
+    # save in cookie
+    handler.session['LANG'] = l
+    print "saved in session"
+    return l
 
 ###
 ### APP
