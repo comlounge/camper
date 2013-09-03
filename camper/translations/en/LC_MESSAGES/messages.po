@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 15:11+0200\n"
+"POT-Creation-Date: 2013-09-03 15:19+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -260,6 +260,13 @@ msgstr ""
 msgid "slug / url name"
 msgstr ""
 
+#: barcamps/edit.py:27
+msgid ""
+"this is the short name, which appears in the URL. It can only contain "
+"letters and numbers as well as the characters _ and -. Examples are "
+"\"barcamp_aachen\" or \"bcac\""
+msgstr ""
+
 #: barcamps/edit.py:29
 msgid "start date"
 msgstr ""
@@ -343,11 +350,11 @@ msgid "field type"
 msgstr ""
 
 #: barcamps/edit.py:147
-msgid "Textfeld"
+msgid "text field"
 msgstr ""
 
 #: barcamps/edit.py:147
-msgid "Textbereich"
+msgid "text area"
 msgstr ""
 
 #: barcamps/edit.py:148

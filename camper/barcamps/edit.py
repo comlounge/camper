@@ -24,7 +24,7 @@ class BarcampEditForm(BaseForm):
                 description = T('please describe your barcamp here'),
     )
     slug                = TextField(T("slug / url name"), [validators.Required()],
-                description = t('this is the short name, which appears in the URL. It can only contain letters and numbers as well as the characters _ and -. Examples are "barcamp_aachen" or "bcac"'),
+                description = T('this is the short name, which appears in the URL. It can only contain letters and numbers as well as the characters _ and -. Examples are "barcamp_aachen" or "bcac"'),
     )
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
@@ -144,7 +144,7 @@ class ParticipantDataEditForm(BaseForm):
     description         = TextAreaField(T("Description"),
                 description = T('please describe what the user should enter in this field.'),
     )
-    fieldtype           = SelectField(T("field type"), [validators.Required()], choices=[('textfield',T('Textfeld')),('textarea',T('Textbereich'))],
+    fieldtype           = SelectField(T("field type"), [validators.Required()], choices=[('textfield',T('text field')),('textarea',T('text area'))],
                 description = T('please chose between a one-line text field or multi-line text area'),
     )
     required            = BooleanField(T("field required?"),

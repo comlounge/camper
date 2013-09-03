@@ -66,7 +66,7 @@
 
 {%- macro form_field_description(field) -%}
     {% if field.description %}
-        <p class="help-block">{{ field.description }}</p>
+        <p class="help-block">{{ _(field.description) }}</p>
     {% endif %}
 {%- endmacro -%}
 
@@ -79,10 +79,13 @@
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
+            <div class="controls" id="{{field.id}}-div">
 <label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
     {{field(**kwargs)}}
-    {{ field.label.text }}
+    {{ _(field.label.text) }}
+    <p class="help-block">{{ _(field.description) }}</p>
 </label>
+</div>
 {%- endmacro -%}
 {%- macro form_field_multicheckbox(field) -%}
     {% for subfield in field %}
