@@ -97,7 +97,8 @@ class BarcampRegister(BarcampBaseHandler):
             self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
             if uid not in event.waiting_list:
                 event.waiting_list.append(uid)
-                self.barcamp.subscribers.remove(uid)
+                if uid in self.barcamp.subscribers:
+                    self.barcamp.subscribers.remove(uid)
                 self.barcamp.put()
                 self.mail_text("emails/welcome.txt", self._('You are now on the waiting list for %s' %self.barcamp.name),
                     view = view,
