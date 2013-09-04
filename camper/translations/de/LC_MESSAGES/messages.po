@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 17:56+0200\n"
+"POT-Creation-Date: 2013-09-04 12:38+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -59,7 +59,6 @@ msgid "Your user registration has been successful"
 msgstr "Die Benutzerregistrierung war erfolgreich."
 
 #: app.py:181
-#, fuzzy
 msgid "Your account has been activated"
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
@@ -241,7 +240,7 @@ msgstr "Twitterwall"
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr "Das Barcamp und all seine Inhalte wurden erfolgreich gelöscht!"
 
-#: barcamps/edit.py:19
+#: barcamps/edit.py:19 pages/add.py:12 pages/edit.py:14
 msgid "Title"
 msgstr "Titel"
 
@@ -571,7 +570,7 @@ msgid "Add new blog post"
 msgstr "Neuen Blogpost hinzufügen"
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:88
-#: barcamps/templates/sessions.html:106
+#: barcamps/templates/sessions.html:106 templates/pages/edit.html:14
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -723,14 +722,12 @@ msgid "update"
 msgstr "Aktualisieren"
 
 #: barcamps/templates/sessions.html:7
-#, fuzzy
 msgid "Date"
-msgstr "Aktualisieren"
+msgstr "Datum"
 
 #: barcamps/templates/sessions.html:8
-#, fuzzy
 msgid "Votes"
-msgstr "Datumsangaben"
+msgstr "Votes"
 
 #: barcamps/templates/sessions.html:11
 msgid "Session Proposals"
@@ -784,6 +781,20 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
+#: barcamps/templates/userlist.html:31
+#, fuzzy
+msgid "Participants"
+msgstr "Teilnehmer"
+
+#: barcamps/templates/userlist.html:35
+#, fuzzy
+msgid "Subscribers"
+msgstr "Barcamp abonnieren"
+
+#: barcamps/templates/userlist.html:39
+msgid "Waiting list"
+msgstr ""
+
 #: handlers/forms.py:78
 msgid "Not a valid currency value"
 msgstr "kein gültiger Wert"
@@ -796,6 +807,56 @@ msgstr "Die Datei '%s' wurde erfolgreich gelöscht"
 #: handlers/users/edit.py:73
 msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
+
+#: pages/add.py:13
+#, fuzzy
+msgid "title of the page (max. 300 characters)"
+msgstr "bitte nur den Benutzername, max. 100 Zeichen"
+
+#: pages/edit.py:15
+#, fuzzy
+msgid "Page title (max. 300 characters)"
+msgstr "max. 100 Zeichen"
+
+#: pages/edit.py:16
+#, fuzzy
+msgid "Menu title"
+msgstr "Titel"
+
+#: pages/edit.py:17
+#, fuzzy
+msgid "Page title in menu (max. 50 characters)"
+msgstr "bitte nur den Benutzername, max. 100 Zeichen"
+
+#: pages/edit.py:18
+#, fuzzy
+msgid "URL name"
+msgstr "Benutzername"
+
+#: pages/edit.py:19
+msgid "short name in the URL (no spaces, max. 20 characters, needs to be unique)"
+msgstr ""
+
+#: pages/edit.py:20
+msgid "Page Contents"
+msgstr ""
+
+#: pages/edit.py:21
+msgid "The actual contents of the page"
+msgstr ""
+
+#: pages/edit.py:22
+msgid "Image (optional)"
+msgstr ""
+
+#: pages/edit.py:40
+#, fuzzy
+msgid "page updated."
+msgstr "Aktualisieren"
+
+#: pages/edit.py:47
+msgid "Unfortunately the form contains errors. Please fix them and try again."
+msgstr ""
 
 #: pages/view.py:58
 msgid "the page has been deleted"
@@ -875,7 +936,7 @@ msgstr "Passwort vergessen?"
 
 #: templates/M/userbase/login.html:34
 msgid "register a new user"
-msgstr "neues Barcamp anlegen"
+msgstr "neuen Benutzer registrieren"
 
 #: templates/M/userbase/registration.html:7
 msgid "Please register"
@@ -888,6 +949,46 @@ msgstr "Fehlt die Aktivierungs-EMail?"
 #: templates/M/userbase/registration.html:25
 msgid "Please send me a new activation code"
 msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
+
+#: templates/pages/add.html:8
+#, fuzzy
+msgid "Create new page"
+msgstr "neue Seite anlegen"
+
+#: templates/pages/add.html:11
+#, fuzzy
+msgid "Page title"
+msgstr "Titel"
+
+#: templates/pages/add.html:13
+#, fuzzy
+msgid "Create page"
+msgstr "neue Seite anlegen"
+
+#: templates/pages/edit.html:9
+#, fuzzy
+msgid "page title"
+msgstr "Titel"
+
+#: templates/pages/edit.html:10
+msgid "short title for menu"
+msgstr ""
+
+#: templates/pages/edit.html:11
+msgid "short name for URL"
+msgstr ""
+
+#: templates/pages/edit.html:14
+msgid "Upload"
+msgstr ""
+
+#: templates/pages/edit.html:14
+msgid "Delete"
+msgstr ""
+
+#: templates/pages/edit.html:17
+msgid "Save changes"
+msgstr ""
 
 #: templates/users/profile.html:41
 msgid "delete profile image"

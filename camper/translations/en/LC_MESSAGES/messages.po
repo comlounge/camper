@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-03 17:56+0200\n"
+"POT-Creation-Date: 2013-09-04 12:38+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -238,7 +238,7 @@ msgstr ""
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr ""
 
-#: barcamps/edit.py:19
+#: barcamps/edit.py:19 pages/add.py:12 pages/edit.py:14
 msgid "Title"
 msgstr ""
 
@@ -551,7 +551,7 @@ msgid "Add new blog post"
 msgstr ""
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:88
-#: barcamps/templates/sessions.html:106
+#: barcamps/templates/sessions.html:106 templates/pages/edit.html:14
 msgid "Cancel"
 msgstr ""
 
@@ -755,6 +755,18 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr ""
 
+#: barcamps/templates/userlist.html:31
+msgid "Participants"
+msgstr ""
+
+#: barcamps/templates/userlist.html:35
+msgid "Subscribers"
+msgstr ""
+
+#: barcamps/templates/userlist.html:39
+msgid "Waiting list"
+msgstr ""
+
 #: handlers/forms.py:78
 msgid "Not a valid currency value"
 msgstr ""
@@ -766,6 +778,50 @@ msgstr ""
 
 #: handlers/users/edit.py:73
 msgid "Your profile image has been deleted"
+msgstr ""
+
+#: pages/add.py:13
+msgid "title of the page (max. 300 characters)"
+msgstr ""
+
+#: pages/edit.py:15
+msgid "Page title (max. 300 characters)"
+msgstr ""
+
+#: pages/edit.py:16
+msgid "Menu title"
+msgstr ""
+
+#: pages/edit.py:17
+msgid "Page title in menu (max. 50 characters)"
+msgstr ""
+
+#: pages/edit.py:18
+msgid "URL name"
+msgstr ""
+
+#: pages/edit.py:19
+msgid "short name in the URL (no spaces, max. 20 characters, needs to be unique)"
+msgstr ""
+
+#: pages/edit.py:20
+msgid "Page Contents"
+msgstr ""
+
+#: pages/edit.py:21
+msgid "The actual contents of the page"
+msgstr ""
+
+#: pages/edit.py:22
+msgid "Image (optional)"
+msgstr ""
+
+#: pages/edit.py:40
+msgid "page updated."
+msgstr ""
+
+#: pages/edit.py:47
+msgid "Unfortunately the form contains errors. Please fix them and try again."
 msgstr ""
 
 #: pages/view.py:58
@@ -858,6 +914,42 @@ msgstr ""
 
 #: templates/M/userbase/registration.html:25
 msgid "Please send me a new activation code"
+msgstr ""
+
+#: templates/pages/add.html:8
+msgid "Create new page"
+msgstr ""
+
+#: templates/pages/add.html:11
+msgid "Page title"
+msgstr ""
+
+#: templates/pages/add.html:13
+msgid "Create page"
+msgstr ""
+
+#: templates/pages/edit.html:9
+msgid "page title"
+msgstr ""
+
+#: templates/pages/edit.html:10
+msgid "short title for menu"
+msgstr ""
+
+#: templates/pages/edit.html:11
+msgid "short name for URL"
+msgstr ""
+
+#: templates/pages/edit.html:14
+msgid "Upload"
+msgstr ""
+
+#: templates/pages/edit.html:14
+msgid "Delete"
+msgstr ""
+
+#: templates/pages/edit.html:17
+msgid "Save changes"
 msgstr ""
 
 #: templates/users/profile.html:41
