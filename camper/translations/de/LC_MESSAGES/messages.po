@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-04 12:38+0200\n"
+"POT-Creation-Date: 2013-09-05 18:22+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,36 +17,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:172
+#: app.py:170
 msgid "User unknown"
 msgstr "Benutzer unbekannt."
 
-#: app.py:173
+#: app.py:171
 msgid "This email address cannot not be found in our user database"
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: app.py:174
+#: app.py:172
 msgid "Your password is not correct"
 msgstr "Das Passwort ist nicht korrekt"
 
-#: app.py:175
+#: app.py:173
 msgid "Your user has not yet been activated."
 msgstr "Der Benutzer wurde noch nicht aktiviert."
 
-#: app.py:176
+#: app.py:174
 msgid "Login failed"
 msgstr "Login fehlgeschlagen"
 
-#: app.py:177
+#: app.py:175
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr "Willkommen, %(fullname)s"
 
-#: app.py:178
+#: app.py:176
 msgid "Your are now logged out"
-msgstr "Du bist jetzt eingeloggt"
+msgstr "Du bist jetzt ausgeloggt"
 
-#: app.py:179
+#: app.py:177
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
@@ -54,62 +54,62 @@ msgstr ""
 "Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschliessen. "
 "Alle weiteren Informationen dazu findest Du in der E-Mail."
 
-#: app.py:180
+#: app.py:178
 msgid "Your user registration has been successful"
 msgstr "Die Benutzerregistrierung war erfolgreich."
 
-#: app.py:181
+#: app.py:179
 msgid "Your account has been activated"
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: app.py:182
+#: app.py:180
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
 
-#: app.py:183
+#: app.py:181
 msgid "A new activation code has been sent out, please check your email"
 msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
 
-#: app.py:184
+#: app.py:182
 msgid "The user is already active. Please log in."
 msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
 
-#: app.py:185
+#: app.py:183
 msgid "A link to set a new password has been sent to you"
 msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
 
-#: app.py:186
+#: app.py:184
 msgid "Your password has been changed"
 msgstr "Dein Passwort wurde geändert."
 
-#: app.py:189
+#: app.py:187
 msgid "The user has been updated."
 msgstr "Benutzerdaten aktualisiert"
 
-#: app.py:190
+#: app.py:188
 msgid "The user has been added."
 msgstr "Der Benutzer wurde hinzugefügt."
 
-#: app.py:191
+#: app.py:189
 msgid "The user has been deleted."
 msgstr "The user has been deleted."
 
-#: app.py:192
+#: app.py:190
 msgid "The user has been activated."
 msgstr "Der Benutzer wurde aktiviert."
 
-#: app.py:193
+#: app.py:191
 msgid "The user has been deactivated."
 msgstr "Der Benutzer wurde deaktiviert."
 
-#: app.py:197
+#: app.py:195
 msgid "can manage users"
 msgstr "Kann Benutzer verwalten"
 
-#: app.py:198
+#: app.py:196
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
@@ -121,19 +121,19 @@ msgstr "Termin wird noch bekannt gegeben"
 msgid "location to be announced"
 msgstr "Ort wird noch bekannt gegeben."
 
-#: base.py:179
+#: base.py:192
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
 
-#: base.py:216
+#: base.py:229
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:222 base.py:367
+#: base.py:235 base.py:380
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:234 base.py:240 base.py:252 base.py:255
+#: base.py:247 base.py:253 base.py:265 base.py:268
 msgid "you don't have the permission to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -433,7 +433,7 @@ msgstr "Es wird mindestens ein Administrator benötigt."
 msgid "Administrator deleted."
 msgstr "Admin gelöscht."
 
-#: barcamps/registration.py:27 barcamps/registration.py:140
+#: barcamps/registration.py:27 barcamps/registration.py:141
 msgid "You are not allowed to change this."
 msgstr "Du hast nicht die erforderlichen Rechte, um dies zu ändern."
 
@@ -467,25 +467,25 @@ msgstr ""
 "Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
 "Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
 
-#: barcamps/registration.py:102
+#: barcamps/registration.py:103
 #, python-format
 msgid "You are now on the waiting list for %s"
 msgstr "Du bist nun auf der Warteliste für das %s"
 
-#: barcamps/registration.py:108
+#: barcamps/registration.py:109
 msgid "You are now on the list of participants for this barcamp."
 msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
 
-#: barcamps/registration.py:114
+#: barcamps/registration.py:115
 #, python-format
 msgid "Welcome to %s"
 msgstr "Willkommen zu %s"
 
-#: barcamps/registration.py:156
+#: barcamps/registration.py:161
 msgid "You have been removed from the list of participants."
 msgstr "Du wurdest erfolgreich von der Teilnehmerliste entfernt."
 
-#: barcamps/registration.py:158
+#: barcamps/registration.py:163
 #, python-format
 msgid "%(fullname)s has been removed from the list of participants."
 msgstr "%(fullname)s wurde erfolgreich von der Teilnehmerliste entfernt."
@@ -782,18 +782,16 @@ msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
 #: barcamps/templates/userlist.html:31
-#, fuzzy
 msgid "Participants"
 msgstr "Teilnehmer"
 
 #: barcamps/templates/userlist.html:35
-#, fuzzy
 msgid "Subscribers"
-msgstr "Barcamp abonnieren"
+msgstr "Interessenten"
 
 #: barcamps/templates/userlist.html:39
 msgid "Waiting list"
-msgstr ""
+msgstr "Warteliste"
 
 #: handlers/forms.py:78
 msgid "Not a valid currency value"
@@ -819,46 +817,48 @@ msgid "Page title (max. 300 characters)"
 msgstr "max. 100 Zeichen"
 
 #: pages/edit.py:16
-#, fuzzy
 msgid "Menu title"
-msgstr "Titel"
+msgstr "Menü-Titel"
 
 #: pages/edit.py:17
-#, fuzzy
 msgid "Page title in menu (max. 50 characters)"
-msgstr "bitte nur den Benutzername, max. 100 Zeichen"
+msgstr "Seitentitel im Menü (max. 50 Zeichen)"
 
 #: pages/edit.py:18
-#, fuzzy
 msgid "URL name"
-msgstr "Benutzername"
+msgstr "URL-Kurzname"
 
 #: pages/edit.py:19
 msgid "short name in the URL (no spaces, max. 20 characters, needs to be unique)"
 msgstr ""
+"Kurzname in der URL (keine Leerzeichen, max. 20 Zeichen, muss eindeutig "
+"sein)"
 
 #: pages/edit.py:20
 msgid "Page Contents"
-msgstr ""
+msgstr "Seiteninhalt"
 
 #: pages/edit.py:21
 msgid "The actual contents of the page"
-msgstr ""
+msgstr "Der eigentliche Inhalt der Seite"
 
 #: pages/edit.py:22
 msgid "Image (optional)"
-msgstr ""
+msgstr "Bild (optional)"
 
 #: pages/edit.py:40
 #, fuzzy
 msgid "page updated."
-msgstr "Aktualisieren"
+msgstr "Seite aktualisiert."
 
 #: pages/edit.py:47
 msgid "Unfortunately the form contains errors. Please fix them and try again."
 msgstr ""
+"Leider enthielt das Formular noch Fehler. Bitte behebe diese und versuche"
+" es erneut."
 
 #: pages/view.py:58
+#, fuzzy
 msgid "the page has been deleted"
 msgstr "Die Seite wurde gelöscht"
 
@@ -879,8 +879,8 @@ msgid "create new barcamp"
 msgstr "neues Barcamp anlegen"
 
 #: templates/macros.html:63
-msgid "Diese Feld muss angegeben werden"
-msgstr ""
+msgid "This field is required"
+msgstr "Dieses Feld muss angegeben werden"
 
 #: templates/master.html:80
 msgid "Blog"

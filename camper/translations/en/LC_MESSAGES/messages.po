@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-04 12:38+0200\n"
+"POT-Creation-Date: 2013-09-05 18:22+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -17,97 +17,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:172
+#: app.py:170
 msgid "User unknown"
 msgstr ""
 
-#: app.py:173
+#: app.py:171
 msgid "This email address cannot not be found in our user database"
 msgstr ""
 
-#: app.py:174
+#: app.py:172
 msgid "Your password is not correct"
 msgstr ""
 
-#: app.py:175
+#: app.py:173
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:176
+#: app.py:174
 msgid "Login failed"
 msgstr ""
 
-#: app.py:177
+#: app.py:175
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:178
+#: app.py:176
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:179
+#: app.py:177
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:180
+#: app.py:178
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:181
+#: app.py:179
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:182
+#: app.py:180
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:183
+#: app.py:181
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:184
+#: app.py:182
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:185
+#: app.py:183
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:186
+#: app.py:184
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:189
+#: app.py:187
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:190
+#: app.py:188
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:191
+#: app.py:189
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:192
+#: app.py:190
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:193
+#: app.py:191
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:197
+#: app.py:195
 msgid "can manage users"
 msgstr ""
 
-#: app.py:198
+#: app.py:196
 msgid "main administrator"
 msgstr ""
 
@@ -119,19 +119,19 @@ msgstr ""
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:179
+#: base.py:192
 msgid "Please log in."
 msgstr ""
 
-#: base.py:216
+#: base.py:229
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:222 base.py:367
+#: base.py:235 base.py:380
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:234 base.py:240 base.py:252 base.py:255
+#: base.py:247 base.py:253 base.py:265 base.py:268
 msgid "you don't have the permission to access this page."
 msgstr ""
 
@@ -420,7 +420,7 @@ msgstr ""
 msgid "Administrator deleted."
 msgstr ""
 
-#: barcamps/registration.py:27 barcamps/registration.py:140
+#: barcamps/registration.py:27 barcamps/registration.py:141
 msgid "You are not allowed to change this."
 msgstr ""
 
@@ -450,25 +450,25 @@ msgid ""
 " of participants."
 msgstr ""
 
-#: barcamps/registration.py:102
+#: barcamps/registration.py:103
 #, python-format
 msgid "You are now on the waiting list for %s"
 msgstr ""
 
-#: barcamps/registration.py:108
+#: barcamps/registration.py:109
 msgid "You are now on the list of participants for this barcamp."
 msgstr ""
 
-#: barcamps/registration.py:114
+#: barcamps/registration.py:115
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: barcamps/registration.py:156
+#: barcamps/registration.py:161
 msgid "You have been removed from the list of participants."
 msgstr ""
 
-#: barcamps/registration.py:158
+#: barcamps/registration.py:163
 #, python-format
 msgid "%(fullname)s has been removed from the list of participants."
 msgstr ""
@@ -845,7 +845,7 @@ msgid "create new barcamp"
 msgstr ""
 
 #: templates/macros.html:63
-msgid "Diese Feld muss angegeben werden"
+msgid "This field is required"
 msgstr ""
 
 #: templates/master.html:80
