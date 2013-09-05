@@ -141,8 +141,12 @@ class BarcampUnregister(BarcampBaseHandler):
             self.flash(self._("You are not allowed to change this."), category="danger")
             return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
+        # remove from participants AND/OR waiting list 
         if uid in event.participants:
             event.participants.remove(uid)
+        if uid in event.waiting_list:
+            event.waiting_list.remove(uid)
+
         if len(event.participants) < self.barcamp.size and len(event.waiting_list)>0:
             # somebody from the waiting list can move up
             nuid = event.waiting_list[0]
