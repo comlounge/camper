@@ -140,7 +140,7 @@
                         {% macro barcamp_buttons() -%}
                         {% if logged_in %}
                         <div class="widget-join">
-                            {% if not view.is_subscriber and not view.is_participant and not view.is_on_waitinglist %}
+                            {% if view.can_subscribe %}
                                 <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center">
                                     <button class="btn btn-large btn-info">{{_('subscribe to barcamp')}}</button>
                                 </form>
