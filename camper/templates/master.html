@@ -151,9 +151,13 @@
         <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/messages_de.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.ui.datepicker-de.js")}}"></script>
+        {% if LANGUAGE != "en" %}
+            <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
+            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-"+LANGUAGE+".js")}}"></script>
+        {% else %}
+            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-en.js")}}"></script>
+        {% endif %}
         
         <script>
             $(document).ready( function () {
