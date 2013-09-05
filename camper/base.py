@@ -125,6 +125,19 @@ class BarcampView(object):
         return False
 
     @property
+    def can_subscribe(self):
+        """check if the subscribe button should be shown. Cases in which it should:
+
+        - the user is neither a participant nor on the waiting list
+        - the user is not subscribed already
+        """
+        if self.is_participant or self.is_on_waiting_list:
+            return False
+        if self.is_subscriber: 
+            return False
+        return True
+
+    @property
     def can_add_menu_page(self):
         """this is True if the user is an admin and there are less than 3 pages for the menu slot"""
         if not self.is_admin:
