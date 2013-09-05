@@ -99,13 +99,11 @@ def get_locale(handler):
     # check cookie now if it needs to override
     if handler.session.has_key("LANG"):
         if handler.session['LANG'] in ACCEPTED_LANGUAGES:
-            print "found cookie", l
             l = handler.session['LANG']
 
     # or maybe the user wants to force it
     if handler.request.args.has_key("__l"):
         if handler.request.args['__l'] in ACCEPTED_LANGUAGES:
-            print "found request", l
             l = handler.request.args['__l']
 
     # save in cookie
