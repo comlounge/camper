@@ -62,6 +62,10 @@ class RegistrationFieldSchema(Schema):
     fieldtype           = String(required=True)
     required            = Boolean()
 
+class MailSchema(Schema):
+    """a sub schema describing an email template"""
+    subject             = String(required=True)
+    text                = String(required=True)
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
@@ -72,6 +76,7 @@ class EventSchema(Schema):
     location            = Location()
     participants        = List(String()) # TODO: ref
     waiting_list        = List(String()) # TODO: ref
+
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
@@ -92,7 +97,7 @@ class Event(Record):
         active -- the event is active
         finished -- the event has finished
 
-        All of those depend on the date which will be checked in here. 
+        All of those depend on the date which will be checked in here.
 
         We only check for days, not timestamps, so if an event starts at 10am it still
         is supposed to be active for the whole day.
@@ -139,8 +144,8 @@ class BarcampSchema(Schema):
     created             = DateTime()
     updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
-    workflow            = String(required = True, default = "created") 
-    
+    workflow            = String(required = True, default = "created")
+
     # base data
     name                = String(required = True)
     description         = String(required = True)
@@ -151,8 +156,8 @@ class BarcampSchema(Schema):
     location            = Location()
     size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
-    hashtag             = String() 
-    gplus               = String() 
+    hashtag             = String()
+    gplus               = String()
     homepage            = String() # URL
     twitterwall         = String() # URL
     fbAdminId           = String() # optional admin id for facebook use
@@ -165,7 +170,7 @@ class BarcampSchema(Schema):
 
     # user related
     admins              = List(String()) # TODO: ref
-    invited_admins      = List(String()) # list of invited admins who have not yet accepted TODO: ref 
+    invited_admins      = List(String()) # list of invited admins who have not yet accepted TODO: ref
     subscribers         = List(String()) # TODO: ref
 
     # events
@@ -205,7 +210,7 @@ class Barcamp(Record):
 
     def set_workflow(self, new_state):
         """set the workflow to a new state"""
-        old_state = self.workflow                                                                                                                                                      
+        old_state = self.workflow
         if old_state is None:
             old_state = self.initial_workflow_state
         allowed_states = self.workflow_states[old_state]
@@ -224,7 +229,7 @@ class Barcamp(Record):
             m = getattr(self, "on_wf_"+new_state)
             m(old_state = old_state)
         self.workflow = new_state
-   
+
     @property
     def public(self):
         """return whether the barcamp is public or not"""
@@ -315,9 +320,47 @@ class Barcamp(Record):
             self.subscribers.remove(uid)
         self.put()
 
+    def register(self, user, force=False):
+        """register a user to the main event of the barcamp as participant"""
+        uid = unicode(user._id)
+        status = None
+        if not force and len(self.event.participants) >= self.size:
+            if uid not in self.event.waiting_list:
+                self.event.waiting_list.append(uid)
+                if uid in self.subscribers:
+                    self.subscribers.remove(uid)
+                self.put()
+                status = 'waiting'
+        else:
+            if uid not in self.event.participants:
+                self.event.participants.append(uid)
+                if uid in self.subscribers:
+                    self.subscribers.remove(uid)
+                self.put()
+                status = 'participating'
+        return status
+
+    def unregister(self, user):
+        """remove registered user from participants list and/or waiting list"""
+        uid = unicode(user._id)
+        if uid in self.event.participants:
+            self.event.participants.remove(uid)
+        if uid in self.event.waiting_list:
+            self.event.waiting_list.remove(uid)
+
+        if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
+            # somebody from the waiting list can move up
+            nuid = self.event.waiting_list[0]
+            self.event.waiting_list = self.event.waiting_list[1:]
+            self.event.participants.append(nuid)
+
+        # you are now still a subscriber
+        self.subscribe(user)
+
+        self.put()
 
 class Barcamps(Collection):
-    
+
     data_class = Barcamp
 
     def by_slug(self, slug):
