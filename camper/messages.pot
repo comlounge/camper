@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-05 18:22+0200\n"
+"POT-Creation-Date: 2013-09-18 14:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -578,7 +578,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/templates/master.html:145
-msgid "subscribe to barcamp"
+msgid "register my interest"
 msgstr ""
 
 #: barcamps/templates/master.html:150 barcamps/templates/master.html:153
@@ -589,51 +589,77 @@ msgstr ""
 msgid "Register as participant"
 msgstr ""
 
-#: barcamps/templates/master.html:172
+#: barcamps/templates/master.html:160
+msgid "Attention!"
+msgstr ""
+
+#: barcamps/templates/master.html:161
+msgid "In order to mark your interest in this barcamp you first have to"
+msgstr ""
+
+#: barcamps/templates/master.html:162
+msgid "register"
+msgstr ""
+
+#: barcamps/templates/master.html:162
+msgid "or"
+msgstr ""
+
+#: barcamps/templates/master.html:162 templates/M/userbase/login.html:20
+msgid "login"
+msgstr ""
+
+#: barcamps/templates/master.html:163
+msgid ""
+"on the site itself and then come back to this barcamp to mark your "
+"interest."
+msgstr ""
+
+#: barcamps/templates/master.html:179
 msgid "Join us at"
 msgstr ""
 
-#: barcamps/templates/master.html:198
+#: barcamps/templates/master.html:205
 msgid "Administration"
 msgstr ""
 
-#: barcamps/templates/master.html:200
+#: barcamps/templates/master.html:207
 msgid "Upload Logo"
 msgstr ""
 
-#: barcamps/templates/master.html:201
+#: barcamps/templates/master.html:208
 msgid "edit base information"
 msgstr ""
 
-#: barcamps/templates/master.html:202
+#: barcamps/templates/master.html:209
 msgid "edit registration form"
 msgstr ""
 
-#: barcamps/templates/master.html:203
+#: barcamps/templates/master.html:210
 msgid "download participants"
 msgstr ""
 
-#: barcamps/templates/master.html:204
+#: barcamps/templates/master.html:211
 msgid "increase participants"
 msgstr ""
 
-#: barcamps/templates/master.html:205
+#: barcamps/templates/master.html:212
 msgid "new sponsor"
 msgstr ""
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:213
 msgid "edit permissions"
 msgstr ""
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:215
 msgid "create new page"
 msgstr ""
 
-#: barcamps/templates/master.html:210
+#: barcamps/templates/master.html:217
 msgid "DELETE BARCAMP"
 msgstr ""
 
-#: barcamps/templates/master.html:216
+#: barcamps/templates/master.html:223
 msgid "location"
 msgstr ""
 
@@ -760,7 +786,7 @@ msgid "Participants"
 msgstr ""
 
 #: barcamps/templates/userlist.html:35
-msgid "Subscribers"
+msgid "Interested"
 msgstr ""
 
 #: barcamps/templates/userlist.html:39
@@ -886,10 +912,6 @@ msgstr ""
 
 #: templates/M/userbase/login.html:17
 msgid "password"
-msgstr ""
-
-#: templates/M/userbase/login.html:20
-msgid "login"
 msgstr ""
 
 #: templates/M/userbase/login.html:27

@@ -142,7 +142,7 @@
                         <div class="widget-join">
                             {% if view.can_subscribe %}
                                 <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center">
-                                    <button class="btn btn-large btn-info">{{_('subscribe to barcamp')}}</button>
+                                    <button class="btn btn-primary btn-block">{{_('register my interest')}}</button>
                                 </form>
                             {% endif %}
                             {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
@@ -150,11 +150,18 @@
                                     <a href="{{url_for('barcamps.register', slug = slug)}}" class="btn btn-large btn-info" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
                                 {% else %}
                                     <form method="POST" action="{{url_for('barcamps.register', slug = slug)}}">
-                                        <button class="btn btn-large btn-info" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
+                                        <button class="btn btn-info btn-block" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
                                     </form>
                                 {% endif %}
                             {% endif %}
                         </div>
+                        {% else %}
+                            <div class="alert alert-block">
+                                <h4>{{_("Attention!")}}</h4>
+                                {{_('In order to mark your interest in this barcamp you first have to')}} 
+                                <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a> 
+                                {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
+                            </div>
                         {% endif %}
                         {%- endmacro %}
 

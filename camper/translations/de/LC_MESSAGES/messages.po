@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-05 18:22+0200\n"
+"POT-Creation-Date: 2013-09-18 14:50+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -600,62 +600,93 @@ msgstr ""
 "registrieren"
 
 #: barcamps/templates/master.html:145
-msgid "subscribe to barcamp"
-msgstr "Barcamp abonnieren"
+msgid "register my interest"
+msgstr "als Interessent anmelden"
 
 #: barcamps/templates/master.html:150 barcamps/templates/master.html:153
+#, fuzzy
 msgid "register as participant"
-msgstr "Registriere Dich als Teilnehmer"
+msgstr "als Teilnehmer anmelden"
 
 #: barcamps/templates/master.html:150 barcamps/templates/master.html:153
 msgid "Register as participant"
-msgstr "Registriere Dich als Teilnehmer"
+msgstr "als Teilnehmer anmelden"
 
-#: barcamps/templates/master.html:172
-msgid "Join us at"
+#: barcamps/templates/master.html:160
+msgid "Attention!"
+msgstr "Achtung!"
+
+#: barcamps/templates/master.html:161
+msgid "In order to mark your interest in this barcamp you first have to"
 msgstr ""
+"Um Dich als Interessent für dieses Barcamp zu registrieren, musst Du Dich"
+" zunächst"
 
-#: barcamps/templates/master.html:198
+#: barcamps/templates/master.html:162
+msgid "register"
+msgstr "registrieren"
+
+#: barcamps/templates/master.html:162
+msgid "or"
+msgstr "oder"
+
+#: barcamps/templates/master.html:162 templates/M/userbase/login.html:20
+msgid "login"
+msgstr "einloggen"
+
+#: barcamps/templates/master.html:163
+msgid ""
+"on the site itself and then come back to this barcamp to mark your "
+"interest."
+msgstr ""
+"und dann zu diesem Barcamp zurückkommen, um Dich speziell für dieses zu "
+"registrieren."
+
+#: barcamps/templates/master.html:179
+msgid "Join us at"
+msgstr "Treffe uns beim "
+
+#: barcamps/templates/master.html:205
 msgid "Administration"
 msgstr "Verwaltung"
 
-#: barcamps/templates/master.html:200
+#: barcamps/templates/master.html:207
 msgid "Upload Logo"
 msgstr "Logo hochladen"
 
-#: barcamps/templates/master.html:201
+#: barcamps/templates/master.html:208
 msgid "edit base information"
 msgstr "Barcamp bearbeiten "
 
-#: barcamps/templates/master.html:202
+#: barcamps/templates/master.html:209
 msgid "edit registration form"
 msgstr "Registrierung"
 
-#: barcamps/templates/master.html:203
+#: barcamps/templates/master.html:210
 msgid "download participants"
 msgstr "Teilnehmer herunterladen"
 
-#: barcamps/templates/master.html:204
+#: barcamps/templates/master.html:211
 msgid "increase participants"
 msgstr "Teilnehmerzahl erhöhen"
 
-#: barcamps/templates/master.html:205
+#: barcamps/templates/master.html:212
 msgid "new sponsor"
 msgstr "Neuer Sponsor"
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:213
 msgid "edit permissions"
 msgstr "Berechtigungen"
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:215
 msgid "create new page"
 msgstr "neue Seite anlegen"
 
-#: barcamps/templates/master.html:210
+#: barcamps/templates/master.html:217
 msgid "DELETE BARCAMP"
 msgstr "LÖSCHE DAS BARCAMP"
 
-#: barcamps/templates/master.html:216
+#: barcamps/templates/master.html:223
 msgid "location"
 msgstr "Veranstaltungsort"
 
@@ -786,8 +817,8 @@ msgid "Participants"
 msgstr "Teilnehmer"
 
 #: barcamps/templates/userlist.html:35
-msgid "Subscribers"
-msgstr "Interessenten"
+msgid "Interested"
+msgstr ""
 
 #: barcamps/templates/userlist.html:39
 msgid "Waiting list"
@@ -921,10 +952,6 @@ msgstr "Benutzername"
 #: templates/M/userbase/login.html:17
 msgid "password"
 msgstr "Passwort"
-
-#: templates/M/userbase/login.html:20
-msgid "login"
-msgstr "Einloggen"
 
 #: templates/M/userbase/login.html:27
 msgid "remember me"
