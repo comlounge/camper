@@ -32,6 +32,7 @@ class BarcampModule(Module):
         URL('/<slug>/location',     'location',         location.LocationView),
         URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),
         URL('/<slug>/register',     'register',         registration.BarcampRegister),
+        URL('/<slug>/admin_register',     'admin_register',         registration.BarcampAdminRegister),
         URL('/<slug>/unregister',   'unregister',       registration.BarcampUnregister),
         URL('/<slug>/planning',     'planning_pad',     pads.PlanningPadView),
         URL('/<slug>/planning/toggle', 'planning_pad_toggle', pads.PadPublicToggleView),

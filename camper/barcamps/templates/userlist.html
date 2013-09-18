@@ -1,6 +1,6 @@
 {% extends "_m/barcamps/master.html" %}
 
-{% macro list(users, remove_url=None) -%}
+{% macro list(users, remove_url=None, to_participant_url=None) -%}
     <ul class="media-list participants">
     {% for myuser in users %}
         <li class="media">
@@ -13,6 +13,18 @@
                         <input type="hidden" name="u" value="{{myuser.username}}">
                         <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
                     </form>
+                    <form method="post" class="pull-right" action="{{to_participant_url}}">
+                        <input type="hidden" name="u" value="{{myuser.username}}">
+                        <button class="btn btn-mini btn-danger"><i class="icon-white icon-plus"></i></button>
+                    </form>
+                    <!--div>
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-chevron-down"></i></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                            </ul>
+                        </div>
+                    </div-->
                 {% endif %}
                 <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
                     {% if myuser.has_organisation %}
@@ -33,7 +45,7 @@
         </div>
         <div class="span3">
             <h2>{{_('Subscribers')}}</h2>
-            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug))}}
+            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
         </div>
         <div class="span3">
             <h2>{{_('Waiting list')}}</h2>
