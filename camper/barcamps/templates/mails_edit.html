@@ -1,0 +1,25 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {% block title %}
+        <h1>{{_('Edit mail templates')}}</h1>
+    {% endblock %}
+    <form class="form form-horizontal" method="POST" action="{{url}}">
+        <fieldset>
+            {{ formmacros.form_field(form.welcome_subject, class="required span6") }}
+            {{ formmacros.form_field(form.welcome_text, class="required span6", rows=6) }}
+            <hr />
+            {{ formmacros.form_field(form.onwaitinglist_subject, class="required span6") }}
+            {{ formmacros.form_field(form.onwaitinglist_text, class="required span6", rows=6) }}
+            <hr />
+            {{ formmacros.form_field(form.fromwaitinglist_subject, class="required span6") }}
+            {{ formmacros.form_field(form.fromwaitinglist_text, class="required span6", rows=6) }}
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="{{_('Save')}}">
+    </form>
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+{% endblock %}

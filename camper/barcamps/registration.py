@@ -51,7 +51,7 @@ class BarcampAdminRegister(BarcampBaseHandler):
             self.barcamp.register(user, force=True)
             view = self.barcamp_view
             self.flash(self._('User %s has been registered!' % username))
-            self.mail_text("emails/welcome.txt", self._('Welcome to %s' %self.barcamp.name),
+            self.mail_template("welcome",
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
@@ -91,20 +91,19 @@ class BarcampRegister(BarcampBaseHandler):
             uid = unicode(self.user._id)
             self.barcamp.registration_data[uid] = f
             self.barcamp.save()
-
             # register the user
             registered = self.barcamp.register(self.user)
             view = self.barcamp_view
             if registered == 'waiting':
                 self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
-                self.mail_text("emails/welcome.txt", self._('You are now on the waiting list for %s' %self.barcamp.name),
+                self.mail_template("onwaitinglist",
                     view = view,
                     barcamp = self.barcamp,
                     title = self.barcamp.name,
                     **self.barcamp)
             elif registered == 'participating':
                 self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
-                self.mail_text("emails/welcome.txt", self._('Welcome to %s' %self.barcamp.name),
+                self.mail_template("welcome",
                     view = view,
                     barcamp = self.barcamp,
                     title = self.barcamp.name,

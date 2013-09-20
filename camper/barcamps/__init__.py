@@ -25,6 +25,7 @@ class BarcampModule(Module):
         URL('/<slug>/validate',     'validate',         add.ValidateView),
         URL('/<slug>/delete',       'delete',           delete.DeleteConfirmView),
         URL('/<slug>/edit',         'edit',             edit.EditView),
+        URL('/<slug>/mails_edit',   'email_template_editor', edit.MailsEditView),
         URL('/<slug>/participants_edit', 'participants_edit', edit.ParticipantsEditView),
         URL('/<slug>/registration_editor', 'registration_form_editor', edit.ParticipantsDataEditView),
         URL('/<slug>/registration.xls', 'registration_data_export', registration.RegistrationDataExport),

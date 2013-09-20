@@ -62,10 +62,14 @@ class RegistrationFieldSchema(Schema):
     fieldtype           = String(required=True)
     required            = Boolean()
 
-class MailSchema(Schema):
-    """a sub schema describing an email template"""
-    subject             = String(required=True)
-    text                = String(required=True)
+class MailsSchema(Schema):
+    """a sub schema describing email templates"""
+    welcome_subject         = String()
+    welcome_text            = String()
+    onwaitinglist_subject   = String()
+    onwaitinglist_text      = String()
+    fromwaitinglist_subject = String()
+    fromwaitinglist_text    = String()
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
@@ -183,6 +187,9 @@ class BarcampSchema(Schema):
     # registration_form
     registration_form   = List(RegistrationFieldSchema())
     registration_data   = Dict() # user => data
+
+    # default mail templates
+    mail_templates      = MailsSchema()
 
 
 class Barcamp(Record):
