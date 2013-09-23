@@ -68,7 +68,6 @@ class NewsletterEditView(BarcampBaseHandler):
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
                 for user in users:
                     send_to = user.email
-                    print "mail sent to ", send_to
                     mailer.mail(send_to, f['subject'], f['body'])
                 self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
