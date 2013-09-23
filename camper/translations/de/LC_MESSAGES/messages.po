@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-23 17:04+0200\n"
+"POT-Creation-Date: 2013-09-23 17:43+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -353,29 +353,13 @@ msgid ""
 "exists"
 msgstr ""
 
-#: barcamps/edit.py:118
-msgid "Subject of welcome mail"
-msgstr ""
+#: barcamps/edit.py:118 barcamps/edit.py:124 barcamps/edit.py:130
+msgid "Subject"
+msgstr "Betreff"
 
-#: barcamps/edit.py:121
-msgid "Body of welcome mail"
-msgstr ""
-
-#: barcamps/edit.py:124
-msgid "Subject of waiting list mail"
-msgstr ""
-
-#: barcamps/edit.py:127
-msgid "Body of waiting list mail"
-msgstr ""
-
-#: barcamps/edit.py:130
-msgid "Subject of participant mail"
-msgstr "Betreff der Mail"
-
-#: barcamps/edit.py:133
-msgid "Body of participant mail"
-msgstr "Inhalt der Mail"
+#: barcamps/edit.py:121 barcamps/edit.py:127 barcamps/edit.py:133
+msgid "Body"
+msgstr "Mailtext"
 
 #: barcamps/edit.py:175
 #, python-format
@@ -594,14 +578,78 @@ msgstr "Neuen Blogpost hinzufügen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:18
+#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:46
 #: barcamps/templates/sessions.html:87
 msgid "Save"
 msgstr "Speichern"
 
-#: barcamps/templates/mails_edit.html:5
+#: barcamps/templates/mails_edit.html:6
 msgid "Edit mail templates"
+msgstr "Bearbeite Mail-Templates"
+
+#: barcamps/templates/mails_edit.html:8
+msgid "for your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/mails_edit.html:15
+msgid "Tip!"
+msgstr "Tipp!"
+
+#: barcamps/templates/mails_edit.html:15
+msgid ""
+"You can use <code>((fullname))</code> in a mail body which will be "
+"replaced by\n"
+"            the name of the user the mail is sent to, e.g. 'Hello "
+"((fullname)),... '"
 msgstr ""
+"Du kannst <code>((fullname))</code> in einem Mailtext benutzen, um den "
+"vollen Namen des Benutzer einzuseten, an den die Mail geschickt wird. "
+"Beispiel: 'Hallo ((fullname)), ...'"
+
+#: barcamps/templates/mails_edit.html:19
+msgid "Welcome Mail"
+msgstr "Willkommens-Mail"
+
+#: barcamps/templates/mails_edit.html:21
+msgid ""
+"The Welcome Mail is sent when a user has successfully registered as "
+"participant. It is\n"
+"                not sent if the user is going to be moved to the waiting "
+"list in case the participant list is already full."
+msgstr ""
+"Die Willkommens-Mail wird an einen Benutzer gesendet, der sich "
+"erfolgreich als Teilnehmer registriert hat. Sie wird nicht gesendet, wenn"
+" der Benutzer auf der Warteliste landete. Dann gilt die Mail unten."
+
+#: barcamps/templates/mails_edit.html:28
+msgid "Waitinglist Mail"
+msgstr "Wartelisten-Mail"
+
+#: barcamps/templates/mails_edit.html:30
+msgid ""
+"This Mail is sent when the maximum number of participant has been reached"
+" and the user is being\n"
+"                moved onto the waitinglist."
+msgstr ""
+"Diese Mail wird an einen Benutzer gesendet, wenn die maximale "
+"Teilnehmerzahl erreicht wurde und er auf der Warteliste landet."
+
+#: barcamps/templates/mails_edit.html:37
+msgid "From Waitinglist Mail"
+msgstr "Warteliste-zu-Teilnehmer-Mail"
+
+#: barcamps/templates/mails_edit.html:39
+msgid ""
+"This Mail is sent to a user who is being moved from the waiting list to "
+"the participants list.\n"
+"                This can happen if an existing participant cancels his "
+"participation or if the barcamp admin increases\n"
+"                the number of participants"
+msgstr ""
+"Diese Mail wird an einen Benutzer gesendet, der von der Warteliste auf "
+"die Teilnehmerliste nachrückt. Dies passiert entweder, wenn ein "
+"Teilnehmer absagt oder wenn der Veranstalter die Kapazität des  Barcamps "
+"erhöht. "
 
 #: barcamps/templates/master.html:119
 msgid "publish barcamp"
@@ -810,23 +858,23 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
-#: barcamps/templates/userlist.html:19
+#: barcamps/templates/userlist.html:24
 msgid "register user as participant"
 msgstr "auf Teilnehmerliste setzen"
 
-#: barcamps/templates/userlist.html:24
+#: barcamps/templates/userlist.html:29
 msgid "remove user from list"
 msgstr "Benutzer von der Liste entfernen"
 
-#: barcamps/templates/userlist.html:45
+#: barcamps/templates/userlist.html:50
 msgid "Participants"
 msgstr "Teilnehmer"
 
-#: barcamps/templates/userlist.html:49
+#: barcamps/templates/userlist.html:54
 msgid "Subscribers"
 msgstr "Interessenten"
 
-#: barcamps/templates/userlist.html:53
+#: barcamps/templates/userlist.html:58
 msgid "Waiting list"
 msgstr "Warteliste"
 

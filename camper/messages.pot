@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-23 17:04+0200\n"
+"POT-Creation-Date: 2013-09-23 17:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -344,28 +344,12 @@ msgid ""
 "exists"
 msgstr ""
 
-#: barcamps/edit.py:118
-msgid "Subject of welcome mail"
+#: barcamps/edit.py:118 barcamps/edit.py:124 barcamps/edit.py:130
+msgid "Subject"
 msgstr ""
 
-#: barcamps/edit.py:121
-msgid "Body of welcome mail"
-msgstr ""
-
-#: barcamps/edit.py:124
-msgid "Subject of waiting list mail"
-msgstr ""
-
-#: barcamps/edit.py:127
-msgid "Body of waiting list mail"
-msgstr ""
-
-#: barcamps/edit.py:130
-msgid "Subject of participant mail"
-msgstr ""
-
-#: barcamps/edit.py:133
-msgid "Body of participant mail"
+#: barcamps/edit.py:121 barcamps/edit.py:127 barcamps/edit.py:133
+msgid "Body"
 msgstr ""
 
 #: barcamps/edit.py:175
@@ -575,13 +559,65 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:18
+#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:46
 #: barcamps/templates/sessions.html:87
 msgid "Save"
 msgstr ""
 
-#: barcamps/templates/mails_edit.html:5
+#: barcamps/templates/mails_edit.html:6
 msgid "Edit mail templates"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:8
+msgid "for your barcamp"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:15
+msgid "Tip!"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:15
+msgid ""
+"You can use <code>((fullname))</code> in a mail body which will be "
+"replaced by\n"
+"            the name of the user the mail is sent to, e.g. 'Hello "
+"((fullname)),... '"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:19
+msgid "Welcome Mail"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:21
+msgid ""
+"The Welcome Mail is sent when a user has successfully registered as "
+"participant. It is\n"
+"                not sent if the user is going to be moved to the waiting "
+"list in case the participant list is already full."
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:28
+msgid "Waitinglist Mail"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:30
+msgid ""
+"This Mail is sent when the maximum number of participant has been reached"
+" and the user is being\n"
+"                moved onto the waitinglist."
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:37
+msgid "From Waitinglist Mail"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:39
+msgid ""
+"This Mail is sent to a user who is being moved from the waiting list to "
+"the participants list.\n"
+"                This can happen if an existing participant cancels his "
+"participation or if the barcamp admin increases\n"
+"                the number of participants"
 msgstr ""
 
 #: barcamps/templates/master.html:119
@@ -784,23 +820,23 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr ""
 
-#: barcamps/templates/userlist.html:19
+#: barcamps/templates/userlist.html:24
 msgid "register user as participant"
 msgstr ""
 
-#: barcamps/templates/userlist.html:24
+#: barcamps/templates/userlist.html:29
 msgid "remove user from list"
 msgstr ""
 
-#: barcamps/templates/userlist.html:45
+#: barcamps/templates/userlist.html:50
 msgid "Participants"
 msgstr ""
 
-#: barcamps/templates/userlist.html:49
+#: barcamps/templates/userlist.html:54
 msgid "Subscribers"
 msgstr ""
 
-#: barcamps/templates/userlist.html:53
+#: barcamps/templates/userlist.html:58
 msgid "Waiting list"
 msgstr ""
 
