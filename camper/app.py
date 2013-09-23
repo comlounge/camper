@@ -69,6 +69,8 @@ def markdownify(text, level=1):
 ACCEPTED_LANGUAGES = ['de', 'en']
 
 def parseAcceptLanguage(acceptLanguage):
+  if acceptLanguage is None:
+    return [("en", 1)]
   languages = acceptLanguage.split(",")
   locale_q_pairs = []
 
