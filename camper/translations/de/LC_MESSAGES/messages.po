@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-05 18:22+0200\n"
+"POT-Creation-Date: 2013-09-23 17:04+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -203,12 +203,30 @@ msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
 
-#: barcamps/add.py:130
+#: barcamps/add.py:133
+#, python-format
+msgid "Welcome to %s"
+msgstr "Willkommen zu %s"
+
+#: barcamps/add.py:135 barcamps/registration.py:98
+msgid ""
+"Unfortunately list of participants is already full. You have been put "
+"onto the waiting list and will be informed should you move on to the list"
+" of participants."
+msgstr ""
+"Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
+"Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
+
+#: barcamps/add.py:137 barcamps/registration.py:105
+msgid "You are now on the list of participants for this barcamp."
+msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
+
+#: barcamps/add.py:142
 #, python-format
 msgid "%s has been created"
 msgstr "%s wurde angelegt."
 
-#: barcamps/add.py:154
+#: barcamps/add.py:166
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
@@ -252,7 +270,7 @@ msgstr ""
 "Jedes Barcamp brauch einen Titel, z.B. 'Barcamp Aachen 2012' or "
 "'JugendBarcamp'"
 
-#: barcamps/edit.py:23 barcamps/edit.py:144
+#: barcamps/edit.py:23 barcamps/edit.py:192
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -335,48 +353,72 @@ msgid ""
 "exists"
 msgstr ""
 
+#: barcamps/edit.py:118
+msgid "Subject of welcome mail"
+msgstr ""
+
+#: barcamps/edit.py:121
+msgid "Body of welcome mail"
+msgstr ""
+
+#: barcamps/edit.py:124
+msgid "Subject of waiting list mail"
+msgstr ""
+
 #: barcamps/edit.py:127
+msgid "Body of waiting list mail"
+msgstr ""
+
+#: barcamps/edit.py:130
+msgid "Subject of participant mail"
+msgstr "Betreff der Mail"
+
+#: barcamps/edit.py:133
+msgid "Body of participant mail"
+msgstr "Inhalt der Mail"
+
+#: barcamps/edit.py:175
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
 
-#: barcamps/edit.py:141
+#: barcamps/edit.py:189
 msgid "Name of field"
 msgstr "Name des Feldes"
 
-#: barcamps/edit.py:142
+#: barcamps/edit.py:190
 msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
 msgstr ""
 "Der Name des Feldes, das im Formular angezeigt werden soll, z.B. 'T"
 "-Shirt-Größe'"
 
-#: barcamps/edit.py:145
+#: barcamps/edit.py:193
 msgid "please describe what the user should enter in this field."
 msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
 
-#: barcamps/edit.py:147 barcamps/templates/participants_data_edit.html:13
+#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:13
 msgid "field type"
 msgstr "Art des Feldes"
 
-#: barcamps/edit.py:147
+#: barcamps/edit.py:195
 msgid "text field"
 msgstr "Textfeld"
 
-#: barcamps/edit.py:147
+#: barcamps/edit.py:195
 msgid "text area"
 msgstr "Textbereich"
 
-#: barcamps/edit.py:148
+#: barcamps/edit.py:196
 msgid "please chose between a one-line text field or multi-line text area"
 msgstr ""
 "Bitte wähle zwischen einem einzeiligen Textfeld oder einem mehrzeiligen "
 "Textbereich"
 
-#: barcamps/edit.py:150
+#: barcamps/edit.py:198
 msgid "field required?"
 msgstr "Feld erforderlich?"
 
-#: barcamps/edit.py:151
+#: barcamps/edit.py:199
 msgid ""
 "If you enable this then the user cannot register before this field has "
 "been filled in."
@@ -454,38 +496,16 @@ msgstr ""
 "%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
 "entfernt."
 
-#: barcamps/registration.py:77
-msgid "You have been registered!"
-msgstr "Du hast Dich erfolgreich registriert."
-
-#: barcamps/registration.py:97
-msgid ""
-"Unfortunately list of participants is already full. You have been put "
-"onto the waiting list and will be informed should you move on to the list"
-" of participants."
-msgstr ""
-"Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
-"Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
-
-#: barcamps/registration.py:103
+#: barcamps/registration.py:53
 #, python-format
-msgid "You are now on the waiting list for %s"
-msgstr "Du bist nun auf der Warteliste für das %s"
+msgid "User %s has been registered!"
+msgstr "Benutzer %s wurde registriert."
 
-#: barcamps/registration.py:109
-msgid "You are now on the list of participants for this barcamp."
-msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
-
-#: barcamps/registration.py:115
-#, python-format
-msgid "Welcome to %s"
-msgstr "Willkommen zu %s"
-
-#: barcamps/registration.py:161
+#: barcamps/registration.py:147
 msgid "You have been removed from the list of participants."
 msgstr "Du wurdest erfolgreich von der Teilnehmerliste entfernt."
 
-#: barcamps/registration.py:163
+#: barcamps/registration.py:149
 #, python-format
 msgid "%(fullname)s has been removed from the list of participants."
 msgstr "%(fullname)s wurde erfolgreich von der Teilnehmerliste entfernt."
@@ -574,9 +594,14 @@ msgstr "Neuen Blogpost hinzufügen"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: barcamps/templates/docs.html:35 barcamps/templates/sessions.html:87
+#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:18
+#: barcamps/templates/sessions.html:87
 msgid "Save"
 msgstr "Speichern"
+
+#: barcamps/templates/mails_edit.html:5
+msgid "Edit mail templates"
+msgstr ""
 
 #: barcamps/templates/master.html:119
 msgid "publish barcamp"
@@ -632,30 +657,34 @@ msgid "edit registration form"
 msgstr "Registrierung"
 
 #: barcamps/templates/master.html:203
+msgid "edit mail templates"
+msgstr ""
+
+#: barcamps/templates/master.html:204
 msgid "download participants"
 msgstr "Teilnehmer herunterladen"
 
-#: barcamps/templates/master.html:204
+#: barcamps/templates/master.html:205
 msgid "increase participants"
 msgstr "Teilnehmerzahl erhöhen"
 
-#: barcamps/templates/master.html:205
+#: barcamps/templates/master.html:206
 msgid "new sponsor"
 msgstr "Neuer Sponsor"
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:207
 msgid "edit permissions"
 msgstr "Berechtigungen"
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:209
 msgid "create new page"
 msgstr "neue Seite anlegen"
 
-#: barcamps/templates/master.html:210
+#: barcamps/templates/master.html:211
 msgid "DELETE BARCAMP"
 msgstr "LÖSCHE DAS BARCAMP"
 
-#: barcamps/templates/master.html:216
+#: barcamps/templates/master.html:217
 msgid "location"
 msgstr "Veranstaltungsort"
 
@@ -781,15 +810,23 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
-#: barcamps/templates/userlist.html:31
+#: barcamps/templates/userlist.html:19
+msgid "register user as participant"
+msgstr "auf Teilnehmerliste setzen"
+
+#: barcamps/templates/userlist.html:24
+msgid "remove user from list"
+msgstr "Benutzer von der Liste entfernen"
+
+#: barcamps/templates/userlist.html:45
 msgid "Participants"
 msgstr "Teilnehmer"
 
-#: barcamps/templates/userlist.html:35
+#: barcamps/templates/userlist.html:49
 msgid "Subscribers"
 msgstr "Interessenten"
 
-#: barcamps/templates/userlist.html:39
+#: barcamps/templates/userlist.html:53
 msgid "Waiting list"
 msgstr "Warteliste"
 
@@ -807,14 +844,12 @@ msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
 
 #: pages/add.py:13
-#, fuzzy
 msgid "title of the page (max. 300 characters)"
-msgstr "bitte nur den Benutzername, max. 100 Zeichen"
+msgstr "Titel der Seite (max. 300 Zeichen)"
 
 #: pages/edit.py:15
-#, fuzzy
 msgid "Page title (max. 300 characters)"
-msgstr "max. 100 Zeichen"
+msgstr "Seitentitel (max. 300 Zeichen)"
 
 #: pages/edit.py:16
 msgid "Menu title"
@@ -847,7 +882,6 @@ msgid "Image (optional)"
 msgstr "Bild (optional)"
 
 #: pages/edit.py:40
-#, fuzzy
 msgid "page updated."
 msgstr "Seite aktualisiert."
 
@@ -858,7 +892,6 @@ msgstr ""
 " es erneut."
 
 #: pages/view.py:58
-#, fuzzy
 msgid "the page has been deleted"
 msgstr "Die Seite wurde gelöscht"
 
@@ -951,22 +984,18 @@ msgid "Please send me a new activation code"
 msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
 
 #: templates/pages/add.html:8
-#, fuzzy
 msgid "Create new page"
 msgstr "neue Seite anlegen"
 
 #: templates/pages/add.html:11
-#, fuzzy
 msgid "Page title"
 msgstr "Titel"
 
 #: templates/pages/add.html:13
-#, fuzzy
 msgid "Create page"
 msgstr "neue Seite anlegen"
 
 #: templates/pages/edit.html:9
-#, fuzzy
 msgid "page title"
 msgstr "Titel"
 

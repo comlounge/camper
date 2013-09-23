@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-05 18:22+0200\n"
+"POT-Creation-Date: 2013-09-23 17:04+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -201,12 +201,28 @@ msgstr ""
 msgid "the city was not found in the geo database"
 msgstr ""
 
-#: barcamps/add.py:130
+#: barcamps/add.py:133
+#, python-format
+msgid "Welcome to %s"
+msgstr ""
+
+#: barcamps/add.py:135 barcamps/registration.py:98
+msgid ""
+"Unfortunately list of participants is already full. You have been put "
+"onto the waiting list and will be informed should you move on to the list"
+" of participants."
+msgstr ""
+
+#: barcamps/add.py:137 barcamps/registration.py:105
+msgid "You are now on the list of participants for this barcamp."
+msgstr ""
+
+#: barcamps/add.py:142
 #, python-format
 msgid "%s has been created"
 msgstr ""
 
-#: barcamps/add.py:154
+#: barcamps/add.py:166
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
@@ -248,7 +264,7 @@ msgid ""
 "\"JMStVCamp\""
 msgstr ""
 
-#: barcamps/edit.py:23 barcamps/edit.py:144
+#: barcamps/edit.py:23 barcamps/edit.py:192
 msgid "Description"
 msgstr ""
 
@@ -328,44 +344,68 @@ msgid ""
 "exists"
 msgstr ""
 
+#: barcamps/edit.py:118
+msgid "Subject of welcome mail"
+msgstr ""
+
+#: barcamps/edit.py:121
+msgid "Body of welcome mail"
+msgstr ""
+
+#: barcamps/edit.py:124
+msgid "Subject of waiting list mail"
+msgstr ""
+
 #: barcamps/edit.py:127
+msgid "Body of waiting list mail"
+msgstr ""
+
+#: barcamps/edit.py:130
+msgid "Subject of participant mail"
+msgstr ""
+
+#: barcamps/edit.py:133
+msgid "Body of participant mail"
+msgstr ""
+
+#: barcamps/edit.py:175
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
 
-#: barcamps/edit.py:141
+#: barcamps/edit.py:189
 msgid "Name of field"
 msgstr ""
 
-#: barcamps/edit.py:142
+#: barcamps/edit.py:190
 msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
 msgstr ""
 
-#: barcamps/edit.py:145
+#: barcamps/edit.py:193
 msgid "please describe what the user should enter in this field."
 msgstr ""
 
-#: barcamps/edit.py:147 barcamps/templates/participants_data_edit.html:13
+#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:13
 msgid "field type"
 msgstr ""
 
-#: barcamps/edit.py:147
+#: barcamps/edit.py:195
 msgid "text field"
 msgstr ""
 
-#: barcamps/edit.py:147
+#: barcamps/edit.py:195
 msgid "text area"
 msgstr ""
 
-#: barcamps/edit.py:148
+#: barcamps/edit.py:196
 msgid "please chose between a one-line text field or multi-line text area"
 msgstr ""
 
-#: barcamps/edit.py:150
+#: barcamps/edit.py:198
 msgid "field required?"
 msgstr ""
 
-#: barcamps/edit.py:151
+#: barcamps/edit.py:199
 msgid ""
 "If you enable this then the user cannot register before this field has "
 "been filled in."
@@ -439,36 +479,16 @@ msgid ""
 "barcamp"
 msgstr ""
 
-#: barcamps/registration.py:77
-msgid "You have been registered!"
-msgstr ""
-
-#: barcamps/registration.py:97
-msgid ""
-"Unfortunately list of participants is already full. You have been put "
-"onto the waiting list and will be informed should you move on to the list"
-" of participants."
-msgstr ""
-
-#: barcamps/registration.py:103
+#: barcamps/registration.py:53
 #, python-format
-msgid "You are now on the waiting list for %s"
+msgid "User %s has been registered!"
 msgstr ""
 
-#: barcamps/registration.py:109
-msgid "You are now on the list of participants for this barcamp."
-msgstr ""
-
-#: barcamps/registration.py:115
-#, python-format
-msgid "Welcome to %s"
-msgstr ""
-
-#: barcamps/registration.py:161
+#: barcamps/registration.py:147
 msgid "You have been removed from the list of participants."
 msgstr ""
 
-#: barcamps/registration.py:163
+#: barcamps/registration.py:149
 #, python-format
 msgid "%(fullname)s has been removed from the list of participants."
 msgstr ""
@@ -555,8 +575,13 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: barcamps/templates/docs.html:35 barcamps/templates/sessions.html:87
+#: barcamps/templates/docs.html:35 barcamps/templates/mails_edit.html:18
+#: barcamps/templates/sessions.html:87
 msgid "Save"
+msgstr ""
+
+#: barcamps/templates/mails_edit.html:5
+msgid "Edit mail templates"
 msgstr ""
 
 #: barcamps/templates/master.html:119
@@ -610,30 +635,34 @@ msgid "edit registration form"
 msgstr ""
 
 #: barcamps/templates/master.html:203
-msgid "download participants"
+msgid "edit mail templates"
 msgstr ""
 
 #: barcamps/templates/master.html:204
-msgid "increase participants"
+msgid "download participants"
 msgstr ""
 
 #: barcamps/templates/master.html:205
-msgid "new sponsor"
+msgid "increase participants"
 msgstr ""
 
 #: barcamps/templates/master.html:206
+msgid "new sponsor"
+msgstr ""
+
+#: barcamps/templates/master.html:207
 msgid "edit permissions"
 msgstr ""
 
-#: barcamps/templates/master.html:208
+#: barcamps/templates/master.html:209
 msgid "create new page"
 msgstr ""
 
-#: barcamps/templates/master.html:210
+#: barcamps/templates/master.html:211
 msgid "DELETE BARCAMP"
 msgstr ""
 
-#: barcamps/templates/master.html:216
+#: barcamps/templates/master.html:217
 msgid "location"
 msgstr ""
 
@@ -755,15 +784,23 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr ""
 
-#: barcamps/templates/userlist.html:31
+#: barcamps/templates/userlist.html:19
+msgid "register user as participant"
+msgstr ""
+
+#: barcamps/templates/userlist.html:24
+msgid "remove user from list"
+msgstr ""
+
+#: barcamps/templates/userlist.html:45
 msgid "Participants"
 msgstr ""
 
-#: barcamps/templates/userlist.html:35
+#: barcamps/templates/userlist.html:49
 msgid "Subscribers"
 msgstr ""
 
-#: barcamps/templates/userlist.html:39
+#: barcamps/templates/userlist.html:53
 msgid "Waiting list"
 msgstr ""
 
