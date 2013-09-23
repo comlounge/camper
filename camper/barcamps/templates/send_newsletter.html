@@ -8,17 +8,7 @@
         <fieldset>
         {{ formmacros.form_field(form.subject, class="required span6") }}
         {{ formmacros.form_field(form.body, class="required span6", rows=15) }}
-        <div class="control-group">
-            <label class="control-label">{{_('Recipients')}}</label>
-            <div class="row">
-                <div class="span2">
-                    {{ form.participants() }}
-                </div>
-                <div class="span2">
-                    {{ form.subscribers() }}
-                </div>
-            </div>
-        </div>
+        {{ formmacros.form_field(form.recipients, class="required span6") }}
         {{ formmacros.form_field(form.testmail, class="span6 email") }}
         </fieldset>
         {% block action %}

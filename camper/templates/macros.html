@@ -87,6 +87,16 @@
     </label>
 </div>
 {%- endmacro -%}
+{%- macro form_field_radio(field) -%}
+<div class="controls" id="{{field.id}}-div">
+    {% for subfield in field %}
+    <label class="radio">
+        {{ subfield() }}
+        {{ _(subfield.label.text) }}
+    </label>
+    {% endfor %}
+</div>
+{%- endmacro -%}
 {%- macro form_field_multicheckbox(field) -%}
     {% for subfield in field %}
         <label class="checkbox">
@@ -114,10 +124,10 @@
         {% else%}
             {{ form_field_label(field) }}
             <div class="controls" id="{{field.id}}-div">
-                {% if field.type == 'RadioField' %}
-                    {{ field(class='radio-group', **kwargs) }}
-                {% elif field.type == 'MultiCheckboxField' %}
+                {% if field.type == 'MultiCheckboxField' %}
                     {{ form_field_multicheckbox(field) }}
+                {% elif field.type == 'RadioField' %}
+                    {{ form_field_radio(field) }}
                 {% else %}
                     {{ my_field(field, **kwargs) }}
                 {% endif %}

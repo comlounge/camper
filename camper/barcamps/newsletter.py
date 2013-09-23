@@ -21,13 +21,10 @@ class NewsletterForm(BaseForm):
     body    = TextAreaField(T("Newsletter body"), [validators.Required()],
                 #description = T('please describe your barcamp here'),
     )
-    participants = BooleanValueField("Participants", widget=checkbox_button,
-                default=True,
-    )
-    subscribers = BooleanValueField("Subscribers", widget=checkbox_button
-    )
-    testmail = TextField(T("Test mail"),
-                #description = T('every barcamp needs a title. examples: "Barcamp Aachen 2012", "JMStVCamp"'),
+    recipients = RadioField(T("Recipients"), [validators.Required],
+        choices = [("participants", T("Participants")), ("subscribers", T("interested people")), ("all", T("both"))])
+    testmail = TextField(T("E-Mail address for testing the newsletter"),
+                description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
     )
 
 class NewsletterEditView(BarcampBaseHandler):
@@ -40,7 +37,7 @@ class NewsletterEditView(BarcampBaseHandler):
     @is_admin()
     def get(self, slug = None):
         """render the view"""
-        form = NewsletterForm(self.request.form, config = self.config)
+        form = NewsletterForm(self.request.form, config = self.config, recipients = "all")
         if self.request.method == 'POST' and form.validate():
             f = form.data
             mailer = self.app.module_map['mail']
@@ -61,15 +58,19 @@ class NewsletterEditView(BarcampBaseHandler):
             elif self.request.form.has_key('send_newsletter'):
                 # send newsletter to recipients
                 recipient_ids = []
-                if f['subscribers']:
-                    recipient_ids += self.barcamp.subscribers
-                if f['participants']:
-                    recipient_ids += self.barcamp.event.participants
+                if f['recipients']=="subscribers":
+                    recipient_ids = self.barcamp.subscribers
+                elif f['recipients']=="participants":
+                    recipient_ids = self.barcamp.event.participants
+                elif f['recipients']=="all":
+                    recipient_ids = self.barcamp.event.participants + self.barcamp.subscribers
+                recipient_ids = set(recipient_ids)
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
-                send_to = self.user.email
-                cc = [u.email for u in users]
-                mailer.mail(send_to, f['subject'], f['body'], cc=cc)
-                self.flash("Newsletter erfolgreich versandt", category="info")
+                for user in users:
+                    send_to = user.email
+                    print "mail sent to ", send_to
+                    mailer.mail(send_to, f['subject'], f['body'])
+                self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
 
         return self.render(
