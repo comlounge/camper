@@ -21,7 +21,7 @@ class NewsletterForm(BaseForm):
     body    = TextAreaField(T("Newsletter body"), [validators.Required()],
                 #description = T('please describe your barcamp here'),
     )
-    recipients = RadioField(T("Recipients"), [validators.Required],
+    recipients = RadioField(T("Recipients"), [validators.Required()],
         choices = [("participants", T("Participants")), ("subscribers", T("interested people")), ("all", T("both"))])
     testmail = TextField(T("E-Mail address for testing the newsletter"),
                 description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
