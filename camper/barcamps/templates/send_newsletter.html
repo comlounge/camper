@@ -1,0 +1,24 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {% block title %}
+        <h1>{{_('Send Newsletter')}}</h1>
+    {% endblock %}
+    <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">
+        <fieldset>
+        {{ formmacros.form_field(form.subject, class="required span6") }}
+        {{ formmacros.form_field(form.body, class="required span6", rows=15) }}
+        {{ formmacros.form_field(form.recipients, class="required span6") }}
+        {{ formmacros.form_field(form.testmail, class="span6 email") }}
+        </fieldset>
+        {% block action %}
+            <input type="submit" name="send_test_mail" id="send_test_mail" class="btn btn-large" value="{{_('Send Test Mail')}}">
+            <input type="submit"
+                   onclick="confirm('{{_('Really send Newsletter?')}}');"
+                   name="send_newsletter"
+                   id="send_newsletter"
+                   class="btn btn-large btn-primary"
+                   value="{{_('Send Newsletter')}}">
+        {% endblock %}
+    </form>
+{% endblock %}

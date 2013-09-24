@@ -2,6 +2,7 @@ import index
 import images
 import add
 import edit
+import newsletter
 import sessions
 import userlist
 import pads
@@ -26,6 +27,7 @@ class BarcampModule(Module):
         URL('/<slug>/delete',       'delete',           delete.DeleteConfirmView),
         URL('/<slug>/edit',         'edit',             edit.EditView),
         URL('/<slug>/mails_edit',   'email_template_editor', edit.MailsEditView),
+        URL('/<slug>/newsletter_send', 'newsletter_send', newsletter.NewsletterEditView),
         URL('/<slug>/participants_edit', 'participants_edit', edit.ParticipantsEditView),
         URL('/<slug>/registration_editor', 'registration_form_editor', edit.ParticipantsDataEditView),
         URL('/<slug>/registration.xls', 'registration_data_export', registration.RegistrationDataExport),

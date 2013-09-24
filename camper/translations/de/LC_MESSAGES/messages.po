@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-24 12:31+0200\n"
+"POT-Creation-Date: 2013-09-24 12:33+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -356,6 +356,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/edit.py:118 barcamps/edit.py:124 barcamps/edit.py:130
+#: barcamps/newsletter.py:18
 msgid "Subject"
 msgstr "Betreff"
 
@@ -411,6 +412,42 @@ msgid ""
 msgstr ""
 "Wenn Du diese Checkbox aktiviest, dann kann der Benutzer sich nicht "
 "registrieren, bevor er dieses Feld ausgefüllt hat."
+
+#: barcamps/newsletter.py:21
+msgid "Newsletter body"
+msgstr "Inhalt des Newsletters"
+
+#: barcamps/newsletter.py:24
+msgid "Recipients"
+msgstr "Empfänger"
+
+#: barcamps/newsletter.py:25 barcamps/templates/userlist.html:50
+msgid "Participants"
+msgstr "Teilnehmer"
+
+#: barcamps/newsletter.py:25
+msgid "interested people"
+msgstr "Interessierte"
+
+#: barcamps/newsletter.py:25
+msgid "both"
+msgstr "Beide"
+
+#: barcamps/newsletter.py:26
+msgid "E-Mail address for testing the newsletter"
+msgstr "E-Mail-Adresse zum Testen des Newsletters"
+
+#: barcamps/newsletter.py:27
+msgid ""
+"put your own e-mail address here in order to send the newsletter to this "
+"address for testing purposes"
+msgstr ""
+"gebe hier Deine eigene E-Mail-Adresse an, um den Newsletter testweise "
+"dorthin zu schicken "
+
+#: barcamps/newsletter.py:72
+msgid "newsletter sent successfully"
+msgstr "Newsletter erfolgreich versandt"
 
 #: barcamps/pads.py:10
 msgid "Post Title"
@@ -749,22 +786,26 @@ msgid "increase participants"
 msgstr "Teilnehmerzahl erhöhen"
 
 #: barcamps/templates/master.html:226
+msgid "send newsletter"
+msgstr "Newsletter versenden"
+
+#: barcamps/templates/master.html:227
 msgid "new sponsor"
 msgstr "Neuer Sponsor"
 
-#: barcamps/templates/master.html:227
+#: barcamps/templates/master.html:228
 msgid "edit permissions"
 msgstr "Berechtigungen"
 
-#: barcamps/templates/master.html:229
+#: barcamps/templates/master.html:230
 msgid "create new page"
 msgstr "neue Seite anlegen"
 
-#: barcamps/templates/master.html:231
+#: barcamps/templates/master.html:232
 msgid "DELETE BARCAMP"
 msgstr "LÖSCHE DAS BARCAMP"
 
-#: barcamps/templates/master.html:237
+#: barcamps/templates/master.html:238
 msgid "location"
 msgstr "Veranstaltungsort"
 
@@ -829,6 +870,19 @@ msgstr "Erhöhe die Teilnehmerzahl"
 #: barcamps/templates/participants_edit.html:12
 msgid "update"
 msgstr "Aktualisieren"
+
+#: barcamps/templates/send_newsletter.html:5
+#: barcamps/templates/send_newsletter.html:21
+msgid "Send Newsletter"
+msgstr ""
+
+#: barcamps/templates/send_newsletter.html:15
+msgid "Send Test Mail"
+msgstr ""
+
+#: barcamps/templates/send_newsletter.html:17
+msgid "Really send Newsletter?"
+msgstr ""
 
 #: barcamps/templates/sessions.html:7
 msgid "Date"
@@ -898,13 +952,9 @@ msgstr "auf Teilnehmerliste setzen"
 msgid "remove user from list"
 msgstr "Benutzer von der Liste entfernen"
 
-#: barcamps/templates/userlist.html:50
-msgid "Participants"
-msgstr "Teilnehmer"
-
 #: barcamps/templates/userlist.html:54
 msgid "Interested"
-msgstr ""
+msgstr "Interessiert"
 
 #: barcamps/templates/userlist.html:58
 msgid "Waiting list"
