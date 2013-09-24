@@ -1,9 +1,9 @@
 Hallo {{user.fullname}},
 
-Sie sind soeben von der Warteliste auf die Teilnehmerliste nachgerückt und nehmen
+Du bist soeben von der Warteliste auf die Teilnehmerliste nachgerückt und nimmst
 damit am {{barcamp.name}} am teil.
 
-Sollten Sie inzwischen doch nicht mehr teilnehmen können, tragen Sie sich doch bitte
+Solltest Du inzwischen doch nicht mehr teilnehmen können, trage Dich doch bitte
 wieder aus, damit weitere Interessenten nachrücken können! Vielen Dank!
 
 Dein {{barcamp.name}}-Team!
