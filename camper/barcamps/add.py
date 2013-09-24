@@ -130,7 +130,7 @@ class AddView(BaseHandler):
             url = self.url_for("barcamps.index", slug = self.slug, _full=True)
             templates = {}
             templates['welcome_text'] = self.render_lang("emails/default_welcome.txt", barcamp=barcamp, url=url)
-            templates['welcome_subject'] = self._('Welcome to %s' %barcamp.name)
+            templates['welcome_subject'] = self._('Welcome to %s') %barcamp.name
             templates['onwaitinglist_text'] = self.render_lang("emails/default_onwaitinglist.txt", barcamp=barcamp, url=url)
             templates['onwaitinglist_subject'] = self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants.")
             templates['fromwaitinglist_text'] = self.render_lang("emails/default_fromwaitinglist.txt", barcamp=barcamp, url=url)
