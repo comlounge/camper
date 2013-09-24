@@ -72,6 +72,10 @@
         </div>
         </form>
     </div>
+
+
+
+
     <div id="barcamp">
 
         <div class="header action-container content-area">
@@ -107,6 +111,15 @@
 
         {% block headline %}
         {% endblock %}
+
+        {% block flashes %}
+        {% endblock %}
+
+        {% for m in get_flashes(with_categories=True) %}
+            <div class="alert alert-{{m[0]}}">
+            <strong>{{m[1]}}</strong><br>
+            </div>
+        {% endfor %}
 
         {% block outer_content %}
             <div id="main-content" class="row">
