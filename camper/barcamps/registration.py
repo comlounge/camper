@@ -37,6 +37,26 @@ class BarcampSubscribe(BarcampBaseHandler):
                 self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
+class BarcampAdminRegister(BarcampBaseHandler):
+    """admins adds user to participants list regardless if this list is full or not"""
+
+    @is_admin()
+    @ensure_barcamp()
+    def post(self, slug = None):
+        # get the username from the form
+        username = self.request.form.get("u", None)
+        if username is not None:
+            user = self.app.module_map.userbase.get_user_by_username(username)
+            # register the user
+            self.barcamp.register(user, force=True)
+            view = self.barcamp_view
+            self.flash(self._('User %s has been registered!' % username))
+            self.mail_template("welcome",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
@@ -46,12 +66,12 @@ class BarcampRegister(BarcampBaseHandler):
     @ensure_barcamp()
     def get(self, slug = None):
         """show paticipants data form"""
-        
+
         # create registration form programatically
         class RegistrationForm(BaseForm):
             pass
-        
-       
+
+
         for field in self.barcamp.registration_form:
             vs = []
             if field['required']:
@@ -62,7 +82,7 @@ class BarcampRegister(BarcampBaseHandler):
             elif field['fieldtype'] == "textarea":
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description']))
-            
+
         form = RegistrationForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
@@ -71,12 +91,25 @@ class BarcampRegister(BarcampBaseHandler):
             uid = unicode(self.user._id)
             self.barcamp.registration_data[uid] = f
             self.barcamp.save()
-
             # register the user
-            self.register_participant()
-            self.flash(self._('You have been registered!'))
-            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+            registered = self.barcamp.register(self.user)
+            view = self.barcamp_view
+            if registered == 'waiting':
+                self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
+                self.mail_template("onwaitinglist",
+                    view = view,
+                    barcamp = self.barcamp,
+                    title = self.barcamp.name,
+                    **self.barcamp)
+            elif registered == 'participating':
+                self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
+                self.mail_template("welcome",
+                    view = view,
+                    barcamp = self.barcamp,
+                    title = self.barcamp.name,
+                    **self.barcamp)
 
+            return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
         return self.render(
             view = self.barcamp_view,
@@ -86,38 +119,6 @@ class BarcampRegister(BarcampBaseHandler):
             **self.barcamp)
 
     post = get
-
-    def register_participant(self):
-        """register the participant with this barcamp."""
-        view = self.barcamp_view
-        event = self.barcamp.event
-        uid = unicode(self.user._id)
-
-        if len(event.participants) >= self.barcamp.size:
-            self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
-            if uid not in event.waiting_list:
-                event.waiting_list.append(uid)
-                if uid in self.barcamp.subscribers:
-                    self.barcamp.subscribers.remove(uid)
-                self.barcamp.put()
-                self.mail_text("emails/welcome.txt", self._('You are now on the waiting list for %s' %self.barcamp.name),
-                    view = view,
-                    barcamp = self.barcamp,
-                    title = self.barcamp.name,
-                    **self.barcamp)
-        else:
-            self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
-            if uid not in event.participants:
-                event.participants.append(uid)
-                if uid in self.barcamp.subscribers:
-                    self.barcamp.subscribers.remove(uid)
-                self.barcamp.put()
-                self.mail_text("emails/welcome.txt", self._('Welcome to %s' %self.barcamp.name),
-                    view = view,
-                    barcamp = self.barcamp,
-                    title = self.barcamp.name,
-                    **self.barcamp)
-        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class BarcampUnregister(BarcampBaseHandler):
     """removes a user from the participants list and might move user up from the waiting list"""
@@ -134,29 +135,14 @@ class BarcampUnregister(BarcampBaseHandler):
             user = self.app.module_map.userbase.get_user_by_username(username)
         else:
             user = self.user
-        uid = unicode(user._id)
 
         # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
         if not view.is_admin and not user==self.user:
             self.flash(self._("You are not allowed to change this."), category="danger")
             return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
-        # remove from participants AND/OR waiting list 
-        if uid in event.participants:
-            event.participants.remove(uid)
-        if uid in event.waiting_list:
-            event.waiting_list.remove(uid)
+        self.barcamp.unregister(user)
 
-        if len(event.participants) < self.barcamp.size and len(event.waiting_list)>0:
-            # somebody from the waiting list can move up
-            nuid = event.waiting_list[0]
-            event.waiting_list = event.waiting_list[1:]
-            event.participants.append(nuid)
-
-        # you are now still a subscriber
-        self.barcamp.subscribe(user)
-
-        self.barcamp.put()
         if user == self.user:
             self.flash(self._("You have been removed from the list of participants."), category="danger")
         else:

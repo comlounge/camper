@@ -1,0 +1,24 @@
+Hallo ((fullname)),
+
+wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.
+
+Solltest Du wider Erwarten doch nicht teilnehmen können, würden wir uns
+über eine Änderung des Teilnahmestatus freuen, damit wir unsere Planungen
+darauf einstellen können und evtl. Personen von der Warteliste nachrücken
+können.
+
+Die Website des {{barcamp.name}} mit allen Informationen findest Du unter
+
+{{url}}
+
+{% if barcamp.twitter %}
+Weiterhin gibt es einen Twitter-Channel unter http://twitter.com/{{barcamp.twitter}}
+für die alleraktuellsten Informationen.
+
+{% endif %}
+Vielen Dank für Dein Interesse,
+
+Dein {{barcamp.name}}-Team!
+
+--
+{{url}}

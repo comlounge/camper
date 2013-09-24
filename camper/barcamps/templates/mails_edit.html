@@ -1,0 +1,53 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {% block title %}
+    <div class="page-header">
+        <h1>{{_('Edit mail templates')}}
+        <small>
+            {{_("for your barcamp")}}
+        </small>
+        </h1>
+    </div>
+    {% endblock %}
+    <form class="form form-horizontal" method="POST" action="{{url}}">
+        <div class="alert alert-info">
+            <strong>{{_("Tip!")}}</strong> {{_("You can use <code>((fullname))</code> in a mail body which will be replaced by
+            the name of the user the mail is sent to, e.g. 'Hello ((fullname)),... '")}}
+        </div>
+        <fieldset>  
+            <legend>{{_("Welcome Mail")}}</legend>
+            <div class="description">
+                {{_("The Welcome Mail is sent when a user has successfully registered as participant. It is
+                not sent if the user is going to be moved to the waiting list in case the participant list is already full.")}}
+            </div>
+            {{ formmacros.form_field(form.welcome_subject, class="required span6") }}
+            {{ formmacros.form_field(form.welcome_text, class="required span6", rows=6) }}
+        </fieldset>
+        <fieldset>  
+            <legend>{{_('Waitinglist Mail')}}</legend>
+            <div class="description">
+                {{_("This Mail is sent when the maximum number of participant has been reached and the user is being
+                moved onto the waitinglist.")}}
+            </div>
+            {{ formmacros.form_field(form.onwaitinglist_subject, class="required span6") }}
+            {{ formmacros.form_field(form.onwaitinglist_text, class="required span6", rows=6) }}
+        </fieldset>
+        <fieldset>  
+            <legend>{{_('From Waitinglist Mail')}}</legend>
+            <div class="description">
+                {{_("This Mail is sent to a user who is being moved from the waiting list to the participants list.
+                This can happen if an existing participant cancels his participation or if the barcamp admin increases
+                the number of participants")}}
+            </div>
+            {{ formmacros.form_field(form.fromwaitinglist_subject, class="required span6") }}
+            {{ formmacros.form_field(form.fromwaitinglist_text, class="required span6", rows=6) }}
+        </fieldset>
+        <input type="submit" class="btn btn-primary" value="{{_('Save')}}">
+    </form>
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+{% endblock %}

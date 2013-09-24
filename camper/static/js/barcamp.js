@@ -196,6 +196,13 @@ $(document).ready(function() {
     width: 642
   });
   return $("a.form-submit").click(function() {
-    return $(this).closest("form").submit();
+    var action, form;
+    action = $(this).attr("href");
+    console.log(action);
+    form = $(this).closest("form");
+    form.attr("action", action);
+    console.log(form.attr("method"));
+    form.submit();
+    return false;
   });
 });
