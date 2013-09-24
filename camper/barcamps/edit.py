@@ -115,22 +115,22 @@ class EditView(BaseHandler):
 class MailsEditForm(BaseForm):
     """form for defining mail templates"""
     # base data
-    welcome_subject         = TextField(T("Subject of welcome mail"), [validators.Length(max=300), validators.Required()],
+    welcome_subject         = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    welcome_text            = TextAreaField(T("Body of welcome mail"), [validators.Required()],
+    welcome_text            = TextAreaField(T("Body"), [validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    onwaitinglist_subject   = TextField(T("Subject of waiting list mail"), [validators.Length(max=300), validators.Required()],
+    onwaitinglist_subject   = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    onwaitinglist_text      = TextAreaField(T("Body of waiting list mail"), [validators.Required()],
+    onwaitinglist_text      = TextAreaField(T("Body"), [validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    fromwaitinglist_subject = TextField(T("Subject of participant mail"), [validators.Length(max=300), validators.Required()],
+    fromwaitinglist_subject = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
-    fromwaitinglist_text    = TextAreaField(T("Body of participant mail"), [validators.Required()],
+    fromwaitinglist_text    = TextAreaField(T("Body"), [validators.Required()],
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
 

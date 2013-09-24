@@ -1,30 +1,37 @@
 {% extends "_m/barcamps/master.html" %}
 
 {% macro list(users, remove_url=None, to_participant_url=None) -%}
-    <ul class="media-list participants">
+    <ul class="participants">
     {% for myuser in users %}
-        <li class="media">
-            <a class="pull-left" href="{{url_for('profile', username = myuser.username)}}">
+        <li class="participant">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}">
                 <img class="profile-image-mini" src="{{userview(myuser).image_thumb}}">
             </a>
-            <div class="media-body">
-                {% if (is_admin or user == myuser) and remove_url %}
+            <div class="participant-info">
+                {% if user == myuser and remove_url %}
                     <form method="post" class="pull-right" action="{{remove_url}}">
-                        <input type="hidden" name="u" value="{{myuser.username}}">
-                        <button class="btn btn-mini btn-danger"><i class="icon-white icon-trash"></i></button>
+                    <input type="hidden" name="u" value="{{myuser.username}}">
+                        <button class="btn btn-danger"><i class="icon-white icon-trash"></i></button>
                     </form>
-                    <form method="post" class="pull-right" action="{{to_participant_url}}">
-                        <input type="hidden" name="u" value="{{myuser.username}}">
-                        <button class="btn btn-mini btn-danger"><i class="icon-white icon-plus"></i></button>
+                {% elif is_admin and remove_url %}
+                    <form method="post" class="pull-right" action="">
+                    <input type="hidden" name="u" value="{{myuser.username}}">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>
+                        <ul class="dropdown-menu">
+                            {% if to_participant_url %}
+                            <li>
+                                <a class="form-submit" href="{{to_participant_url}}"><i class="icon-plus"></i> {{_("register user as participant")}}</a>
+                            </li>
+                            {% endif %}
+                            {% if remove_url %}
+                            <li>
+                                <a class="form-submit" href="{{remove_url}}"><i class="icon-trash"></i> {{_('remove user from list')}}</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
                     </form>
-                    <!--div>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-chevron-down"></i></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                            </ul>
-                        </div>
-                    </div-->
                 {% endif %}
                 <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
                     {% if myuser.has_organisation %}

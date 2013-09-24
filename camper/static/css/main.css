@@ -5443,6 +5443,26 @@ ul#blog-reports li .author {
   padding: 0;
   line-height: 1.3;
 }
+ul.participants {
+  margin-left: 0;
+  list-style: none;
+}
+ul.participants .participant {
+  *zoom: 1;
+}
+ul.participants .participant:before,
+ul.participants .participant:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+ul.participants .participant:after {
+  clear: both;
+}
+ul.participants .participant-avatar {
+  float: left;
+  margin-right: 5px;
+}
 .widget {
   min-height: 20px;
   padding: 20px;
