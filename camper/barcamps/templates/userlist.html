@@ -52,7 +52,7 @@
         </div>
         <div class="span3">
             <h2>{{_('Interested')}}</h2>
-            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug))}}
+            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
         </div>
         <div class="span3">
             <h2>{{_('Waiting list')}}</h2>
