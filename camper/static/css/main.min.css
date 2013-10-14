@@ -908,3 +908,4 @@ ul.participants .participant-avatar{float:left;margin-right:5px;}
 .widget .nav>li>a:hover{text-decoration:none;background-color:#eeeeee;-webkit-box-shadow:0px 0px 1px rgba(0, 0, 0, 0.1);-moz-box-shadow:0px 0px 1px rgba(0, 0, 0, 0.1);box-shadow:0px 0px 1px rgba(0, 0, 0, 0.1);}
 .widget a{color:#003;}
 .socialmedia{height:30px;overflow:hidden;}
+a.osm-copyright{font-size:10px;color:#888;float:right;}
