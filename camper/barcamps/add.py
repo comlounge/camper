@@ -127,7 +127,7 @@ class AddView(BaseHandler):
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
 
             # create default mail templates
-            url = self.url_for("barcamps.index", slug = self.slug, _full=True)
+            url = self.url_for("barcamps.index", slug = barcamp.slug, _full=True)
             templates = {}
             templates['welcome_text'] = self.render_lang("emails/default_welcome.txt", barcamp=barcamp, url=url)
             templates['welcome_subject'] = self._('Welcome to %s') %barcamp.name
