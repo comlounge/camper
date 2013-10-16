@@ -60,7 +60,7 @@ class BarcampView(object):
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id)
         return """<a href="%s"><img src="%s" width="%s" height="%s"></a>""" %(
-            self.handler.url_for("barcamps.index", slug = self.barcamp.slug), 
+            self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
             url,
             v.metadata['width'],
             v.metadata['height'])
@@ -133,7 +133,7 @@ class BarcampView(object):
         """
         if self.is_participant or self.is_on_waiting_list:
             return False
-        if self.is_subscriber: 
+        if self.is_subscriber:
             return False
         return True
 
@@ -151,7 +151,7 @@ class BarcampView(object):
     @property
     def sponsors(self):
         res = []
-        i = 0 
+        i = 0
         for sponsor in self.barcamp.sponsors:
             width = 220
             tag = """<a href="%s"><img width="%s" src="%s"></a>""" %(
@@ -288,11 +288,11 @@ class aspdf(object):
         return wrapper
 
 
-class BaseForm(Form):   
+class BaseForm(Form):
     """a form which also carries the config object"""
 
     LANGUAGES = ['de', 'en']
-    
+
     def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, **kwargs):
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
         self.config = config
@@ -333,7 +333,7 @@ class BaseHandler(starflyer.Handler):
         if self.user is None:
             return False
         return self.user.has_permission("admin")
-    
+
     @property
     def is_admin(self):
         """check if the given user is a barcamp admin"""
@@ -395,7 +395,17 @@ class BaseHandler(starflyer.Handler):
         mailer = self.app.module_map['mail']
         if send_to is None:
             send_to = self.user.email
-        mailer.mail(send_to, subject, payload)                                                                                                                                           
+        mailer.mail(send_to, subject, payload)
 
+    def mail_template(self, template_name, send_to=None, **kwargs):
+        """render and send out a mail as mormal text"""
+        barcamp = kwargs.get('barcamp')
+        if barcamp is not None:
+            subject = barcamp.mail_templates['%s_subject' %template_name]
+            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', self.user.fullname)
+            mailer = self.app.module_map['mail']
+            if send_to is None:
+                send_to = self.user.email
+            mailer.mail(send_to, subject, payload)
 
 

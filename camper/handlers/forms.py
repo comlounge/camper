@@ -1,5 +1,5 @@
 #encoding=utf8
-import json 
+import json
 import decimal
 
 from camper import BaseForm
@@ -37,7 +37,7 @@ def checkbox_button(field, **kwargs):
         button_params['class'] = "btn btn-toggle"
     if "class" in kwargs:
         button_params['class'] = button_params['class'] + " " + kwargs['class']
-        
+
     html = [
         u'<input %s />' %html_params(**hidden_params),
         u'<button %s >' %html_params(**button_params)
@@ -54,8 +54,8 @@ class CurrencyField(DecimalField):
     """a currency field is a decimal field with additional options e.g. for internationalization
 
     We store it as float in python but we convert it to a string with the correct separator
-    and decimals in the form. 
-    
+    and decimals in the form.
+
     """
 
     def __init__(self, label=None, validators=None, places=2, rounding=None, separator=".", **kwargs):
@@ -76,12 +76,12 @@ class CurrencyField(DecimalField):
             except ValueError:
                 self.data = None
                 raise ValueError(self.gettext(u'Not a valid currency value'))
-    
+
 
 
 class BooleanValueField(Field):
     """
-    Represents an checkbox button 
+    Represents an checkbox button
     """
     widget = checkbox_button
 
@@ -126,12 +126,12 @@ class UploadWidget(object):
     """
 
     tmpl = Template("""
-        <div class="upload-widget" 
-                data-id="{{name}}" 
-                data-original-id="{{asset_id}}" 
-                data-preview-url="{{preview_url}}" 
-                data-delete-url="{{delete_url}}" 
-                data-upload-url="{{upload_url}}" 
+        <div class="upload-widget"
+                data-id="{{name}}"
+                data-original-id="{{asset_id}}"
+                data-preview-url="{{preview_url}}"
+                data-delete-url="{{delete_url}}"
+                data-upload-url="{{upload_url}}"
                 data-postproc="{{postproc}}">
             {{hidden}}
             <div class="preview-area {{'show' if preview_url else 'hide'}}">
@@ -203,7 +203,7 @@ class UploadFieldOld(FormField):
                 d = D()
                 d.id = obj
                 super(UploadForm, self).process(formdata, d, **kwargs)
-                
+
 
             @property
             def data(self):
@@ -226,7 +226,7 @@ class UploadFieldOld(FormField):
         if self.data:
             return self.data
         else:
-            return u''                                                                                                                                                               
+            return u''
 
 class UploadField(Field):
     """an upload field for using the valums uploader."""
@@ -243,5 +243,5 @@ class UploadField(Field):
         if self.data:
             return self.data
         else:
-            return u''                                                                                                                                                               
+            return u''
 

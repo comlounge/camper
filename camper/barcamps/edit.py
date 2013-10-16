@@ -2,7 +2,7 @@
 
 import copy
 import json
-from starflyer import Handler, redirect, asjson
+from starflyer import Handler, redirect, asjson, AttributeMapper
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from wtforms import *
 from sfext.babel import T
@@ -112,6 +112,54 @@ class EditView(BaseHandler):
     post = get
 
 
+class MailsEditForm(BaseForm):
+    """form for defining mail templates"""
+    # base data
+    welcome_subject         = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+    welcome_text            = TextAreaField(T("Body"), [validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+    onwaitinglist_subject   = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+    onwaitinglist_text      = TextAreaField(T("Body"), [validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+    fromwaitinglist_subject = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+    fromwaitinglist_text    = TextAreaField(T("Body"), [validators.Required()],
+                #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
+    )
+
+class MailsEditView(BarcampBaseHandler):
+    """let the user define the mail templates"""
+
+    template = "mails_edit.html"
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """render the view"""
+        obj = AttributeMapper(self.barcamp.mail_templates)
+        form = MailsEditForm(self.request.form, obj = obj, config = self.config)
+        if self.request.method == 'POST' and form.validate():
+            self.barcamp.mail_templates = form.data
+            self.barcamp.put()
+            self.flash("Barcamp E-Mails aktualisiert", category="info")
+            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            form = form,
+            **self.barcamp
+        )
+    post = get
+
 class ParticipantsEditView(BaseHandler):
     """let the user increase the number of participants"""
 
@@ -179,7 +227,7 @@ class ParticipantsDataEditView(BarcampBaseHandler):
             **self.barcamp
         )
 
-    post = get 
+    post = get
 
     @ensure_barcamp()
     @logged_in()
@@ -192,7 +240,7 @@ class ParticipantsDataEditView(BarcampBaseHandler):
             del self.barcamp.registration_form[int(idx)]
             self.barcamp.save()
         return redirect(self.url_for("barcamps.registration_form_editor", slug = self.barcamp.slug))
-            
+
 
 
 

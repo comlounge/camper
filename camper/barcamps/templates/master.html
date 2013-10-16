@@ -72,6 +72,10 @@
         </div>
         </form>
     </div>
+
+
+
+
     <div id="barcamp">
 
         <div class="header action-container content-area">
@@ -107,6 +111,15 @@
 
         {% block headline %}
         {% endblock %}
+
+        {% block flashes %}
+        {% endblock %}
+
+        {% for m in get_flashes(with_categories=True) %}
+            <div class="alert alert-{{m[0]}}">
+            <strong>{{m[1]}}</strong><br>
+            </div>
+        {% endfor %}
 
         {% block outer_content %}
             <div id="main-content" class="row">
@@ -158,8 +171,8 @@
                         {% else %}
                             <div class="alert alert-block">
                                 <h4>{{_("Attention!")}}</h4>
-                                {{_('In order to mark your interest in this barcamp you first have to')}} 
-                                <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a> 
+                                {{_('In order to mark your interest in this barcamp you first have to')}}
+                                <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
                                 {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
                             </div>
                         {% endif %}
@@ -174,11 +187,11 @@
                                 </fb:share-button>
                             </div>
                             <div class="twitter-button">
-                                <a href="https://twitter.com/share" 
-                                   class="twitter-share-button" 
-                                   data-url="{{_('Join us at')}} {{url_for("barcamps.index", slug = slug)}}" 
-                                   data-text="{{barcamp.title|striptags}}" 
-                                   data-via="{{barcamp.twitter}}" 
+                                <a href="https://twitter.com/share"
+                                   class="twitter-share-button"
+                                   data-url="{{_('Join us at')}} {{url_for("barcamps.index", slug = slug)}}"
+                                   data-text="{{barcamp.title|striptags}}"
+                                   data-via="{{barcamp.twitter}}"
                                    data-count="none"
                                    data-hashtags="{{barcamp.hashtag}}">Tweet</a>
                             </div>
@@ -207,8 +220,10 @@
                                 <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="icon icon-picture"></i>{{_('Upload Logo')}}</a></li>
                                 <li><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="icon icon-pencil"></i>{{_('edit base information')}}</a></li>
                                 <li><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="icon icon-tags"></i>{{_('edit registration form')}}</a></li>
+                                <li><a href="{{url_for("barcamps.email_template_editor", slug=slug)}}"><i class="icon icon-envelope"></i>{{_('edit mail templates')}}</a></li>
                                 <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="icon icon-download"></i>{{_('download participants')}}</a></li>
                                 <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="icon icon-user"></i>{{_('increase participants')}}</a></li>
+                                <li><a href="{{url_for("barcamps.newsletter_send", slug=slug)}}"><i class="icon icon-share"></i>{{_('send newsletter')}}</a></li>
                                 <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="icon icon-plus"></i>{{_('new sponsor')}}</a></li>
                                 <li><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="icon icon-list"></i>{{_('edit permissions')}}</a></li>
                                 {% if view.can_add_menu_page %}

@@ -175,8 +175,13 @@ $(document).ready( () ->
     $("#location-picker").colorbox({inline:true, width:642});
 
     $("a.form-submit").click ->
-        $(this).closest("form").submit();
-
+        action = $(this).attr("href")
+        console.log action
+        form = $(this).closest("form")
+        form.attr("action", action)
+        console.log form.attr("method")
+        form.submit()
+        false
 )
 
 
