@@ -33,25 +33,16 @@
         <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
     </h1>
     <div class="row">
-        <div class="span9">
+        <div class="span6">
             {% if soon_barcamps %}
                 <h2>Bald stattfindende Barcamps</h2>
                 {{listing(soon_barcamps) }}
             {% endif %}
-
+        </div>
+        <div class="span6">
             {% if new_barcamps %}
                 <h2>Neu erstellte Barcamps</h2>
                 {{listing(new_barcamps) }}
-            {% endif %}
-        </div>
-        <div class="widgets">
-            {% if logged_in %}
-                <div class="widget">
-                    <p>
-                        <strong>{{_('I want to organize a barcamp!')}}</strong>
-                    </p>
-                    <a href="{{url_for("barcamps.add")}}" id="create-new-barcamp-button" class="btn">{{_('create new barcamp')}}</a>
-                </div>
             {% endif %}
         </div>
     </div>

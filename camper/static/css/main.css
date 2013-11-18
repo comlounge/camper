@@ -5513,3 +5513,8 @@ a.osm-copyright {
   color: #888;
   float: right;
 }
+.help-block {
+  font-size: 80%;
+  font-style: italic;
+  line-height: 1;
+}

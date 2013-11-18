@@ -1,0 +1,22 @@
+{% extends "master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+      <div class="hero-unit">
+        <h1>{{_('Request Sponsorship')}}</h1>
+        <p>
+            {{_('If you want to organize a youth barcamp you have the possibilty to get 1 hour of support from YouthPart.  In order to receive this please fill out the form below')}}
+        </p>
+        <div class="well">
+        <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">  
+                {{ formmacros.form_field(form.name, class="required span8", placeholder="") }}
+                {{ formmacros.form_field(form.email, class="required email span8", placeholder="") }}
+                <hr>
+                {{ formmacros.form_field(form.title, class="required span8", placeholder="") }}
+                {{ formmacros.form_field(form.date, class="span4 required") }}
+                {{ formmacros.form_field(form.reason, class="required span8", rows=10) }}
+                <input type="submit" class="btn btn-large btn-primary" value="{{_('send request')}}">
+        </form>
+        </div>
+    </div>
+{% endblock %}

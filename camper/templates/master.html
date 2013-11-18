@@ -64,7 +64,7 @@
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner">
                 <div class="container">
-                    <a class="brand" href="{{url_for("index")}}">Camper - das Barcamp-Tool</a>
+                    <a class="brand" href="{{url_for("index")}}">Camper</a>
                     <ul class="nav">
                         <li class="active"><a href="/">{{_('Home')}}</a></li>
                         {% for page in menu_pages %}
@@ -79,6 +79,11 @@
                         {% endfor %}
                         <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
                         <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
+                        {% if logged_in %}
+                            <li>
+                                <a href="{{url_for("barcamps.add")}}" id="create-new-barcamp-button">{{_('new barcamp')}}</a>
+                            </li>
+                        {% endif %}
                     </ul>
                     <div class="pull-right">
                     <ul class="nav"> 

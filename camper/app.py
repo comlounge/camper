@@ -217,6 +217,9 @@ class CamperApp(Application):
         URL('/assets/', 'asset_upload', handlers.images.AssetUploadView),
         URL('/assets/<asset_id>', 'asset', handlers.images.AssetView),
 
+        # sponsoring
+        URL('/sponsoring', 'sponsoring', handlers.sponsor.SponsorContactView),
+
         # admin area
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
         URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
