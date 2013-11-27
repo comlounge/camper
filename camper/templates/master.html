@@ -111,6 +111,13 @@
                                     <li><a href="{{url_for('profile', username = user.username)}}">{{_('my profile')}}</a></li>
                                     <li><a href="{{url_for('userbase.pw_set')}}">{{_('Change Password')}}</a></li>
                                     <li><a href="{{url_for('userbase.logout')}}">{{_('Log out')}}</a></li>
+                                    {# TBD later
+                                    <li class="divider"></li>
+                                    <li><a><strong>{{_('my barcamps')}}</strong></a></li>
+                                    {% for bc in user_barcamps %}
+                                        <li><a href="{{url_for("barcamps.index", slug = bc.slug)}}">{{bc.name}}</a></li>
+                                    {% endfor %}
+                                    #}
                                 </ul>
                             </li>
                         </ul>

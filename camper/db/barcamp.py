@@ -393,3 +393,8 @@ class Barcamps(Collection):
             obj.events[0] = event
 
         return obj
+
+    def get_by_user_id(self, user_id):
+        """return all the barcamps the user is either participant, interested or an admin"""
+
+

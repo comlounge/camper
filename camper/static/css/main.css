@@ -5508,3 +5508,8 @@ ul.participants .participant-avatar {
   height: 30px;
   overflow: hidden;
 }
+a.osm-copyright {
+  font-size: 10px;
+  color: #888;
+  float: right;
+}

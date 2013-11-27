@@ -1,37 +1,48 @@
 {% extends "master.html" %}
 
+
+{% macro listing(barcamps) %}
+    {% for view in barcamps %}
+        <article class="barcamp content-area">
+            <header>
+                {% if view.logo %}
+                    <h4>{{view.logo}}</h4>
+                {% else %}
+                    <h4><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
+                {% endif %}
+            </header>
+            <div class="pull-right">
+                {% if not view.barcamp.public %}
+                    <span class="label label-warning">{{_('private')}}</span>
+                {% endif %}
+                {% if view.is_admin %}
+                    <span class="label label-success">{{_('ADMIN')}}</span>
+                {% endif %}
+            </div>
+            <div class="byline">
+                {{view.date}}, {{view.short_location}}
+            </div>
+            <footer>
+            </footer>
+        </article>
+    {% endfor %}
+{% endmacro %}
+
 {% block content %}
     <h1 id="logo">
         <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
     </h1>
     <div class="row">
         <div class="span9">
-        {% for view in barcamps %}
-            {% if view.barcamp.public or view.is_admin or is_main_admin %}
-            <article class="barcamp content-area">
-                <header>
-                    {% if view.logo %}
-                        <h4>{{view.logo}}</h4>
-                    {% else %}
-                        <h4><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
-                    {% endif %}
-                </header>
-                <div class="pull-right">
-                    {% if not view.barcamp.public %}
-                        <span class="label label-warning">{{_('private')}}</span>
-                    {% endif %}
-                    {% if view.is_admin %}
-                        <span class="label label-success">{{_('ADMIN')}}</span>
-                    {% endif %}
-                </div>
-                <div class="byline">
-                    {{view.date}}, {{view.short_location}}
-                </div>
-                <footer>
-                </footer>
-            </article>
+            {% if soon_barcamps %}
+                <h2>Bald stattfindende Barcamps</h2>
+                {{listing(soon_barcamps) }}
             {% endif %}
-        {% endfor %}
+
+            {% if new_barcamps %}
+                <h2>Neu erstellte Barcamps</h2>
+                {{listing(new_barcamps) }}
+            {% endif %}
         </div>
         <div class="widgets">
             {% if logged_in %}

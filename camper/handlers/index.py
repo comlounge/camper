@@ -1,7 +1,11 @@
 #encoding=utf8
 
+import datetime
+import pymongo
+
 from camper import BaseHandler
 from ..base import BarcampView
+
 
 class IndexView(BaseHandler):
     """an index handler"""
@@ -10,9 +14,19 @@ class IndexView(BaseHandler):
 
     def get(self):
         """render the view"""
-        barcamps = self.config.dbs.barcamps.find()
-        barcamps = [BarcampView(barcamp, self) for barcamp in barcamps]
-        return self.render( barcamps = barcamps )
+        n = datetime.datetime.now()
+        soon_barcamps = self.config.dbs.barcamps.find({
+            'end_date'  : {'$gt': n},
+        }).limit(10)
+        new_barcamps = self.config.dbs.barcamps.find().sort("created",pymongo.DESCENDING).limit(3)
+        soon_barcamps = [BarcampView(barcamp, self) for barcamp in soon_barcamps]
+        soon_barcamps = [b  for b in soon_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
+        new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps]
+        new_barcamps = [b  for b in new_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
+        return self.render( 
+            soon_barcamps = soon_barcamps,
+            new_barcamps = new_barcamps,
+        )
     post = get
 
 class Impressum(BaseHandler):
