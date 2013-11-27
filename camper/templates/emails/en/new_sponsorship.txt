@@ -1,0 +1,15 @@
+A new barcamp has been published:
+
+Base Information
+================
+
+Name of requester: {{name}}
+E-Mail of requester: {{email}}
+
+Title of the barcamp: {{title}}
+Date of the barcamp: {{date}}
+
+Reason for sponsorship
+======================
+
+{{reason}}

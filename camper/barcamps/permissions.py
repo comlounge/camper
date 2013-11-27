@@ -36,7 +36,6 @@ class Permissions(BarcampBaseHandler):
         if wf=="public":
             send_to = self.app.config.new_bc_notification_addr
             if send_to:
-                print "sending"
                 mailer = self.app.module_map['mail']
                 kwargs = dict(
                     name = self.barcamp.name,

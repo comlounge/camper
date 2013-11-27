@@ -1,4 +1,4 @@
-from starflyer import Handler, redirect, asjson
+from starflyer import Handler, redirect, asjson, redirect
 from camper import BaseForm, db, logged_in, BaseHandler
 from wtforms import *
 from sfext.babel import T
@@ -24,9 +24,19 @@ class SponsorContactView(BaseHandler):
     def get(self):
         """render the view"""
         form = ContactForm(self.request.form, config = self.config)
+        print form.validate()
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            print "Ok", f
+            send_to = self.app.config.sponsor_bc_notification_addr
+            from_addr = f['email']
+            if send_to:
+                mailer = self.app.module_map['mail']
+                payload = self.render_lang("emails/new_sponsorship.txt", **f)
+                subject = self._("camper: new barcamp sponsorshop requested")
+                mailer.mail(send_to, subject, payload)
+                self.flash(self._(u"your sponsorship request has been sent and we will come back to you shortly."))
+                url = self.url_for("index")
+                return redirect(url)
         return self.render(form = form, slug = None)
     post = get
             
