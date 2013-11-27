@@ -138,6 +138,8 @@ class CamperApp(Application):
         'smtp_port'             : 25,
         'from_addr'             : "noreply@example.org",
         'from_name'             : "Barcamp-Tool",
+        'new_bc_notification_addr'      : None, # which email address to notify about newly created and published barcamps
+        'sponsor_bc_notification_addr'  : None, # which email address to notify about sponsorship requests 
         'ep_api_key'            : "please fill in from APIKEY.txt",
         'ep_endpoint'           : "http://localhost:9001/api",
         'ga'                    : 'none', #GA key

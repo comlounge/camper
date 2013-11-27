@@ -398,7 +398,7 @@ class BaseHandler(starflyer.Handler):
         mailer.mail(send_to, subject, payload)
 
     def mail_template(self, template_name, send_to=None, **kwargs):
-        """render and send out a mail as mormal text"""
+        """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]

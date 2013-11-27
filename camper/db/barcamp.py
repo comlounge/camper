@@ -210,7 +210,7 @@ class Barcamp(Record):
 
     workflow_states = {
         'created'       : ['public', 'deleted', 'canceled'],
-        'public'        : ['registration', 'deleted', 'canceled'],
+        'public'        : ['created', 'registration', 'deleted', 'canceled'],
         'registration'  : ['deleted', 'canceled'],
         'canceled'      : ['deleted'],
     }
