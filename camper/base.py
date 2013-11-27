@@ -37,6 +37,11 @@ class UserView(object):
                 pass
         return uf("static", filename="img/anon50x50.png")
 
+    @property
+    def barcamps(self):
+        """return a list of barcamps the user either is an admin for or takes parts in"""
+
+
 class BarcampView(object):
     """wrapper around the barcamp to provide view functions"""
 
