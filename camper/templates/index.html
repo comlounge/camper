@@ -28,20 +28,33 @@
     {% endfor %}
 {% endmacro %}
 
-{% block content %}
-    <h1 id="logo">
-        <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
-    </h1>
+{% block content %} 
+    <div class="row">   
+        <div class="span6">
+            <h1 id="logo pull-left">
+                <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
+            </h1>
+        </div>
+        <div class="span6">
+            <div class="widget">
+                <a href="{{url_for("sponsoring")}}" title="{{_('Receive sponsorship for a youthbarcamp')}}"><img src="{{url_for("static", filename="/img/sponsoring.png")}}" alt="Sponsor-Logo"></a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="span6">
+            <h2>{{_("Recent Barcamps")}}</h2>
             {% if soon_barcamps %}
-                <h2>Bald stattfindende Barcamps</h2>
                 {{listing(soon_barcamps) }}
+            {% else %}
+                <div class="well well-big">
+                    {{_("There are no barcamps coming up in the near future. Maybe organize one?")}}
+                </div>
             {% endif %}
         </div>
         <div class="span6">
             {% if new_barcamps %}
-                <h2>Neu erstellte Barcamps</h2>
+                <h2>{{_("Newly created Barcamps")}}</h2>
                 {{listing(new_barcamps) }}
             {% endif %}
         </div>
