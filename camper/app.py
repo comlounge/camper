@@ -66,7 +66,7 @@ def markdownify(text, level=1):
 ###
 
 # TODO: retrieve available languages from the i18n module
-ACCEPTED_LANGUAGES = ['de', 'en']
+ACCEPTED_LANGUAGES = ['de', 'en', 'ru']
 
 def parseAcceptLanguage(acceptLanguage):
   if acceptLanguage is None:

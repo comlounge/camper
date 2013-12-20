@@ -85,8 +85,13 @@
                             <li class="divider-vertical"></li>
                         {% if LANGUAGE=="de" %}
                             <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                            <li><a href="{{url_for("index", __l='ru', _append=True)}}">russian</a></li>
+                        {% elif LANGUAGE=="ru" %}
+                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
                         {% else %}
                             <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                            <li><a href="{{url_for("index", __l='ru', _append=True)}}">russian</a></li>
                         {% endif %}
                     </ul>
                     </div>

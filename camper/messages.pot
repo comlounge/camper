@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2013-09-24 12:33+0200\n"
+"POT-Creation-Date: 2013-12-20 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,27 +111,27 @@ msgstr ""
 msgid "main administrator"
 msgstr ""
 
-#: base.py:77
+#: base.py:82
 msgid "date to be announced"
 msgstr ""
 
-#: base.py:87
+#: base.py:92
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:192
+#: base.py:197
 msgid "Please log in."
 msgstr ""
 
-#: base.py:229
+#: base.py:234
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:235 base.py:380
+#: base.py:240 base.py:385
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:247 base.py:253 base.py:265 base.py:268
+#: base.py:252 base.py:258 base.py:270 base.py:273
 msgid "you don't have the permission to access this page."
 msgstr ""
 
@@ -977,19 +977,19 @@ msgstr ""
 msgid "the page has been deleted"
 msgstr ""
 
-#: templates/index.html:21
+#: templates/index.html:16
 msgid "private"
 msgstr ""
 
-#: templates/index.html:24
+#: templates/index.html:19
 msgid "ADMIN"
 msgstr ""
 
-#: templates/index.html:40
+#: templates/index.html:51
 msgid "I want to organize a barcamp!"
 msgstr ""
 
-#: templates/index.html:42
+#: templates/index.html:53
 msgid "create new barcamp"
 msgstr ""
 
