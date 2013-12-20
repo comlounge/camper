@@ -81,18 +81,16 @@
                         <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
                     </ul>
                     <div class="pull-right">
+                    
                     <ul class="nav"> 
-                            <li class="divider-vertical"></li>
-                        {% if LANGUAGE=="de" %}
-                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
-                            <li><a href="{{url_for("index", __l='ru', _append=True)}}">russian</a></li>
-                        {% elif LANGUAGE=="ru" %}
-                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
-                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
-                        {% else %}
-                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
-                            <li><a href="{{url_for("index", __l='ru', _append=True)}}">russian</a></li>
-                        {% endif %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{_("Sprache")}} <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="{{'active' if LANGUAGE=='de'}}"><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                                <li class="{{'active' if LANGUAGE=='en'}}"><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                                <li class="{{'active' if LANGUAGE=='ru'}}"><a href="{{url_for("index", __l='ru', _append=True)}}">russian</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     </div>
                     {% if is_main_admin %}
