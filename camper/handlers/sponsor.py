@@ -20,11 +20,9 @@ class SponsorContactView(BaseHandler):
 
     template = "sponsoring.html"
 
-    @logged_in()
     def get(self):
         """render the view"""
         form = ContactForm(self.request.form, config = self.config)
-        print form.validate()
         if self.request.method == 'POST' and form.validate():
             f = form.data
             send_to = self.app.config.sponsor_bc_notification_addr
