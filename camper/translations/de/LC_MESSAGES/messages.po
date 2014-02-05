@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2013-09-24 12:33+0200\n"
+"POT-Creation-Date: 2014-02-05 12:47+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,36 +17,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:172
+#: app.py:174
 msgid "User unknown"
 msgstr "Benutzer unbekannt."
 
-#: app.py:173
+#: app.py:175
 msgid "This email address cannot not be found in our user database"
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: app.py:174
+#: app.py:176
 msgid "Your password is not correct"
 msgstr "Das Passwort ist nicht korrekt"
 
-#: app.py:175
+#: app.py:177
 msgid "Your user has not yet been activated."
 msgstr "Der Benutzer wurde noch nicht aktiviert."
 
-#: app.py:176
+#: app.py:178
 msgid "Login failed"
 msgstr "Login fehlgeschlagen"
 
-#: app.py:177
+#: app.py:179
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr "Willkommen, %(fullname)s"
 
-#: app.py:178
+#: app.py:180
 msgid "Your are now logged out"
 msgstr "Du bist jetzt ausgeloggt"
 
-#: app.py:179
+#: app.py:181
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
@@ -54,62 +54,62 @@ msgstr ""
 "Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschliessen. "
 "Alle weiteren Informationen dazu findest Du in der E-Mail."
 
-#: app.py:180
+#: app.py:182
 msgid "Your user registration has been successful"
 msgstr "Die Benutzerregistrierung war erfolgreich."
 
-#: app.py:181
+#: app.py:183
 msgid "Your account has been activated"
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: app.py:182
+#: app.py:184
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
 
-#: app.py:183
+#: app.py:185
 msgid "A new activation code has been sent out, please check your email"
 msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
 
-#: app.py:184
+#: app.py:186
 msgid "The user is already active. Please log in."
 msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
 
-#: app.py:185
+#: app.py:187
 msgid "A link to set a new password has been sent to you"
 msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
 
-#: app.py:186
+#: app.py:188
 msgid "Your password has been changed"
 msgstr "Dein Passwort wurde geändert."
 
-#: app.py:189
+#: app.py:191
 msgid "The user has been updated."
 msgstr "Benutzerdaten aktualisiert"
 
-#: app.py:190
+#: app.py:192
 msgid "The user has been added."
 msgstr "Der Benutzer wurde hinzugefügt."
 
-#: app.py:191
+#: app.py:193
 msgid "The user has been deleted."
 msgstr "The user has been deleted."
 
-#: app.py:192
+#: app.py:194
 msgid "The user has been activated."
 msgstr "Der Benutzer wurde aktiviert."
 
-#: app.py:193
+#: app.py:195
 msgid "The user has been deactivated."
 msgstr "Der Benutzer wurde deaktiviert."
 
-#: app.py:197
+#: app.py:199
 msgid "can manage users"
 msgstr "Kann Benutzer verwalten"
 
-#: app.py:198
+#: app.py:200
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
@@ -473,28 +473,32 @@ msgstr "Der Blog-Post wurde verlinkt."
 msgid "User not allowed to delete this item"
 msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
 
-#: barcamps/permissions.py:30
+#: barcamps/permissions.py:32
 msgid "you cannot perform this action."
 msgstr "Du kannst diese Aktion nicht durchführen."
 
-#: barcamps/permissions.py:52
+#: barcamps/permissions.py:49
+msgid "camper: new barcamp created"
+msgstr "camper: neues Barcamp angelegt"
+
+#: barcamps/permissions.py:75
 msgid "a user with this email address wasn't found in our database."
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: barcamps/permissions.py:59
+#: barcamps/permissions.py:82
 #, python-format
 msgid "%s is not an administrator for this barcamp."
 msgstr "%s is kein Administrator für dieses Barcamp"
 
-#: barcamps/permissions.py:69
+#: barcamps/permissions.py:92
 msgid "you cannot remove admin rights from the creator of this barcamp."
 msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
 
-#: barcamps/permissions.py:72
+#: barcamps/permissions.py:95
 msgid "you at least need to have one administrator."
 msgstr "Es wird mindestens ein Administrator benötigt."
 
-#: barcamps/permissions.py:77
+#: barcamps/permissions.py:100
 msgid "Administrator deleted."
 msgstr "Admin gelöscht."
 
@@ -838,7 +842,7 @@ msgstr ""
 "Bitte fülle dieses Formular aus, um Dich für das Barcamp als Teilnehmer "
 "zu registrieren"
 
-#: barcamps/templates/participant_data.html:17 templates/master.html:103
+#: barcamps/templates/participant_data.html:17 templates/master.html:108
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr "Registrieren"
@@ -964,6 +968,46 @@ msgstr "Warteliste"
 msgid "Not a valid currency value"
 msgstr "kein gültiger Wert"
 
+#: handlers/sponsor.py:8
+msgid "Your Name"
+msgstr "Dein Name"
+
+#: handlers/sponsor.py:9
+msgid "Your E-Mail address"
+msgstr "Deine E-Mail-Adresse"
+
+#: handlers/sponsor.py:10
+msgid "please enter your email address so we can contact you"
+msgstr "Bitte gebe eine E-Mail-Adresse ein, so dass wir Dich kontaktieren können"
+
+#: handlers/sponsor.py:12
+msgid "Name of the proposed youth barcamp"
+msgstr "Name des Barcamps, das Du organisieren möchtest"
+
+#: handlers/sponsor.py:13
+msgid "Planned date of barcamp"
+msgstr "voraussichtliches Datum des Barcamps"
+
+#: handlers/sponsor.py:14
+msgid "Reason for sponsorship"
+msgstr "Was genau brauchst Du an Hilfe?"
+
+#: handlers/sponsor.py:15
+msgid "please describe your barcamp here esp. in regards of youth participation"
+msgstr ""
+"Bitte beschreibe Dein Barcamp hier insbesondere im Hinblick auf "
+"Jugendpartizipation und wobei Du Hilfe brauchst"
+
+#: handlers/sponsor.py:33
+msgid "camper: new barcamp sponsorshop requested"
+msgstr "Camper: Neues Barcamp-Sponsorship angefragt"
+
+#: handlers/sponsor.py:35
+msgid ""
+"your sponsorship request has been sent and we will come back to you "
+"shortly."
+msgstr "Deine Sponsor-Anfrage wurde an YouthPart weitergeleitet"
+
 #: handlers/upload.py:77
 #, python-format
 msgid "file '%s' has been deleted"
@@ -1025,21 +1069,31 @@ msgstr ""
 msgid "the page has been deleted"
 msgstr "Die Seite wurde gelöscht"
 
-#: templates/index.html:21
+#: templates/index.html:16
 msgid "private"
 msgstr "privat"
 
-#: templates/index.html:24
+#: templates/index.html:19
 msgid "ADMIN"
 msgstr "ADMIN"
 
 #: templates/index.html:40
-msgid "I want to organize a barcamp!"
-msgstr "Ich will ein Barcamp organisieren!"
+msgid "Receive sponsorship for a youthbarcamp"
+msgstr ""
 
-#: templates/index.html:42
-msgid "create new barcamp"
-msgstr "neues Barcamp anlegen"
+#: templates/index.html:46
+msgid "Recent Barcamps"
+msgstr "Aktuelle Barcamps"
+
+#: templates/index.html:51
+msgid "There are no barcamps coming up in the near future. Maybe organize one?"
+msgstr ""
+"Es gibt keine Barcamps in der näheren Zukunft. Willst Du eines "
+"organisieren?"
+
+#: templates/index.html:57
+msgid "Newly created Barcamps"
+msgstr "Neueste Barcamps"
 
 #: templates/macros.html:63
 msgid "This field is required"
@@ -1053,25 +1107,50 @@ msgstr "Blog"
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
-#: templates/master.html:95
+#: templates/master.html:84
+#, fuzzy
+msgid "new barcamp"
+msgstr "neues Barcamp anlegen"
+
+#: templates/master.html:100
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
-#: templates/master.html:102
+#: templates/master.html:107
 msgid "Login"
 msgstr "Einloggen"
 
-#: templates/master.html:111
+#: templates/master.html:116
 msgid "my profile"
 msgstr "Mein Profile"
 
-#: templates/master.html:112
+#: templates/master.html:117
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: templates/master.html:113
+#: templates/master.html:118
 msgid "Log out"
 msgstr "Ausloggen"
+
+#: templates/sponsoring.html:6
+msgid "Request Sponsorship"
+msgstr "Sponsorship beantragen"
+
+#: templates/sponsoring.html:8
+msgid ""
+"If you want to organize a youth barcamp you have the possibilty to get 1 "
+"hour of support from YouthPart.  In order to receive this please fill out"
+" the form below"
+msgstr ""
+"Wenn Du ein Jugendbarcamp veranstalten willst, hast Du die Möglichkeit, "
+"\"\n"
+"\"eine Stunde Support von YouthPart zu beantragen. Fülle dazu bitte das "
+"unten stehende \"\n"
+"\"Formular aus."
+
+#: templates/sponsoring.html:18
+msgid "send request"
+msgstr "Anfrage absenden"
 
 #: templates/M/userbase/login.html:14
 msgid "Real camper log in!"
