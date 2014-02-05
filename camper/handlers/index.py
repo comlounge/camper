@@ -17,8 +17,10 @@ class IndexView(BaseHandler):
         n = datetime.datetime.now()
         soon_barcamps = self.config.dbs.barcamps.find({
             'end_date'  : {'$gt': n},
-        }).limit(10)
-        new_barcamps = self.config.dbs.barcamps.find().sort("created",pymongo.DESCENDING).limit(3)
+        }).limit(3)
+        new_barcamps = self.config.dbs.barcamps.find({
+            'end_date'  : {'$gt': n},
+        }).sort("created",pymongo.DESCENDING).limit(3)
         soon_barcamps = [BarcampView(barcamp, self) for barcamp in soon_barcamps]
         soon_barcamps = [b  for b in soon_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
         new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps]

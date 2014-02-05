@@ -80,11 +80,6 @@
                         {% endfor %}
                         <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
                         <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
-                        {% if logged_in %}
-                            <li>
-                                <a href="{{url_for("barcamps.add")}}" id="create-new-barcamp-button">{{_('new barcamp')}}</a>
-                            </li>
-                        {% endif %}
                     </ul>
                     <div class="pull-right">
                     <ul class="nav"> 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-05 12:47+0100\n"
+"POT-Creation-Date: 2014-02-05 16:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,97 +17,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.6\n"
 
-#: app.py:174
+#: app.py:175
 msgid "User unknown"
 msgstr ""
 
-#: app.py:175
+#: app.py:176
 msgid "This email address cannot not be found in our user database"
 msgstr ""
 
-#: app.py:176
+#: app.py:177
 msgid "Your password is not correct"
 msgstr ""
 
-#: app.py:177
+#: app.py:178
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:178
+#: app.py:179
 msgid "Login failed"
 msgstr ""
 
-#: app.py:179
+#: app.py:180
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:180
+#: app.py:181
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:181
+#: app.py:182
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:182
+#: app.py:183
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:183
+#: app.py:184
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:184
+#: app.py:185
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:185
+#: app.py:186
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:186
+#: app.py:187
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:187
+#: app.py:188
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:188
+#: app.py:189
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:191
+#: app.py:192
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:192
+#: app.py:193
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:193
+#: app.py:194
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:194
+#: app.py:195
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:195
+#: app.py:196
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:199
+#: app.py:200
 msgid "can manage users"
 msgstr ""
 
-#: app.py:200
+#: app.py:201
 msgid "main administrator"
 msgstr ""
 
@@ -127,7 +127,7 @@ msgstr ""
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:235 base.py:380
+#: base.py:235 base.py:381
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
@@ -228,7 +228,7 @@ msgstr ""
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
-#: barcamps/base.py:56 templates/master.html:69
+#: barcamps/base.py:56 templates/master.html:70
 msgid "Home"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 #: barcamps/templates/docs.html:16
 #: barcamps/templates/participants_data_edit.html:31
 #: barcamps/templates/sessions.html:31 barcamps/templates/sessions.html:51
-#: templates/master.html:41
+#: templates/master.html:42
 msgid "Are you sure?"
 msgstr ""
 
@@ -800,7 +800,7 @@ msgid ""
 " barcamp"
 msgstr ""
 
-#: barcamps/templates/participant_data.html:17 templates/master.html:108
+#: barcamps/templates/participant_data.html:17 templates/master.html:109
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
@@ -1047,35 +1047,35 @@ msgstr ""
 msgid "This field is required"
 msgstr ""
 
-#: templates/master.html:80
+#: templates/master.html:81
 msgid "Blog"
 msgstr ""
 
-#: templates/master.html:81
+#: templates/master.html:82
 msgid "Ideas / Feedback"
 msgstr ""
 
-#: templates/master.html:84
+#: templates/master.html:85
 msgid "new barcamp"
 msgstr ""
 
-#: templates/master.html:100
+#: templates/master.html:101
 msgid "ADMINISTRATION"
 msgstr ""
 
-#: templates/master.html:107
+#: templates/master.html:108
 msgid "Login"
 msgstr ""
 
-#: templates/master.html:116
+#: templates/master.html:117
 msgid "my profile"
 msgstr ""
 
-#: templates/master.html:117
+#: templates/master.html:118
 msgid "Change Password"
 msgstr ""
 
-#: templates/master.html:118
+#: templates/master.html:119
 msgid "Log out"
 msgstr ""
 

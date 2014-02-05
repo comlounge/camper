@@ -43,7 +43,12 @@
     </div>
     <div class="row">
         <div class="span6">
-            <h2>{{_("Recent Barcamps")}}</h2>
+            <h2>
+            {% if logged_in %}
+                <a href="{{url_for("barcamps.add")}}" style="margin-top:10px" class="btn btn-primary pull-right">{{_('new barcamp')}}</a>
+            {% endif %}
+            {{_("Recent Barcamps")}}
+            </h2>
             {% if soon_barcamps %}
                 {{listing(soon_barcamps) }}
             {% else %}
