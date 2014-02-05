@@ -19,6 +19,7 @@
         {% block css %}
         <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
+        <link href="{{url_for("static", filename="css/leaflet.css")}}" rel="stylesheet">
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
         <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
         <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
@@ -159,6 +160,7 @@
         <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
+        <script src="{{url_for("static", filename="js/leaflet.js")}}"></script>
         {% if LANGUAGE != "en" %}
             <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
             <script src="{{url_for("static", filename="js/jquery.ui.datepicker-"+LANGUAGE+".js")}}"></script>

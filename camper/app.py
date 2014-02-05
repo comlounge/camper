@@ -132,6 +132,7 @@ class CamperApp(Application):
         'mongodb_name'          : "camper",
         'mongodb_port'          : 27017,
         'mongodb_host'          : "localhost",
+        'cloudmade_key'         : "",
         'secret_key'            : "7cs687cds6c786cd89&%$%&hhhs8c7zcbs87ct d7stc 8c7cs8 78 7dts 8cs97tugjgjzGUZGUzgcdcg&%%$",
         'session_cookie_domain' : "dev.localhost",
         'smtp_host'             : 'localhost',

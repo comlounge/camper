@@ -242,8 +242,13 @@
                             {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
                             {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
                             {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
-                            <a class="" href="{{url_for('barcamps.location', slug=slug)}}"><img src="http://staticmap.openstreetmap.de/staticmap.php?center={{barcamp.location.lat}},{{barcamp.location.lng}}&zoom=14&size=200x200&markers={{barcamp.location.lat}},{{barcamp.location.lng}},ltblu-pushpin" /></a><br>
-                            <a class="osm-copyright" href="http://www.openstreetmap.org/copyright">&copy; OpenStreetMap-Mitwirkende</a>
+                            {% if barcamp.location.lat %}
+                                <div id="minimap" 
+                                    data-apikey="{{cloudmade_key}}" 
+                                    data-href="{{url_for('barcamps.location', slug=slug)}}"
+                                    data-lat="{{barcamp.location.lat}}" 
+                                    data-lng="{{barcamp.location.lng}}"></div>
+                            {% endif %}
                         </div>
                     {% endblock %}
                 </div>{# -- widget -- #}

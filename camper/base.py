@@ -363,6 +363,7 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
+            cloudmade_key = self.config.cloudmade_key,
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app)
