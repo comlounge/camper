@@ -31,8 +31,9 @@ class IndexView(BaseHandler):
         soon_barcamps = [b  for b in soon_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
         new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps]
         new_barcamps = [b  for b in new_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
-        my_barcamps = [BarcampView(barcamp, self) for barcamp in my_barcamps]
-        my_barcamps = [b for b in my_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
+        if my_barcamps:
+            my_barcamps = [BarcampView(barcamp, self) for barcamp in my_barcamps]
+            my_barcamps = [b for b in my_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
         return self.render( 
             soon_barcamps = soon_barcamps,
             new_barcamps = new_barcamps,
