@@ -1,7 +1,10 @@
 {% extends "_m/barcamps/master.html" %}
 {% block js %}
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+        /*
         var proj4326 = new OpenLayers.Projection("EPSG:4326");
         var projmerc = new OpenLayers.Projection("EPSG:900913");
 
@@ -59,6 +62,7 @@
             map.addControl(dragFeature);
             dragFeature.activate();
         }
+        */
 
     });
     
@@ -72,9 +76,17 @@
 {% endblock %}
 
 {% block main_content %}
+    <div id="bigmap" 
+        data-lat="{{barcamp.location.lat}}"  
+        data-lng="{{barcamp.location.lng}}" 
+        data-apikey="{{cloudmade_key}}" 
+        data-admin="{{1 if is_admin else 0}}"
+        class="span9" style="height:600px"></div>
+        <!--
     <div data-lng="{{barcamp.location.lng}}" 
          data-lat="{{barcamp.location.lat}}"  
          data-admin="{{1 if is_admin else 0}}"
          id="locationPickerMap" class="span9" style="height:600px"></div>
          <a class="osm-copyright" href="http://www.openstreetmap.org/copyright">&copy; OpenStreetMap-Mitwirkende</a> 
+         -->
 {% endblock %}

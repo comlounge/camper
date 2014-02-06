@@ -182,6 +182,63 @@ $(document).ready( () ->
         console.log form.attr("method")
         form.submit()
         false
+
+    # map
+    $("#minimap").each( () ->
+        lat = $(this).data("lat")
+        lng = $(this).data("lng")
+        apikey = $(this).data("apikey")
+        id = $(this).attr("id")
+        href = $(this).data("href")
+
+        options =
+            zoomControl: false
+            dragging: false
+            touchZoom: false
+            scrollWheelZoom: false
+            doubleClickZoom: false
+            center: [lat, lng]
+            zoom: 14
+        map = L.map(id, options)
+        L.tileLayer('https://ssl_tiles.cloudmade.com/'+apikey+'/997/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            maxZoom: 18
+        }).addTo(map);
+        L.Icon.Default.imagePath = '/static/img';
+        marker = L.marker([lat, lng]).addTo(map);
+        goto = (e) ->
+            document.location = href
+        marker.on("click", goto)
+        map.on("click", goto)
+    )
+
+    $("#bigmap").each( () ->
+        lat = $(this).data("lat")
+        lng = $(this).data("lng")
+        apikey = $(this).data("apikey")
+        admin = $(this).data("admin")
+        id = $(this).attr("id")
+        is_admin = admin == "1"
+
+        options =
+            center: [lat, lng]
+            zoom: 14
+        map = L.map(id, options)
+        L.tileLayer('https://ssl_tiles.cloudmade.com/'+apikey+'/997/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+            maxZoom: 18
+        }).addTo(map);
+        L.Icon.Default.imagePath = '/static/img'
+        moptions = {}
+        if is_admin
+            moptions = { draggable: true }
+        marker = L.marker([lat, lng], moptions).addTo(map)
+        marker_dragged = (e) ->
+            m = event.target           # you could also simply access the marker through the closure
+            result = m.getLatLng()     # but using the passed event is cleaner
+            alert(result)
+        marker.on("dragend", marker_dragged)
+    )
 )
 
 

@@ -132,12 +132,15 @@ class CamperApp(Application):
         'mongodb_name'          : "camper",
         'mongodb_port'          : 27017,
         'mongodb_host'          : "localhost",
+        'cloudmade_key'         : "",
         'secret_key'            : "7cs687cds6c786cd89&%$%&hhhs8c7zcbs87ct d7stc 8c7cs8 78 7dts 8cs97tugjgjzGUZGUzgcdcg&%%$",
         'session_cookie_domain' : "dev.localhost",
         'smtp_host'             : 'localhost',
         'smtp_port'             : 25,
         'from_addr'             : "noreply@example.org",
         'from_name'             : "Barcamp-Tool",
+        'new_bc_notification_addr'      : None, # which email address to notify about newly created and published barcamps
+        'sponsor_bc_notification_addr'  : None, # which email address to notify about sponsorship requests 
         'ep_api_key'            : "please fill in from APIKEY.txt",
         'ep_endpoint'           : "http://localhost:9001/api",
         'ga'                    : 'none', #GA key
@@ -216,6 +219,9 @@ class CamperApp(Application):
         URL('/', 'login', handlers.index.IndexView),
         URL('/assets/', 'asset_upload', handlers.images.AssetUploadView),
         URL('/assets/<asset_id>', 'asset', handlers.images.AssetView),
+
+        # sponsoring
+        URL('/sponsoring', 'sponsoring', handlers.sponsor.SponsorContactView),
 
         # admin area
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),

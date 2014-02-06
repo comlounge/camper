@@ -23,15 +23,42 @@ class Permissions(BarcampBaseHandler):
     @is_admin()
     def post(self, slug = None):
         """set the workflow state for the barcamp"""
+        print "what"
         try:
             self.barcamp.set_workflow(self.request.form.get("wf",""))
             self.barcamp.save()
-        except WorkflowError:
+        except WorkflowError, e:
+            print e
             self.flash(self._("you cannot perform this action."), category="error")
+
+        # send out the notification email
+        wf = self.request.form.get("wf","")
+        if wf=="public":
+            send_to = self.app.config.new_bc_notification_addr
+            if send_to:
+                mailer = self.app.module_map['mail']
+                if self.barcamp.start_date and self.barcamp.end_date:
+                    date = "%s - %s" %(
+                        self.barcamp.start_date.strftime('%d.%m.%Y'),
+                        self.barcamp.end_date.strftime('%d.%m.%Y')),
+                else:
+                    date = "TBA"
+                kwargs = dict(
+                    name = self.barcamp.name,
+                    description = self.barcamp.description,
+                    date = date,
+                    url = self.url_for("barcamps.index", slug = self.barcamp.slug, _full = True)
+                )
+                payload = self.render_lang("emails/new_barcamp.txt", **kwargs)
+                subject = self._("camper: new barcamp created")
+                mailer.mail(send_to, subject, payload)
+
+        # redirect back to the right page
         if self.last_url:
             url = self.last_url
         else:
             url = self.url_for("barcamp", slug=slug)
+
         return redirect(url)
 
 

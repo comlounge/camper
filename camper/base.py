@@ -350,6 +350,11 @@ class BaseHandler(starflyer.Handler):
         return False
 
     @property
+    def logged_in(self):
+        """check if the given user is logged in"""
+        return self.user is not None
+
+    @property
     def render_context(self):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
@@ -368,6 +373,7 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
+            cloudmade_key = self.config.cloudmade_key,
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app)
@@ -403,7 +409,7 @@ class BaseHandler(starflyer.Handler):
         mailer.mail(send_to, subject, payload)
 
     def mail_template(self, template_name, send_to=None, **kwargs):
-        """render and send out a mail as mormal text"""
+        """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]

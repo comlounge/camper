@@ -28,30 +28,43 @@
     {% endfor %}
 {% endmacro %}
 
-{% block content %}
-    <h1 id="logo">
-        <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
-    </h1>
+{% block content %} 
+    <div class="row">   
+        <div class="span6">
+            <h1 id="logo pull-left">
+                <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
+            </h1>
+        </div>
+        <div class="span6">
+            <div class="widget">
+                <a href="{{url_for("sponsoring")}}" title="{{_('Receive sponsorship for a youthbarcamp')}}"><img src="{{url_for("static", filename="/img/sponsoring.png")}}" alt="Sponsor-Logo"></a>
+            </div>
+        </div>
+    </div>
     <div class="row">
-        <div class="span9">
-            {% if soon_barcamps %}
-                <h2>Bald stattfindende Barcamps</h2>
-                {{listing(soon_barcamps) }}
+        <div class="span6">
+            <h2>
+            {% if logged_in %}
+                <a href="{{url_for("barcamps.add")}}" style="margin-top:10px" class="btn btn-primary pull-right">{{_('new barcamp')}}</a>
             {% endif %}
-
-            {% if new_barcamps %}
-                <h2>Neu erstellte Barcamps</h2>
-                {{listing(new_barcamps) }}
+            {{_("Recent Barcamps")}}
+            </h2>
+            {% if soon_barcamps %}
+                {{listing(soon_barcamps) }}
+            {% else %}
+                <div class="well well-big">
+                    {{_("There are no barcamps coming up in the near future. Maybe organize one?")}}
+                </div>
             {% endif %}
         </div>
-        <div class="widgets">
-            {% if logged_in %}
-                <div class="widget">
-                    <p>
-                        <strong>{{_('I want to organize a barcamp!')}}</strong>
-                    </p>
-                    <a href="{{url_for("barcamps.add")}}" id="create-new-barcamp-button" class="btn">{{_('create new barcamp')}}</a>
-                </div>
+        <div class="span6">
+            {% if my_barcamps %}
+                <h2>{{_("my Barcamps")}}</h2>
+                {{listing(my_barcamps) }}
+            {% endif %}
+            {% if new_barcamps %}
+                <h2>{{_("Newly created Barcamps")}}</h2>
+                {{listing(new_barcamps) }}
             {% endif %}
         </div>
     </div>

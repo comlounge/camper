@@ -1,0 +1,10 @@
+A new barcamp has been published:
+
+Name: {{barcamp.name}}
+URL: {{url}}
+Date: {{date}}
+
+Description:
+
+{{description}}
+

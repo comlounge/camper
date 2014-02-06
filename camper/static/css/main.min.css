@@ -909,3 +909,5 @@ ul.participants .participant-avatar{float:left;margin-right:5px;}
 .widget a{color:#003;}
 .socialmedia{height:30px;overflow:hidden;}
 a.osm-copyright{font-size:10px;color:#888;float:right;}
+.help-block{font-size:80%;font-style:italic;line-height:1;}
+#minimap{height:200px;width:170px;}
