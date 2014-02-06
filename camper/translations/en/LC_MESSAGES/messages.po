@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2014-02-05 16:49+0100\n"
+"POT-Creation-Date: 2014-02-06 12:56+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:235 base.py:381
+#: base.py:235 base.py:386
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
@@ -800,7 +800,7 @@ msgid ""
 " barcamp"
 msgstr ""
 
-#: barcamps/templates/participant_data.html:17 templates/master.html:109
+#: barcamps/templates/participant_data.html:17 templates/master.html:104
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
@@ -1031,15 +1031,23 @@ msgstr ""
 msgid "Receive sponsorship for a youthbarcamp"
 msgstr ""
 
-#: templates/index.html:46
+#: templates/index.html:48
+msgid "new barcamp"
+msgstr ""
+
+#: templates/index.html:50
 msgid "Recent Barcamps"
 msgstr ""
 
-#: templates/index.html:51
+#: templates/index.html:56
 msgid "There are no barcamps coming up in the near future. Maybe organize one?"
 msgstr ""
 
-#: templates/index.html:57
+#: templates/index.html:62
+msgid "my Barcamps"
+msgstr ""
+
+#: templates/index.html:66
 msgid "Newly created Barcamps"
 msgstr ""
 
@@ -1055,27 +1063,23 @@ msgstr ""
 msgid "Ideas / Feedback"
 msgstr ""
 
-#: templates/master.html:85
-msgid "new barcamp"
-msgstr ""
-
-#: templates/master.html:101
+#: templates/master.html:96
 msgid "ADMINISTRATION"
 msgstr ""
 
-#: templates/master.html:108
+#: templates/master.html:103
 msgid "Login"
 msgstr ""
 
-#: templates/master.html:117
+#: templates/master.html:112
 msgid "my profile"
 msgstr ""
 
-#: templates/master.html:118
+#: templates/master.html:113
 msgid "Change Password"
 msgstr ""
 
-#: templates/master.html:119
+#: templates/master.html:114
 msgid "Log out"
 msgstr ""
 

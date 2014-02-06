@@ -345,6 +345,11 @@ class BaseHandler(starflyer.Handler):
         return False
 
     @property
+    def logged_in(self):
+        """check if the given user is logged in"""
+        return self.user is not None
+
+    @property
     def render_context(self):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")

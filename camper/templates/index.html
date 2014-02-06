@@ -58,6 +58,10 @@
             {% endif %}
         </div>
         <div class="span6">
+            {% if my_barcamps %}
+                <h2>{{_("my Barcamps")}}</h2>
+                {{listing(my_barcamps) }}
+            {% endif %}
             {% if new_barcamps %}
                 <h2>{{_("Newly created Barcamps")}}</h2>
                 {{listing(new_barcamps) }}
