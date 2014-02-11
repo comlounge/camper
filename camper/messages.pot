@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-06 12:56+0100\n"
+"POT-Creation-Date: 2014-02-11 14:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -185,7 +185,7 @@ msgid "email address of the venue (optional)"
 msgstr ""
 
 #: barcamps/add.py:65 barcamps/edit.py:47
-#: barcamps/templates/participants_data_edit.html:12
+#: barcamps/templates/participants_data_edit.html:19
 msgid "description"
 msgstr ""
 
@@ -372,16 +372,16 @@ msgstr ""
 msgid "please describe what the user should enter in this field."
 msgstr ""
 
-#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:13
+#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:20
 msgid "field type"
 msgstr ""
 
 #: barcamps/edit.py:195
-msgid "text field"
+msgid "1 line of text"
 msgstr ""
 
 #: barcamps/edit.py:195
-msgid "text area"
+msgid "multiple lines of text"
 msgstr ""
 
 #: barcamps/edit.py:196
@@ -585,7 +585,7 @@ msgid "Blog Posts about the camp"
 msgstr ""
 
 #: barcamps/templates/docs.html:16
-#: barcamps/templates/participants_data_edit.html:31
+#: barcamps/templates/participants_data_edit.html:38
 #: barcamps/templates/sessions.html:31 barcamps/templates/sessions.html:51
 #: templates/master.html:42
 msgid "Are you sure?"
@@ -809,19 +809,33 @@ msgstr ""
 msgid "Edit the participant registration form"
 msgstr ""
 
-#: barcamps/templates/participants_data_edit.html:11
+#: barcamps/templates/participants_data_edit.html:7
+msgid ""
+"If you want a user to enter additional data like t-shirt size, food "
+"preferences etc. you can define that here. Just add a custom\n"
+"            fields for all the informatin you want to gather. You can "
+"choose between single-line and multi-line text fields. Also you can "
+"define if the\n"
+"            field is required to be filled in. The user will then have to"
+" enter that data when clicking on the participate button. You can "
+"download that data\n"
+"            along with the name of the participants under the \"download "
+"participants\" menu item in the admin box."
+msgstr ""
+
+#: barcamps/templates/participants_data_edit.html:18
 msgid "title"
 msgstr ""
 
-#: barcamps/templates/participants_data_edit.html:14
+#: barcamps/templates/participants_data_edit.html:21
 msgid "required?"
 msgstr ""
 
-#: barcamps/templates/participants_data_edit.html:40
+#: barcamps/templates/participants_data_edit.html:48
 msgid "Add a new field"
 msgstr ""
 
-#: barcamps/templates/participants_data_edit.html:48
+#: barcamps/templates/participants_data_edit.html:56
 msgid "Add"
 msgstr ""
 
@@ -834,15 +848,22 @@ msgid "update"
 msgstr ""
 
 #: barcamps/templates/send_newsletter.html:5
-#: barcamps/templates/send_newsletter.html:21
+#: barcamps/templates/send_newsletter.html:24
 msgid "Send Newsletter"
 msgstr ""
 
-#: barcamps/templates/send_newsletter.html:15
+#: barcamps/templates/send_newsletter.html:7
+msgid ""
+"With this form you can send a newsletter to either all participants, all "
+"interested members or both groups. You can also test the newsletter by "
+"sending it to an email address of your choice"
+msgstr ""
+
+#: barcamps/templates/send_newsletter.html:18
 msgid "Send Test Mail"
 msgstr ""
 
-#: barcamps/templates/send_newsletter.html:17
+#: barcamps/templates/send_newsletter.html:20
 msgid "Really send Newsletter?"
 msgstr ""
 

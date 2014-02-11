@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2014-02-06 12:56+0100\n"
+"POT-Creation-Date: 2014-02-11 14:35+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgid "email address of the venue (optional)"
 msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
 
 #: barcamps/add.py:65 barcamps/edit.py:47
-#: barcamps/templates/participants_data_edit.html:12
+#: barcamps/templates/participants_data_edit.html:19
 msgid "description"
 msgstr "Beschreibung"
 
@@ -383,17 +383,17 @@ msgstr ""
 msgid "please describe what the user should enter in this field."
 msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
 
-#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:13
+#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:20
 msgid "field type"
 msgstr "Art des Feldes"
 
 #: barcamps/edit.py:195
-msgid "text field"
-msgstr "Textfeld"
+msgid "1 line of text"
+msgstr "Textfeld mit einer einzelnen Zeile"
 
 #: barcamps/edit.py:195
-msgid "text area"
-msgstr "Textbereich"
+msgid "multiple lines of text"
+msgstr "Textfeld mit mehreren Zeilen"
 
 #: barcamps/edit.py:196
 msgid "please chose between a one-line text field or multi-line text area"
@@ -606,7 +606,7 @@ msgid "Blog Posts about the camp"
 msgstr "Blog-Artikel über das Barcamp"
 
 #: barcamps/templates/docs.html:16
-#: barcamps/templates/participants_data_edit.html:31
+#: barcamps/templates/participants_data_edit.html:38
 #: barcamps/templates/sessions.html:31 barcamps/templates/sessions.html:51
 #: templates/master.html:42
 msgid "Are you sure?"
@@ -851,19 +851,41 @@ msgstr "Registrieren"
 msgid "Edit the participant registration form"
 msgstr "Bearbeite das Registrierungsformular"
 
-#: barcamps/templates/participants_data_edit.html:11
+#: barcamps/templates/participants_data_edit.html:7
+msgid ""
+"If you want a user to enter additional data like t-shirt size, food "
+"preferences etc. you can define that here. Just add a custom\n"
+"            fields for all the informatin you want to gather. You can "
+"choose between single-line and multi-line text fields. Also you can "
+"define if the\n"
+"            field is required to be filled in. The user will then have to"
+" enter that data when clicking on the participate button. You can "
+"download that data\n"
+"            along with the name of the participants under the \"download "
+"participants\" menu item in the admin box."
+msgstr ""
+"Hier kannst Du definieren, welche zusätzlichen Informationen Du vom "
+"Benutzer beim Registrierungsprozess abfragen willst. Dies kann z.B. T"
+"-Shirt-Größe, Essensoptionen oder ähnliches sein. Du kannst bei jedem "
+"Feld wählen, ob es ein ein- oder mehrzeiliges Feld sein soll und ob ein "
+"Benutzer es zwingend ausfüllen muss. Ein Benutzer muss diese Daten dann "
+"beim  Registrierungsprozess angeben. Diese Daten kannst Du danach dann "
+"unter 'Teilnehmer herunterladen' inklusive Namen der Teilnehmer "
+"herunterladen. "
+
+#: barcamps/templates/participants_data_edit.html:18
 msgid "title"
 msgstr "Titel"
 
-#: barcamps/templates/participants_data_edit.html:14
+#: barcamps/templates/participants_data_edit.html:21
 msgid "required?"
 msgstr "erforderlich?"
 
-#: barcamps/templates/participants_data_edit.html:40
+#: barcamps/templates/participants_data_edit.html:48
 msgid "Add a new field"
 msgstr "Füge ein neues Feld hinzu"
 
-#: barcamps/templates/participants_data_edit.html:48
+#: barcamps/templates/participants_data_edit.html:56
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -876,17 +898,28 @@ msgid "update"
 msgstr "Aktualisieren"
 
 #: barcamps/templates/send_newsletter.html:5
-#: barcamps/templates/send_newsletter.html:21
+#: barcamps/templates/send_newsletter.html:24
 msgid "Send Newsletter"
-msgstr ""
+msgstr "Newsletter versenden"
 
-#: barcamps/templates/send_newsletter.html:15
+#: barcamps/templates/send_newsletter.html:7
+msgid ""
+"With this form you can send a newsletter to either all participants, all "
+"interested members or both groups. You can also test the newsletter by "
+"sending it to an email address of your choice"
+msgstr ""
+"Mit diesem Formular kannst Du einen Newsletter entweder an alle "
+"Teilnehmer des Barcamps, alle Interessierten oder beide Gruppen schicken."
+" Du kann Dir vorher den Newsletter als Test an eine beliebige Adresse "
+"schicken lassen."
+
+#: barcamps/templates/send_newsletter.html:18
 msgid "Send Test Mail"
-msgstr ""
+msgstr "Test-Newsletter versenden"
 
-#: barcamps/templates/send_newsletter.html:17
+#: barcamps/templates/send_newsletter.html:20
 msgid "Really send Newsletter?"
-msgstr ""
+msgstr "Den Newsletter wirklich versenden?"
 
 #: barcamps/templates/sessions.html:7
 msgid "Date"
