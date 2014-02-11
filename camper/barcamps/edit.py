@@ -192,7 +192,7 @@ class ParticipantDataEditForm(BaseForm):
     description         = TextAreaField(T("Description"),
                 description = T('please describe what the user should enter in this field.'),
     )
-    fieldtype           = SelectField(T("field type"), [validators.Required()], choices=[('textfield',T('text field')),('textarea',T('text area'))],
+    fieldtype           = RadioField(T("field type"), [validators.Required()], choices=[('textfield',T('1 line of text')),('textarea',T('multiple lines of text'))],
                 description = T('please chose between a one-line text field or multi-line text area'),
     )
     required            = BooleanField(T("field required?"),
