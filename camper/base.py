@@ -359,6 +359,7 @@ class BaseHandler(starflyer.Handler):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
+        print "preparing context"
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
@@ -380,8 +381,6 @@ class BaseHandler(starflyer.Handler):
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug
-            if self.user is not None:
-                payload['is_admin'] = unicode(self.user._id) in self.barcamp.admins
         if self.page is not None:
             payload['page_slug'] = self.page.slug
         return payload

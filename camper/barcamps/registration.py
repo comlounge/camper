@@ -38,7 +38,11 @@ class BarcampSubscribe(BarcampBaseHandler):
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class BarcampAdminRegister(BarcampBaseHandler):
-    """admins adds user to participants list regardless if this list is full or not"""
+    """admins adds user to participants list regardless if this list is full or not.
+
+    This will be called by the context menu in the userlist view
+    
+    """
 
     @is_admin()
     @ensure_barcamp()
