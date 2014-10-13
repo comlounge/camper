@@ -199,11 +199,7 @@ $(document).ready( () ->
             doubleClickZoom: false
             center: [lat, lng]
             zoom: 14
-        map = L.map(id, options)
-        L.tileLayer('https://ssl_tiles.cloudmade.com/'+apikey+'/997/256/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 18
-        }).addTo(map);
+        map = L.mapbox.map(id, apikey, options)
         L.Icon.Default.imagePath = '/static/img';
         marker = L.marker([lat, lng]).addTo(map);
         goto = (e) ->
@@ -223,11 +219,7 @@ $(document).ready( () ->
         options =
             center: [lat, lng]
             zoom: 14
-        map = L.map(id, options)
-        L.tileLayer('https://ssl_tiles.cloudmade.com/'+apikey+'/997/256/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 18
-        }).addTo(map);
+        map = L.mapbox.map(id, apikey, options)
         L.Icon.Default.imagePath = '/static/img'
         moptions = {}
         if is_admin
