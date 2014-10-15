@@ -34,8 +34,10 @@ class Permissions(BarcampBaseHandler):
         # send out the notification email
         wf = self.request.form.get("wf","")
         if wf=="public":
+            # this can be multiple addresses split by comma
             send_to = self.app.config.new_bc_notification_addr
             if send_to:
+                send_tos = [e.strip() for e in send_to.split(",")]
                 mailer = self.app.module_map['mail']
                 if self.barcamp.start_date and self.barcamp.end_date:
                     date = "%s - %s" %(
@@ -51,7 +53,10 @@ class Permissions(BarcampBaseHandler):
                 )
                 payload = self.render_lang("emails/new_barcamp.txt", **kwargs)
                 subject = self._("camper: new barcamp created")
-                mailer.mail(send_to, subject, payload)
+
+                # now send it out to all recipients
+                for send_to in send_tos:
+                    mailer.mail(send_to, subject, payload)
 
         # redirect back to the right page
         if self.last_url:
