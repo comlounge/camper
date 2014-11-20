@@ -163,19 +163,21 @@
                         {% macro barcamp_buttons() -%}
                         {% if logged_in %}
                         <div class="widget-join">
-                            {% if view.can_subscribe %}
-                                <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center">
-                                    <button class="btn btn-primary btn-block">{{_('register my interest')}}</button>
-                                </form>
-                            {% endif %}
                             {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
                                 {% if barcamp.registration_form %}
-                                    <a href="{{url_for('barcamps.register', slug = slug)}}" class="btn btn-large btn-info" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
+                                    <div>
+                                        <a href="{{url_for('barcamps.register', slug = slug)}}" class="btn btn-lg btn-primary" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
+                                    </div>
                                 {% else %}
                                     <form method="POST" action="{{url_for('barcamps.register', slug = slug)}}">
-                                        <button class="btn btn-info btn-block" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
+                                        <button class="btn btn-primary btn-block btn-lg" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
                                     </form>
                                 {% endif %}
+                            {% endif %}
+                            {% if view.can_subscribe %}
+                                <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center">
+                                    <button class="btn btn-info btn-block" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it"><i class="fa fa-eye"></i> {{_('watch this event')}}</button>
+                                </form>
                             {% endif %}
                         </div>
                         {% else %}
@@ -266,8 +268,6 @@
         {% endblock %}
 
     </div><!-- #barcamp -->
-    <footer>
-    </footer>
 {% endblock %}
 {% block js %}
     <script src="{{url_for("static", filename="js/uploader.js")}}"></script>

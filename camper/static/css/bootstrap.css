@@ -6405,6 +6405,10 @@ article.barcamp i {
 #barcamp-details p {
   margin-bottom: 20px;
 }
+.widget-join form,
+.widget-join div {
+  margin-bottom: 5px;
+}
 .socialmedia {
   overflow: auto;
 }
@@ -6630,4 +6634,10 @@ fieldset[disabled] .login-container .btn-signin.active {
 }
 .btn-inline.hide {
   display: none;
+}
+footer {
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  margin-bottom: 30px;
+  padding-top: 20px;
 }
