@@ -1,13 +1,13 @@
 {% extends M.userbase.config.master_template %}
-{% import "_m/userbase/macros.html" as formmacros with context %}                                                                                                           
+{% import "macros.html" as formmacros with context %}                                                                                                           
 {% block content %}
     <div id="main-content" class="row">
         <div class="col-lg-9" id="content-area">
             <div class="form">
                 <h2>{{_('Please register')}}</h2>
-                <form class="boxform horizontal-form validate" method="POST" action="{{url}}">
+                <form class="boxform form-horizontal validate" method="POST" action="{{url}}" role="form">
                     {% for field in form %}
-                        {{ formmacros.form_field(field, class="span6 required" if field.flags.required else "span6") }}
+                        {{ formmacros.form_field(field, label_class="col-lg-2", input_class="col-lg-6", required =field.flags.required)}}
                     {% endfor %}
 
                     <fieldset class="form-actions">

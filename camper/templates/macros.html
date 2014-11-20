@@ -42,13 +42,13 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro my_field(field, prepend=None, append=None) -%}
-            <div class="input {{'input-prepend' if prepend}} {{'input-append' if append}}">
+{% macro my_field(field, prepend=None, append=None, input_class="", required=False) -%}
+            <div class="{{input_class}} {{'input-prepend' if prepend}} {{'input-append' if append}}">
                 {% if prepend %}
                     <span class="add-on">{{prepend}}</span>
                 {% endif %}
 
-                {{ field(**kwargs) }}
+                {{ field(class="form-control {{'required' if required}}", **kwargs) }}
 
                 {% if append %}
                     <span class="add-on">{{append}}</span>
@@ -57,8 +57,8 @@
           </div>
 {%- endmacro %}
 
-{%- macro form_field_label(field) -%}
-    <label class="control-label" for="{{ field.id }}">{{ _(field.label.text) }}
+{%- macro form_field_label(field, label_class="") -%}
+    <label class="{{label_class}}" for="{{ field.id }}">{{ _(field.label.text) }}
     {%- if field.flags.required -%}
         <abbr title="{{_('This field is required')}}">*</abbr>
     {%- endif %}</label>
@@ -114,26 +114,24 @@
 </div>
 {%- endmacro -%}
 
-{%- macro form_field(field) -%}
-    <div class="control-group {{'error' if field.errors}}" id="field-{{field.id}}">
+{%- macro form_field(field, label_class="", input_class="") -%}
+    <div class="form-group {{'error' if field.errors}}" id="field-{{field.id}}">
     {% if field.type == 'HiddenField' %}
         {{ field() }}
     {% else %}
         {% if field.type == 'BooleanField' %}
             {{ form_field_boolean(field, **kwargs) }}
         {% else%}
-            {{ form_field_label(field) }}
-            <div class="controls" id="{{field.id}}-div">
-                {% if field.type == 'MultiCheckboxField' %}
-                    {{ form_field_multicheckbox(field) }}
-                {% elif field.type == 'RadioField' %}
-                    {{ form_field_radio(field) }}
-                {% else %}
-                    {{ my_field(field, **kwargs) }}
-                {% endif %}
-                {{ form_field_errors(field) }}
-                {{ form_field_description(field) }}
-            </div>
+            {{ form_field_label(field, label_class) }}
+            {% if field.type == 'MultiCheckboxField' %}
+                {{ form_field_multicheckbox(field) }}
+            {% elif field.type == 'RadioField' %}
+                {{ form_field_radio(field) }}
+            {% else %}
+                {{ my_field(field, input_class=input_class, **kwargs) }}
+            {% endif %}
+            {{ form_field_errors(field) }}
+            {{ form_field_description(field) }}
         {% endif %}
     {% endif %}
     </div>
