@@ -99,13 +99,23 @@
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
-        <div class="navbar">
-            <div class="navbar-inner">
-                <ul class="nav">
-                    {% for action in actions %}
-                        <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
-                    {% endfor %}
-                </ul>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        {% for action in actions %}
+                            <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -123,7 +133,7 @@
 
         {% block outer_content %}
             <div id="main-content" class="row">
-                <div class="span9" id="content-area">
+                <div class="col-lg-9 col-md-9" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
                             <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
@@ -148,7 +158,7 @@
                     {% endblock %}
 
                 </div>
-                <div class="widgets">
+                <aside class="col-lg-3 col-md-3">
                     {% block widgets %}
                         {% macro barcamp_buttons() -%}
                         {% if logged_in %}
@@ -169,7 +179,7 @@
                             {% endif %}
                         </div>
                         {% else %}
-                            <div class="alert alert-block">
+                            <div class="alert alert-info">
                                 <h4>{{_("Attention!")}}</h4>
                                 {{_('In order to mark your interest in this barcamp you first have to')}}
                                 <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
@@ -251,7 +261,7 @@
                             {% endif %}
                         </div>
                     {% endblock %}
-                </div>{# -- widget -- #}
+                </aside>{# -- widget -- #}
             </div>{# -- #main-content --#}
         {% endblock %}
 

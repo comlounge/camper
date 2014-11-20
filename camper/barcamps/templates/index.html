@@ -2,24 +2,19 @@
 
 {% block main_content %}
     {# ************************************ Main Module **************************************** #}
-        <div class="row">
-            <div class="span8">
+        <div class="row" id="barcamp-details">
+            <div class="col-lg-12">
                 <div class="widget-show">
                     <div class="description">
                         {{description|md}}
                     </div>
                 </div>
-                <div class="widget-edit hide">
-                    not showing
-                </div>
-            </div>
-            <div class="span4">
             </div>
         </div>
 
         <!-- sponsoren -->
         <div class="row sponsors">
-            <div class="span9">
+            <div class="col-lg-9">
             {% for sponsor in view.sponsors %}
                 <div class="sponsor action-container" style="margin: 10px;">
                     <a href="{{sponsor.url}}">{{sponsor.image}}</a>

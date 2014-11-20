@@ -37,7 +37,9 @@ setup(name='camper',
         "bleach",
       ],
       entry_points="""
-      [paste.app_factory]
-      main = camper.app:app
+          [paste.app_factory]
+          main = camper.app:app
+          [console_scripts]
+          change_path = camper.scripts.change_path:change_path
       """,
       )

@@ -251,7 +251,7 @@ class CamperApp(Application):
         self.config.dbs = AttributeMapper()
         mydb = self.config.dbs.db = pymongo.Connection(
             self.config.mongodb_host,
-            self.config.mongodb_port
+            int(self.config.mongodb_port)
         )[self.config.mongodb_name]
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps, app=self, config=self.config)
         self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
@@ -274,9 +274,8 @@ class CamperApp(Application):
                 ImageSizeProcessor({
                     'thumb' : "50x50!",
                     'small' : "100x",
-                    'logo_full' : "940x",
+                    'logo_full' : "1140x",
                     'medium_user' : "296x",
-                    'large' : "1200x",
                 })
             ],
         ))

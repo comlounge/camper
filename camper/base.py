@@ -64,11 +64,29 @@ class BarcampView(object):
             return u""
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id)
+        return """<a href="%s"><img class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
+            self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
+            url,
+            v.metadata['width'],
+            v.metadata['height'])
+
+    @property
+    def logosmall(self):
+        """show the logo tag"""
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['medium_user']
+        url = self.app.url_for("asset", asset_id = v._id)
         return """<a href="%s"><img src="%s" width="%s" height="%s"></a>""" %(
             self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
             url,
             v.metadata['width'],
             v.metadata['height'])
+
 
     @property
     def date(self):

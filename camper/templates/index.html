@@ -1,53 +1,54 @@
 {% extends "master.html" %}
 
 
-{% macro listing(barcamps) %}
+{% macro listing(barcamps, small=False) %}
     {% for view in barcamps %}
-        <article class="barcamp content-area">
-            <header>
-                {% if view.logo %}
-                    <h4>{{view.logo}}</h4>
-                {% else %}
-                    <h4><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
-                {% endif %}
-            </header>
-            <div class="pull-right">
-                {% if not view.barcamp.public %}
-                    <span class="label label-warning">{{_('private')}}</span>
-                {% endif %}
-                {% if view.is_admin %}
-                    <span class="label label-success">{{_('ADMIN')}}</span>
-                {% endif %}
+        <article class="barcamp content-area {{'barcamp-small' if small else 'barcamp-full'}}" 
+                 data-href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">
+            <div class="row inner">
+                <div class="logo">
+                    {{view.logosmall}}
+                </div>
+                <div class="description">
+                    <div class="pull-right">
+                        {% if not view.barcamp.public %}
+                            <span class="label label-warning">{{_('private')}}</span>
+                        {% endif %}
+                        {% if view.is_admin %}
+                            <span class="label label-success">{{_('ADMIN')}}</span>
+                        {% endif %}
+                    </div>
+                    <h2><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h2>
+                    <div class="byline">
+                        <i class="fa fa-location-arrow"></i> <span>{{view.short_location}}</span><br>
+                        <i class="fa fa-calendar"></i> <span>{{view.date}}</span>
+                    </div>
+                </div>
             </div>
-            <div class="byline">
-                {{view.date}}, {{view.short_location}}
-            </div>
-            <footer>
-            </footer>
         </article>
     {% endfor %}
 {% endmacro %}
 
 {% block content %} 
     <div class="row">   
-        <div class="span6">
+        <div class="col-lg-8">
             <h1 id="logo pull-left">
                 <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
             </h1>
         </div>
-        <div class="span6">
+        <div class="col-lg-4">
             <div class="widget">
                 <a href="{{url_for("sponsoring")}}" title="{{_('Receive sponsorship for a youthbarcamp')}}"><img src="{{url_for("static", filename="/img/sponsoring.png")}}" alt="Sponsor-Logo"></a>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="span6">
+        <div class="col-lg-8">
             <h2>
             {% if logged_in %}
                 <a href="{{url_for("barcamps.add")}}" style="margin-top:10px" class="btn btn-primary pull-right">{{_('new barcamp')}}</a>
             {% endif %}
-            {{_("Recent Barcamps")}}
+            {{_("Recent Events")}}
             </h2>
             {% if soon_barcamps %}
                 {{listing(soon_barcamps) }}
@@ -57,14 +58,14 @@
                 </div>
             {% endif %}
         </div>
-        <div class="span6">
+        <div class="col-lg-4">
             {% if my_barcamps %}
-                <h2>{{_("my Barcamps")}}</h2>
-                {{listing(my_barcamps) }}
+                <h2>{{_("My Events")}}</h2>
+                {{listing(my_barcamps, small=True) }}
             {% endif %}
             {% if new_barcamps %}
-                <h2>{{_("Newly created Barcamps")}}</h2>
-                {{listing(new_barcamps) }}
+                <h2>{{_("New Events")}}</h2>
+                {{listing(new_barcamps, small=True) }}
             {% endif %}
         </div>
     </div>

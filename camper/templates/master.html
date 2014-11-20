@@ -15,9 +15,11 @@
     
         <!-- Le styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         
         {% block css %}
-        <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
+        <link href="{{url_for("static", filename="css/bootstrap.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
         <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
@@ -40,114 +42,112 @@
     </head>
 
     <body data-i18n-areyousure="{{_("Are you sure?")}}">
-    <div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    // init the FB JS SDK
-    FB.init({
-      appId      : '{{config.fb_app_id}}',               // App ID from the app dashboard
-      status     : true,                                 // Check Facebook Login status
-      xfbml      : true                                  // Look for social plugins on the page
-    });
+        <div id="fb-root"></div>
+        <script>
+          window.fbAsyncInit = function() {
+            // init the FB JS SDK
+            FB.init({
+              appId      : '{{config.fb_app_id}}',               // App ID from the app dashboard
+              status     : true,                                 // Check Facebook Login status
+              xfbml      : true                                  // Look for social plugins on the page
+            });
 
-    // Additional initialization code such as adding Event Listeners goes here
-  };
+            // Additional initialization code such as adding Event Listeners goes here
+          };
 
-  // Load the SDK asynchronously
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
+          // Load the SDK asynchronously
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "//connect.facebook.net/en_US/all.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        </script>
+            <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                 <div class="container">
-                    <a class="brand" href="{{url_for("index")}}">Camper</a>
-                    <ul class="nav">
-                        <li class="active"><a href="/">{{_('Home')}}</a></li>
-                        {% for page in menu_pages %}
-                            <li>
-                                <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
-                            </li>
-                        {% endfor %}
-                        {% for action in top_actions %}
-                            <li class="{{'active' if action.active}}">
-                                <a href="{{action.url}}">{{action.name}}</a>
-                            </li>
-                        {% endfor %}
-                        <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
-                        <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
-                    </ul>
-                    <div class="pull-right">
-                    <ul class="nav"> 
-                            <li class="divider-vertical"></li>
-                        {% if LANGUAGE=="de" %}
-                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
-                        {% else %}
-                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
-                        {% endif %}
-                    </ul>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                          <span class="sr-only">Toggle navigation</span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                          <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{{url_for("index")}}">Camper</a>
                     </div>
-                    {% if is_main_admin %}
-                        <ul class="nav pull-right"> 
-                            <li><a href="{{url_for("admin_index")}}"><b>{{_('ADMINISTRATION')}}</b></a></li>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                                <li class="active"><a href="/">{{_('Home')}}</a></li>
+                            {% for page in menu_pages %}
+                                <li>
+                                    <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
+                                </li>
+                            {% endfor %}
+                            {% for action in top_actions %}
+                                <li class="{{'active' if action.active}}">
+                                    <a href="{{action.url}}">{{action.name}}</a>
+                                </li>
+                            {% endfor %}
+                            <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
+                            <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
                         </ul>
-                    {% endif %}
-                    {% if not logged_in %}
-                        <div class="pull-right">
-                            <ul class="nav">
-                            <li class="divider-vertical"></li>
-                            <li><a href="{{url_for("userbase.login")}}">{{_('Login')}}</a></li>
-                            <li><a href="{{url_for("userbase.register")}}">{{_('Register')}}</a></li>
-                            </ul>
-                        </div>
-                    {% else %}
-                        <ul class="nav pull-right"> 
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{url_for('profile', username = user.username)}}">{{_('my profile')}}</a></li>
-                                    <li><a href="{{url_for('userbase.pw_set')}}">{{_('Change Password')}}</a></li>
-                                    <li><a href="{{url_for('userbase.logout')}}">{{_('Log out')}}</a></li>
-                                    {# TBD later
-                                    <li class="divider"></li>
-                                    <li><a><strong>{{_('my barcamps')}}</strong></a></li>
-                                    {% for bc in user_barcamps %}
-                                        <li><a href="{{url_for("barcamps.index", slug = bc.slug)}}">{{bc.name}}</a></li>
-                                    {% endfor %}
-                                    #}
-                                </ul>
-                            </li>
+                        <ul class="nav navbar-nav navbar-right"> 
+                                <li class="divider-vertical"></li>
+                            {% if LANGUAGE=="de" %}
+                                <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                            {% else %}
+                                <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                            {% endif %}
+                            {% if is_main_admin %}
+                                <li><a href="{{url_for("admin_index")}}"><b>{{_('ADMINISTRATION')}}</b></a></li>
+                            {% endif %}
+                            {% if not logged_in %}
+                                <li class="divider-vertical"></li>
+                                <li><a href="{{url_for("userbase.login")}}">{{_('Login')}}</a></li>
+                                <li><a href="{{url_for("userbase.register")}}">{{_('Register')}}</a></li>
+                            {% else %}
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{{url_for('profile', username = user.username)}}">{{_('my profile')}}</a></li>
+                                        <li><a href="{{url_for('userbase.pw_set')}}">{{_('Change Password')}}</a></li>
+                                        <li><a href="{{url_for('userbase.logout')}}">{{_('Log out')}}</a></li>
+                                        {# TBD later
+                                        <li class="divider"></li>
+                                        <li><a><strong>{{_('my barcamps')}}</strong></a></li>
+                                        {% for bc in user_barcamps %}
+                                            <li><a href="{{url_for("barcamps.index", slug = bc.slug)}}">{{bc.name}}</a></li>
+                                        {% endfor %}
+                                        #}
+                                    </ul>
+                                </li>
+                            {% endif %}
                         </ul>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+                    </div>
+                </div><!-- container fluid -->
+            </nav><!-- navbar -->
       
         {% block container %}
-        <div class="container" id="content">
-            {% block flashes %}
-            {% for m in get_flashes(with_categories=True) %}
-                <div class="alert alert-{{m[0]}}">
-                <strong>{{m[1]}}</strong><br>
-                </div>
-            {% endfor %}
-            {% endblock %}
+            <div class="container" id="content">
+                {% block flashes %}
+                {% for m in get_flashes(with_categories=True) %}
+                    <div class="alert alert-{{m[0]}}">
+                    <strong>{{m[1]}}</strong><br>
+                    </div>
+                {% endfor %}
+                {% endblock %}
 
-    
-            {% block content %}
-            {% block main_content %}
-            {% endblock %}
-            {% endblock %}
-        </div> <!-- /container -->
-        <footer>
-            <div class="container">
-                <a href="/impressum.html">Impressum</a>
-            </div>
-        </footer>
+        
+                {% block content %}
+                {% block main_content %}
+                {% endblock %}
+                {% endblock %}
+            </div> <!-- /container -->
+            <footer>
+                <div class="container">
+                    <a href="/impressum.html">Impressum</a>
+                </div>
+            </footer>
         {% endblock %}
 
         <!-- Le javascript
@@ -200,6 +200,7 @@
         {% block js2 %}
         {% endblock %}
 
+        <script src="{{url_for("static", filename="js/holder.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-dropdown.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-transition.js")}}"></script>
         <script src="{{url_for("static", filename="js/bootstrap-modal.js")}}"></script>

@@ -1,292 +1,182 @@
-/*!
- * Bootstrap v2.1.1
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
-
-// CSS Reset
-@import "reset.less";
-
 // Core variables and mixins
-@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "variables.less";
 @import "mixins.less";
 
-// Grid system and page structure
-@import "scaffolding.less";
-@import "grid.less";
-@import "layouts.less";
+// Reset and dependencies
+@import "normalize.less";
+@import "print.less";
+@import "glyphicons.less";
 
-// Base CSS
+// Core CSS
+@import "scaffolding.less";
 @import "type.less";
 @import "code.less";
-@import "forms.less";
+@import "grid.less";
 @import "tables.less";
-
-// Components: common
-@import "sprites.less";
-@import "dropdowns.less";
-@import "wells.less";
-@import "component-animations.less";
-@import "close.less";
-
-// Components: Buttons & Alerts
+@import "forms.less";
 @import "buttons.less";
-@import "button-groups.less";
-@import "alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
-// Components: Nav
+// Components
+@import "component-animations.less";
+@import "dropdowns.less";
+@import "button-groups.less";
+@import "input-groups.less";
 @import "navs.less";
 @import "navbar.less";
 @import "breadcrumbs.less";
 @import "pagination.less";
 @import "pager.less";
+@import "labels.less";
+@import "badges.less";
+@import "jumbotron.less";
+@import "thumbnails.less";
+@import "alerts.less";
+@import "progress-bars.less";
+@import "media.less";
+@import "list-group.less";
+@import "panels.less";
+@import "responsive-embed.less";
+@import "wells.less";
+@import "close.less";
 
-// Components: Popovers
+// Components w/ JavaScript
 @import "modals.less";
 @import "tooltip.less";
 @import "popovers.less";
-
-// Components: Misc
-@import "thumbnails.less";
-@import "media.less";
-@import "labels-badges.less";
-@import "progress-bars.less";
-@import "accordion.less";
 @import "carousel.less";
-@import "hero-unit.less";
 
 // Utility classes
-@import "utilities.less"; // Has to be last to override when necessary
+@import "utilities.less";
+@import "responsive-utilities.less";
 
-//
-// main content area and widget
-//
+/*
+** general rules
+*/
 
 html, body {
-    background: #f0f0f0;
+    background: #f8f8f8 url("/static/img/bg.png") repeat repeat;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+
 }
 
-.content-area, #content-area {
+//
+// profile page
+//
+
+.profile-image {
+    border: 1px solid #ccc;
+    padding: 1px;
+}
+
+.profile-image-mini {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #333;
+}
+
+
+
+/* 
+** homepage barcamp listing
+*/
+
+article.barcamp {
+    border: 1px solid #f0f0f0;
     background: white;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    height: 100%;
-    padding: 20px;
+    img {
+        width: 100%;
+        height: auto;
+    }
     margin-bottom: 30px;
-}
-
-.widgets {
-    display: block;
-    float: left;
-    width: 210px;
-    margin-left: 20px;
-}
-
-.navbar {
-    .border-radius(0);
-}
-
-footer {
-    margin-top: 20px;
-    border-top: 1px solid #e0e0e0;
-    padding-top: 20px;
-}
-
-//
-// special elements
-//
-
-.login-container {
-    width: 400px;
-    background: #f8f8f8;
-    border: 1px solid #d8d8d8;
-    margin: 50px auto 0 auto;
-    .border-radius(3px);
-    .content {
-        padding: 16px 28px 23px;
-    }
-
-    form {
-        margin: 0 0 18px;
-        #field-username, #field-password {
-            label {
-                display: none;
-            }
-        }
-        input[type=text], input[type=password] {
-            width: 320px;
-            font-size: 130%;
-            padding: 10px 9px;
-            .box-shadow(inset 0 2px 2px rgba(0,0,0,.1)); // Redeclare so transitions work
-            margin: 10px 0;
-        }
-        #field-remember {
-            padding-top: 5px;
+    h2 {
+        margin: 0;
+        margin-bottom: 10px;
+        a {
+            color: #0af;
         }
     }
-
-    .btn-signin {
-        .btn();
-        .btn-large();
-        width: 130px;
-        .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
-    }
-}
-
-.btn-inline { display: inline-block; }
-.btn-inline.hide { display: none; }
-
-.actions {
-    display: none;
-    z-inder: 10;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.action-container { position: relative; }
-.action-container:hover .actions {
-    display: block;
-    .btn { margin: 10px; }
-}
-
-
-//
-// form validation
-//
-
-.popover.error {
-  border: 1px solid #f20;
-  border-bottom: 1px solid #a10;
-  background: #c10;
-  font-weight: 600;
-  color: #f8f8f8;
-  &.right .arrow {
-    top: 50%;
-    left: -@popoverArrowWidth;
-    margin-top: -@popoverArrowWidth;
-    border-width: @popoverArrowWidth @popoverArrowWidth @popoverArrowWidth 0;
-    border-right-color: #c10;
-    &:after {
-      border-width: @popoverArrowOuterWidth @popoverArrowOuterWidth @popoverArrowOuterWidth 0;
-      border-right-color: @popoverArrowOuterColor;
-      bottom: -@popoverArrowOuterWidth;
-      left: -1px;
-    }
-  }
-}
-
-//
-// barcamp index page
-//
-
-#logo {
-    margin-bottom: 40px;
-}
-#barcamp {
-    .header {
-        position: relative;
-
-        h1.logo {
-            font-size: 80px;
-            text-transform: uppercase;
-            line-height: 80px;
-            small {
-                display: block;
-                text-transform: none;
-            }
+    &.barcamp-full {
+        .logo, .description {
+            .make-lg-column(6);
         }
     }
-
-    .info {
-        display: block;
-        padding-top: 4px;
+    &.barcamp-small {
+        border: none;
+        background: transparent;
+        img { display: none; }
+        .description {
+            .make-lg-column(12);
+        }
+    }
+    .byline {
+        color: #aaa;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin-bottom: 5px;
+        margin-top: 5px;
         line-height: 1;
+        span {
+            display: block;
+        }
+    }    
+    i {
+        float: left;
+        display: block;
+        width: 20px;
     }
+}
 
-    .subline {
-        float: right;
-        margin-top: -20px;
+/*
+** barcamp detail seite
+*/
+
+#barcamp {
+    h1.logo {
+        img { width: 100%; }
     }
+    .header {
+        border: 1px solid #f0f0f0;
+        border-bottom: none;
+    }
+}
 
-    .description {
-        font-size: 16px;
+#barcamp-details {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.4;
+    p {
         margin-bottom: 20px;
     }
-
-    .sponsors {
-        margin-top: 20px;
-    }
-
-    .sponsor {
-        float: left;
-        width: 220px;
-        margin-right: 15px;
-    }
 }
 
-#main-content {
-    margin-top: 40px;
-}
+//
+// social stuff                                                                                                                                  
+//
 
-#barcamp-buttons {
+.socialmedia {
     overflow: auto;
-    margin-top: 20px;
-    border-top: 1px dashed #e0e0e0;
-    padding-top: 10px;
 }
-
-.barcamp-page {
-    &.layout-left, &.layout-right {
-        .image-container { 
-            max-width: 200px; 
-            display: block;
-            border: 1px solid #bbb;
-            padding: 3px;
-        }
-    }
-    &.layout-left .image-container { 
-        float: left; 
-        margin: 0 10px 10px 0;
-    }
-    &.layout-right .image-container { 
-        float: right; 
-        margin: 0 0 10px 10px;
-    }
-}
-
-
-// form related
-form label.error { color: red; margin-top: -10px;}
-
-label.valid {
-    width: 24px;
-    height: 24px;
-    background: url('/static/img/valid.png') center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-}
-label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px 8px;
-    margin-top: 2px;
-}
-
-.preview-area {
+.twitter-button, .fb-button, .gplus-button {
     float: left;
+    display: block;
     margin-right: 10px;
+    width: 60px;
+    height: 30px;
+    overflow: hidden;
 }
+.fb-button {
+    margin-top: 1px;
+}
+
 
 /*
  * session proposals
  */
 
 .votecontainer {
-    .border-radius(10px);
+    //.border-radius(10px);
     border: 1px solid #ddd;
     padding: 5px;
     background: white                                                                                                                                                                    ;
@@ -319,6 +209,7 @@ label.error {
     background: url(../img/star_empty.png) no-repeat;
 }
 
+
 #sessionproposals {
     article {
         border-bottom: 1px solid #f0f0f0;
@@ -336,115 +227,6 @@ label.error {
     .comments {
         
     }
-}
-
-.upload-widget {
-    display: block;
-    overflow: auto;
-
-    img {
-        width: 100px;
-        height: 100px;
-        border: 1px solid #ccc;
-        margin: 3px;
-        padding: 2px;
-    }
-}
-
-
-//
-// ADMIN AREA
-//
-
-#admin-menu {
-    margin-top: 100px;
-}
-
-//
-// homepage
-//
-
-.logo-footer {
-    img { margin-right: 30px; }
-    background: #fdfdfd;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    padding: 0px;
-    padding-top: 4px;
-    div {
-        padding: 20px;
-    }
-}
-
-hr.thick {
-    border: 2px dashed #c0c0c0;
-}
-
-// 
-// docu pad
-//
-
-ul#blog-reports {
-    margin: 0;
-    padding: 0;
-    li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        border-bottom: 1px dashed #e0e0e0;
-        padding-bottom: 5px;
-        margin-bottom: 5px;
-        .headline {
-            display: block;
-            font-weight: bold;
-        }
-        .author {
-            font-size: 12px;
-        }
-    }
-}
-
-#blog-add-button-container {
-    margin-top: 30px;
-}
-
-//
-// misc
-//
-
-.olTileImage {
-    max-width: inherit;
-}
-
-
-//
-// social stuff
-//
-
-.twitter-button, .fb-button, .gplus-button {
-    float: left;
-    display: block;
-    margin-right: 10px;
-    width: 60px;
-    height: 30px;
-    overflow: hidden;
-}
-.fb-button {
-    margin-top: 1px;
-}
-
-//
-// profile page
-//
-
-.profile-image {
-    border: 1px solid #ccc;
-    padding: 1px;
-}
-
-.profile-image-mini {
-    width: 32px;
-    height: 32px;
-    border: 1px solid #333;
 }
 
 //
@@ -473,64 +255,42 @@ ul.participants {
 }
 
 
-//
-// widget stuff (for barcamps and potentially somewhere else)
-//
+.login-container {
+    width: 400px;
+    background: #f8f8f8;
+    border: 1px solid #d8d8d8;
+    margin: 50px auto 0 auto;
+    .content {
+        padding: 16px 28px 23px;
+    }
 
-.widget {
-    min-height: 20px;
-    padding: 20px;
-    padding-top: 4px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    blockquote {
-        border-color: #ddd;
-        border-color: rgba(0,0,0,.15);
+    form {
+        margin: 0 0 18px;
+        #field-username, #field-password {
+            label {
+                display: none;
+            }
+        }
+        input[type=text], input[type=password] {
+            width: 320px;
+            font-size: 130%;
+            padding: 10px 9px;
+            .box-shadow(inset 0 2px 2px rgba(0,0,0,.1)); // Redeclare so transitions work
+            margin: 10px 0;
+        }
+        #field-remember {
+            padding-top: 5px;
+        }
     }
-    h4 {
-        border-bottom: 1px solid #aaa;
+
+    .btn-signin {
+        .btn();
+        .btn-lg();
+        .btn-warning();
+        width: 130px;
     }
-    &.widget-admin { 
-        background-color: #fc0; 
-    }
-    .nav-list {
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-bottom: 0;
-    }
-    .nav-list > li > a,
-    .nav-list .nav-header {
-        margin-left:  -20px;
-        margin-right: -20px;
-        text-shadow: 0 1px 0 rgba(255,255,255,.5);
-    }
-    .nav > li > a:hover {
-        text-decoration: none;
-        background-color: @grayLighter;
-        .box-shadow(0px 0px 1px rgba(0,0,0,.1));
-    }
-    a { color: #003; }
 }
 
-.socialmedia {
-    height: 30px;
-    overflow: hidden;
-}
+.btn-inline { display: inline-block; }
+.btn-inline.hide { display: none; }
 
-a.osm-copyright {
-    font-size: 10px;
-    color: #888;
-    .pull-right;
-}
-
-.help-block {
-    font-size: 80%;
-    font-style: italic;
-    line-height: 1;
-}
-
-#minimap {
-    height: 200px;
-    width: 170px;
-}
