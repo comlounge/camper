@@ -1,6 +1,7 @@
-{% extends "_m/barcamps/master.html" %}
+{% set menu="registration" %}
+{% extends "admin_master.html" %}
 
-{% block main_content %}
+{% block content %}
     {% block title %}
         <h1>{{_('Edit the participant registration form')}}</h1>
         <div class="description">
@@ -34,9 +35,9 @@
                     <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
                     <td>
                         <a href="{{url_for('.registration_form_editor', method='delete', idx = loop.index0, slug = slug, _append=True)}}" 
-                           class="btn btn-mini btn-danger action-confirm"
+                           class="btn btn-xs btn-danger action-confirm"
                            data-confirm="{{_('Are you sure?')}}" 
-                           type="button"><i class="icon-white icon-trash"></button>
+                           type="button"><i class="fa fa-white fa-trash"></button>
                     </td>
                 </tr>
                 {% endfor %}
@@ -44,14 +45,13 @@
         </table>
     </div>
     {% endif %}
-    <hr>
     <h3>{{_("Add a new field")}}</h3>
     <form class="form" method="POST" action="{{url}}">
             <fieldset>
-                {{ formmacros.form_field(form.title, class="required span6") }}
-                {{ formmacros.form_field(form.description, class="required span6", rows=4) }}
-                {{ formmacros.form_field(form.fieldtype, class="span4 url") }}
-                {{ formmacros.form_field(form.required, class="span4 url") }}
+                {{ formmacros.form_field(form.title, input_class="required span6") }}
+                {{ formmacros.form_field(form.description, input_class="required span6", rows=4) }}
+                {{ formmacros.form_field(form.fieldtype, input_class="span4 url") }}
+                {{ formmacros.form_field(form.required, input_class="span4 url") }}
             </fieldset>
             <input type="submit" class="btn btn-primary" value="{{_('Add')}}">
     </form>

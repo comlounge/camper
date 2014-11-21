@@ -1,0 +1,59 @@
+{% set body_id ="admin" %}
+{% extends "master.html" %}
+{% import "macros.html" as formmacros with context %}
+{% block head %}
+    <meta property="og:title" content="{{barcamp.name|striptags}}" />
+    <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{url_for(".index", slug = slug, _full=True)}}" />
+    <meta property="og:image" content="http://" />
+    <meta property="og:description" content="{{barcamp.description}}" />
+    {% if barcamp.fbAdminId %}
+    <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
+    {% endif %}
+
+    <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
+    <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
+    <meta name="description" content="{{barcamp.description|striptags}}" />
+
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <ul class="nav navbar-side">
+                <li class="back-to-bc"><a href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-arrow-left"></i> <span>{{_('public view')}}</span></a></li>
+                <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="fa fa-upload"></i> {{_('Upload Logo')}}</a></li>
+                <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
+                <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
+                <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
+                <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
+                <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="fa fa-user"></i> {{_('increase participants')}}</a></li>
+                <li><a href="{{url_for("barcamps.newsletter_send", slug=slug)}}"><i class="fa fa-share"></i> {{_('send newsletter')}}</a></li>
+                <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('new sponsor')}}</a></li>
+                <li><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="fa fa-list"></i> {{_('edit permissions')}}</a></li>
+                {% if view.can_add_menu_page %}
+                    <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="fa fa-plus"></i> {{_('create new page')}}</a></li>
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-side barcamp-delete">
+                <li><a class="btn btn-block btn-danger" href="{{url_for("barcamps.delete", slug=slug)}}"><i class="fa fa-trash"></i>{{_('DELETE BARCAMP')}}</a></li>
+            </ul>
+            
+        </div>
+        <div class="col-lg-9 col-md-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+    {% block bcjs %}
+    {% endblock %}
+{% endblock %}
+

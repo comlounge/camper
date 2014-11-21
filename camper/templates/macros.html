@@ -79,8 +79,8 @@
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
-<div class="controls" id="{{field.id}}-div">
-    <label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
+<div class="checkbox" id="{{field.id}}-div">
+    <label>
         {{field(**kwargs)}}
         {{ _(field.label.text) }}
         <p class="help-block">{{ _(field.description) }}</p>
@@ -88,14 +88,14 @@
 </div>
 {%- endmacro -%}
 {%- macro form_field_radio(field) -%}
-<div class="controls" id="{{field.id}}-div">
-    {% for subfield in field %}
-    <label class="radio">
-        {{ subfield() }}
-        {{ _(subfield.label.text) }}
-    </label>
-    {% endfor %}
-</div>
+{% for subfield in field %}
+    <div class="radio" id="{{field.id}}-div">
+        <label>
+            {{ subfield() }}
+            {{ _(subfield.label.text) }}
+        </label>
+    </div>
+{% endfor %}
 {%- endmacro -%}
 {%- macro form_field_multicheckbox(field) -%}
     {% for subfield in field %}

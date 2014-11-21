@@ -46,7 +46,7 @@ class BarcampEditForm(BaseForm):
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
 
-class EditView(BaseHandler):
+class EditView(BarcampBaseHandler):
     """an index handler"""
 
     template = "edit.html"

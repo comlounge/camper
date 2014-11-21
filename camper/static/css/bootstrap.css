@@ -6295,6 +6295,50 @@ button.close {
     display: none !important;
   }
 }
+body#admin .navbar-side {
+  margin-top: 25px;
+  border: 1px solid #d0d0d0;
+}
+body#admin .navbar-side li {
+  background: #f0e0c0;
+  display: block;
+  float: none;
+  border-bottom: 1px solid #c0c0c0;
+  text-transform: uppercase;
+  overflow: auto;
+  line-height: 1.5;
+}
+body#admin .navbar-side li i {
+  width: 20px;
+  display: block;
+  float: left;
+}
+body#admin .navbar-side li span {
+  display: block;
+  float: left;
+}
+body#admin .navbar-side li a {
+  font-size: 12px;
+  font-weight: normal;
+  color: #333;
+}
+body#admin .navbar-side li.active {
+  background: #e6cc97;
+}
+body#admin .navbar-side li.back-to-bc {
+  background: white;
+}
+body#admin .barcamp-delete li a {
+  font-size: 14px;
+  color: white;
+  font-weight: bold;
+}
+body#admin fieldset {
+  margin-bottom: 30px;
+}
+body#admin form {
+  margin-bottom: 40px;
+}
 /*
 ** general rules
 */
