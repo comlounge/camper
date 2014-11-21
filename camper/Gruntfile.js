@@ -42,13 +42,35 @@ module.exports = function(grunt) {
             }
         },
 
+        concat: {
+            options: {
+                stripBanners: false
+            },
+            bootstrap: {
+                src: [
+                    'tmp/bootstrap/js/transition.js',
+                    'tmp/bootstrap/js/alert.js',
+                    'tmp/bootstrap/js/button.js',
+                    'tmp/bootstrap/js/carousel.js',
+                    'tmp/bootstrap/js/collapse.js',
+                    'tmp/bootstrap/js/dropdown.js',
+                    'tmp/bootstrap/js/modal.js',
+                    'tmp/bootstrap/js/tooltip.js',
+                    'tmp/bootstrap/js/popover.js',
+                    'tmp/bootstrap/js/scrollspy.js',
+                    'tmp/bootstrap/js/tab.js',
+                    'tmp/bootstrap/js/affix.js'
+                ],
+                dest: 'static/js/bt.js'
+            }
+        },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                preserveComments: 'some'
             },
-            build: {
-                src: 'src/<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+            core: {
+                src: '<%= concat.bootstrap.dest %>',
+                dest: 'static/js/bt.min.js'
             }
         }
     });
@@ -60,12 +82,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-mkdir');
-
-
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
     // Default task(s).
     //grunt.registerTask('default', ['coffee', 'less']);
     grunt.registerTask('default', ['less']);
+    grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
 };
