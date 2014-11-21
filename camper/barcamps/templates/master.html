@@ -166,17 +166,17 @@
                             {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
                                 {% if barcamp.registration_form %}
                                     <div>
-                                        <a href="{{url_for('barcamps.register', slug = slug)}}" class="btn btn-lg btn-primary" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
+                                        <a href="{{url_for('barcamps.register', slug = slug)}}" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it" class="btn btn-lg btn-primary" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
                                     </div>
                                 {% else %}
-                                    <form method="POST" action="{{url_for('barcamps.register', slug = slug)}}">
+                                    <form method="POST" action="{{url_for('barcamps.register', slug = slug)}}" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it">
                                         <button class="btn btn-primary btn-block btn-lg" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
                                     </form>
                                 {% endif %}
                             {% endif %}
                             {% if view.can_subscribe %}
-                                <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center">
-                                    <button class="btn btn-info btn-block" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it"><i class="fa fa-eye"></i> {{_('watch this event')}}</button>
+                                <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it">
+                                    <button class="btn btn-info btn-block" ><i class="fa fa-eye"></i> {{_('watch this event')}}</button>
                                 </form>
                             {% endif %}
                         </div>
