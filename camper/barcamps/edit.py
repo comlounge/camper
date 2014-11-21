@@ -160,7 +160,7 @@ class MailsEditView(BarcampBaseHandler):
         )
     post = get
 
-class ParticipantsEditView(BaseHandler):
+class ParticipantsEditView(BarcampBaseHandler):
     """let the user increase the number of participants"""
 
     template = "participants_edit.html"
