@@ -83,8 +83,8 @@ class DocumentationPadView(BarcampBaseHandler):
     def delete(self, slug = None):
         idx = int(self.request.form['idx']) # index in list
         post = self.barcamp.blogposts[idx]
-        if self.user_id != post.user_id and not self.is_admin:
-            return {'status' : 'error', 'msg' : self._('User not allowed to delete this item')}
+        if self.user_id != post['user_id'] and not self.is_admin:
+            return {'status' : 'error', 'msg' : self._('User not allowed to delete this blog post')}
         del self.barcamp.blogposts[idx]
         self.barcamp.put()
         return {'status' : 'success'}
