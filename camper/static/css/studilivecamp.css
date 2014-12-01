@@ -1,0 +1,108 @@
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    padding-top: 40px;
+}
+body > .container {
+    min-height: 100%;
+    background: white;
+    border-left: 7px solid #e8e8e8;
+    border-right: 7px solid #e8e8e8;
+}
+#barcamp .navbar {
+    margin-bottom: 0;
+}
+#barcamp .navbar-inner {
+    background: white;
+    border: none;
+    padding-top: 20px;
+    margin-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 12px;
+    height: 27px;
+    min-height: 27px;
+    //border-bottom: 5px solid #e10019;
+}
+
+#barcamp .navbar .nav li a {
+    background: #484848;
+    margin-right: 2px;
+    border-radius: 4px;
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 3px 10px;
+    text-shadow: none;
+    color: white;
+}
+
+
+#barcamp .navbar .nav li.active a {
+    box-shadow: none;
+    color: #484848;
+    font-weight: bold;
+    border: 1px solid #494949;
+    border-radius: 4px;
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: white;
+
+}
+
+#main-content {
+    margin-top: 0;
+}
+
+#content-area {
+    box-shadow: none;
+    min-height: 100%;
+}
+
+.widgets {
+    background: white;
+    box-shadow: none;
+    margin-left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.widget {
+    box-shadow: none;
+}
+
+#barcamp .header {
+    margin-bottom: 0;
+    box-shadow: none;
+}
+
+h1, h2, h3 {
+    text-transform: uppercase;
+}
+
+#barcamp h1 { 
+    font-size: 30px;
+}
+
+#barcamp a {
+    color: #484848;
+    text-decoration: underline;
+}
+
+#barcamp .btn, #barcamp .nav a {
+    text-decoration: none;
+}
+#barcamp .btn-success.active {
+    background-color: #006450;
+    color: white;
+    text-decoration: none;
+}
+
+#sessionproposals footer {
+    border-top: 1px dotted #9b000f;
+}

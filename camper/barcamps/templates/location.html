@@ -70,23 +70,16 @@
 {% endblock %}
 
 {% block headline %}
-        <h1>{{barcamp.location.name}}
-            <small>{{barcamp.location.street}}, {{barcamp.location.zip}} {{barcamp.location.city}}</h1>
-        </h1>
 {% endblock %}
 
 {% block main_content %}
+        <h1>{{barcamp.location.name}}
+            <small>{{barcamp.location.street}}, {{barcamp.location.zip}} {{barcamp.location.city}}</small>
+        </h1>
     <div id="bigmap" 
         data-lat="{{barcamp.location.lat}}"  
         data-lng="{{barcamp.location.lng}}" 
         data-apikey="{{cloudmade_key}}" 
         data-admin="{{1 if is_admin else 0}}"
         class="span9" style="height:600px"></div>
-        <!--
-    <div data-lng="{{barcamp.location.lng}}" 
-         data-lat="{{barcamp.location.lat}}"  
-         data-admin="{{1 if is_admin else 0}}"
-         id="locationPickerMap" class="span9" style="height:600px"></div>
-         <a class="osm-copyright" href="http://www.openstreetmap.org/copyright">&copy; OpenStreetMap-Mitwirkende</a> 
-         -->
 {% endblock %}

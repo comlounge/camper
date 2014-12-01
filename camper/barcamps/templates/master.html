@@ -11,6 +11,10 @@
     <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
     {% endif %}
 
+    {% if slug=="studilivecamp" %}
+        <link href="{{url_for("static", filename="css/studilivecamp.css")}}" rel="stylesheet">
+    {% endif %}
+
     <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
