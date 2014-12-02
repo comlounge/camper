@@ -36,6 +36,14 @@
                 </div>
             </form>
             {% endif %}
+            <form action="" method="POST" id="new-doc" target="dokupad">
+                <input id="bcname" type="hidden" name="bcname" value="{{slug}}">
+                <input id="docname" type="text" name="name" class="input-medium" placeholder="Name der Session">
+                <input type="submit" class="btn btn-block" value="Neue Doku anlegen">
+                <div class="help">
+                    Bitte gib die URL des Pads dann in das nebenstehende Pad ein
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}

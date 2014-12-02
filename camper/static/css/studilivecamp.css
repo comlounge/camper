@@ -106,3 +106,26 @@ h1, h2, h3 {
 #sessionproposals footer {
     border-top: 1px dotted #9b000f;
 }
+
+#new-doc {
+    margin-top: 50px;
+}
+input[type=text] {
+    border-radius: 0;
+}
+.btn {
+    box-shadow: none;
+    background: #006450;
+    text-shadow: none;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    outline: none;
+}
+.help {
+    color: #aaa;
+    font-size: 80%;
+}

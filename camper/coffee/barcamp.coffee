@@ -231,6 +231,13 @@ $(document).ready( () ->
             alert(result)
         marker.on("dragend", marker_dragged)
     )
+    $("#new-doc").submit( () ->
+        name = $("#docname").attr("value")
+        slug = $("#bcname").attr("value")
+        if name
+            window.open("http://yourpart.eu/p/"+slug+"_"+name)
+        return false;
+    )
 )
 
 
