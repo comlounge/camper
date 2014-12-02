@@ -22,7 +22,7 @@
                     </li>
                 {% endfor %}
             </ul>
-            {% if view.is_participant %}
+            {% if view.is_participant or view.is_admin %}
             <div class="show" id="blog-add-button-container">
                 <a href="#" id="blog-add-button" class="btn btn-large"><b>{{_("Add new blog post")}}<b></a>
             </div>
@@ -35,7 +35,6 @@
                     <input type="submit" value="{{_('Save')}}" class="btn btn-primary">
                 </div>
             </form>
-            {% endif %}
             <form action="" method="POST" id="new-doc" target="dokupad">
                 <input id="bcname" type="hidden" name="bcname" value="{{slug}}">
                 <input id="docname" type="text" name="name" class="input-medium" placeholder="Name der Session">
@@ -44,6 +43,7 @@
                     Bitte gib die URL des Pads dann in das nebenstehende Pad ein
                 </div>
             </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

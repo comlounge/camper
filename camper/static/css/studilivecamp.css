@@ -115,17 +115,37 @@ input[type=text] {
 }
 .btn {
     box-shadow: none;
-    background: #006450;
+    background: #949494;
     text-shadow: none;
     color: white;
-    padding: 8px 10px;
     border-radius: 0;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 12px;
     outline: none;
+    text-align: left;
+    border: none;
+}
+.btn:hover {
+    background: #808080;
+}
+#barcamp a.btn {
+    color: white;
+    text-align: left;
 }
 .help {
     color: #aaa;
     font-size: 80%;
+}
+.socialmedia {
+    margin-top: 20px;
+}
+.btn-danger {
+    background: #e10019;
+}
+.session-edit-button {
+    background-color: #a0a0a0;
+}
+.btn-block {
+    padding: 8px 10px;
 }
