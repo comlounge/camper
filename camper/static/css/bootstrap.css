@@ -6328,6 +6328,10 @@ body#admin .navbar-side li.active {
 body#admin .navbar-side li.back-to-bc {
   background: white;
 }
+body#admin .progress {
+  margin-top: 10px;
+  display: none;
+}
 body#admin .barcamp-delete li a {
   font-size: 14px;
   color: white;
@@ -6337,7 +6341,20 @@ body#admin fieldset {
   margin-bottom: 30px;
 }
 body#admin form {
+  margin-top: 30px;
   margin-bottom: 40px;
+}
+body#admin .bigpanel {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+body#admin .bigpanel .number {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
 }
 /*
 ** general rules
@@ -6366,8 +6383,11 @@ h6 {
 /* 
 ** homepage barcamp listing
 */
+#barcamp-listing h2 {
+  margin-bottom: 20px;
+}
 article.barcamp {
-  border: 1px solid #f0f0f0;
+  border: 1px solid #c0c0c0;
   background: white;
   margin-bottom: 30px;
 }
@@ -6375,11 +6395,13 @@ article.barcamp img {
   width: 100%;
   height: auto;
 }
-article.barcamp h2 {
+article.barcamp h3 {
+  text-transform: uppercase;
   margin: 0;
   margin-bottom: 10px;
+  margin-top: 2px;
 }
-article.barcamp h2 a {
+article.barcamp h3 a {
   color: #0af;
 }
 article.barcamp.barcamp-full .logo,
@@ -6421,15 +6443,26 @@ article.barcamp .byline {
   font-size: 12px;
   margin-bottom: 5px;
   margin-top: 5px;
+  padding: 5px;
   line-height: 1;
 }
 article.barcamp .byline span {
   display: block;
+  margin-left: 20px;
 }
 article.barcamp i {
   float: left;
   display: block;
   width: 20px;
+}
+@media (max-width: 1199px) {
+  article.barcamp h3 {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  article.barcamp .byline {
+    margin-left: 10px;
+  }
 }
 /*
 ** barcamp detail seite
@@ -6440,6 +6473,15 @@ article.barcamp i {
 #barcamp .header {
   border: 1px solid #f0f0f0;
   border-bottom: none;
+}
+#barcamp .sponsors {
+  margin-top: 20px;
+}
+#barcamp .sponsor {
+  float: left;
+  width: 220px;
+  margin-right: 15px;
+  margin-bottom: 20px;
 }
 #barcamp-details {
   font-size: 16px;
@@ -6475,11 +6517,11 @@ article.barcamp i {
 .votecontainer {
   border: 1px solid #ddd;
   padding: 5px;
+  margin-left: 7px;
   background: white                                                                                                                                                                    ;
   float: left;
   width: 50px;
   text-align: center;
-  margin: 3px;
   margin-right: 10px;
 }
 .votecontainer .vote-login {
@@ -6492,16 +6534,17 @@ article.barcamp i {
 }
 .vote {
   width: 24px;
-  height: 24px;
+  height: 38px;
   display: block;
   margin: 0 auto;
   cursor: pointer;
+  font-size: 30px;
 }
 .vote.active {
-  background: url(../img/star.png) no-repeat;
+  color: #fa0;
 }
 .vote.inactive {
-  background: url(../img/star_empty.png) no-repeat;
+  color: #ccc;
 }
 #sessionproposals article {
   border-bottom: 1px solid #f0f0f0;
