@@ -117,7 +117,7 @@
                     </ul>
                 </div>
             </div>
-        </div>
+        </nav>
 
         {% block headline %}
         {% endblock %}
@@ -161,8 +161,15 @@
                 <aside class="col-lg-3 col-md-3">
                     {% block widgets %}
                         {% macro barcamp_buttons() -%}
+                        {% if is_admin or is_main_admin %}
+                            <a class="btn btn-warning btn-block" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_("Administration")}}</a>
+                            <hr>
+                        {% endif %}
+
+
                         {% if logged_in %}
                         <div class="widget-join">
+
                             {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
                                 {% if barcamp.registration_form %}
                                     <div>
