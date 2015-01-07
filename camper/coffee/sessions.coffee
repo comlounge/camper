@@ -33,8 +33,8 @@ $(document).ready( () ->
     )
 
     $(".session-edit-button").click( () ->
-        $(this).closest(".show-box").hide();
-        $(this).closest(".show-box").parent().find(".edit-box").show();
+        $(this).closest(".show-box").hide()
+        $(this).closest(".show-box").parent().find(".edit-box").show()
     )
     $(".session-cancel-button").click( () ->
         $(this).closest(".edit-box").hide();
