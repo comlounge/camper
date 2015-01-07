@@ -4,6 +4,14 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        coffee: {
+            compile: {
+                files: {
+                    'static/js/sessions.js': 'coffee/sesions.coffee'
+                }
+            }
+        },
+
         watch: {
             scripts: {
                 files: ['less/*.less'],
@@ -86,7 +94,7 @@ module.exports = function(grunt) {
 
     // Default task(s).
     //grunt.registerTask('default', ['coffee', 'less']);
-    grunt.registerTask('default', ['less']);
+    grunt.registerTask('default', ['less', 'coffee']);
     grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
