@@ -1,6 +1,7 @@
-{% extends "_m/barcamps/master.html" %}
+{% set menu="newsletter_send" %}
+{% extends "admin_master.html" %}
 
-{% block main_content %}
+{% block content %}
     {% block title %}
         <h1>{{_('Send Newsletter')}}</h1>
         <div class="description">
@@ -9,10 +10,10 @@
     {% endblock %}
     <form class="form-validate horizontal-form validate" method="POST" action="{{url}}">
         <fieldset>
-        {{ formmacros.form_field(form.subject, class="required span6") }}
-        {{ formmacros.form_field(form.body, class="required span6", rows=15) }}
-        {{ formmacros.form_field(form.recipients, class="required span6") }}
-        {{ formmacros.form_field(form.testmail, class="span6 email") }}
+        {{ formmacros.form_field(form.subject, input_class="required span6") }}
+        {{ formmacros.form_field(form.body, input_class="required span6", rows=15) }}
+        {{ formmacros.form_field(form.recipients, input_class="required span6") }}
+        {{ formmacros.form_field(form.testmail, input_class="span6 email") }}
         </fieldset>
         {% block action %}
             <input type="submit" name="send_test_mail" id="send_test_mail" class="btn btn-large" value="{{_('Send Test Mail')}}">
