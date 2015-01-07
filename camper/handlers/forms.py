@@ -134,19 +134,20 @@ class UploadWidget(object):
                 data-upload-url="{{upload_url}}"
                 data-postproc="{{postproc}}">
             {{hidden}}
-            <div class="preview-area {{'show' if preview_url else 'hide'}}">
+            <div class="preview-area" style="display: {{'block' if preview_url else 'none'}}">
                 <img src="{{preview_url}}">
             </div>
-            <div class="upload-area show">
+            <div class="upload-area">
                 <div class="">
                     <span class="uploadbutton btn-inline btn btn-primary">{{label}}</span>
-                    <span class="deletebutton {{'hide' if not preview_url}} btn-inline btn btn-danger">{{delete_label}}</span>
-                    <span class="revertbutton hide btn-inline btn btn-danger">{{revert_label}}</span>
+                    <span class="deletebutton btn-inline btn btn-danger" style="display: {{'none' if not preview_url}} ">{{delete_label}}</span>
+                    <span class="revertbutton btn-inline btn btn-danger" style="display: none">{{revert_label}}</span>
                 </div>
-                <div class="progressbar progress progress-striped active hide">
-                    <div class="bar" style="width: 0%%;"></div>
+                <div class="progress">
+                    <div class="bar progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: 0%;">
+                    </div>
                 </div>
-                <div class="filenamebox hide">
+                <div class="filenamebox" style="display: none">
                     File: <span class="upload-label-filename"></span>
                 </div>
             </div>
