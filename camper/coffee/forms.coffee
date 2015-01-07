@@ -97,7 +97,7 @@ $(document).ready( () ->
                 _popover.data('popover').options.content = value.message
                 $(value.element).addClass("error")
                 $(value.element).popover('show')
-            );
+            )
     )
     $("#sponsor-form").validate(
         rules: {
@@ -113,11 +113,11 @@ $(document).ready( () ->
                 alert("Bitte lade ein Logo hoch")
     
         highlight: (label) ->
-            $(label).closest('.control-group').addClass('error')
+            $(label).closest('.form-group').addClass('has-error')
         success: (label) ->
             label
-                .text('OK!').addClass('valid')
-                .closest('.control-group').addClass('success')
+                .text('')
+                .closest('.form-group').removeClass("has-error").addClass('has-success')
     )
 
     # generic confirm button
