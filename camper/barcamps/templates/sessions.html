@@ -17,23 +17,25 @@
             <div class="votecontainer pull-right" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
                 <div class="votes" id="vote-90b5d410-2891-4516-bfa2-bc0598a2d774">{{session.vote_count}}</div>
                 <div class="votebutton {{'disabled' if not logged_in}}">
-                    <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"></a>
+                    <a id="votebutton-{{session._id}}" data-id="{{session._id}}" class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"><i class="fa fa-thumbs-up"></i></a>
                 </div>
             </div>
             <a class="media-left" href="{{url_for('profile', username = session.user.username)}}">
                 <img class="profile-image" src="{{userview(session.user).image_thumb}}">
             </a>
-            <div class="media-body">
-                <h4 class="media-heading">{{session.title|striptags}}</h4>
+            <div class="media-body show-box">
                 {% if is_admin or user_id == session.user._id %}
                     <a data-confirm="{{_('Are you sure?')}}" 
                        data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                       title="{{_('Delete Session Proposal')}}"
                        href="#" 
-                       class="session-delete-button btn btn-mini btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
+                       class="session-delete-button btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i></a>
                     <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                       title="{{_('Edit Session Proposal')}}"
                        href="#" 
-                       class="session-edit-button btn btn-mini pull-right"><i class="icon-pencil"></i></a>
+                       class="session-edit-button btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i></a>
                 {% endif %}
+                <h4 class="media-heading">{{session.title|striptags}}</h4>
                 <div class="description">
                     {{session.description|md(level=3)}}
                 </div>
@@ -42,23 +44,6 @@
                         <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
                     {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
                 </footer>
-                {% for comment in session.get_comments() %}
-                <div class="media comment">
-                    {% if is_admin %}
-                        <a href="#" 
-                            data-confirm="{{_('Are you sure?')}}"
-                            data-url="{{url_for('.session_comments', slug = slug, sid = session._id)}}"
-                            data-cid="{{comment._id}}"
-                            class="deletebutton btn-mini btn btn-danger pull-right"><i class="icon-trash icon-white"></i></a>
-                    {% endif %}
-                    <a href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
-                        <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
-                    </a>
-                    <div class="media-body">{{comment.comment}}
-                        <footer>{{_("comment by")}} {{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
-                    </div>
-                </div>
-                {% endfor %}
                 <div class="media comments">
                     <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
                         <img class="profile-image" src="{{userview(user).image_thumb}}">
@@ -77,17 +62,26 @@
                     </div>
                 </div>
             </div>
-        </div>
-        {% if is_admin or user_id == session.user._id %}
-        <form class="media-body hide edit-box form-vertical well form-validate" method="POST" action="{{url_for('.session', slug = slug, sid = session._id)}}">
-            <input type="text" class="required media-heading span6 input-big" value="{{session.title}}" name="title">
-            <textarea name="description" class="span6" rows="3">{{session.description}}</textarea>
-            <div class="">
-                <input type="submit" class="btn btn-small btn-primary" value="{{_('Save')}}">
-                <a href="#" class="session-cancel-button btn btn-small">{{_('Cancel')}}</a>
-            </div>
-        </form>
+            {% if is_admin or user_id == session.user._id %}
+            <form class="media-body edit-box well form-validate" method="POST" 
+                  style="display: none; width: 100%;"
+                  role="form"
+                  action="{{url_for('.session', slug = slug, sid = session._id)}}">
+                <div class="form-group">
+                    <label class="sr-only" for="title">{{_("Title")}}</label>
+                    <input id="title" type="text" class="required media-heading form-control" value="{{session.title}}" name="title">
+                </div>
+                <div class"form-group">
+                    <label class="sr-only" for="description">{{_("Description")}}</label>
+                    <textarea name="description" class="form-control" rows="3">{{session.description}}</textarea>
+                </div>
+                <div class="buttons"
+                    <input type="submit" class="btn btn-sm btn-primary" value="{{_('Save')}}">
+                    <a href="#" class="session-cancel-button btn btn-sm">{{_('Cancel')}}</a>
+                </div>
+            </form>
         {% endif %}
+        </div>
     {% endfor %}
     </section>
     {% if is_admin %}
