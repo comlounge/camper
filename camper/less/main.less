@@ -84,17 +84,25 @@ h1, h2, h3, h4, h5, h6 {
 ** homepage barcamp listing
 */
 
+#barcamp-listing {
+    h2 {
+        margin-bottom: 20px;
+    }
+}
+
 article.barcamp {
-    border: 1px solid #f0f0f0;
+    border: 1px solid #c0c0c0; 
     background: white;
     img {
         width: 100%;
         height: auto;
     }
     margin-bottom: 30px;
-    h2 {
+    h3 {
+        text-transform: uppercase;
         margin: 0;
         margin-bottom: 10px;
+        margin-top: 2px;
         a {
             color: #0af;
         }
@@ -118,9 +126,11 @@ article.barcamp {
         font-size: 12px;
         margin-bottom: 5px;
         margin-top: 5px;
+        padding: 5px;
         line-height: 1;
         span {
             display: block;
+            margin-left: 20px;
         }
     }    
     i {
@@ -128,6 +138,16 @@ article.barcamp {
         display: block;
         width: 20px;
     }
+    @media (max-width: @screen-md-max) {
+        h3 {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .byline {
+            margin-left: 10px;
+        }
+    }
+
 }
 
 /*
@@ -142,6 +162,17 @@ article.barcamp {
         border: 1px solid #f0f0f0;
         border-bottom: none;
     }
+    .sponsors {                                                                                                                                  
+        margin-top: 20px;
+    }
+
+    .sponsor {
+        float: left;
+        width: 220px;
+        margin-right: 15px;
+        margin-bottom: 20px;
+    }
+
 }
 
 #barcamp-details {
@@ -187,11 +218,11 @@ article.barcamp {
     //.border-radius(10px);
     border: 1px solid #ddd;
     padding: 5px;
+    margin-left: 7px;
     background: white                                                                                                                                                                    ;
     float: left;
     width: 50px;
     text-align: center;
-    margin: 3px;
     margin-right: 10px;
     .vote-login {
         font-size: 80%;
@@ -205,16 +236,19 @@ article.barcamp {
 }
 .vote {
     width: 24px;
-    height: 24px;
+    height: 38px;
     display: block;
     margin: 0 auto;
     cursor: pointer;
+    font-size: 30px;
 }
 .vote.active {
-    background: url(../img/star.png) no-repeat;
+    color: #fa0;
+    //background: url(../img/star.png) no-repeat;
 }
 .vote.inactive {
-    background: url(../img/star_empty.png) no-repeat;
+    color: #ccc;
+    //background: url(../img/star_empty.png) no-repeat;
 }
 
 
