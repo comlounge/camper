@@ -9,8 +9,10 @@ import pads
 import permissions
 import location
 import registration
+import dashboard
 import delete
 import tweetwally
+import sponsors
 
 from starflyer import Module, URL
 
@@ -31,7 +33,7 @@ class BarcampModule(Module):
         URL('/<slug>/participants_edit', 'participants_edit', edit.ParticipantsEditView),
         URL('/<slug>/registration_editor', 'registration_form_editor', edit.ParticipantsDataEditView),
         URL('/<slug>/registration.xls', 'registration_data_export', registration.RegistrationDataExport),
-        URL('/<slug>/sponsors',     'sponsors',         index.BarcampSponsors),
+        #URL('/<slug>/sponsors',     'sponsors',         index.BarcampSponsors),
         URL('/<slug>/location',     'location',         location.LocationView),
         URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),
         URL('/<slug>/register',     'register',         registration.BarcampRegister),
@@ -52,6 +54,9 @@ class BarcampModule(Module):
         URL('/<slug>/logo/upload',  'logo_upload', images.LogoUpload),
         URL('/<slug>/logo/delete',  'logo_delete', images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
+        URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView   ),
+        URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView   ),
+
     ]
 
 barcamp_module = BarcampModule(__name__)
