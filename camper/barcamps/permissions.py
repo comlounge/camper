@@ -37,12 +37,16 @@ class Permissions(BarcampBaseHandler):
             send_to = self.app.config.new_bc_notification_addr
             if send_to:
                 mailer = self.app.module_map['mail']
-                kwargs = dict(
-                    name = self.barcamp.name,
-                    description = self.barcamp.description,
+                if self.barcamp.start_date and self.barcamp.end_date:
                     date = "%s - %s" %(
                         self.barcamp.start_date.strftime('%d.%m.%Y'),
                         self.barcamp.end_date.strftime('%d.%m.%Y')),
+                else:
+                    date = "TBA"
+                kwargs = dict(
+                    name = self.barcamp.name,
+                    description = self.barcamp.description,
+                    date = date,
                     url = self.url_for("barcamps.index", slug = self.barcamp.slug, _full = True)
                 )
                 payload = self.render_lang("emails/new_barcamp.txt", **kwargs)
