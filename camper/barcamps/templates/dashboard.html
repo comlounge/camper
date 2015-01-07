@@ -1,0 +1,55 @@
+{% extends "admin_master.html" %}
+
+{% block content %}
+    {% block title %}
+    <div class="page-header">
+        <h1>{{_('Dashboard')}}</h1>
+        <h2>{{barcamp.name}}
+    </div>
+    {% endblock %}
+
+    <div id="dashboard">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="bigpanel">
+                    <div class="number">
+                        {{barcamp.participant_users|length}} / {{barcamp.size}}
+                    </div>
+                    {{_("Participants")}} <a href="{{url_for("barcamps.participants_edit", slug=slug)}}" class="btn btn-xs"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="bigpanel">
+                    <div class="number">
+                        {{barcamp.subscriber_users|length}}
+                    </div>
+
+                    {{_("Interested")}}
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="bigpanel">
+                    <div class="number">
+                        {{barcamp.waitignlist_users|length}}
+                    </div>
+                    {{_("on waiting list")}}
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="bigpanel">
+                    <div class="number">
+                        {{sessioncount}}
+                    </div>
+                    {{_("session proposals")}}
+                </div>
+            </div>
+
+        </div>
+        <a href="{{url_for("barcamps.userlist", slug=slug)}}" class="btn btn-primary btn-sm pull-right"><i class="fa fa-pencil"></i> {{_("edit participants")}}</a>
+    </div>
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+{% endblock %}
