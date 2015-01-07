@@ -29,10 +29,10 @@
                 <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
                 <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
                 <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
-                <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="fa fa-user"></i> {{_('increase participants')}}</a></li>
-                <li><a href="{{url_for("barcamps.newsletter_send", slug=slug)}}"><i class="fa fa-share"></i> {{_('send newsletter')}}</a></li>
-                <li><a href="#sponsor-upload" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('new sponsor')}}</a></li>
-                <li><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="fa fa-list"></i> {{_('edit permissions')}}</a></li>
+                <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="fa fa-plus"></i> {{_('increase participants')}}</a></li>
+                <li class="{{'active' if menu=='newsletter_send'}}"><a href="{{url_for("barcamps.newsletter_send", slug=slug)}}"><i class="fa fa-share"></i> {{_('send newsletter')}}</a></li>
+                <li class="{{'active' if menu=='sponsors'}}"><a href="{{url_for("barcamps.sponsors", slug=slug)}}" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('new sponsor')}}</a></li>
+                <li class="{{'active' if menu=='permissions'}}"><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="fa fa-list"></i> {{_('edit permissions')}}</a></li>
                 {% if view.can_add_menu_page %}
                     <li><a href="{{url_for('barcamp_page_add', slug=slug, slot='menu')}}" class="iframebox"><i class="fa fa-plus"></i> {{_('create new page')}}</a></li>
                 {% endif %}
@@ -43,6 +43,13 @@
             
         </div>
         <div class="col-lg-9 col-md-9">
+
+            {% for m in get_flashes(with_categories=True) %}
+                <div class="alert alert-{{m[0]}}" role="alert">
+                    <strong>{{m[1]}}</strong><br>
+                </div>
+            {% endfor %}
+
             {% block content %}
             {% endblock %}
         </div>
