@@ -1,0 +1,15 @@
+{
+  "name": "camper",
+  "description": "barcamp helper tool",
+  "version": "2.0",
+  "homepage": "https://github.com/mrtopf/camper",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "~1.3.0",
+    "angular-mocks": "~1.3.0",
+    "jquery": "2.1.1",
+    "angular-route": "~1.3.0"
+  }
+}
+
