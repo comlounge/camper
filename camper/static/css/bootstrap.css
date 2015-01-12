@@ -6455,6 +6455,9 @@ body#admin .big-button-panel .badge {
 body#admin .big-button-panel a {
   font-size: 30px;
 }
+body#admin #sessionboard-container {
+  padding: 30px;
+}
 /*
 ** general rules
 */
