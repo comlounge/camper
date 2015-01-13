@@ -158,7 +158,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http) ->
             rooms: rooms
             timeslots: $scope.timeslots
         $http.post("sessionboard/data", data).success (data) ->
-            
+            console.log "success"
         .error (data) ->
             console.log "error!"
             console.log data            

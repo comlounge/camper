@@ -132,7 +132,6 @@ app.controller('SessionBoardCtrl', function($scope, $http) {
   };
   $scope.save_to_server = function() {
     var data, rooms;
-    console.log("saving the world");
     rooms = angular.copy($scope.rooms);
     rooms.splice(0, 1);
     data = {
@@ -140,8 +139,7 @@ app.controller('SessionBoardCtrl', function($scope, $http) {
       timeslots: $scope.timeslots
     };
     $http.post("sessionboard/data", data).success(function(data) {
-      console.log("success");
-      return console.log("data");
+      return console.log("success");
     }).error(function(data) {
       console.log("error!");
       return console.log(data);
