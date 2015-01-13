@@ -7,6 +7,7 @@ from sfext.babel import T
 from wtforms import *
 import werkzeug.exceptions
 import babel
+import json
 from .base import BarcampBaseHandler, SponsorForm
 
 class RoomForm(BaseForm):
@@ -67,26 +68,34 @@ class SessionBoardData(BarcampBaseHandler):
         ]
 
         timeslots = [
-            {
-                'name' : '10:00',
-                'blocked' : False,
-            },
-            {
-                'name' : '11:00',
-                'blocked' : False,
-            },
-            {
-                'name' : '12:00',
-                'blocked' : False,
-            },
-            {
-                'name' : '13:00',
-                'blocked' : True,
-                'reason' : "Mittagspause"
-            }
+            # {
+            #     'time' : '10:00',
+            #     'blocked' : False,
+            # },
+            # {
+            #     'time' : '11:00',
+            #     'blocked' : False,
+            # },
+            # {
+            #     'time' : '12:00',
+            #     'blocked' : False,
+            # },
+            # {
+            #     'time' : '13:00',
+            #     'blocked' : True,
+            #     'reason' : "Mittagspause"
+            # }
+
         ]
 
         return {
             'rooms' : rooms,
             'timeslots': timeslots
         }
+
+    @asjson()
+    def post(self, slug = None):
+        """store room and timetable data"""
+        data = json.loads(self.request.data)
+        print data
+        return {'status' : 'ok'}

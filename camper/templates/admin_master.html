@@ -16,6 +16,11 @@
     <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
+    <script src="{{url_for('static', filename='js/components/angular/angular.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/jquery-timepicker-jt/jquery.timepicker.css")}}" />
+
+
 
 {% endblock %}
 

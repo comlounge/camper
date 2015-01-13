@@ -17,17 +17,18 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <script src="{{url_for('static', filename='js/components/angular/angular.js')}}"></script>
-        <script src="{{url_for('static', filename='js/components/angular-route/angular-route.js')}}"></script>
         
         {% block css %}
         <link href="{{url_for("static", filename="css/bootstrap.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
         <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
-        <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
+        <link rel="stylesheet" href="{{url_for("static", filename="js/components/jquery-ui/themes/smoothness/jquery-ui.min.css")}}">
         <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
         <link rel="icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
+
+        <script src="{{url_for("static", filename="js/jquery.min.js")}}"></script>
+
         
         {#
         <link href="{{vpath}}/static/css/custom.css" rel="stylesheet">
@@ -155,7 +156,6 @@
         <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{url_for("static", filename="js/jquery.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/underscore.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.form.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
@@ -163,7 +163,7 @@
         <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
+        <script src="{{url_for("static", filename="js/components/jquery-ui/jquery-ui.min.js")}}"></script>
         <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
         {% if LANGUAGE != "en" %}
             <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
@@ -197,10 +197,10 @@
                 $( ".datepicker" ).datepicker();                                                                                   
             });
         </script>
-        {% block js %}
-        {% endblock %}
-        {% block js2 %}
-        {% endblock %}
+            {% block js %}
+            {% endblock %}
+            {% block js2 %}
+            {% endblock %}
 
         <script src="{{url_for("static", filename="js/holder.js")}}"></script>
         <script src="{{url_for("static", filename="js/bt.min.js")}}"></script>
