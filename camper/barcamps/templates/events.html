@@ -97,10 +97,10 @@
                     {{formmacros.f(form.location_city, placeholder=_('City'))}}
                 </div>
             </div>
+            {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
             {{ formmacros.form_field(form.location_email, label_class="col-sm-2", input_class="email", size="col-sm-10", placeholder="") }}
             {{ formmacros.form_field(form.location_phone, label_class="col-sm-2", input_class="", size="col-sm-10", placeholder="") }}
             {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
-            {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
         </fieldset>
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="{{_('add event')}}">
