@@ -28,15 +28,15 @@ class WorkflowError(BaseError):
 
 class Location(Schema):
     """a location described by name, lat and long"""
-    name = String()
-    street = String()
-    city = String()
-    zip = String()
-    country = String()
-    url = String()
-    phone = String()
-    email = String()
-    description = String()
+    name            = String()
+    street          = String()
+    city            = String()
+    zip             = String()
+    country         = String()
+    url             = String()
+    phone           = String()
+    email           = String()
+    description     = String()
 
     lat = Float()
     lng = Float()
@@ -75,12 +75,13 @@ class EventSchema(Schema):
     """a sub schema describing one event"""
     name                = String(required=True)
     description         = String(required=True)
-    start_date          = DateTime()
-    end_date            = DateTime()
+    date                = DateTime()
     location            = Location()
     participants        = List(String()) # TODO: ref
+    #maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
-
+    use_main_location   = Boolean() # flag if the barcamp address is used
+    #timetable           = Dict() # will be stored as dict with rooms and timeslots
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""

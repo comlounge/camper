@@ -13,6 +13,7 @@ import dashboard
 import delete
 import tweetwally
 import sponsors
+import events
 
 from starflyer import Module, URL
 
@@ -56,6 +57,8 @@ class BarcampModule(Module):
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
         URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView   ),
         URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView   ),
+        URL('/<slug>/events', 'events', events.EventsView   ),
+
 
     ]
 

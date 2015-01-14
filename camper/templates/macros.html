@@ -42,19 +42,20 @@
     {% endif %}
 {%- endmacro %}
 
+{% macro f(field, classes="") -%}
+    {{ field(class="form-control "+classes, **kwargs) }}
+    {% if field.description %}
+        <p class="help-block">{{ _(field.description) }}</p>
+    {% endif %}
+{%- endmacro %}
+
 {% macro my_field(field, prepend=None, append=None, input_class="", required=False, size="") -%}
-            <div class="{{size}} {{'input-prepend' if prepend}} {{'input-append' if append}}">
-                {% if prepend %}
-                    <span class="add-on">{{prepend}}</span>
-                {% endif %}
-
+            <div class="{{size}}">
                 {{ field(class="form-control"+(' required ' if required else ' ')+input_class, **kwargs) }}
-
-                {% if append %}
-                    <span class="add-on">{{append}}</span>
+                {% if field.description %}
+                    <p class="help-block">{{ _(field.description) }}</p>
                 {% endif %}
-                
-          </div>
+            </div>
 {%- endmacro %}
 
 {%- macro form_field_label(field, label_class="") -%}
@@ -63,12 +64,6 @@
         <abbr title="{{_('This field is required')}}">*</abbr>
     {%- endif %}</label>
 {% endmacro %}
-
-{%- macro form_field_description(field) -%}
-    {% if field.description %}
-        <p class="help-block">{{ _(field.description) }}</p>
-    {% endif %}
-{%- endmacro -%}
 
 {%- macro form_field_errors(field) -%}
     {% if field.errors %}
@@ -128,10 +123,9 @@
             {% elif field.type == 'RadioField' %}
                 {{ form_field_radio(field) }}
             {% else %}
-                {{ my_field(field, input_class=input_class, size="", **kwargs) }}
+                {{ my_field(field, input_class=input_class, size=size, **kwargs) }}
             {% endif %}
             {{ form_field_errors(field) }}
-            {{ form_field_description(field) }}
         {% endif %}
     {% endif %}
     </div>
