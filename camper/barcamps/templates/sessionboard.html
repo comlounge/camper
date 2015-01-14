@@ -1,0 +1,166 @@
+{% set menu="sessionboard" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+<div class="container-fluid" id="sessionboard-container">
+    <div class="row">
+        <div id="sessionboard" ng-controller="SessionBoardCtrl">
+
+            <div class="modal" id="add-room-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{_('Add new room')}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="room_form" class="novalidate form-horizontal" role="form" id="add-room-form">
+                                <input type="hidden" name="room_idx" ng-model="room_idx">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Name')}}</label>
+                                    <span class="label label-danger" data-ng-show="submitted && addRoomForm.name.$error.required">{{_('This field is required')}}!</span>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="room.name" name="name" required placeholder="{{_('e.g. seminar room')}}">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Capacity')}}</label>
+                                    <div class="col-sm-5">
+                                        <input type="number" class="form-control" ng-model="room.capacity" integer min=1 max=1000 name="capacity" required>
+                                        <span class="help-block" ng-show="room_form.room.capacity.$error.integer">{{_('The value is not a valid integer')}}</span>
+                                        <span class="help-block" ng-show="room_form.room.capacity.$error.min || room_form.room.capacity.$error.max">{{_('The value must be in range 1 to 1000')}}</span>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Description')}}</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" maxlength=100 ng-model="room.description" name="description" placeholder="{{_('e.g. beamer available')}}"></textarea>
+                                    </div>
+                                </div> 
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                            <button ng-if="roomModalMode=='add'" data-ng-click="add_room()" class="btn btn-primary">{{_('Add new room')}}</button>
+                            <button ng-if="roomModalMode=='edit'" data-ng-click="update_room()" class="btn btn-primary">{{_('Update room')}}</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <div class="modal" id="add-timeslot-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{_('Add new timeslot')}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="timeslot_form" class="novalidate form-horizontal" role="form" id="add-timeslot-form">
+                                <input type="hidden" name="timeslot_idx" ng-model="timeslot_idx">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Time')}}</label>
+                                    <span class="label label-danger" data-ng-show="submitted && addtimeslotForm.time.$error.required">{{_('This field is required')}}!</span>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="timepicker" ui-timepicker="timePickerOptions" ng-model="timeslot.time" name="time" required placeholder="{{_('e.g. 11:00')}}">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Blocked?')}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" class="form-control" ng-model="timeslot.blocked" name="blocked" required>
+                                        <span class="help-block">{{_('Define here if this time slot is blocked, e.g. because of a break. This means you cannot add sessions in this slot.')}}
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{_('Reason for blocking')}}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" ng-model="timeslot.reason" name="reason" required placeholder="{{_('e.g. lunch break')}}">
+                                    </div>
+                                </div> 
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                            <button ng-if="timeslotModalMode=='add'" data-ng-click="add_timeslot()" class="btn btn-primary">{{_('Add new timeslot')}}</button>
+                            <button ng-if="timeslotModalMode=='edit'" data-ng-click="update_timeslot()" class="btn btn-primary">{{_('Update room')}}</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+            <div role="tabpanel">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for event in barcamp.get_events() %}
+                        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">{{dateformat(event.start_date)}}</a></li>
+                    {% endfor %}    
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                        <table class="table table–bordered sessiontable" ng-cloak>
+                            <thead>
+                                <tr id="roomcontainment" ui-sortable="sortableOptions" ng-model="rooms">
+                                    <td></td>
+                                    <td class="sorted" ng-repeat="room in rooms | slice:1:10000" data-id="{[{room.id}]}">
+                                        <span>{[{room.name}]}</span>
+                                        <a ng-click="delete_room($index+1)" title="{{_('delete room')}}" href="javascript: return false;" class="del-room-button btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a title="{{_('edit room')}}" href="" ng-click="edit_room($index+1)" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                                        <span title="{{_('drag to sort this list')}}" class="btn btn-xs btn-info"><i class="fa fa-arrows"></i></span>
+                                        <br>
+                                        <small>{[{room.description}]}</small><br>
+                                        <small>{[{room.capacity}]} {{_("persons")}}</small>
+                                    </td>
+                                    <td>
+                                        <div class="big-button-panel"><a title="{{_('Add new room')}}" href="" ng-click="add_room_form()" id="room-add-button" href="" class="btn btn-lg"><i class="fa fa-plus"></i></a></div>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}">
+                                    <td>
+                                        <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                                        {[{slot.time | date: 'shortTime'}]}
+                                    </td>
+
+                                    <td ng-repeat="room in rooms">
+                                        <span ng-if="slot.blocked">{[{slot.reason}]}</span>
+                                    
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="big-button-panel"><a title="{{_('Add new room')}}" href="" ng-click="add_timeslot_form()" id="timeslot-add-button" href="" class="btn btn-lg"><i class="fa fa-plus"></i></a></div>
+                                    </td>
+                                    <td colspan="{[{rooms.length}]}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="profile">...2</div>
+                    <div role="tabpanel" class="tab-pane" id="messages">...3</div>
+                    <div role="tabpanel" class="tab-pane" id="settings">...4</div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- .row -->
+</div> <!-- .container -->
+{% endblock %}
+
+    {% block bcjs %}
+    <script src="{{url_for('static', filename='js/components/underscore/underscore-min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-route/angular-route.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-promise-tracker/promise-tracker.js')}}"></script>
+    <script src="{{url_for("static", filename='js/components/jquery-timepicker-jt/jquery.timepicker.js')}}"></script>
+    <script src="{{url_for("static", filename='js/components/angular-jquery-timepicker/src/timepickerdirective.js')}}"></script>
+    <script src="{{url_for("static", filename='js/components/angular-ui-sortable/sortable.min.js')}}"></script>
+    <script src="{{url_for("static", filename='js/sessionboard-controller.js')}}"></script>
+    {% endblock %}

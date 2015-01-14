@@ -1,4 +1,5 @@
 {% set body_id ="admin" %}
+{% set container="full" %}
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
 {% block head %}
@@ -15,19 +16,25 @@
     <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
+    <script src="{{url_for('static', filename='js/components/angular/angular.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/jquery-timepicker-jt/jquery.timepicker.css")}}" />
+
+
 
 {% endblock %}
 
 {% block container %}
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-lg-3 col-md-3">
+        {%block full_content %}
+        <div class="col-lg-2 col-md-2">
             <ul class="nav navbar-side">
                 <li class="back-to-bc"><a href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-arrow-left"></i> <span>{{_('public view')}}</span></a></li>
                 <li><a href="#logo-upload" role="button" data-toggle="modal"><i class="fa fa-upload"></i> {{_('Upload Logo')}}</a></li>
                 <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
-                {# <li class="{{'active' if menu=='sessionboard'}}"><a href="{{url_for("barcamps.sessionboard", slug=slug)}}"><i class="fa fa-table"></i> {{_('edit sessionboard')}}</a></li> #}
                 <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
+                <li class="{{'active' if menu=='sessionboard'}}"><a href="{{url_for("barcamps.sessionboard", slug=slug)}}"><i class="fa fa-table"></i> {{_('edit sessionboard')}}</a></li>
                 <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
                 <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
                 <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
@@ -41,10 +48,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-side barcamp-delete">
                 <li><a class="btn btn-block btn-danger" href="{{url_for("barcamps.delete", slug=slug)}}"><i class="fa fa-trash"></i>{{_('DELETE BARCAMP')}}</a></li>
-            </ul>
-            
+            </ul>            
         </div>
-        <div class="col-lg-9 col-md-9">
+        <div class="col-lg-10 col-md-10">
 
             {% for m in get_flashes(with_categories=True) %}
                 <div class="alert alert-{{m[0]}}" role="alert">
@@ -55,6 +61,7 @@
             {% block content %}
             {% endblock %}
         </div>
+        {% endblock %}
     </div>
 </div>
 {% endblock %}

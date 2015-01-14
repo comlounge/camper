@@ -1,6 +1,6 @@
 {% import "macros.html" as macros with context %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="barcamptool">
     <head>
         <meta charset="utf-8">
         <title>{{title}}</title>
@@ -23,9 +23,12 @@
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
         <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
-        <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
+        <link rel="stylesheet" href="{{url_for("static", filename="js/components/jquery-ui/themes/smoothness/jquery-ui.min.css")}}">
         <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
         <link rel="icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
+
+        <script src="{{url_for("static", filename="js/jquery.min.js")}}"></script>
+
         
         {#
         <link href="{{vpath}}/static/css/custom.css" rel="stylesheet">
@@ -65,7 +68,7 @@
            }(document, 'script', 'facebook-jssdk'));
         </script>
             <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-                <div class="container">
+                <div class="{{'container' if not container=="full" else "container-fluid"}}">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                           <span class="sr-only">Toggle navigation</span>
@@ -153,7 +156,6 @@
         <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{url_for("static", filename="js/jquery.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/underscore.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.form.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
@@ -161,7 +163,7 @@
         <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
+        <script src="{{url_for("static", filename="js/components/jquery-ui/jquery-ui.min.js")}}"></script>
         <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
         {% if LANGUAGE != "en" %}
             <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
@@ -195,10 +197,10 @@
                 $( ".datepicker" ).datepicker();                                                                                   
             });
         </script>
-        {% block js %}
-        {% endblock %}
-        {% block js2 %}
-        {% endblock %}
+            {% block js %}
+            {% endblock %}
+            {% block js2 %}
+            {% endblock %}
 
         <script src="{{url_for("static", filename="js/holder.js")}}"></script>
         <script src="{{url_for("static", filename="js/bt.min.js")}}"></script>
