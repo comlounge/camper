@@ -82,20 +82,23 @@ $.fn.uploader2 = function(opts) {
 
 $(document).ready(function() {
   $(".upload-widget").uploader();
+  $('[data-toggle=confirmation]').confirmation({
+    popout: true
+  });
   $('[data-toggle="editfield"]').click(function() {
     var f, p;
     $(this).hide();
     p = $(this).closest(".editfield");
     return f = $(p).find(".edit").show();
   });
-  $('[data-close="editfield"]').live("click", function() {
+  $('[data-close="editfield"]').on("click", function() {
     var f, p;
     $(this).closest(".edit").hide();
     p = $(this).closest(".editfield");
     f = $(p).find(".value").show();
     return false;
   });
-  $('form.edit').live("submit", function() {
+  $('form.edit').on("submit", function() {
     var f, p;
     $(this).closest(".edit").hide();
     p = $(this).closest(".editfield");

@@ -1,0 +1,43 @@
+{
+  "name": "bootstrap-confirmation2",
+  "version": "2.1.2",
+  "homepage": "https://github.com/mistic100/Bootstrap-Confirmation",
+  "authors": [
+    "ethaizone",
+    {
+      "name": "Damien \"Mistic\" Sorel",
+      "homepage": "http://www.strangeplanet.fr"
+    }
+  ],
+  "description": "Bootstrap plugin for on-place confirm boxes using Popover",
+  "main": "bootstrap-confirmation.js",
+  "keywords": [
+    "confirmation",
+    "popup"
+  ],
+  "dependencies": {
+    "bootstrap": ">=3.2.0"
+  },
+  "license": "Apache",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mistic100/Bootstrap-Confirmation.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "2.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.1.2",
+    "commit": "f9c0c09c90843851e884eede7081967386cfd6d1"
+  },
+  "_source": "git://github.com/mistic100/Bootstrap-Confirmation.git",
+  "_target": "~2.1.2",
+  "_originalSource": "bootstrap-confirmation2",
+  "_direct": true
+}
