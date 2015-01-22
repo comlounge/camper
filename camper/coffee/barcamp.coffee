@@ -63,6 +63,8 @@ $.fn.uploader2 = (opts = {}) ->
 
 $(document).ready( () ->
     $(".upload-widget").uploader()
+    $('[data-toggle=confirmation]').confirmation
+        popout: true
 
     # live edit fields
     $('[data-toggle="editfield"]').click( () ->
@@ -70,13 +72,13 @@ $(document).ready( () ->
         p = $(this).closest(".editfield")
         f = $(p).find(".edit").show()
     )
-    $('[data-close="editfield"]').live("click", () ->
+    $('[data-close="editfield"]').on("click", () ->
         $(this).closest(".edit").hide();
         p = $(this).closest(".editfield")
         f = $(p).find(".value").show()
         false
     )
-    $('form.edit').live("submit", () ->
+    $('form.edit').on("submit", () ->
         $(this).closest(".edit").hide();
         p = $(this).closest(".editfield")
         f = $(p).find(".value").show()
