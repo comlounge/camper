@@ -50,6 +50,39 @@ module.exports = function(grunt) {
             }
         },
 
+        bower_concat: {
+            all: {
+                dest: 'static/js/components.js',
+                cssDest: 'static/css/components.css',
+                exclude: [
+                    'angular',
+                    'modernizr'
+                ],
+                include: [
+                    "angular",
+                    "angular-mocks",
+                    "angular-route",
+                    "angular-jquery-timepicker",
+                    "jquery-timepicker-jt",
+                    "jquery-ui",
+                    "angular-ui-sortable",
+                    "angular-i18n",
+                    "underscore",
+                    "angular-promise-tracker",
+                    "datepair",
+                    "bootstrap-confirmation2",
+                    "jquery-colorbox",
+                    "fuelux",
+                    "shariff"
+                ],
+                dependencies: {
+                },
+                bowerOptions: {
+                    relative: false
+                }
+            }
+        },
+
         concat: {
             options: {
                 stripBanners: false
@@ -74,11 +107,16 @@ module.exports = function(grunt) {
         },
         uglify: {
             options: {
-                preserveComments: 'some'
+                preserveComments: 'some',
+                sourceMap: true
             },
             core: {
                 src: '<%= concat.bootstrap.dest %>',
                 dest: 'static/js/bt.min.js'
+            },
+            components: {
+                src: '<%= bower_concat.all.dest %>',
+                dest: 'static/js/components.min.js'
             }
         }
     });
@@ -91,10 +129,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-git');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-bower-concat');
 
     // Default task(s).
     //grunt.registerTask('default', ['coffee', 'less']);
-    grunt.registerTask('default', ['less', 'coffee']);
+    grunt.registerTask('default', ['less', 'bower_concat', 'coffee', 'uglify']);
     grunt.registerTask('js', ['concat', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
