@@ -59,20 +59,20 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
-                    "angular",
                     "angular-mocks",
                     "angular-route",
                     "angular-jquery-timepicker",
                     "jquery-timepicker-jt",
-                    "jquery-ui",
+                    //"jquery-ui",
                     "angular-ui-sortable",
                     "angular-i18n",
                     "underscore",
                     "angular-promise-tracker",
+                    //"fuelux",
+                    "bootstrap-datepicker",
                     "datepair",
                     "bootstrap-confirmation2",
                     "jquery-colorbox",
-                    "fuelux",
                     "shariff"
                 ],
                 dependencies: {

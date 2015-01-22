@@ -3,7 +3,7 @@
 {% extends "admin_master.html" %}
 
 {% block content %}
-<div class="container-fluid" id="sessionboard-container">
+<div class="container-fluid" id="sessionboard-container" ng-app="barcamptool">
     <div class="row">
         <div id="sessionboard" ng-controller="SessionBoardCtrl">
 
@@ -157,11 +157,5 @@
 {% endblock %}
 
     {% block bcjs %}
-    <script src="{{url_for('static', filename='js/components/underscore/underscore-min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/components/angular-route/angular-route.js')}}"></script>
-    <script src="{{url_for('static', filename='js/components/angular-promise-tracker/promise-tracker.js')}}"></script>
-    <script src="{{url_for("static", filename='js/components/jquery-timepicker-jt/jquery.timepicker.js')}}"></script>
-    <script src="{{url_for("static", filename='js/components/angular-jquery-timepicker/src/timepickerdirective.js')}}"></script>
-    <script src="{{url_for("static", filename='js/components/angular-ui-sortable/sortable.min.js')}}"></script>
     <script src="{{url_for("static", filename='js/sessionboard-controller.js')}}"></script>
     {% endblock %}

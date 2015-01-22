@@ -2,7 +2,7 @@ from mongogogo import *
 import datetime
 from camper.exceptions import *
 
-__all__=["Barcamp", "BarcampSchema", "Barcamps"]
+__all__=["Barcamp", "BarcampSchema", "Barcamps", "Event"]
 
 class BaseError(Exception):
     """base class for exceptions"""
@@ -73,15 +73,19 @@ class MailsSchema(Schema):
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
+    _id                 = String(required=True)
     name                = String(required=True)
     description         = String(required=True)
     date                = DateTime()
+    start_time          = String()
+    end_time            = String()
     location            = Location()
     participants        = List(String()) # TODO: ref
-    #maybe               = List(String()) # we maybe will implement this
+    size                = Integer()
+    maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
-    use_main_location   = Boolean() # flag if the barcamp address is used
-    #timetable           = Dict() # will be stored as dict with rooms and timeslots
+    own_location        = Boolean() # flag if the barcamp address is used or not 
+    timetable           = Dict(default={}) # will be stored as dict with rooms and timeslots
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
@@ -150,6 +154,9 @@ class BarcampSchema(Schema):
     updated             = DateTime()
     created_by          = String() # TODO: should be ref to user
     workflow            = String(required = True, default = "created")
+
+    # location
+    location            = Location()
 
     # base data
     name                = String(required = True)
@@ -237,6 +244,13 @@ class Barcamp(Record):
             m = getattr(self, "on_wf_"+new_state)
             m(old_state = old_state)
         self.workflow = new_state
+
+    def get_event(self, eid):
+        """return the event for the given id or None"""
+        for e in self.events:
+            if e['_id'] == eid:
+                return e
+        return
 
     @property
     def public(self):
@@ -375,7 +389,7 @@ class Barcamps(Collection):
         """find a barcamp by slug"""
         return self.find_one({'slug' : slug})
 
-    def before_serialize(self, obj):
+    def no_before_serialize(self, obj):
         """update or create our event information before it's saved"""
         if obj.events == []:
             event = Event()

@@ -18,9 +18,12 @@
     <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
-    <script src="{{url_for('static', filename='js/components/angular/angular.js')}}"></script>
-    <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
+
+    {#
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/jquery-timepicker-jt/jquery.timepicker.css")}}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/datepair/lib/bootstrap-datepicker.css")}}" />
+    #}
 
 
 
@@ -69,6 +72,13 @@
 {% endblock %}
 
 {% block js %}
+    {#
+    <script src="{{url_for('static', filename='js/components/bootstrap-confirmation2/bootstrap-confirmation.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-route/angular-route.js')}}"></script>
+    <script src="{{url_for('static', filename='js/components/angular-promise-tracker/promise-tracker.js')}}"></script>
+    <script src="{{url_for("static", filename='js/components/angular-jquery-timepicker/src/timepickerdirective.js')}}"></script>
+    <script src="{{url_for("static", filename='js/components/angular-ui-sortable/sortable.min.js')}}"></script>
+    #}
     <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
     <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
     {% block bcjs %}

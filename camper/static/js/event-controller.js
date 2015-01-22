@@ -16,8 +16,9 @@ $(document).ready(function() {
     timeFormat: "G:i"
   });
   $('#date').datepicker({
-    'format': 'd.m.yyyy',
-    'autoclose': true
+    format: 'd.m.yyyy',
+    autoclose: true,
+    language: $("body").data("lang")
   });
   $("#own_location").change(function() {
     if (this.checked) {

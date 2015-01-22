@@ -16,10 +16,10 @@ $(document).ready () ->
     $("#end_time").timepicker
         timeFormat: "G:i"
 
-    $('#date').datepicker({
-        'format': 'd.m.yyyy',
-        'autoclose': true
-    });
+    $('#date').datepicker
+        format: 'd.m.yyyy'
+        autoclose: true
+        language: $("body").data("lang")
 
     $("#own_location").change () ->
         if (this.checked)

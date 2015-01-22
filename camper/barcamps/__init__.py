@@ -59,6 +59,8 @@ class BarcampModule(Module):
         URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView   ),
         URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView   ),
         URL('/<slug>/events', 'events', events.EventsView   ),
+        URL('/<slug>/event/<eid>', 'event', events.EventView   ),
+
 
 
         URL('/<slug>/sessionboard', 'sessionboard', sessionboard.SessionBoard   ),
