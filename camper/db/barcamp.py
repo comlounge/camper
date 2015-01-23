@@ -166,13 +166,14 @@ class BarcampSchema(Schema):
     start_date          = Date()
     end_date            = Date()
     location            = Location()
-    size                = Integer(default = 0) # amount of people allowed
+    #size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
     hashtag             = String()
     gplus               = String()
+    facebook            = String() # facebook page
     homepage            = String() # URL
     twitterwall         = String() # URL
-    fbAdminId           = String() # optional admin id for facebook use
+    #fbAdminId           = String() # optional admin id for facebook use
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
@@ -186,7 +187,7 @@ class BarcampSchema(Schema):
     subscribers         = List(String()) # TODO: ref
 
     # events
-    events              = List(EventSchema(kls=Event))
+    events              = Dict(EventSchema(kls=Event))
 
     # image stuff
     logo                = String() # asset id
@@ -247,10 +248,18 @@ class Barcamp(Record):
 
     def get_event(self, eid):
         """return the event for the given id or None"""
-        for e in self.events:
-            if e['_id'] == eid:
-                return e
-        return
+        e = self.events[eid]
+        return Event(e)
+
+    @property
+    def eventlist(self):
+        """return the events as a list sorted by date"""
+        events = self.events.values()
+        def s(a,b):
+            return cmp(a['date'], b['date'])
+        events.sort(s)
+        return events
+
 
     @property
     def public(self):
@@ -306,6 +315,7 @@ class Barcamp(Record):
     @property
     def event(self):
         """returns the main event object or None in case there is no event"""
+        raise NotImplemented
         if self.events == []:
             return None
         event = self.events[0]

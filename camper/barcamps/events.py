@@ -74,14 +74,14 @@ class EventsView(BarcampBaseHandler):
 
         # prefill some values if there's already a previous event
         obj = {}
-        if len(self.barcamp.events):
-            e = self.barcamp.events[-1]
+        el = self.barcamp.eventlist
+        if len(el):
+            e = el[-1]
             obj['date'] = e['date'] + datetime.timedelta(days=1)
             obj['start_time'] = e['start_time']
             obj['end_time'] = e['end_time']
             obj['size'] = e['size']
 
-        print obj
         form = EventForm(self.request.form, config = self.config, **obj)
         if self.request.method == 'POST' and form.validate():
             f = form.data
@@ -102,14 +102,14 @@ class EventsView(BarcampBaseHandler):
                 f = retrieve_location(f)
 
             # create and save the event object inside the barcamp
-            f['_id'] = unicode(uuid.uuid4())
+            eid = f['_id'] = unicode(uuid.uuid4())
             event = db.Event(f)
-            self.barcamp.events.append(event)
+            self.barcamp.events[eid] = event
             self.barcamp.save()
 
             self.flash(self._("The event has been created"), category="info")
             return redirect(self.url_for(".events", slug=slug))
-        return self.render(form = form, slug = slug, events = self.barcamp.events)
+        return self.render(form = form, slug = slug, events = self.barcamp.eventlist)
     post = get
 
     @ensure_barcamp()
@@ -161,12 +161,11 @@ class EventView(BarcampBaseHandler):
                 f = retrieve_location(f)
 
             # create and save the event object inside the barcamp
-            f['_id'] = unicode(uuid.uuid4())
+            f['_id'] = eid
             event = db.Event(f)
-            self.barcamp.events.append(event)
+            self.barcamp.events[eid] = event
             self.barcamp.save()
 
-            self.flash(self._("The event has been created"), category="info")
             return redirect(self.url_for(".events", slug=slug))
         return self.render(form = form, slug = slug, events = self.barcamp.events, event=event)
     post = get

@@ -1,6 +1,7 @@
 import argparse
 import pymongo
 import uuid
+import datetime
 import pprint
 import copy
 from datetime import timedelta
@@ -39,21 +40,22 @@ class MigrateBarcamps(ScriptBase):
             # fix dates and eventually create more events
             e = copy.copy(e) # this is the master
             if e['start_date'] is None:
-                events = []
+                events = {}
             else:
-                events = []
+                events = {}
                 for single_date in daterange(e['start_date'], e['end_date']):
+                    print single_date
                     e = copy.copy(e)
+                    e['_id'] = unicode(uuid.uuid4())
                     e['date'] = single_date
                     e['start_time'] = "8:00"
                     e['end_time'] = "18:00"
-                    events.append(e)
+                    events[e['_id']] = e
 
             # now move location from event to barcamp as main location
             if not b.has_key("location"):
                 b['location'] = e['location']
                 e['location'] = {}
-                b['events'][0] = e
                 print "location copied,",
             b['events'] = events
             print

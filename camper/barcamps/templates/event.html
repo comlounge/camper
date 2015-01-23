@@ -3,16 +3,14 @@
 {% import "macros.html" as formmacros with context %}
 {% block content %}
     {% block title %}
-        <h1>{{_('Edit Event')}} '{{event.name}}'</h1>
-        <small>{{_('Here you can define individual events for your barcamp like one for each day it takes place or some warm up party')}}
+        <a href="{{url_for('.events', slug=slug)}}" class="btn btn-default"><i class="fa fa-arrow-left"></i> {{_('back')}}</a>
     {% endblock %}
-    <hr>
-
+    
     <div>
-        <hr>
         <div id ="add-form-view">
-            <h2>{{_('Edit event')}}</h2>
-            <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">  
+            <h2>{{_('Edit event')}} '{{event.name}}'</h2>
+            <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
+                <input type="hidden" name="_id" value="{{event._id}}">
                 <div class="form-group form-group-lg">
                     <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
                     <div class="col-sm-10">
@@ -95,7 +93,7 @@
                     {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
                 </fieldset>
                 {% block action %}
-                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Create event')}}">
+                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Update event')}}">
                     <button id="cancel-add-form" class="pull-right btn btn-default">{{_('Cancel')}}</button>
                 {% endblock %}
             </form>
