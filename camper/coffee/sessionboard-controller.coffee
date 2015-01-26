@@ -32,6 +32,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http) ->
         items: "td"
         placeholder: "sortable-placeholder"
         containment: 'parent'
+        cancel: ".not-sortable"
         opacity: 0.5
 
     $scope.room = {

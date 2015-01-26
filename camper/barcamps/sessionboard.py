@@ -22,8 +22,9 @@ class SessionBoard(BarcampBaseHandler):
 
     template = "sessionboard.html"
 
-    def get(self, slug = None):
+    def get(self, slug = None, eid = None):
         """render the view"""
+        event = self.barcamp.get_event(eid)
         room_form= RoomForm(self.request.form, config = self.config)
 
         return self.render(
@@ -31,14 +32,18 @@ class SessionBoard(BarcampBaseHandler):
             barcamp = self.barcamp,
             title = self.barcamp.name,
             room_form = room_form,
+            event = event,
+            eid = event._id,
             **self.barcamp)
 
 class SessionBoardData(BarcampBaseHandler):
     """handles all AJAX related session board data"""
 
     @asjson()
-    def get(self, slug=None):
+    def get(self, slug = None, eid = None):
         """return rooms and timeslots"""
+
+        event = self.barcamp.get_event(eid)
 
         rooms = [
             {
@@ -90,12 +95,15 @@ class SessionBoardData(BarcampBaseHandler):
 
         return {
             'rooms' : rooms,
-            'timeslots': timeslots
+            'timeslots': timeslots,
+            'event' : event,
+            'eid' : event._id
         }
 
     @asjson()
-    def post(self, slug = None):
+    def post(self, slug = None, eid = None):
         """store room and timetable data"""
+        event = self.barcamp.get_event(eid)
         data = json.loads(self.request.data)
         print data
         return {'status' : 'ok'}

@@ -1,0 +1,14 @@
+{% macro eventnav(active="details") -%}
+<div id="backbutton">
+    <a href="{{url_for('.events', slug=slug)}}" class="btn btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to event listing')}}</a>
+</div>  
+
+<nav>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="{{'active' if active=='details'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Details")}}</a></li>
+        <li role="presentation" class="{{'active' if active=='timetable'}}"><a href="{{url_for('.sessionboard', slug=slug, eid=eid)}}">{{_("Timetable")}}</a></li>
+        <li role="presentation" class="{{'active' if active=='participants'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Participants")}}</a></li>
+    </ul>
+</nav>
+{%- endmacro %}
+

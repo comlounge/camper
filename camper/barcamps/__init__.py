@@ -56,16 +56,13 @@ class BarcampModule(Module):
         URL('/<slug>/logo/upload',  'logo_upload', images.LogoUpload),
         URL('/<slug>/logo/delete',  'logo_delete', images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
-        URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView   ),
-        URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView   ),
-        URL('/<slug>/events', 'events', events.EventsView   ),
-        URL('/<slug>/event/<eid>', 'event', events.EventView   ),
+        URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView),
+        URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView),
 
-
-
-        URL('/<slug>/sessionboard', 'sessionboard', sessionboard.SessionBoard   ),
-        URL('/<slug>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData   ),
-
+        URL('/<slug>/events', 'events', events.EventsView),
+        URL('/<slug>/events/<eid>', 'event', events.EventView),
+        URL('/<slug>/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
+        URL('/<slug>/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
 
     ]
 

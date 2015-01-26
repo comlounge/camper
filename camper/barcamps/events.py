@@ -167,5 +167,5 @@ class EventView(BarcampBaseHandler):
             self.barcamp.save()
 
             return redirect(self.url_for(".events", slug=slug))
-        return self.render(form = form, slug = slug, events = self.barcamp.events, event=event)
+        return self.render(form = form, slug = slug, events = self.barcamp.events, event=event, eid = event._id)
     post = get
