@@ -239,7 +239,7 @@ $(document).ready(function() {
     marker.on("click", goto);
     return map.on("click", goto);
   });
-  return $("#bigmap").each(function() {
+  $("#bigmap").each(function() {
     var admin, apikey, id, is_admin, lat, lng, map, marker, marker_dragged, moptions, options;
     lat = $(this).data("lat");
     lng = $(this).data("lng");
@@ -267,5 +267,8 @@ $(document).ready(function() {
       return alert(result);
     };
     return marker.on("dragend", marker_dragged);
+  });
+  return $("#select-event").change(function() {
+    return window.location = $("#select-event option:selected").attr("value");
   });
 });

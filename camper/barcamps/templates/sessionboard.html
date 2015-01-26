@@ -4,7 +4,9 @@
 {% extends "admin_master.html" %}
 
 {% block content %}
-{{eventnav(active="timetable")}}
+
+{{eventnav(active="timetable", title=_('Edit event timetable'))}}
+
 <div class="container-fluid" id="sessionboard-container" ng-app="barcamptool">
     <div class="row">
         <div id="sessionboard" ng-controller="SessionBoardCtrl">

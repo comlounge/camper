@@ -233,6 +233,11 @@ $(document).ready( () ->
             alert(result)
         marker.on("dragend", marker_dragged)
     )
+
+    # event selector on events pages
+    $("#select-event").change ->
+        window.location = $("#select-event option:selected").attr("value")
+        
 )
 
 
