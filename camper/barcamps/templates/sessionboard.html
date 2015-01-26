@@ -96,6 +96,9 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
             <table class="table table–bordered sessiontable" ng-cloak>
+                <colgroup>
+                    <col width="10%">
+                </colgroup>
                 <thead>
                     <tr id="roomcontainment" ui-sortable="sortableOptions" ng-model="rooms">
                         <td></td>
@@ -109,7 +112,7 @@
                             <small>{[{room.capacity}]} {{_("persons")}}</small>
                         </td>
                         <td class="not-sortable">
-                            <div class="big-button-panel"><a title="{{_('Add new room')}}" href="" ng-click="add_room_form()" id="room-add-button" href="" class="btn btn-lg"><i class="fa fa-plus"></i></a></div>
+                            <div id="add-room-div" class="big-button-panel"><a title="{{_('Add new room')}}" href="" ng-click="add_room_form()" id="room-add-button" href="" class="btn btn-lg"><i class="fa fa-plus"></i></a></div>
                         </td>
                     </tr>
                 </thead>

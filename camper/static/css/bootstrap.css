@@ -6458,6 +6458,12 @@ body#admin .big-button-panel a {
 body#admin #sessionboard-container {
   padding: 30px;
 }
+body#admin #sessionboard-container table {
+  width: 100%;
+}
+body#admin #sessionboard-container #add-room-div {
+  float: right;
+}
 body#admin .sortable-placeholder {
   background: #cccccc;
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
