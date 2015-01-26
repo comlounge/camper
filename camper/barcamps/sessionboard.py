@@ -44,54 +44,8 @@ class SessionBoardData(BarcampBaseHandler):
         """return rooms and timeslots"""
 
         event = self.barcamp.get_event(eid)
-
-        rooms = [
-            {
-                'id' : 1,
-                'name' : 'Eurogress',
-                'capacity' : 430,
-                'description' : 'hat Beamer'
-            },
-            {
-                'id' : 2,
-                'name' : 'Rathaus',
-                'capacity' : 120,
-                'description' : 'hat Politik'
-            },
-            {
-                'id' : 3,
-                'name' : 'COM.lounge',
-                'capacity' : 50,
-                'description' : 'hat Code'
-            },
-            {
-                'id' : 4,
-                'name' : 'Kaiserplatz',
-                'capacity' : 30,
-                'description' : 'hat Galerie'
-            },
-        ]
-
-        timeslots = [
-            # {
-            #     'time' : '10:00',
-            #     'blocked' : False,
-            # },
-            # {
-            #     'time' : '11:00',
-            #     'blocked' : False,
-            # },
-            # {
-            #     'time' : '12:00',
-            #     'blocked' : False,
-            # },
-            # {
-            #     'time' : '13:00',
-            #     'blocked' : True,
-            #     'reason' : "Mittagspause"
-            # }
-
-        ]
+        rooms = event.timetable.get('rooms', [])
+        timeslots = event.timetable.get('timeslots', [])
 
         return {
             'rooms' : rooms,
@@ -105,5 +59,8 @@ class SessionBoardData(BarcampBaseHandler):
         """store room and timetable data"""
         event = self.barcamp.get_event(eid)
         data = json.loads(self.request.data)
+        event.timetable = data
+        self.barcamp.events[eid] = event
+        self.barcamp.save()
         print data
         return {'status' : 'ok'}
