@@ -1,16 +1,6 @@
 {% macro eventnav(active="details", title="") -%}
 <div id="backbutton">
     <a href="{{url_for('.events', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to event listing')}}</a>
-    <div class="pull-right">
-    	<form>
-    		<select id="select-event">
-    			{% for my_event in barcamp.eventlist %}
-    				<option {{'selected' if my_event._id == event._id}} value="{{url_for('.sessionboard', slug = slug, eid = my_event._id)}}">{{dateformat(my_event.date)}}</option>
-    			{% endfor %}
-    		</select>
-    	</form>
-    </div>
-    <h3>{{title}}</h3>
 </div>  
 
 <nav>
@@ -20,5 +10,17 @@
         <li role="presentation" class="{{'active' if active=='participants'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Participants")}}</a></li>
     </ul>
 </nav>
+    <div class="pull-right">
+    	<form>
+    		<select id="select-event">
+    			{% for my_event in barcamp.eventlist %}
+    				<option {{'selected' if my_event._id == event._id}} value="{{url_for('.event', slug = slug, eid = my_event._id)}}">
+    					{{dateformat(my_event.date)}}
+    				</option>
+    			{% endfor %}
+    		</select>
+    	</form>
+    </div>
+    <h3>{{title}} {{_('for')}} {{event.name}} ({{dateformat(event.date)}})</h3>
 {%- endmacro %}
 

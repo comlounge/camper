@@ -315,6 +315,7 @@ class Barcamp(Record):
     @property
     def event(self):
         """returns the main event object or None in case there is no event"""
+        return {}
         raise NotImplemented
         if self.events == []:
             return None

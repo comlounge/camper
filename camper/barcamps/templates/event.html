@@ -4,9 +4,8 @@
 {% from "_m/barcamps/event_macros.html" import eventnav with context %}
 {% block content %}
 
-    {{ eventnav() }}
+    {{ eventnav(active="details", title=_('Edit event details'))}}
     <div id="add-form-view" class="tab-pane active" role="tabpanel">
-        <h2>{{_('Edit event')}} '{{event.name}}'</h2>
         <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
             <input type="hidden" name="_id" value="{{event._id}}">
             <div class="form-group form-group-lg">
