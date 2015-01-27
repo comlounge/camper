@@ -376,7 +376,6 @@ class BaseHandler(starflyer.Handler):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
-        print "preparing context"
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
@@ -391,7 +390,8 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
-            cloudmade_key = self.config.cloudmade_key,
+            mapbox_access_token = mapbox_access_token,
+            mapbox_map_id = mapbox_map_id,
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app)
