@@ -41,14 +41,14 @@ class EventForm(BaseForm):
 def retrieve_location(f):
     """retrieve coords for a location based on the address etc. stored in ``f``"""
     url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
-        form.data['location_street'],
-        form.data['location_city'],
+        f['location_street'],
+        f['location_city'],
     )
     data = requests.get(url).json()
     if len(data)==0:
         # trying again but only with city
         url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
-            form.data['location_city'],
+            f['location_city'],
         )
         data = requests.get(url).json()
     if len(data)==0:
@@ -101,6 +101,7 @@ class EventsView(BarcampBaseHandler):
             if f['location_street'] and not self.config.testing and f['own_location']:
                 f = retrieve_location(f)
 
+
             # create and save the event object inside the barcamp
             eid = f['_id'] = unicode(uuid.uuid4())
             event = db.Event(f)
@@ -141,6 +142,18 @@ class EventView(BarcampBaseHandler):
         """show the event details"""
         event = self.barcamp.get_event(eid)
 
+        # copy event location over to form
+
+        event['location_name'] = event.location['name']
+        event['location_street'] = event.location['street']
+        event['location_city'] = event.location['city']
+        event['location_zip'] = event.location['zip']
+        event['location_country'] = event.location['country']
+        event['location_email'] = event.location['email']
+        event['location_phone'] = event.location['phone']
+        event['location_url'] = event.location['url']
+        event['location_description'] = event.location['description']
+
         form = EventForm(self.request.form, obj = event, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
@@ -156,16 +169,16 @@ class EventView(BarcampBaseHandler):
                 'country'   : 'de',
             }
 
-            # retrieve geo location (but only when not in test mode as we might be offline)
+            # retrieve geo location (but only when not in test mode as we might be offline
             if f['location_street'] and not self.config.testing and f['own_location']:
                 f = retrieve_location(f)
 
             # create and save the event object inside the barcamp
-            f['_id'] = eid
-            event = db.Event(f)
+            event.update(f)
             self.barcamp.events[eid] = event
             self.barcamp.save()
+            self.flash(self._("The event has been successfully updated"), category="info")
 
-            return redirect(self.url_for(".events", slug=slug))
+            return redirect(self.url_for(".event", slug=slug, eid = event._id))
         return self.render(form = form, slug = slug, events = self.barcamp.events, event=event, eid = event._id)
     post = get
