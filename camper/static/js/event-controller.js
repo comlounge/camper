@@ -27,7 +27,7 @@ $(document).ready(function() {
       return $("#location-view").hide();
     }
   });
-  return $(".delete-event").click(function() {
+  $(".delete-event").click(function() {
     var d, url;
     d = $(this).data("event");
     url = $(this).data("url");
@@ -44,4 +44,7 @@ $(document).ready(function() {
     });
     return false;
   });
+  if ($('#own_location').is(":checked")) {
+    return $("#location-view").show();
+  }
 });

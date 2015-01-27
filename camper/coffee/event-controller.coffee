@@ -43,6 +43,9 @@ $(document).ready () ->
 
         return false
 
+    if $('#own_location').is(":checked")
+        $("#location-view").show()
+
 
 
             
