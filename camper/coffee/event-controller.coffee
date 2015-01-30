@@ -53,9 +53,7 @@ bm = ($) ->
             this.map.removeLayer(this.marker)
         this.map.setView([this.lat, this.lng])
         moptions = {}
-        console.log this.options
         if this.options.admin==1
-            console.log "draggable"
             moptions = { draggable: true }
         this.marker = L.marker([this.lat, this.lng], moptions).addTo(this.map)
 
@@ -124,8 +122,6 @@ bm = ($) ->
                 $("#location-error").hide()
                 $(".action-overlay").show()
                 bm.wobble = false
-                console.log "error"
-                console.log data
         )
 
     Plugin = (option) ->

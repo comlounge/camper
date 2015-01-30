@@ -51,9 +51,7 @@ bm = function($) {
     }
     this.map.setView([this.lat, this.lng]);
     moptions = {};
-    console.log(this.options);
     if (this.options.admin === 1) {
-      console.log("draggable");
       moptions = {
         draggable: true
       };
@@ -127,9 +125,7 @@ bm = function($) {
         $("#location-error").text("an unknown error occurred, please try again").show();
         $("#location-error").hide();
         $(".action-overlay").show();
-        bm.wobble = false;
-        console.log("error");
-        return console.log(data);
+        return bm.wobble = false;
       }
     });
   };
