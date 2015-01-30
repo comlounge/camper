@@ -173,18 +173,18 @@
 
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         {#
-        <script src="{{url_for('static', filename='js/components/underscore/underscore-min.js')}}"></script>
-        <script src="{{url_for('static', filename='js/components/jquery-colorbox/jquery.colorbox.js')}}"></script>
-        
-        <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.form.js")}}"></script>
-        <script src="{{url_for("static", filename="js/components/jquery-ui/jquery-ui.min.js")}}"></script>
-        {% if LANGUAGE != "en" %}
-            <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
-            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-"+LANGUAGE+".js")}}"></script>
-        {% else %}
-            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-en.js")}}"></script>
-        {% endif %}
+            <script src="{{url_for('static', filename='js/components/underscore/underscore-min.js')}}"></script>
+            <script src="{{url_for('static', filename='js/components/jquery-colorbox/jquery.colorbox.js')}}"></script>
+            
+            <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
+            <script src="{{url_for("static", filename="js/jquery.form.js")}}"></script>
+            <script src="{{url_for("static", filename="js/components/jquery-ui/jquery-ui.min.js")}}"></script>
+            {% if LANGUAGE != "en" %}
+                <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
+                <script src="{{url_for("static", filename="js/jquery.ui.datepicker-"+LANGUAGE+".js")}}"></script>
+            {% else %}
+                <script src="{{url_for("static", filename="js/jquery.ui.datepicker-en.js")}}"></script>
+            {% endif %}
         #}
 
         <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
@@ -207,9 +207,6 @@
                     $(this).parents("form.live").submit();
                     return false;
                 });
-
-                $(".iframebox").colorbox({'iframe' : true, width: "60%", height: "500px"});
-                /*$( ".datepicker" ).datepicker();                                                                                   */
             });
         </script>
             {% block js %}
@@ -218,7 +215,6 @@
             {% endblock %}
 
         <script src="{{url_for("static", filename="js/holder.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bt.min.js")}}"></script>
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
         <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
                 

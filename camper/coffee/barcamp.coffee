@@ -174,11 +174,10 @@ $(document).ready( () ->
         false
     )
 
-    $("#location-picker").colorbox({inline:true, width:642});
+    #$("#location-picker").colorbox({inline:true, width:642});
 
     $("a.form-submit").click ->
         action = $(this).attr("href")
-        console.log action
         form = $(this).closest("form")
         form.attr("action", action)
         console.log form.attr("method")
@@ -189,9 +188,11 @@ $(document).ready( () ->
     $("#minimap").each( () ->
         lat = $(this).data("lat")
         lng = $(this).data("lng")
-        apikey = $(this).data("apikey")
+        at = $(this).data("accesstoken")
+        mapid = $(this).data("mapid")
         id = $(this).attr("id")
         href = $(this).data("href")
+        L.mapbox.accessToken = at
 
         options =
             zoomControl: false
@@ -201,7 +202,8 @@ $(document).ready( () ->
             doubleClickZoom: false
             center: [lat, lng]
             zoom: 14
-        map = L.mapbox.map(id, apikey, options)
+            accessToken: at
+        map = L.mapbox.map(id, mapid, options)
         L.Icon.Default.imagePath = '/static/img';
         marker = L.marker([lat, lng]).addTo(map);
         goto = (e) ->
@@ -209,30 +211,30 @@ $(document).ready( () ->
         marker.on("click", goto)
         map.on("click", goto)
     )
-
-    $("#bigmap").each( () ->
+    $("#edit-minimap").each( () ->
         lat = $(this).data("lat")
         lng = $(this).data("lng")
-        apikey = $(this).data("apikey")
-        admin = $(this).data("admin")
+        at = $(this).data("accesstoken")
+        mapid = $(this).data("mapid")
         id = $(this).attr("id")
-        is_admin = admin == "1"
+        L.mapbox.accessToken = at
 
         options =
+            zoomControl: false
+            dragging: true
+            touchZoom: false
+            scrollWheelZoom: false
+            doubleClickZoom: false
             center: [lat, lng]
-            zoom: 14
-        map = L.mapbox.map(id, apikey, options)
-        L.Icon.Default.imagePath = '/static/img'
-        moptions = {}
-        if is_admin
-            moptions = { draggable: true }
-        marker = L.marker([lat, lng], moptions).addTo(map)
-        marker_dragged = (e) ->
-            m = event.target           # you could also simply access the marker through the closure
-            result = m.getLatLng()     # but using the passed event is cleaner
-            alert(result)
-        marker.on("dragend", marker_dragged)
+            zoom: 15
+            accessToken: at
+        map = L.mapbox.map(id, mapid, options)
+        L.Icon.Default.imagePath = '/static/img';
+        marker = L.marker([lat, lng]).addTo(map);
+        console.log marker
     )
+
+
 
     # event selector on events pages
     $("#select-event").change ->

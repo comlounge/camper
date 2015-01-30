@@ -68,11 +68,12 @@ module.exports = function(grunt) {
                     "angular-i18n",
                     "underscore",
                     "angular-promise-tracker",
+                    "marked",
+                    "bootstrap-markdown",
                     //"fuelux",
                     "bootstrap-datepicker",
                     "datepair",
                     "bootstrap-confirmation2",
-                    "jquery-colorbox",
                     "shariff"
                 ],
                 dependencies: {

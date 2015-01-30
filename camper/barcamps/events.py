@@ -2,13 +2,15 @@
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
-from .base import BarcampBaseHandler
+from .base import BarcampBaseHandler, LocationNotFound, LocationRetriever
 from wtforms import *
 from sfext.babel import T
 import uuid
+import pprint
 import datetime
 import requests
 from form import MyDateField, ATextInput, ACheckboxInput, ATextArea
+
 
 
 class EventForm(BaseForm):
@@ -37,28 +39,8 @@ class EventForm(BaseForm):
     location_phone              = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email              = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description        = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
-
-def retrieve_location(f):
-    """retrieve coords for a location based on the address etc. stored in ``f``"""
-    url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
-        f['location_street'],
-        f['location_city'],
-    )
-    data = requests.get(url).json()
-    if len(data)==0:
-        # trying again but only with city
-        url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
-            f['location_city'],
-        )
-        data = requests.get(url).json()
-    if len(data)==0:
-        self.flash(self._("the city was not found in the geo database"), category="danger")
-        return self.render(form = form)
-    # we have at least one entry, take the first one
-    result = data[0]
-    f['location']['lat'] = result['lat']
-    f['location']['lng'] = result['lon']
-    return f
+    location_lat                = HiddenField()
+    location_lng               = HiddenField()
 
 
 class EventsView(BarcampBaseHandler):
@@ -141,6 +123,7 @@ class EventView(BarcampBaseHandler):
     def get(self, slug = None, eid = None):
         """show the event details"""
         event = self.barcamp.get_event(eid)
+        print event.location['lat']
 
         # copy event location over to form
 
@@ -153,6 +136,8 @@ class EventView(BarcampBaseHandler):
         event['location_phone'] = event.location['phone']
         event['location_url'] = event.location['url']
         event['location_description'] = event.location['description']
+        event['location_lat'] = event.location['lat']
+        event['location_lng'] = event.location['lng']
 
         form = EventForm(self.request.form, obj = event, config = self.config)
         if self.request.method == 'POST' and form.validate():
@@ -166,15 +151,38 @@ class EventView(BarcampBaseHandler):
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
+                'lat'       : f['location_lat'],
+                'lng'       : f['location_lng'],
                 'country'   : 'de',
             }
 
-            # retrieve geo location (but only when not in test mode as we might be offline
-            if f['location_street'] and not self.config.testing and f['own_location']:
-                f = retrieve_location(f)
+
+            # check location only if it actually has changed
+            # only check if we are not in unit test and if own location is selected
+            # also don't retrieve it if user has set own coordinates
+            if self.request.form.get('own_coords', "no") != "yes":
+                print "computing coords"
+                changed = (f['location_city'] != event.location['city'] or
+                    f['location_street'] != event.location['street'] or
+                    f['location_zip'] != event.location['zip'])
+
+                print changed
+
+                if ( changed and not self.config.testing and f['own_location']):
+                    print "updating"
+                    # own_coords means that the user already provided geo coords
+                    event.update(f) # so that the retriever knows the new data
+                    retriever = LocationRetriever(event)
+                    try:
+                        retriever()
+                    except LocationNotFound:
+                        self.flash(self._("the city was not found in the geo database"), category="danger")
+            else:
+                    print "taking user coords"
+                    event.update(f)
 
             # create and save the event object inside the barcamp
-            event.update(f)
+            pprint.pprint(event.location)
             self.barcamp.events[eid] = event
             self.barcamp.save()
             self.flash(self._("The event has been successfully updated"), category="info")
@@ -182,3 +190,32 @@ class EventView(BarcampBaseHandler):
             return redirect(self.url_for(".event", slug=slug, eid = event._id))
         return self.render(form = form, slug = slug, events = self.barcamp.events, event=event, eid = event._id)
     post = get
+
+
+class GetLocation(BarcampBaseHandler):
+    """retrieve a location by address and return json"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    @asjson()
+    def get(self, slug = None, eid = None):
+        """take the location data and return geo coords or an error"""
+        event = self.barcamp.get_event(eid)
+        print self.request.args.to_dict(True)
+        event.location.update(self.request.args.to_dict(True))
+        retriever = LocationRetriever(event)
+        try:
+            retriever()
+        except LocationNotFound:
+            return {'success': False, 
+                    'msg': self._("the city was not found in the geo database")
+            }
+
+        return {
+            'success' : True,
+            'lat' : event.location['lat'],
+            'lng' : event.location['lng']
+        }
+
+

@@ -390,8 +390,8 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
-            mapbox_access_token = mapbox_access_token,
-            mapbox_map_id = mapbox_map_id,
+            mapbox_access_token = self.config.mapbox_access_token,
+            mapbox_map_id = self.config.mapbox_map_id,
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app)

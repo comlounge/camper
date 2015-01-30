@@ -4,20 +4,63 @@
 {% from "_m/barcamps/event_macros.html" import eventnav with context %}
 {% block content %}
 
+    <div class="modal" id="location-picker" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{_('Close')}}"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-label">{{_('Select location')}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="action-overlay" style="display: none;">
+                        <button id="lookup-button" class="btn btn-info btn-sm" title="{{_('place marker on address')}}"><i class="fa fa-location-arrow"></i> {{_('place marker on address')}}</button>
+                    </div>
+                    <div id="bigmap"
+                        data-mapid="{{mapbox_map_id}}"
+                        data-accesstoken="{{mapbox_access_token}}"
+                        data-lat="{{event.location.lat}}"
+                        data-lng="{{event.location.lng}}"
+                        data-locationurl = "{{url_for('.event_location', slug = slug, eid = event._id)}}"
+                        data-admin="1"
+                        >
+                        <div class="spinner-overlay" id="location-loader">
+                            <div class="loader" title="{{_('loading indicator')}}">
+                                <span>{{_('retrieving location')}}</span>
+                            </div>
+                            <div id="location-error-box" style="display: block;">
+                                <div id="location-error" class="error">This is empty</div>
+                                <button id="location-error-confirm" class="btn btn-danger btn-lg"><i class="fa fa-ok"></i> {{_('Understood')}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="save-location-button" class="btn btn-primary">{{_('Save location')}}</button>
+                    <button data-dismiss="modal" title="{{_('close')}}" class="btn btn-default">{{_('close map')}}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     {{ eventnav(active="details", title=_('Edit event details'))}}
     <div id="add-form-view" class="tab-pane active" role="tabpanel">
         <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
+            <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
+            <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
             <input type="hidden" name="_id" value="{{event._id}}">
+            <input type="hidden" name="own_coords" id="own_coords" value="no">
+            {{form.location_lat()}}
+            {{form.location_lng()}}
             <div class="form-group form-group-lg">
                 <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.name, ng_model="event.name", placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
+                    {{formmacros.f(form.name, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
                 </div>
             </div>
             <div class="form-group">
                 <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.description, ng_model="event.description", rows=5, id="description", placeholder=_('Add more info'))}}
+                    {{formmacros.f(form.description, data_resize="vertical", data_provide="markdown", rows=10, id="description", placeholder=_('Add more info'))}}
                 </div>
             </div>
             <div class="form-group">
@@ -61,8 +104,9 @@
                 </div>
             </div>
 
-            <fieldset id="location-view" style="display: none;">
-                <legend>{{_('Location')}}</legend>
+            <fieldset id="location-view" style="display: block;">
+                <legend>{{_('Location')}}</legend>                    
+
                 <div class="form-group">
                     <label class="col-sm-2 control-label">{{_('Where')}}</label>
                     <div class="col-sm-5">
@@ -79,9 +123,14 @@
                         <label class="sr-only" for="zip">{{_('zip')}}</label>
                         {{formmacros.f(form.location_zip, placeholder=_('zip'))}}
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-5">
                         <label class="sr-only" for="city">{{_('City')}}</label>
                         {{formmacros.f(form.location_city, placeholder=_('City'))}}
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" id="show-on-map" 
+                            title="{{_('show on map')}}" class="btn btn-info pull-right" data-style="expand-left"><i class="fa fa-map-marker"></i> {{_('show on map')}}
+                            </button>
                     </div>
                 </div>
                 {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
@@ -95,6 +144,8 @@
             {% endblock %}
         </form>
     </div>
+
+
 {% endblock %}
 {% block bcjs %}
 <script src="{{url_for("static", filename='js/event-controller.js')}}"></script>

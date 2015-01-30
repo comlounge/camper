@@ -6,6 +6,9 @@ from wtforms import *
 from sfext.babel import T
 from camper.handlers.forms import *
 import werkzeug.exceptions
+import requests
+
+__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound', 'LocationRetriever']
 
 class Action(object):
     """an action to be display in navbars etc."""
@@ -79,3 +82,42 @@ class BarcampBaseHandler(BaseHandler):
         payload['view'] = self.barcamp_view
         payload['actions'] = self.actions
         return payload
+
+
+class LocationNotFound(Exception):
+    """location couldn't be found via geo lookup"""
+
+# Location Adapter
+class LocationRetriever(object):
+    """adapter for retrieving geo coords for a location. can work on barcamp and events"""
+
+    def __init__(self, context):
+        """initialize adapter"""
+        self.context = context
+
+    def __call__(self):
+        """retrieve coords for a location based on the address etc. stored in ``f``"""
+        url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
+            self.context.location['street'],
+            self.context.location['city']
+        )
+        print url
+        data = requests.get(url).json()
+        print data
+        if len(data)==0:
+            # trying again but only with city
+            url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s&format=json&polygon=0&addressdetails=1" %(
+                self.context.location['city'],
+            )
+            data = requests.get(url).json()
+        if len(data)==0:
+            raise LocationNotFound()
+
+        # we have at least one entry, take the first one
+        result = data[0]
+        self.context.location['lat'] = result['lat']
+        self.context.location['lng'] = result['lon']
+        self.context.location['own_coords'] = False
+        return self.context
+
+

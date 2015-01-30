@@ -200,14 +200,9 @@ $(document).ready(function() {
     }
     return false;
   });
-  $("#location-picker").colorbox({
-    inline: true,
-    width: 642
-  });
   $("a.form-submit").click(function() {
     var action, form;
     action = $(this).attr("href");
-    console.log(action);
     form = $(this).closest("form");
     form.attr("action", action);
     console.log(form.attr("method"));
@@ -215,12 +210,14 @@ $(document).ready(function() {
     return false;
   });
   $("#minimap").each(function() {
-    var apikey, goto, href, id, lat, lng, map, marker, options;
+    var at, goto, href, id, lat, lng, map, mapid, marker, options;
     lat = $(this).data("lat");
     lng = $(this).data("lng");
-    apikey = $(this).data("apikey");
+    at = $(this).data("accesstoken");
+    mapid = $(this).data("mapid");
     id = $(this).attr("id");
     href = $(this).data("href");
+    L.mapbox.accessToken = at;
     options = {
       zoomControl: false,
       dragging: false,
@@ -228,9 +225,10 @@ $(document).ready(function() {
       scrollWheelZoom: false,
       doubleClickZoom: false,
       center: [lat, lng],
-      zoom: 14
+      zoom: 14,
+      accessToken: at
     };
-    map = L.mapbox.map(id, apikey, options);
+    map = L.mapbox.map(id, mapid, options);
     L.Icon.Default.imagePath = '/static/img';
     marker = L.marker([lat, lng]).addTo(map);
     goto = function(e) {
@@ -239,34 +237,28 @@ $(document).ready(function() {
     marker.on("click", goto);
     return map.on("click", goto);
   });
-  $("#bigmap").each(function() {
-    var admin, apikey, id, is_admin, lat, lng, map, marker, marker_dragged, moptions, options;
+  $("#edit-minimap").each(function() {
+    var at, id, lat, lng, map, mapid, marker, options;
     lat = $(this).data("lat");
     lng = $(this).data("lng");
-    apikey = $(this).data("apikey");
-    admin = $(this).data("admin");
+    at = $(this).data("accesstoken");
+    mapid = $(this).data("mapid");
     id = $(this).attr("id");
-    is_admin = admin === "1";
+    L.mapbox.accessToken = at;
     options = {
+      zoomControl: false,
+      dragging: true,
+      touchZoom: false,
+      scrollWheelZoom: false,
+      doubleClickZoom: false,
       center: [lat, lng],
-      zoom: 14
+      zoom: 15,
+      accessToken: at
     };
-    map = L.mapbox.map(id, apikey, options);
+    map = L.mapbox.map(id, mapid, options);
     L.Icon.Default.imagePath = '/static/img';
-    moptions = {};
-    if (is_admin) {
-      moptions = {
-        draggable: true
-      };
-    }
-    marker = L.marker([lat, lng], moptions).addTo(map);
-    marker_dragged = function(e) {
-      var m, result;
-      m = event.target;
-      result = m.getLatLng();
-      return alert(result);
-    };
-    return marker.on("dragend", marker_dragged);
+    marker = L.marker([lat, lng]).addTo(map);
+    return console.log(marker);
   });
   return $("#select-event").change(function() {
     return window.location = $("#select-event option:selected").attr("value");

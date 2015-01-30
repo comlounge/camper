@@ -1,0 +1,35 @@
+{
+  "name": "markdown-js",
+  "version": "0.6.2",
+  "homepage": "https://github.com/Leeft/markdown-js",
+  "authors": [
+    "Dominic Baggott <dominic.baggott@gmail.com> (http://evilstreak.co.uk)",
+    "Ash Berlin <ash_markdownjs@firemirror.com> (http://ashberlin.com)"
+  ],
+  "description": "A sensible Markdown parser for javascript (Bower installable)",
+  "main": "src/**/*.js",
+  "keywords": [
+    "markdown",
+    "text processing",
+    "ast"
+  ],
+  "license": "MIT",
+  "private": false,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.6.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.6.2",
+    "commit": "e1fbbdcd6e95b05d13c61098224a66c5ac1f267e"
+  },
+  "_source": "git://github.com/Leeft/markdown-js.git",
+  "_target": "~0.6.2",
+  "_originalSource": "markdown-js",
+  "_direct": true
+}
