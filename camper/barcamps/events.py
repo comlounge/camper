@@ -2,7 +2,7 @@
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
-from .base import BarcampBaseHandler, LocationNotFound, LocationRetriever
+from .base import BarcampBaseHandler
 from wtforms import *
 from sfext.babel import T
 import uuid
