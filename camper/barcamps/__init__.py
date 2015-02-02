@@ -61,7 +61,7 @@ class BarcampModule(Module):
 
         URL('/<slug>/events', 'events', events.EventsView),
         URL('/<slug>/events/<eid>', 'event', events.EventView),
-        URL('/<slug>/events/<eid>/location', 'event_location', events.GetLocation),
+        URL('/<slug>/events/location', 'event_location', events.GetLocation),
         URL('/<slug>/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
         URL('/<slug>/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
 

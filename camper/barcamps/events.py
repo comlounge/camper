@@ -35,6 +35,7 @@ class EventForm(BaseForm):
     location_street             = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city               = TextField(T("city"), [])
     location_zip                = TextField(T("zip"), [])
+    location_country            = TextField(T("Country"), default="Germany")
     location_url                = TextField(T("homepage"), [], description=T('web site of the venue (optional)'))
     location_phone              = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email              = TextField(T("email"), [], description=T('email address of the venue (optional)'))
@@ -72,11 +73,11 @@ class EventsView(BarcampBaseHandler):
                 'street'    : f['location_street'],
                 'city'      : f['location_city'],
                 'zip'       : f['location_zip'],
+                'country'   : f['location_country'],
                 'email'     : f['location_email'],
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'country'   : 'de',
             }
 
             # retrieve geo location (but only when not in test mode as we might be offline)
@@ -123,7 +124,6 @@ class EventView(BarcampBaseHandler):
     def get(self, slug = None, eid = None):
         """show the event details"""
         event = self.barcamp.get_event(eid)
-        print event.location['lat']
 
         # copy event location over to form
 
@@ -147,42 +147,53 @@ class EventView(BarcampBaseHandler):
                 'street'    : f['location_street'],
                 'city'      : f['location_city'],
                 'zip'       : f['location_zip'],
+                'country'   : f['location_country'],
                 'email'     : f['location_email'],
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'lat'       : f['location_lat'],
-                'lng'       : f['location_lng'],
-                'country'   : 'de',
+                'lat'       : f['location_lat'] or None,
+                'lng'       : f['location_lng'] or None,
             }
 
+
+
+            # remember old values
+            old_street = event.location['street']
+            old_zip = event.location['zip']
+            old_city = event.location['city']
+            old_country = event.location['country']
+
+            # now update event
+            event.update(f)
 
             # check location only if it actually has changed
             # only check if we are not in unit test and if own location is selected
             # also don't retrieve it if user has set own coordinates
             if self.request.form.get('own_coords', "no") != "yes":
-                print "computing coords"
-                changed = (f['location_city'] != event.location['city'] or
-                    f['location_street'] != event.location['street'] or
-                    f['location_zip'] != event.location['zip'])
-
-                print changed
+                # computing coords from address
+                changed = (f['location_city'] != old_city or
+                    f['location_street'] != old_street or
+                    f['location_zip'] != old_zip or
+                    f['location_country'] != old_country)
 
                 if ( changed and not self.config.testing and f['own_location']):
-                    print "updating"
-                    # own_coords means that the user already provided geo coords
-                    event.update(f) # so that the retriever knows the new data
-                    retriever = LocationRetriever(event)
+                    street = event.location['street']
+                    city = event.location['city']
+                    zip = event.location['zip']
+                    country = event.location['country']
+                    lat, lng = self.retrieve_location(street, zip, city, country)
+                    event.location['lat'] = lat
+                    event.location['lng'] = lng
                     try:
                         retriever()
                     except LocationNotFound:
                         self.flash(self._("the city was not found in the geo database"), category="danger")
             else:
-                    print "taking user coords"
+                    # using user provided coordinates
                     event.update(f)
-
+            
             # create and save the event object inside the barcamp
-            pprint.pprint(event.location)
             self.barcamp.events[eid] = event
             self.barcamp.save()
             self.flash(self._("The event has been successfully updated"), category="info")
@@ -199,23 +210,27 @@ class GetLocation(BarcampBaseHandler):
     @logged_in()
     @is_admin()
     @asjson()
-    def get(self, slug = None, eid = None):
+    def get(self, slug = None):
         """take the location data and return geo coords or an error"""
-        event = self.barcamp.get_event(eid)
-        print self.request.args.to_dict(True)
-        event.location.update(self.request.args.to_dict(True))
-        retriever = LocationRetriever(event)
+        street = self.request.args.get("street", "")
+        zip = self.request.args.get("zip","")
+        city = self.request.args.get("city","")
+        country = self.request.args.get("country","Germany")
+
+        if street=="" or city=="" or country=="":
+            return {'success': False, 
+                    'msg': self._("no full address was given")
+            }
         try:
-            retriever()
+            lat, lng = self.retrieve_location(street, zip, city, country)
         except LocationNotFound:
             return {'success': False, 
-                    'msg': self._("the city was not found in the geo database")
+                    'msg': self._("we couldn't lookup a geo coordinates for this address")
             }
-
         return {
             'success' : True,
-            'lat' : event.location['lat'],
-            'lng' : event.location['lng']
+            'lat' : lat,
+            'lng' : lng
         }
 
 

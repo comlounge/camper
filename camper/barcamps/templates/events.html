@@ -1,7 +1,10 @@
 {% extends "admin_master.html" %}
-
+{% from "_m/barcamps/event_macros.html" import eventnav, locationpicker, eventform with context %}
 {% import "macros.html" as formmacros with context %}
 {% block content %}
+
+    {{ locationpicker()}}
+
     {% block title %}
         <h1>{{_('Events')}}</h1>
         <small>{{_('A barcamp consists of one or multiple days called events. You can define these below')}}
@@ -47,90 +50,7 @@
         <hr>
         <div id ="add-form-view" style="{{'display: none;' if events|length!=0}}">
             <h2>{{_('Create new event')}}</h2>
-            <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">  
-                <div class="form-group form-group-lg">
-                    <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
-                    <div class="col-sm-10">
-                        {{formmacros.f(form.name, ng_model="event.name", placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
-                    <div class="col-sm-10">
-                        {{formmacros.f(form.description, ng_model="event.description", rows=5, id="description", placeholder=_('Add more info'))}}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="date" class="col-sm-2 control-label">{{_('When')}}</label>
-                    <div class="col-sm-4">
-                        {{formmacros.f(form.date, placeholder=_('Date'))}}
-                    </div>
-                    <div class="col-sm-1">
-                    {{_('from')}}
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="sr-only" for="start_time">{{_('Start Time')}}</label>
-                        {{form.start_time(class="form-control", placeholder=_('Start time'))}}
-                    </div>
-                    <div class="col-sm-1">
-                    {{_('to')}}
-                    </div>
-                    <div class="col-sm-2">
-                        <label class="sr-only" for="end_time">{{_('End Time')}}</label>
-                        {{formmacros.f(form.end_time, placeholder=_('End time'))}}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="size" class="col-sm-2 control-label">{{_('How many')}}</label>
-                    <div class="col-sm-2">
-                        {{formmacros.f(form.size)}}
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-sm-10 col-sm-offset-2">
-                        <div class="checkbox">
-                            <label>
-                                {{form.own_location()}} {{_('Use different location than the main barcamp location')}}
-                            </label>
-                        </div>
-
-                    </div>
-                </div>
-
-                <fieldset id="location-view" style="display: none;">
-                    <legend>{{_('Location')}}</legend>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">{{_('Where')}}</label>
-                        <div class="col-sm-5">
-                            <label class="sr-only" for="name">{{_('Name of location')}}</label>
-                            {{formmacros.f(form.location_name, placeholder=_('Name of the location'))}}
-                        </div>
-                        <div class="col-sm-5">
-                            <label class="sr-only" for="street">{{_('Street')}}</label>
-                            {{formmacros.f(form.location_street, placeholder=_('Street'))}}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 col-sm-offset-2">
-                            <label class="sr-only" for="zip">{{_('zip')}}</label>
-                            {{formmacros.f(form.location_zip, placeholder=_('zip'))}}
-                        </div>
-                        <div class="col-sm-8">
-                            <label class="sr-only" for="city">{{_('City')}}</label>
-                            {{formmacros.f(form.location_city, placeholder=_('City'))}}
-                        </div>
-                    </div>
-                    {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
-                    {{ formmacros.form_field(form.location_email, label_class="col-sm-2", input_class="email", size="col-sm-10", placeholder="") }}
-                    {{ formmacros.form_field(form.location_phone, label_class="col-sm-2", input_class="", size="col-sm-10", placeholder="") }}
-                    {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
-                </fieldset>
-                {% block action %}
-                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Create event')}}">
-                    <button id="cancel-add-form" class="pull-right btn btn-default">{{_('Cancel')}}</button>
-                {% endblock %}
-            </form>
+            {{ eventform({}, label=_('Create event')) }}
         </div>
     </div>
 {% endblock %}

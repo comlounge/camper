@@ -27,6 +27,7 @@ bm = ($) ->
             $("#location-error").hide()
             $(".spinner-overlay").hide()
             map.invalidateSize()
+            $("#save-location-button").prop("disabled", true)
         return this
 
 
@@ -45,6 +46,7 @@ bm = ($) ->
     BigMap.prototype.set_coords = (lat, lng) -> 
         this.lat = lat
         this.lng = lng
+        $("#save-location-button").prop("disabled", false)
 
     # center the map and place the marker at that spot
     BigMap.prototype.place = () ->
@@ -109,6 +111,7 @@ bm = ($) ->
                 $(".action-overlay").show()
                 $("#location-error").hide()
                 $(".spinner-overlay").hide()
+                $("#save-location-button").prop("disabled", false)
                 bm.lat = data.lat
                 bm.lng = data.lng
                 bm.orig_lat = data.lat
@@ -117,10 +120,12 @@ bm = ($) ->
                 if callback
                     callback(data)
             error: (data) ->
+                console.log "error"
                 $("#location-error-box").show()
                 $("#location-error").text("an unknown error occurred, please try again").show();
-                $("#location-error").hide()
-                $(".action-overlay").show()
+                $("#location-error").show()
+                $(".action-overlay").hide()
+                $(".loader").hide() # hide spinner
                 bm.wobble = false
         )
 
@@ -162,6 +167,8 @@ $(document).ready () ->
     $("#show-add-form").click () ->
         $("#add-form-view").show()
         $("#show-add-form").hide()
+        $('[data-toggle="tooltip"]').tooltip()
+
 
     $("#cancel-add-form").click () ->
         $("#add-form-view").hide()
@@ -209,9 +216,10 @@ $(document).ready () ->
         street = $('#location_street').val()
         zip = $('#location_zip').val()
         city = $('#location_city').val()
+        country = $('#location_country').val()
         $("#location-picker").modal("show")
 
-        $("#bigmap").bigmap("lookup", street, zip, city, "de")
+        $("#bigmap").bigmap("lookup", street, zip, city, country)
         return false
 
     # show the map        
@@ -219,6 +227,17 @@ $(document).ready () ->
         street = $('#location_street').val()
         zip = $('#location_zip').val()
         city = $('#location_city').val()
+        country = $('#location_country').val()
+
+        # pre-check if some address was actually entered
+        if street == ""
+            $('#error-street').popover("show")
+            return
+        if city == ""
+            $('#error-street').popover("show")
+            return
+
+
         $("#location-picker").modal("show")
 
         if $("#location_lat").val()
@@ -228,7 +247,7 @@ $(document).ready () ->
             $("#bigmap").bigmap("set_coords", lat, lng)
             $("#bigmap").bigmap("place")
         else
-            $("#bigmap").bigmap("lookup", street, zip, city, "de")
+            $("#bigmap").bigmap("lookup", street, zip, city, country)
         return false
 
     $("#location-error-confirm").click () ->

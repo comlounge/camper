@@ -6582,6 +6582,8 @@ body#admin #location-picker #location-error-box {
   text-align: center;
 }
 body#admin #location-picker #location-error {
+  font-size: 20px;
+  margin-bottom: 10px;
   color: white;
   font-weight: bold;
 }

@@ -23,7 +23,8 @@ bm = function($) {
       $(".action-overlay").show();
       $("#location-error").hide();
       $(".spinner-overlay").hide();
-      return map.invalidateSize();
+      map.invalidateSize();
+      return $("#save-location-button").prop("disabled", true);
     });
     return this;
   };
@@ -41,7 +42,8 @@ bm = function($) {
   };
   BigMap.prototype.set_coords = function(lat, lng) {
     this.lat = lat;
-    return this.lng = lng;
+    this.lng = lng;
+    return $("#save-location-button").prop("disabled", false);
   };
   BigMap.prototype.place = function() {
     var marker_dragged, moptions, that;
@@ -111,6 +113,7 @@ bm = function($) {
         $(".action-overlay").show();
         $("#location-error").hide();
         $(".spinner-overlay").hide();
+        $("#save-location-button").prop("disabled", false);
         bm.lat = data.lat;
         bm.lng = data.lng;
         bm.orig_lat = data.lat;
@@ -121,10 +124,12 @@ bm = function($) {
         }
       },
       error: function(data) {
+        console.log("error");
         $("#location-error-box").show();
         $("#location-error").text("an unknown error occurred, please try again").show();
-        $("#location-error").hide();
-        $(".action-overlay").show();
+        $("#location-error").show();
+        $(".action-overlay").hide();
+        $(".loader").hide();
         return bm.wobble = false;
       }
     });
@@ -163,7 +168,8 @@ bm(jQuery);
 $(document).ready(function() {
   $("#show-add-form").click(function() {
     $("#add-form-view").show();
-    return $("#show-add-form").hide();
+    $("#show-add-form").hide();
+    return $('[data-toggle="tooltip"]').tooltip();
   });
   $("#cancel-add-form").click(function() {
     $("#add-form-view").hide();
@@ -210,19 +216,29 @@ $(document).ready(function() {
   }
   $("#bigmap").bigmap();
   $("#lookup-button").click(function() {
-    var city, street, zip;
+    var city, country, street, zip;
     street = $('#location_street').val();
     zip = $('#location_zip').val();
     city = $('#location_city').val();
+    country = $('#location_country').val();
     $("#location-picker").modal("show");
-    $("#bigmap").bigmap("lookup", street, zip, city, "de");
+    $("#bigmap").bigmap("lookup", street, zip, city, country);
     return false;
   });
   $("#show-on-map").click(function() {
-    var city, lat, lng, street, zip;
+    var city, country, lat, lng, street, zip;
     street = $('#location_street').val();
     zip = $('#location_zip').val();
     city = $('#location_city').val();
+    country = $('#location_country').val();
+    if (street === "") {
+      $('#error-street').popover("show");
+      return;
+    }
+    if (city === "") {
+      $('#error-street').popover("show");
+      return;
+    }
     $("#location-picker").modal("show");
     if ($("#location_lat").val()) {
       lat = $("#location_lat").val();
@@ -230,7 +246,7 @@ $(document).ready(function() {
       $("#bigmap").bigmap("set_coords", lat, lng);
       $("#bigmap").bigmap("place");
     } else {
-      $("#bigmap").bigmap("lookup", street, zip, city, "de");
+      $("#bigmap").bigmap("lookup", street, zip, city, country);
     }
     return false;
   });
