@@ -4,10 +4,24 @@
     {% block title %}
         <h1>{{_('Register for %s') %barcamp.name}}</h1>
 
-        <div class="description">
-            {{_("please register for the events you want to participate in")}}
-        </div>
+        <section>
+            {% if has_form_data %}
+                <h3>Your registration data
+                <a href="{{url_for(".registration_form", slug = slug)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> {{_('Edit')}}</a>
+                </h3>
+                <table class="table table-bordered">
+                    {% for k,v in form_data.iteritems() %}
+                        <tr>
+                            <td><strong>{{k}}</strong></td>
+                            <td>{{v}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </section>
 
+        <section>
+        <h2>{{_('Please register for the events you want to participate in')}}</h2>
         <ul id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
         {% for event in barcamp.eventlist %}
             <li data-id="{{event._id}}" id="e-{{event._id}}" class="event">
@@ -53,6 +67,7 @@
             </li>
         {% endfor %}
         </ul>
+        </section>
 
         
     {% endblock %}

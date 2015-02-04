@@ -75,7 +75,6 @@ class BarcampRegister(BarcampBaseHandler):
         uid = unicode(self.user._id)
         if not self.barcamp.registration_data.has_key(uid):
             # user is not in list
-            print "user not in list"
             return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
 
         # now check the fields
@@ -84,7 +83,6 @@ class BarcampRegister(BarcampBaseHandler):
         for field in self.barcamp.registration_form:
             if field['required'] and field['name'] not in data:
                 ok = False
-                print "user data not complete"
                 return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
 
         # user can register, show the list of events
@@ -93,6 +91,8 @@ class BarcampRegister(BarcampBaseHandler):
             view = self.barcamp_view,
             barcamp = self.barcamp,
             title = self.barcamp.name,
+            has_form_data = self.barcamp.registration_data.has_key(uid),
+            form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)
 
 class RegistrationData(BarcampBaseHandler):
@@ -167,6 +167,7 @@ class RegistrationForm(BarcampBaseHandler):
     def get(self, slug = None):
         """show paticipants data form"""
 
+
         # create registration form programatically
         class RegistrationForm(BaseForm):
             pass
@@ -183,7 +184,9 @@ class RegistrationForm(BarcampBaseHandler):
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description']))
 
-        form = RegistrationForm(self.request.form, config = self.config)
+        uid = unicode(self.user._id)
+        form_data = self.barcamp.registration_data.get(uid, {})
+        form = RegistrationForm(self.request.form, config = self.config, **form_data)
         if self.request.method == 'POST' and form.validate():
             f = form.data
 
@@ -192,7 +195,7 @@ class RegistrationForm(BarcampBaseHandler):
             self.barcamp.registration_data[uid] = f
             self.barcamp.save()
             self.flash(self._("Your information was updated"), category="success")
-            return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
+            return redirect(self.url_for(".register", slug = self.barcamp.slug))
 
         # show the form
         return self.render(
