@@ -136,7 +136,7 @@ class Event(Record):
         if uid in self.participants:
             return
 
-        if len(self.participants) >= self.barcamp.size:
+        if len(self.participants) >= self.size:
             if uid not in self.waiting_list:
                 self.waiting_list.append(uid)
             raise ParticipantListFull()
@@ -146,6 +146,51 @@ class Event(Record):
 
         # any mail will be sent by the application logic
 
+    @property
+    def full(self):
+        """return whether event is full or not"""
+        return len(self.participants) >= self.size
+
+    def set_status(self, uid, status="going", force=False):
+        """set the status of the user for this event, read: register the user
+
+        :param uid: the user id of the user (unicode)
+        :param status: can be "going", "maybe", "notgoing" 
+        :param force: if ``True`` then a user can be added to the participants regardless if barcamp is full
+        :returns: the final status (going, waitinglist, maybe, notgoing)
+        """
+
+        if status=="going":
+            if not force and len(self.participants) >= self.size:
+                if uid not in self.waiting_list:
+                    self.waiting_list.append(uid)
+                    if uid in self.maybe:
+                        self.maybe.remove(uid)
+                    status = 'waitinglist'
+            else:
+                if uid not in self.participants:
+                    self.participants.append(uid)
+                    if uid in self.maybe:
+                        self.maybe.remove(uid)
+                    status = 'going'
+            return status
+        elif status=="maybe" or status=="notgoing":
+            if uid in self.participants:
+                self.participants.remove(uid)
+            if uid in self.waiting_list:
+                self.waiting_list.remove(uid)
+            if status=="maybe" and uid not in self.maybe:
+                self.maybe.append(uid)
+            if status=="notgoing" and uid in self.maybe:
+                self.maybe.remove(uid)
+            return status
+
+    
+            # TODO: move this to a separate method so we can send out mails
+            # check if we can move ppl from the waitinglist
+            if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
+                nuid = self.waiting_list.pop(0)
+                self.participants.append(nuid)
 
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
@@ -258,6 +303,7 @@ class Barcamp(Record):
         def s(a,b):
             return cmp(a['date'], b['date'])
         events.sort(s)
+        events = [Event(e) for e in events]
         return events
 
 

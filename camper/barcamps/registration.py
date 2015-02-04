@@ -1,4 +1,4 @@
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from .base import BarcampBaseHandler
@@ -65,6 +65,102 @@ class BarcampAdminRegister(BarcampBaseHandler):
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
 
+    template = 'registration.html'
+
+    @ensure_barcamp()
+    def get(self, slug = None):
+        """handle the barcamp registration for multiple events with optional registration form"""
+
+        # check if the user has filled out all the required information on the form already
+        uid = unicode(self.user._id)
+        if not self.barcamp.registration_data.has_key(uid):
+            # user is not in list
+            print "user not in list"
+            return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
+
+        # now check the fields
+        ok = True
+        data = self.barcamp.registration_data[uid]
+        for field in self.barcamp.registration_form:
+            if field['required'] and field['name'] not in data:
+                ok = False
+                print "user data not complete"
+                return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
+
+        # user can register, show the list of events
+
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            **self.barcamp)
+
+class RegistrationData(BarcampBaseHandler):
+    """handles registrations and cancels for events"""
+
+    @ensure_barcamp()
+    @asjson()
+    def get(self, slug = None):
+        """return the list of events with state of user"""
+        r = []
+        uid = unicode(self.user._id)
+        for e in self.barcamp.eventlist:
+            ud = {
+                'eid' : e._id,
+                'full' : e.full,
+                'size' : e.size,
+                'filled' : len(e.participants),
+                'participant' : uid in e.participants,
+                'waitinglist' : uid in e.waiting_list,
+                'maybe' : uid in e.maybe,
+            }
+            r.append(ud)
+        return r
+
+    @ensure_barcamp()
+    @asjson()
+    def post(self, slug = None):
+        """add a user to the participant or maybe list"""
+        eid = self.request.form.get("eid")
+        uid = unicode(self.user._id)
+        status = self.request.form.get("status") # can be join, maybe, not
+
+        event = self.barcamp.get_event(eid)
+        status = event.set_status(uid, status)
+
+        # send out the mail
+        view = self.barcamp_view
+        if status=="going":
+            self.mail_template("welcome",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        elif status=="waitinglist":
+            self.mail_template("onwaitinglist",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        ud = {
+            'eid' : eid,
+            'full' : event.full,
+            'participant' : uid in event.participants,
+            'waitinglist' : uid in event.waiting_list,
+            'maybe' : uid in event.maybe,
+            'size' : event.size,
+            'filled' : len(event.participants),
+        }
+        self.barcamp.events[eid] = event
+        self.barcamp.save()
+        return ud
+
+
+class RegistrationForm(BarcampBaseHandler):
+    """show the registration form to add and edit values"""
+
     template = 'participant_data.html'
 
     @ensure_barcamp()
@@ -95,25 +191,38 @@ class BarcampRegister(BarcampBaseHandler):
             uid = unicode(self.user._id)
             self.barcamp.registration_data[uid] = f
             self.barcamp.save()
-            # register the user
-            registered = self.barcamp.register(self.user)
-            view = self.barcamp_view
-            if registered == 'waiting':
-                self.flash(self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
-                self.mail_template("onwaitinglist",
-                    view = view,
-                    barcamp = self.barcamp,
-                    title = self.barcamp.name,
-                    **self.barcamp)
-            elif registered == 'participating':
-                self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
-                self.mail_template("welcome",
-                    view = view,
-                    barcamp = self.barcamp,
-                    title = self.barcamp.name,
-                    **self.barcamp)
+            self.flash(self._("Your information was updated"), category="success")
+            return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
 
-            return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
+        # show the form
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            form = form,
+            **self.barcamp)
+
+
+    def old_get(self):
+        # register the user
+        registered = self.barcamp.register(self.user)
+        view = self.barcamp_view
+        if registered == 'waiting':
+            self.flash(self._("Unfortunately the list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
+            self.mail_template("onwaitinglist",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+        elif registered == 'participating':
+            self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
+            self.mail_template("welcome",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
         return self.render(
             view = self.barcamp_view,

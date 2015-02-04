@@ -8,10 +8,10 @@
         {{_("Please fill out this form in order to register your participation in this barcamp")}}
         </div>
 
-        <form class="form form-horizontal well validate" method="POST" action="{{url}}">
+        <form class="validate form-horizontal" method="POST" action="{{url}}">
             <fieldset>
             {% for field in form %}
-                {{ formmacros.form_field(field, class="required span6" if field.required else "span6") }}
+                {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
             {% endfor %}
             </fieldset>
             <input type="submit" value="{{_("Register")}}" class="btn btn-primary">

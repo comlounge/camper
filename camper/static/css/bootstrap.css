@@ -6982,3 +6982,39 @@ footer {
   margin-bottom: 30px;
   padding-top: 20px;
 }
+#eventlist {
+  padding-left: 0;
+  list-style: none;
+}
+#eventlist h4 {
+  margin: 0;
+  padding: 0;
+}
+#eventlist address {
+  margin-bottom: 0;
+}
+#eventlist > li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+#eventlist button {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 0px;
+}
+#eventlist .error {
+  overflow: auto;
+  display: block;
+  color: #a00;
+  padding: 3px;
+  margin-top: 3px;
+}
+#eventlist .actions {
+  min-height: 70px;
+}
+#eventlist button,
+#eventlist .pselect {
+  display: none;
+}

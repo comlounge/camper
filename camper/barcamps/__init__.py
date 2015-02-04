@@ -37,10 +37,6 @@ class BarcampModule(Module):
         URL('/<slug>/registration.xls', 'registration_data_export', registration.RegistrationDataExport),
         #URL('/<slug>/sponsors',     'sponsors',         index.BarcampSponsors),
         URL('/<slug>/location',     'location',         location.LocationView),
-        URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),
-        URL('/<slug>/register',     'register',         registration.BarcampRegister),
-        URL('/<slug>/admin_register',     'admin_register',         registration.BarcampAdminRegister),
-        URL('/<slug>/unregister',   'unregister',       registration.BarcampUnregister),
         URL('/<slug>/planning',     'planning_pad',     pads.PlanningPadView),
         URL('/<slug>/planning/toggle', 'planning_pad_toggle', pads.PadPublicToggleView),
         URL('/<slug>/docpad',       'documentation_pad', pads.DocumentationPadView),
@@ -58,6 +54,13 @@ class BarcampModule(Module):
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
         URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView),
         URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView),
+
+        URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),
+        URL('/<slug>/register',     'register',         registration.BarcampRegister),
+        URL('/<slug>/admin_register',     'admin_register',         registration.BarcampAdminRegister),
+        URL('/<slug>/unregister',   'unregister',       registration.BarcampUnregister),
+        URL('/<slug>/registrationdata', 'registrationdata', registration.RegistrationData),
+
 
         URL('/<slug>/events', 'events', events.EventsView),
         URL('/<slug>/events/<eid>', 'event', events.EventView),
