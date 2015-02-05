@@ -105,3 +105,13 @@ $(document).ready () ->
     $("#datelist").datelist()
     $('.participant-avatar').tooltip
         container: 'body'
+
+    # handle tab preload
+    hash = document.location.hash
+    prefix = "tab_";
+    if hash
+        $('.nav-tabs a[href='+hash.replace(prefix,"")+']').tab('show') 
+
+    $('.nav-tabs a').on 'shown', (e) ->
+        window.location.hash = e.target.hash.replace("#", "#" + prefix)
+
