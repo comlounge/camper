@@ -120,9 +120,18 @@ $.fn.datelist = function(opts, _arg) {
 };
 
 $(document).ready(function() {
+  var hash, prefix;
   $("#eventlist").eventlist();
   $("#datelist").datelist();
-  return $('.participant-avatar').tooltip({
+  $('.participant-avatar').tooltip({
     container: 'body'
+  });
+  hash = document.location.hash;
+  prefix = "tab_";
+  if (hash) {
+    $('.nav-tabs a[href=' + hash.replace(prefix, "") + ']').tab('show');
+  }
+  return $('.nav-tabs a').on('shown', function(e) {
+    return window.location.hash = e.target.hash.replace("#", "#" + prefix);
   });
 });

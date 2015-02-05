@@ -1,6 +1,7 @@
 from mongogogo import *
 import datetime
 from camper.exceptions import *
+import isodate
 
 __all__=["Barcamp", "BarcampSchema", "Barcamps", "Event"]
 
@@ -191,6 +192,21 @@ class Event(Record):
             if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
                 nuid = self.waiting_list.pop(0)
                 self.participants.append(nuid)
+
+    @property
+    def rooms(self):
+        """return the rooms"""
+        return self.timetable['rooms']
+
+    @property
+    def timeslots(self):
+        """return the timeslots"""
+        slots = self.timetable['timeslots']
+        for slot in slots:
+            slot['time'] = isodate.parse_datetime(slot['time'])
+        return slots
+
+
 
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""

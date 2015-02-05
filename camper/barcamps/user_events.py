@@ -37,4 +37,6 @@ class Events(BarcampBaseHandler):
             waitinglist = waitinglist,
             title = self.barcamp.name,
             is_registered = self.barcamp.is_registered(self.user),
+            rooms = e.rooms,
+            timeslots = e.timeslots,
             **self.barcamp)

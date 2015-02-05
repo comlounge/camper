@@ -35,6 +35,7 @@ setup(name='camper',
         "requests",
         "xlwt",
         "bleach",
+        "isodate",
       ],
       entry_points="""
           [paste.app_factory]
