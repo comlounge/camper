@@ -10,7 +10,6 @@
             <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
                 {{myuser.fullname}}
             </a>
-
         </li>
     {% endfor %}
     </ul>
@@ -19,6 +18,8 @@
 
 {% block outer_content %}
     <div id="user-events-content" class="row">
+
+        <!-- sidebar -->
         <div class="col-lg-2 col-md-2" id="eventlisting-area">
             <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}">
                 {% for event in barcamp.eventlist %}
@@ -33,6 +34,7 @@
                         </a></li>
                 {% endfor %}
             </ul>
+
             <div class="actions">
                 {% if is_registered %}
                     <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Change')}}</a>
@@ -41,9 +43,14 @@
                 {% endif %}
                 <a href="{{url_for(".events", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
             </div>
+
         </div>
+
+        <!-- main content -->
         <div class="col-lg-10 col-md-10" id="content-area">
             <div role="tabpanel">
+
+
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
@@ -56,6 +63,8 @@
 
                 <!-- Tab panes -->
                 <div class="tab-content">
+
+                    <!-- userlist /participants -->
                     <div role="tabpanel" class="tab-pane active" id="userlist">
                         <section id="participants">
                             <h4>{{_('Participants')}}</h4>
@@ -71,6 +80,8 @@
                         </section>
                         
                     </div>
+
+                    <!-- session / timetable -->
                     <div role="tabpanel" class="tab-pane" id="sessions">
 
                         <table class="table table-striped table-bordered sessiontable">

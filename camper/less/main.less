@@ -230,6 +230,12 @@ article.barcamp {
     }
 }
 
+#sort-buttons {
+    margin-bottom: 20px;
+    .clearfix;
+    display: block;
+}
+
 .votes {
     font-size: 130%;
     font-weight: bold;
@@ -254,13 +260,35 @@ article.barcamp {
 
 #sessionproposals {
     article {
-        border-bottom: 1px solid #f0f0f0;
         overflow: auto;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+        .media-body {
+            width: 100%;
+        }
+    }
+    .byline {
+        font-size: 90%;
+        color: #888;
+        margin: -5px 0 10px 0;
+    }
+    .comment-area {
+        width: 100%;
+    }
+    .media.comments {
+        .profile-image {
+            width: 32px;
+            height: 32px;
+        }
+        .media-body {
+            display: block;
+        }
     }
     .description {
         font-size: 16px;
         margin-bottom: 0;
+    }
+    .buttons {
+        margin-top: 5px;
     }
     footer {
         color: #aaa;

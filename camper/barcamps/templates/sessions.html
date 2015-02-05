@@ -1,19 +1,31 @@
 {% extends "_m/barcamps/master.html" %}
 
 {% block main_content %}
-    <h1>
-        <div id="sort-buttons" class="pull-right">
-            <span class="btn-group" data-toggle="buttons-radio">
-              <a href="{{url}}?sort=date" id="sort-date" type="button" class="btn btn-mini {{'btn-success active' if sort=="date"}}">{{_('Date')}}</a>
-              <a href="{{url}}?sort=votes" id="sort-votes" type="button" class="btn btn-mini {{'btn-success active' if sort=="votes"}}">{{_('Votes')}}</a>
-            </span>
-        </div>
+    <h1 class="sr-only">
         {{_('Session Proposals')}}
     </h1>
     
     <section id="sessionproposals">
+        <div class="clearfix">
+            <div id="sort-buttons" class="pull-right">
+                {{_('Sort by:')}}
+                <span class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-sm btn-primary active" data-sort="date">
+                        <input type="checkbox" autocomplete="off" {{'checked' if sort=='date'}}> {{_('Date')}}
+                    </label>
+                    <label class="btn btn-sm btn-primary" data-sort="votes">
+                        <input type="checkbox" autocomplete="off" {{'checked' if sort=='votes'}}> {{_('Votes')}}
+                    </label>
+                </span>
+            </div>
+            {% if is_admin %}
+                <a target="_new" href="{{url_for('.session_export', slug = slug)}}" class="btn btn-default btn-sm"><i class="fa fa-download"></i> {{_('Download as excel')}}</a>
+            {% endif %}
+        </div>
+
+
     {% for session in sessions %}
-        <div class="media session">
+        <article class="media session">
             <div class="votecontainer pull-right" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
                 <div class="votes" id="vote-90b5d410-2891-4516-bfa2-bc0598a2d774">{{session.vote_count}}</div>
                 <div class="votebutton {{'disabled' if not logged_in}}">
@@ -25,25 +37,27 @@
             </a>
             <div class="media-body show-box">
                 {% if is_admin or user_id == session.user._id %}
-                    <a data-confirm="{{_('Are you sure?')}}" 
-                       data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
-                       title="{{_('Delete Session Proposal')}}"
-                       href="#" 
-                       class="session-delete-button btn btn-xs btn-danger pull-right"><i class="fa fa-trash"></i></a>
-                    <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
-                       title="{{_('Edit Session Proposal')}}"
-                       href="#" 
-                       class="session-edit-button btn btn-xs btn-info pull-right"><i class="fa fa-pencil"></i></a>
+                    <div class="pull-right">
+                        <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           title="{{_('Edit Session Proposal')}}"
+                           href="#" 
+                           class="session-edit-button btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                        <a data-confirm="{{_('Are you sure?')}}" 
+                           data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           title="{{_('Delete Session Proposal')}}"
+                           href="#" 
+                           class="session-delete-button btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                    </div>
                 {% endif %}
-                <h4 class="media-heading">{{session.title|striptags}}</h4>
-                <div class="description">
-                    {{session.description|md(level=3)}}
-                </div>
-                <footer>
+                <h3 class="media-heading">{{session.title|striptags}}</h3>
+                <div class="byline">
                     {{_('added by')}}
                         <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
                     {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
-                </footer>
+                </div>
+                <div class="description">
+                    {{session.description|md(level=3)}}
+                </div>
                 <div class="media comments">
                     <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
                         <img class="profile-image" src="{{userview(user).image_thumb}}">
@@ -53,7 +67,7 @@
                         <form method="post" class="form-horizontal clearfix" action="{{url_for('.session_comments', slug = slug, sid = session._id)}}">
                             <fieldset>
                             <div class="control-group">
-                                <textarea placeholder="{{_('Your comment')}}" name="comment" class="span7" cols=50 rows=3></textarea>
+                                <textarea placeholder="{{_('Your comment')}}" class="comment-area" name="comment" rows=3></textarea>
                             </div>
                             <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
                             </fieldset>
@@ -75,27 +89,24 @@
                     <label class="sr-only" for="description">{{_("Description")}}</label>
                     <textarea name="description" class="form-control" rows="3">{{session.description}}</textarea>
                 </div>
-                <div class="buttons"
-                    <input type="submit" class="btn btn-sm btn-primary" value="{{_('Save')}}">
-                    <a href="#" class="session-cancel-button btn btn-sm">{{_('Cancel')}}</a>
+                <div class="buttons">
+                    <input type="submit" class="btn btn-xs btn-primary" value="{{_('Save')}}">
+                    <a href="#" class="session-cancel-button btn btn-xs">{{_('Cancel')}}</a>
                 </div>
             </form>
         {% endif %}
-        </div>
+        </article>
     {% endfor %}
     </section>
-    {% if is_admin %}
-        <a target="_new" href="{{url_for('.session_export', slug = slug)}}" class="pull-right btn"><i class="icon icon-download-alt"></i> {{_('Download as excel')}}</a>
-    {% endif %}
     {% if logged_in %}
-        <a id="new-proposal-button" href="#" class="btn btn-primary btn-info"><i class="icon icon-white icon-plus"></i> {{_('Create proposal')}}</a>
-        <div class="well hide" id="proposal-form-container">
+        <a id="new-proposal-button" href="#" class="btn btn-primary"><i class="fa fa-plus"></i> {{_('Create proposal')}}</a>
+        <div class="well" id="proposal-form-container" style="display: none;">
             <legend>{{_('Your proposal')}}</legend>
             <form method="post" action="{{url}}" class="form-horizontal">
-                {{formmacros.form_field(form.title, class="required span6")}}
-                {{formmacros.form_field(form.description, rows=5, cols=60, class="span6")}}
+                {{formmacros.form_field(form.title, input_class="required", label_class="col-sm-2", size="col-sm-6")}}
+                {{formmacros.form_field(form.description, rows=5, cols=60, label_class="col-sm-2", size="col-sm-6")}}
                 <div class="form-actions">
-                    <button id="proposal-cancel" class="pull-right btn">{{_('Cancel')}}</button>
+                    <button id="proposal-cancel" class="pull-right btn btn-default">{{_('Cancel')}}</button>
                     <input type="submit" class="btn btn-large btn-primary" value="{{_('Add proposal')}}">
                 </div>
             </form>

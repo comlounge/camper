@@ -6767,6 +6767,26 @@ article.barcamp i {
   font-size: 80%;
   color: #888;
 }
+#sort-buttons {
+  margin-bottom: 20px;
+  display: block;
+}
+#sort-buttons:before,
+#sort-buttons:after {
+  content: " ";
+  display: table;
+}
+#sort-buttons:after {
+  clear: both;
+}
+#sort-buttons:before,
+#sort-buttons:after {
+  content: " ";
+  display: table;
+}
+#sort-buttons:after {
+  clear: both;
+}
 .votes {
   font-size: 130%;
   font-weight: bold;
@@ -6786,13 +6806,33 @@ article.barcamp i {
   color: #ccc;
 }
 #sessionproposals article {
-  border-bottom: 1px solid #f0f0f0;
   overflow: auto;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
+}
+#sessionproposals article .media-body {
+  width: 100%;
+}
+#sessionproposals .byline {
+  font-size: 90%;
+  color: #888;
+  margin: -5px 0 10px 0;
+}
+#sessionproposals .comment-area {
+  width: 100%;
+}
+#sessionproposals .media.comments .profile-image {
+  width: 32px;
+  height: 32px;
+}
+#sessionproposals .media.comments .media-body {
+  display: block;
 }
 #sessionproposals .description {
   font-size: 16px;
   margin-bottom: 0;
+}
+#sessionproposals .buttons {
+  margin-top: 5px;
 }
 #sessionproposals footer {
   color: #aaa;
