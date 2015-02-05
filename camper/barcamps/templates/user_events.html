@@ -22,8 +22,8 @@
         <div class="col-lg-2 col-md-2" id="eventlisting-area">
             <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}">
                 {% for event in barcamp.eventlist %}
-                    <li id="e-{{event._id}}" role="presentation" class="{{'active' if loop.index0==0}}">
-                        <a href="#" class="event-name">
+                    <li id="e-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
+                        <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
                             {{event.name}}
                             <span class="plabel plabel-going">{{_('Going')}}</span>
                             <span class="plabel plabel-maybe">{{_('Maybe')}}</span>

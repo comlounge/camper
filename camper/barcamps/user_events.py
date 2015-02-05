@@ -16,10 +16,13 @@ class Events(BarcampBaseHandler):
     template = 'user_events.html'
 
     @ensure_barcamp()
-    def get(self, slug = None):
+    def get(self, slug = None, eid = None):
         """show an individual event"""
 
-        e = self.barcamp.eventlist[0]
+        if eid is None:
+            e = self.barcamp.eventlist[0]
+        else:
+            e = self.barcamp.get_event(eid)
         ub = self.app.module_map.userbase
         participants = list(ub.get_users_by_ids(e.participants))
         maybe = list(ub.get_users_by_ids(e.maybe))
@@ -29,6 +32,7 @@ class Events(BarcampBaseHandler):
             view = self.barcamp_view,
             barcamp = self.barcamp,
             participants = waitinglist*17,
+            active_event = e,
             maybe = maybe*13,
             waitinglist = waitinglist*12,
             title = self.barcamp.name,
