@@ -31,10 +31,10 @@ class Events(BarcampBaseHandler):
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
-            participants = waitinglist*17,
+            participants = participants,
             active_event = e,
-            maybe = maybe*13,
-            waitinglist = waitinglist*12,
+            maybe = maybe,
+            waitinglist = waitinglist,
             title = self.barcamp.name,
             is_registered = self.barcamp.is_registered(self.user),
             **self.barcamp)
