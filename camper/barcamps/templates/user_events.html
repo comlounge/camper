@@ -1,0 +1,84 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% macro userlist(users) %}
+    <ul class="participants">
+    {% for myuser in users %}
+        <li class="participant">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
+                <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
+            </a>
+            <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
+                {{myuser.fullname}}
+            </a>
+
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+{% block outer_content %}
+    <div id="user-events-content" class="row">
+        <div class="col-lg-2 col-md-2" id="eventlisting-area">
+            <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+                {% for event in barcamp.eventlist %}
+                    <li id="e-{{event._id}}" role="presentation" class="{{'active' if loop.index0==0}}">
+                        <a href="#" class="event-name">
+                            {{event.name}}
+                            <span class="plabel plabel-going">{{_('Going')}}</span>
+                            <span class="plabel plabel-maybe">{{_('Maybe')}}</span>
+                            <span class="plabel plabel-waiting">{{_('Waiting')}}</span>
+                            <span class="plabel plabel-not">{{_('Not going')}}</span>
+                            <span class="event-date">{{dateformat(event.date)}}</span>
+                        </a></li>
+                {% endfor %}
+            </ul>
+            <div class="actions">
+                {% if is_registered %}
+                    <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Change')}}</a>
+                {% else %}
+                    <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-success"><i class="fa fa-asterisk"></i> {{_('Join!')}}</a>
+                {% endif %}
+                <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-10" id="content-area">
+            <div role="tabpanel">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">{{_('Participants')}}</a></li>
+                    <li role="presentation"><a href="#sessions" aria-controls="profile" role="tab" data-toggle="tab">{{_('Timetable')}}</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="userlist">
+                        <section id="participants">
+                            <h4>{{_('Participants')}}</h4>
+                            {{ userlist(participants)}}
+                        </section>
+                        <section id="maybe">
+                            <h4>{{_('Maybe')}}</h4>
+                            {{ userlist(maybe)}}
+                        </section>
+                        <section id="waitinglist">
+                            <h4>{{_('Waiting list')}}</h4>
+                            {{ userlist(waitinglist)}}
+                        </section>
+                        
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="sessions">
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename='js/registration.js')}}"></script>
+{% endblock %}

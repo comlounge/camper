@@ -48,6 +48,12 @@ class CamperUser(User):
         """return if user is admin or not"""
         return self.has_permission("admin")
 
+    @property
+    def user_id(self):
+        """return the user id as string"""
+        return unicode(self._id)
+
+
     def __eq__(self, other):
         """check if this user is equal to another one by checking the usernames. It also checks for the other one being None"""
         if other is None:

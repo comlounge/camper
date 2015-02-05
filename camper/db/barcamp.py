@@ -306,6 +306,22 @@ class Barcamp(Record):
         events = [Event(e) for e in events]
         return events
 
+    def is_registered(self, user, states=['going', 'maybe', 'waiting']):
+        """check if the given user is registered in any event of this barcamp
+
+        :param user: the user object to test
+        :param states: give the list of states which count as registered (defaults to all)
+        :returns: ``True`` or ``False``
+        """
+        uid = user.user_id
+        for event in self.eventlist:
+            if uid in event.participants and 'going' in states:
+                return True
+            elif uid in event.maybe and 'maybe' in states:
+                return True
+            elif uid in event.waiting_list and 'waiting' in states:
+                return True
+            return False
 
     @property
     def public(self):

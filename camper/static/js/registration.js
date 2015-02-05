@@ -82,6 +82,47 @@ $.fn.eventlist = function(opts, _arg) {
   return this;
 };
 
+$.fn.datelist = function(opts, _arg) {
+  var dataurl, init, update_date;
+  _arg;
+  dataurl = null;
+  update_date = function(d) {
+    var elem;
+    elem = $("#e-" + d.eid);
+    if (d.participant) {
+      return elem.find(".plabel-going").show();
+    } else if (d.maybe) {
+      return elem.find(".plabel-maybe").show();
+    } else if (d.waitinglist) {
+      return elem.find(".plabel-waiting").show();
+    } else {
+      return elem.find(".plabel-not").show();
+    }
+  };
+  init = function() {
+    dataurl = $(this).data("url");
+    return $.ajax({
+      url: dataurl,
+      type: "GET",
+      success: function(data) {
+        var d, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = data.length; _i < _len; _i++) {
+          d = data[_i];
+          _results.push(update_date(d));
+        }
+        return _results;
+      }
+    });
+  };
+  $(this).each(init);
+  return this;
+};
+
 $(document).ready(function() {
-  return $("#eventlist").eventlist();
+  $("#eventlist").eventlist();
+  $("#datelist").datelist();
+  return $('.participant-avatar').tooltip({
+    container: 'body'
+  });
 });

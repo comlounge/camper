@@ -15,6 +15,7 @@ import tweetwally
 import sponsors
 import events
 import sessionboard
+import user_events
 
 from starflyer import Module, URL
 
@@ -44,11 +45,13 @@ class BarcampModule(Module):
         URL('/<slug>/tweetwally',   'tweetwally', tweetwally.TweetWallyView),
         URL('/<slug>/permissions',  'permissions', permissions.Permissions),
         URL('/<slug>/permissions/admin', 'admin', permissions.Admin),
+
         URL('/<slug>/sessions',     'sessions', sessions.SessionList),
         URL('/<slug>/sessions.xls', 'session_export', sessions.SessionExport),
         URL('/<slug>/sessions/<sid>', 'session', sessions.SessionHandler),
         URL('/<slug>/sessions/<sid>/vote', 'session_vote', sessions.Vote),
         URL('/<slug>/sessions/<sid>/comments', 'session_comments', sessions.CommentHandler),
+        
         URL('/<slug>/logo/upload',  'logo_upload', images.LogoUpload),
         URL('/<slug>/logo/delete',  'logo_delete', images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
@@ -62,12 +65,13 @@ class BarcampModule(Module):
         URL('/<slug>/unregister',   'unregister',       registration.BarcampUnregister),
         URL('/<slug>/registrationdata', 'registrationdata', registration.RegistrationData),
 
+        URL('/<slug>/events', 'user_events', user_events.Events),
 
-        URL('/<slug>/events', 'events', events.EventsView),
-        URL('/<slug>/events/<eid>', 'event', events.EventView),
-        URL('/<slug>/events/location', 'event_location', events.GetLocation),
-        URL('/<slug>/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
-        URL('/<slug>/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
+        URL('/<slug>/admin/events', 'events', events.EventsView),
+        URL('/<slug>/admin/events/<eid>', 'event', events.EventView),
+        URL('/<slug>/admin/events/location', 'event_location', events.GetLocation),
+        URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
+        URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
 
     ]
 

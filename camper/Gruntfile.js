@@ -63,7 +63,7 @@ module.exports = function(grunt) {
                     "angular-route",
                     "angular-jquery-timepicker",
                     "jquery-timepicker-jt",
-                    "jquery-ui",
+                    //"jquery-ui",
                     "angular-ui-sortable",
                     "angular-i18n",
                     "underscore",

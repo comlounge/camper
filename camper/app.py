@@ -276,7 +276,7 @@ class CamperApp(Application):
                     'small' : "100x",
                     'logo_full' : "1140x",
                     'medium_user' : "296x",
-                    'userlist': '120x120!'
+                    'userlist': '80x80!'
                 })
             ],
         ))

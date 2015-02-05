@@ -285,9 +285,7 @@ article.barcamp {
         
     }
     section {
-        margin-bottom: 50px;
-        overflow: auto;
-
+        .clearfix;
     }
     .participant-actions {
         position: absolute;
@@ -304,30 +302,46 @@ article.barcamp {
     }
 
 
+    section {
+        margin-bottom: 30px;
+    }
+    section#participants {
+        margin-top: 30px;
+    }
+
     ul.participants {
         .list-unstyled;
+        clear: both;
+        li {
+            .pull-left;
+            width: 90px;
+        }
         margin-left: 0;
         padding: 0;
         .participant {
-            position: relative;
-            .pull-left;
-            width: 130px;
-            height: 200px;
-            margin: 10px;
-            overflow-y: hidden;
-            margin-left: 0;
-            background: white;
-            border: 1px solid #f8f8f8;
-            padding: 5px;
-        }
-        .participant-avatar {
-            position: relative;
-            z-index: 1;
-            text-align: center;
             margin-bottom: 5px;
-            display: block;
-            width: 120px;
+            position: relative;
+            font-size: 16px;
+            .participant-avatar {
+                .pull-left;
+                img {
+                    width: 80px !important;
+                    height: 80px !important;
+                    margin-right: 10px;
+                }
+            }
+            .participant-name {
+                display: block;
+                margin-top: 3px;
+            }
+            .participant-me {
+                font-weight: bold;
+            }
         }
+    }
+    .tooltip-inner {
+        white-space: nowrap;
+        padding: 5px 15px;
     }
 }
 
@@ -424,6 +438,33 @@ section {
     margin-bottom: 50px;
 }
 
+//
+// eventlisting
+//
+
+#user-events-content {
+    .event-name, .event-date {
+        display: block;
+    }
+    .event-date {
+        display: block;
+        font-size: 10px;
+    }
+
+    .plabel {
+        .label;
+        font-size: 9px;
+        display: none;
+    }
+    .plabel-going { .label-success; }
+    .plabel-maybe { .label-info; }
+    .plabel-waiting { .label-warning; }
+    .plabel-not { .label-default; }
+
+    .actions {
+        margin-top: 30px;
+    }
+}
 
 
 
