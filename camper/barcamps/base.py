@@ -58,7 +58,7 @@ class BarcampBaseHandler(BaseHandler):
         if bc is not None:
             actions.append(Action('home', T("Home"), uf('barcamps.index', slug = self.barcamp.slug), self.action == 'home'))
             actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
-            actions.append(Action('participants', T("participants"), uf('barcamps.userlist', slug = bc.slug), self.action == 'participants'))
+            actions.append(Action('events', T("events"), uf('barcamps.user_events', slug = bc.slug), self.action == 'events'))
             if bc.planning_pad_public or self.is_admin:
                 actions.append(Action('planning', T("planning"), uf('barcamps.planning_pad', slug = bc.slug), self.action == 'planning'))
             actions.append(Action('docs', T("documentation"), uf('barcamps.documentation_pad', slug = bc.slug), self.action == 'docs'))
