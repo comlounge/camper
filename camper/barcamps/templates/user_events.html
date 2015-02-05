@@ -39,15 +39,15 @@
                 {% else %}
                     <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-success"><i class="fa fa-asterisk"></i> {{_('Join!')}}</a>
                 {% endif %}
-                <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
+                <a href="{{url_for(".events", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
             </div>
         </div>
         <div class="col-lg-10 col-md-10" id="content-area">
             <div role="tabpanel">
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#participants" aria-controls="home" role="tab" data-toggle="tab">{{_('Participants')}}</a></li>
-                    <li role="presentation"><a href="#sessions" aria-controls="profile" role="tab" data-toggle="tab">{{_('Timetable')}}</a></li>
+                    <li role="presentation" class="active"><a href="#participants" aria-controls="participants" role="tab" data-toggle="tab">{{_('Participants')}}</a></li>
+                    <li role="presentation"><a href="#sessions" aria-controls="timetable" role="tab" data-toggle="tab">{{_('Timetable')}}</a></li>
                 </ul>
 
                 <!-- Tab panes -->
