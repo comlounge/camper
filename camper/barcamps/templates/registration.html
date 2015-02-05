@@ -27,7 +27,11 @@
             <li data-id="{{event._id}}" id="e-{{event._id}}" class="event">
                 <div class="row">
                     <div class="col-lg-5">
-                        <h4>{{dateformat(event.date)}}: {{event.name}}</h4>
+                        <h4>
+                            <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}">
+                                {{dateformat(event.date)}}: {{event.name}}
+                            </a>
+                        </h4>
                         <address>
                         <strong>{{event.location.name}}</strong>, {{event.location.street}}, {{event.location.city}}
                         </address>
