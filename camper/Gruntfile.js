@@ -59,11 +59,11 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
+                    //"jquery-ui",
                     "angular-mocks",
                     "angular-route",
                     "angular-jquery-timepicker",
                     "jquery-timepicker-jt",
-                    //"jquery-ui",
                     "angular-ui-sortable",
                     "angular-i18n",
                     "underscore",
