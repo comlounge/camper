@@ -18,3 +18,5 @@ docs/_build
 .pydevproject
 .settings
 tmp
+node_modules
+.DS_Store
