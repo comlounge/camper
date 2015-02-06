@@ -6587,6 +6587,16 @@ body#admin #location-picker #location-error {
   color: white;
   font-weight: bold;
 }
+body#admin .sessionslot {
+  display: table-cell;
+  height: 70px;
+}
+body#admin .sessionslot.enabled {
+  cursor: pointer;
+}
+body#admin .sessionslot.enabled:hover {
+  background: #eee;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

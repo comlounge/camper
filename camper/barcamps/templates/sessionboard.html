@@ -11,6 +11,12 @@
     <div class="row">
         <div id="sessionboard" ng-controller="SessionBoardCtrl">
 
+
+            {#
+             #  room modal
+            #}
+
+
             <div class="modal" id="add-room-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -54,6 +60,11 @@
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 
+
+            {#
+             #  time modal
+            #}
+
             <div class="modal" id="add-timeslot-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -95,7 +106,62 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-            <table class="table table–bordered sessiontable" ng-cloak>
+
+
+            {#
+             #  session modal
+            #}
+
+            <div class="modal" id="edit-session-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">{{_('Edit Session')}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form name="timeslot_form" class="form-horizontal" role="form" id="edit-session-form">
+                                <input type="hidden" name="session_idx" ng-model="session_idx">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{_('Title')}}</label>
+                                    <span class="label label-danger" data-ng-show="submitted && editSessionForm.tite.$error.required">{{_('This field is required')}}!</span>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="session.title" name="title" required placeholder="{{_('enter the title of the session')}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{_('Description')}}</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" name="description" ng-model="session.description" placeholder="{{_('The description of the session')}}"></textarea>
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">{{_('Speaker / Moderator')}}</label>
+                                    <div class="col-sm-8">
+                                        
+                                        <tags-input ng-model="session.moderator" display-property="name"
+                                            replace-spaces-with-dashes="false"
+                                            placeholder="{{_('Add Organizer')}}">
+                                            <auto-complete source="loadParticipants()"></auto-complete>
+                                        </tags-input>
+                                    </div>
+                                </div> 
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                            <button data-ng-click="update_session()" class="btn btn-primary">{{_('Update Session')}}</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+            {#
+             #     main page
+            #}
+
+            <table class="table table-bordered sessiontable" ng-cloak>
                 <colgroup>
                     <col width="10%">
                 </colgroup>
@@ -119,12 +185,13 @@
                 <tbody >
                     <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}">
                         <td>
-                            <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                             {[{slot.time | date: 'shortTime'}]}
+                            <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-warning"><i class="fa fa-unlock"></i></a>
+                            <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
-                        <td ng-repeat="room in rooms">
+                        <td ng-repeat="room in rooms | slice:1:10000" class="sessionslot" ng-class="{enabled: !slot.blocked}" ng-click="add_session(slot, room)">
                             <span ng-if="slot.blocked">{[{slot.reason}]}</span>
-                        
+                            <span ng-if="!slot.blocked"><i class="fa fa-pencil pull-right"></i></span>
                         </td>
                         <td></td>
                     </tr>

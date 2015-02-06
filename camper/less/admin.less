@@ -204,6 +204,17 @@ body#admin {
             font-weight: bold;
         }
     }
+
+    .sessionslot {
+        display: table-cell;
+        height: 70px;
+        &.enabled {
+            cursor: pointer; 
+            &:hover {
+                background: #eee;
+            }
+        }
+    }
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

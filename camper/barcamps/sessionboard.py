@@ -43,15 +43,20 @@ class SessionBoardData(BarcampBaseHandler):
     def get(self, slug = None, eid = None):
         """return rooms and timeslots"""
 
+        ub = self.app.module_map.userbase
+
         event = self.barcamp.get_event(eid)
         rooms = event.timetable.get('rooms', [])
-        timeslots = event.timetable.get('timeslots', [])
+        timeslots = event.timetable.get('timeslots', []) 
+        participants = list(ub.get_users_by_ids(event.participants))
+        participants = [{'name' : p.fullname, '_id' : str(p._id)} for p in participants]
 
         return {
             'rooms' : rooms,
             'timeslots': timeslots,
             'event' : event,
-            'eid' : event._id
+            'eid' : event._id,
+            'participants': participants
         }
 
     @asjson()
@@ -62,5 +67,4 @@ class SessionBoardData(BarcampBaseHandler):
         event.timetable = data
         self.barcamp.events[eid] = event
         self.barcamp.save()
-        print data
         return {'status' : 'ok'}

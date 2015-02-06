@@ -7,7 +7,7 @@ guid = () ->
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
            s4() + '-' + s4() + s4() + s4()
 
-app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable']);
+app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput']);
 
 app.filter 'slice', () ->
     return (arr, start, end) ->
@@ -23,7 +23,7 @@ app.config ($interpolateProvider) ->
     .endSymbol('}]}')
 
 
-app.controller 'SessionBoardCtrl', ($scope, $http) ->
+app.controller 'SessionBoardCtrl', ($scope, $http, $q) ->
 
     # set some defaults
 
@@ -58,6 +58,8 @@ app.controller 'SessionBoardCtrl', ($scope, $http) ->
         $scope.rooms = data.rooms
         $scope.rooms.unshift({})
         $scope.timeslots = data.timeslots
+        $scope.participants = data.participants
+        console.log $scope.participants
             
     #
     # room related
@@ -150,6 +152,28 @@ app.controller 'SessionBoardCtrl', ($scope, $http) ->
     $scope.delete_timeslot = (idx) ->
         $scope.timeslots.splice(idx,1)
         undefined
+
+
+    #
+    # slot related
+    #
+
+    $scope.session_id = null # for remembering which session to update (format: $room.id@$slot.time)
+    $scope.session = {}
+    $scope.add_session = (slot, room) ->
+        $scope.session_idx = room.id+"@"+slot.time
+        #$scope.room = angular.copy($scope.rooms[idx])
+        $('#edit-session-modal').modal('show')
+        return
+    
+    $scope.loadParticipants = () ->
+        deferred = $q.defer()
+        deferred.resolve($scope.participants)
+        return deferred.promise;
+
+    #
+    # server communications
+    #
 
     $scope.save_to_server = () ->
         # clean up rooms

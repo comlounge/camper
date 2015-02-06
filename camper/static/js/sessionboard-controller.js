@@ -9,7 +9,7 @@ guid = function() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
-app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable']);
+app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput']);
 
 app.filter('slice', function() {
   return function(arr, start, end) {
@@ -25,7 +25,7 @@ app.config(function($interpolateProvider) {
   return $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-app.controller('SessionBoardCtrl', function($scope, $http) {
+app.controller('SessionBoardCtrl', function($scope, $http, $q) {
   $scope.sortableOptions = {
     axis: 'x',
     items: "td",
@@ -54,7 +54,9 @@ app.controller('SessionBoardCtrl', function($scope, $http) {
   $http.get("sessionboard/data").success(function(data) {
     $scope.rooms = data.rooms;
     $scope.rooms.unshift({});
-    return $scope.timeslots = data.timeslots;
+    $scope.timeslots = data.timeslots;
+    $scope.participants = data.participants;
+    return console.log($scope.participants);
   });
   $scope.roomModalMode = "add";
   $scope.room_idx = null;
@@ -130,6 +132,18 @@ app.controller('SessionBoardCtrl', function($scope, $http) {
   $scope.delete_timeslot = function(idx) {
     $scope.timeslots.splice(idx, 1);
     return void 0;
+  };
+  $scope.session_id = null;
+  $scope.session = {};
+  $scope.add_session = function(slot, room) {
+    $scope.session_idx = room.id + "@" + slot.time;
+    $('#edit-session-modal').modal('show');
+  };
+  $scope.loadParticipants = function() {
+    var deferred;
+    deferred = $q.defer();
+    deferred.resolve($scope.participants);
+    return deferred.promise;
   };
   $scope.save_to_server = function() {
     var data, rooms;
