@@ -337,7 +337,7 @@ class Barcamp(Record):
                 return True
             elif uid in event.waiting_list and 'waiting' in states:
                 return True
-            return False
+        return False
 
     @property
     def public(self):
