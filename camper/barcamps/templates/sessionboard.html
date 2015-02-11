@@ -52,9 +52,9 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                             <button ng-if="roomModalMode=='add'" data-ng-click="add_room()" class="btn btn-primary">{{_('Add new room')}}</button>
                             <button ng-if="roomModalMode=='edit'" data-ng-click="update_room()" class="btn btn-primary">{{_('Update room')}}</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -99,9 +99,9 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                             <button ng-if="timeslotModalMode=='add'" data-ng-click="add_timeslot()" class="btn btn-primary">{{_('Add new timeslot')}}</button>
                             <button ng-if="timeslotModalMode=='edit'" data-ng-click="update_timeslot()" class="btn btn-primary">{{_('Update room')}}</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -149,8 +149,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                             <button data-ng-click="update_session()" class="btn btn-primary">{{_('Update Session')}}</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -186,7 +186,7 @@
                 <tbody >
                     <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}" ng-model="sessionplan">
                         <td>
-                            {[{slot.time | date: 'shortTime'}]}
+                            {[{slot.time | date: 'shortTime' : 'UTC'}]}
                             <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-warning"><i class="fa fa-unlock"></i></a>
                             <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </td>

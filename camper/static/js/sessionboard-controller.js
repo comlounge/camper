@@ -153,6 +153,7 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
       };
     }
     $('#edit-session-modal').modal('show');
+    $("#ac-title").focus();
     selectedItem = null;
     $("#ac-title").autocomplete({
       source: $scope.proposals,
@@ -188,7 +189,8 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     var idx;
     idx = $scope.session._id;
     $scope.session = angular.copy($scope.session);
-    return $scope.sessionplan[idx] = $scope.session;
+    $scope.sessionplan[idx] = $scope.session;
+    return $('#edit-session-modal').modal('hide');
   };
   $scope.get_session_id = function(slot, room) {
     var d, fd, idx;

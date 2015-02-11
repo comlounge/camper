@@ -180,6 +180,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
 
         #$scope.room = angular.copy($scope.rooms[idx])
         $('#edit-session-modal').modal('show')
+        $("#ac-title").focus()
         selectedItem = null
         $("#ac-title").autocomplete
             source: $scope.proposals
@@ -209,6 +210,8 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
         idx = $scope.session._id
         $scope.session = angular.copy($scope.session)
         $scope.sessionplan[idx] = $scope.session
+        $('#edit-session-modal').modal('hide')
+
 
     $scope.get_session_id = (slot, room) ->
         d = new Date(slot.time)
