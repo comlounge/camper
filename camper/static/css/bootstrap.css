@@ -6589,7 +6589,7 @@ body#admin #location-picker #location-error {
 }
 body#admin .sessionslot {
   display: table-cell;
-  height: 70px;
+  min-height: 70px;
 }
 body#admin .sessionslot.enabled {
   cursor: pointer;
@@ -7095,7 +7095,7 @@ footer {
 #eventlist .pselect {
   display: none;
 }
-.description {
+.nodescription {
   margin-bottom: 30px;
 }
 section {

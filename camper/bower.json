@@ -26,6 +26,7 @@
     "bootstrap-markdown": "~2.8.0",
     "markdown-js": "~0.6.2",
     "marked": "~0.3.3",
-    "ng-tags-input": "~2.1.1"
+    "ng-tags-input": "~2.1.1",
+    "angular-ui-autocomplete": "~0.6.1"
   }
 }

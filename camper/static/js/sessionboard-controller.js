@@ -9,7 +9,7 @@ guid = function() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 };
 
-app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput']);
+app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput', 'ui.autocomplete']);
 
 app.filter('slice', function() {
   return function(arr, start, end) {
@@ -25,7 +25,8 @@ app.config(function($interpolateProvider) {
   return $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-app.controller('SessionBoardCtrl', function($scope, $http, $q) {
+app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
+  $scope.sessionplan = {};
   $scope.sortableOptions = {
     axis: 'x',
     items: "td",
@@ -56,7 +57,8 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q) {
     $scope.rooms.unshift({});
     $scope.timeslots = data.timeslots;
     $scope.participants = data.participants;
-    return console.log($scope.participants);
+    $scope.proposals = data.proposals;
+    return $scope.sessionplan = data.sessions;
   });
   $scope.roomModalMode = "add";
   $scope.room_idx = null;
@@ -136,8 +138,64 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q) {
   $scope.session_id = null;
   $scope.session = {};
   $scope.add_session = function(slot, room) {
-    $scope.session_idx = room.id + "@" + slot.time;
+    var d, fd, idx, selectedItem;
+    d = new Date(slot.time);
+    fd = $filter('date')(d, 'hh:mm');
+    idx = $scope.session_idx = room.id + "@" + fd;
+    if ($scope.sessionplan.hasOwnProperty(idx)) {
+      $scope.session = angular.copy($scope.sessionplan[idx]);
+    } else {
+      $scope.session = {
+        _id: idx,
+        title: '',
+        description: '',
+        moderator: []
+      };
+    }
     $('#edit-session-modal').modal('show');
+    selectedItem = null;
+    $("#ac-title").autocomplete({
+      source: $scope.proposals,
+      appendTo: '#edit-session-modal',
+      open: function(event, ui) {
+        return selectedItem = null;
+      },
+      select: function(event, ui) {
+        return selectedItem = ui;
+      },
+      change: function(event, ui) {
+        var selected, user_id, value;
+        selected = false;
+        value = selectedItem.item.value;
+        user_id = selectedItem.item.user_id;
+        return $scope.$apply(function() {
+          var user, _i, _len, _ref;
+          _ref = $scope.participants;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            user = _ref[_i];
+            if (user._id === user_id) {
+              $scope.session.moderator = [user];
+              break;
+            }
+          }
+          $scope.session.title = value;
+          return $scope.session.description = selectedItem.item.description;
+        });
+      }
+    });
+  };
+  $scope.update_session = function() {
+    var idx;
+    idx = $scope.session._id;
+    $scope.session = angular.copy($scope.session);
+    return $scope.sessionplan[idx] = $scope.session;
+  };
+  $scope.get_session_id = function(slot, room) {
+    var d, fd, idx;
+    d = new Date(slot.time);
+    fd = $filter('date')(d, 'hh:mm');
+    idx = room.id + "@" + fd;
+    return idx;
   };
   $scope.loadParticipants = function() {
     var deferred;
@@ -151,26 +209,25 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q) {
     rooms.splice(0, 1);
     data = {
       rooms: rooms,
-      timeslots: $scope.timeslots
+      timeslots: $scope.timeslots,
+      sessions: $scope.sessionplan
     };
-    $http.post("sessionboard/data", data).success(function(data) {
-      return console.log("success");
-    }).error(function(data) {
-      console.log("error!");
-      return console.log(data);
-    });
-    return console.log(data);
+    return $http.post("sessionboard/data", data).success(function(data) {}).error(function(data) {});
   };
   $scope.$watch('rooms', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-      console.log("rooms changes");
       $scope.save_to_server();
     }
     return void 0;
   }, true);
-  return $scope.$watch('timeslots', function(newValue, oldValue) {
+  $scope.$watch('timeslots', function(newValue, oldValue) {
     if (newValue !== oldValue) {
-      console.log("slots changes");
+      $scope.save_to_server();
+    }
+    return void 0;
+  }, true);
+  return $scope.$watch('sessionplan', function(newValue, oldValue) {
+    if (newValue !== oldValue) {
       $scope.save_to_server();
     }
     return void 0;

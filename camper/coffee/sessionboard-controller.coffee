@@ -7,7 +7,7 @@ guid = () ->
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
            s4() + '-' + s4() + s4() + s4()
 
-app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput']);
+app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput', 'ui.autocomplete']);
 
 app.filter 'slice', () ->
     return (arr, start, end) ->
@@ -23,9 +23,11 @@ app.config ($interpolateProvider) ->
     .endSymbol('}]}')
 
 
-app.controller 'SessionBoardCtrl', ($scope, $http, $q) ->
+app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
 
     # set some defaults
+
+    $scope.sessionplan = {}
 
     $scope.sortableOptions =
         axis: 'x'
@@ -59,7 +61,9 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q) ->
         $scope.rooms.unshift({})
         $scope.timeslots = data.timeslots
         $scope.participants = data.participants
-        console.log $scope.participants
+        $scope.proposals = data.proposals
+        $scope.sessionplan = data.sessions
+
             
     #
     # room related
@@ -161,11 +165,57 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q) ->
     $scope.session_id = null # for remembering which session to update (format: $room.id@$slot.time)
     $scope.session = {}
     $scope.add_session = (slot, room) ->
-        $scope.session_idx = room.id+"@"+slot.time
+        d = new Date(slot.time)
+        fd = $filter('date')(d, 'hh:mm')
+        idx = $scope.session_idx = room.id+"@"+fd
+        if $scope.sessionplan.hasOwnProperty(idx)
+            $scope.session = angular.copy($scope.sessionplan[idx])
+        else
+            $scope.session = 
+                _id: idx
+                title: ''
+                description: ''
+                moderator: []
+        
+
         #$scope.room = angular.copy($scope.rooms[idx])
         $('#edit-session-modal').modal('show')
+        selectedItem = null
+        $("#ac-title").autocomplete
+            source: $scope.proposals
+            appendTo: '#edit-session-modal'
+            open: (event, ui) ->
+                selectedItem = null
+            select: (event, ui) ->
+                selectedItem = ui
+            change: (event, ui) ->
+                selected = false
+                value = selectedItem.item.value
+                user_id = selectedItem.item.user_id
+
+                # update the scope
+                $scope.$apply( () ->
+                    # search for user
+                    for user in $scope.participants
+                        if user._id == user_id
+                            $scope.session.moderator = [user]
+                            break
+                    $scope.session.title = value
+                    $scope.session.description = selectedItem.item.description
+                )
         return
-    
+
+    $scope.update_session = () ->
+        idx = $scope.session._id
+        $scope.session = angular.copy($scope.session)
+        $scope.sessionplan[idx] = $scope.session
+
+    $scope.get_session_id = (slot, room) ->
+        d = new Date(slot.time)
+        fd = $filter('date')(d, 'hh:mm')
+        idx = room.id+"@"+fd
+        return idx
+     
     $scope.loadParticipants = () ->
         deferred = $q.defer()
         deferred.resolve($scope.participants)
@@ -182,27 +232,36 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q) ->
         data = 
             rooms: rooms
             timeslots: $scope.timeslots
+            sessions: $scope.sessionplan
         $http.post("sessionboard/data", data).success (data) ->
-            console.log "success"
+            # TODO: catch some error here
+            return
         .error (data) ->
-            console.log "error!"
-            console.log data            
-        console.log data
+            # TODO: explain error
+            return
 
     $scope.$watch( 'rooms', (newValue, oldValue) ->
         if newValue != oldValue
-            console.log "rooms changes"
             $scope.save_to_server()
         undefined
     , true)
 
     $scope.$watch( 'timeslots', (newValue, oldValue) ->
         if newValue != oldValue
-            console.log "slots changes"
             $scope.save_to_server()
         undefined
     , true)
-          
+
+
+    $scope.$watch( 'sessionplan', (newValue, oldValue) ->
+        if newValue != oldValue
+            $scope.save_to_server()
+        undefined
+    , true)
+
+
+
+
 INTEGER_REGEXP = ///^
     [0-9]+
     $///i

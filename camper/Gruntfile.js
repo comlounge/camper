@@ -14,8 +14,8 @@ module.exports = function(grunt) {
 
         watch: {
             scripts: {
-                files: ['less/*.less'],
-                tasks: ['less'],
+                files: ['less/*.less', 'static/js/*.js'],
+                tasks: ['less', 'uglify'],
                 options: {
                     spawn: false,
                 },
@@ -65,6 +65,7 @@ module.exports = function(grunt) {
                     "ng-tags-input",
                     "jquery-timepicker-jt",
                     "angular-ui-sortable",
+                    "angular-ui-autocomplete",
                     "angular-i18n",
                     "underscore",
                     "angular-promise-tracker",

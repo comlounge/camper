@@ -47,16 +47,30 @@ class SessionBoardData(BarcampBaseHandler):
 
         event = self.barcamp.get_event(eid)
         rooms = event.timetable.get('rooms', [])
-        timeslots = event.timetable.get('timeslots', []) 
+        timeslots = event.timetable.get('timeslots', [])
+        sessions = event.timetable.get('sessions', {})
         participants = list(ub.get_users_by_ids(event.participants))
         participants = [{'name' : p.fullname, '_id' : str(p._id)} for p in participants]
-
+        proposals = []
+        for p in self.config.dbs.sessions.find({'barcamp_id' : str(self.barcamp_id)}):
+            proposals.append({
+                'value' : p.title,
+                'label' : "%s (%s)" %(p.title, p.user.fullname),
+                'description' : p.description,
+                'user_id' : p.user_id,
+                'vote_count' : p.vote_count,
+            })
+        print proposals
+        print sessions
+        
         return {
             'rooms' : rooms,
             'timeslots': timeslots,
             'event' : event,
             'eid' : event._id,
-            'participants': participants
+            'participants': participants,
+            'proposals' : proposals,
+            'sessions' : sessions,
         }
 
     @asjson()
@@ -64,7 +78,11 @@ class SessionBoardData(BarcampBaseHandler):
         """store room and timetable data"""
         event = self.barcamp.get_event(eid)
         data = json.loads(self.request.data)
+        print "posted", data
         event.timetable = data
         self.barcamp.events[eid] = event
         self.barcamp.save()
         return {'status' : 'ok'}
+
+
+

@@ -340,6 +340,7 @@ class BaseHandler(starflyer.Handler):
         if "slug" in self.request.view_args:
             self.barcamp = self.config.dbs.barcamps.by_slug(self.request.view_args['slug'])
             self.barcamp_view = BarcampView(self.barcamp, self)
+            self.barcamp_id = self.barcamp._id
         else:
             self.barcamp = None
             self.barcamp_view = None

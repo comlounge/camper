@@ -126,13 +126,13 @@
                                     <label class="col-sm-3 control-label">{{_('Title')}}</label>
                                     <span class="label label-danger" data-ng-show="submitted && editSessionForm.tite.$error.required">{{_('This field is required')}}!</span>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control" ng-model="session.title" name="title" required placeholder="{{_('enter the title of the session')}}">
+                                        <input type="text" id="ac-title" nui-autocomplete="autocompleteOptions" class="form-control" ng-model="session.title" name="title" required placeholder="{{_('enter the title of the session')}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">{{_('Description')}}</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control" name="description" ng-model="session.description" placeholder="{{_('The description of the session')}}"></textarea>
+                                        <textarea class="form-control" rows=10 name="description" ng-model="session.description" placeholder="{{_('The description of the session')}}"></textarea>
                                     </div>
                                 </div> 
                                 <div class="form-group">
@@ -164,6 +164,7 @@
             <table class="table table-bordered sessiontable" ng-cloak>
                 <colgroup>
                     <col width="10%">
+                    <col ng-repeat="room in rooms | slice:1:10000" width="{[{90/rooms.length}]}%">
                 </colgroup>
                 <thead>
                     <tr id="roomcontainment" ui-sortable="sortableOptions" ng-model="rooms">
@@ -183,14 +184,26 @@
                     </tr>
                 </thead>
                 <tbody >
-                    <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}">
+                    <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}" ng-model="sessionplan">
                         <td>
                             {[{slot.time | date: 'shortTime'}]}
                             <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-warning"><i class="fa fa-unlock"></i></a>
                             <a ng-click="delete_timeslot($index)" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                         </td>
-                        <td ng-repeat="room in rooms | slice:1:10000" class="sessionslot" ng-class="{enabled: !slot.blocked}" ng-click="add_session(slot, room)">
+                        <td ng-repeat="room in rooms | slice:1:10000" class="sessionslot" 
+                            ng-class="{enabled: !slot.blocked}"
+                            ng-init="sid = get_session_id(slot, room)" 
+                            ng-click="add_session(slot, room)">
                             <span ng-if="slot.blocked">{[{slot.reason}]}</span>
+                            <h5>{[{sessionplan[sid].title}]}</h5>
+                            <div class="description">{[{sessionplan[sid].description | limitTo: 20}]} &hellip;</div>
+                            <div class="moderators">
+                                <span ng-repeat="moderator in sessionplan[sid].moderator">{[{moderator.name}]}
+                                {[{!$last ? "," : ""}]}
+
+                                </span>
+                            </div>
+
                             <span ng-if="!slot.blocked"><i class="fa fa-pencil pull-right"></i></span>
                         </td>
                         <td></td>

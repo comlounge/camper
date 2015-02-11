@@ -86,7 +86,7 @@ class EventSchema(Schema):
     maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
     own_location        = Boolean() # flag if the barcamp address is used or not 
-    timetable           = Dict(default={}) # will be stored as dict with rooms and timeslots
+    timetable           = Dict(default={}) # will be stored as dict with rooms and timeslots and sessions
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
