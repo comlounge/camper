@@ -120,10 +120,12 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
 
         # pre-set the next possible time
         if $scope.timeslots.length
-            last_time = angular.copy($scope.timeslots[$scope.timeslots.length-1]).time
+            last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length-1]).time)
+            last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000) # convert to UTC
             new_time = new Date(last_time.getTime() + 60*60000)
             $scope.timeslot.time = new_time
         else
+            console.log 2
             d = Date.now() # TODO: set the date of the day of the event
             dd = new Date()
             dd.setTime(d)

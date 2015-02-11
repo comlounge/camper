@@ -102,10 +102,12 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     $scope.timeslotModalMode = "add";
     document.getElementById("add-timeslot-form").reset();
     if ($scope.timeslots.length) {
-      last_time = angular.copy($scope.timeslots[$scope.timeslots.length - 1]).time;
+      last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length - 1]).time);
+      last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000);
       new_time = new Date(last_time.getTime() + 60 * 60000);
       $scope.timeslot.time = new_time;
     } else {
+      console.log(2);
       d = Date.now();
       dd = new Date();
       dd.setTime(d);

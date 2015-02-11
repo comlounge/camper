@@ -6460,9 +6460,64 @@ body#admin #sessionboard-container {
 }
 body#admin #sessionboard-container table {
   width: 100%;
+  overflow: auto;
 }
 body#admin #sessionboard-container #add-room-div {
   float: right;
+}
+body#admin #sessionboard-container .room-slot {
+  white-space: nowrap;
+  position: relative;
+  padding-bottom: 40px;
+}
+body#admin #sessionboard-container .room-slot .room-name {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+body#admin #sessionboard-container .room-slot .room-actions {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+body#admin #sessionboard-container .time-slot {
+  white-space: nowrap;
+}
+body#admin #sessionboard-container .time-slot span {
+  font-size: 18px;
+}
+body#admin #sessionboard-container .description {
+  color: #a0a0a0;
+  font-size: 12px;
+  height: 34px;
+  overflow: hidden;
+  display: none;
+}
+body#admin #sessionboard-container h5 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  max-height: 34px;
+  overflow: hidden;
+}
+body#admin #sessionboard-container .moderators {
+  font-size: 13px;
+}
+body#admin #sessionboard-container .sessionslot {
+  position: relative;
+  padding-bottom: 30px;
+}
+body#admin #sessionboard-container .sessionslot .slot-actions {
+  font-size: 12px;
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+}
+body#admin #sessionboard-container .sessionslot .slot-actions span {
+  padding-left: 5px;
+}
+body#admin #sessionboard-container #sessionboard-actions .tooltip-inner {
+  max-width: 200px;
+  /* If max-width does not work, try using width instead */
+  width: 200px;
 }
 body#admin .sortable-placeholder {
   background: #cccccc;
@@ -7169,4 +7224,7 @@ a#user-events-content .plabel:focus {
 }
 #user-events-content .sessiontable {
   margin-top: 30px;
+}
+#user-events-content .sessiontable .description {
+  display: none;
 }

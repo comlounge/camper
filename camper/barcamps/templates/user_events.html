@@ -121,7 +121,7 @@
                                             <div class="moderators">
 
                                                 {% for moderator in sessionplan[sid].moderator %}
-                                                    {{moderator.name}} {{ ',' if not last else ''}}
+                                                    {{moderator.name}}{{ ',' if not loop.last else ''}}
                                                 {% endfor %}
                                             </div>
                                         {% endif %}
@@ -132,7 +132,10 @@
                                 {% endfor %}
                                 <tr>
                             </tbody>
-                        </table>                     
+                        </table>
+                        {% if is_admin %}
+                            <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
+                        {% endif %}          
 
                     </div>
                 </div>

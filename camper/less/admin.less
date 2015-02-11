@@ -76,9 +76,63 @@ body#admin {
         padding: 30px;
         table {
             width: 100%;
+            overflow: auto;
         }
         #add-room-div {
             float: right;
+        }
+        .room-slot {
+            white-space: nowrap;
+            .room-name {
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+            position: relative;
+            padding-bottom: 40px;
+            .room-actions {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
+            }
+        }
+
+        .time-slot {
+            white-space: nowrap;
+            span { font-size: 18px;}
+        }
+        .description {
+            color: #a0a0a0;
+            font-size: 12px;
+            height: 34px;
+            overflow: hidden;
+            display: none; // it's in the code but not shown 
+        }
+        h5 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            max-height: 34px;
+            overflow: hidden;
+        }
+        .moderators {
+            font-size: 13px;
+        }
+        .sessionslot {
+            position: relative;
+            padding-bottom: 30px;
+            .slot-actions {
+                span {padding-left: 5px;}
+                font-size: 12px;
+                position: absolute;
+                right: 5px;
+                bottom: 5px;
+            }
+        }
+        #sessionboard-actions {
+            .tooltip-inner {
+                max-width: 200px;
+                /* If max-width does not work, try using width instead */
+                width: 200px; 
+            }
         }
     }
     .sortable-placeholder {

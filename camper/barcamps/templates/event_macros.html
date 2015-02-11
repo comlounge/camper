@@ -24,7 +24,8 @@
     		</select>
     	</form>
     </div>
-    <h3>{{title}} {{_('for')}} {{event.name}} ({{dateformat(event.date)}})</h3>
+    <h3>{{title}} {{_('for')}} {{event.name}} ({{dateformat(event.date)}})
+    </h3>
 {%- endmacro %}
 
 {% macro locationpicker(event = {'location': {}}) -%}
