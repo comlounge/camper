@@ -185,7 +185,7 @@
                     </tr>
                 </thead>
                 <tbody >
-                    <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{danger: slot.blocked}" ng-model="sessionplan">
+                    <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{warning: slot.blocked}" ng-model="sessionplan">
                         <td class="time-slot">
                             <span>{[{slot.time | date: 'shortTime' : 'UTC'}]}</span>
                             <a ng-click="delete_timeslot($index)" data-toggle="tooltip" title="{{_('lock session')}}" href="" class="btn btn-xs btn-warning"><i class="fa fa-lock"></i></a>

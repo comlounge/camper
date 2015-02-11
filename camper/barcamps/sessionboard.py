@@ -60,9 +60,7 @@ class SessionBoardData(BarcampBaseHandler):
                 'user_id' : p.user_id,
                 'vote_count' : p.vote_count,
             })
-        print proposals
-        print sessions
-        
+                    
         return {
             'rooms' : rooms,
             'timeslots': timeslots,

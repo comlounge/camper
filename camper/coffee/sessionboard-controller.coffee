@@ -115,6 +115,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
     $scope.timeslot_idx = null # for remembering which timeslot to update
 
     $scope.add_timeslot_form = () ->
+        console.log $scope.timeslots
         $scope.timeslotModalMode = "add"
         document.getElementById("add-timeslot-form").reset()
 
@@ -123,9 +124,9 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
             last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length-1]).time)
             last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000) # convert to UTC
             new_time = new Date(last_time.getTime() + 60*60000)
+            $("#timepicker").timepicker('setTime', new_time)
             $scope.timeslot.time = new_time
         else
-            console.log 2
             d = Date.now() # TODO: set the date of the day of the event
             dd = new Date()
             dd.setTime(d)
@@ -143,7 +144,18 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
 
         if $scope.timeslot_form.$error.$invalid
             return
-        $scope.timeslots.push($scope.timeslot)
+
+        d = $scope.timeslot.time
+
+        # get the local timezone offset
+        now = new Date()
+        localOffset = now.getTimezoneOffset()
+        
+        # convert to utc by removing the local offset
+        utc = new Date(d.getTime() - localOffset*60000)
+        
+        $scope.timeslot.time = utc
+        $scope.timeslots.push $scope.timeslot
 
         $scope.timeslots = _.sortBy($scope.timeslots, (item) -> 
             item.time
@@ -168,7 +180,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
     $scope.session = {}
     $scope.add_session = (slot, room) ->
         d = new Date(slot.time)
-        fd = $filter('date')(d, 'hh:mm')
+        fd = $filter('date')(d, 'hh:mm', 'UTC')
         idx = $scope.session_idx = room.id+"@"+fd
         if $scope.sessionplan.hasOwnProperty(idx)
             $scope.session = angular.copy($scope.sessionplan[idx])
@@ -193,7 +205,10 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
                 selectedItem = ui
             change: (event, ui) ->
                 selected = false
-                value = selectedItem.item.value
+                if selectedItem
+                    value = selectedItem.item.value
+                else
+                    return
                 user_id = selectedItem.item.user_id
 
                 # update the scope
@@ -213,11 +228,12 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
         $scope.session = angular.copy($scope.session)
         $scope.sessionplan[idx] = $scope.session
         $('#edit-session-modal').modal('hide')
+        return
 
 
     $scope.get_session_id = (slot, room) ->
         d = new Date(slot.time)
-        fd = $filter('date')(d, 'hh:mm')
+        fd = $filter('date')(d, 'hh:mm', 'UTC')
         idx = room.id+"@"+fd
         return idx
      

@@ -99,15 +99,16 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
   $scope.timeslot_idx = null;
   $scope.add_timeslot_form = function() {
     var d, dd, last_time, new_time;
+    console.log($scope.timeslots);
     $scope.timeslotModalMode = "add";
     document.getElementById("add-timeslot-form").reset();
     if ($scope.timeslots.length) {
       last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length - 1]).time);
       last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000);
       new_time = new Date(last_time.getTime() + 60 * 60000);
+      $("#timepicker").timepicker('setTime', new_time);
       $scope.timeslot.time = new_time;
     } else {
-      console.log(2);
       d = Date.now();
       dd = new Date();
       dd.setTime(d);
@@ -121,9 +122,15 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     $('#add-timeslot-modal').modal('show');
   };
   $scope.add_timeslot = function() {
+    var d, localOffset, now, utc;
     if ($scope.timeslot_form.$error.$invalid) {
       return;
     }
+    d = $scope.timeslot.time;
+    now = new Date();
+    localOffset = now.getTimezoneOffset();
+    utc = new Date(d.getTime() - localOffset * 60000);
+    $scope.timeslot.time = utc;
     $scope.timeslots.push($scope.timeslot);
     $scope.timeslots = _.sortBy($scope.timeslots, function(item) {
       return item.time;
@@ -142,7 +149,7 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
   $scope.add_session = function(slot, room) {
     var d, fd, idx, selectedItem;
     d = new Date(slot.time);
-    fd = $filter('date')(d, 'hh:mm');
+    fd = $filter('date')(d, 'hh:mm', 'UTC');
     idx = $scope.session_idx = room.id + "@" + fd;
     if ($scope.sessionplan.hasOwnProperty(idx)) {
       $scope.session = angular.copy($scope.sessionplan[idx]);
@@ -169,7 +176,11 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
       change: function(event, ui) {
         var selected, user_id, value;
         selected = false;
-        value = selectedItem.item.value;
+        if (selectedItem) {
+          value = selectedItem.item.value;
+        } else {
+          return;
+        }
         user_id = selectedItem.item.user_id;
         return $scope.$apply(function() {
           var user, _i, _len, _ref;
@@ -192,12 +203,12 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     idx = $scope.session._id;
     $scope.session = angular.copy($scope.session);
     $scope.sessionplan[idx] = $scope.session;
-    return $('#edit-session-modal').modal('hide');
+    $('#edit-session-modal').modal('hide');
   };
   $scope.get_session_id = function(slot, room) {
     var d, fd, idx;
     d = new Date(slot.time);
-    fd = $filter('date')(d, 'hh:mm');
+    fd = $filter('date')(d, 'hh:mm', 'UTC');
     idx = room.id + "@" + fd;
     return idx;
   };
