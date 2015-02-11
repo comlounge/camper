@@ -84,54 +84,55 @@
                     <!-- session / timetable -->
                     <div role="tabpanel" class="tab-pane" id="sessions">
 
-                        <table class="table table-striped table-bordered sessiontable">
-                            <colgroup>
-                                <col width="10%"></col>
-                                {% for room in rooms %}
-                                    <col width="{{90/rooms|length}}"></col>
-                                {% endfor %}
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>&nbsp;</th>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered sessiontable">
+                                <colgroup>
+                                    <col width="10%"></col>
                                     {% for room in rooms %}
-                                    <th>
-                                        <span>{{room.name}}</span>
-                                        <small>{{room.description}}</small><br>
-                                        <small>{{room.capacity}} {{_("persons")}}</small>
-                                    </th>
+                                        <col width="{{90/rooms|length}}"></col>
                                     {% endfor %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for slot in timeslots %}
-                                <tr class="{{'warning' if slot.blocked}}">
-                                    <th>{{slot.time.strftime("%H:%M")}}</th>
-                                {% if slot.blocked %}
-                                    {% for room in rooms %}
-                                        <td>{{slot.reason}}</td>
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        {% for room in rooms %}
+                                        <th>
+                                            <h4>{{room.name}}</h4>
+                                            <small>{{room.description}}</small><br>
+                                            <small>{{room.capacity}} {{_("persons")}}</small>
+                                        </th>
+                                        {% endfor %}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for slot in timeslots %}
+                                    <tr class="{{'warning' if slot.blocked}}">
+                                        <th>{{slot.time.strftime("%H:%M")}}</th>
+                                    {% if slot.blocked %}
+                                        {% for room in rooms %}
+                                            <td>{{slot.reason}}</td>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for room in rooms %}
+                                            <td class="slot">
+                                            {% set sid = room.id+"@"+slot.time.strftime("%H:%M") %}
+                                            {% if sid in sessionplan %}
+                                                <h5>{{sessionplan[sid].title}}</h5>
+                                                <div class="description">{{sessionplan[sid].description}}</div>
+                                                <div class="moderators">
+                                                    {% for moderator in sessionplan[sid].moderator %}
+                                                        {{moderator.name}}{{ ',' if not loop.last else ''}}
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                            </td>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tr>
                                     {% endfor %}
-                                {% else %}
-                                    {% for room in rooms %}
-                                        <td>
-                                        {% set sid = room.id+"@"+slot.time.strftime("%H:%M") %}
-                                        {% if sid in sessionplan %}
-                                            <h5>{{sessionplan[sid].title}}</h5>
-                                            <div class="description">{{sessionplan[sid].description}}</div>
-                                            <div class="moderators">
-                                                {% for moderator in sessionplan[sid].moderator %}
-                                                    {{moderator.name}}{{ ',' if not loop.last else ''}}
-                                                {% endfor %}
-                                            </div>
-                                        {% endif %}
-                                        </td>
-                                    {% endfor %}
-                                {% endif %}
-                                </tr>
-                                {% endfor %}
-                                <tr>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                         {% if is_admin %}
                             <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
                         {% endif %}          

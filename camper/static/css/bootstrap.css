@@ -6462,9 +6462,6 @@ body#admin #sessionboard-container table {
   width: 100%;
   overflow: auto;
 }
-body#admin #sessionboard-container #add-room-div {
-  float: right;
-}
 body#admin #sessionboard-container .room-slot {
   white-space: nowrap;
   position: relative;
@@ -7224,6 +7221,25 @@ a#user-events-content .plabel:focus {
 }
 #user-events-content .sessiontable {
   margin-top: 30px;
+}
+#user-events-content .sessiontable .slot {
+  padding: 10px;
+  position: relative;
+  padding-bottom: 40px;
+}
+#user-events-content .sessiontable h5 {
+  margin: 0 0 4px 0;
+}
+#user-events-content .sessiontable .moderators {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #606060;
+  font-size: 12px;
+}
+#user-events-content .sessiontable th {
+  background: #202020;
+  color: #f0f0f0;
 }
 #user-events-content .sessiontable .description {
   display: none;
