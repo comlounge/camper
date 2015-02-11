@@ -51,7 +51,7 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
     $scope.timePickerOptions =
         step: 15
         timeFormat: 'G:i'
-        minTime: "11:00"
+        minTime: "00:00"
         maxTime: "24:00"
         appendTo: 'body'
 
@@ -157,10 +157,15 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
         $scope.timeslot.time = utc
         $scope.timeslots.push $scope.timeslot
 
-        $scope.timeslots = _.sortBy($scope.timeslots, (item) -> 
-            item.time
-        )
+        console.log $scope.timeslots
 
+        $scope.timeslots = _.sortBy($scope.timeslots, (item) ->
+            t = item.time
+            # loaded timeslots are string and not objects
+            if typeof(t) == 'string'
+                return new Date(t)
+            return t
+        )
         $scope.timeslot = angular.copy($scope.timeslot)
         $('#add-timeslot-modal').modal('hide')
         $scope.timeslot.blocked = false

@@ -48,7 +48,7 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
   $scope.timePickerOptions = {
     step: 15,
     timeFormat: 'G:i',
-    minTime: "11:00",
+    minTime: "00:00",
     maxTime: "24:00",
     appendTo: 'body'
   };
@@ -132,8 +132,14 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     utc = new Date(d.getTime() - localOffset * 60000);
     $scope.timeslot.time = utc;
     $scope.timeslots.push($scope.timeslot);
+    console.log($scope.timeslots);
     $scope.timeslots = _.sortBy($scope.timeslots, function(item) {
-      return item.time;
+      var t;
+      t = item.time;
+      if (typeof t === 'string') {
+        return new Date(t);
+      }
+      return t;
     });
     $scope.timeslot = angular.copy($scope.timeslot);
     $('#add-timeslot-modal').modal('hide');
