@@ -7237,9 +7237,57 @@ a#user-events-content .plabel:focus {
   color: #606060;
   font-size: 12px;
 }
-#user-events-content .sessiontable th {
+#user-events-content .sessiontable thead th {
   background: #202020;
   color: #f0f0f0;
+}
+#user-events-content .sessiontable tbody th {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  font-size: 20px;
+  text-align: center;
+  font-weight: normal;
+}
+#user-events-content .sessiontable tbody th:hover,
+#user-events-content .sessiontable tbody th:focus,
+#user-events-content .sessiontable tbody th.focus,
+#user-events-content .sessiontable tbody th:active,
+#user-events-content .sessiontable tbody th.active,
+.open > .dropdown-toggle#user-events-content .sessiontable tbody th {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+#user-events-content .sessiontable tbody th:active,
+#user-events-content .sessiontable tbody th.active,
+.open > .dropdown-toggle#user-events-content .sessiontable tbody th {
+  background-image: none;
+}
+#user-events-content .sessiontable tbody th.disabled,
+#user-events-content .sessiontable tbody th[disabled],
+fieldset[disabled] #user-events-content .sessiontable tbody th,
+#user-events-content .sessiontable tbody th.disabled:hover,
+#user-events-content .sessiontable tbody th[disabled]:hover,
+fieldset[disabled] #user-events-content .sessiontable tbody th:hover,
+#user-events-content .sessiontable tbody th.disabled:focus,
+#user-events-content .sessiontable tbody th[disabled]:focus,
+fieldset[disabled] #user-events-content .sessiontable tbody th:focus,
+#user-events-content .sessiontable tbody th.disabled.focus,
+#user-events-content .sessiontable tbody th[disabled].focus,
+fieldset[disabled] #user-events-content .sessiontable tbody th.focus,
+#user-events-content .sessiontable tbody th.disabled:active,
+#user-events-content .sessiontable tbody th[disabled]:active,
+fieldset[disabled] #user-events-content .sessiontable tbody th:active,
+#user-events-content .sessiontable tbody th.disabled.active,
+#user-events-content .sessiontable tbody th[disabled].active,
+fieldset[disabled] #user-events-content .sessiontable tbody th.active {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+#user-events-content .sessiontable tbody th .badge {
+  color: #5cb85c;
+  background-color: #ffffff;
 }
 #user-events-content .sessiontable .description {
   display: none;
