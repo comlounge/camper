@@ -7227,6 +7227,12 @@ a#user-events-content .plabel:focus {
   position: relative;
   padding-bottom: 40px;
 }
+#user-events-content .sessiontable .slot.active {
+  cursor: pointer;
+}
+#user-events-content .sessiontable .slot.active:hover {
+  background: #e0e0e0;
+}
 #user-events-content .sessiontable h5 {
   margin: 0 0 4px 0;
 }

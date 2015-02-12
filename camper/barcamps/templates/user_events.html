@@ -114,9 +114,10 @@
                                         {% endfor %}
                                     {% else %}
                                         {% for room in rooms %}
-                                            <td class="slot">
                                             {% set sid = room.id+"@"+slot.time.strftime("%H:%M") %}
+                                            <td class="slot {{'active' if sid in sessionplan}}">
                                             {% if sid in sessionplan %}
+                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" href="{{sid}}">
                                                 <h5>{{sessionplan[sid].title}}</h5>
                                                 <div class="description">{{sessionplan[sid].description}}</div>
                                                 <div class="moderators">
@@ -124,6 +125,7 @@
                                                         {{moderator.name}}{{ ',' if not loop.last else ''}}
                                                     {% endfor %}
                                                 </div>
+                                            </a>
                                             {% endif %}
                                             </td>
                                         {% endfor %}
