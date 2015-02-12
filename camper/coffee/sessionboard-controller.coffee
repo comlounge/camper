@@ -191,6 +191,8 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
             $scope.session = angular.copy($scope.sessionplan[idx])
         else
             $scope.session = 
+                sid: guid() # we need a unique id for easier referencing
+                slug: '' # the slug for easier url referencing
                 _id: idx
                 title: ''
                 description: ''
@@ -231,6 +233,23 @@ app.controller 'SessionBoardCtrl', ($scope, $http, $q, $filter) ->
     $scope.update_session = () ->
         idx = $scope.session._id
         $scope.session = angular.copy($scope.session)
+        
+        # create filename for it
+        orig_slug = $scope.session.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        suffix = 0
+        slug = orig_slug + ''
+
+        # check if slug is already taken
+        while true
+            for sid, session of $scope.sessionplan
+                if session.slug == slug and idx != sid
+                    suffix++  
+                    slug = orig_slug+suffix # append number
+                    break
+            break
+
+        $scope.session.slug = slug
+
         $scope.sessionplan[idx] = $scope.session
         $('#edit-session-modal').modal('hide')
         return

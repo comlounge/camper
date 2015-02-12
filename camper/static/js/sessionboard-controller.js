@@ -161,6 +161,8 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
       $scope.session = angular.copy($scope.sessionplan[idx]);
     } else {
       $scope.session = {
+        sid: guid(),
+        slug: '',
         _id: idx,
         title: '',
         description: '',
@@ -205,9 +207,25 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     });
   };
   $scope.update_session = function() {
-    var idx;
+    var idx, orig_slug, session, sid, slug, suffix, _ref;
     idx = $scope.session._id;
     $scope.session = angular.copy($scope.session);
+    orig_slug = $scope.session.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    suffix = 0;
+    slug = orig_slug + '';
+    while (true) {
+      _ref = $scope.sessionplan;
+      for (sid in _ref) {
+        session = _ref[sid];
+        if (session.slug === slug && idx !== sid) {
+          suffix++;
+          slug = orig_slug + suffix;
+          break;
+        }
+      }
+      break;
+    }
+    $scope.session.slug = slug;
     $scope.sessionplan[idx] = $scope.session;
     $('#edit-session-modal').modal('hide');
   };
