@@ -193,7 +193,7 @@
                             </td>
                             <td ng-repeat="room in rooms | slice:1:10000" class="sessionslot" 
                                 ng-class="{enabled: !slot.blocked}"
-                                class = "sessionslot"
+                                class="sessionslot"
                                 ng-init="sid = get_session_id(slot, room)" 
                                 ng-click="add_session(slot, room)">
                                 <span ng-if="slot.blocked">{[{slot.reason}]}</span>
