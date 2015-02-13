@@ -117,7 +117,8 @@
                                             {% set sid = room.id+"@"+slot.time.strftime("%H:%M") %}
                                             <td class="slot {{'active' if sid in sessionplan}}">
                                             {% if sid in sessionplan %}
-                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" href="{{sid}}">
+                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
+                                                   href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
                                                 <h5>{{sessionplan[sid].title}}</h5>
                                                 <div class="description">{{sessionplan[sid].description}}</div>
                                                 <div class="moderators">

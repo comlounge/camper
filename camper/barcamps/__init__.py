@@ -16,6 +16,7 @@ import sponsors
 import events
 import sessionboard
 import user_events
+import sessionpad
 
 from starflyer import Module, URL
 
@@ -67,6 +68,8 @@ class BarcampModule(Module):
 
         URL('/<slug>/events', 'user_events', user_events.Events),
         URL('/<slug>/events/<eid>', 'user_events', user_events.Events),
+        URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad', sessionpad.SessionPad),
+
 
         URL('/<slug>/admin/events', 'events', events.EventsView),
         URL('/<slug>/admin/events/<eid>', 'event', events.EventView),
