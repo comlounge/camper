@@ -1,0 +1,15 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    <div class="page-header">
+        <h1>{{session.title}}
+        <br>    
+            <small>{{session.description}}</small>
+        </h1>
+        {% for moderator in session.moderator %}
+            {{moderator.name}}{{ ',' if not loop.last else ''}}
+        {% endfor %}
+    </div>
+    <h2>{{_('Documentation')}}</h2>
+    <iframe name='embed_readwrite' src='/_pads/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=789 height=500></iframe>
+{% endblock %}
