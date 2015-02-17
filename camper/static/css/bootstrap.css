@@ -6834,6 +6834,66 @@ body#startpage article.barcamp.barcamp-small h3 {
   margin-right: 15px;
   margin-bottom: 20px;
 }
+.navbar-barcamp {
+  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+.navbar-barcamp .navbar-brand {
+  color: #d8d8d8;
+}
+.navbar-barcamp .navbar-brand:hover,
+.navbar-barcamp .navbar-brand:focus {
+  color: #bfbfbf;
+  background-color: transparent;
+}
+.navbar-barcamp .navbar-text {
+  color: #d8d8d8;
+}
+.navbar-barcamp .navbar-collapse {
+  padding-left: 0;
+}
+.navbar-barcamp .container-fluid {
+  padding-left: 0;
+}
+.navbar-barcamp .navbar-nav > li > a {
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  color: #888;
+  margin-left: 0;
+  margin-right: 10px;
+  border-bottom: 4px solid #b0b0b0;
+}
+.navbar-barcamp .navbar-nav > li > a:hover,
+.navbar-barcamp .navbar-nav > li > a:focus {
+  color: #68a;
+  background-color: #e0e0e0;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.navbar-barcamp .navbar-nav > li.manage > a {
+  color: #f0ad4e;
+  font-weight: bold;
+  border-bottom: 4px solid #f0ad4e;
+}
+.navbar-barcamp .navbar-nav > .active > a,
+.navbar-barcamp .navbar-nav > .active > a:hover,
+.navbar-barcamp .navbar-nav > .active > a:focus {
+  color: #f8f8f8;
+  background-color: #333;
+  border-bottom: 4px solid #666;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.navbar-barcamp .navbar-nav > .disabled > a,
+.navbar-barcamp .navbar-nav > .disabled > a:hover,
+.navbar-barcamp .navbar-nav > .disabled > a:focus {
+  color: #cccccc;
+  background-color: transparent;
+}
 #barcamp-details {
   font-size: 16px;
   color: #333;

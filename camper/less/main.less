@@ -227,7 +227,79 @@ body#startpage {
         margin-right: 15px;
         margin-bottom: 20px;
     }
+}
 
+.navbar-barcamp {
+    
+    //background-color: @navbar-default-bg;
+    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    
+    
+    .navbar-brand {
+        color: @navbar-default-brand-color;
+        &:hover,
+        &:focus {
+            color: @navbar-default-brand-hover-color;
+            background-color: @navbar-default-brand-hover-bg;
+        }
+    }
+
+    .navbar-text {
+        color: @navbar-default-color;
+    }
+    .navbar-collapse { padding-left: 0;}
+    .container-fluid { padding-left: 0;}
+
+    .navbar-nav {
+        > li > a {
+            -webkit-transition: color 0.3s;
+            transition: color 0.3s;
+            color: #888;
+            margin-left: 0;
+            margin-right: 10px;
+            border-bottom: 4px solid #b0b0b0;
+
+            &:hover,
+            &:focus {
+                color: #68a;
+                background-color: #e0e0e0;
+                -webkit-transition: background-color 0.3s;
+                transition: background-color 0.3s;
+            }
+        }
+        > li.manage > a {
+            color: @brand-warning;
+            font-weight: bold;
+            border-bottom: 4px solid @brand-warning;
+        }
+        > .active > a {
+            &,
+            &:hover,
+            &:focus {
+                color: #f8f8f8;
+                background-color: #333;
+                border-bottom: 4px solid #666;
+                -webkit-transition: background-color 0.3s;
+                transition: background-color 0.3s;
+
+
+            }
+        }
+
+        > .disabled > a {
+            &,
+            &:hover,
+            &:focus {
+                color: @navbar-default-link-disabled-color;
+                background-color: @navbar-default-link-disabled-bg;
+            }
+        }
+    }
 }
 
 #barcamp-details {

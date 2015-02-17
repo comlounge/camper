@@ -97,7 +97,7 @@
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-barcamp" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -113,6 +113,11 @@
                             <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
                         {% endfor %}
                     </ul>
+                    {% if is_admin or is_main_admin %}
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="manage"><a href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
+                    </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>
@@ -159,10 +164,6 @@
                 <aside class="col-lg-3 col-md-3">
                     {% block widgets %}
                         {% macro barcamp_buttons() -%}
-                        {% if is_admin or is_main_admin %}
-                            <a class="btn btn-warning btn-block" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_("Administration")}}</a>
-                            <hr>
-                        {% endif %}
 
 
                         {% if logged_in %}
