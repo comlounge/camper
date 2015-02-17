@@ -68,6 +68,7 @@ h1, h2, h3, h4, h5, h6 {
 // profile page
 //
 
+
 .profile-image {
     border: 1px solid #ccc;
     padding: 1px;
@@ -80,74 +81,128 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+/*
+** navbar
+*/
+
+.navbar-inverse {
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+}
+
 /* 
 ** homepage barcamp listing
 */
 
-#barcamp-listing {
-    h2 {
-        margin-bottom: 20px;
-    }
-}
+body#startpage {
+    //background: url(/static/img/bg1.jpg);
+    //background-size: cover;
+    //background-position: center;
+    //background-attachment: fixed;
+    background: #f0f0f0;
+    
 
-article.barcamp {
-    border: 1px solid #c0c0c0; 
-    background: white;
-    img {
-        width: 100%;
-        height: auto;
+    .barcamp-listing {
+        //background: rgba(255,255,255,0.3);
     }
-    margin-bottom: 30px;
-    h3 {
+
+    h2 { 
+        color: #333;
+        font-family: 'Roboto', sans-serif;
         text-transform: uppercase;
-        margin: 0;
-        margin-bottom: 10px;
-        margin-top: 2px;
-        a {
-            color: #0af;
-        }
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
-    &.barcamp-full {
-        .logo, .description {
-            .make-lg-column(6);
-        }
+    .logo-container {
+        margin-bottom: 50px;
     }
-    &.barcamp-small {
-        border: none;
-        background: transparent;
-        img { display: none; }
-        .description {
-            .make-lg-column(12);
-        }
-    }
-    .byline {
-        color: #aaa;
-        text-transform: uppercase;
-        font-size: 12px;
-        margin-bottom: 5px;
-        margin-top: 5px;
-        padding: 5px;
-        line-height: 1;
+    h1.logo {
+        //background: rgba(255,255,255,0.8);
+        margin-top: 50px;
+        margin-bottom: 20px;
         span {
-            display: block;
-            margin-left: 20px;
+            color: #333;
+            text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
+            //text-shadow: 2px 2px 2px rgba(0,0,0,1) inset;
+            //text-shadow: -2px -2px 1px rgba(255,255,255,1);
+        };
+        //color: #222;
+        color: white;
+        font-size: 100px;
+        font-family: 'Syncopate', sans-serif;
+        font-weight: bold;
+        small { 
+            display: block; 
+            font-size: 40px;
+            text-transform: lowercase;
         }
-    }    
-    i {
-        float: left;
-        display: block;
-        width: 20px;
     }
-    @media (max-width: @screen-md-max) {
+
+    article.barcamp {
+        //background: rgba(0,0,0,0.8);
+        background: white;
+        border: 1px solid #d8d8d8;
+        border-bottom-width: 2px;
+        border-top-width: 0;
+        border-radius: 3px;
+        padding: 0px;
+        img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #d8d8d8;
+        }
+        margin-bottom: 30px;
         h3 {
-            margin-top: 10px;
-            margin-left: 10px;
+            text-transform: uppercase;
+            padding: 10px;
+            margin-bottom: 0px;
+            margin-top: 2px;
+            a {
+                color: #333;
+            }
+            line-height: 1;
         }
         .byline {
-            margin-left: 10px;
+            color: #aaa;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 5px;
+            padding: 5px;
+            line-height: 1.4;
+        }    
+        &.barcamp-full {
+            .logo, .description {
+                .make-lg-column(12);
+                img {
+                    background: white;
+                }
+            }
+            h3 { .pull-left; }
+            .byline {
+                .pull-right;
+            }
+            margin-bottom: 30px;
         }
-    }
+        &.barcamp-small {
+            .make-lg-column(12);
+            .description {
+                .make-lg-column(12);
+            }
+            h3 {
+                padding-left: 5px;
+            }
+            
+        }
+        @media (max-width: @screen-md-max) {
+            h3 {
+                margin-top: 10px;
+                margin-left: 10px;
+            }
+            .byline {
+                margin-left: 20px;
+            }
+        }
 
+    }
 }
 
 /*
@@ -530,7 +585,8 @@ section {
     }
 }
 
-
+body {
+}
 
 
 

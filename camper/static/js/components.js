@@ -5080,6 +5080,7 @@ angular.module('ui.autocomplete', [])
               });
             }
           }
+
           if (!isObject(autocomplete)) {
             return;
           }
@@ -5115,15 +5116,9 @@ angular.module('ui.autocomplete', [])
           autocomplete.methods.clean = cleanNgModel;
 
           element.on('focus', autoFocusHandler);
-          console.log(autocomplete.options);
-          console.log(0);
-          console.log(element);
-          console.log(1);
 
           element.autocomplete(extend({}, autocomplete.options, events));
           autocomplete.widget = element.autocomplete('widget');
-          console.log(autocomplete.widget);
-          console.log(2);
           // remove default class, use bootstrap style
           // autocomplete.widget.removeClass('ui-menu ui-corner-all ui-widget-content').addClass('dropdown-menu');
         }

@@ -1,3 +1,4 @@
+{% set body_id="startpage" %}
 {% extends "master.html" %}
 
 
@@ -6,22 +7,26 @@
         <article class="barcamp content-area {{'barcamp-small' if small else 'barcamp-full'}}" 
                  data-href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">
             <div class="row inner">
+                {% if view.logo %}
                 <div class="logo">
-                    {{view.logosmall}}
+                    {{view.logo}}
                 </div>
+                {% endif %}
                 <div class="description">
                     <div class="pull-right">
                         {% if not view.barcamp.public %}
                             <span class="label label-warning">{{_('private')}}</span>
                         {% endif %}
+                        {#
                         {% if view.is_admin %}
-                            <a href="{{url_for('barcamps.dashboard', slug = view.barcamp.slug)}}" class="label label-success">{{_('ADMIN')}}</a>
+                            <a href="{{url_for('barcamps.dashboard', slug = view.barcamp.slug)}}" class="btn btn-warning btn-xs">{{_('ADMIN')}}</a>
                         {% endif %}
+                        #}
                     </div>
                     <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h3>
                     <div class="byline">
-                        <i class="fa fa-location-arrow"></i> <span>{{view.short_location}}</span><br>
-                        <i class="fa fa-calendar"></i> <span>{{view.date}}</span>
+                        <span>{{view.date}}</span>, 
+                        <span>{{view.short_location}}</span>
                     </div>
                 </div>
             </div>
@@ -31,24 +36,24 @@
 
 {% block content %} 
     <div class="row">   
-        <div class="col-lg-8 col-md-8 col-sm-8">
-            <h1 id="logo pull-left">
-                <img src="{{url_for("static", filename="/img/camperfull.png")}}" class="img-responsive" alt="Camper - logo">
-            </h1>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="widget">
-                <a href="{{url_for("sponsoring")}}" title="{{_('Receive sponsorship for a youthbarcamp')}}"><img class="img-responsive" src="{{url_for("static", filename="/img/sponsoring.png")}}" alt="Sponsor-Logo"></a>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="text-center logo-container">
+                <h1 class="logo">
+                    <span>camper</span>
+                    <small>Das Barcamp-Tool</small>
+                    <!--<img src="{{url_for("static", filename="/img/camperfull.png")}}" class="img-responsive2" alt="Camper - logo">-->
+                </h1>
+                {% if logged_in %}
+                    <a href="{{url_for("barcamps.add")}}" class="btn btn-primary btn-lg">{{_('Organize your own Barcamp')}}</a>
+                {% endif %}
+                <a href="" class="btn btn-info btn-lg">{{_('How do I do it?')}}</a>
             </div>
         </div>
     </div>
-    <div class="row" id="barcamp-listing">
-        <div class="col-lg-8 col-md-8">
+    <div class="row barcamp-listing">
+        <div class="col-lg-8 col-md-8 col-lg-offset-2 col-md-offset-2">
             <h2>
-            {% if logged_in %}
-                <a href="{{url_for("barcamps.add")}}" style="margin-top:10px" class="btn btn-primary pull-right">{{_('new barcamp')}}</a>
-            {% endif %}
-            {{_("Recent Events")}}
+            {{_("Upcoming events")}}
             </h2>
             {% if soon_barcamps %}
                 {{listing(soon_barcamps) }}
@@ -58,11 +63,15 @@
                 </div>
             {% endif %}
         </div>
-        <div class="col-lg-4 col-md-4">
+    </div>
+    <div class="row barcamp-listing">
+        <div class="col-lg-4 col-md-4 col-md-offset-2 col-lg-offset-2">
             {% if my_barcamps %}
                 <h2>{{_("My Events")}}</h2>
                 {{listing(my_barcamps, small=True) }}
             {% endif %}
+        </div>
+        <div class="col-lg-4 col-md-4">
             {% if new_barcamps %}
                 <h2>{{_("New Events")}}</h2>
                 {{listing(new_barcamps, small=True) }}

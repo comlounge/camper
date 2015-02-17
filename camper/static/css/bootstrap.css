@@ -3812,7 +3812,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 40px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -3919,10 +3919,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
   float: left;
-  padding: 15px 15px;
+  padding: 10px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px;
+  height: 40px;
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -3942,8 +3942,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -3967,7 +3967,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-nav {
-  margin: 7.5px -15px;
+  margin: 5px -15px;
 }
 .navbar-nav > li > a {
   padding-top: 10px;
@@ -4005,8 +4005,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 .navbar-form {
@@ -4017,8 +4017,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 @media (min-width: 768px) {
   .navbar-form .form-group {
@@ -4102,20 +4102,20 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-bottom-left-radius: 0;
 }
 .navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 .navbar-btn.btn-sm {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .navbar-btn.btn-xs {
-  margin-top: 14px;
-  margin-bottom: 14px;
+  margin-top: 9px;
+  margin-bottom: 9px;
 }
 .navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 @media (min-width: 768px) {
   .navbar-text {
@@ -4141,18 +4141,18 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777777;
+  color: #d8d8d8;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #bfbfbf;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777777;
+  color: #d8d8d8;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777777;
+  color: #d8d8d8;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -4193,7 +4193,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: #777777;
+    color: #d8d8d8;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4214,13 +4214,13 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default .navbar-link {
-  color: #777777;
+  color: #d8d8d8;
 }
 .navbar-default .navbar-link:hover {
   color: #333333;
 }
 .navbar-default .btn-link {
-  color: #777777;
+  color: #d8d8d8;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
@@ -4237,7 +4237,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
-  color: #9d9d9d;
+  color: #d0d0d0;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4248,7 +4248,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #9d9d9d;
+  color: #d0d0d0;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4259,7 +4259,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #080808;
+  background-color: #3c3c3c;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
@@ -4284,7 +4284,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #080808;
+  background-color: #3c3c3c;
   color: #ffffff;
 }
 @media (max-width: 767px) {
@@ -4295,7 +4295,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #9d9d9d;
+    color: #d0d0d0;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4306,7 +4306,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #080808;
+    background-color: #3c3c3c;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
@@ -4316,13 +4316,13 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   }
 }
 .navbar-inverse .navbar-link {
-  color: #9d9d9d;
+  color: #d0d0d0;
 }
 .navbar-inverse .navbar-link:hover {
   color: #ffffff;
 }
 .navbar-inverse .btn-link {
-  color: #9d9d9d;
+  color: #d0d0d0;
 }
 .navbar-inverse .btn-link:hover,
 .navbar-inverse .btn-link:focus {
@@ -6681,88 +6681,138 @@ h6 {
   height: 32px;
   border: 1px solid #333;
 }
+/*
+** navbar
+*/
+.navbar-inverse {
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+}
 /* 
 ** homepage barcamp listing
 */
-#barcamp-listing h2 {
-  margin-bottom: 20px;
+body#startpage {
+  background: #f0f0f0;
 }
-article.barcamp {
-  border: 1px solid #c0c0c0;
+body#startpage h2 {
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+body#startpage .logo-container {
+  margin-bottom: 50px;
+}
+body#startpage h1.logo {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 100px;
+  font-family: 'Syncopate', sans-serif;
+  font-weight: bold;
+}
+body#startpage h1.logo span {
+  color: #333;
+  text-shadow: 1px 4px 6px rgba(0, 0, 0, 0.3);
+}
+body#startpage h1.logo small {
+  display: block;
+  font-size: 40px;
+  text-transform: lowercase;
+}
+body#startpage article.barcamp {
   background: white;
+  border: 1px solid #d8d8d8;
+  border-bottom-width: 2px;
+  border-top-width: 0;
+  border-radius: 3px;
+  padding: 0px;
   margin-bottom: 30px;
 }
-article.barcamp img {
+body#startpage article.barcamp img {
   width: 100%;
   height: auto;
+  border-bottom: 1px solid #d8d8d8;
 }
-article.barcamp h3 {
+body#startpage article.barcamp h3 {
   text-transform: uppercase;
-  margin: 0;
-  margin-bottom: 10px;
+  padding: 10px;
+  margin-bottom: 0px;
   margin-top: 2px;
+  line-height: 1;
 }
-article.barcamp h3 a {
-  color: #0af;
+body#startpage article.barcamp h3 a {
+  color: #333;
 }
-article.barcamp.barcamp-full .logo,
-article.barcamp.barcamp-full .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 1200px) {
-  article.barcamp.barcamp-full .logo,
-  article.barcamp.barcamp-full .description {
-    float: left;
-    width: 50%;
-  }
-}
-article.barcamp.barcamp-small {
-  border: none;
-  background: transparent;
-}
-article.barcamp.barcamp-small img {
-  display: none;
-}
-article.barcamp.barcamp-small .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 1200px) {
-  article.barcamp.barcamp-small .description {
-    float: left;
-    width: 100%;
-  }
-}
-article.barcamp .byline {
+body#startpage article.barcamp .byline {
   color: #aaa;
   text-transform: uppercase;
   font-size: 12px;
   margin-bottom: 5px;
-  margin-top: 5px;
   padding: 5px;
-  line-height: 1;
+  line-height: 1.4;
 }
-article.barcamp .byline span {
-  display: block;
-  margin-left: 20px;
+body#startpage article.barcamp.barcamp-full {
+  margin-bottom: 30px;
 }
-article.barcamp i {
-  float: left;
-  display: block;
-  width: 20px;
+body#startpage article.barcamp.barcamp-full .logo,
+body#startpage article.barcamp.barcamp-full .description {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  body#startpage article.barcamp.barcamp-full .logo,
+  body#startpage article.barcamp.barcamp-full .description {
+    float: left;
+    width: 100%;
+  }
+}
+body#startpage article.barcamp.barcamp-full .logo img,
+body#startpage article.barcamp.barcamp-full .description img {
+  background: white;
+}
+body#startpage article.barcamp.barcamp-full h3 {
+  float: left !important;
+}
+body#startpage article.barcamp.barcamp-full .byline {
+  float: right !important;
+}
+body#startpage article.barcamp.barcamp-small {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  body#startpage article.barcamp.barcamp-small {
+    float: left;
+    width: 100%;
+  }
+}
+body#startpage article.barcamp.barcamp-small .description {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 1200px) {
+  body#startpage article.barcamp.barcamp-small .description {
+    float: left;
+    width: 100%;
+  }
+}
+body#startpage article.barcamp.barcamp-small h3 {
+  padding-left: 5px;
 }
 @media (max-width: 1199px) {
-  article.barcamp h3 {
+  body#startpage article.barcamp h3 {
     margin-top: 10px;
     margin-left: 10px;
   }
-  article.barcamp .byline {
-    margin-left: 10px;
+  body#startpage article.barcamp .byline {
+    margin-left: 20px;
   }
 }
 /*

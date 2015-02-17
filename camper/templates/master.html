@@ -16,6 +16,7 @@
         <!-- Le styles -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
         
@@ -45,33 +46,9 @@
     
     </head>
 
-    <body data-i18n-areyousure="{{_("Are you sure?")}}" id="{{body_id|d('')}}" data-lang="{{LANGUAGE}}">
-        {#
-        <div id="fb-root"></div>
-        <script>
-          window.fbAsyncInit = function() {
-            // init the FB JS SDK
-            FB.init({
-              appId      : '{{config.fb_app_id}}',               // App ID from the app dashboard
-              status     : true,                                 // Check Facebook Login status
-              xfbml      : true                                  // Look for social plugins on the page
-            });
-
-            // Additional initialization code such as adding Event Listeners goes here
-          };
-
-          // Load the SDK asynchronously
-          (function(d, s, id){
-             var js, fjs = d.getElementsByTagName(s)[0];
-             if (d.getElementById(id)) {return;}
-             js = d.createElement(s); js.id = id;
-             js.src = "//connect.facebook.net/en_US/all.js";
-             fjs.parentNode.insertBefore(js, fjs);
-           }(document, 'script', 'facebook-jssdk'));
-        </script>
-        #}
+    <body data-i18n-areyousure="{{_("Are you sure?")}}" id="{{body_id|d('')}}" data-lang="{{LANGUAGE}}" id="{{body_id}}">
         {% block navbar %}
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
             <div class="{{'container' if not container=="full" else "container-fluid"}}">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
