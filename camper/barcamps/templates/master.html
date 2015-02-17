@@ -97,6 +97,16 @@
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
         </div>
+        <div class="byline clearfix">
+            <div class="pull-left location">
+                <i class="fa fa-location-arrow"></i> <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>, 
+                {{barcamp.location.street}}, 
+                {{barcamp.location.zip}} {{barcamp.location.city}}
+            </div>
+            <div class="pull-right date">
+                <i class="fa fa-calendar"></i> {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
+            </div>
+        </div>
         <nav class="navbar navbar-barcamp" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -169,23 +179,32 @@
                         {% if logged_in %}
                         <div class="widget-join">
 
-                            {% if not view.is_participant and not view.is_on_waiting_list and barcamp.workflow=="registration" %}
-                                {% if barcamp.registration_form %}
+
+
+                            {% if barcamp.is_registered(user) %}
+                                <div class="attending">
+                                    <i class="fa fa-check"></i> I am attending!<br>
+                                    <a title="{{_('Change whether you come or come not.')}}" data-toggle="tooltip" data-placement="top"
+                                    href="{{url_for('.register', slug=slug)}}">{{_('Change?')}}</a>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
+                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
+                                </div>
+                                {% if view.can_subscribe %}
                                     <div>
-                                        <a href="{{url_for('barcamps.register', slug = slug)}}" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it" class="btn btn-lg btn-block btn-primary" title="{{_('register as participant')}}">{{_('Register as participant')}}</a>
+                                    <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
+                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
                                     </div>
                                 {% else %}
-                                    <form method="POST" action="{{url_for('barcamps.register', slug = slug)}}" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it">
-                                        <button class="btn btn-primary btn-block btn-lg" title="{{_('register as participant')}}">{{_('Register as participant')}}</button>
-                                    </form>
+                                    <div>
+                                    <a title="{{_('I don\'t want to receive notifications anymore')}}" data-toggle="tooltip" data-placement="bottom"
+                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
+                                    </div>
                                 {% endif %}
                             {% endif %}
-                            {% if view.can_subscribe %}
-                                <form method="post" action="{{url_for('barcamps.subscribe', slug = slug)}}" class="center" data-toggle="tooltip" data-placement="bottom" title="I am only interested for now but don't want to register for it">
-                                    <button class="btn btn-info btn-block" ><i class="fa fa-eye"></i> {{_('watch this event')}}</button>
-                                </form>
-                            {% endif %}
-                        </div>
+
                         {% else %}
                             <div class="alert alert-info">
                                 <h4>{{_("Attention!")}}</h4>
@@ -229,23 +248,6 @@
                                 </script>
                             </div>
 
-                        </div>
-
-                        <div class="widget">
-                            <h4>{{_('location')}}</h4>
-                            <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
-                            {{barcamp.location.street}}<br>
-                            {{barcamp.location.zip}} {{barcamp.location.city}}<br>
-                            {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
-                            {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
-                            {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
-                            {% if barcamp.location.lat %}
-                                <div id="minimap" 
-                                    data-apikey="{{cloudmade_key}}" 
-                                    data-href="{{url_for('barcamps.location', slug=slug)}}"
-                                    data-lat="{{barcamp.location.lat}}" 
-                                    data-lng="{{barcamp.location.lng}}"></div>
-                            {% endif %}
                         </div>
                     {% endblock %}
                 </aside>{# -- widget -- #}

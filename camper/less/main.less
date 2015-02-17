@@ -227,13 +227,33 @@ body#startpage {
         margin-right: 15px;
         margin-bottom: 20px;
     }
+    .byline {
+        margin-top: 5px;
+        color: #888;
+        font-size: 12px;
+        a {
+            color: lighten(@link-color, 10%);
+        }
+    }
+    .attending {
+        font-size: 30px;
+        color: @brand-success;
+        line-height: 30px;
+        .text-center;
+        a { 
+            .btn;
+            .btn-xs;
+            .btn-default;
+        }
+        margin-bottom: 30px;
+    }
 }
 
 .navbar-barcamp {
     
     //background-color: @navbar-default-bg;
     margin: 0;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 20px;
     font-family: "Roboto", sans-serif;
     font-size: 15px;
@@ -311,6 +331,7 @@ body#startpage {
     }
 }
 
+
 .widget-join {
     form, div {
         margin-bottom: 5px;
@@ -323,6 +344,7 @@ body#startpage {
 
 .socialmedia {
     overflow: auto;
+    margin-top: 20px;
 }
 .twitter-button, .fb-button, .gplus-button {
     float: left;

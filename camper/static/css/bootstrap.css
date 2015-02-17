@@ -6834,9 +6834,123 @@ body#startpage article.barcamp.barcamp-small h3 {
   margin-right: 15px;
   margin-bottom: 20px;
 }
+#barcamp .byline {
+  margin-top: 5px;
+  color: #888;
+  font-size: 12px;
+}
+#barcamp .byline a {
+  color: #5094ce;
+}
+#barcamp .attending {
+  font-size: 30px;
+  color: #5cb85c;
+  line-height: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+#barcamp .attending a {
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 0px;
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+#barcamp .attending a:focus,
+#barcamp .attending a:active:focus,
+#barcamp .attending a.active:focus,
+#barcamp .attending a.focus,
+#barcamp .attending a:active.focus,
+#barcamp .attending a.active.focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+#barcamp .attending a:hover,
+#barcamp .attending a:focus,
+#barcamp .attending a.focus {
+  color: #333333;
+  text-decoration: none;
+}
+#barcamp .attending a:active,
+#barcamp .attending a.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+#barcamp .attending a.disabled,
+#barcamp .attending a[disabled],
+fieldset[disabled] #barcamp .attending a {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+#barcamp .attending a:hover,
+#barcamp .attending a:focus,
+#barcamp .attending a.focus,
+#barcamp .attending a:active,
+#barcamp .attending a.active,
+.open > .dropdown-toggle#barcamp .attending a {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+#barcamp .attending a:active,
+#barcamp .attending a.active,
+.open > .dropdown-toggle#barcamp .attending a {
+  background-image: none;
+}
+#barcamp .attending a.disabled,
+#barcamp .attending a[disabled],
+fieldset[disabled] #barcamp .attending a,
+#barcamp .attending a.disabled:hover,
+#barcamp .attending a[disabled]:hover,
+fieldset[disabled] #barcamp .attending a:hover,
+#barcamp .attending a.disabled:focus,
+#barcamp .attending a[disabled]:focus,
+fieldset[disabled] #barcamp .attending a:focus,
+#barcamp .attending a.disabled.focus,
+#barcamp .attending a[disabled].focus,
+fieldset[disabled] #barcamp .attending a.focus,
+#barcamp .attending a.disabled:active,
+#barcamp .attending a[disabled]:active,
+fieldset[disabled] #barcamp .attending a:active,
+#barcamp .attending a.disabled.active,
+#barcamp .attending a[disabled].active,
+fieldset[disabled] #barcamp .attending a.active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+#barcamp .attending a .badge {
+  color: #ffffff;
+  background-color: #333333;
+}
 .navbar-barcamp {
   margin: 0;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
   font-family: "Roboto", sans-serif;
   font-size: 15px;
@@ -6908,6 +7022,7 @@ body#startpage article.barcamp.barcamp-small h3 {
 }
 .socialmedia {
   overflow: auto;
+  margin-top: 20px;
 }
 .twitter-button,
 .fb-button,
