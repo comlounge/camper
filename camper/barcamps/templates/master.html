@@ -1,3 +1,4 @@
+{% set body_id="barcamppage" %}
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
 {% block head %}
@@ -14,6 +15,44 @@
     <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
+
+{% endblock %}
+{% block topcontainer %}
+    <div class="bcdetail-bg">
+        <div class="container">
+            <div class="header action-container content-area">
+                {% if logo %}
+                    {% if is_admin %}
+                    <div class="image-edit actions">
+                        <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
+                        <a
+                            data-confirm="Sind Sie sicher?"
+                            data-url="{{url_for('barcamps.logo_delete', slug = slug)}}"
+                            role="button"
+                            class="asset-delete btn btn-mini btn-danger">
+                            <i class="icon icon-trash icon-white"></i> Logo löschen</a>
+                    </div>
+                    {% endif %}
+                    {{view.logo}}
+                {% else %}
+                    {% if is_admin %}
+                        <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
+                    {% endif %}
+                    <h1 class="logo">{{name}}</h1>
+                {% endif %}
+            </div>
+            <div class="byline clearfix">
+                <div class="pull-left location">
+                    <i class="fa fa-location-arrow"></i> <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>, 
+                    {{barcamp.location.street}}, 
+                    {{barcamp.location.zip}} {{barcamp.location.city}}
+                </div>
+                <div class="pull-right date">
+                    <i class="fa fa-calendar"></i> {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
@@ -76,37 +115,6 @@
 
     <div id="barcamp">
 
-        <div class="header action-container content-area">
-            {% if logo %}
-                {% if is_admin %}
-                <div class="image-edit actions">
-                    <a href="#logo-upload" role="button" data-toggle="modal" class="btn btn-mini"><i class="icon icon-picture"></i> Logo ändern</a>
-                    <a
-                        data-confirm="Sind Sie sicher?"
-                        data-url="{{url_for('barcamps.logo_delete', slug = slug)}}"
-                        role="button"
-                        class="asset-delete btn btn-mini btn-danger">
-                        <i class="icon icon-trash icon-white"></i> Logo löschen</a>
-                </div>
-                {% endif %}
-                {{view.logo}}
-            {% else %}
-                {% if is_admin %}
-                    <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
-                {% endif %}
-                <h1 class="logo">{{name}}</h1>
-            {% endif %}
-        </div>
-        <div class="byline clearfix">
-            <div class="pull-left location">
-                <i class="fa fa-location-arrow"></i> <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>, 
-                {{barcamp.location.street}}, 
-                {{barcamp.location.zip}} {{barcamp.location.city}}
-            </div>
-            <div class="pull-right date">
-                <i class="fa fa-calendar"></i> {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
-            </div>
-        </div>
         <nav class="navbar navbar-barcamp" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
