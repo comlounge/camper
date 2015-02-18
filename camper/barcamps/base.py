@@ -63,7 +63,9 @@ class BarcampBaseHandler(BaseHandler):
                 pid = "page_%s" %page._id
                 actions.append(Action(pid, page.menu_title, uf('barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))
             if bc.twitterwall:
-                if bc.twitterwall.find("tweetwally") != -1:
+                if True:
+                    actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
+                elif bc.twitterwall.find("tweetwally") != -1:
                     actions.append(Action('twitterwall', T("Twitterwall"), uf("barcamps.tweetwally", slug = bc.slug), self.action == 'twitterwall'))
                 else:
                     actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
