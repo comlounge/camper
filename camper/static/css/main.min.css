@@ -861,6 +861,7 @@ footer{margin-top:20px;border-top:1px solid #e0e0e0;padding-top:20px;}
 .popover.error{border:1px solid #f20;border-bottom:1px solid #a10;background:#c10;font-weight:600;color:#f8f8f8;}.popover.error.right .arrow{top:50%;left:-10px;margin-top:-10px;border-width:10px 10px 10px 0;border-right-color:#c10;}.popover.error.right .arrow:after{border-width:11px 11px 11px 0;border-right-color:rgba(0, 0, 0, 0.25);bottom:-11px;left:-1px;}
 #logo{margin-bottom:40px;}
 #barcamp .header{position:relative;}#barcamp .header h1.logo{font-size:80px;text-transform:uppercase;line-height:80px;}#barcamp .header h1.logo small{display:block;text-transform:none;}
+#barcamp .address{border-top:1px solid #d8d8d8;padding-top:10px;}
 #barcamp .info{display:block;padding-top:4px;line-height:1;}
 #barcamp .subline{float:right;margin-top:-20px;}
 #barcamp .description{font-size:16px;margin-bottom:20px;}

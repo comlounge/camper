@@ -5239,6 +5239,10 @@ footer {
   display: block;
   text-transform: none;
 }
+#barcamp .address {
+  border-top: 1px solid #d8d8d8;
+  padding-top: 10px;
+}
 #barcamp .info {
   display: block;
   padding-top: 4px;

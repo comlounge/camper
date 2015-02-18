@@ -102,6 +102,13 @@
                 {% endif %}
                 <h1 class="logo">{{name}}</h1>
             {% endif %}
+            <div class="address">
+                {{barcamp.start_date.strftime('%d.%m.%Y')}} - 
+                {{barcamp.end_date.strftime('%d.%m.%Y')}},
+                <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>,
+                {{barcamp.location.street}},
+                {{barcamp.location.zip}} {{barcamp.location.city}}
+            </div>
         </div>
         <div class="navbar">
             <div class="navbar-inner">
@@ -238,11 +245,8 @@
                             </ul>
                         </div>
                         {% endif %}
+                            {#
                         <div class="widget">
-                            <h4>{{_('location')}}</h4>
-                            <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a><br>
-                            {{barcamp.location.street}}<br>
-                            {{barcamp.location.zip}} {{barcamp.location.city}}<br>
                             {% if barcamp.location.email %}<a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>{% endif %}
                             {% if barcamp.location.url %}<a href="{{barcamp.location.url}}">{{barcamp.location.url}}</a><br>{% endif %}
                             {% if barcamp.location.phone %}{{barcamp.location.phone}}<br>{% endif %}
@@ -254,6 +258,7 @@
                                     data-lng="{{barcamp.location.lng}}"></div>
                             {% endif %}
                         </div>
+                            #}
                     {% endblock %}
                 </div>{# -- widget -- #}
             </div>{# -- #main-content --#}
