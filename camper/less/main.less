@@ -95,17 +95,14 @@ h1, h2, h3, h4, h5, h6 {
 */
 
 body#startpage {
-    //background: url(/static/img/bg1.jpg);
-    //background-size: cover;
-    //background-position: center;
-    //background-attachment: fixed;
-    background: #f0f0f0;
-    
+    background: #f7f7f2;
 
-    .barcamp-listing {
-        //background: rgba(255,255,255,0.3);
+    .frontpage-bg {
+        background: #e7e7e0;
+        margin-top: -20px;
+        margin-bottom: 30px;
     }
-
+    
     h2 { 
         color: #333;
         font-family: 'Roboto', sans-serif;
@@ -116,16 +113,12 @@ body#startpage {
         margin-bottom: 50px;
     }
     h1.logo {
-        //background: rgba(255,255,255,0.8);
         margin-top: 50px;
         margin-bottom: 20px;
         span {
             color: #333;
             text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
-            //text-shadow: 2px 2px 2px rgba(0,0,0,1) inset;
-            //text-shadow: -2px -2px 1px rgba(255,255,255,1);
         };
-        //color: #222;
         color: white;
         font-size: 100px;
         font-family: 'Syncopate', sans-serif;
@@ -138,11 +131,11 @@ body#startpage {
     }
 
     article.barcamp {
-        //background: rgba(0,0,0,0.8);
-        background: white;
+        background: #f8f8f5;
         border: 1px solid #d8d8d8;
         border-bottom-width: 2px;
-        border-top-width: 0;
+        border-top-width: 1px;
+        border-top-color: #e2e2e0;
         border-radius: 3px;
         padding: 0px;
         img {
@@ -162,7 +155,7 @@ body#startpage {
             line-height: 1;
         }
         .byline {
-            color: #aaa;
+            color: #777;
             text-transform: uppercase;
             font-size: 12px;
             margin-bottom: 5px;
@@ -172,9 +165,7 @@ body#startpage {
         &.barcamp-full {
             .logo, .description {
                 .make-lg-column(12);
-                img {
-                    background: white;
-                }
+                img { background: white; }
             }
             h3 { .pull-left; }
             .byline {
@@ -184,6 +175,7 @@ body#startpage {
         }
         &.barcamp-small {
             .make-lg-column(12);
+            img { background: white; }
             .description {
                 .make-lg-column(12);
             }
@@ -214,6 +206,7 @@ body#startpage {
         img { width: 100%; }
     }
     .header {
+        background: white;
         border: 1px solid #f0f0f0;
         border-bottom: none;
     }

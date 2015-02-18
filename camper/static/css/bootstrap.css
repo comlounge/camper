@@ -6692,7 +6692,12 @@ h6 {
 ** homepage barcamp listing
 */
 body#startpage {
-  background: #f0f0f0;
+  background: #f7f7f2;
+}
+body#startpage .frontpage-bg {
+  background: #e7e7e0;
+  margin-top: -20px;
+  margin-bottom: 30px;
 }
 body#startpage h2 {
   color: #333;
@@ -6721,10 +6726,11 @@ body#startpage h1.logo small {
   text-transform: lowercase;
 }
 body#startpage article.barcamp {
-  background: white;
+  background: #f8f8f5;
   border: 1px solid #d8d8d8;
   border-bottom-width: 2px;
-  border-top-width: 0;
+  border-top-width: 1px;
+  border-top-color: #e2e2e0;
   border-radius: 3px;
   padding: 0px;
   margin-bottom: 30px;
@@ -6745,7 +6751,7 @@ body#startpage article.barcamp h3 a {
   color: #333;
 }
 body#startpage article.barcamp .byline {
-  color: #aaa;
+  color: #777;
   text-transform: uppercase;
   font-size: 12px;
   margin-bottom: 5px;
@@ -6791,6 +6797,9 @@ body#startpage article.barcamp.barcamp-small {
     width: 100%;
   }
 }
+body#startpage article.barcamp.barcamp-small img {
+  background: white;
+}
 body#startpage article.barcamp.barcamp-small .description {
   position: relative;
   min-height: 1px;
@@ -6822,6 +6831,7 @@ body#startpage article.barcamp.barcamp-small h3 {
   width: 100%;
 }
 #barcamp .header {
+  background: white;
   border: 1px solid #f0f0f0;
   border-bottom: none;
 }
