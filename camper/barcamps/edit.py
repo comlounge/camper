@@ -175,7 +175,26 @@ class ParticipantsEditView(BaseHandler):
         form['size'].validators = [validators.Required(), validators.NumberRange(min=min_count, message=self._("you cannot reduce the participant number, the minimum amount is %s") %min_count)]
         if self.request.method == 'POST' and form.validate():
             size = form.data['size']
+
             self.barcamp.size = size
+
+            # now move people from the waiting list to the particpating list
+            obj = self.barcamp
+            while obj.size > len(obj.event.participants) and len(obj.event.waiting_list)>0:
+                nuid = obj.event.waiting_list[0]
+                obj.event.waiting_list = obj.event.waiting_list[1:]
+                obj.event.participants.append(nuid)
+
+                # send out the mail 
+                user = self.app.module_map.userbase.get_user_by_id(nuid)
+                self.mail_template("fromwaitinglist",
+                        view = self.barcamp_view,
+                        barcamp = self.barcamp,
+                        title = self.barcamp.name,
+                        send_to = user.email,
+                        fullname = user.fullname,
+                        **self.barcamp)
+
             self.barcamp.put()
             self.flash("Barcamp aktualisiert", category="info")
             return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
