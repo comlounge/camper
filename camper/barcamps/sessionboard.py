@@ -8,7 +8,7 @@ from wtforms import *
 import werkzeug.exceptions
 import babel
 import json
-from .base import BarcampBaseHandler, SponsorForm
+from .base import BarcampBaseHandler
 
 class RoomForm(BaseForm):
     """form for adding a new room"""
