@@ -1,0 +1,20 @@
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Create a new Blog entry')}}</h1>
+    {% endblock %}
+    <form class="form-validate validate" method="POST" action="{{url}}">  
+        <fieldset>
+            {{ formmacros.form_field(form.title, input_class="required", placeholder="Title of blog post") }}
+            {{ formmacros.form_field(form.content, input_class="required", rows=10) }}
+            {{ formmacros.form_field(form.image, input_class="",
+                label=_("Upload image"), delete_label=_("Delete"), revert_label=_("Revert"),
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
+
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('create new blog entry')}}">
+        {% endblock %}
+    </form>
+{% endblock %}
