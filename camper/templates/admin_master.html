@@ -8,15 +8,15 @@
     <meta property="og:title" content="{{barcamp.name|striptags}}" />
     <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{url_for(".index", slug = slug, _full=True)}}" />
+    <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta property="og:image" content="http://" />
     <meta property="og:description" content="{{barcamp.description}}" />
     {% if barcamp.fbAdminId %}
     <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
     {% endif %}
 
-    <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
-    <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
+    <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamps.index", slug = slug)}}" />
+    <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
 
