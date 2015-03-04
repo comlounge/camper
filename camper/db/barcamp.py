@@ -272,13 +272,19 @@ class Barcamp(Record):
     def subscriber_users(self):
         """return a list of user objects of the subscribed users"""
         ub = self._collection.md.app.module_map.userbase
-        return list(ub.get_users_by_ids(self.subscribers))
+        users = []
+        for uid in self.subscribers:
+            users.append(ub.get_user_by_id(uid))
+        return users
 
     @property
     def participant_users(self):
         """return a list of user objects of the participants"""
         ub = self._collection.md.app.module_map.userbase
-        return list(ub.get_users_by_ids(self.event.participants))
+        users = []
+        for uid in self.event.participants:
+            users.append(ub.get_user_by_id(uid))
+        return users
 
     registered_users = participant_users
 
@@ -286,7 +292,10 @@ class Barcamp(Record):
     def waitinglist_users(self):
         """return a list of user objects of the people on the waitinglist"""
         ub = self._collection.md.app.module_map.userbase
-        return list(ub.get_users_by_ids(self.event.waiting_list))
+        users = []
+        for uid in self.event.waiting_list:
+            users.append(ub.get_user_by_id(uid))
+        return users
 
     @property
     def event(self):
@@ -391,7 +400,6 @@ class Barcamps(Collection):
             obj.events.append(event)
         else:
             obj.events[0] = event
-
         return obj
 
     def get_by_user_id(self, user_id):
