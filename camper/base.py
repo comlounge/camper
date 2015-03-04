@@ -399,23 +399,32 @@ class BaseHandler(starflyer.Handler):
         s.feed(html)
         return s.get_data()
 
-    def mail_text(self, template_name, subject, send_to=None, **kwargs):
+    def mail_text(self, template_name, subject, send_to=None, fullname = None, **kwargs):
         """render and send out a mail as mormal text"""
-        payload = self.render_lang(template_name, **kwargs)
-        mailer = self.app.module_map['mail']
+        if fullname is None:
+            fullname = self.user.fullname
         if send_to is None:
             send_to = self.user.email
+        
+        payload = self.render_lang(template_name, **kwargs)
+        mailer = self.app.module_map['mail']
         mailer.mail(send_to, subject, payload)
 
-    def mail_template(self, template_name, send_to=None, **kwargs):
+    def mail_template(self, template_name, send_to=None, fullname = None, **kwargs):
         """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
+
+        # overrides
+        if fullname is None:
+            fullname = self.user.fullname
+        if send_to is None:
+            send_to = self.user.email
+
+        # send it out
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
-            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', self.user.fullname)
+            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', fullname)
             mailer = self.app.module_map['mail']
-            if send_to is None:
-                send_to = self.user.email
             mailer.mail(send_to, subject, payload)
 
 
