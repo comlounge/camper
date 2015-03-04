@@ -110,7 +110,6 @@ def get_locale(handler):
 
     # save in cookie
     handler.session['LANG'] = l
-    print "saved in session"
     return l
 
 ###
