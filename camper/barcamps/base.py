@@ -27,13 +27,6 @@ class Action(object):
         self.url = url
         self.active = active
 
-class SponsorForm(BaseForm):
-    """form for adding a new sponsor"""
-    # base data
-    name                = TextField(u"Name des Sponsors", [validators.Length(max=300), validators.Required()])
-    url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
-    image               = UploadField(u"Sponsor-Logo")
-
 class BarcampBaseHandler(BaseHandler):
     """extend the base handler for barcamp specific extensions"""
 
@@ -76,9 +69,7 @@ class BarcampBaseHandler(BaseHandler):
     @property
     def render_context(self):
         """provide more information to the render method"""
-        sponsor_form = SponsorForm(self.request.form, config = self.config)
         payload = super(BarcampBaseHandler, self).render_context
-        payload['sponsor_form'] = sponsor_form
         payload['view'] = self.barcamp_view
         payload['actions'] = self.actions
         return payload
