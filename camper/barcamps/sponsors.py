@@ -4,7 +4,19 @@ from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from camper.handlers.forms import *
 import werkzeug.exceptions
-from .base import BarcampBaseHandler, SponsorForm
+from wtforms import *
+from sfext.babel import T
+from .base import BarcampBaseHandler
+from camper.handlers.forms import *
+
+
+class SponsorForm(BaseForm):
+    """form for adding a new sponsor"""
+    # base data
+    name                = TextField(u"Name des Sponsors", [validators.Length(max=300), validators.Required()])
+    url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
+    image               = UploadField(u"Sponsor-Logo")
+
 
 
 class SponsorsView(BarcampBaseHandler):
