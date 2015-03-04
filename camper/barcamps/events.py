@@ -9,7 +9,7 @@ import uuid
 import pprint
 import datetime
 import requests
-from form import MyDateField, ATextInput, ACheckboxInput, ATextArea
+from camper.form import MyDateField, ATextInput, ACheckboxInput, ATextArea
 
 
 
