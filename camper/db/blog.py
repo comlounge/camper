@@ -3,7 +3,7 @@ import datetime
 from camper.exceptions import *
 import isodate
 
-__all__=["BlogEntry"]
+__all__=["BlogEntry", "BlogEntries"]
 
 class BlogEntrySchema(Schema):
     """a blog entry schema"""
@@ -58,5 +58,10 @@ class BlogEntries(Collection):
         else:
             return self.find_one({'slug' : slug, 'barcamp' : unicode(barcamp._id)})
 
-
-
+    def add(self, entry, barcamp = None):
+        """adds a new blog entry"""
+        if barcamp is not None:
+            entry.barcamp = unicode(barcamp._id)
+        else:
+            raise ValueError, "you need to provide a barcamp"
+        return self.put(entry)

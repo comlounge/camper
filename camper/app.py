@@ -258,7 +258,7 @@ class CamperApp(Application):
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps, app=self, config=self.config)
         self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
         self.config.dbs.pages = db.Pages(mydb.pages, app=self, config=self.config)
-        self.config.dbs.blog = db.Pages(mydb.blog, app=self, config=self.config)
+        self.config.dbs.blog = db.BlogEntries(mydb.blog, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)

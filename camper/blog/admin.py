@@ -3,6 +3,8 @@ import werkzeug.exceptions
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from camper.barcamps.base import BarcampBaseHandler
+from camper.utils import string2filename
+
 
 from wtforms import *
 from camper.handlers.forms import *
@@ -32,6 +34,7 @@ class AddView(BarcampBaseHandler):
     template = "add.html"
 
     @logged_in()
+    @ensure_barcamp()
     @is_admin()
     def get(self, slug = None):
         """render the view"""
@@ -39,17 +42,11 @@ class AddView(BarcampBaseHandler):
         if self.request.method == 'POST' and form.validate():
             f = form.data
             slug = f['slug'] = string2filename(f['title'])
-            # TODO: check if it's double
-            f['menu_title'] = f['title'][:50]
-            f['content'] = ""
-            page = db.Page(f)
-            page = self.config.dbs.pages.add_to_slot(slot, page, barcamp = self.barcamp)
-            self.flash("Seite wurde wurde angelegt", category="info")
-            if self.barcamp is not None:
-                url = self.url_for("page_edit", slug = self.barcamp.slug, page_slug = slug)
-            else:
-                url = self.url_for("page", page_slug = slug)
-            return self.render(tmplname = "redirect.html", url = url)
+            entry = db.BlogEntry(f)
+            entry = self.config.dbs.blog.add(entry, barcamp = self.barcamp)
+            self.flash(self._("The blog entry was created"), category="info")
+            url = self.url_for("barcamps.index", slug = self.barcamp.slug)
+            return redirect(url)
         return self.render(form = form)
 
     post = get
