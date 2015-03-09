@@ -11,9 +11,9 @@ from camper.handlers.forms import *
 from sfext.babel import T
 from camper.form import MyDateField, ATextInput, ACheckboxInput, ATextArea
 
-__all__=['AddView']
+__all__=['AddView', 'EntryForm']
 
-class EntryAddForm(BaseForm):
+class EntryForm(BaseForm):
     """form for adding an event to a barcamp"""
     title                = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
                 widget=ATextInput(),
@@ -38,14 +38,14 @@ class AddView(BarcampBaseHandler):
     @is_admin()
     def get(self, slug = None):
         """render the view"""
-        form = EntryAddForm(self.request.form, config = self.config)
+        form = EntryForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
             slug = f['slug'] = string2filename(f['title'])
             entry = db.BlogEntry(f)
             entry = self.config.dbs.blog.add(entry, barcamp = self.barcamp)
             self.flash(self._("The blog entry was created"), category="info")
-            url = self.url_for("barcamps.index", slug = self.barcamp.slug)
+            url = self.url_for("blog.entries", slug = self.barcamp.slug)
             return redirect(url)
         return self.render(form = form)
 

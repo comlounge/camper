@@ -9,9 +9,8 @@
     {% for entry in entries %}
     <li>
         <span class="date">{{dateformat(entry.published)}}</span> :
-        <span class="title">{{entry.title}}</span>
+        <span class="title"><a href="{{url_for('blog.edit', slug=slug, eid = entry._id)}}">{{entry.title}}</a></span>
         <span class="actions">
-            <a class="btn btn-default" href=""><i class="fa fa-pencil"></i></a>
             <a  class="delete-entry btn btn-danger" 
                 title="{{_('Delete Blog Entry')}}" 
                 href="#" 
