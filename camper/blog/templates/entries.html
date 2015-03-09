@@ -1,0 +1,40 @@
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+{% block title %}
+<h1>{{_('Blog Entries')}}</h1>
+{% endblock %}
+<ul class="bloglisting">
+    {% for entry in entries %}
+    <li>
+        <span class="date">{{dateformat(entry.published)}}</span> :
+        <span class="title">{{entry.title}}</span>
+        <span class="actions">
+            <a class="btn btn-default" href=""><i class="fa fa-pencil"></i></a>
+            <a  class="delete-entry btn btn-danger" 
+                title="{{_('Delete Blog Entry')}}" 
+                href="#" 
+                data-entry="{{entry._id}}" 
+                data-url="{{url_for("blog.entries", slug=slug)}}" 
+                data-title="{{_('Delete Entry?')}}" 
+                data-toggle="confirmation" 
+                data-btn-ok-label="{{_('Yes')}}" 
+                data-btn-ok-icon="fa fa-ok" 
+                data-btn-ok-class="btn btn-success btn-xs" 
+                data-btn-cancel-label="{{_('No')}}" 
+                data-btn-cancel-icon="fa fa-ban" 
+                data-btn-cancel-class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash"></i>
+            </a>            
+
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block bcjs %}
+<script src="{{url_for("static", filename='js/blog.js')}}"></script>
+{% endblock %}
+
