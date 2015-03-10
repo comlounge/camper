@@ -71,6 +71,21 @@ class BarcampView(object):
             v.metadata['height'])
 
     @property
+    def og_logo(self):
+        """return the open graph version of the logo"""
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['logo_full']
+        url = self.app.url_for("asset", asset_id = v._id, _full=True)
+        return url
+
+
+
+    @property
     def date(self):
         """properly format the start and end date if given"""
         bc = self.barcamp
