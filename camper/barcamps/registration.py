@@ -164,6 +164,8 @@ class RegistrationDataExport(BarcampBaseHandler):
         form = self.barcamp.registration_form
         data = self.barcamp.registration_data
 
+        participants = self.barcamp.event.participants
+
         filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
         # do the actual excel export
@@ -180,6 +182,11 @@ class RegistrationDataExport(BarcampBaseHandler):
 
         # data
         for uid, record in data.items():
+
+            # only take those users which are participants
+            if uid not in participants:
+                continue
+                
             # write participant name
             user = self.app.module_map.userbase.get_user_by_id(uid)
             ws.write(i, 0, unicode(user['fullname']))
