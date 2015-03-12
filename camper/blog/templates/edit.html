@@ -1,3 +1,4 @@
+{% set menu="blog" %}
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
@@ -10,11 +11,11 @@
             {{ formmacros.form_field(form.title, input_class="required", placeholder="Title of blog post") }}
             {{ formmacros.form_field(form.content, input_class="required", rows=10) }}
             {{ formmacros.form_field(form.image, input_class="",
-                label=_("Upload image"), delete_label=_("Delete"), revert_label=_("Revert"),
-                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
-
+                label=_("Upload new image"), delete_label=_("Delete"), revert_label=_("Revert to original image"),
+                preview_url = view.image_url.small,
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
         {% block action %}
-            <input type="submit" class="btn btn-large btn-primary" value="{{_('update')}}">
+            <input type="submit" class="btn btn-lg btn-primary" value="{{_('update blog entry')}}">
         {% endblock %}
     </form>
 {% endblock %}
