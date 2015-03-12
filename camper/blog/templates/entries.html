@@ -1,3 +1,4 @@
+{% set menu="blog" %}
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
@@ -31,6 +32,8 @@
     </li>
     {% endfor %}
 </ul>
+
+<a href="{{url_for('blog.add', slug = slug)}}" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add new blog entry')}}</a>
 {% endblock %}
 
 {% block bcjs %}
