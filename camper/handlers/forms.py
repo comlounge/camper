@@ -138,13 +138,13 @@ class UploadWidget(object):
                 <img src="{{preview_url}}">
             </div>
             <div class="upload-area">
-                <div class="">
-                    <span class="uploadbutton btn-inline btn btn-primary">{{label}}</span>
-                    <span class="deletebutton btn-inline btn btn-danger" style="display: {{'none' if not preview_url}} ">{{delete_label}}</span>
-                    <span class="revertbutton btn-inline btn btn-danger" style="display: none">{{revert_label}}</span>
+                <div class="uploader-buttons">
+                    <div class="uploadbutton btn btn-default"><i class="fa fa-upload"></i> {{label}}</div>
+                    <div class="deletebutton btn btn-danger" style="display: {{'none' if not preview_url}} "><i class="fa fa-trash"></i> {{delete_label}}</div>
+                    <div class="revertbutton btn btn-warning" style="display: none"><i class="fa fa-undo"></i> {{revert_label}}</div>
                 </div>
                 <div class="progress">
-                    <div class="bar progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: 0%;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
                     </div>
                 </div>
                 <div class="filenamebox" style="display: none">
@@ -166,7 +166,9 @@ class UploadWidget(object):
         else:
             asset_id = kwargs['value']
 
+        print asset_id
         hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="hidden", id = field.id, value=asset_id))
+
         value = field.data
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)

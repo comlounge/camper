@@ -24,27 +24,31 @@ $.fn.uploader = function(opts) {
       onProgress: function(id, filename, loaded, total) {
         var perc;
         perc = parseInt(Math.floor(loaded / total * 100)) + "%";
-        return $(widget).find(".progressbar .progress").css("width", perc);
+        return $(widget).find(".progress-bar").css("width", perc);
       },
       onSubmit: function(id, filename) {
-        $(widget).find(".progressbar").show();
-        return $(widget).find(".preview-area").hide();
+        $(widget).find(".progress-bar").css("width", "0%");
+        $(widget).find(".progress").show();
+        $(widget).find(".preview-area").hide();
+        return $(widget).find(".uploader-buttons").hide();
       },
       onComplete: function(id, filename, json) {
         if (json.status === "error") {
           file_completed = false;
           myfilename = null;
           $(widget).find(".upload-area").show();
-          $(widget).find(".progressbar").hide();
+          $(widget).find(".progress").hide();
+          $(widget).find(".uploader-buttons").show();
           return false;
         }
         if (json.status === "success") {
           file_completed = true;
           $(widget).find(".revertbutton").show();
+          $(widget).find(".deletebutton").hide();
           $("#" + field_id).val(json.asset_id);
           if (json.url) {
             $(widget).find(".preview-area img").attr("src", json.url);
-            $(widget).find(".progressbar").hide();
+            $(widget).find(".progress").hide();
             $(widget).find(".preview-area").show();
           }
           if (json.redirect) {
@@ -57,28 +61,17 @@ $.fn.uploader = function(opts) {
             return;
           }
           $(widget).find(".upload-area").show();
-          return $(widget).find(".progressbar").hide();
+          $(widget).find(".progress").hide();
+          return $(widget).find(".uploader-buttons").show();
         }
       }
     });
     $(this).find(".deletebutton").click(function() {
-      if (confirm("Sind Sie sicher?")) {
-        $.ajax({
-          url: delete_url,
-          type: "POST",
-          data: {
-            method: "delete"
-          },
-          success: function() {
-            $(widget).find(".preview-area img").attr("src", "");
-            $(widget).find(".preview-area").hide();
-            $(widget).find(".deletebutton").hide();
-            $("#" + field_id).val("");
-            return false;
-          }
-        });
-        false;
-      }
+      $(widget).find(".preview-area img").attr("src", "");
+      $(widget).find(".preview-area").hide();
+      $(widget).find(".deletebutton").hide();
+      $(widget).find(".revertbutton").show();
+      $("#" + field_id).val("");
       return false;
     });
     return $(this).find(".revertbutton").click(function() {
@@ -89,6 +82,9 @@ $.fn.uploader = function(opts) {
         $(widget).find(".preview-area img").attr("src", "");
         $(widget).find(".preview-area").hide();
         $(widget).find(".deletebutton").hide();
+      } else {
+        $(widget).find(".preview-area").show();
+        $(widget).find(".deletebutton").show();
       }
       return false;
     });
