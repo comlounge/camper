@@ -1,7 +1,7 @@
 #encoding=utf8
 from starflyer import Handler, redirect
 from camper import BaseForm, db, BaseHandler
-from camper import logged_in, is_admin
+from camper import logged_in, is_admin, ensure_barcamp
 from camper.handlers.forms import *
 import werkzeug.exceptions
 from wtforms import *
@@ -24,16 +24,22 @@ class SponsorsView(BarcampBaseHandler):
 
     template = "sponsors.html"
 
+    @logged_in()
+    @is_admin()
+    @ensure_barcamp()
     def get(self, slug = None):
         """render the view"""
+        form = SponsorForm(self.request.form, config = self.config)
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
+            sponsor_form = form,
             title = self.barcamp.name,
             **self.barcamp)
 
     @logged_in()
     @is_admin()
+    @ensure_barcamp()
     def post(self, slug = None):
         """just add the sponsor and reload the page"""
         form = SponsorForm(self.request.form, config = self.config)
@@ -50,6 +56,7 @@ class SponsorsView(BarcampBaseHandler):
 
     @logged_in()
     @is_admin()
+    @ensure_barcamp()
     def delete(self, slug = None):
         """delete a sponsor again and give the index via idx param"""
         idx = int(self.request.form['idx']) # index in list
