@@ -35,11 +35,9 @@ class Editable
             $(document).on('keyup.editable.keys', ( e ) =>
                 e.which == 27 && @close_edit_field()
                 e.which == 13 && console.log "enter"
-                console.log "nö"
                 e.preventDefault()
             )
             $(@elem).closest("form").submit( (e) ->
-                console.log "okiiuij"
                 e.preventDefault()
                 return false
             )
@@ -62,7 +60,7 @@ $.fn.editable = (opts = {}) ->
 $.fn.limitchars = (opts = {}) ->
     init = (opts) ->
         $this = $(this)
-        allowed ='1234567890abcdefghijklmnopqrstuvwxyz-_'
+        allowed = '1234567890abcdefghijklmnopqrstuvwxyz-_'
         $(this).keypress( (e) ->
             k = parseInt(e.which)
             if k!=13 and k!=8 and k!=0
@@ -73,6 +71,20 @@ $.fn.limitchars = (opts = {}) ->
             else
                 return true
         )
+    $(this).each(init)
+    this
+
+$.fn.publish_date = (opts = {}) ->
+    init = (opts) ->
+        widget = this
+        $(widget).find(".edit-published").click () ->
+            $(widget).find(".immediate-button").hide()
+            $(widget).find(".date-edit").show()
+            $(widget).find(".immediate").val("False")
+        $(widget).find(".edit-cancel").click () ->
+            $(widget).find(".date-edit").hide()
+            $(widget).find(".immediate-button").show()
+            $(widget).find(".immediate").val("True")
     $(this).each(init)
     this
 
@@ -133,4 +145,15 @@ $(document).ready( () ->
         $(e.target).editable()
     )
 
+    # datepicker widget
+    $(".datetime-widget .time").timepicker
+        timeFormat: "G:i"
+        show24: true
+
+    $('.datetime-widget .date').datepicker
+        format: 'd.m.yyyy'
+        autoclose: true
+        language: $("body").data("lang")
+
+    $('.datetime-widget').publish_date()
 )

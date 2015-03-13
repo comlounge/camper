@@ -50,12 +50,10 @@ Editable = (function() {
         return function(e) {
           e.which === 27 && _this.close_edit_field();
           e.which === 13 && console.log("enter");
-          console.log("nö");
           return e.preventDefault();
         };
       })(this));
       return $(this.elem).closest("form").submit(function(e) {
-        console.log("okiiuij");
         e.preventDefault();
         return false;
       });
@@ -107,6 +105,29 @@ $.fn.limitchars = function(opts) {
       } else {
         return true;
       }
+    });
+  };
+  $(this).each(init);
+  return this;
+};
+
+$.fn.publish_date = function(opts) {
+  var init;
+  if (opts == null) {
+    opts = {};
+  }
+  init = function(opts) {
+    var widget;
+    widget = this;
+    $(widget).find(".edit-published").click(function() {
+      $(widget).find(".immediate-button").hide();
+      $(widget).find(".date-edit").show();
+      return $(widget).find(".immediate").val("False");
+    });
+    return $(widget).find(".edit-cancel").click(function() {
+      $(widget).find(".date-edit").hide();
+      $(widget).find(".immediate-button").show();
+      return $(widget).find(".immediate").val("True");
     });
   };
   $(this).each(init);
@@ -167,7 +188,17 @@ $(document).ready(function() {
     }
     return false;
   });
-  return $('body').on("click.editable", '[data-toggle="editable"]', function(e) {
+  $('body').on("click.editable", '[data-toggle="editable"]', function(e) {
     return $(e.target).editable();
   });
+  $(".datetime-widget .time").timepicker({
+    timeFormat: "G:i",
+    show24: true
+  });
+  $('.datetime-widget .date').datepicker({
+    format: 'd.m.yyyy',
+    autoclose: true,
+    language: $("body").data("lang")
+  });
+  return $('.datetime-widget').publish_date();
 });

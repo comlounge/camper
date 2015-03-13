@@ -5,6 +5,7 @@ from camper import logged_in, is_admin, ensure_barcamp
 from camper.barcamps.base import BarcampBaseHandler
 from camper.utils import string2filename
 
+import datetime
 
 from wtforms import *
 from camper.handlers.forms import *
@@ -15,16 +16,19 @@ __all__=['AddView', 'EntryForm']
 
 class EntryForm(BaseForm):
     """form for adding an event to a barcamp"""
-    title                = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
+    title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
                 widget=ATextInput(),
                 description = T(u'Title of the blog post (required)'),
     )
-
-    content                 = TextAreaField(T(u"Content"), [],
+    content     = TextAreaField(T(u"Content"), [],
                 description = T(u'The content of the blog post'),
                 widget = ATextArea()
     )
-    image               = UploadField(T(u"Title image"))
+    published   = DateTimePickerField(T(u"Publishing Date"),
+                default = None,
+                description = T(u"Specify when the date this blog post should be published at")
+    )
+    image       = UploadField(T(u"Title image"))
 
 
 

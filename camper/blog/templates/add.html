@@ -10,8 +10,14 @@
         <fieldset>
             {{ formmacros.form_field(form.title, input_class="required", placeholder="Title of blog post") }}
             {{ formmacros.form_field(form.content, input_class="required", rows=10) }}
+            {{ formmacros.form_field(
+                form.published, 
+                immediate_label = _('Published immediately'), 
+                edit_label = _('Edit'),
+                cancel_label = _('Cancel')
+            )}}
             {{ formmacros.form_field(form.image, input_class="",
-                label=_("Upload image"), delete_label=_("Delete"), revert_label=_("Revert"),
+                label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
 
         {% block action %}

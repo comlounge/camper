@@ -1,6 +1,7 @@
 #encoding=utf8
 import json
 import decimal
+import datetime
 
 from camper import BaseForm
 
@@ -166,7 +167,6 @@ class UploadWidget(object):
         else:
             asset_id = kwargs['value']
 
-        print asset_id
         hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="hidden", id = field.id, value=asset_id))
 
         value = field.data
@@ -188,49 +188,6 @@ class UploadWidget(object):
         return self.tmpl.render(**payload)
 
 
-class UploadFieldOld(FormField):
-    """an upload field for using the valums uploader"""
-
-    widget = UploadWidget()
-
-    def __init__(self, label=None, validators=None, separator='-', url=u'', **kwargs):
-
-        class UploadForm(Form):
-            """the hidden fields"""
-            id = HiddenField()
-
-            def process(self, formdata=None, obj=None, **kwargs):
-                class D(object):
-                    pass
-
-                d = D()
-                d.id = obj
-                super(UploadForm, self).process(formdata, d, **kwargs)
-
-
-            @property
-            def data(self):
-                """just return the value of the id field as the form data of this form instead of the full dict"""
-                return self['id'].data
-
-        super(UploadField, self).__init__(UploadForm, label, validators, separator, **kwargs)
-        self.url = url
-
-    def process_data(self, value):
-        """process data into the form"""
-        self.data = value
-        return self.data
-
-    def process_formdata(self, valuelist):
-        """check the form data"""
-        return None
-
-    def _value(self):
-        if self.data:
-            return self.data
-        else:
-            return u''
-
 class UploadField(Field):
     """an upload field for using the valums uploader."""
 
@@ -247,4 +204,105 @@ class UploadField(Field):
             return self.data
         else:
             return u''
+
+class DateTimePickerWidget(object):
+    """date time widget using datepair and timepicker"""
+
+    tmpl = Template("""
+        <div class="datetime-widget">
+            {{subform.immediate(class="immediate")}}
+            <div class="immediate-button" style="{{'display: none' if not immediate else ''}}">
+                {{immediate_label}}
+                <a href="#" class="edit-published">{{edit_label}}</a>
+            </div>
+            <div class="date-edit" style="{{'display: none' if immediate else ''}}">
+                {{subform.date(class="date")}}
+                {{subform.time(class="time")}}
+                <a href="#" class="edit-cancel">{{cancel_label}}</a>
+            </div>
+        </div>
+        """)
+
+    html_params = staticmethod(html_params)
+
+    def __call__(self, field, **kwargs):
+        """render the widget"""
+        data = field.data
+
+        immediate = data is None
+        if data is None:
+            data = datetime.datetime.now()
+        
+        data = {
+            'date' : data.strftime("%d.%m.%Y"),
+            'time' : data.strftime("%H:%M"),
+            'immediate' : immediate,
+        }
+
+        field.form.process(**data)
+
+        payload = {
+            'subform' : field.form,
+            'immediate_label': kwargs['immediate_label'],
+            'edit_label' : kwargs['edit_label'],
+            'cancel_label' : kwargs['cancel_label'],
+            'immediate' : data['immediate'],
+        }
+        return self.tmpl.render(**payload)
+
+class DateTimeForm(Form):
+    """Helper form"""
+    immediate = HiddenField()
+    date = TextField("")
+    time = TextField("")
+
+_unset_value = object()
+
+class DateTimePickerField(Field):
+    """date time field using datepair and timepicker"""
+
+    widget = DateTimePickerWidget()
+
+    def __init__(self, label = None, validators = None, **kwargs):
+        """initialize the field"""
+        super(DateTimePickerField, self).__init__(label, validators, **kwargs)
+
+    def process(self, formdata, data=_unset_value):
+        """process and incoming input, if formdata is set it's coming from a form"""
+        if data is _unset_value:
+            try:
+                data = self.default()
+            except TypeError:
+                data = self.default
+            self._obj = data
+
+        self.object_data = data
+        self.data = data
+
+        prefix = self.name
+
+        if isinstance(data, dict):
+            self.form = DateTimeForm(formdata=formdata, prefix=prefix, **data)
+        else:
+            self.form = DateTimeForm(formdata=formdata, obj=data, prefix=prefix)
+
+        if formdata:
+            # we have a form submit
+            d = self.form.data
+            if d['immediate'] == "True":
+                self.data = None
+            else:
+                self.data = datetime.datetime.strptime(d['date']+" "+d['time'], "%d.%m.%Y %H:%M")
+
+
+    @property
+    def errors(self):
+        return self.form.errors
+
+    def validate(self, form, extra_validators=tuple()):
+        """validate the subform"""
+        return self.form.validate()
+
+
+
 
