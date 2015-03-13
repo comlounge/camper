@@ -156,4 +156,13 @@ $(document).ready( () ->
         language: $("body").data("lang")
 
     $('.datetime-widget').publish_date()
+
+    tinyMCE.baseURL = "/static/js/components/tinymce/"
+    tinymce.init
+        selector:'.wysiwyg'
+        menubar: false
+        toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat"
+        content_css : "/static/css/tinymce.css",
+
+
 )

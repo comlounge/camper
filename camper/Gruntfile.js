@@ -71,6 +71,7 @@ module.exports = function(grunt) {
                     "angular-promise-tracker",
                     "marked",
                     "bootstrap-markdown",
+                    "tinymce",
                     //"fuelux",
                     "bootstrap-datepicker",
                     "datepair",

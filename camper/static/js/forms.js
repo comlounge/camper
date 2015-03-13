@@ -200,5 +200,12 @@ $(document).ready(function() {
     autoclose: true,
     language: $("body").data("lang")
   });
-  return $('.datetime-widget').publish_date();
+  $('.datetime-widget').publish_date();
+  tinyMCE.baseURL = "/static/js/components/tinymce/";
+  return tinymce.init({
+    selector: '.wysiwyg',
+    menubar: false,
+    toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat",
+    content_css: "/static/css/tinymce.css"
+  });
 });

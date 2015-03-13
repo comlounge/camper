@@ -9,7 +9,7 @@
     <form class="form-validate validate" method="POST" action="{{url}}">  
         <fieldset>
             {{ formmacros.form_field(form.title, input_class="required", placeholder="Title of blog post") }}
-            {{ formmacros.form_field(form.content, input_class="required", rows=10) }}
+            {{ formmacros.form_field(form.content, input_class="required wysiwyg", rows=10) }}
             {{ formmacros.form_field(
                 form.published, 
                 immediate_label = _('Published immediately'), 
