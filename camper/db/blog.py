@@ -7,12 +7,14 @@ from camper.utils import string2filename
 
 __all__=["BlogEntry", "BlogEntries"]
 
+
 class BlogEntrySchema(Schema):
     """a blog entry schema"""
     created         = DateTime()
     updated         = DateTime()
     published		= DateTime() # publishing date to be shown
     created_by      = String() # TODO: should be ref to user
+    workflow            = String(required = True, default = "draft")
 
     title           = String(required = True)
     slug 			= String(required = True)
@@ -30,11 +32,17 @@ class BlogEntry(Record):
         'created'       : datetime.datetime.utcnow,
         'updated'       : datetime.datetime.utcnow,
         'published'		: datetime.datetime.utcnow,
+        'workflow'      : "draft",
         'title'         : "",
         'slug'          : "",
         'content'       : "",
         'layout'        : "default",
         'image'         : None
+    }
+
+    workflow_states = {
+        'draft'       : ['published'],
+        'published'   : ['draft'],
     }
 
     layouts = ['default', 'left', 'right']
