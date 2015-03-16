@@ -3,7 +3,6 @@ import werkzeug.exceptions
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from camper.barcamps.base import BarcampBaseHandler
-from camper.utils import string2filename
 
 import datetime
 
@@ -45,8 +44,8 @@ class AddView(BarcampBaseHandler):
         form = EntryForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            slug = f['slug'] = string2filename(f['title'])
             entry = db.BlogEntry(f)
+            entry.created_by = self.user_id
             entry = self.config.dbs.blog.add(entry, barcamp = self.barcamp)
             self.flash(self._("The blog entry was created"), category="info")
             url = self.url_for("blog.entries", slug = self.barcamp.slug)

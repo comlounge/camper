@@ -6,6 +6,7 @@ from camper import logged_in, is_admin, ensure_barcamp
 from camper.barcamps.base import BarcampBaseHandler
 from camper.utils import string2filename
 from base import EntryView
+import datetime
 
 
 from add import EntryForm
@@ -27,7 +28,6 @@ class EditView(BarcampBaseHandler):
         form = EntryForm(self.request.form, obj = entry, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            slug = f['slug'] = string2filename(f['title'])
             entry.update(f)
             entry.save()
             self.flash(self._("The blog entry was updated"), category="info")

@@ -3,6 +3,7 @@ import datetime
 from camper.exceptions import *
 import isodate
 import pymongo
+from camper.utils import string2filename
 
 __all__=["BlogEntry", "BlogEntries"]
 
@@ -51,6 +52,24 @@ class BlogEntry(Record):
 class BlogEntries(Collection):
     
     data_class = BlogEntry
+
+    def before_serialize(self, obj):
+        obj['updated'] = datetime.datetime.utcnow()
+        if not obj['slug']:
+            print "computing"
+            # only create slug if it doesn't exist
+            i = 1
+            slug = original_slug = string2filename(obj['title'])
+            while True:
+                print slug
+                bcid = obj['barcamp']
+                if self.find_one({'slug' : slug, 'barcamp' : unicode(bcid)}) is None:
+                    break
+                slug = original_slug+"_%s" %i
+                i = i + 1
+            obj['slug'] = slug
+
+        return obj
 
     def by_slug(self, slug, barcamp = None):
         """return a page by only using the slug (and barcamp if given)"""
