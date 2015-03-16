@@ -112,23 +112,47 @@ $.fn.limitchars = function(opts) {
 };
 
 $.fn.publish_date = function(opts) {
-  var init;
+  var hide_inputs, init, set_now, show_inputs, widget;
   if (opts == null) {
     opts = {};
   }
+  widget = null;
   init = function(opts) {
-    var widget;
+    var date, now;
     widget = this;
+    date = $(widget).find(".date").datepicker("getDate");
+    date = $(widget).find(".time").timepicker("getTime", [date]);
+    console.log(date);
+    now = new Date();
+    console.log(now);
+    if (now <= date) {
+      show_inputs();
+    } else {
+      hide_inputs();
+    }
     $(widget).find(".edit-published").click(function() {
-      $(widget).find(".immediate-button").hide();
-      $(widget).find(".date-edit").show();
-      return $(widget).find(".immediate").val("False");
+      return show_inputs();
     });
-    return $(widget).find(".edit-cancel").click(function() {
-      $(widget).find(".date-edit").hide();
-      $(widget).find(".immediate-button").show();
-      return $(widget).find(".immediate").val("True");
+    return $(widget).find(".set-now").click(function() {
+      set_now();
+      return hide_inputs();
     });
+  };
+  set_now = function() {
+    var now;
+    now = new Date();
+    $(widget).find(".date").datepicker("setDate", [now]);
+    return $(widget).find(".time").timepicker("setTime", now);
+  };
+  show_inputs = function() {
+    $(widget).find(".immediate-button").hide();
+    $(widget).find(".date-edit").show();
+    return $(widget).find(".immediate").val("False");
+  };
+  hide_inputs = function() {
+    $(widget).find(".date-edit").hide();
+    $(widget).find(".immediate-button").show();
+    return $(widget).find(".immediate").val("True");
   };
   $(this).each(init);
   return this;

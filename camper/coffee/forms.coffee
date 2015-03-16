@@ -75,16 +75,44 @@ $.fn.limitchars = (opts = {}) ->
     this
 
 $.fn.publish_date = (opts = {}) ->
+    
+    widget = null
+
     init = (opts) ->
         widget = this
+        date = $(widget).find(".date").datepicker("getDate")
+        date = $(widget).find(".time").timepicker("getTime", [date])
+        console.log date
+        now = new Date()
+        console.log now
+
+        if now <= date
+            show_inputs()
+        else
+            hide_inputs()
+
+        # set up event listeners
         $(widget).find(".edit-published").click () ->
-            $(widget).find(".immediate-button").hide()
-            $(widget).find(".date-edit").show()
-            $(widget).find(".immediate").val("False")
-        $(widget).find(".edit-cancel").click () ->
-            $(widget).find(".date-edit").hide()
-            $(widget).find(".immediate-button").show()
-            $(widget).find(".immediate").val("True")
+            show_inputs()
+        $(widget).find(".set-now").click () ->
+            set_now()
+            hide_inputs()
+
+    set_now = () ->
+        now = new Date()
+        $(widget).find(".date").datepicker("setDate", [now])
+        $(widget).find(".time").timepicker("setTime", now)
+
+    show_inputs = () ->
+        $(widget).find(".immediate-button").hide()
+        $(widget).find(".date-edit").show()
+        $(widget).find(".immediate").val("False")
+
+    hide_inputs = () ->
+        $(widget).find(".date-edit").hide()
+        $(widget).find(".immediate-button").show()
+        $(widget).find(".immediate").val("True")
+
     $(this).each(init)
     this
 

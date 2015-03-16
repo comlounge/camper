@@ -210,15 +210,14 @@ class DateTimePickerWidget(object):
 
     tmpl = Template("""
         <div class="datetime-widget">
-            {{subform.immediate(class="immediate")}}
-            <div class="immediate-button" style="{{'display: none' if not immediate else ''}}">
+            <div class="immediate-button" nostyle="{{'display: none' if not immediate else ''}}">
                 {{immediate_label}}
                 <a href="#" class="edit-published">{{edit_label}}</a>
             </div>
-            <div class="date-edit" style="{{'display: none' if immediate else ''}}">
+            <div class="date-edit" nostyle="{{'display: none' if immediate else ''}}">
                 {{subform.date(class="date")}}
                 {{subform.time(class="time")}}
-                <a href="#" class="edit-cancel">{{cancel_label}}</a>
+                <a href="#" class="set-now">{{now_label}}</a>
             </div>
         </div>
         """)
@@ -229,14 +228,12 @@ class DateTimePickerWidget(object):
         """render the widget"""
         data = field.data
 
-        immediate = data is None
         if data is None:
             data = datetime.datetime.now()
         
         data = {
             'date' : data.strftime("%d.%m.%Y"),
             'time' : data.strftime("%H:%M"),
-            'immediate' : immediate,
         }
 
         field.form.process(**data)
@@ -245,14 +242,12 @@ class DateTimePickerWidget(object):
             'subform' : field.form,
             'immediate_label': kwargs['immediate_label'],
             'edit_label' : kwargs['edit_label'],
-            'cancel_label' : kwargs['cancel_label'],
-            'immediate' : data['immediate'],
+            'now_label' : kwargs['now_label'],
         }
         return self.tmpl.render(**payload)
 
 class DateTimeForm(Form):
     """Helper form"""
-    immediate = HiddenField()
     date = TextField("")
     time = TextField("")
 
@@ -287,12 +282,11 @@ class DateTimePickerField(Field):
             self.form = DateTimeForm(formdata=formdata, obj=data, prefix=prefix)
 
         if formdata:
+            print formdata
             # we have a form submit
             d = self.form.data
-            if d['immediate'] == "True":
-                self.data = None
-            else:
-                self.data = datetime.datetime.strptime(d['date']+" "+d['time'], "%d.%m.%Y %H:%M")
+            print d
+            self.data = datetime.datetime.strptime(d['date']+" "+d['time'], "%d.%m.%Y %H:%M")
 
 
     @property
