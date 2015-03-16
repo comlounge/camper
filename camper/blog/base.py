@@ -1,4 +1,5 @@
 from sfext.uploader import AssetNotFound
+from wtforms.widgets import html_params
 
 class EntryView(object):
     """wrapper around a blog entry to provide additional features"""
@@ -30,3 +31,21 @@ class EntryView(object):
         return dict(
                 [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
         )
+    
+
+    def title_image(self, **kwargs):
+        """return the title image tag"""
+        try:
+            asset = self.app.module_map.uploader.get(self.entry.image)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['medium_user']
+        url = self.app.url_for("asset", asset_id = v._id)
+        amap = html_params(**kwargs)
+        return """<img src="%s" width="%s" height="%s" %s>""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'],
+            amap)

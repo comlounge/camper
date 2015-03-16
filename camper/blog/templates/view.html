@@ -1,0 +1,21 @@
+{% set menu="blog" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+
+
+    {% for view in views %}
+        <article class="blogentry">
+            <header>
+                <h2>{{view.entry.title}}</h2>
+                <div class="byline">{{dateformat(view.entry.published)}}</div>
+            </header>
+            {{view.title_image(class="img-responsive blog-image pull-left")}}
+            <div class="content">
+                {{view.entry.content}}
+            </div>
+        </article>
+    {% endfor %}
+
+{% endblock %}
+

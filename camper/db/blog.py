@@ -78,9 +78,9 @@ class BlogEntries(Collection):
         else:
             return self.find_one({'slug' : slug, 'barcamp' : unicode(barcamp._id)})
 
-    def by_barcamp(self, barcamp):
+    def by_barcamp(self, barcamp, sort_by = "published", ascending = False):
         """return all blog entries for a barcamp sorted by date"""
-        return self.find({'barcamp' : unicode(barcamp._id)}).sort("published", pymongo.DESCENDING)
+        return self.find({'barcamp' : unicode(barcamp._id)}).sort(sort_by, pymongo.ASCENDING if ascending else pymongo.DESCENDING )
 
     def add(self, entry, barcamp = None):
         """adds a new blog entry"""

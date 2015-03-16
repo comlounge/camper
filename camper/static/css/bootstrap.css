@@ -7555,3 +7555,6 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
 #user-events-content .sessiontable .description {
   display: none;
 }
+#blogentry header {
+  overflow: auto;
+}

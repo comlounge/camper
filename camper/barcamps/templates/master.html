@@ -5,15 +5,15 @@
     <meta property="og:title" content="{{barcamp.name|striptags}}" />
     <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{url_for(".index", slug = slug, _full=True)}}" />
+    <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta property="og:image" content="http://" />
     <meta property="og:description" content="{{barcamp.description}}" />
     {% if barcamp.fbAdminId %}
     <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
     {% endif %}
 
-    <link rel="index" title="{{barcamp.name}}" href="{{url_for(".index", slug = slug)}}" />
-    <link rel="canonical" href="{{url_for(".index", slug = slug, _full=True)}}" />
+    <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamps.index", slug = slug)}}" />
+    <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
 
 {% endblock %}
@@ -128,22 +128,22 @@
                                 <div class="attending">
                                     <i class="fa fa-check"></i> I am attending!<br>
                                     <a title="{{_('Change whether you come or come not.')}}" data-toggle="tooltip" data-placement="top"
-                                    href="{{url_for('.register', slug=slug)}}">{{_('Change?')}}</a>
+                                    href="{{url_for('barcamps.register', slug=slug)}}">{{_('Change?')}}</a>
                                 </div>
                             {% else %}
                                 <div>
                                     <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
+                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
                                 </div>
                                 {% if view.can_subscribe %}
                                     <div>
                                     <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
-                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
+                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
                                     </div>
                                 {% else %}
                                     <div>
                                     <a title="{{_('I don\'t want to receive notifications anymore')}}" data-toggle="tooltip" data-placement="bottom"
-                                    href="{{url_for('.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
+                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
                                     </div>
                                 {% endif %}
                             {% endif %}
