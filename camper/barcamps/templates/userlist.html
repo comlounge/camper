@@ -8,12 +8,7 @@
                 <img class="profile-image-mini" src="{{userview(myuser).image_thumb}}">
             </a>
             <div class="participant-info">
-                {% if user == myuser and remove_url %}
-                    <form method="post" class="pull-right" action="{{remove_url}}">
-                    <input type="hidden" name="u" value="{{myuser.username}}">
-                        <button class="btn btn-danger"><i class="icon-white icon-trash"></i></button>
-                    </form>
-                {% elif is_admin and remove_url %}
+                {% if is_admin and remove_url %}
                     <form method="post" class="pull-right" action="">
                     <input type="hidden" name="u" value="{{myuser.username}}">
                     <div class="btn-group">
@@ -31,6 +26,11 @@
                             {% endif %}
                         </ul>
                     </div>
+                    </form>
+                {% elif user == myuser and remove_url %}
+                    <form method="post" class="pull-right" action="{{remove_url}}">
+                    <input type="hidden" name="u" value="{{myuser.username}}">
+                        <button class="btn btn-danger"><i class="icon-white icon-trash"></i></button>
                     </form>
                 {% endif %}
                 <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
@@ -56,7 +56,7 @@
         </div>
         <div class="span3">
             <h2>{{_('Waiting list')}} ({{barcamp.event.waiting_list|length}})</h2>
-            {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
+            {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
         </div>
     </div>
 {% endblock %}
