@@ -14,8 +14,15 @@
             <div class="content">
                 {{view.entry.content}}
             </div>
+            {% if is_admin %}
+                <div class="admin">
+                    <a class="btn btn-default btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                    {% if view.entry.workflow=="draft" %}
+                        <a class="btn btn-primary btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                    {% endif %}
+                </div>
+            {% endif %}
         </article>
     {% endfor %}
-
 {% endblock %}
 
