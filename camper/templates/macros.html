@@ -1,46 +1,4 @@
 
-{% macro wf_button(transaction, came_from = None, css="") -%}
-    {% set client = transaction.client %}
-    {% set client_id = transaction.d.client_id %}
-    {% set tparams = {'client_id' : client_id, 'transaction_id' : transaction.d._id} %}
-    {% set state = transaction.d.wf_state %}
-    {% if state not in ['shipped', 'canceled'] %}
-        <form action="{{url_for('transaction_wf', **tparams)}}" method="POST" class="{{css}}">
-            {% if came_from %}
-            <input type="hidden" name="came_from" value="{{came_from}}">
-            {% endif %}
-            {% if state=='offered' %}
-                <button name="wf_state" 
-                        value="ordered" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        in Bestellung geben
-                </button>
-            {% elif state=='ordered' %}
-                <button name="wf_state" 
-                        value="checked" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        kontrolliert
-                </button>
-            {% elif state=='checked' %}
-                <button name="wf_state" 
-                        value="printed" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        gedruckt
-                </button>
-            {% elif state=='printed' %}
-                <button name="wf_state" 
-                        value="shipped" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        versandt
-                </button>
-            {% endif %}
-        </form>
-    {% endif %}
-{%- endmacro %}
 
 {% macro f(field, classes="") -%}
     {{ field(class="form-control "+classes, **kwargs) }}
@@ -51,7 +9,7 @@
 
 {% macro my_field(field, prepend=None, append=None, input_class="", required=False, size="") -%}
             <div class="{{size}}">
-                {{ field(class="form-control"+(' required ' if required else ' ')+input_class, **kwargs) }}
+                {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required=required, **kwargs) }}
                 {% if field.description %}
                     <p class="help-block">{{ _(field.description) }}</p>
                 {% endif %}
@@ -148,29 +106,4 @@
 
 
 
-{#
-## CLIENT WIDGETS
-#}
-
-
-{%- macro address(client, full=True) -%}
-    <address>
-        <strong>{{client.fullname}}</strong> <br>
-        {% if client.d.company %}{{client.d.company}}<br>{%endif %}
-        {{client.d.address}} <br>
-        {% if client.d.address_comment %}Kommentar: {{client.d.address_comment}}<br>{%endif %}
-        {{client.d.zip}} {{client.d.city}}<br>
-        {{client.country}}<br>
-        {% if full %}
-            {% if client.d.phone %}Telefon: {{client.d.phone}}<br>{%endif %}
-            {% if client.d.mobile %}Mobil: {{client.d.mobile}}<br>{%endif %}
-            {% if client.d.fax %}Fax: {{client.d.fax}}<br>{%endif %}
-            {% if client.d.email %}E-Mail: <a href="mailto:{{client.d.email}}">{{client.d.email}}</a><br>{%endif %}
-            Steuernummer: {{client.d.taxnr}}<br>
-            Mehrwertsteuer: {{client.d.mwst}} %<br>
-        {% endif %}
-    </address>
-{%- endmacro -%}
-{%- macro shipping_address(client) -%}
-{%- endmacro -%}
 
