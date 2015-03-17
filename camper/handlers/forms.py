@@ -282,10 +282,8 @@ class DateTimePickerField(Field):
             self.form = DateTimeForm(formdata=formdata, obj=data, prefix=prefix)
 
         if formdata:
-            print formdata
             # we have a form submit
             d = self.form.data
-            print d
             self.data = datetime.datetime.strptime(d['date']+" "+d['time'], "%d.%m.%Y %H:%M")
 
 
