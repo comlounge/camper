@@ -25,11 +25,13 @@ class EditView(BarcampBaseHandler):
         if self.request.method == 'POST' and form.validate():
             f = form.data
             entry.update(f)
+            if self.request.form.has_key("publish"):
+                entry.workflow = "published"
             entry.save()
             self.flash(self._("The blog entry was updated"), category="info")
             url = self.url_for("blog.entries", slug = self.barcamp.slug)
             return redirect(url)
-        return self.render(form = form, view = view)
+        return self.render(form = form, view = view, entry = entry)
 
     post = get
 

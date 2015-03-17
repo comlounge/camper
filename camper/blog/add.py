@@ -15,15 +15,12 @@ class EntryForm(BaseForm):
     """form for adding an event to a barcamp"""
     title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
                 widget=ATextInput(),
-                description = T(u'Title of the blog post (required)'),
     )
     content     = TextAreaField(T(u"Content"), [],
-                description = T(u'The content of the blog post'),
                 widget = ATextArea()
     )
     published   = DateTimePickerField(T(u"Publishing Date"),
                 default = None,
-                description = T(u"Specify when the date this blog post should be published at")
     )
     image       = UploadField(T(u"Title image"))
 
@@ -44,6 +41,8 @@ class AddView(BarcampBaseHandler):
             f = form.data
             entry = db.BlogEntry(f)
             entry.created_by = self.user_id
+            if self.request.form.has_key("publish"):
+                entry.workflow = "published"
             entry = self.config.dbs.blog.add(entry, barcamp = self.barcamp)
             self.flash(self._("The blog entry was created"), category="info")
             url = self.url_for("blog.entries", slug = self.barcamp.slug)
