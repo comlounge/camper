@@ -46,7 +46,7 @@
     
     </head>
 
-    <body data-i18n-areyousure="{{_("Are you sure?")}}" id="{{body_id|d('')}}" data-lang="{{LANGUAGE}}" id="{{body_id}}">
+    <body data-i18n-areyousure="{{_("Are you sure?")}}" id="{{body_id|d('')}}" data-lang="{{LANGUAGE}}" id="{{body_id}}" class="{{body_class}}">
         {% block navbar %}
         <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
             <div class="{{'container' if not container=="full" else "container-fluid"}}">
@@ -149,8 +149,14 @@
         <script src="{{url_for('static', filename='js/components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/components.js')}}"></script>
 
-        <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js')}}"></script>
-        <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+        {% if locale == "de" %}
+            <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js')}}"></script>
+            <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+            <script src="{{url_for('static', filename='js/components/parsleyjs/src/i18n/de.js')}}"></script>
+        {% elif locale == "en" %}
+            <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.en.js')}}"></script>
+            <script src="{{url_for('static', filename='js/components/parsleyjs/src/i18n/en.js')}}"></script>
+        {% endif %}
 
         <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
         {#
