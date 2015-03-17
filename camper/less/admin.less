@@ -1,4 +1,4 @@
-body#admin {
+body.admin {
     .navbar-side {
         //background: #b84d45;
         margin-top: 25px;
@@ -286,6 +286,28 @@ body#admin {
 
 .bloglisting {
     width: 100%;
+}
+
+// placard like edit view combination, used in blog/edit.html
+.view-edit-group {
+    .input-controls {
+        display: none;
+    }
+}
+
+#admin-blog {
+    .mce {
+        min-height: 313px;
+    }
+    .meta {
+        margin: 10px 0;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+        background: #f0f0f0;
+        padding: 5px;
+        form { margin: 0; }
+    }
+    .workflow-state { text-transform: capitalize;}
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

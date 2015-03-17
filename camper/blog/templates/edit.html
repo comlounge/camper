@@ -1,27 +1,48 @@
 {% set menu="blog" %}
+{% set body_id ="admin-blog" %}
+
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
 {% block content %}
     {% block title %}
         <h1>{{_('Edit Blog Entry')}}</h1>
+        <div class="meta">
+            <div class="view-edit-group" data-url="{{url_for('blog.wf', slug = slug, eid = entry._id)}}">
+                <div class="input-view">
+                    {{_('Status')}}: <span class="workflow-state">{{entry.workflow}}</span>
+                    <a href="#" class="input-switch">{{_('Edit')}}</a>
+                </div>
+                <div class="input-controls">
+                    <form id="workflow-state">
+                        <select class="input" name="workflow">
+                            <option id="workflow-published" value="published" {{'selected' if entry.workflow=='published'}}>{{_('Published')}}</option>
+                            <option id="workflow-draft" value="draft" {{'selected' if entry.workflow=='draft'}}>{{_('Draft')}}</option>
+                        </select>
+                        <a href="#" class="btn btn-xs btn-default submit">{{_('Ok')}}</a>
+                        <a href="#" class="cancel-switch">{{_('Cancel')}}</a>
+                    </form>
+                </div>
+            </div>
+        </div>
     {% endblock %}
-    <form class="form-validate validate" method="POST" action="{{url}}">  
+    <form class="" method="POST" action="{{url}}" data-parsley-validate>  
         <fieldset>
-            {{ formmacros.form_field(form.title, input_class="required", placeholder="Title of blog post") }}
-            {{ formmacros.form_field(form.content, input_class="required wysiwyg", rows=10) }}
+            {{ formmacros.form_field(form.title, input_class="input-lg", required=True, placeholder="Title of blog post") }}
+            {{ formmacros.form_field(form.image, input_class="",
+                label=_("Upload new image"), delete_label=_("Delete"), revert_label=_("Revert to original image"),
+                preview_url = view.image_url.small,
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+            {{ formmacros.form_field(form.content, input_class="wysiwyg", size="mce", rows=10) }}
             {{ formmacros.form_field(
                 form.published, 
                 immediate_label = _('Published immediately'), 
                 edit_label = _('Edit'),
                 now_label = _('Now'),
             ) }}
-            {{ formmacros.form_field(form.image, input_class="",
-                label=_("Upload new image"), delete_label=_("Delete"), revert_label=_("Revert to original image"),
-                preview_url = view.image_url.small,
-                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
         {% block action %}
-            <input type="submit" class="btn btn-lg btn-primary" value="{{_('update blog entry')}}">
+            <input type="submit" class="btn btn-lg btn-default" value="{{_('Save')}}">
+            <input type="submit" id="publish-button" name="publish" class="btn btn-lg btn-primary" value="{{_('Publish and Save')}}" style="{{'display: none' if view.entry.workflow!='draft'}}">
         {% endblock %}
     </form>
 {% endblock %}

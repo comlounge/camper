@@ -1,3 +1,15 @@
+$.fn.serializeObject = () ->
+    o = {}
+    a = this.serializeArray()
+    $.each a, () ->
+        if o[this.name] != undefined
+            if !o[this.name].push
+                o[this.name] = [o[this.name]]
+            o[this.name].push(this.value || '')
+        else
+            o[this.name] = this.value || ''
+    return o
+
 class Editable
 
     constructor: (@elem, @options) ->
@@ -116,12 +128,52 @@ $.fn.publish_date = (opts = {}) ->
     $(this).each(init)
     this
 
+$.fn.view_edit_group = (opts = {}) ->
+
+    widget = null
+    
+    init = (opts) ->
+        console.log "init"
+        widget = this
+
+        $(widget).find(".input-switch").click () ->
+            console.log "ok"
+            $(widget).find(".input-controls").show()
+            $(widget).find(".input-view").hide()
+        $(widget).find(".cancel-switch").click () ->
+            $(widget).find(".input-controls").hide()
+            $(widget).find(".input-view").show()
+        $(widget).find(".submit").click () ->
+            console.log "clicked"
+            url = $(widget).data("url")
+            data = $(widget).find("form").serializeObject()
+            $.ajax
+                url: url
+                type: 'POST'
+                data: data
+                success: (data) =>
+                    console.log "success"
+                    console.log data
+                    $('.workflow-'+data.new_state).attr('selected', 'selected')
+                    $('.workflow-state').text(data.new_text_state)
+                    $(widget).find(".input-controls").hide()
+                    $(widget).find(".input-view").show()
+                    if data.new_state=="published"
+                        $("#publish-button").hide()
+                    else
+                        $("#publish-button").show()
+            console.log $(widget).find(".input").val()
+
+    $(this).each(init)
+    this
+
 $(document).ready( () ->
     $(".urlscheme").limitchars()
     $(".form-validate").validate(
-        showErrors: (errorMap, errorList) ->
+        noshowErrors: (errorMap, errorList) ->
+            console.log "error"
             $.each( this.successList , (index, value) ->
-                $(value).removeClass("error")
+                $(value).removeClass("has-error")
                 $(value).popover('hide')
             )
             form = this.currentForm
@@ -135,7 +187,7 @@ $(document).ready( () ->
                 )
 
                 _popover.data('popover').options.content = value.message
-                $(value.element).addClass("error")
+                $(value.element).addClass("has-error")
                 $(value.element).popover('show')
             )
     )
@@ -184,6 +236,9 @@ $(document).ready( () ->
     
     # blog admin stuff
     $('.datetime-widget').publish_date()
+
+    $(".view-edit-group").view_edit_group()
+
     $('.change-state').click () ->
         url = $(this).data("url")
         state = $(this).data("state")
@@ -205,6 +260,5 @@ $(document).ready( () ->
         menubar: false
         toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat"
         content_css : "/static/css/tinymce.css",
-
 
 )
