@@ -1,4 +1,7 @@
-{% set body_id ="admin" %}
+{% if not body_id %}
+    {% set body_id ="admin" %}
+{% endif %}
+{% set body_class="admin" %}
 {% if not container %}
     {% set container="simple" %}
 {% endif %}
