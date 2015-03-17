@@ -28,7 +28,7 @@ module.exports = function(grunt) {
                     paths: ['less', 'tmp/bootstrap/less']
                 },
                 files: {
-                    "static/css/bootstrap.css": "less/main.less"
+                    "static/css/bootstrap.css": "less/main.less",
                 }
             }
         },
@@ -72,6 +72,8 @@ module.exports = function(grunt) {
                     "marked",
                     "bootstrap-markdown",
                     "tinymce",
+                    "parsleyjs",
+                    "parsleyjs-bootstrap3",
                     //"fuelux",
                     "bootstrap-datepicker",
                     "datepair",
@@ -116,11 +118,13 @@ module.exports = function(grunt) {
             core: {
                 src: '<%= concat.bootstrap.dest %>',
                 dest: 'static/js/bt.min.js'
-            },
+            }
+            /*
             components: {
                 src: '<%= bower_concat.all.dest %>',
                 dest: 'static/js/components.min.js'
             }
+            */
         }
     });
 
