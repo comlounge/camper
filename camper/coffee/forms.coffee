@@ -162,7 +162,6 @@ $(document).ready( () ->
 
     # generic confirm button
     $(".action-confirm").click( () ->
-        console.log("clicked")
         confirm_msg = $(this).data("confirm")
         if confirm(confirm_msg) 
             return true
@@ -182,8 +181,23 @@ $(document).ready( () ->
         format: 'd.m.yyyy'
         autoclose: true
         language: $("body").data("lang")
-
+    
+    # blog admin stuff
     $('.datetime-widget').publish_date()
+    $('.change-state').click () ->
+        url = $(this).data("url")
+        state = $(this).data("state")
+        $.ajax(
+            url: @url
+            type: 'POST'
+            data: 
+                state: state
+                field: field
+            success: (data) =>
+                @payload = $(@elem).html()
+                $(@elem).html(data.html)
+                @escape()
+        )
 
     tinyMCE.baseURL = "/static/js/components/tinymce/"
     tinymce.init

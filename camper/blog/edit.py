@@ -1,12 +1,8 @@
 from starflyer import Handler, redirect, asjson
 from bson import ObjectId
-import werkzeug.exceptions
-from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from camper.barcamps.base import BarcampBaseHandler
-from camper.utils import string2filename
 from base import EntryView
-import datetime
 
 
 from add import EntryForm
