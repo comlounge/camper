@@ -395,7 +395,8 @@ class BaseHandler(starflyer.Handler):
             mapbox_map_id = self.config.mapbox_map_id,
             footer_pages = footer_pages,
             ga = self.config.ga,
-            userview = partial(UserView, self.app)
+            userview = partial(UserView, self.app),
+            locale = str(self.babel_locale)
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug
