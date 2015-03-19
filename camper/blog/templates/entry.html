@@ -1,0 +1,24 @@
+{% set menu="blog" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    <article class="blogentry">
+        <header>
+            <h2>{{view.entry.title}}</h2>
+            <div class="byline">{{dateformat(view.entry.published)}}</div>
+        </header>
+        {{view.title_image(class="img-responsive blog-image pull-left")}}
+        <div class="content">
+            {{view.entry.content}}
+        </div>
+        {% if is_admin %}
+            <div class="admin">
+                <a class="btn btn-default btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                {% if view.entry.workflow=="draft" %}
+                    <a class="btn btn-primary btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </article>
+{% endblock %}
+

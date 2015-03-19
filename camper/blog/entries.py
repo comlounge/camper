@@ -17,7 +17,7 @@ class ListView(BarcampBaseHandler):
     def get(self, slug = None):
         """render the view"""
         return self.render(
-            entries = self.config.dbs.blog.by_barcamp(self.barcamp)
+            entries = self.config.dbs.blog.by_barcamp(self.barcamp, only_published = False, only_past = False)
         )
 
 

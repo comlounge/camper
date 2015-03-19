@@ -6,7 +6,12 @@
 {% import "macros.html" as formmacros with context %}
 {% block content %}
     {% block title %}
-        <h1>{{_('Edit Blog Entry')}}</h1>
+        <h1>{{_('Edit Blog Entry')}}
+            <small>
+                <a href="{{url_for('blog.entry', slug = slug, blog_slug = view.entry.slug)}}">{{_('View blog post')}}</a>
+            </small>
+        </h1>
+
         <div class="meta">
             <div class="view-edit-group" data-url="{{url_for('blog.wf', slug = slug, eid = entry._id)}}">
                 <div class="input-view">

@@ -14,9 +14,10 @@ class BlogModule(Module):
     routes = [
         URL('/<slug>/blog/admin',       'entries',          entries.ListView),
         URL('/<slug>/blog/new',         'add',              add.AddView),
-        URL('/<slug>/blog/<eid>',       'edit',             edit.EditView),
+        URL('/<slug>/blog/<eid>/edit',  'edit',             edit.EditView),
         URL('/<slug>/blog/<eid>/wf',    'wf',               workflow.WorkflowView),
         URL('/<slug>/blog',             'view',             view.ListView),
+        URL('/<slug>/blog/<blog_slug>', 'entry',            view.ArticleView),
 
     ]
 

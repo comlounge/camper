@@ -84,9 +84,27 @@ class BlogEntries(Collection):
         else:
             return self.find_one({'slug' : slug, 'barcamp' : unicode(barcamp._id)})
 
-    def by_barcamp(self, barcamp, sort_by = "published", ascending = False):
-        """return all blog entries for a barcamp sorted by date"""
-        return self.find({'barcamp' : unicode(barcamp._id)}).sort(sort_by, pymongo.ASCENDING if ascending else pymongo.DESCENDING )
+    def by_barcamp(self, barcamp, sort_by = "published", ascending = False, only_published = True, only_past = True):
+        """return all blog entries for a barcamp sorted by date
+
+        :param barcamp: barcamp object for which blog posts should be searched
+        :param sort_by: which field to sort on, defaults to ``published``
+        :param ascending: whether to sort ascending or descending, default to descending (False)
+        :param only_published: if set to False will also return draft versions, defaults to True
+        :param only_past: if ``True`` will only return already published posts, otherwise all, defaults to ``True``
+
+        :returns: list of blog entries sorted according to arguments
+
+        """
+        n = datetime.datetime.now()
+        q = {
+            'barcamp' : unicode(barcamp._id)
+        }
+        if only_past:
+            q['published'] = {'$lt' : n}
+        if only_published:
+            q['workflow'] = 'published'
+        return self.find(q).sort(sort_by, pymongo.ASCENDING if ascending else pymongo.DESCENDING )
 
     def add(self, entry, barcamp = None):
         """adds a new blog entry"""

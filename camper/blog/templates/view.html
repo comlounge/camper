@@ -3,11 +3,15 @@
 
 {% block main_content %}
 
-
+<div id="bloglisting">
     {% for view in views %}
         <article class="blogentry">
             <header>
-                <h2>{{view.entry.title}}</h2>
+                {% if is_admin and view.entry.workflow == 'draft' %}
+                    <span class="label label-warning pull-right">{{_('Draft')}}</span>
+                {% endif %}
+                <h2><a href="{{url_for('blog.entry', slug = slug, blog_slug = view.entry.slug)}}">{{view.entry.title}}</a>
+                </h2>
                 <div class="byline">{{dateformat(view.entry.published)}}</div>
             </header>
             {{view.title_image(class="img-responsive blog-image pull-left")}}
@@ -24,5 +28,6 @@
             {% endif %}
         </article>
     {% endfor %}
+</div>
 {% endblock %}
 

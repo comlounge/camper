@@ -7580,3 +7580,16 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
 #blogentry header {
   overflow: auto;
 }
+#bloglisting article {
+  margin-bottom: 50px;
+}
+#bloglisting article img {
+  margin-right: 10px;
+}
+#bloglisting article h2 {
+  margin: 0;
+}
+#bloglisting article .byline {
+  margin: 0;
+  margin-bottom: 10px;
+}

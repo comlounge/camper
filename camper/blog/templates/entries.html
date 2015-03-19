@@ -24,9 +24,7 @@
     <tr>
         <td class="title"><a href="{{url_for('blog.edit', slug=slug, eid = entry._id)}}">{{entry.title}}</a>
             <span class="workflow">
-                {% if entry.workflow == "published" %}
-                    <span class="label">{{_('published')}}</span>
-                {% else %}
+                {% if entry.workflow == "draft" %}
                     <span class="label label-warning">{{_('draft')}}</span>
                 {% endif %}
             </span>
