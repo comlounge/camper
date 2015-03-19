@@ -181,12 +181,9 @@ class RegistrationDataExport(BarcampBaseHandler):
             c = c + 1
 
         # data
-        for uid, record in data.items():
+        for uid in participants:
+            record = data.get(uid, {})
 
-            # only take those users which are participants
-            if uid not in participants:
-                continue
-                
             # write participant name
             user = self.app.module_map.userbase.get_user_by_id(uid)
             ws.write(i, 0, unicode(user['fullname']))
