@@ -34,6 +34,8 @@ class UserView(object):
                 return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['userlist']._id)
             except AssetNotFound:
                 pass
+            except KeyError:
+                pass
         return None
 
     @property
@@ -188,6 +190,54 @@ class BarcampView(object):
                 })
             i=i+1
         return res
+
+    @property
+    def background_image_url(self):
+        """return variants of background image url"""
+        uf = self.app.url_for
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.background_image)
+            print asset
+        except AssetNotFound:
+            print "oh"
+            return None
+        except Exception, e:
+            print e
+            return None
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+
+    @property
+    def fb_image_url(self):
+        """return variants of facebook image url"""
+        uf = self.app.url_for
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.fb_image)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+    
+    def background_image(self, **kwargs):
+        """return the title image tag"""
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.background_image)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['full']
+        url = self.app.url_for("asset", asset_id = v._id)
+        amap = html_params(**kwargs)
+        return """<img src="%s" width="%s" height="%s" %s>""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'],
+            amap)
 
 class MLStripper(HTMLParser):
     """html parser for stripping all tags from a string"""

@@ -174,6 +174,7 @@ $(document).ready( () ->
         false
     )
 
+    $(".colorpicker-container").colorpicker();
     #$("#location-picker").colorbox({inline:true, width:642});
 
     $("a.form-submit").click ->
@@ -233,8 +234,6 @@ $(document).ready( () ->
         marker = L.marker([lat, lng]).addTo(map);
         console.log marker
     )
-
-
 
     # event selector on events pages
     $("#select-event").change ->

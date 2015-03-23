@@ -194,6 +194,7 @@ $(document).ready(function() {
     }
     return false;
   });
+  $(".colorpicker-container").colorpicker();
   $("a.form-submit").click(function() {
     var action, form;
     action = $(this).attr("href");

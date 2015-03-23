@@ -44,6 +44,7 @@
                 <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
                 <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
                 <li class="{{'active' if menu=='blog'}}"><a href="{{url_for("blog.entries", slug=slug)}}"><i class="fa fa-newspaper-o"></i> {{_('Manage Blog')}}</a></li>
+                <li class="{{'active' if menu=='design'}}"><a href="{{url_for(".admin_design", slug=slug)}}"><i class="fa fa-magic"></i> {{_('Design and Layout')}}</a></li>
                 <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
                 <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
                 <li><a href="{{url_for("barcamps.participants_edit", slug=slug)}}"><i class="fa fa-plus"></i> {{_('increase participants')}}</a></li>

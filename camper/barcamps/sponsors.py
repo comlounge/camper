@@ -17,8 +17,6 @@ class SponsorForm(BaseForm):
     url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
     image               = UploadField(u"Sponsor-Logo")
 
-
-
 class SponsorsView(BarcampBaseHandler):
     """shows the lists of subscribers, participants, waiting list"""
 

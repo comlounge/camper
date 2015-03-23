@@ -16,9 +16,38 @@
     <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.description|striptags}}" />
 
+    <style>
+        body, #barcamppage {
+            background-image: url('{{view.background_image_url.logo_full}}');
+            background-color: {{barcamp.background_color}};
+            color: {{barcamp.text_color}};
+        } 
+        #barcamp-details, #bloglisting {
+            color: {{barcamp.text_color}};
+        }
+         #bc-header {
+            background-color: {{barcamp.header_color}};
+        }
+
+        .navbar-barcamp .navbar-nav > li > a {
+            color: {{barcamp.navbar_link_color}};
+            border-color: {{barcamp.navbar_border_color}};
+        }
+        .navbar-barcamp .navbar-nav > li.active > a {
+            background: {{barcamp.navbar_active_bg}};
+            color: {{barcamp.active_color}};
+        }
+        .navbar-barcamp .navbar-nav > li:hover > a {
+            background: {{barcamp.navbar_hover_bg}};
+        }
+
+
+
+    </style>
+
 {% endblock %}
 {% block topcontainer %}
-    <div class="bcdetail-bg">
+    <div class="bcdetail-bg" id="bc-header">
         <div class="container">
             <div class="header action-container content-area">
                 {% if logo %}

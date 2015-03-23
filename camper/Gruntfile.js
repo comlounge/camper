@@ -74,6 +74,7 @@ module.exports = function(grunt) {
                     "tinymce",
                     "parsleyjs",
                     "parsleyjs-bootstrap3",
+                    "mjolnic-bootstrap-colorpicker",
                     //"fuelux",
                     "bootstrap-datepicker",
                     "datepair",
