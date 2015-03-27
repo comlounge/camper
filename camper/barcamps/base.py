@@ -7,8 +7,10 @@ from sfext.babel import T
 from camper.handlers.forms import *
 import werkzeug.exceptions
 import requests
+from sfext.uploader import AssetNotFound
 
-__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound', 'LocationRetriever']
+
+__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound', 'LocationRetriever', 'GalleryView']
 
 class Action(object):
     """an action to be display in navbars etc."""
@@ -96,3 +98,43 @@ class BarcampBaseHandler(BaseHandler):
         return result['lat'], result['lon']
 
 
+class GalleryView(object):
+    """wrapper around an image gallery to provide additional features"""
+
+    def __init__(self, gallery, handler):
+        """initialize the wrapper with the gallery and the handler it is used with"""
+
+        self.gallery = gallery
+        self.handler = handler
+        self.app = self.handler.app
+        self.config = self.handler.app.config
+        self.user = self.handler.user
+
+    def get_images(self, variant = "userlist", **kwargs):
+        """return image tags for all the images
+
+        :param variant: variant of the image to retrieve
+        :param kwargs: additional attributes to be added to the image tag
+
+        :returns: list of html image tags
+
+        """
+
+        amap = html_params(**kwargs)
+
+        images = []
+        for aid in self.gallery.images:
+            try:
+                asset = self.app.module_map.uploader.get(aid)
+                v = asset.variants[variant]
+                url = self.app.url_for("asset", asset_id = v._id)
+                images.append("""<img src="%s" width="%s" height="%s" %s>""" %(
+                    url,
+                    v.metadata['width'],
+                    v.metadata['height'],
+                    amap))
+            except AssetNotFound:
+                # shouldn't really happen but what do I know?!?
+                continue
+
+        return images

@@ -1,10 +1,9 @@
 $.fn.uploader = (opts = {}) ->
     file_completed = false     
-    myfilename = null          
+    myfilename = null   
 
-    init = () ->
+    init = (opts) ->
         widget = this
-        postproc = $(this).data("postproc")
         preview_url = $(this).data("preview-url")
         upload_url = $(this).data("upload-url")
         delete_url = $(this).data("delete-url")

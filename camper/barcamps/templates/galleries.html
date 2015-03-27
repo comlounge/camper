@@ -1,0 +1,54 @@
+{% extends "admin_master.html" %}
+{% from "_m/barcamps/event_macros.html" import eventnav, locationpicker, eventform with context %}
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+
+    {{ locationpicker()}}
+
+    {% block title %}
+        <h1>{{_('Image Galleries')}}</h1>
+        <small>{{_('Create image galleries here which you can then use on barcamp pages and blog posts')}}</small>
+    {% endblock %}
+    <hr>
+
+    <div id="gallery-admin">
+        <table class="table gallerylist">
+            <colgroup>
+                <col width="80%"></col>
+                <col></col>
+                <col width="100"></col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>{{_('Title')}}</th>
+                    <th><span class="sr-only">{{_('Images')}}</span></th>
+                    <th><span class="sr-only">{{_('Actions')}}</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in galleries %}
+                    <tr>
+                        <td><a href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}" title="{{_('edit gallery %s' %view.gallery.title)}}">{{view.gallery.title}}</a></td>
+                        <td>{{"".join(view.get_images())}}</td>
+                        <td class="actions">
+                            <a class="btn btn-xs btn-primary edit-button" href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-xs btn-danger delete-button" href=""><i class="fa fa-trash"></i></a>                            
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    
+        <form class="form-inline" id="add-gallery-form" method="POST" action="{{url}}">
+                {{ formmacros.form_field(form.title, label_class="sr-only", no_size=True, input_class="input-lg", required=True, placeholder="Title of new gallery") }}
+            <button type="submit" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add Gallery')}}</button>
+        </form>
+
+
+
+    </div>
+{% endblock %}
+{% block bcjs %}
+<script src="{{url_for("static", filename='js/event-controller.js')}}"></script>
+{% endblock %}

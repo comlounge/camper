@@ -6689,6 +6689,12 @@ body.admin .sessionslot.enabled:hover {
 #admin-blog .workflow-state {
   text-transform: capitalize;
 }
+#gallery-admin .gallerylist {
+  width: 100%;
+}
+#gallery-admin .gallerylist .actions {
+  text-align: right;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
