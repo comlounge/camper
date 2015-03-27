@@ -63,6 +63,7 @@ class RegistrationFieldSchema(Schema):
     fieldtype           = String(required=True)
     required            = Boolean()
 
+
 class MailsSchema(Schema):
     """a sub schema describing email templates"""
     welcome_subject         = String()
@@ -71,6 +72,7 @@ class MailsSchema(Schema):
     onwaitinglist_text      = String()
     fromwaitinglist_subject = String()
     fromwaitinglist_text    = String()
+
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
@@ -241,6 +243,22 @@ class BarcampSchema(Schema):
     documentation_pad   = String() # ID of the pad for documentation
     planning_pad_public = Boolean(default = False)
     blogposts           = List(BlogLinkSchema())
+
+    # design
+    link_color          = String()
+    text_color          = String()
+    background_image    = String()
+    background_color    = String()
+    font                = String()
+    fb_image            = String()
+    header_color        = String()
+    text_color          = String()
+
+    navbar_link_color   = String() # text color of all navbar links
+    navbar_active_color = String() # text color of active navbar item 
+    navbar_border_color = String() # border color of all navbar items
+    navbar_active_bg    = String() # bg color of active item
+    navbar_hover_bg     = String() # bg color when hovering
 
     # user related
     admins              = List(String()) # TODO: ref

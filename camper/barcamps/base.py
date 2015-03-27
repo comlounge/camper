@@ -58,6 +58,7 @@ class BarcampBaseHandler(BaseHandler):
                 actions.append(Action('planning', T("planning"), uf('barcamps.planning_pad', slug = bc.slug), self.action == 'planning'))
             #actions.append(Action('docs', T("documentation"), uf('barcamps.documentation_pad', slug = bc.slug), self.action == 'docs'))
             actions.append(Action('blog', T("Blog"), uf('blog.view', slug = bc.slug), self.action == 'blog'))
+            actions.append(Action('design', T("Design"), uf('.admin_design', slug = bc.slug), self.action == 'design'))
             for page in self.barcamp_view.pages_for("menu"):
                 pid = "page_%s" %page._id
                 actions.append(Action(pid, page.menu_title, uf('barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))

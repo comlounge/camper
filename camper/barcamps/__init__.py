@@ -18,6 +18,7 @@ import sessionboard
 import user_events
 import sessionpad
 import galleries
+import design
 
 from starflyer import Module, URL
 
@@ -54,16 +55,18 @@ class BarcampModule(Module):
         URL('/<slug>/sessions/<sid>/vote', 'session_vote', sessions.Vote),
         URL('/<slug>/sessions/<sid>/comments', 'session_comments', sessions.CommentHandler),
         
-        URL('/<slug>/logo/upload',  'logo_upload', images.LogoUpload),
-        URL('/<slug>/logo/delete',  'logo_delete', images.LogoDelete),
+        URL('/<slug>/admin/logo/upload',  'logo_upload', images.LogoUpload),
+        URL('/<slug>/admin/logo/delete',  'logo_delete', images.LogoDelete),
         URL('/<slug>/logo', 'barcamp_logo', images.Logo),
-        URL('/<slug>/dashboard', 'dashboard', dashboard.DashboardView),
-        URL('/<slug>/sponsors', 'sponsors', sponsors.SponsorsView),
+        URL('/<slug>/admin/dashboard', 'dashboard', dashboard.DashboardView),
+        URL('/<slug>/admin/sponsors', 'sponsors', sponsors.SponsorsView),
+
+        URL('/<slug>/admin/design', 'admin_design', design.DesignView),
 
         URL('/<slug>/subscribe',    'subscribe',        registration.BarcampSubscribe),
         URL('/<slug>/register',     'register',         registration.BarcampRegister),
         URL('/<slug>/registration_form',     'registration_form',         registration.RegistrationForm),
-        URL('/<slug>/admin_register',     'admin_register',         registration.BarcampAdminRegister),
+        URL('/<slug>/admin/register',     'admin_register',         registration.BarcampAdminRegister),
         URL('/<slug>/unregister',   'unregister',       registration.BarcampUnregister),
         URL('/<slug>/registrationdata', 'registrationdata', registration.RegistrationData),
 

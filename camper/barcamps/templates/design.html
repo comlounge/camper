@@ -1,0 +1,54 @@
+{% set menu="design" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+<h1>{{_("Barcamp Design and Layout")}}</h1>
+
+<form id="design-form" method="POST" action="{{url}}">
+    {{ formmacros.form_field(form.font, required=True, placeholder=_("Font to use"))}}
+    <div class="row">
+        <div class="col-sm-3">
+            {{ formmacros.form_field(form.link_color, input_class="", required=True, placeholder=_('Link Color'))}}
+        </div>
+        <div class="col-sm-3">
+            {{ formmacros.form_field(form.header_color, input_class="", required=True, placeholder=_('Header Background Color'))}}
+        </div>
+        <div class="col-sm-3">
+            {{ formmacros.form_field(form.text_color, input_class="", required=True, placeholder=_('Text Color'))}}
+        </div>
+        <div class="col-sm-3">
+            {{ formmacros.form_field(form.background_color, input_class="", required=True, placeholder=_('Background Color'))}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            {{ formmacros.form_field(form.navbar_link_color, input_class="", required=True, placeholder=_('Background Color'))}}
+        </div>
+        <div class="col-sm-4">
+            {{ formmacros.form_field(form.navbar_active_color, input_class="", required=True, placeholder=_('Active Text Color'))}}
+        </div>
+        <div class="col-sm-4">
+            {{ formmacros.form_field(form.navbar_border_color, input_class="", required=True, placeholder=_('Border Color'))}}
+        </div>
+        <div class="col-sm-4">
+            {{ formmacros.form_field(form.navbar_active_bg, input_class="", required=True, placeholder=_('Active Background Color'))}}
+        </div>
+        <div class="col-sm-4">
+            {{ formmacros.form_field(form.navbar_hover_bg, input_class="", required=True, placeholder=_('Hover Background Color'))}}
+        </div>
+    </div>
+
+    {{ formmacros.form_field(form.background_image, input_class="",
+        label=_("Upload Image"), delete_label=_("Delete"), revert_label=("Revert"),
+        preview_url = view.background_image_url.small,
+        upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+    {{ formmacros.form_field(form.fb_image, input_class="",
+        label=_("Upload Image"), delete_label=_("Delete"), revert_label=("Revert"),
+        preview_url = view.fb_image_url.small,
+        upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Update')}}">
+</form>
+
+{% endblock %}
+

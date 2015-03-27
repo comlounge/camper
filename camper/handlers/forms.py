@@ -8,7 +8,7 @@ from camper import BaseForm
 from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerField, DecimalField
 from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
 from wtforms import validators as v
-from wtforms.widgets import html_params, HTMLString
+from wtforms.widgets import html_params, HTMLString, HiddenInput, TextInput
 from jinja2 import Template
 
 ###
@@ -296,5 +296,23 @@ class DateTimePickerField(Field):
         return self.form.validate()
 
 
+class ColorWidget(TextInput):
+    """color picker widget with preview"""
+
+    def __init__(self):
+        """initialize color widget"""
+        super(ColorWidget, self).__init__()
+
+    def __call__(self, field, **kwargs):
+        """render the widget"""
+        html = super(ColorWidget, self).__call__(field, size=8, **kwargs)
+        more = """<span class="input-group-addon"><i></i></span>"""
+        return """<div class="colorpicker-container">%s</div>""" %(html+more)
 
 
+class ColorField(HiddenField):
+    """implements a color field with colorpicker"""
+
+    widget = ColorWidget()
+
+    

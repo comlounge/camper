@@ -6695,6 +6695,17 @@ body.admin .sessionslot.enabled:hover {
 #gallery-admin .gallerylist .actions {
   text-align: right;
 }
+.colorpicker-container input {
+  width: auto;
+  float: left;
+}
+.colorpicker-container.colorpicker-element .input-group-addon {
+  height: 34px;
+}
+.colorpicker-container.colorpicker-element .input-group-addon i {
+  width: 100%;
+  height: 100%;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
@@ -6877,6 +6888,7 @@ body#startpage article.barcamp.barcamp-small h3 {
 }
 #barcamppage {
   background: #fcfcfa;
+  background-size: cover;
 }
 #barcamp h1.logo img {
   width: 100%;
