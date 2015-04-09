@@ -165,6 +165,8 @@ class RegistrationDataExport(BarcampBaseHandler):
         data = self.barcamp.registration_data
 
         participants = self.barcamp.event.participants
+        waiting = self.barcamp.event.waiting_list
+        subscribers = self.barcamp.subscribers
 
         filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
@@ -174,26 +176,34 @@ class RegistrationDataExport(BarcampBaseHandler):
         i = 1
 
         # headlines
-        c = 1
+        c = 2
         ws.write(0,0,"Name")
+        ws.write(0,1,"Status")
         for k in [f['title'] for f in form]:
             ws.write(0,c,k)
             c = c + 1
 
         # data
-        for uid in participants:
-            record = data.get(uid, {})
+        m = {
+            u'Partcipant' : participants,
+            u'Waiting' : waiting,
+            u'Interested' : subscribers
+        }
+        for status, l in m.items():
+            for uid in l:
+                record = data.get(uid, {})
 
-            # write participant name
-            user = self.app.module_map.userbase.get_user_by_id(uid)
-            ws.write(i, 0, unicode(user['fullname']))
+                # write participant name
+                user = self.app.module_map.userbase.get_user_by_id(uid)
+                ws.write(i, 0, unicode(user['fullname']))
+                ws.write(i, 1, status) # write status field
 
-            # write rest
-            c = 1
-            for field in [f['name'] for f in form]:
-                ws.write(i, c, unicode(record.get(field, "n/a")))
-                c = c + 1
-            i = i + 1
+                # write rest
+                c = 2
+                for field in [f['name'] for f in form]:
+                    ws.write(i, c, unicode(record.get(field, "n/a")))
+                    c = c + 1
+                i = i + 1
         stream = StringIO()
         wb.save(stream)
         response = self.app.response_class(stream.getvalue(), content_type="application/excel")
