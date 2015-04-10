@@ -2,17 +2,18 @@
 
 
 {% macro eventnav(active="details", title="") -%}
-<div id="backbutton">
-    <a href="{{url_for('.events', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to event listing')}}</a>
-</div>  
+    <div id="backbutton">
+        <a href="{{url_for('.events', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to event listing')}}</a>
+    </div>  
 
-<nav>
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="{{'active' if active=='details'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Details")}}</a></li>
-        <li role="presentation" class="{{'active' if active=='timetable'}}"><a href="{{url_for('.sessionboard', slug=slug, eid=eid)}}">{{_("Timetable")}}</a></li>
-        <li role="presentation" class="{{'active' if active=='participants'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Participants")}}</a></li>
-    </ul>
-</nav>
+    <nav>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="{{'active' if active=='details'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Details")}}</a></li>
+            <li role="presentation" class="{{'active' if active=='timetable'}}"><a href="{{url_for('.sessionboard', slug=slug, eid=eid)}}">{{_("Timetable")}}</a></li>
+            <li role="presentation" class="{{'active' if active=='participants'}}"><a href="{{url_for('.event', slug=slug, eid=eid)}}">{{_("Participants")}}</a></li>
+        </ul>
+    </nav>
+
     <div class="pull-right">
     	<form>
     		<select id="select-event">
@@ -24,153 +25,153 @@
     		</select>
     	</form>
     </div>
-    <h3>{{title}} {{_('for')}} {{event.name}} ({{dateformat(event.date)}})
-    </h3>
+
+<h3>{{title}} {{_('for')}} {{event.name}} ({{dateformat(event.date)}})</h3>
+
 {%- endmacro %}
 
 {% macro locationpicker(event = {'location': {}}) -%}
-<div class="modal" id="location-picker" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="{{_('Close')}}"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="modal-label">{{_('Select location')}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="action-overlay" style="display: none;">
-                    <button id="lookup-button" class="btn btn-info btn-sm" title="{{_('place marker on address')}}"><i class="fa fa-location-arrow"></i> {{_('place marker on address')}}</button>
+    <div class="modal" id="location-picker" tabindex="-1" role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{_('Close')}}"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modal-label">{{_('Select location')}}</h4>
                 </div>
-                <div id="bigmap"
-                    data-mapid="{{mapbox_map_id}}"
-                    data-accesstoken="{{mapbox_access_token}}"
-                    data-lat="{{event.location.lat}}"
-                    data-lng="{{event.location.lng}}"
-                    data-locationurl = "{{url_for('.event_location', slug = slug, eid = event._id)}}"
-                    data-admin="1"
-                    >
-                    <div class="spinner-overlay" id="location-loader">
-                        <div class="loader" title="{{_('loading indicator')}}">
-                            <span>{{_('retrieving location')}}</span>
-                        </div>
-                        <div id="location-error-box" style="display: block;">
-                            <div id="location-error" class="error">This is empty</div>
-                            <button id="location-error-confirm" class="btn btn-danger btn-lg"><i class="fa fa-ok"></i> {{_('Understood')}}</button>
+                <div class="modal-body">
+                    <div class="action-overlay" style="display: none;">
+                        <button id="lookup-button" class="btn btn-info btn-sm" title="{{_('place marker on address')}}"><i class="fa fa-location-arrow"></i> {{_('place marker on address')}}</button>
+                    </div>
+                    <div id="bigmap"
+                        data-mapid="{{mapbox_map_id}}"
+                        data-accesstoken="{{mapbox_access_token}}"
+                        data-lat="{{event.location.lat}}"
+                        data-lng="{{event.location.lng}}"
+                        data-locationurl = "{{url_for('.event_location', slug = slug, eid = event._id)}}"
+                        data-admin="1"
+                        >
+                        <div class="spinner-overlay" id="location-loader">
+                            <div class="loader" title="{{_('loading indicator')}}">
+                                <span>{{_('retrieving location')}}</span>
+                            </div>
+                            <div id="location-error-box" style="display: block;">
+                                <div id="location-error" class="error">This is empty</div>
+                                <button id="location-error-confirm" class="btn btn-danger btn-lg"><i class="fa fa-ok"></i> {{_('Understood')}}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button id="save-location-button" class="btn btn-primary">{{_('Save location')}}</button>
-                <button data-dismiss="modal" title="{{_('close')}}" class="btn btn-default">{{_('close map')}}</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+                <div class="modal-footer">
+                    <button id="save-location-button" class="btn btn-primary">{{_('Save location')}}</button>
+                    <button data-dismiss="modal" title="{{_('close')}}" class="btn btn-default">{{_('close map')}}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 {%- endmacro %}
 
 {% macro eventform(event={}, label='Add event') -%}
+    <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
+        <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
+        <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
+        <input type="hidden" name="_id" value="{{event._id}}">
+        <input type="hidden" name="own_coords" id="own_coords" value="no">
+        {{form.location_lat()}}
+        {{form.location_lng()}}
+        <div class="form-group form-group-lg">
+            <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
+            <div class="col-sm-10">
+                {{formmacros.f(form.name, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
+            <div class="col-sm-10">
+                {{formmacros.f(form.description, data_resize="vertical", data_provide="markdown", rows=10, id="description", placeholder=_('Add more info'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">{{_('When')}}</label>
+            <div class="col-sm-4">
+                {{formmacros.f(form.date, placeholder=_('Date'))}}
+                {% if barcamp.public %}
+                    <div class="help-block">{{_('Be aware that this barcamp is public and %(amount)s people already signed up for it. So changing the date might not be the best idea.')|format(amount=event.participants|length)}}</div>
+                {% endif %}
+            </div>
+            <div class="col-sm-1">
+            {{_('from')}}
+            </div>
+            <div class="col-sm-2">
+                <label class="sr-only" for="start_time">{{_('Start Time')}}</label>
+                {{form.start_time(class="form-control", placeholder=_('Start time'))}}
+            </div>
+            <div class="col-sm-1">
+            {{_('to')}}
+            </div>
+            <div class="col-sm-2">
+                <label class="sr-only" for="end_time">{{_('End Time')}}</label>
+                {{formmacros.f(form.end_time, placeholder=_('End time'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="size" class="col-sm-2 control-label">{{_('How many')}}</label>
+            <div class="col-sm-2">
+                {{formmacros.f(form.size)}}
+            </div>
+        </div>
 
-        <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
-            <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
-            <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
-            <input type="hidden" name="_id" value="{{event._id}}">
-            <input type="hidden" name="own_coords" id="own_coords" value="no">
-            {{form.location_lat()}}
-            {{form.location_lng()}}
-            <div class="form-group form-group-lg">
-                <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
-                <div class="col-sm-10">
-                    {{formmacros.f(form.name, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <div class="checkbox">
+                    <label>
+                        {{form.own_location()}} {{_('Use different location than the main barcamp location')}}
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+        <fieldset id="location-view" style="display: none;">
+            <legend>{{_('Location')}}</legend>                    
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{_('Where')}}</label>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="name">{{_('Name of location')}}</label>
+                    {{formmacros.f(form.location_name, placeholder=_('Name of the location'))}}
+                </div>
+                <div class="col-sm-5" data-content="{{_('Please enter a street')}}" id="error-street"
+                        data-container="body" data-toggle="popover" data-placement="top">
+                    <label class="sr-only" for="street">{{_('Street')}}</label>
+                    {{formmacros.f(form.location_street, placeholder=_('Street'))}}
                 </div>
             </div>
             <div class="form-group">
-                <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
-                <div class="col-sm-10">
-                    {{formmacros.f(form.description, data_resize="vertical", data_provide="markdown", rows=10, id="description", placeholder=_('Add more info'))}}
+                <div class="col-sm-2 col-sm-offset-2">
+                    <label class="sr-only" for="zip">{{_('zip')}}</label>
+                    {{formmacros.f(form.location_zip, placeholder=_('zip'))}}
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="date" class="col-sm-2 control-label">{{_('When')}}</label>
-                <div class="col-sm-4">
-                    {{formmacros.f(form.date, placeholder=_('Date'))}}
-                    {% if barcamp.public %}
-                        <div class="help-block">{{_('Be aware that this barcamp is public and %(amount)s people already signed up for it. So changing the date might not be the best idea.')|format(amount=event.participants|length)}}</div>
-                    {% endif %}
+                <div class="col-sm-4" data-content="{{_('Please enter a city')}}" id="error-city"
+                        data-container="body" data-toggle="popover" data-placement="top">
+                    <label class="sr-only" for="city">{{_('City')}}</label>
+                    {{formmacros.f(form.location_city, placeholder=_('City'))}}
+                </div>
+                <div class="col-sm-3">
+                    <label class="sr-only" for="country">{{_('Country')}}</label>
+                    {{formmacros.f(form.location_country, placeholder=_('Country'))}}
                 </div>
                 <div class="col-sm-1">
-                {{_('from')}}
-                </div>
-                <div class="col-sm-2">
-                    <label class="sr-only" for="start_time">{{_('Start Time')}}</label>
-                    {{form.start_time(class="form-control", placeholder=_('Start time'))}}
-                </div>
-                <div class="col-sm-1">
-                {{_('to')}}
-                </div>
-                <div class="col-sm-2">
-                    <label class="sr-only" for="end_time">{{_('End Time')}}</label>
-                    {{formmacros.f(form.end_time, placeholder=_('End time'))}}
+                    <button type="button" id="show-on-map" 
+                        title="{{_('show the map')}}"
+                        class="btn btn-info pull-right"><i class="fa fa-map-marker"></i></button>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="size" class="col-sm-2 control-label">{{_('How many')}}</label>
-                <div class="col-sm-2">
-                    {{formmacros.f(form.size)}}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <div class="checkbox">
-                        <label>
-                            {{form.own_location()}} {{_('Use different location than the main barcamp location')}}
-                        </label>
-                    </div>
-
-                </div>
-            </div>
-
-            <fieldset id="location-view" style="display: none;">
-                <legend>{{_('Location')}}</legend>                    
-
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">{{_('Where')}}</label>
-                    <div class="col-sm-5">
-                        <label class="sr-only" for="name">{{_('Name of location')}}</label>
-                        {{formmacros.f(form.location_name, placeholder=_('Name of the location'))}}
-                    </div>
-                    <div class="col-sm-5" data-content="{{_('Please enter a street')}}" id="error-street"
-                            data-container="body" data-toggle="popover" data-placement="top">
-                        <label class="sr-only" for="street">{{_('Street')}}</label>
-                        {{formmacros.f(form.location_street, placeholder=_('Street'))}}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-2 col-sm-offset-2">
-                        <label class="sr-only" for="zip">{{_('zip')}}</label>
-                        {{formmacros.f(form.location_zip, placeholder=_('zip'))}}
-                    </div>
-                    <div class="col-sm-4" data-content="{{_('Please enter a city')}}" id="error-city"
-                            data-container="body" data-toggle="popover" data-placement="top">
-                        <label class="sr-only" for="city">{{_('City')}}</label>
-                        {{formmacros.f(form.location_city, placeholder=_('City'))}}
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="sr-only" for="country">{{_('Country')}}</label>
-                        {{formmacros.f(form.location_country, placeholder=_('Country'))}}
-                    </div>
-                    <div class="col-sm-1">
-                        <button type="button" id="show-on-map" 
-                            title="{{_('show the map')}}"
-                            class="btn btn-info pull-right"><i class="fa fa-map-marker"></i></button>
-                    </div>
-                </div>
-                {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
-                {{ formmacros.form_field(form.location_email, label_class="col-sm-2", input_class="email", size="col-sm-10", placeholder="") }}
-                {{ formmacros.form_field(form.location_phone, label_class="col-sm-2", input_class="", size="col-sm-10", placeholder="") }}
-                {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
-            </fieldset>
-            <input type="submit" class="btn btn-lg btn-primary" value="{{label}}">
-            <button id="cancel-add-form" class="pull-right btn btn-default">{{_('Cancel')}}</button>
-        </form>
+            {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_email, label_class="col-sm-2", input_class="email", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_phone, label_class="col-sm-2", input_class="", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
+        </fieldset>
+        <input type="submit" class="btn btn-lg btn-primary" value="{{label}}">
+        <button id="cancel-add-form" class="pull-right btn btn-default">{{_('Cancel')}}</button>
+    </form>
 {%- endmacro %}
