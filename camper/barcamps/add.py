@@ -47,7 +47,7 @@ class BarcampAddForm(BaseForm):
 class AddView(BaseHandler):
     """an index handler"""
 
-    template = "add.html"
+    template = "admin/add.html"
 
     @logged_in()
     def get(self):

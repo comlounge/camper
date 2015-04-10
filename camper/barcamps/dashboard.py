@@ -14,7 +14,7 @@ from camper import utils
 class DashboardView(BarcampBaseHandler):
     """shows a simple dashboard"""
 
-    template = "dashboard.html"
+    template = "admin/dashboard.html"
 
     @ensure_barcamp()
     @logged_in()

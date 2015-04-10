@@ -49,7 +49,7 @@ class BarcampEditForm(BaseForm):
 class EditView(BarcampBaseHandler):
     """an index handler"""
 
-    template = "edit.html"
+    template = "admin/edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -137,7 +137,7 @@ class MailsEditForm(BaseForm):
 class MailsEditView(BarcampBaseHandler):
     """let the user define the mail templates"""
 
-    template = "mails_edit.html"
+    template = "admin/mails_edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -163,7 +163,7 @@ class MailsEditView(BarcampBaseHandler):
 class ParticipantsEditView(BarcampBaseHandler):
     """let the user increase the number of participants"""
 
-    template = "participants_edit.html"
+    template = "admin/participants_edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -202,7 +202,7 @@ class ParticipantDataEditForm(BaseForm):
 class ParticipantsDataEditView(BarcampBaseHandler):
     """let the user define the participant data form fields"""
 
-    template = "participants_data_edit.html"
+    template = "admin/participants_data_edit.html"
 
     @ensure_barcamp()
     @logged_in()

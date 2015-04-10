@@ -7,7 +7,7 @@ from starflyer import redirect
 class Permissions(BarcampBaseHandler):
     """screen for private/public and admin management"""
 
-    template = "permissions.html"
+    template = "admin/permissions.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -71,7 +71,7 @@ class Admin(BarcampBaseHandler):
     """add a new administrator.
     """
 
-    template = "permissions.html"
+    template = "admin/permissions.html"
 
     @ensure_barcamp()
     @logged_in()

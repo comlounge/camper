@@ -30,7 +30,7 @@ class NewsletterForm(BaseForm):
 class NewsletterEditView(BarcampBaseHandler):
     """let the admin create and send a newsletter"""
 
-    template = "send_newsletter.html"
+    template = "admin/send_newsletter.html"
 
     @ensure_barcamp()
     @logged_in()

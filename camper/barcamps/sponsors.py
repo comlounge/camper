@@ -20,7 +20,7 @@ class SponsorForm(BaseForm):
 class SponsorsView(BarcampBaseHandler):
     """shows the lists of subscribers, participants, waiting list"""
 
-    template = "sponsors.html"
+    template = "admin/sponsors.html"
 
     @logged_in()
     @is_admin()

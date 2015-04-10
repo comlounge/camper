@@ -29,7 +29,7 @@ class DesignForm(BaseForm):
 class DesignView(BarcampBaseHandler):
     """handle screen for handling design"""
 
-    template = "design.html"
+    template = "admin/design.html"
 
     @ensure_barcamp()
     @logged_in()

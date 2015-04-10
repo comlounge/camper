@@ -22,7 +22,7 @@ class ImageForm(BaseForm):
 class GalleryList(BarcampBaseHandler):
     """shows a list of all the galleries"""
 
-    template = "galleries.html"
+    template = "admin/galleries.html"
     action = "galleries"
 
     @ensure_barcamp()
@@ -49,7 +49,7 @@ class GalleryList(BarcampBaseHandler):
 class GalleryAdminEdit(BarcampBaseHandler):
     """edit an image gallery"""
 
-    template = "galleryadmin.html"
+    template = "admin/galleryadmin.html"
     action = "galleries"
 
     @ensure_barcamp()

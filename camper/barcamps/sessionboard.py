@@ -1,7 +1,7 @@
 #encoding=utf8
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
-from camper import logged_in, is_admin
+from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from camper.handlers.forms import *
 from sfext.babel import T
 from wtforms import *
@@ -20,8 +20,10 @@ class RoomForm(BaseForm):
 class SessionBoard(BarcampBaseHandler):
     """shows editable sessionboard"""
 
-    template = "sessionboard.html"
+    template = "admin/sessionboard.html"
 
+    @ensure_barcamp()
+    @is_admin()
     def get(self, slug = None, eid = None):
         """render the view"""
         event = self.barcamp.get_event(eid)
@@ -39,6 +41,8 @@ class SessionBoard(BarcampBaseHandler):
 class SessionBoardData(BarcampBaseHandler):
     """handles all AJAX related session board data"""
 
+    @ensure_barcamp()
+    @is_admin()
     @asjson()
     def get(self, slug = None, eid = None):
         """return rooms and timeslots"""
@@ -71,6 +75,8 @@ class SessionBoardData(BarcampBaseHandler):
             'sessions' : sessions,
         }
 
+    @ensure_barcamp()
+    @is_admin()
     @asjson()
     def post(self, slug = None, eid = None):
         """store room and timetable data"""

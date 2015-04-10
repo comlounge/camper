@@ -9,7 +9,7 @@ import requests
 class DeleteConfirmView(BarcampBaseHandler):
     """ask if you are sure to delete the barcamp"""
 
-    template = "delete.html"
+    template = "admin/delete.html"
 
     @ensure_barcamp()
     @logged_in()

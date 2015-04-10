@@ -47,7 +47,7 @@ class EventForm(BaseForm):
 class EventsView(BarcampBaseHandler):
     """shows the event page where you can add, edit and delete events"""
 
-    template = "events.html"
+    template = "admin/events.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -116,7 +116,7 @@ class EventsView(BarcampBaseHandler):
 class EventView(BarcampBaseHandler):
     """shows one event which you can then edit"""
 
-    template = "event.html"
+    template = "admin/event.html"
 
     @ensure_barcamp()
     @logged_in()
