@@ -9,6 +9,7 @@ from sfext.babel import T
 from .base import BarcampBaseHandler
 import requests
 from camper import utils
+from camper.handlers.forms import WYSIWYGField
 
 class ParticipantCountForm(BaseForm):
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
@@ -20,7 +21,7 @@ class BarcampEditForm(BaseForm):
                 description = T('every barcamp needs a title. examples: "Barcamp Aachen 2012", "JMStVCamp"'),
     )
 
-    description         = TextAreaField(T("Description"), [validators.Required()],
+    description         = WYSIWYGField(T("Description"), [validators.Required()],
                 description = T('please describe your barcamp here'),
     )
     slug                = TextField(T("slug / url name"), [validators.Required()],
@@ -45,6 +46,10 @@ class BarcampEditForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
+    location_country             = TextField(T("Country"), default="Germany")
+    location_lat                 = HiddenField()
+    location_lng                 = HiddenField()
+
 
 class EditView(BarcampBaseHandler):
     """an index handler"""

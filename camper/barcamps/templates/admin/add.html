@@ -1,10 +1,95 @@
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
 {% block content %}
     {% block title %}
         <h1>{{_('Create a new Barcamp')}}</h1>
     {% endblock %}
+
+    {{ locationpicker() }}
+
+    <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
+        <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
+        <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
+        <input type="hidden" name="own_coords" id="own_coords" value="no">
+        {{form.location_lat()}}
+        {{form.location_lng()}}
+        <div class="form-group form-group-lg">
+            <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
+            <div class="col-sm-10">
+                {{formmacros.f(form.name, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
+            <div class="col-sm-10">
+                {{formmacros.my_field(form.description, input_class="wysiwyg2", size="mce", rows=10, id="description", placeholder=_('Add more info'))}}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-2 control-label">{{_('From')}}</label>
+            <div class="col-sm-4">
+                {{formmacros.f(form.start_date, placeholder=_('Start date'))}}
+            </div>
+            <div class="col-sm-1">
+            {{_('To')}}
+            </div>
+            <div class="col-sm-4">
+                {{formmacros.f(form.end_date, placeholder=_('End date'))}}
+            </div>
+        </div>
+
+
+        <fieldset id="location-view">
+            <legend>{{_('Location')}}</legend>                    
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">{{_('Where')}}</label>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="name">{{_('Name of location')}}</label>
+                    {{formmacros.f(form.location_name, placeholder=_('Name of the location'))}}
+                </div>
+                <div class="col-sm-5" data-content="{{_('Please enter a street')}}" id="error-street"
+                        data-container="body" data-toggle="popover" data-placement="top">
+                    <label class="sr-only" for="street">{{_('Street')}}</label>
+                    {{formmacros.f(form.location_street, placeholder=_('Street'))}}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 col-sm-offset-2">
+                    <label class="sr-only" for="zip">{{_('zip')}}</label>
+                    {{formmacros.f(form.location_zip, placeholder=_('zip'))}}
+                </div>
+                <div class="col-sm-4" data-content="{{_('Please enter a city')}}" id="error-city"
+                        data-container="body" data-toggle="popover" data-placement="top">
+                    <label class="sr-only" for="city">{{_('City')}}</label>
+                    {{formmacros.f(form.location_city, placeholder=_('City'))}}
+                </div>
+                <div class="col-sm-3">
+                    <label class="sr-only" for="country">{{_('Country')}}</label>
+                    {{formmacros.f(form.location_country, placeholder=_('Country'))}}
+                </div>
+                <div class="col-sm-1">
+                    <button type="button" id="show-on-map" 
+                        title="{{_('show the map')}}"
+                        class="btn btn-info pull-right"><i class="fa fa-map-marker"></i></button>
+                </div>
+            </div>
+            {{ formmacros.form_field(form.location_description, rows="3", label_class="col-sm-2", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_email, label_class="col-sm-2", input_class="email", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_phone, label_class="col-sm-2", input_class="", size="col-sm-10", placeholder="") }}
+            {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
+        </fieldset>
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">
+        {% endblock %}
+    </form>
+
+
+    <hr>
+
+
     <form class="form-validate validate" method="POST" action="{{url}}">  
         <fieldset>
             <legend>{{_("Base data")}}</legend>
@@ -41,7 +126,7 @@
             {{ formmacros.form_field(form.twitterwall, input_class="span4 url") }}
             {{ formmacros.form_field(form.fbAdminId, input_class="span4 number") }}
         </fieldset>
-        {% block action %}
+        {% block noaction %}
             <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">
         {% endblock %}
     </form>

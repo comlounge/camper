@@ -10,6 +10,7 @@ from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatFie
 from wtforms import validators as v
 from wtforms.widgets import html_params, HTMLString, HiddenInput, TextInput
 from jinja2 import Template
+import bleach
 
 ###
 ### CUSTOM WIDGETS etc.
@@ -314,5 +315,35 @@ class ColorField(HiddenField):
     """implements a color field with colorpicker"""
 
     widget = ColorWidget()
+
+class WYSIWYGField(TextAreaField):
+    """text area with tinymce attached and html sanitizing"""
+
+    def __init__(self, 
+            label='',
+            validators=None,
+            linkify = True,
+            allowed_tags = "h1 h2 h3 h4 h5 h6 a img li ol ul pre quote blockquote b i u strong em",
+            **kwargs):
+        """initialize the WYSIWYGField. 
+
+        :param label: the label of the field (wtforms)
+        :param validators: the validators as list (wtforms)
+        :param linkify: whether linkify should run over the input (converting links to tags)
+        :param allowed_tags: space separated list of allowed tags in the html input. 
+        """
+        super(WYSIWYGField, self).__init__(label, validators, **kwargs)
+        self.allowed_tags = allowed_tags.split(" ")
+        self.linkify = linkify
+
+
+    def process_formdata(self, valuelist):
+        """cleanup incoming formdata"""
+        if valuelist:
+            html = bleach.clean(valuelist[0], tags = self.allowed_tags)
+            if self.linkify:
+                    html = bleach.linkify(html)
+            self.data = html
+
 
     

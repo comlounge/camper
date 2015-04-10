@@ -13,7 +13,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta property="og:image" content="http://" />
-    <meta property="og:description" content="{{barcamp.description}}" />
+    <meta property="og:description" content="{{barcamp.description|striptags}}" />
     {% if barcamp.fbAdminId %}
     <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
     {% endif %}

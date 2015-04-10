@@ -47,6 +47,7 @@
     </label>
 </div>
 {%- endmacro -%}
+
 {%- macro form_field_radio(field) -%}
 {% for subfield in field %}
     <div class="radio" id="{{field.id}}-div">
@@ -57,6 +58,7 @@
     </div>
 {% endfor %}
 {%- endmacro -%}
+
 {%- macro form_field_multicheckbox(field) -%}
     {% for subfield in field %}
         <label class="checkbox">

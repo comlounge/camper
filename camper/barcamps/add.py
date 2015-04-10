@@ -43,6 +43,10 @@ class BarcampAddForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
+    location_country             = TextField(T("Country"), default="Germany")
+    location_lat                 = HiddenField()
+    location_lng                 = HiddenField()
+
 
 class AddView(BaseHandler):
     """an index handler"""
