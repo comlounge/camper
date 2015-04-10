@@ -11,6 +11,16 @@ from .base import BarcampBaseHandler
 import requests
 from camper import utils
 
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
 
 class NewsletterForm(BaseForm):
     """form for creating a newsletter"""
@@ -21,8 +31,8 @@ class NewsletterForm(BaseForm):
     body    = TextAreaField(T("Newsletter body"), [validators.Required()],
                 #description = T('please describe your barcamp here'),
     )
-    recipients = RadioField(T("Recipients"), [validators.Required()],
-        choices = [("participants", T("Participants")), ("subscribers", T("interested people")), ("all", T("both"))])
+    recipients = MultiCheckboxField(T("Recipients"), [validators.Required()],
+        choices = [("participants", T("Participants")), ("subscribers", T("People interested")), ("waitinglist", T("People on Waiting List"))])
     testmail = TextField(T("E-Mail address for testing the newsletter"),
                 description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
     )
@@ -47,7 +57,7 @@ class NewsletterEditView(BarcampBaseHandler):
                     mailer.mail(f['testmail'], f['subject'], f['body'])
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
-                    self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="waring")
+                    self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="warning")
                 return self.render(
                             view = self.barcamp_view,
                             barcamp = self.barcamp,
@@ -58,13 +68,18 @@ class NewsletterEditView(BarcampBaseHandler):
             elif self.request.form.has_key('send_newsletter'):
                 # send newsletter to recipients
                 recipient_ids = []
-                if f['recipients']=="subscribers":
-                    recipient_ids = self.barcamp.subscribers
-                elif f['recipients']=="participants":
-                    recipient_ids = self.barcamp.event.participants
-                elif f['recipients']=="all":
-                    recipient_ids = self.barcamp.event.participants + self.barcamp.subscribers
+
+                if 'subscribers' in f['recipients']:
+                    recipient_ids = recipient_ids + self.barcamp.subscribers
+                if 'participants' in f['recipients']:
+                    recipient_ids = recipient_ids + self.barcamp.event.participants
+                if 'waitinglist' in f['recipients']:
+                    recipient_ids = recipient_ids + self.barcamp.event.waiting_list
+
+                # filter out duplicates by making it a set
                 recipient_ids = set(recipient_ids)
+
+                # convert ids to users and send out the mails one by one
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
                 for user in users:
                     send_to = user.email

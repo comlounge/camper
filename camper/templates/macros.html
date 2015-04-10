@@ -101,7 +101,7 @@
     {% for subfield in field %}
         <label class="checkbox">
             {{ subfield() }}
-            {{ subfield.label.text }}
+            {{ _(subfield.label.text) }}
         </label>
     {% endfor %}
 {%- endmacro -%}

@@ -1,137 +1,137 @@
 # Translations template for PROJECT.
-# Copyright (C) 2014 ORGANIZATION
+# Copyright (C) 2015 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2014.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2014-02-11 14:35+0100\n"
+"POT-Creation-Date: 2015-04-10 12:42+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 1.3\n"
 
-#: app.py:175
+#: app.py:174
 msgid "User unknown"
 msgstr ""
 
-#: app.py:176
+#: app.py:175
 msgid "This email address cannot not be found in our user database"
 msgstr ""
 
-#: app.py:177
+#: app.py:176
 msgid "Your password is not correct"
 msgstr ""
 
-#: app.py:178
+#: app.py:177
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:179
+#: app.py:178
 msgid "Login failed"
 msgstr ""
 
-#: app.py:180
+#: app.py:179
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:181
+#: app.py:180
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:182
+#: app.py:181
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:183
+#: app.py:182
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:184
+#: app.py:183
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:185
+#: app.py:184
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:186
+#: app.py:185
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:187
+#: app.py:186
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:188
+#: app.py:187
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:189
+#: app.py:188
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:192
+#: app.py:191
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:193
+#: app.py:192
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:194
+#: app.py:193
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:195
+#: app.py:194
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:196
+#: app.py:195
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:200
+#: app.py:199
 msgid "can manage users"
 msgstr ""
 
-#: app.py:201
+#: app.py:200
 msgid "main administrator"
 msgstr ""
 
-#: base.py:77
+#: base.py:97
 msgid "date to be announced"
 msgstr ""
 
-#: base.py:87
+#: base.py:107
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:192
+#: base.py:212
 msgid "Please log in."
 msgstr ""
 
-#: base.py:229
+#: base.py:249
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:235 base.py:386
+#: base.py:255 base.py:405
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:247 base.py:253 base.py:265 base.py:268
+#: base.py:267 base.py:273 base.py:285 base.py:288
 msgid "you don't have the permission to access this page."
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Welcome to %s"
 msgstr ""
 
-#: barcamps/add.py:135 barcamps/registration.py:98
+#: barcamps/add.py:135 barcamps/registration.py:102
 #: scripts/set_default_mail_templates.py:26
 msgid ""
 "Unfortunately list of participants is already full. You have been put "
@@ -214,7 +214,7 @@ msgid ""
 " of participants."
 msgstr ""
 
-#: barcamps/add.py:137 barcamps/registration.py:105
+#: barcamps/add.py:137 barcamps/registration.py:109
 #: scripts/set_default_mail_templates.py:28
 msgid "You are now on the list of participants for this barcamp."
 msgstr ""
@@ -236,19 +236,19 @@ msgstr ""
 msgid "session proposals"
 msgstr ""
 
-#: barcamps/base.py:58
+#: barcamps/base.py:59
 msgid "participants"
 msgstr ""
 
-#: barcamps/base.py:60
+#: barcamps/base.py:61
 msgid "planning"
 msgstr ""
 
-#: barcamps/base.py:61
+#: barcamps/base.py:62
 msgid "documentation"
 msgstr ""
 
-#: barcamps/base.py:67 barcamps/base.py:69
+#: barcamps/base.py:68 barcamps/base.py:70 barcamps/base.py:72
 msgid "Twitterwall"
 msgstr ""
 
@@ -266,7 +266,7 @@ msgid ""
 "\"JMStVCamp\""
 msgstr ""
 
-#: barcamps/edit.py:23 barcamps/edit.py:192
+#: barcamps/edit.py:23 barcamps/edit.py:211
 msgid "Description"
 msgstr ""
 
@@ -347,7 +347,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/edit.py:118 barcamps/edit.py:124 barcamps/edit.py:130
-#: barcamps/newsletter.py:18
+#: barcamps/newsletter.py:28
 msgid "Subject"
 msgstr ""
 
@@ -360,75 +360,75 @@ msgstr ""
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
 
-#: barcamps/edit.py:189
+#: barcamps/edit.py:208
 msgid "Name of field"
 msgstr ""
 
-#: barcamps/edit.py:190
+#: barcamps/edit.py:209
 msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
 msgstr ""
 
-#: barcamps/edit.py:193
+#: barcamps/edit.py:212
 msgid "please describe what the user should enter in this field."
 msgstr ""
 
-#: barcamps/edit.py:195 barcamps/templates/participants_data_edit.html:20
+#: barcamps/edit.py:214 barcamps/templates/participants_data_edit.html:20
 msgid "field type"
 msgstr ""
 
-#: barcamps/edit.py:195
+#: barcamps/edit.py:214
 msgid "1 line of text"
 msgstr ""
 
-#: barcamps/edit.py:195
+#: barcamps/edit.py:214
 msgid "multiple lines of text"
 msgstr ""
 
-#: barcamps/edit.py:196
+#: barcamps/edit.py:215
 msgid "please chose between a one-line text field or multi-line text area"
 msgstr ""
 
-#: barcamps/edit.py:198
+#: barcamps/edit.py:217
 msgid "field required?"
 msgstr ""
 
-#: barcamps/edit.py:199
+#: barcamps/edit.py:218
 msgid ""
 "If you enable this then the user cannot register before this field has "
 "been filled in."
 msgstr ""
 
-#: barcamps/newsletter.py:21
+#: barcamps/newsletter.py:31
 msgid "Newsletter body"
 msgstr ""
 
-#: barcamps/newsletter.py:24
+#: barcamps/newsletter.py:34
 msgid "Recipients"
 msgstr ""
 
-#: barcamps/newsletter.py:25 barcamps/templates/userlist.html:50
+#: barcamps/newsletter.py:35 barcamps/templates/userlist.html:50
 msgid "Participants"
 msgstr ""
 
-#: barcamps/newsletter.py:25
-msgid "interested people"
+#: barcamps/newsletter.py:35
+msgid "People interested"
 msgstr ""
 
-#: barcamps/newsletter.py:25
-msgid "both"
+#: barcamps/newsletter.py:35
+msgid "People on Waiting List"
 msgstr ""
 
-#: barcamps/newsletter.py:26
+#: barcamps/newsletter.py:36
 msgid "E-Mail address for testing the newsletter"
 msgstr ""
 
-#: barcamps/newsletter.py:27
+#: barcamps/newsletter.py:37
 msgid ""
 "put your own e-mail address here in order to send the newsletter to this "
 "address for testing purposes"
 msgstr ""
 
-#: barcamps/newsletter.py:72
+#: barcamps/newsletter.py:87
 msgid "newsletter sent successfully"
 msgstr ""
 
@@ -453,39 +453,39 @@ msgid "Your blog post has been posted."
 msgstr ""
 
 #: barcamps/pads.py:87
-msgid "User not allowed to delete this item"
+msgid "User not allowed to delete this blog post"
 msgstr ""
 
 #: barcamps/permissions.py:32
 msgid "you cannot perform this action."
 msgstr ""
 
-#: barcamps/permissions.py:49
+#: barcamps/permissions.py:55
 msgid "camper: new barcamp created"
 msgstr ""
 
-#: barcamps/permissions.py:75
+#: barcamps/permissions.py:84
 msgid "a user with this email address wasn't found in our database."
 msgstr ""
 
-#: barcamps/permissions.py:82
+#: barcamps/permissions.py:91
 #, python-format
 msgid "%s is not an administrator for this barcamp."
 msgstr ""
 
-#: barcamps/permissions.py:92
+#: barcamps/permissions.py:101
 msgid "you cannot remove admin rights from the creator of this barcamp."
 msgstr ""
 
-#: barcamps/permissions.py:95
+#: barcamps/permissions.py:104
 msgid "you at least need to have one administrator."
 msgstr ""
 
-#: barcamps/permissions.py:100
+#: barcamps/permissions.py:109
 msgid "Administrator deleted."
 msgstr ""
 
-#: barcamps/registration.py:27 barcamps/registration.py:141
+#: barcamps/registration.py:27 barcamps/registration.py:145
 msgid "You are not allowed to change this."
 msgstr ""
 
@@ -504,16 +504,16 @@ msgid ""
 "barcamp"
 msgstr ""
 
-#: barcamps/registration.py:53
+#: barcamps/registration.py:57
 #, python-format
 msgid "User %s has been registered!"
 msgstr ""
 
-#: barcamps/registration.py:147
+#: barcamps/registration.py:151
 msgid "You have been removed from the list of participants."
 msgstr ""
 
-#: barcamps/registration.py:149
+#: barcamps/registration.py:153
 #, python-format
 msgid "%(fullname)s has been removed from the list of participants."
 msgstr ""
@@ -661,116 +661,112 @@ msgid ""
 "                the number of participants"
 msgstr ""
 
-#: barcamps/templates/master.html:132
+#: barcamps/templates/master.html:143
 msgid "publish barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:133
+#: barcamps/templates/master.html:144
 msgid "this barcamp is not public"
 msgstr ""
 
-#: barcamps/templates/master.html:140
+#: barcamps/templates/master.html:151
 msgid "open registration"
 msgstr ""
 
-#: barcamps/templates/master.html:141
+#: barcamps/templates/master.html:152
 msgid ""
 "Registration for this barcamp is not yet open. People can only subscribe "
 "to it but not take part."
 msgstr ""
 
-#: barcamps/templates/master.html:158
+#: barcamps/templates/master.html:169
 msgid "register my interest"
 msgstr ""
 
-#: barcamps/templates/master.html:163 barcamps/templates/master.html:166
+#: barcamps/templates/master.html:174 barcamps/templates/master.html:177
 msgid "register as participant"
 msgstr ""
 
-#: barcamps/templates/master.html:163 barcamps/templates/master.html:166
+#: barcamps/templates/master.html:174 barcamps/templates/master.html:177
 msgid "Register as participant"
 msgstr ""
 
-#: barcamps/templates/master.html:173
+#: barcamps/templates/master.html:184
 msgid "Attention!"
 msgstr ""
 
-#: barcamps/templates/master.html:174
+#: barcamps/templates/master.html:185
 msgid "In order to mark your interest in this barcamp you first have to"
 msgstr ""
 
-#: barcamps/templates/master.html:175
+#: barcamps/templates/master.html:186
 msgid "register"
 msgstr ""
 
-#: barcamps/templates/master.html:175
+#: barcamps/templates/master.html:186
 msgid "or"
 msgstr ""
 
-#: barcamps/templates/master.html:175 templates/M/userbase/login.html:20
+#: barcamps/templates/master.html:186
 msgid "login"
 msgstr ""
 
-#: barcamps/templates/master.html:176
+#: barcamps/templates/master.html:187
 msgid ""
 "on the site itself and then come back to this barcamp to mark your "
 "interest."
 msgstr ""
 
-#: barcamps/templates/master.html:192
+#: barcamps/templates/master.html:203
 msgid "Join us at"
 msgstr ""
 
-#: barcamps/templates/master.html:218
+#: barcamps/templates/master.html:229
 msgid "Administration"
 msgstr ""
 
-#: barcamps/templates/master.html:220
+#: barcamps/templates/master.html:231
 msgid "Upload Logo"
 msgstr ""
 
-#: barcamps/templates/master.html:221
+#: barcamps/templates/master.html:232
 msgid "edit base information"
 msgstr ""
 
-#: barcamps/templates/master.html:222
+#: barcamps/templates/master.html:233
 msgid "edit registration form"
 msgstr ""
 
-#: barcamps/templates/master.html:223
+#: barcamps/templates/master.html:234
 msgid "edit mail templates"
 msgstr ""
 
-#: barcamps/templates/master.html:224
+#: barcamps/templates/master.html:235
 msgid "download participants"
 msgstr ""
 
-#: barcamps/templates/master.html:225
+#: barcamps/templates/master.html:236
 msgid "increase participants"
 msgstr ""
 
-#: barcamps/templates/master.html:226
+#: barcamps/templates/master.html:237
 msgid "send newsletter"
 msgstr ""
 
-#: barcamps/templates/master.html:227
+#: barcamps/templates/master.html:238
 msgid "new sponsor"
 msgstr ""
 
-#: barcamps/templates/master.html:228
+#: barcamps/templates/master.html:239
 msgid "edit permissions"
 msgstr ""
 
-#: barcamps/templates/master.html:230
+#: barcamps/templates/master.html:241
 msgid "create new page"
 msgstr ""
 
-#: barcamps/templates/master.html:232
+#: barcamps/templates/master.html:243
 msgid "DELETE BARCAMP"
-msgstr ""
-
-#: barcamps/templates/master.html:238
-msgid "location"
 msgstr ""
 
 #: barcamps/templates/pad.html:7
@@ -801,7 +797,6 @@ msgid ""
 msgstr ""
 
 #: barcamps/templates/participant_data.html:17 templates/master.html:104
-#: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
 
@@ -925,11 +920,11 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr ""
 
-#: barcamps/templates/userlist.html:24
+#: barcamps/templates/userlist.html:19
 msgid "register user as participant"
 msgstr ""
 
-#: barcamps/templates/userlist.html:29
+#: barcamps/templates/userlist.html:24
 msgid "remove user from list"
 msgstr ""
 
@@ -1117,42 +1112,6 @@ msgstr ""
 
 #: templates/sponsoring.html:18
 msgid "send request"
-msgstr ""
-
-#: templates/M/userbase/login.html:14
-msgid "Real camper log in!"
-msgstr ""
-
-#: templates/M/userbase/login.html:16
-msgid "username"
-msgstr ""
-
-#: templates/M/userbase/login.html:17
-msgid "password"
-msgstr ""
-
-#: templates/M/userbase/login.html:27
-msgid "remember me"
-msgstr ""
-
-#: templates/M/userbase/login.html:31
-msgid "password forgotten?"
-msgstr ""
-
-#: templates/M/userbase/login.html:34
-msgid "register a new user"
-msgstr ""
-
-#: templates/M/userbase/registration.html:7
-msgid "Please register"
-msgstr ""
-
-#: templates/M/userbase/registration.html:24
-msgid "missing activation email?"
-msgstr ""
-
-#: templates/M/userbase/registration.html:25
-msgid "Please send me a new activation code"
 msgstr ""
 
 #: templates/pages/add.html:8
