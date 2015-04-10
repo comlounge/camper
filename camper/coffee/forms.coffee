@@ -167,6 +167,8 @@ $.fn.view_edit_group = (opts = {}) ->
     $(this).each(init)
     this
 
+
+
 $(document).ready( () ->
     $(".urlscheme").limitchars()
     $(".form-validate").validate(
@@ -259,6 +261,47 @@ $(document).ready( () ->
         selector:'.wysiwyg'
         menubar: false
         toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat"
-        content_css : "/static/css/tinymce.css",
+        content_css : "/static/css/tinymce.css"
+
+    # show the map        
+    $("#show-on-map").click () ->
+        street = $('#location_street').val()
+        zip = $('#location_zip').val()
+        city = $('#location_city').val()
+        country = $('#location_country').val()
+
+        # pre-check if some address was actually entered
+        if street == ""
+            $('#error-street').popover("show")
+            return
+        if city == ""
+            $('#error-street').popover("show")
+            return
+
+
+        $("#location-picker").modal("show")
+
+        if $("#location_lat").val()
+            # set marker to stored position
+            lat = $("#location_lat").val()
+            lng = $("#location_lng").val()
+            $("#bigmap").bigmap("set_coords", lat, lng)
+            $("#bigmap").bigmap("place")
+        else
+            $("#bigmap").bigmap("lookup", street, zip, city, country)
+        return false
+
+    $("#location-error-confirm").click () ->
+        $("#location-error-box").hide()
+        $("#location-picker").modal("hide")
+    
+
+    $("#save-location-button").click () ->
+        $("#location_lat").val($("#tmp_lat").val())
+        $("#location_lng").val($("#tmp_lng").val())
+        $("#own_coords").val("yes")
+        $("#location-picker").modal("hide")
 
 )
+
+
