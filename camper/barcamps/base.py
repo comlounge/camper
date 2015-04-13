@@ -12,6 +12,9 @@ from sfext.uploader import AssetNotFound
 
 __all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound', 'LocationRetriever', 'GalleryView']
 
+class LocationNotFound(Exception):
+    """raised when a location was not found"""
+
 class Action(object):
     """an action to be display in navbars etc."""
 
