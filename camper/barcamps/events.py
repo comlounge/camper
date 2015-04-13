@@ -2,7 +2,7 @@
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
-from .base import BarcampBaseHandler
+from .base import BarcampBaseHandler, LocationNotFound
 from wtforms import *
 from sfext.babel import T
 import uuid
@@ -82,7 +82,7 @@ class EventsView(BarcampBaseHandler):
 
             # retrieve geo location (but only when not in test mode as we might be offline)
             if f['location_street'] and not self.config.testing and f['own_location']:
-                f = retrieve_location(f)
+                f = self.retrieve_location(f)
 
 
             # create and save the event object inside the barcamp
@@ -182,11 +182,10 @@ class EventView(BarcampBaseHandler):
                     city = event.location['city']
                     zip = event.location['zip']
                     country = event.location['country']
-                    lat, lng = self.retrieve_location(street, zip, city, country)
-                    event.location['lat'] = lat
-                    event.location['lng'] = lng
                     try:
-                        retriever()
+                        lat, lng = self.retrieve_location(street, zip, city, country)
+                        event.location['lat'] = lat
+                        event.location['lng'] = lng
                     except LocationNotFound:
                         self.flash(self._("the city was not found in the geo database"), category="danger")
             else:
