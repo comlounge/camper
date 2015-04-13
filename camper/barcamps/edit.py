@@ -6,7 +6,7 @@ from starflyer import Handler, redirect, asjson, AttributeMapper
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from wtforms import *
 from sfext.babel import T
-from .base import BarcampBaseHandler
+from .base import BarcampBaseHandler, LocationNotFound
 import requests
 from camper import utils
 from camper.handlers.forms import WYSIWYGField
@@ -31,7 +31,6 @@ class BarcampEditForm(BaseForm):
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
     twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
             description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
-    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
     twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
     hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
     gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
@@ -70,10 +69,16 @@ class EditView(BarcampBaseHandler):
         obj['location_email'] = self.barcamp.location['email']
         obj['location_phone'] = self.barcamp.location['phone']
         obj['location_url'] = self.barcamp.location['url']
+        obj['location_lat'] = self.barcamp.location['lat']
+        obj['location_lng'] = self.barcamp.location['lng']
         obj['location_description'] = self.barcamp.location['description']
+
         form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
+        
+        # remove the slug field if we are public already
         if self.barcamp.public:
             del form['slug']
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
@@ -86,33 +91,48 @@ class EditView(BarcampBaseHandler):
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
                 'country'   : 'de',
+                'lat'       : f['location_lat'] or None,
+                'lng'       : f['location_lng'] or None,
             }
-            # do the nominatim request to find out lat/long but only if street and city have not changed
-            if (form.data['location_street']!=self.barcamp.location['street'] or
-               form.data['location_city']!=self.barcamp.location['city'] or
-               form.data['location_zip']!=self.barcamp.location['zip']) or True:
-                    url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
-                        form.data['location_street'],
-                        form.data['location_city'],
-                    )
-                    data = requests.get(url).json()
-                    if len(data)==0:
-                        # trying again but only with city
-                        url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
-                            form.data['location_city'],
-                        )
-                        data = requests.get(url).json()
-                    if len(data)==0:
-                        self.flash(self._("the city was not found in the geo database"), category="danger")
-                        return self.render(form = form)
-                    # we have at least one entry, take the first one
-                    result = data[0]
-                    f['location']['lat'] = result['lat']
-                    f['location']['lng'] = result['lon']
+
+            # remember old values to check if they have changed
+            old_street = self.barcamp.location['street']
+            old_zip = self.barcamp.location['zip']
+            old_city = self.barcamp.location['city']
+            old_country = self.barcamp.location['country']
+
+            # update it so we have the new data for comparison
             self.barcamp.update(f)
+
+            # check location only if it actually has changed
+            # also don't retrieve it if user has set own coordinates
+            if self.request.form.get('own_coords', "no") != "yes":
+                # computing coords from address
+                changed = (f['location_city'] != old_city or
+                    f['location_street'] != old_street or
+                    f['location_zip'] != old_zip or
+                    f['location_country'] != old_country)
+
+                # in case the address has changed, to a lookup
+                if changed and not self.config.testing:
+                    street = self.barcamp.location['street']
+                    city = self.barcamp.location['city']
+                    zip = self.barcamp.location['zip']
+                    country = self.barcamp.location['country']
+                    try:
+                        lat, lng = self.retrieve_location(street, zip, city, country)
+                        self.barcamp.location['lat'] = lat
+                        self.barcamp.location['lng'] = lng
+                    except LocationNotFound:
+                        self.flash(self._("the city was not found in the geo database"), category="danger")
+            else:
+                    # using user provided coordinates
+                    self.barcamp.update(f)
+
             self.barcamp.put()
             self.flash("Barcamp aktualisiert", category="info")
-            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+            return redirect(self.url_for("barcamps.edit", slug = self.barcamp.slug))
+
         return self.render(form = form)
     post = get
 
