@@ -510,6 +510,16 @@ $(document).ready(function() {
     }
     return false;
   });
+  $("#lookup-button").click(function() {
+    var city, country, street, zip;
+    street = $('#location_street').val();
+    zip = $('#location_zip').val();
+    city = $('#location_city').val();
+    country = $('#location_country').val();
+    $("#location-picker").modal("show");
+    $("#bigmap").bigmap("lookup", street, zip, city, country);
+    return false;
+  });
   $("#location-error-confirm").click(function() {
     $("#location-error-box").hide();
     return $("#location-picker").modal("hide");

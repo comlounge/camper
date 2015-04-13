@@ -450,6 +450,17 @@ $(document).ready( () ->
             $("#bigmap").bigmap("lookup", street, zip, city, country)
         return false
 
+    $("#lookup-button").click () ->
+        street = $('#location_street').val()
+        zip = $('#location_zip').val()
+        city = $('#location_city').val()
+        country = $('#location_country').val()
+        $("#location-picker").modal("show")
+
+        $("#bigmap").bigmap("lookup", street, zip, city, country)
+        return false
+
+
     $("#location-error-confirm").click () ->
         $("#location-error-box").hide()
         $("#location-picker").modal("hide")
