@@ -79,10 +79,10 @@ class BarcampModule(Module):
 
         URL('/<slug>/admin/events', 'events', events.EventsView),
         URL('/<slug>/admin/events/<eid>', 'event', events.EventView),
-        URL('/<slug>/admin/events/location', 'event_location', events.GetLocation),
         URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
         URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
 
+        URL('/_/admin/events/location', 'event_location', events.GetLocation), # not bound to barcamp so it also works in add form
     ]
 
 barcamp_module = BarcampModule(__name__)

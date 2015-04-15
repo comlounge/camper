@@ -202,14 +202,13 @@ class EventView(BarcampBaseHandler):
     post = get
 
 
-class GetLocation(BarcampBaseHandler):
+class GetLocation(BaseHandler):
     """retrieve a location by address and return json"""
 
-    @ensure_barcamp()
     @logged_in()
     @is_admin()
     @asjson()
-    def get(self, slug = None):
+    def get(self):
         """take the location data and return geo coords or an error"""
         street = self.request.args.get("street", "")
         zip = self.request.args.get("zip","")
