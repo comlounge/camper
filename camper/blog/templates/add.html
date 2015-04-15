@@ -12,7 +12,7 @@
             {{ formmacros.form_field(form.image, input_class="",
                 label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
-            {{ formmacros.form_field(form.content, input_class="wysiwyg", rows=10) }}
+            {{ formmacros.form_field(form.content, rows=10) }}
             {{ formmacros.form_field(
                 form.published, 
                 immediate_label = _('Published immediately'), 

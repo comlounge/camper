@@ -16,9 +16,7 @@ class EntryForm(BaseForm):
     title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
                 widget=ATextInput(),
     )
-    content     = TextAreaField(T(u"Content"), [],
-                widget = ATextArea()
-    )
+    content     = WYSIWYGField(T(u"Content"), [])
     published   = DateTimePickerField(T(u"Publishing Date"),
                 default = None,
     )
