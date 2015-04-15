@@ -524,10 +524,15 @@ $(document).ready(function() {
     $("#location-error-box").hide();
     return $("#location-picker").modal("hide");
   });
-  return $("#save-location-button").click(function() {
+  $("#save-location-button").click(function() {
     $("#location_lat").val($("#tmp_lat").val());
     $("#location_lng").val($("#tmp_lng").val());
     $("#own_coords").val("yes");
     return $("#location-picker").modal("hide");
+  });
+  return $('.datepicker').datepicker({
+    format: 'd.m.yyyy',
+    autoclose: true,
+    language: $("body").data("lang")
   });
 });

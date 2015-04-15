@@ -472,6 +472,11 @@ $(document).ready( () ->
         $("#own_coords").val("yes")
         $("#location-picker").modal("hide")
 
+    $('.datepicker').datepicker
+        format: 'd.m.yyyy'
+        autoclose: true
+        language: $("body").data("lang")
+
 )
 
 

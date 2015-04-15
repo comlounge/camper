@@ -30,15 +30,58 @@
         <div class="form-group">
             <label for="date" class="col-sm-2 control-label">{{_('From')}}</label>
             <div class="col-sm-4">
-                {{formmacros.f(form.start_date, placeholder=_('Start date'))}}
+                {{formmacros.f(form.start_date, classes="datepicker", placeholder=_('Start date'))}}
             </div>
             <div class="col-sm-1">
-            {{_('To')}}
+            {{_('to')}}
             </div>
             <div class="col-sm-4">
-                {{formmacros.f(form.end_date, placeholder=_('End date'))}}
+                {{formmacros.f(form.end_date, classes="datepicker", placeholder=_('End date'))}}
             </div>
         </div>
+
+        <fieldset id="location-view">
+            <legend>{{_('Social')}}</legend>
+            <div class="form-group">
+                <label for="homepage" class="col-sm-2">{{_('Website')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.homepage, placeholder=_('https://'))}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2">{{_('Twitter')}}</label>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="twitter">{{_('Twitter Account')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="twitter-addon">@</span>
+                        {{form.twitter(class="form-control", maxlength=15, placeholder=_('Twitter-Account'), **{'aria-describedby': 'twitter-addon'})}}
+                    </div>
+                        <p class="help-block">{{ _(form.twitter.description) }}</p>
+                </div>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="twitter">{{_('Twitter Hashtag')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="hashtag-addon">#</span>
+                        {{form.hashtag(class="form-control", maxlength=100, placeholder=_('Twitter-Hashtag'), **{'aria-describedby': 'hashtag-addon'})}}
+                    </div>
+                        <p class="help-block">{{ _(form.hashtag.description) }}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="facebook" class="col-sm-2">{{_('Facebook')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.facebook, placeholder=_('https://facebook.com/...'))}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="facebook" class="col-sm-2">{{_('Google Plus')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.gplus, placeholder=_('https://plus.google.com/+<name>'))}}
+                </div>
+            </div>
+        </fieldset>
+
 
 
         <fieldset id="location-view">
@@ -86,48 +129,4 @@
         {% endblock %}
     </form>
 
-
-    <hr>
-
-
-    <form class="form-validate validate" method="POST" action="{{url}}">  
-        <fieldset>
-            <legend>{{_("Base data")}}</legend>
-            {{ formmacros.form_field(form.name, input_class="required", placeholder="Barcamp-Name") }}
-            {{ formmacros.form_field(form.description, input_class="required", rows=10) }}
-            {% if not barcamp.public %}
-                {{ formmacros.form_field(form.slug, input_class="required urlscheme", maxlength="32", minlength="4", remote=url_for("barcamps.validate", slug = slug))}}
-            {% endif %}
-            {% if not edit %}
-                {{ formmacros.form_field(form.size, input_class="required number") }}
-            {% endif %}
-            {{ formmacros.form_field(form.homepage, input_class="url") }}
-        </fieldset>
-        <fieldset>
-            <legend>{{_("Dates")}}</legend>
-            {{ formmacros.form_field(form.start_date, input_class="datepicker") }}
-            {{ formmacros.form_field(form.end_date, input_class="datepicker") }}
-        </fieldset>
-        <fieldset>
-            <legend>{{_("Address")}}</legend>
-            {{ formmacros.form_field(form.location_name, input_class="span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_street, input_class="span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_city, input_class="span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_zip, input_class="span2", placeholder="") }}
-            {{ formmacros.form_field(form.location_email, input_class="email span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_phone, input_class="span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_url, input_class="url span8", placeholder="") }}
-            {{ formmacros.form_field(form.location_description, rows="3", input_class="span8", placeholder="") }}
-        </fieldset>
-        <fieldset>
-            <legend>{{_("Social Media")}}</legend>
-            {{ formmacros.form_field(form.twitter, prepend="http://twitter.com/", input_class="span2") }}
-            {{ formmacros.form_field(form.hashtag, input_class="span4") }}
-            {{ formmacros.form_field(form.twitterwall, input_class="span4 url") }}
-            {{ formmacros.form_field(form.fbAdminId, input_class="span4 number") }}
-        </fieldset>
-        {% block noaction %}
-            <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">
-        {% endblock %}
-    </form>
 {% endblock %}

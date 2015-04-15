@@ -323,7 +323,7 @@ class WYSIWYGField(TextAreaField):
             label='',
             validators=None,
             linkify = True,
-            allowed_tags = "h1 h2 h3 h4 h5 h6 a img li ol ul pre quote blockquote b i u strong em",
+            allowed_tags = "h1 h2 h3 h4 h5 h6 a img li ol ul pre quote blockquote b i u p strong em",
             **kwargs):
         """initialize the WYSIWYGField. 
 

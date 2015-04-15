@@ -6706,6 +6706,10 @@ body.admin .sessionslot.enabled:hover {
   width: 100%;
   height: 100%;
 }
+textarea.wysiwyg {
+  visibility: hidden;
+  height: 200px;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],
