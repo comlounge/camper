@@ -8,34 +8,16 @@
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
 {% block head %}
-    <meta property="og:title" content="{{barcamp.name|striptags}}" />
-    <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
-    <meta property="og:image" content="http://" />
-    <meta property="og:description" content="{{barcamp.description|striptags}}" />
-    {% if barcamp.fbAdminId %}
-    <meta property="fb:admins" content="{{barcamp.fbAdminId}}" />
-    {% endif %}
 
-    <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamps.index", slug = slug)}}" />
-    <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
-    <meta name="description" content="{{barcamp.description|striptags}}" />
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
-
-    {#
-    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/jquery-timepicker-jt/jquery.timepicker.css")}}" />
-    <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/js/components/datepair/lib/bootstrap-datepicker.css")}}" />
-    #}
-
-
 
 {% endblock %}
 
 {% block container %}
 <div class="{{'container-fluid' if container=="full" else 'container'}}">
     <div class="row">
-        {%block full_content %}
+        {% block full_content %}
+        {% if slug %}
         <div class="{{'col-lg-2 col-md-2' if container=='full' else 'col-lg-3 col-md-4'}}">
             <ul class="nav navbar-side">
                 <li class="back-to-bc"><a href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-arrow-left"></i> <span>{{_('public view')}}</span></a></li>
@@ -59,6 +41,7 @@
                 <li><a class="btn btn-block btn-danger" href="{{url_for("barcamps.delete", slug=slug)}}"><i class="fa fa-trash"></i>{{_('DELETE BARCAMP')}}</a></li>
             </ul>            
         </div>
+        {% endif %}
         <div class="{{'col-lg-10 col-md-10' if container=='full' else 'col-lg-9 col-md-8    '}}">
 
             {% for m in get_flashes(with_categories=True) %}
