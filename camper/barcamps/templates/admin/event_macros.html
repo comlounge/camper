@@ -47,7 +47,7 @@
                         data-accesstoken="{{mapbox_access_token}}"
                         data-lat="{{event.location.lat}}"
                         data-lng="{{event.location.lng}}"
-                        data-locationurl = "{{url_for('.event_location', slug = slug, eid = event._id)}}"
+                        data-locationurl = "{{url_for('.event_location')}}"
                         data-admin="1"
                         >
                         <div class="spinner-overlay" id="location-loader">
