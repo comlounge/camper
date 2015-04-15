@@ -10,6 +10,7 @@ from sfext.babel import T
 from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
 from functools import partial
+import requests 
 
 from wtforms.ext.i18n.form import Form
 
@@ -487,4 +488,27 @@ class BaseHandler(starflyer.Handler):
                 send_to = self.user.email
             mailer.mail(send_to, subject, payload)
 
+    def retrieve_location(self, street, zip, city, country):
+        """retrieve coords for a location based on the address etc. stored in ``f``"""
+        
+        url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s, %s&format=json&polygon=0&addressdetails=1" %(
+            street, city, country
+        )
+
+        data = requests.get(url).json()
+
+        if len(data)==0:
+            # trying again but only with city
+            url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
+                city,
+                country
+            )
+            data = requests.get(url).json()
+
+        if len(data)==0:
+            raise LocationNotFound()
+
+        # we have at least one entry, take the first one
+        result = data[0]
+        return result['lat'], result['lon']
 
