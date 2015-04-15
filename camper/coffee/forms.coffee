@@ -434,7 +434,7 @@ $(document).ready( () ->
             $('#error-street').popover("show")
             return
         if city == ""
-            $('#error-street').popover("show")
+            $('#error-city').popover("show")
             return
 
 

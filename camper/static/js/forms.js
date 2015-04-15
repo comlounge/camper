@@ -496,7 +496,7 @@ $(document).ready(function() {
       return;
     }
     if (city === "") {
-      $('#error-street').popover("show");
+      $('#error-city').popover("show");
       return;
     }
     $("#location-picker").modal("show");
