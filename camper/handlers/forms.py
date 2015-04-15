@@ -9,6 +9,9 @@ from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerFi
 from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
 from wtforms import validators as v
 from wtforms.widgets import html_params, HTMLString, HiddenInput, TextInput
+from wtforms.compat import text_type, iteritems
+from cgi import escape
+
 from jinja2 import Template
 import bleach
 
@@ -316,8 +319,25 @@ class ColorField(HiddenField):
 
     widget = ColorWidget()
 
+
+
+class WYSIWYGWidget(object):
+    """
+    Renders a multi-line text area with tinymce support
+    `rows` and `cols` ought to be passed as keyword args when rendering.
+    """
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs['class'] = 'wysiwyg'
+        return HTMLString('<textarea %s>%s</textarea>' % (
+            html_params(name=field.name, **kwargs),
+            escape(text_type(field._value()), quote=False)
+        ))
+
 class WYSIWYGField(TextAreaField):
     """text area with tinymce attached and html sanitizing"""
+
+    widget = WYSIWYGWidget()
 
     def __init__(self, 
             label='',
