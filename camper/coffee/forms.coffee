@@ -94,9 +94,7 @@ $.fn.publish_date = (opts = {}) ->
         widget = this
         date = $(widget).find(".date").datepicker("getDate")
         date = $(widget).find(".time").timepicker("getTime", [date])
-        console.log date
         now = new Date()
-        console.log now
 
         if now <= date
             show_inputs()
@@ -137,14 +135,12 @@ $.fn.view_edit_group = (opts = {}) ->
         widget = this
 
         $(widget).find(".input-switch").click () ->
-            console.log "ok"
             $(widget).find(".input-controls").show()
             $(widget).find(".input-view").hide()
         $(widget).find(".cancel-switch").click () ->
             $(widget).find(".input-controls").hide()
             $(widget).find(".input-view").show()
         $(widget).find(".submit").click () ->
-            console.log "clicked"
             url = $(widget).data("url")
             data = $(widget).find("form").serializeObject()
             $.ajax
@@ -152,8 +148,6 @@ $.fn.view_edit_group = (opts = {}) ->
                 type: 'POST'
                 data: data
                 success: (data) =>
-                    console.log "success"
-                    console.log data
                     $('.workflow-'+data.new_state).attr('selected', 'selected')
                     $('.workflow-state').text(data.new_text_state)
                     $(widget).find(".input-controls").hide()
@@ -162,7 +156,6 @@ $.fn.view_edit_group = (opts = {}) ->
                         $("#publish-button").hide()
                     else
                         $("#publish-button").show()
-            console.log $(widget).find(".input").val()
 
     $(this).each(init)
     this
@@ -285,7 +278,6 @@ bm = ($) ->
                 if callback
                     callback(data)
             error: (data) ->
-                console.log "error"
                 $("#location-error-box").show()
                 $("#location-error").text("an unknown error occurred, please try again").show();
                 $("#location-error").show()
@@ -476,6 +468,12 @@ $(document).ready( () ->
         format: 'd.m.yyyy'
         autoclose: true
         language: $("body").data("lang")
+
+
+    $(".parsley-validate").parsley
+        errorsWrapper: "<span class='errors-block help-block'></span>"
+        errorsContainer: (el) ->
+            el.$element.closest("div")
 
 )
 

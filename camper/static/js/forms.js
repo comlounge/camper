@@ -139,9 +139,7 @@ $.fn.publish_date = function(opts) {
     widget = this;
     date = $(widget).find(".date").datepicker("getDate");
     date = $(widget).find(".time").timepicker("getTime", [date]);
-    console.log(date);
     now = new Date();
-    console.log(now);
     if (now <= date) {
       show_inputs();
     } else {
@@ -185,7 +183,6 @@ $.fn.view_edit_group = function(opts) {
     console.log("init");
     widget = this;
     $(widget).find(".input-switch").click(function() {
-      console.log("ok");
       $(widget).find(".input-controls").show();
       return $(widget).find(".input-view").hide();
     });
@@ -195,17 +192,14 @@ $.fn.view_edit_group = function(opts) {
     });
     return $(widget).find(".submit").click(function() {
       var data, url;
-      console.log("clicked");
       url = $(widget).data("url");
       data = $(widget).find("form").serializeObject();
-      $.ajax({
+      return $.ajax({
         url: url,
         type: 'POST',
         data: data,
         success: (function(_this) {
           return function(data) {
-            console.log("success");
-            console.log(data);
             $('.workflow-' + data.new_state).attr('selected', 'selected');
             $('.workflow-state').text(data.new_text_state);
             $(widget).find(".input-controls").hide();
@@ -218,7 +212,6 @@ $.fn.view_edit_group = function(opts) {
           };
         })(this)
       });
-      return console.log($(widget).find(".input").val());
     });
   };
   $(this).each(init);
@@ -348,7 +341,6 @@ bm = function($) {
         }
       },
       error: function(data) {
-        console.log("error");
         $("#location-error-box").show();
         $("#location-error").text("an unknown error occurred, please try again").show();
         $("#location-error").show();
@@ -530,9 +522,15 @@ $(document).ready(function() {
     $("#own_coords").val("yes");
     return $("#location-picker").modal("hide");
   });
-  return $('.datepicker').datepicker({
+  $('.datepicker').datepicker({
     format: 'd.m.yyyy',
     autoclose: true,
     language: $("body").data("lang")
+  });
+  return $(".parsley-validate").parsley({
+    errorsWrapper: "<span class='errors-block help-block'></span>",
+    errorsContainer: function(el) {
+      return el.$element.closest("div");
+    }
   });
 });

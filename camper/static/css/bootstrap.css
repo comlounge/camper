@@ -6295,11 +6295,11 @@ button.close {
     display: none !important;
   }
 }
-body.admin .navbar-side {
+7body.admin .navbar-side {
   margin-top: 25px;
   border: 1px solid #d0d0d0;
 }
-body.admin .navbar-side li {
+7body.admin .navbar-side li {
   background: #f0e0c0;
   display: block;
   float: none;
@@ -6308,41 +6308,41 @@ body.admin .navbar-side li {
   overflow: auto;
   line-height: 1.5;
 }
-body.admin .navbar-side li i {
+7body.admin .navbar-side li i {
   width: 20px;
   display: block;
   float: left;
 }
-body.admin .navbar-side li span {
+7body.admin .navbar-side li span {
   display: block;
   float: left;
 }
-body.admin .navbar-side li a {
+7body.admin .navbar-side li a {
   font-size: 12px;
   font-weight: normal;
   color: #333;
 }
-body.admin .navbar-side li.active {
+7body.admin .navbar-side li.active {
   background: #e6cc97;
 }
-body.admin .navbar-side li.back-to-bc {
+7body.admin .navbar-side li.back-to-bc {
   background: white;
 }
-body.admin .upload-widget {
+7body.admin .upload-widget {
   overflow: auto;
 }
-body.admin .upload-widget .progress {
+7body.admin .upload-widget .progress {
   margin-top: 10px;
   display: none;
 }
-body.admin .upload-widget .preview-area {
+7body.admin .upload-widget .preview-area {
   float: left;
   margin-right: 10px;
   width: 106px;
   border: 1px solid #e0e0e0;
   padding: 2px;
 }
-body.admin .upload-widget .btn {
+7body.admin .upload-widget .btn {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -6350,31 +6350,31 @@ body.admin .upload-widget .btn {
   display: inline-block;
   margin-bottom: 10px;
 }
-body.admin .barcamp-delete li a {
+7body.admin .barcamp-delete li a {
   font-size: 14px;
   color: white;
   font-weight: bold;
 }
-body.admin fieldset {
+7body.admin fieldset {
   margin-bottom: 30px;
 }
-body.admin form {
+7body.admin form {
   margin-top: 30px;
   margin-bottom: 40px;
 }
-body.admin .bigpanel {
+7body.admin .bigpanel {
   padding: 10px;
   border: 1px solid #e0e0e0;
   margin: 10px;
   border-radius: 5px;
   text-align: center;
 }
-body.admin .bigpanel .number {
+7body.admin .bigpanel .number {
   font-size: 50px;
   font-weight: bold;
   text-align: center;
 }
-body.admin .big-button-panel {
+7body.admin .big-button-panel {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6397,32 +6397,32 @@ body.admin .big-button-panel {
   background-color: #5bc0de;
   border-color: #46b8da;
 }
-body.admin .big-button-panel:focus,
-body.admin .big-button-panel:active:focus,
-body.admin .big-button-panel.active:focus,
-body.admin .big-button-panel.focus,
-body.admin .big-button-panel:active.focus,
-body.admin .big-button-panel.active.focus {
+7body.admin .big-button-panel:focus,
+7body.admin .big-button-panel:active:focus,
+7body.admin .big-button-panel.active:focus,
+7body.admin .big-button-panel.focus,
+7body.admin .big-button-panel:active.focus,
+7body.admin .big-button-panel.active.focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-body.admin .big-button-panel:hover,
-body.admin .big-button-panel:focus,
-body.admin .big-button-panel.focus {
+7body.admin .big-button-panel:hover,
+7body.admin .big-button-panel:focus,
+7body.admin .big-button-panel.focus {
   color: #333333;
   text-decoration: none;
 }
-body.admin .big-button-panel:active,
-body.admin .big-button-panel.active {
+7body.admin .big-button-panel:active,
+7body.admin .big-button-panel.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-body.admin .big-button-panel.disabled,
-body.admin .big-button-panel[disabled],
-fieldset[disabled] body.admin .big-button-panel {
+7body.admin .big-button-panel.disabled,
+7body.admin .big-button-panel[disabled],
+fieldset[disabled] 7body.admin .big-button-panel {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -6430,111 +6430,111 @@ fieldset[disabled] body.admin .big-button-panel {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-body.admin .big-button-panel:hover,
-body.admin .big-button-panel:focus,
-body.admin .big-button-panel.focus,
-body.admin .big-button-panel:active,
-body.admin .big-button-panel.active,
-.open > .dropdown-togglebody.admin .big-button-panel {
+7body.admin .big-button-panel:hover,
+7body.admin .big-button-panel:focus,
+7body.admin .big-button-panel.focus,
+7body.admin .big-button-panel:active,
+7body.admin .big-button-panel.active,
+.open > .dropdown-toggle7body.admin .big-button-panel {
   color: #ffffff;
   background-color: #31b0d5;
   border-color: #269abc;
 }
-body.admin .big-button-panel:active,
-body.admin .big-button-panel.active,
-.open > .dropdown-togglebody.admin .big-button-panel {
+7body.admin .big-button-panel:active,
+7body.admin .big-button-panel.active,
+.open > .dropdown-toggle7body.admin .big-button-panel {
   background-image: none;
 }
-body.admin .big-button-panel.disabled,
-body.admin .big-button-panel[disabled],
-fieldset[disabled] body.admin .big-button-panel,
-body.admin .big-button-panel.disabled:hover,
-body.admin .big-button-panel[disabled]:hover,
-fieldset[disabled] body.admin .big-button-panel:hover,
-body.admin .big-button-panel.disabled:focus,
-body.admin .big-button-panel[disabled]:focus,
-fieldset[disabled] body.admin .big-button-panel:focus,
-body.admin .big-button-panel.disabled.focus,
-body.admin .big-button-panel[disabled].focus,
-fieldset[disabled] body.admin .big-button-panel.focus,
-body.admin .big-button-panel.disabled:active,
-body.admin .big-button-panel[disabled]:active,
-fieldset[disabled] body.admin .big-button-panel:active,
-body.admin .big-button-panel.disabled.active,
-body.admin .big-button-panel[disabled].active,
-fieldset[disabled] body.admin .big-button-panel.active {
+7body.admin .big-button-panel.disabled,
+7body.admin .big-button-panel[disabled],
+fieldset[disabled] 7body.admin .big-button-panel,
+7body.admin .big-button-panel.disabled:hover,
+7body.admin .big-button-panel[disabled]:hover,
+fieldset[disabled] 7body.admin .big-button-panel:hover,
+7body.admin .big-button-panel.disabled:focus,
+7body.admin .big-button-panel[disabled]:focus,
+fieldset[disabled] 7body.admin .big-button-panel:focus,
+7body.admin .big-button-panel.disabled.focus,
+7body.admin .big-button-panel[disabled].focus,
+fieldset[disabled] 7body.admin .big-button-panel.focus,
+7body.admin .big-button-panel.disabled:active,
+7body.admin .big-button-panel[disabled]:active,
+fieldset[disabled] 7body.admin .big-button-panel:active,
+7body.admin .big-button-panel.disabled.active,
+7body.admin .big-button-panel[disabled].active,
+fieldset[disabled] 7body.admin .big-button-panel.active {
   background-color: #5bc0de;
   border-color: #46b8da;
 }
-body.admin .big-button-panel .badge {
+7body.admin .big-button-panel .badge {
   color: #5bc0de;
   background-color: #ffffff;
 }
-body.admin .big-button-panel a {
+7body.admin .big-button-panel a {
   font-size: 30px;
 }
-body.admin #sessionboard-container {
+7body.admin #sessionboard-container {
   padding: 30px;
 }
-body.admin #sessionboard-container table {
+7body.admin #sessionboard-container table {
   width: 100%;
   overflow: auto;
 }
-body.admin #sessionboard-container .room-slot {
+7body.admin #sessionboard-container .room-slot {
   white-space: nowrap;
   position: relative;
   padding-bottom: 40px;
 }
-body.admin #sessionboard-container .room-slot .room-name {
+7body.admin #sessionboard-container .room-slot .room-name {
   font-weight: bold;
   text-transform: uppercase;
 }
-body.admin #sessionboard-container .room-slot .room-actions {
+7body.admin #sessionboard-container .room-slot .room-actions {
   position: absolute;
   bottom: 5px;
   right: 5px;
 }
-body.admin #sessionboard-container .time-slot {
+7body.admin #sessionboard-container .time-slot {
   white-space: nowrap;
 }
-body.admin #sessionboard-container .time-slot span {
+7body.admin #sessionboard-container .time-slot span {
   font-size: 18px;
 }
-body.admin #sessionboard-container .description {
+7body.admin #sessionboard-container .description {
   color: #a0a0a0;
   font-size: 12px;
   height: 34px;
   overflow: hidden;
   display: none;
 }
-body.admin #sessionboard-container h5 {
+7body.admin #sessionboard-container h5 {
   margin: 0 0 4px 0;
   font-size: 15px;
   max-height: 34px;
   overflow: hidden;
 }
-body.admin #sessionboard-container .moderators {
+7body.admin #sessionboard-container .moderators {
   font-size: 13px;
 }
-body.admin #sessionboard-container .sessionslot {
+7body.admin #sessionboard-container .sessionslot {
   position: relative;
   padding-bottom: 30px;
 }
-body.admin #sessionboard-container .sessionslot .slot-actions {
+7body.admin #sessionboard-container .sessionslot .slot-actions {
   font-size: 12px;
   position: absolute;
   right: 5px;
   bottom: 5px;
 }
-body.admin #sessionboard-container .sessionslot .slot-actions span {
+7body.admin #sessionboard-container .sessionslot .slot-actions span {
   padding-left: 5px;
 }
-body.admin #sessionboard-container #sessionboard-actions .tooltip-inner {
+7body.admin #sessionboard-container #sessionboard-actions .tooltip-inner {
   max-width: 200px;
   /* If max-width does not work, try using width instead */
   width: 200px;
 }
-body.admin .sortable-placeholder {
+7body.admin .sortable-placeholder {
   background: #cccccc;
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -6542,28 +6542,28 @@ body.admin .sortable-placeholder {
   -webkit-box-shadow: inset 10px 0px 12px -2px rgba(0, 0, 0, 0.15);
   box-shadow: inset 10px 0px 12px -2px rgba(0, 0, 0, 0.15);
 }
-body.admin #backbutton {
+7body.admin #backbutton {
   margin-top: 25px;
   margin-bottom: 25px;
 }
-body.admin #edit-minimap {
+7body.admin #edit-minimap {
   width: 200px;
   height: 200px;
   position: relative;
   top: 0;
   bottom: 0;
 }
-body.admin #map-attribution {
+7body.admin #map-attribution {
   font-size: 10px;
 }
-body.admin #bigmap {
+7body.admin #bigmap {
   width: 100%;
   height: 600px;
 }
-body.admin #location-error {
+7body.admin #location-error {
   color: #f33;
 }
-body.admin .action-overlay {
+7body.admin .action-overlay {
   z-index: 1000;
   position: absolute;
   top: 30px;
@@ -6572,19 +6572,19 @@ body.admin .action-overlay {
   height: 30px;
   padding: 5px;
 }
-body.admin .loader {
+7body.admin .loader {
   width: 1em;
   height: 1em;
   font-size: 150px;
   position: relative;
 }
 @media (max-width: 150px * 1.5), (max-height: 150px * 1.5) {
-  body.admin .loader {
+  7body.admin .loader {
     font-size: 75px;
   }
 }
-body.admin .loader:before,
-body.admin .loader:after {
+7body.admin .loader:before,
+7body.admin .loader:after {
   content: "";
   top: 0;
   display: block;
@@ -6599,17 +6599,17 @@ body.admin .loader:after {
   -webkit-animation: spin 1s infinite;
   animation: spin 1s infinite;
 }
-body.admin .loader:after {
+7body.admin .loader:after {
   left: 0;
   border-left-color: #ecf0f1;
 }
-body.admin .loader:before {
+7body.admin .loader:before {
   right: 0;
   border-right-color: #ecf0f1;
   -webkit-animation-delay: -0.25s;
   animation-delay: -0.25s;
 }
-body.admin .loader span {
+7body.admin .loader span {
   font-size: 20px;
   display: block;
   width: 300px;
@@ -6628,43 +6628,43 @@ body.admin .loader span {
     transform: rotate(360deg);
   }
 }
-body.admin #location-picker .modal-body {
+7body.admin #location-picker .modal-body {
   position: relative;
 }
-body.admin #location-picker .spinner-overlay {
+7body.admin #location-picker .spinner-overlay {
   background: rgba(0, 0, 0, 0.3);
   z-index: 1001;
   width: 100%;
   height: 100%;
   position: absolute;
 }
-body.admin #location-picker .loader {
+7body.admin #location-picker .loader {
   position: absolute;
   z-index: 1002;
   top: 35%;
   left: 45%;
 }
-body.admin #location-picker #location-error-box {
+7body.admin #location-picker #location-error-box {
   position: absolute;
   top: 45%;
   left: 35%;
   width: 300px;
   text-align: center;
 }
-body.admin #location-picker #location-error {
+7body.admin #location-picker #location-error {
   font-size: 20px;
   margin-bottom: 10px;
   color: white;
   font-weight: bold;
 }
-body.admin .sessionslot {
+7body.admin .sessionslot {
   display: table-cell;
   min-height: 70px;
 }
-body.admin .sessionslot.enabled {
+7body.admin .sessionslot.enabled {
   cursor: pointer;
 }
-body.admin .sessionslot.enabled:hover {
+7body.admin .sessionslot.enabled:hover {
   background: #eee;
 }
 .bloglisting {
@@ -6709,6 +6709,39 @@ body.admin .sessionslot.enabled:hover {
 textarea.wysiwyg {
   visibility: hidden;
   height: 200px;
+}
+.errors-block .help-block,
+.errors-block .control-label,
+.errors-block .radio,
+.errors-block .checkbox,
+.errors-block .radio-inline,
+.errors-block .checkbox-inline,
+.errors-block.radio label,
+.errors-block.checkbox label,
+.errors-block.radio-inline label,
+.errors-block.checkbox-inline label {
+  color: #a94442;
+}
+.errors-block .form-control {
+  border-color: #a94442;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.errors-block .form-control:focus {
+  border-color: #843534;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+}
+.errors-block .input-group-addon {
+  color: #a94442;
+  border-color: #a94442;
+  background-color: #f2dede;
+}
+.errors-block .form-control-feedback {
+  color: #a94442;
+}
+form {
+  margin-bottom: 30px;
 }
 [ng\:cloak],
 [ng-cloak],

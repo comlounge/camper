@@ -6,7 +6,7 @@
     {% block title %}
         <h1>{{_('Create a new Blog entry')}}</h1>
     {% endblock %}
-    <form class="" method="POST" action="{{url}}" data-parsley-validate>  
+    <form class="" method="POST" action="{{url}}" class="parsley-validate">  
         <fieldset>
             {{ formmacros.form_field(form.title, input_class="input-lg", required=True, placeholder="Title of blog post") }}
             {{ formmacros.form_field(form.image, input_class="",
