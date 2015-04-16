@@ -527,10 +527,19 @@ $(document).ready(function() {
     autoclose: true,
     language: $("body").data("lang")
   });
-  return $(".parsley-validate").parsley({
+  $(".parsley-validate").parsley({
     errorsWrapper: "<span class='errors-block help-block'></span>",
     errorsContainer: function(el) {
       return el.$element.closest("div");
     }
+  }).addAsyncValidator('mycustom', function(xhr) {
+    if (xhr.responseJSON) {
+      return xhr.responseJSON.validated;
+    }
+    return false;
+  }, CONFIG.slug_validation_url);
+  return $("#slug").slugify("#name", {
+    separator: '_',
+    whitespace: ''
   });
 });

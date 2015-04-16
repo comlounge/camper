@@ -79,7 +79,8 @@ module.exports = function(grunt) {
                     "bootstrap-datepicker",
                     "datepair",
                     "bootstrap-confirmation2",
-                    "shariff"
+                    "shariff",
+                    "jquery-slugify"
                 ],
                 dependencies: {
                 },

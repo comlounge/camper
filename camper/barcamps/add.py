@@ -18,7 +18,7 @@ class BarcampAddForm(BaseForm):
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
     )
 
-    description         = TextAreaField(u"Beschreibung", [validators.Required()],
+    description         = TextAreaField(u"Beschreibung", [],
                 description = u'Bitte beschreibe Dein Barcamp hier',
     )
     slug                = TextField(u"URL-Name", [validators.Required()],
@@ -26,7 +26,6 @@ class BarcampAddForm(BaseForm):
     )
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
-    size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
@@ -126,7 +125,7 @@ class AddView(BaseHandler):
 
             self.flash(self._("%s has been created") %f['name'], category="info")
             return redirect(self.url_for("index"))
-        return self.render(form = form, slug = None)
+        return self.render(form = form, slug = None, show_slug=True)
     post = get
 
 class ValidateView(BaseHandler):
@@ -134,7 +133,7 @@ class ValidateView(BaseHandler):
 
     @logged_in()
     @asjson()
-    def get(self, slug = None):
+    def get(self):
         """retrieve the data via params and validate the given fields
 
         This can be used for both the add and edit view. On edit views it will
@@ -145,10 +144,13 @@ class ValidateView(BaseHandler):
         if "slug" in self.request.args:
             bc = self.config.dbs.barcamps.by_slug(self.request.args['slug'])
             if bc is None:
-                return True
+                return {'validated' : True}
             if self.barcamp is not None and self.barcamp._id == bc._id:
-                return True
-            return self._("This name is already taken. Please choose a different one")
+                return {'validated' : True}
+            return {
+                'validated' : False,
+                'msg' : self._("This name is already taken. Please choose a different one")
+            }
         return True
 
 

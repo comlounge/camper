@@ -1,0 +1,43 @@
+{
+  "name": "jquery-slugify",
+  "version": "1.0.4",
+  "homepage": "https://github.com/madflow/jquery-slugify",
+  "authors": [
+    "madflow"
+  ],
+  "description": "Just another another (another) url slug creation plugin for jQuery",
+  "main": [
+    "dist/slugify.js",
+    "dist/slugify.min.js"
+  ],
+  "keywords": [
+    "slugify",
+    "slugs",
+    "strings"
+  ],
+  "dependencies": {
+    "jquery": ">=1.7"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "libs",
+    "Gruntfile.js",
+    "package.json",
+    "CONTRIBUTING.md",
+    "slugify.jquery.json"
+  ],
+  "_release": "1.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.4",
+    "commit": "a873c4d22d2e2585d2dd3fdac1bf907ec3e806d9"
+  },
+  "_source": "git://github.com/madflow/jquery-slugify.git",
+  "_target": "~1.0.4",
+  "_originalSource": "jquery-slugify",
+  "_direct": true
+}

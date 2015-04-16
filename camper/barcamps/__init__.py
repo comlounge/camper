@@ -29,7 +29,7 @@ class BarcampModule(Module):
 
     routes = [
         URL('/b/add',               'add',              add.AddView),
-        URL('/b/validate',          'validate',         add.ValidateView, defaults = {'slug' : None}),
+        URL('/b/validate',          'validate',         add.ValidateView),
         URL('/<slug>',              'index',            index.View),
         URL('/<slug>/validate',     'validate',         add.ValidateView),
         URL('/<slug>/delete',       'delete',           delete.DeleteConfirmView),
@@ -82,7 +82,8 @@ class BarcampModule(Module):
         URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard', sessionboard.SessionBoard),
         URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
 
-        URL('/_/admin/events/location', 'event_location', events.GetLocation), # not bound to barcamp so it also works in add form
+        # TODO: rename this and move this out of events (in base?)
+        URL('/_/admin/getlocation', 'event_location', events.GetLocation), # not bound to barcamp so it also works in add form
     ]
 
 barcamp_module = BarcampModule(__name__)

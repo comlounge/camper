@@ -1,5 +1,5 @@
 #encoding=utf8
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from wtforms import *
@@ -80,7 +80,6 @@ class BarcampBaseHandler(BaseHandler):
         payload['view'] = self.barcamp_view
         payload['actions'] = self.actions
         return payload
-
 
 
 class GalleryView(object):

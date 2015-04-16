@@ -317,6 +317,7 @@ bm(jQuery)
 
 $(document).ready( () ->
     $(".urlscheme").limitchars()
+    # TODO: remove this old code once parsley is working
     $(".form-validate").validate(
         noshowErrors: (errorMap, errorList) ->
             console.log "error"
@@ -470,10 +471,24 @@ $(document).ready( () ->
         language: $("body").data("lang")
 
 
-    $(".parsley-validate").parsley
+    # special validator for barcamp screen
+    $(".parsley-validate").parsley(
         errorsWrapper: "<span class='errors-block help-block'></span>"
         errorsContainer: (el) ->
             el.$element.closest("div")
+    )
+    .addAsyncValidator('mycustom', (xhr) ->
+        if xhr.responseJSON
+            return xhr.responseJSON.validated
+        return false
+    , CONFIG.slug_validation_url
+    )
+
+    # automatic slug creation
+    $("#slug").slugify("#name", {
+            separator: '_'
+            whitespace: ''
+    })
 
 )
 
