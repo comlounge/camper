@@ -290,7 +290,7 @@ class Barcamp(Record):
         'updated'       : datetime.datetime.utcnow,
         'location'      : {},
         'workflow'      : "created",
-        'events'        : [],
+        'events'        : {},
         'registration_form'        : [],
         'registration_data'        : {},
         'planning_pad_public'        : False,
@@ -495,26 +495,6 @@ class Barcamps(Collection):
     def by_slug(self, slug):
         """find a barcamp by slug"""
         return self.find_one({'slug' : slug})
-
-    def no_before_serialize(self, obj):
-        """update or create our event information before it's saved"""
-        if obj.events == []:
-            event = Event()
-        else:
-            event = obj.events[0]
-        event.update({
-            'name' : obj.name,
-            'description' : obj.description,
-            'start_date' : obj.start_date,
-            'end_date' : obj.end_date,
-            'location' : obj.location,
-        })
-        if obj.events == []:
-            obj.events.append(event)
-        else:
-            obj.events[0] = event
-
-        return obj
 
     def get_by_user_id(self, user_id):
         """return all the barcamps the user is either participant, interested or an admin"""
