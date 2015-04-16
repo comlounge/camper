@@ -2,7 +2,7 @@
 {% set menu="edit" %}
 {% set edit = True %}
 {% block title %}
-    <h1>Barcamp "{{barcamp.name}}" bearbeiten</h1>
+    <h1>{{_('Edit Barcamp "%s"' %barcamp.name)}}</h1>
 {% endblock %}
 {% block action %}
     <input type="submit" class="btn btn-large btn-primary" value="Barcamp aktualisieren">
