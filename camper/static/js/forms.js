@@ -473,7 +473,8 @@ $(document).ready(function() {
   tinymce.init({
     selector: '.wysiwyg',
     menubar: false,
-    toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat",
+    plugins: ['image', 'link', 'code'],
+    toolbar: "undo redo | formatselect | bold italic | bullist numlist | blockquote | removeformat | image link | code",
     content_css: "/static/css/tinymce.css"
   });
   $("#bigmap").bigmap();
@@ -528,18 +529,28 @@ $(document).ready(function() {
     language: $("body").data("lang")
   });
   $(".parsley-validate").parsley({
+    excluded: "input[type=file]",
     errorsWrapper: "<span class='errors-block help-block'></span>",
     errorsContainer: function(el) {
       return el.$element.closest("div");
     }
-  }).addAsyncValidator('mycustom', function(xhr) {
+  }).addAsyncValidator('bcslug', function(xhr) {
     if (xhr.responseJSON) {
       return xhr.responseJSON.validated;
     }
     return false;
-  }, CONFIG.slug_validation_url);
-  return $("#slug").slugify("#name", {
-    separator: '_',
+  }, CONFIG.slug_validation_url).addAsyncValidator('pageslug', function(xhr) {
+    if (xhr.responseJSON) {
+      return xhr.responseJSON.validated;
+    }
+    return false;
+  }, CONFIG.page_slug_validation_url);
+  $("#bcform #slug").slugify("#name", {
+    separator: '',
     whitespace: ''
+  });
+  return $("#pageform #slug").slugify("#title", {
+    separator: '',
+    whitespace: '-'
   });
 });

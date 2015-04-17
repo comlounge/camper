@@ -407,7 +407,8 @@ $(document).ready( () ->
     tinymce.init
         selector:'.wysiwyg'
         menubar: false
-        toolbar: "undo redo | formatselect | bold italic | bullist | numlist | blockquote | removeformat"
+        plugins: ['image', 'link', 'code']
+        toolbar: "undo redo | formatselect | bold italic | bullist numlist | blockquote | removeformat | image link | code"
         content_css : "/static/css/tinymce.css"
 
     #
@@ -473,21 +474,33 @@ $(document).ready( () ->
 
     # special validator for barcamp screen
     $(".parsley-validate").parsley(
+        excluded: "input[type=file]"
         errorsWrapper: "<span class='errors-block help-block'></span>"
         errorsContainer: (el) ->
             el.$element.closest("div")
     )
-    .addAsyncValidator('mycustom', (xhr) ->
+    .addAsyncValidator('bcslug', (xhr) ->
         if xhr.responseJSON
             return xhr.responseJSON.validated
         return false
     , CONFIG.slug_validation_url
     )
+    .addAsyncValidator('pageslug', (xhr) ->
+        if xhr.responseJSON
+            return xhr.responseJSON.validated
+        return false
+    , CONFIG.page_slug_validation_url
+    )
+
 
     # automatic slug creation
-    $("#slug").slugify("#name", {
-            separator: '_'
+    $("#bcform #slug").slugify("#name", {
+            separator: ''
             whitespace: ''
+    })
+    $("#pageform #slug").slugify("#title", {
+            separator: ''
+            whitespace: '-'
     })
 
 )
