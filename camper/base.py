@@ -198,12 +198,9 @@ class BarcampView(object):
         uf = self.app.url_for
         try:
             asset = self.app.module_map.uploader.get(self.barcamp.background_image)
-            print asset
         except AssetNotFound:
-            print "oh"
             return None
         except Exception, e:
-            print e
             return None
         return dict(
                 [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
