@@ -21,10 +21,10 @@ from etherpad_lite import EtherpadLiteClient
 import userbase
 import handlers
 import barcamps
-import pages
 import db
 import login
 import blog
+import pages
 
 #
 # custom jinja filters
@@ -205,6 +205,7 @@ class CamperApp(Application):
         mail_module(debug=True),
         barcamps.barcamp_module(url_prefix="/"),
         blog.blog_module(url_prefix="/"),
+        pages.pages_module(url_prefix="/"),
     ]
 
     jinja_filters = {
@@ -225,27 +226,13 @@ class CamperApp(Application):
         # sponsoring
         URL('/sponsoring', 'sponsoring', handlers.sponsor.SponsorContactView),
 
-        # admin area
-        URL('/admin/', "admin_index", handlers.admin.index.IndexView),
-        URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
-        URL('/admin/pages/<slot>/add', 'admin_pages_add', pages.add.AddView),
-        URL('/s/<page_slug>', 'page', pages.view.View),
-
         # user stuff
         URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 
-        # pages for barcamps
-        URL('/<slug>/page_add/<slot>', 'barcamp_page_add', pages.add.AddView),
-        URL('/<slug>/<page_slug>', 'barcamp_page', pages.view.View),
-        URL('/<slug>/<page_slug>/upload', 'page_image_upload', pages.images.ImageUpload),
-        URL('/<slug>/<page_slug>/layout', 'page_layout', pages.edit.LayoutView),
-        URL('/<slug>/<page_slug>/edit', 'page_edit', pages.edit.EditView),
-        URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', pages.edit.PartialEditView),
-        URL('/<slug>/<page_slug>/delete', 'page_image_delete', pages.images.ImageDelete),
-        URL('/<slug>/<page_slug>/image', 'page_image', pages.images.Image),
-
+        # admin area
+        URL('/admin/', "admin_index", handlers.admin.index.IndexView),
     ]
 
     def finalize_setup(self):
@@ -280,7 +267,8 @@ class CamperApp(Application):
                     'small' : "100x",
                     'logo_full' : "1140x",
                     'medium_user' : "296x",
-                    'userlist': '80x80!'
+                    'userlist': '80x80!',
+                    'fullwidth' : "850x"
                 })
             ],
         ))
