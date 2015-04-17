@@ -23,7 +23,6 @@ class Permissions(BarcampBaseHandler):
     @is_admin()
     def post(self, slug = None):
         """set the workflow state for the barcamp"""
-        print "what"
         try:
             self.barcamp.set_workflow(self.request.form.get("wf",""))
             self.barcamp.save()
