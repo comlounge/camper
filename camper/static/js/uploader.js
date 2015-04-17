@@ -7,13 +7,14 @@ $.fn.uploader = function(opts) {
   file_completed = false;
   myfilename = null;
   init = function(opts) {
-    var delete_url, field_id, original_id, preview_url, upload_url, uploader, widget;
+    var autosubmit, delete_url, field_id, original_id, preview_url, upload_url, uploader, widget;
     widget = this;
     preview_url = $(this).data("preview-url");
     upload_url = $(this).data("upload-url");
     delete_url = $(this).data("delete-url");
     field_id = $(this).data("id");
     original_id = $("#" + field_id).val();
+    autosubmit = $(this).data("autosubmit") === "True";
     uploader = new qq.FileUploaderBasic({
       button: $(widget).find(".uploadbutton")[0],
       action: upload_url,
@@ -42,10 +43,8 @@ $.fn.uploader = function(opts) {
         }
         if (json.status === "success") {
           file_completed = true;
-          $(widget).find(".revertbutton").show();
-          $(widget).find(".deletebutton").hide();
           $("#" + field_id).val(json.asset_id);
-          if (json.url) {
+          if (json.url && !autosubmit) {
             $(widget).find(".preview-area img").attr("src", json.url);
             $(widget).find(".progress").hide();
             $(widget).find(".preview-area").show();
@@ -59,9 +58,12 @@ $.fn.uploader = function(opts) {
             window.close();
             return;
           }
-          if ($(widget).data("autosubmit") === "True") {
+          if (autosubmit) {
             $(widget).closest("form").submit();
+            return void 0;
           }
+          $(widget).find(".revertbutton").show();
+          $(widget).find(".deletebutton").hide();
           $(widget).find(".upload-area").show();
           $(widget).find(".progress").hide();
           return $(widget).find(".uploader-buttons").show();

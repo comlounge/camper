@@ -9,6 +9,7 @@ $.fn.uploader = (opts = {}) ->
         delete_url = $(this).data("delete-url")
         field_id = $(this).data("id")
         original_id = $("#"+field_id).val()
+        autosubmit = $(this).data("autosubmit") == "True"
         uploader = new qq.FileUploaderBasic(
             button: $(widget).find(".uploadbutton")[0]
             action: upload_url
@@ -33,10 +34,8 @@ $.fn.uploader = (opts = {}) ->
                     return false
                 if json.status == "success"
                     file_completed = true
-                    $(widget).find(".revertbutton").show()
-                    $(widget).find(".deletebutton").hide()
                     $("#"+field_id).val(json.asset_id)
-                    if json.url
+                    if json.url and not autosubmit
                         $(widget).find(".preview-area img").attr("src", json.url)
                         $(widget).find(".progress").hide()
                         $(widget).find(".preview-area").show()
@@ -47,8 +46,11 @@ $.fn.uploader = (opts = {}) ->
                         window.parent.window.location = json.parent_redirect
                         window.close()
                         return
-                    if $(widget).data("autosubmit") == "True"
+                    if autosubmit
                         $(widget).closest("form").submit()
+                        return undefined
+                    $(widget).find(".revertbutton").show()
+                    $(widget).find(".deletebutton").hide()
                     $(widget).find(".upload-area").show()
                     $(widget).find(".progress").hide()
                     $(widget).find(".uploader-buttons").show()
