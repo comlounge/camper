@@ -35,7 +35,6 @@ class GalleryList(BarcampBaseHandler):
         form = ImageGalleryAddForm(self.request.form)
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            print f
             gallery = db.ImageGallery(f)
             gallery.created_by = self.user_id
             gallery = self.config.dbs.galleries.add(gallery, barcamp = self.barcamp)
