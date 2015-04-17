@@ -6342,14 +6342,6 @@ body.admin .upload-widget .preview-area {
   border: 1px solid #e0e0e0;
   padding: 2px;
 }
-body.admin .upload-widget .btn {
-  padding: 1px 5px;
-  font-size: 12px;
-  line-height: 1.5;
-  border-radius: 0px;
-  display: inline-block;
-  margin-bottom: 10px;
-}
 body.admin .barcamp-delete li a {
   font-size: 14px;
   color: white;

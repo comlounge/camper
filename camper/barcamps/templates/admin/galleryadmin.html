@@ -14,12 +14,11 @@
     {% for image in view.get_images('medium_user', class="gallery-image") %}
         {{image}}
     {% endfor %}
+    
     <form class="" method="POST" action="{{url}}" data-parsley-validate>  
             {{ formmacros.form_field(form.image, input_class="",
                 label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
+                btn_class="btn btn-primary btn-lg",
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
-        {% block action %}
-            <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add')}}">
-        {% endblock %}
     </form>
 {% endblock %}
