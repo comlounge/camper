@@ -35,9 +35,24 @@
                                 
                             <a data-toggle="tooltip" title="{{_('Edit event timetable')}}" href="{{url_for('.sessionboard', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-table"></i></a>
                             <a data-toggle="tooltip" title="{{_('Manage participants')}}" href="{{url_for('.event', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-user"></i></a>
-                            <a data-toggle="tooltip" title="{{_('Delete event')}}" href="#" data-event="{{event._id}}" data-url="{{url_for("barcamps.events", slug=slug)}}" class="delete-event btn btn-xs btn-danger" data-title="{{_('Delete event?')}}" data-toggle="confirmation" data-btn-ok-label="{{_('Yes')}}" data-btn-ok-icon="fa fa-ok" data-btn-ok-class="btn btn-success btn-xs" data-btn-cancel-label="{{_('No')}}" data-btn-cancel-icon="fa fa-ban" data-btn-cancel-class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
 
+                            <a  class="delete-event btn btn-danger btn-xs" 
+                                title="{{_('Delete Event?')}}" 
+                                href = "#"
+                                data-event = "{{event._id}}"
+                                data-url="{{url_for("barcamps.events", slug = slug)}}" 
+                                data-title="{{_('Delete Event?')}}" 
+                                data-toggle="confirmation" 
+                                data-btn-ok-label="{{_('Yes')}}" 
+                                data-btn-ok-icon="fa fa-ok" 
+                                data-btn-ok-class="btn btn-success btn-xs" 
+                                data-btn-cancel-label="{{_('No')}}" 
+                                data-btn-cancel-icon="fa fa-ban" 
+                                data-btn-cancel-class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i>
+                            </a>
                         </td>
+
                     </tr>
                 {% endfor %}
             </tbody>

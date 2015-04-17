@@ -3,8 +3,6 @@ $(document).ready () ->
     $(".delete-entry").click () ->                                                                                                                                                                                                                                            
         d = $(this).data("entry")
         url = $(this).data("url")
-        console.log url
-        console.log d
 
         $.ajax(
             url: url

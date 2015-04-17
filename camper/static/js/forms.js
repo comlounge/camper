@@ -549,8 +549,25 @@ $(document).ready(function() {
     separator: '',
     whitespace: ''
   });
-  return $("#pageform #slug").slugify("#title", {
+  $("#pageform #slug").slugify("#title", {
     separator: '',
     whitespace: '-'
+  });
+  return $(".delete-event").click(function() {
+    var d, url;
+    d = $(this).data("event");
+    url = $(this).data("url");
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: {
+        method: "delete",
+        event: d
+      },
+      success: function() {
+        return window.location.reload();
+      }
+    });
+    return false;
   });
 });
