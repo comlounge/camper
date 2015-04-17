@@ -3,9 +3,14 @@
 
 {% import "macros.html" as formmacros with context %}
 {% block content %}
+    <div id="backbutton">
+        <a href="{{url_for('.admin_galleries', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to gallery listing')}}</a>
+    </div>  
+
     {% block title %}
         <h1>{{_('Manage Gallery')}} {{view.gallery.title}}</h1>
     {% endblock %}
+
     {% for image in view.get_images('medium_user', class="gallery-image") %}
         {{image}}
     {% endfor %}
