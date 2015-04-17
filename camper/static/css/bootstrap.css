@@ -7057,6 +7057,10 @@ fieldset[disabled] #barcamp .attending a.active {
   color: #ffffff;
   background-color: #333333;
 }
+h1.logo {
+  font-size: 80px;
+  text-transform: uppercase;
+}
 .navbar-barcamp {
   margin: 0;
   margin-top: 40px;
