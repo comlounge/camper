@@ -1,9 +1,7 @@
 {% extends "admin_master.html" %}
-{% from "_m/barcamps/event_macros.html" import eventnav, locationpicker, eventform with context %}
 {% import "macros.html" as formmacros with context %}
 {% block content %}
 
-    {{ locationpicker()}}
 
     {% block title %}
         <h1>{{_('Image Galleries')}}</h1>
