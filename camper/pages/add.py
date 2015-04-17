@@ -18,6 +18,13 @@ class PageForm(BaseForm):
     """page form"""
     title           = TextField(T("Title"), [validators.Length(max=80), validators.Required()],
                 description = T('Page title (max. 80 characters)'),)
+    layout           = RadioField(T("Layout"), [validators.Length(max=80), validators.Required()],
+                choices = [
+                    ('default', T("Image on top")),
+                    ('left', T("Image on left side")),
+                    ('right', T("Image on right side")),
+                ],
+                description = T('define how to layout the page'),)
     menu_title      = TextField(T("Menu title"), [validators.Length(max=30), validators.Required()],
                 description = T('Page title in menu (max. 30 characters)'),)
     slug            = TextField(T("URL name"), [validators.Length(max=20), validators.Required()],

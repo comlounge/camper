@@ -7648,3 +7648,28 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
   margin: 0;
   margin-bottom: 10px;
 }
+.barcamp-page .image-container {
+  margin-bottom: 20px;
+}
+.barcamp-page.layout-left .image-container,
+.barcamp-page.layout-right .image-container {
+  max-width: 200px;
+  display: block;
+  border: 1px solid #bbb;
+  padding: 3px;
+}
+.barcamp-page.layout-left .image-container img,
+.barcamp-page.layout-right .image-container img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-width: 192px;
+}
+.barcamp-page.layout-left .image-container {
+  float: left;
+  margin: 0 10px 10px 0;
+}
+.barcamp-page.layout-right .image-container {
+  float: right;
+  margin: 0 0 10px 10px;
+}

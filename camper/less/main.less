@@ -705,5 +705,31 @@ body {
     }
 }
 
+.barcamp-page {
+    .image-container {
+        margin-bottom: 20px;
+    }
+    &.layout-left, &.layout-right {
+        .image-container { 
+            max-width: 200px;
+            display: block;
+            border: 1px solid #bbb;
+            padding: 3px;
+            img {
+                .img-responsive;
+                max-width: 192px;
+            }
+        }
+    }
+    &.layout-left .image-container {
+        float: left;
+        margin: 0 10px 10px 0;
+    }
+    &.layout-right .image-container {
+        float: right;
+        margin: 0 0 10px 10px;
+    }
+}
+
 
 
