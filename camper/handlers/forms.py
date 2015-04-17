@@ -339,11 +339,19 @@ class WYSIWYGField(TextAreaField):
 
     widget = WYSIWYGWidget()
 
+    attributes = {
+        'a': ['href', 'title'],
+        'abbr': ['title'],
+        'acronym': ['title'],   
+        'img' : ['src', 'alt'],
+    }
+
+
     def __init__(self, 
             label='',
             validators=None,
             linkify = True,
-            allowed_tags = "h1 h2 h3 h4 h5 h6 a img li ol ul pre quote blockquote b i u p strong em",
+            allowed_tags = "h1 h2 h3 h4 h5 h6 a img a li ol ul pre quote blockquote b i u p strong em",
             **kwargs):
         """initialize the WYSIWYGField. 
 
@@ -360,7 +368,9 @@ class WYSIWYGField(TextAreaField):
     def process_formdata(self, valuelist):
         """cleanup incoming formdata"""
         if valuelist:
-            html = bleach.clean(valuelist[0], tags = self.allowed_tags)
+            html = bleach.clean(valuelist[0], 
+                    attributes = self.attributes,
+                    tags = self.allowed_tags)
             if self.linkify:
                     html = bleach.linkify(html)
             self.data = html
