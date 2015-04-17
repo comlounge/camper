@@ -145,7 +145,7 @@ class UploadWidget(object):
             </div>
             <div class="upload-area">
                 <div class="uploader-buttons">
-                    <div class="uploadbutton btn btn-default"><i class="fa fa-upload"></i> {{label}}</div>
+                    <div class="uploadbutton {{btn_class}}"><i class="fa fa-upload"></i> {{label}}</div>
                     <div class="deletebutton btn btn-danger" style="display: {{'none' if not preview_url}} "><i class="fa fa-trash"></i> {{delete_label}}</div>
                     <div class="revertbutton btn btn-warning" style="display: none"><i class="fa fa-undo"></i> {{revert_label}}</div>
                 </div>
@@ -184,6 +184,7 @@ class UploadWidget(object):
             'label'         : kwargs['label'],
             'delete_label'  : kwargs['delete_label'],
             'revert_label'  : kwargs['revert_label'],
+            'btn_class'     : kwargs.get('btn_class', 'btn btn-default'),
             'value-filename' : '',
             'value-id'      : '',
             'name'          : field.name,
