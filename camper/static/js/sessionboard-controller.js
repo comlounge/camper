@@ -67,6 +67,7 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     $scope.room = {};
     document.getElementById("add-room-form").reset();
     $('#add-room-modal').modal('show');
+    $('#room-form-name').focus();
     return void 0;
   };
   $scope.add_room = function() {
@@ -99,7 +100,6 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
   $scope.timeslot_idx = null;
   $scope.add_timeslot_form = function() {
     var d, dd, last_time, new_time;
-    console.log($scope.timeslots);
     $scope.timeslotModalMode = "add";
     document.getElementById("add-timeslot-form").reset();
     if ($scope.timeslots.length) {
@@ -120,6 +120,7 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
       $scope.timeslot.time = dd;
     }
     $('#add-timeslot-modal').modal('show');
+    $('#timepicker').focus();
   };
   $scope.add_timeslot = function() {
     var d, localOffset, now, utc;
@@ -132,7 +133,6 @@ app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
     utc = new Date(d.getTime() - localOffset * 60000);
     $scope.timeslot.time = utc;
     $scope.timeslots.push($scope.timeslot);
-    console.log($scope.timeslots);
     $scope.timeslots = _.sortBy($scope.timeslots, function(item) {
       var t;
       t = item.time;
