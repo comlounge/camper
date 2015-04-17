@@ -7,7 +7,7 @@
         <h1>{{_('Create a new Barcamp')}}</h1>
     {% endblock %}
 
-    <form class="form-horizontal parsley-validate" method="POST" id="add-form" action="{{url}}">
+    <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
         <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
         <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
         <input type="hidden" name="own_coords" id="own_coords" value="no">
@@ -26,7 +26,7 @@
                     {{formmacros.f(form.slug, required=True, 
                         placeholder=_('url short name without whitespaces, e.g. pythoncamp2011'), 
                         pattern="^[a-zA-Z0-9_\-]+$",
-                        **{'data-parsley-remote-validator' : 'mycustom',
+                        **{'data-parsley-remote-validator' : 'bcslug',
                            'data-parsley-remote': '1',
                            'data-parsley-remote-message' : _('This shortname is already taken.')})
                         }}
