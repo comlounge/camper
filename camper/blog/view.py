@@ -29,9 +29,7 @@ class ArticleView(BarcampBaseHandler):
     @ensure_barcamp()
     def get(self, slug = None, blog_slug = None):
         """render the view"""
-        print blog_slug
         entry = self.config.dbs.blog.by_slug(blog_slug, barcamp=self.barcamp)
-        print entry
         if entry is None:
             raise werkzeug.exceptions.NotFound()
 
