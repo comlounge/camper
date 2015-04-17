@@ -12,6 +12,7 @@
     <hr>
 
     <div>
+        {% if events %}
         <table class="table">
             <thead>
                 <tr>
@@ -41,6 +42,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <div class="alert alert-warning text-warning">{{_('no events have been defined yet.')}}</div>
+        {% endif %}
 
         <button id="show-add-form" 
             class="btn btn-lg btn-primary" 
