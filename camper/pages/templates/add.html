@@ -1,0 +1,26 @@
+{% set menu="pages" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Create new page')}}</h1>
+    {% endblock %}
+    <form class="parsley-validate" id="pageform" method="POST" action="{{url}}">
+        {{ formmacros.form_field(form.title, input_class="required input-lg", maxlength=80, placeholder=_('Page title')) }}
+        {{ formmacros.form_field(form.slug, input_class="input-sm", size="xs", placeholder=_('short name for URL'), pattern="^[a-zA-Z0-9_\-]+$",
+                        **{'data-parsley-remote-validator' : 'pageslug',
+                           'data-parsley-remote': '1',
+                           'data-parsley-remote-message' : _('This shortname is already taken.')})
+        }}
+        {{ formmacros.form_field(form.menu_title, input_class="required", maxlength=30, placeholder=_('short title for menu')) }}
+        {{ formmacros.form_field(form.image, input_class="",
+            label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
+            upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
+        {{ formmacros.form_field(form.content, rows=10) }}
+        {% block action %}
+            <input type="submit" class="btn btn-lg btn-primary" value="{{_('Create page')}}">
+            <a class="pull-right btn btn-default" href="{{url_for('.barcamp_pages', slug=slug)}}">{{_('Cancel')}}</a>
+        {% endblock %}
+    </form>
+{% endblock %}

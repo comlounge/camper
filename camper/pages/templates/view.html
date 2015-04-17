@@ -1,0 +1,17 @@
+{% extends "_m/barcamps/master.html" %}
+{% block main_content %}
+<div class="barcamp-page layout-{{page.layout}}">
+    <h1>{{page.title|e}}</h1>
+    <div class="image-container action-container">
+        {% if image %}
+            <div class="image">
+                {{image}}
+            </div>
+        {% endif %}
+    </div>
+    <div class="content">
+        {{page.content|safe}}
+    </div>
+</div>
+{% endblock %}
+

@@ -6,32 +6,24 @@ from ..barcamps.base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
 from sfext.babel import T
+from base import PageView
 
-__all__ = ['PageAddForm', 'AddView']
 
-class EditForm(BaseForm):
-    """form for adding a barcamp"""
-    title           = TextField(T("Title"), [validators.Length(max=300), validators.Required()],
-                description = T('Page title (max. 300 characters)'),)
-    menu_title      = TextField(T("Menu title"), [validators.Length(max=50), validators.Required()],
-                description = T('Page title in menu (max. 50 characters)'),)
-    slug            = TextField(T("URL name"), [validators.Length(max=20), validators.Required()],
-                description = T('short name in the URL (no spaces, max. 20 characters, needs to be unique)'),)
-    content         = TextAreaField(T("Page Contents"), [validators.Required()],
-                description = T('The actual contents of the page'),)
-    image           = UploadField(T("Image (optional)"))
+from add import PageForm
+
 
 class EditView(BarcampBaseHandler):
     """view for editing a page"""
 
-    template = "pages/edit.html"
+    template = "edit.html"
 
     @logged_in()
     @is_admin()
     @ensure_page()
     def get(self, slug = None, page_slug = None):
         """show the form and update the page"""
-        form = EditForm(self.request.form, obj = self.page, config = self.config)
+        view = PageView(self.page, self)
+        form = PageForm(self.request.form, obj = self.page, config = self.config)
         if self.request.method=="POST":
             if form.validate():
                 f = form.data
@@ -39,13 +31,13 @@ class EditView(BarcampBaseHandler):
                 self.page.put()
                 self.flash(self._("page updated."), category="info")
                 if self.barcamp is not None:
-                    url = self.url_for("barcamp_page", slug = self.barcamp.slug, page_slug = self.page.slug)
+                    url = self.url_for("pages.barcamp_pages", slug = self.barcamp.slug)
                 else:
                     url = self.url_for("page", page_slug = self.page.slug)
                 return redirect(url)
             else:
-                self.flash(self._("Unfortunately the form contains errors. Please fix them and try again."), category="error")
-        return self.render(form = form)
+                self.flash(self._("Unfortunately the form contains errors. Please fix them and try again."), category="danger")
+        return self.render(form = form, page_slug = page_slug, view = view)
 
     post = get
 
