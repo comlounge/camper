@@ -39,7 +39,8 @@ class GalleryList(BarcampBaseHandler):
             gallery.created_by = self.user_id
             gallery = self.config.dbs.galleries.add(gallery, barcamp = self.barcamp)
             self.flash(self._('A new image gallery has been created'))
-            return redirect(self.request.url)
+            gallery_url = self.url_for("barcamps.admin_gallery", slug = slug, gid = gallery._id)
+            return redirect(gallery_url)
         return self.render(galleries = galleries, form = form, view = self.barcamp_view, **self.barcamp)
 
     # TODO: Post should only work logged in!
