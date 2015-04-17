@@ -24,7 +24,7 @@ class EventForm(BaseForm):
                 description = T(u'This is not the common barcamp description but should be specific about this event.'),
                 widget = ATextArea()
     )
-    date                        = MyDateField(T(u"date"), [], default=None, format="%d.%m.%Y", description="")
+    date                        = MyDateField(T(u"date"), [validators.Required()], default=None, format="%d.%m.%Y", description="")
     start_time                  = TextField(T(u"start time"), [validators.Required()], description="")
     end_time                    = TextField(T(u"end time"), [validators.Required()], description="")
     size                        = SelectField(T(u"max. number of participants"), [validators.Required()], 
@@ -60,10 +60,14 @@ class EventsView(BarcampBaseHandler):
         el = self.barcamp.eventlist
         if len(el):
             e = el[-1]
-            obj['date'] = e['date'] + datetime.timedelta(days=1)
+            #obj['date'] = e['date'] + datetime.timedelta(days=1)
             obj['start_time'] = e['start_time']
             obj['end_time'] = e['end_time']
             obj['size'] = e['size']
+        else:
+            obj['date'] = self.barcamp.start_date
+            obj['start_time'] = "12:00"
+            obj['end_time'] = "23:00"
 
         form = EventForm(self.request.form, config = self.config, **obj)
         if self.request.method == 'POST' and form.validate():

@@ -71,7 +71,7 @@
 {%- endmacro %}
 
 {% macro eventform(event={}, label='Add event') -%}
-    <form class="form-validate form-horizontal validate" method="POST" id="add-form" action="{{url}}">
+    <form class="parsley-validate form-horizontal" method="POST" id="add-form" action="{{url}}">
         <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
         <input type="hidden" id="tmp_lng" name="tmp_lng" value="">
         <input type="hidden" name="_id" value="{{event._id}}">
@@ -79,9 +79,9 @@
         {{form.location_lat()}}
         {{form.location_lng()}}
         <div class="form-group form-group-lg">
-            <label for="name" class="col-sm-2 control-label">{{_('Title')}}</label>
+            <label for="name" class="col-sm-2 control-label">{{_('Title')}}*</label>
             <div class="col-sm-10">
-                {{formmacros.f(form.name, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
+                {{formmacros.f(form.name, required = True, placeholder=_('e.g. \"Day 1\" or \"Warm up Party\"'))}}
             </div>
         </div>
         <div class="form-group">
@@ -93,7 +93,7 @@
         <div class="form-group">
             <label for="date" class="col-sm-2 control-label">{{_('When')}}</label>
             <div class="col-sm-4">
-                {{formmacros.f(form.date, placeholder=_('Date'))}}
+                {{formmacros.f(form.date, required = True, placeholder=_('Date'))}}
                 {% if barcamp.public %}
                     <div class="help-block">{{_('Be aware that this barcamp is public and %(amount)s people already signed up for it. So changing the date might not be the best idea.')|format(amount=event.participants|length)}}</div>
                 {% endif %}
@@ -103,7 +103,7 @@
             </div>
             <div class="col-sm-2">
                 <label class="sr-only" for="start_time">{{_('Start Time')}}</label>
-                {{form.start_time(class="form-control", placeholder=_('Start time'))}}
+                {{form.start_time(class="form-control", required = True, placeholder=_('Start time'))}}
             </div>
             <div class="col-sm-1">
             {{_('to')}}
