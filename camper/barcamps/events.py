@@ -103,12 +103,10 @@ class EventsView(BarcampBaseHandler):
     def delete(self, slug):
         """delete an event"""
         eid = self.request.form['event']
-        idx = 0
         for e in self.barcamp.events:
-            if str(e['_id']) == str(eid):
-                self.barcamp.events.remove(e)
+            if str(e) == str(eid):
+                del self.barcamp.events[e]
                 break
-            idx = idx + 1 
         self.barcamp.save()
         return {'status' : 'ok'}
 
