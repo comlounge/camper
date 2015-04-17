@@ -47,6 +47,8 @@ $.fn.uploader = (opts = {}) ->
                         window.parent.window.location = json.parent_redirect
                         window.close()
                         return
+                    if $(widget).data("autosubmit") == "True"
+                        $(widget).closest("form").submit()
                     $(widget).find(".upload-area").show()
                     $(widget).find(".progress").hide()
                     $(widget).find(".uploader-buttons").show()

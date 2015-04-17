@@ -59,6 +59,9 @@ $.fn.uploader = function(opts) {
             window.close();
             return;
           }
+          if ($(widget).data("autosubmit") === "True") {
+            $(widget).closest("form").submit();
+          }
           $(widget).find(".upload-area").show();
           $(widget).find(".progress").hide();
           return $(widget).find(".uploader-buttons").show();

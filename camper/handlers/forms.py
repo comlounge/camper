@@ -137,6 +137,7 @@ class UploadWidget(object):
                 data-preview-url="{{preview_url}}"
                 data-delete-url="{{delete_url}}"
                 data-upload-url="{{upload_url}}"
+                data-autosubmit="{{autosubmit}}"
                 data-postproc="{{postproc}}">
             {{hidden}}
             <div class="preview-area" style="display: {{'block' if preview_url else 'none'}}">
@@ -188,6 +189,7 @@ class UploadWidget(object):
             'name'          : field.name,
             'postproc'      : kwargs.get("postproc",""),
             'hidden'        : hidden,
+            'autosubmit'    : str(field.autosubmit)
         }
         return self.tmpl.render(**payload)
 
@@ -197,10 +199,14 @@ class UploadField(Field):
 
     widget = UploadWidget()
 
-    def __init__(self, label=None, validators=None, uploader = None, app = None, **kwargs):
+    def __init__(self, label=None, validators=None, autosubmit = False, **kwargs):
+        """initialize the upload widget
+
+        :param autosubmit: if ``True`` the form will automatically be submitted on successful image upload.
+                    Mostly useful for forms only consisting of the image upload
+        """
         super(UploadField, self).__init__(label, validators, **kwargs)
-        self.uploader = uploader
-        self.app = app
+        self.autosubmit = autosubmit
 
     def _value(self):
         """return the value necessary for the widget"""
