@@ -17,14 +17,14 @@ class ImageGalleryAddForm(BaseForm):
 
 class ImageForm(BaseForm):
     """form for adding a new image to an image gallery"""
-    image       = UploadField(T(u"New Image"))
+    image       = UploadField(T(u"New Image"), autosubmit = True)
 
 class GalleryList(BarcampBaseHandler):
     """shows a list of all the galleries"""
 
     template = "admin/galleries.html"
     action = "galleries"
-
+ 
     @ensure_barcamp()
     @is_admin()
     @logged_in()
