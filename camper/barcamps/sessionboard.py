@@ -82,7 +82,6 @@ class SessionBoardData(BarcampBaseHandler):
         """store room and timetable data"""
         event = self.barcamp.get_event(eid)
         data = json.loads(self.request.data)
-        print "posted", data
         event.timetable = data
         self.barcamp.events[eid] = event
         self.barcamp.save()
