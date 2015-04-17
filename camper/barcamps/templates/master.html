@@ -53,9 +53,6 @@
                 {% if logo %}
                     {{view.logo}}
                 {% else %}
-                    {% if is_admin %}
-                        <a href="#logo-upload" role="button" data-toggle="modal" class="actions btn btn-mini"><i class="icon icon-picture"></i> Logo hochladen</a>
-                    {% endif %}
                     <h1 class="logo">{{name}}</h1>
                 {% endif %}
             </div>
