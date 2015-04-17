@@ -94,7 +94,7 @@
                     </ul>
                     {% if is_admin or is_main_admin %}
                     <ul class="nav navbar-nav pull-right">
-                        <li class="manage"><a href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
+                        <li class="manage"><a target="manage" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
                     </ul>
                     {% endif %}
                 </div>
