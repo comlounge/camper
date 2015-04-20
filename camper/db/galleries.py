@@ -2,8 +2,20 @@ from mongogogo import *
 import datetime
 from camper.exceptions import *
 import pymongo
+import uuid
 
-__all__=["ImageGallery", "ImageGalleries"]
+__all__=["ImageGallery", "ImageGalleries", "Image"]
+
+class ImageSchema(Schema):
+    """schema for an individual image"""
+
+    _id             = String() # something to identify it
+    image           = String()
+    title           = String()
+    alt             = String()
+    description     = String()
+    license         = String()
+    copyright       = String()
 
 
 class ImageGallerySchema(Schema):
@@ -13,9 +25,23 @@ class ImageGallerySchema(Schema):
     created_by      = String() # TODO: should be ref to user
     title           = String()
     
-    images          = List(String(), default=[]) # list of images contained in the gallery
+    images          = List(ImageSchema(), default=[]) # list of images contained in the gallery
     barcamp         = String(required = True) 
-    
+
+
+class Image(Record):
+    """represents a single image"""
+
+    schema = ImageSchema()
+
+    default_values = {
+        '_id'           : lambda : unicode(uuid.uuid4()),
+        'title'         : '',
+        'alt'           : '',
+        'description'   : '',
+        'license'       : '',
+        'copyright'     : '',
+    }
 
 class ImageGallery(Record):
     schema = ImageGallerySchema()
@@ -26,7 +52,18 @@ class ImageGallery(Record):
         'images'        : [],
     }
 
-    
+    def get_images(self):
+        """return image objects"""
+        return [Image(**image) for image in self.images]
+
+    def get_image(self, _id):
+        """return one image specified by the id or None"""
+        for image in self.images:
+            if _id == image['_id']:
+                return Image(image)
+        return None
+
+
 class ImageGalleries(Collection):
     
     data_class = ImageGallery
@@ -53,3 +90,5 @@ class ImageGalleries(Collection):
         else:
             raise ValueError, "you need to provide a barcamp"
         return self.put(gallery)
+
+

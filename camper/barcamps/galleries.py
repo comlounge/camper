@@ -1,5 +1,6 @@
 #encoding=utf8
 from starflyer import Handler, redirect, asjson
+import starflyer
 from camper import BaseForm, db, BaseHandler, ensure_barcamp, logged_in
 import bson
 from wtforms import *
@@ -9,6 +10,8 @@ import werkzeug.exceptions
 import datetime
 from base import GalleryView
 from sfext.babel import T
+from camper.db.galleries import Image
+import os, copy
 
 
 class ImageGalleryAddForm(BaseForm):
@@ -18,6 +21,17 @@ class ImageGalleryAddForm(BaseForm):
 class ImageForm(BaseForm):
     """form for adding a new image to an image gallery"""
     image       = UploadField(T(u"New Image"), autosubmit = True)
+
+class ImageDetailForm(BaseForm):
+    """form for image details"""
+
+    _id         = HiddenField()
+    title       = TextField(T("Title"))
+    alt         = TextField(T("Alt attribute"))
+    description = TextAreaField(T("Description"))
+    license     = TextField(T("License"))
+    copyright   = TextField(T("Copyright Owner"))
+
 
 class GalleryList(BarcampBaseHandler):
     """shows a list of all the galleries"""
@@ -58,15 +72,64 @@ class GalleryAdminEdit(BarcampBaseHandler):
     def get(self, slug = None, gid = None):
         """show the gallery and let the admin edit it"""
         form = ImageForm(self.request.form)
+        detail_form = ImageDetailForm
         gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
         view = GalleryView(gallery, self)
         if self.request.method == 'POST' and form.validate():
             f = form.data
             if f.get("image","") != "":
-                gallery.images.append(f['image'])
+                image = Image(image = f['image'])
+                gallery.images.append(image)
+                #gallery.images.append(f['image'])
                 gallery.save()
             return redirect(self.request.url)
 
-        return self.render(gallery= gallery, form = form, view = view)
+        return self.render(gallery= gallery, form = form, view = view, detail_form = detail_form)
 
     post = get 
+
+class GalleryImageEdit(BarcampBaseHandler):
+    """edit one image. we use the barcamp handler in order to make sure the user
+    is actually the admin of that barcamp"""
+
+    template = "admin/gallery_macros.html"
+
+    @ensure_barcamp()
+    @is_admin()
+    @logged_in()
+    @asjson()
+    def post(self, slug = None, gid = None):
+        """update an image"""
+        _id = self.request.form['_id']
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
+        image = gallery.get_image(_id)
+        detail_form = ImageDetailForm(self.request.form, prefix="image-%s" %_id)
+        if detail_form.validate():
+            image.update(detail_form.data)
+            gallery.save()
+
+        # now render it again using the macro from the template
+
+        # add the image tag to the image 
+        # TODO: make this better so we don't have to repeat it from the view. 
+        # problem is again context
+
+        asset = self.app.module_map.uploader.get(image.image)
+        v = asset.variants['medium_user']
+        url = self.app.url_for("asset", asset_id = v._id)
+        new_image = copy.copy(image)
+        new_image.tag = """<img src="%s" width="%s" height="%s">""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'])
+
+        # now render just the macro (that's why we pass render=True)
+        html = self.render(image = new_image, gallery = gallery, detail_form = ImageDetailForm, render = True)
+        return {'status': 'success', 'html' : html}
+
+
+
+
+
+
+

@@ -78,6 +78,8 @@ class BarcampModule(Module):
 
         URL('/<slug>/admin/galleries', 'admin_galleries',               galleries.GalleryList),
         URL('/<slug>/admin/galleries/<gid>', 'admin_gallery',           galleries.GalleryAdminEdit),
+        URL('/<slug>/admin/galleries/<gid>/edit', 'gallery_image_edit', galleries.GalleryImageEdit),
+
 
         URL('/<slug>/admin/events', 'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>', 'event',                      events.EventView),

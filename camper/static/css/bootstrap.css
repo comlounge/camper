@@ -6354,6 +6354,9 @@ body.admin form {
   margin-top: 30px;
   margin-bottom: 40px;
 }
+body.admin form.imagedetailform {
+  margin: 0;
+}
 body.admin .bigpanel {
   padding: 10px;
   border: 1px solid #e0e0e0;
@@ -6658,6 +6661,17 @@ body.admin .sessionslot.enabled {
 }
 body.admin .sessionslot.enabled:hover {
   background: #eee;
+}
+body.admin .imagedetails .detailblock {
+  margin-bottom: 20px;
+}
+body.admin .imagedetails .detailblock h5 {
+  margin-bottom: 0;
+}
+body.admin .imagedetailblock {
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid #f8f8f0;
 }
 .bloglisting {
   width: 100%;

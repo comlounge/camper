@@ -1,7 +1,9 @@
-{% set menu="blog" %}
+{% set menu="galleries" %}
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/gallery_macros.html" import imageblock with context %}
+
 {% block content %}
     <div id="backbutton">
         <a href="{{url_for('.admin_galleries', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to gallery listing')}}</a>
@@ -11,14 +13,19 @@
         <h1>{{_('Manage Gallery')}} {{view.gallery.title}}</h1>
     {% endblock %}
 
-    {% for image in view.get_images('medium_user', class="gallery-image") %}
-        {{image}}
-    {% endfor %}
-    
+    <div id="imagelisting" class="container">
+        {% for image in view.get_images('medium_user', class="gallery-image") %}
+            {{imageblock(image)}}
+        {% endfor %}
+    </div>
+        
     <form class="" method="POST" action="{{url}}" data-parsley-validate>  
             {{ formmacros.form_field(form.image, input_class="",
                 label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
                 btn_class="btn btn-primary btn-lg",
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
     </form>
+{% endblock %}
+{% block js2 %}
+        <script src="{{url_for("static", filename="js/galleries.js")}}"></script>
 {% endblock %}

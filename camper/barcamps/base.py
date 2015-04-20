@@ -7,6 +7,7 @@ from sfext.babel import T
 from camper.handlers.forms import *
 import werkzeug.exceptions
 import requests
+import copy
 from sfext.uploader import AssetNotFound
 
 
@@ -107,16 +108,18 @@ class GalleryView(object):
         amap = html_params(**kwargs)
 
         images = []
-        for aid in self.gallery.images:
+        for i in self.gallery.get_images():
             try:
-                asset = self.app.module_map.uploader.get(aid)
+                asset = self.app.module_map.uploader.get(i.image)
                 v = asset.variants[variant]
                 url = self.app.url_for("asset", asset_id = v._id)
-                images.append("""<img src="%s" width="%s" height="%s" %s>""" %(
+                new_image = copy.copy(i)
+                new_image.tag = """<img src="%s" width="%s" height="%s" %s>""" %(
                     url,
                     v.metadata['width'],
                     v.metadata['height'],
-                    amap))
+                    amap)
+                images.append(new_image)
             except AssetNotFound:
                 # shouldn't really happen but what do I know?!?
                 continue
