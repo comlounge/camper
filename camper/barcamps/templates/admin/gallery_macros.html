@@ -47,6 +47,7 @@
                         <p class="image-copyright">{{image.copyright or 'n/a'}}</p>
                     </div>
                     <a href="#" data-image-id="{{image._id}}" class="edittoggle btn btn-info btn-lg"><i class="fa fa-pencil"></i> {{_('Edit')}}</a>
+                    {{formmacros.delbutton(image, classes="btn-lg", show_label = True)}}
                 </div>
             </div>
         </div>

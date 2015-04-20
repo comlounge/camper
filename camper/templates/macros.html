@@ -113,6 +113,24 @@
   </fieldset>
 {%- endmacro -%}
 
+{% macro delbutton(entry, classes="", show_label = False) -%}
+    <a href="#" class="confirmdelete btn btn-danger {{classes}}" 
+                data-entry="{{entry._id}}" 
+                data-url="{{url}}"
+                data-title="{{_('Really Delete?')}}" 
+                data-toggle="confirmation" 
+                data-btn-ok-label="{{_('Yes')}}" 
+                data-btn-ok-icon="fa fa-ok" 
+                data-btn-ok-class="btn btn-success btn-xs" 
+                data-btn-cancel-label="{{_('No')}}" 
+                data-btn-cancel-icon="fa fa-ban" 
+                data-btn-cancel-class="btn btn-danger btn-xs">
+        <i class="fa fa-trash"></i> 
+            {% if show_label %}
+                {{_('Delete')}}
+            {% endif %}
+    </a>
 
+{% endmacro %}
 
 
