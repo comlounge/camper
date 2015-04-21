@@ -154,7 +154,7 @@ class GalleryImageEdit(BarcampBaseHandler):
         detail_form = ImageDetailForm(self.request.form, prefix="image-%s" %_id)
         if detail_form.validate():
             image.update(detail_form.data)
-            gallery.images[image._id] = image
+            gallery.update_image(image)
             gallery.save()
             gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
 

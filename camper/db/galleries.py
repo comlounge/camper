@@ -25,7 +25,7 @@ class ImageGallerySchema(Schema):
     created_by      = String() # TODO: should be ref to user
     title           = String()
     
-    images          = Dict(ImageSchema(), default=[]) # list of images contained in the gallery
+    images          = List(ImageSchema(), default=[]) # list of images contained in the gallery
     barcamp         = String(required = True) 
 
 
@@ -54,14 +54,23 @@ class ImageGallery(Record):
 
     def get_images(self):
         """return image objects"""
-        return [Image(**image) for image in self.images.values()]
+        return [Image(**image) for image in self.images]
 
     def get_image(self, image_id):
         """return one image specified by the id or None"""
-        return Image(self.images[image_id])
+        for image in self.images:
+            if image['_id'] == image_id:
+                return Image(image)
+        return None
 
     def delete_image(self, image_id):
         """delete an image"""
+        for image in self.images:
+            if image['_id'] == image_id:
+                self.images.remove(image)
+                return True
+        return False
+
         del self.images[image_id]
 
     def add_image(self, image):
@@ -69,7 +78,18 @@ class ImageGallery(Record):
 
         :param image: An instance of ``Image``
         """
-        self.images[image._id] = image
+        self.images.append(image)
+
+    def update_image(self, new_image):
+        """update the image in the image list.
+
+        You have to use that method because you will get
+        a wrapped image object back from get_image()
+        """
+        for i, image in enumerate(self.images):
+            if image['_id'] == new_image['_id']:
+                self.images[i] = new_image
+                return
 
 
 class ImageGalleries(Collection):
