@@ -32,7 +32,27 @@ $(document).ready () ->
                 alert("an error occurred, please try again later")
             
 
+    # we use a separate delete button here because bootstrap confirmation
+    # does not work anymore after an element has dynamically been added
+    # it's simply easier this way.
+    $(".listing").on "click", ".deletebtn", () ->
+        d = $(this).data("image-id")
+        url = $(this).data("url")
+        msg = $("body").data("i18n-areyousure")
+        if confirm(msg)
+            $.ajax(
+                url: url
+                type: "POST"
+                data:
+                    method: "delete"
+                    entry: d
+                success: (data) ->
+                    if data.id
+                        $("#"+data.id).css({'background-color' : '#eaa'})
+                        $("#"+data.id).slideUp()
+                )
 
+        return false
 
 
 

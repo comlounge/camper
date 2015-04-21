@@ -79,14 +79,30 @@ class GalleryAdminEdit(BarcampBaseHandler):
             f = form.data
             if f.get("image","") != "":
                 image = Image(image = f['image'])
-                gallery.images.append(image)
-                #gallery.images.append(f['image'])
+                gallery.add_image(image)
                 gallery.save()
             return redirect(self.request.url)
 
         return self.render(gallery= gallery, form = form, view = view, detail_form = detail_form)
 
     post = get 
+
+    @ensure_barcamp()
+    @is_admin()
+    @logged_in()
+    @asjson()
+    def delete(self, slug = None, gid = None):
+        """delete an image from the gallery"""
+        _id = self.request.form['entry']
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
+        image = gallery.get_image(_id)
+        if image:
+            gallery.delete_image(_id)
+            gallery.save()
+            return {'status' : 'success', 'id' : "block-"+_id}
+        else:
+            return {'status' : 'error', 'msg' : self._('The image could not be found')}
+        return {}
 
 class GalleryImageEdit(BarcampBaseHandler):
     """edit one image. we use the barcamp handler in order to make sure the user
@@ -106,14 +122,15 @@ class GalleryImageEdit(BarcampBaseHandler):
         detail_form = ImageDetailForm(self.request.form, prefix="image-%s" %_id)
         if detail_form.validate():
             image.update(detail_form.data)
+            gallery.images[image._id] = image
             gallery.save()
+            gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
 
         # now render it again using the macro from the template
 
         # add the image tag to the image 
         # TODO: make this better so we don't have to repeat it from the view. 
         # problem is again context
-
         asset = self.app.module_map.uploader.get(image.image)
         v = asset.variants['medium_user']
         url = self.app.url_for("asset", asset_id = v._id)

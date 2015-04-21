@@ -12,7 +12,7 @@ $(document).ready(function() {
     id = $(this).data("image-id");
     return $("#details-" + id).show();
   });
-  return $("#imagelisting").on("submit", ".imagedetailform", function() {
+  $("#imagelisting").on("submit", ".imagedetailform", function() {
     var id, url;
     event.preventDefault();
     id = $(this).data("image-id");
@@ -31,5 +31,30 @@ $(document).ready(function() {
         return alert("an error occurred, please try again later");
       }
     });
+  });
+  return $(".listing").on("click", ".deletebtn", function() {
+    var d, msg, url;
+    d = $(this).data("image-id");
+    url = $(this).data("url");
+    msg = $("body").data("i18n-areyousure");
+    if (confirm(msg)) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          method: "delete",
+          entry: d
+        },
+        success: function(data) {
+          if (data.id) {
+            $("#" + data.id).css({
+              'background-color': '#eaa'
+            });
+            return $("#" + data.id).slideUp();
+          }
+        }
+      });
+    }
+    return false;
   });
 });

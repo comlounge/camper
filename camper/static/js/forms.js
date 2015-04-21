@@ -180,7 +180,6 @@ $.fn.view_edit_group = function(opts) {
   }
   widget = null;
   init = function(opts) {
-    console.log("init");
     widget = this;
     $(widget).find(".input-switch").click(function() {
       $(widget).find(".input-controls").show();
@@ -386,7 +385,6 @@ $(document).ready(function() {
   $(".form-validate").validate({
     noshowErrors: function(errorMap, errorList) {
       var form, position;
-      console.log("error");
       $.each(this.successList, function(index, value) {
         $(value).removeClass("has-error");
         return $(value).popover('hide');
@@ -528,23 +526,25 @@ $(document).ready(function() {
     autoclose: true,
     language: $("body").data("lang")
   });
-  $(".parsley-validate").parsley({
-    excluded: "input[type=file]",
-    errorsWrapper: "<span class='errors-block help-block'></span>",
-    errorsContainer: function(el) {
-      return el.$element.closest("div");
-    }
-  }).addAsyncValidator('bcslug', function(xhr) {
-    if (xhr.responseJSON) {
-      return xhr.responseJSON.validated;
-    }
-    return false;
-  }, CONFIG.slug_validation_url).addAsyncValidator('pageslug', function(xhr) {
-    if (xhr.responseJSON) {
-      return xhr.responseJSON.validated;
-    }
-    return false;
-  }, CONFIG.page_slug_validation_url);
+  if ($(".parsley-validate").length) {
+    $(".parsley-validate").parsley({
+      excluded: "input[type=file]",
+      errorsWrapper: "<span class='errors-block help-block'></span>",
+      errorsContainer: function(el) {
+        return el.$element.closest("div");
+      }
+    }).addAsyncValidator('bcslug', function(xhr) {
+      if (xhr.responseJSON) {
+        return xhr.responseJSON.validated;
+      }
+      return false;
+    }, CONFIG.slug_validation_url).addAsyncValidator('pageslug', function(xhr) {
+      if (xhr.responseJSON) {
+        return xhr.responseJSON.validated;
+      }
+      return false;
+    }, CONFIG.page_slug_validation_url);
+  }
   $("#bcform #slug").slugify("#name", {
     separator: '',
     whitespace: ''
@@ -553,7 +553,7 @@ $(document).ready(function() {
     separator: '',
     whitespace: '-'
   });
-  return $(".delete-event").click(function() {
+  $(".delete-event").click(function() {
     var d, url;
     d = $(this).data("event");
     url = $(this).data("url");
@@ -566,6 +566,32 @@ $(document).ready(function() {
       },
       success: function() {
         return window.location.reload();
+      }
+    });
+    return false;
+  });
+  return $(".listing").on("click", ".confirmdelete", function() {
+    var d, url;
+    d = $(this).data("entry");
+    url = $(this).data("url");
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: {
+        method: "delete",
+        entry: d
+      },
+      success: function(data) {
+        if (data.reload) {
+          return window.location.reload();
+        } else if (data.url) {
+          return window.location = url;
+        } else if (data.id) {
+          $("#" + data.id).css({
+            'background-color': '#eaa'
+          });
+          return $("#" + data.id).slideUp();
+        }
       }
     });
     return false;

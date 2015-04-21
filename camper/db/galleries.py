@@ -25,7 +25,7 @@ class ImageGallerySchema(Schema):
     created_by      = String() # TODO: should be ref to user
     title           = String()
     
-    images          = List(ImageSchema(), default=[]) # list of images contained in the gallery
+    images          = Dict(ImageSchema(), default=[]) # list of images contained in the gallery
     barcamp         = String(required = True) 
 
 
@@ -49,19 +49,27 @@ class ImageGallery(Record):
         'created'       : datetime.datetime.utcnow,
         'updated'       : datetime.datetime.utcnow,
         'title'         : "",
-        'images'        : [],
+        'images'        : {},
     }
 
     def get_images(self):
         """return image objects"""
-        return [Image(**image) for image in self.images]
+        return [Image(**image) for image in self.images.values()]
 
-    def get_image(self, _id):
+    def get_image(self, image_id):
         """return one image specified by the id or None"""
-        for image in self.images:
-            if _id == image['_id']:
-                return Image(image)
-        return None
+        return Image(self.images[image_id])
+
+    def delete_image(self, image_id):
+        """delete an image"""
+        del self.images[image_id]
+
+    def add_image(self, image):
+        """add a new image to the gallery.
+
+        :param image: An instance of ``Image``
+        """
+        self.images[image._id] = image
 
 
 class ImageGalleries(Collection):

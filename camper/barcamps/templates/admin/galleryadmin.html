@@ -13,7 +13,7 @@
         <h1>{{_('Manage Gallery')}} {{view.gallery.title}}</h1>
     {% endblock %}
 
-    <div id="imagelisting" class="container">
+    <div id="imagelisting" class="container listing">
         {% for image in view.get_images('medium_user', class="gallery-image") %}
             {{imageblock(image)}}
         {% endfor %}

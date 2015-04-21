@@ -131,7 +131,6 @@ $.fn.view_edit_group = (opts = {}) ->
     widget = null
     
     init = (opts) ->
-        console.log "init"
         widget = this
 
         $(widget).find(".input-switch").click () ->
@@ -320,7 +319,6 @@ $(document).ready( () ->
     # TODO: remove this old code once parsley is working
     $(".form-validate").validate(
         noshowErrors: (errorMap, errorList) ->
-            console.log "error"
             $.each( this.successList , (index, value) ->
                 $(value).removeClass("has-error")
                 $(value).popover('hide')
@@ -473,24 +471,25 @@ $(document).ready( () ->
 
 
     # special validator for barcamp screen
-    $(".parsley-validate").parsley(
-        excluded: "input[type=file]"
-        errorsWrapper: "<span class='errors-block help-block'></span>"
-        errorsContainer: (el) ->
-            el.$element.closest("div")
-    )
-    .addAsyncValidator('bcslug', (xhr) ->
-        if xhr.responseJSON
-            return xhr.responseJSON.validated
-        return false
-    , CONFIG.slug_validation_url
-    )
-    .addAsyncValidator('pageslug', (xhr) ->
-        if xhr.responseJSON
-            return xhr.responseJSON.validated
-        return false
-    , CONFIG.page_slug_validation_url
-    )
+    if $(".parsley-validate").length
+        $(".parsley-validate").parsley(
+            excluded: "input[type=file]"
+            errorsWrapper: "<span class='errors-block help-block'></span>"
+            errorsContainer: (el) ->
+                el.$element.closest("div")
+        )
+        .addAsyncValidator('bcslug', (xhr) ->
+            if xhr.responseJSON
+                return xhr.responseJSON.validated
+            return false
+        , CONFIG.slug_validation_url
+        )
+        .addAsyncValidator('pageslug', (xhr) ->
+            if xhr.responseJSON
+                return xhr.responseJSON.validated
+            return false
+        , CONFIG.page_slug_validation_url
+        )
 
 
     # automatic slug creation
@@ -518,6 +517,32 @@ $(document).ready( () ->
             )
 
         return false
+
+    # generic delbutton handler (see macros.html)
+    # you need to have a listing container around so that it works
+    # with dynamically added elements
+    $(".listing").on "click", ".confirmdelete", () ->
+        d = $(this).data("entry")
+        url = $(this).data("url")
+        $.ajax(
+            url: url
+            type: "POST"
+            data:
+                method: "delete"
+                entry: d
+            success: (data) ->
+                if data.reload
+                    window.location.reload()
+                else if data.url
+                    window.location = url
+                # if we get an id back we have to delete this block
+                else if data.id
+                    $("#"+data.id).css({'background-color' : '#eaa'})
+                    $("#"+data.id).slideUp()
+            )
+
+        return false
+
 
 )
 
