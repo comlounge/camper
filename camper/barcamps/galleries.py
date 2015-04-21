@@ -60,6 +60,17 @@ class GalleryList(BarcampBaseHandler):
     # TODO: Post should only work logged in!
     post = get
 
+    @ensure_barcamp()
+    @is_admin()
+    @logged_in()
+    @asjson()
+    def delete(self, slug = None):
+        """delete a gallery"""
+        _id = self.request.form['entry']
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(_id))
+        gallery.remove()
+        return {'status' : 'success', 'reload' : True}
+
 class GalleryAdminEdit(BarcampBaseHandler):
     """edit an image gallery"""
 

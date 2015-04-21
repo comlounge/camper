@@ -10,7 +10,7 @@
     <hr>
 
     <div id="gallery-admin">
-        <table class="table gallerylist">
+        <table class="table gallerylist listing ">
             <colgroup>
                 <col width="80%"></col>
                 <col></col>
@@ -19,7 +19,6 @@
             <thead>
                 <tr>
                     <th>{{_('Title')}}</th>
-                    <th><span class="sr-only">{{_('Images')}}</span></th>
                     <th><span class="sr-only">{{_('Actions')}}</span></th>
                 </tr>
             </thead>
@@ -27,10 +26,9 @@
                 {% for view in galleries %}
                     <tr>
                         <td><a href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}" title="{{_('edit gallery %s' %view.gallery.title)}}">{{view.gallery.title}}</a></td>
-                        <td>{{"".join(view.get_images())}}</td>
                         <td class="actions">
                             <a class="btn btn-xs btn-primary edit-button" href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}"><i class="fa fa-pencil"></i></a>
-                            <a class="btn btn-xs btn-danger delete-button" href=""><i class="fa fa-trash"></i></a>                            
+                            {{formmacros.delbutton(view.gallery, classes="btn-xs")}}
                         </td>
                     </tr>
                 {% endfor %}
