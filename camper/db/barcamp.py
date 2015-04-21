@@ -260,6 +260,8 @@ class BarcampSchema(Schema):
     navbar_active_bg    = String() # bg color of active item
     navbar_hover_bg     = String() # bg color when hovering
 
+    gallery             = String() # gallery to show on homepage
+
     # user related
     admins              = List(String()) # TODO: ref
     invited_admins      = List(String()) # list of invited admins who have not yet accepted TODO: ref

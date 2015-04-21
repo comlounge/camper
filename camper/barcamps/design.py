@@ -26,6 +26,8 @@ class DesignForm(BaseForm):
     navbar_hover_bg         = ColorField(T(u"Navbar Hover Background Color"), default='#d0d0d0')
     navbar_active_bg        = ColorField(T(u"Navbar Active Background Color"), default='#333')
 
+    gallery                 = SelectField(T(u'Gallery to show on homepage'), default = -1)
+
 class DesignView(BarcampBaseHandler):
     """handle screen for handling design"""
 
@@ -37,6 +39,13 @@ class DesignView(BarcampBaseHandler):
     def get(self, slug = None):
         """show the form"""
         form = DesignForm(self.request.form, config = self.config)
+
+        # get the gallery choices
+        galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
+        choices = [(g._id, g.title) for g in galleries ]
+        choices.insert(0, (-1, self._('do not show a gallery')))
+        form.gallery.choices = choices
+
         if self.request.method == "POST" and form.validate():
             f = form.data
             self.barcamp.update(f)

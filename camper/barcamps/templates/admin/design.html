@@ -39,6 +39,8 @@
         </div>
     </div>
 
+    {{ formmacros.form_field(form.gallery) }}
+
     {{ formmacros.form_field(form.background_image, input_class="",
         label=_("Upload Image"), delete_label=_("Delete"), revert_label=("Revert"),
         preview_url = view.background_image_url.small,
