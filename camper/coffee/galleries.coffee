@@ -54,5 +54,40 @@ $(document).ready () ->
 
         return false
 
+    # gallery title editing
+    $("#edittitle").click () ->
+        $("#titleform").show()
+        $("#titleview").hide()
+        false
+
+    $("#canceltitle").click () ->
+        $("#titleform").hide()
+        $("#titleview").show()
+        false
+
+    $("#titleform").submit () ->
+        event.preventDefault()
+        url = $(this).attr("action")
+        $.ajax
+            type: "post"
+            url: url
+            data: $(this).serialize()
+            contentType: "application/x-www-form-urlencoded"
+            success: (data) ->
+
+                # update the form and details
+                $("#gallerytitle").val(data.title)
+                $("#titleview span").text(data.title)
+
+                $("#titleform").hide()
+                $("#titleview").show()                
+                
+            error: () ->
+                alert("an error occurred, please try again later")
+            
+
+
+
+
 
 

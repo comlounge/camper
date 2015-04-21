@@ -14,9 +14,9 @@ from camper.db.galleries import Image
 import os, copy
 
 
-class ImageGalleryAddForm(BaseForm):
+class ImageGalleryForm(BaseForm):
     """basic form to create a new gallery"""
-    title = TextField()
+    title = TextField([validators.Length(80)])
 
 class ImageForm(BaseForm):
     """form for adding a new image to an image gallery"""
@@ -46,7 +46,7 @@ class GalleryList(BarcampBaseHandler):
         """return the list of galleries"""
         barcamp_id = self.barcamp._id
         galleries = [GalleryView(g, self) for g in self.config.dbs.galleries.by_barcamp(self.barcamp)]
-        form = ImageGalleryAddForm(self.request.form)
+        form = ImageGalleryForm(self.request.form)
         if self.request.method == 'POST' and form.validate():
             f = form.data
             gallery = db.ImageGallery(f)
@@ -96,7 +96,7 @@ class GalleryAdminEdit(BarcampBaseHandler):
 
         return self.render(gallery= gallery, form = form, view = view, detail_form = detail_form)
 
-    post = get 
+    post = get
 
     @ensure_barcamp()
     @is_admin()
@@ -114,6 +114,27 @@ class GalleryAdminEdit(BarcampBaseHandler):
         else:
             return {'status' : 'error', 'msg' : self._('The image could not be found')}
         return {}
+
+
+
+class GalleryTitleEdit(BarcampBaseHandler):
+    """handler for editing the gallery title"""
+
+    @ensure_barcamp()
+    @is_admin()
+    @logged_in()
+    @asjson()
+    def post(self, slug = None, gid = None):
+        """update the gallery"""
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(gid))
+        form = ImageGalleryForm(self.request.form)
+        if form.validate():
+            gallery.update(form.data)
+            gallery.save()
+            return {'title': gallery.title, 'status': 'success'}
+        return {'status' : 'error', 'msg': 'form did not validate'}
+
+
 
 class GalleryImageEdit(BarcampBaseHandler):
     """edit one image. we use the barcamp handler in order to make sure the user

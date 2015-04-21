@@ -32,7 +32,7 @@ $(document).ready(function() {
       }
     });
   });
-  return $(".listing").on("click", ".deletebtn", function() {
+  $(".listing").on("click", ".deletebtn", function() {
     var d, msg, url;
     d = $(this).data("image-id");
     url = $(this).data("url");
@@ -56,5 +56,35 @@ $(document).ready(function() {
       });
     }
     return false;
+  });
+  $("#edittitle").click(function() {
+    $("#titleform").show();
+    $("#titleview").hide();
+    return false;
+  });
+  $("#canceltitle").click(function() {
+    $("#titleform").hide();
+    $("#titleview").show();
+    return false;
+  });
+  return $("#titleform").submit(function() {
+    var url;
+    event.preventDefault();
+    url = $(this).attr("action");
+    return $.ajax({
+      type: "post",
+      url: url,
+      data: $(this).serialize(),
+      contentType: "application/x-www-form-urlencoded",
+      success: function(data) {
+        $("#gallerytitle").val(data.title);
+        $("#titleview span").text(data.title);
+        $("#titleform").hide();
+        return $("#titleview").show();
+      },
+      error: function() {
+        return alert("an error occurred, please try again later");
+      }
+    });
   });
 });

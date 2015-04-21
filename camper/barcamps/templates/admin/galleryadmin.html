@@ -10,7 +10,20 @@
     </div>  
 
     {% block title %}
-        <h1>{{_('Manage Gallery')}} {{view.gallery.title}}</h1>
+        <h1>
+            <div id="titleview">
+                {{_('Gallery')}}: <span>{{view.gallery.title}}</span>
+                <button id="edittitle" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></button>
+            </div>
+            <form id="titleform" class="form-inline" action="{{url_for('.gallery_title_edit', slug = slug, gid = gallery._id)}}" style="display: none;">
+                <div class="form-group">    
+                    <label class="sr-only" for="title">{{_('Title')}}</label>
+                    <input size="60" type="text" id="gallerytitle" maxlength="80" required name="title" class="form-control" value="{{gallery.title|e}}" placeholder="{{_('Title of gallery')}}">
+                </div>
+                <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+                <button id="canceltitle" class="btn btn-default">{{_('Cancel')}}</button>
+            </form>
+        </h1>
     {% endblock %}
 
     <div id="imagelisting" class="container listing">

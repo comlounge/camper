@@ -37,7 +37,7 @@
 
     
         <form class="form-inline" id="add-gallery-form" method="POST" action="{{url}}">
-                {{ formmacros.form_field(form.title, label_class="sr-only", no_size=True, input_class="input-lg", required=True, placeholder="Title of new gallery") }}
+                {{ formmacros.form_field(form.title, label_class="sr-only", no_size=True, maxlength="80", input_class="input-lg", required=True, placeholder="Title of new gallery") }}
             <button type="submit" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add Gallery')}}</button>
         </form>
 
