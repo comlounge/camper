@@ -12,6 +12,7 @@ from camper.handlers.forms import *
 
 class DesignForm(BaseForm):
     """form for design aspects of a barcamp"""
+    logo                    = UploadField(T(u"Barcamp Logo"))
     background_image        = UploadField(T(u"Background-Image"))
     fb_image                = UploadField(T(u"Image for Facebook"))
     font                    = StringField(T(u"Font to use"), default='"Helvetica Neue", "Helvetica", "Arial", sans-serif')
@@ -28,6 +29,8 @@ class DesignForm(BaseForm):
 
     gallery                 = SelectField(T(u'Gallery to show on homepage'), default = -1)
 
+
+
 class DesignView(BarcampBaseHandler):
     """handle screen for handling design"""
 
@@ -43,7 +46,7 @@ class DesignView(BarcampBaseHandler):
         # get the gallery choices
         galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
         choices = [(g._id, g.title) for g in galleries ]
-        choices.insert(0, (-1, self._('do not show a gallery')))
+        choices.insert(0, ("-1", self._('do not show a gallery')))
         form.gallery.choices = choices
 
         if self.request.method == "POST" and form.validate():

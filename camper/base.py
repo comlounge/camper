@@ -73,6 +73,21 @@ class BarcampView(object):
             v.metadata['height'])
 
     @property
+    def logo_url(self):
+        """return variants of the logo url"""
+        uf = self.app.url_for
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+
+
+    @property
     def logosmall(self):
         """show the logo tag"""
         try:

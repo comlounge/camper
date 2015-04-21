@@ -245,6 +245,7 @@ class BarcampSchema(Schema):
     blogposts           = List(BlogLinkSchema())
 
     # design
+    logo                = String() # asset id
     link_color          = String()
     text_color          = String()
     background_image    = String()
@@ -271,7 +272,6 @@ class BarcampSchema(Schema):
     events              = Dict(EventSchema(kls=Event))
 
     # image stuff
-    logo                = String() # asset id
     sponsors            = List(Sponsor())
 
     # registration_form
