@@ -45,7 +45,7 @@ class DesignView(BarcampBaseHandler):
 
         # get the gallery choices
         galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
-        choices = [(g._id, g.title) for g in galleries ]
+        choices = [(str(g._id), g.title) for g in galleries ]
         choices.insert(0, ("-1", self._('do not show a gallery')))
         form.gallery.choices = choices
 
@@ -53,6 +53,8 @@ class DesignView(BarcampBaseHandler):
             f = form.data
             self.barcamp.update(f)
             self.barcamp.save()
+        else:
+            print "could not save data for barcamp design", form.errors
         return self.render(form = form)
 
     post = get
