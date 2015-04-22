@@ -11,6 +11,7 @@ from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
 from functools import partial
 import requests 
+import bson
 
 from wtforms.ext.i18n.form import Form
 
@@ -103,6 +104,18 @@ class BarcampView(object):
             url,
             v.metadata['width'],
             v.metadata['height'])
+
+    @property
+    def has_gallery(self):
+        """return whether this barcamp features a gallery"""
+        return self.barcamp.gallery is not None
+
+
+    @property
+    def gallery(self):
+        """return the gallery"""
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
+        return gallery
 
 
     @property
@@ -459,13 +472,32 @@ class BaseHandler(starflyer.Handler):
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app),
-            locale = str(self.babel_locale)
+            locale = str(self.babel_locale),
+            image_tag = self.get_image_tag,
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug
         if self.page is not None:
             payload['page_slug'] = self.page.slug
         return payload
+
+    def get_image_tag(self, image_id, variant, **kw):
+        """return an image tag for an image
+
+        :param image_id: the asset id of the image
+        :param variant: the variant to use
+        :param **kw: any additional parameters for the image tag
+        :return: an image tag
+        """
+        asset = self.app.module_map.uploader.get(image_id)
+        v = asset.variants[variant]
+        url = self.app.url_for("asset", asset_id = v._id)
+        tag = """<img src="%s" width="%s" height="%s" %s>""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'],
+            "")
+        return tag
 
     def forbidden(self):
         """call this if you want to show the user a message that a permission is missing and redirect to the homepage"""
