@@ -40,6 +40,7 @@
         
         <script src="{{url_for('static', filename='js/components/jquery/dist/jquery.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/components/angular/angular.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/TweenMax.min.js')}}"></script>
 
         {% block head %}
         {% endblock %}
@@ -111,10 +112,12 @@
             </div><!-- container fluid -->
         </nav><!-- navbar -->
         {% endblock %}
+
+
         {% block topcontainer %}
-        
         {% endblock %}
-      
+
+        
         {% block container %}
         <div class="container" id="content">
             {% block flashes %}
@@ -196,10 +199,11 @@
                 });
             });
         </script>
-            {% block js %}
-            {% endblock %}
-            {% block js2 %}
-            {% endblock %}
+
+        {% block js %}
+        {% endblock %}
+        {% block js2 %}
+        {% endblock %}
 
         <script src="{{url_for("static", filename="js/holder.js")}}"></script>
         <script src="{{url_for("static", filename="js/forms.js")}}"></script>
