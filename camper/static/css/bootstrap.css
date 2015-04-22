@@ -6757,6 +6757,47 @@ form {
 .x-ng-cloak {
   display: none !important;
 }
+.gallery {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: 1em 0 2.5em;
+}
+.gallery-pictures {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: -webkit-grab;
+  -webkit-transform: rotateY(0);
+  white-space: nowrap;
+  font-size: 0;
+}
+.gallery-picture {
+  width: 700px;
+  margin-right: 120px;
+  display: inline-block;
+  -webkit-transform: rotateY(0);
+  transform: rotateY(0);
+}
+.gallery-pagination {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0;
+}
+.gallery-pagination-dot {
+  background: #333;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: none;
+  margin: 0 7px;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+}
+.gallery-pagination-dot-selected {
+  background: #7D87AE;
+}
 /*
 ** general rules
 */
@@ -6933,38 +6974,38 @@ body#startpage article.barcamp.barcamp-small h3 {
   background: #fcfcfa;
   background-size: cover;
 }
-#barcamp h1.logo img {
+#barcamppage h1.logo img {
   width: 100%;
 }
-#barcamp .header {
+#barcamppage .header {
   border: 1px solid #f0f0f0;
   border-bottom: none;
 }
-#barcamp .sponsors {
+#barcamppage .sponsors {
   margin-top: 20px;
 }
-#barcamp .sponsor {
+#barcamppage .sponsor {
   float: left;
   width: 220px;
   margin-right: 15px;
   margin-bottom: 20px;
 }
-#barcamp .byline {
+#barcamppage .byline {
   margin-top: 5px;
   color: #888;
   font-size: 12px;
 }
-#barcamp .byline a {
+#barcamppage .byline a {
   color: #5094ce;
 }
-#barcamp .attending {
+#barcamppage .attending {
   font-size: 30px;
   color: #5cb85c;
   line-height: 30px;
   text-align: center;
   margin-bottom: 30px;
 }
-#barcamp .attending a {
+#barcamppage .attending a {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -6990,32 +7031,32 @@ body#startpage article.barcamp.barcamp-small h3 {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-#barcamp .attending a:focus,
-#barcamp .attending a:active:focus,
-#barcamp .attending a.active:focus,
-#barcamp .attending a.focus,
-#barcamp .attending a:active.focus,
-#barcamp .attending a.active.focus {
+#barcamppage .attending a:focus,
+#barcamppage .attending a:active:focus,
+#barcamppage .attending a.active:focus,
+#barcamppage .attending a.focus,
+#barcamppage .attending a:active.focus,
+#barcamppage .attending a.active.focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-#barcamp .attending a:hover,
-#barcamp .attending a:focus,
-#barcamp .attending a.focus {
+#barcamppage .attending a:hover,
+#barcamppage .attending a:focus,
+#barcamppage .attending a.focus {
   color: #333333;
   text-decoration: none;
 }
-#barcamp .attending a:active,
-#barcamp .attending a.active {
+#barcamppage .attending a:active,
+#barcamppage .attending a.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-#barcamp .attending a.disabled,
-#barcamp .attending a[disabled],
-fieldset[disabled] #barcamp .attending a {
+#barcamppage .attending a.disabled,
+#barcamppage .attending a[disabled],
+fieldset[disabled] #barcamppage .attending a {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -7023,43 +7064,43 @@ fieldset[disabled] #barcamp .attending a {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-#barcamp .attending a:hover,
-#barcamp .attending a:focus,
-#barcamp .attending a.focus,
-#barcamp .attending a:active,
-#barcamp .attending a.active,
-.open > .dropdown-toggle#barcamp .attending a {
+#barcamppage .attending a:hover,
+#barcamppage .attending a:focus,
+#barcamppage .attending a.focus,
+#barcamppage .attending a:active,
+#barcamppage .attending a.active,
+.open > .dropdown-toggle#barcamppage .attending a {
   color: #333333;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
-#barcamp .attending a:active,
-#barcamp .attending a.active,
-.open > .dropdown-toggle#barcamp .attending a {
+#barcamppage .attending a:active,
+#barcamppage .attending a.active,
+.open > .dropdown-toggle#barcamppage .attending a {
   background-image: none;
 }
-#barcamp .attending a.disabled,
-#barcamp .attending a[disabled],
-fieldset[disabled] #barcamp .attending a,
-#barcamp .attending a.disabled:hover,
-#barcamp .attending a[disabled]:hover,
-fieldset[disabled] #barcamp .attending a:hover,
-#barcamp .attending a.disabled:focus,
-#barcamp .attending a[disabled]:focus,
-fieldset[disabled] #barcamp .attending a:focus,
-#barcamp .attending a.disabled.focus,
-#barcamp .attending a[disabled].focus,
-fieldset[disabled] #barcamp .attending a.focus,
-#barcamp .attending a.disabled:active,
-#barcamp .attending a[disabled]:active,
-fieldset[disabled] #barcamp .attending a:active,
-#barcamp .attending a.disabled.active,
-#barcamp .attending a[disabled].active,
-fieldset[disabled] #barcamp .attending a.active {
+#barcamppage .attending a.disabled,
+#barcamppage .attending a[disabled],
+fieldset[disabled] #barcamppage .attending a,
+#barcamppage .attending a.disabled:hover,
+#barcamppage .attending a[disabled]:hover,
+fieldset[disabled] #barcamppage .attending a:hover,
+#barcamppage .attending a.disabled:focus,
+#barcamppage .attending a[disabled]:focus,
+fieldset[disabled] #barcamppage .attending a:focus,
+#barcamppage .attending a.disabled.focus,
+#barcamppage .attending a[disabled].focus,
+fieldset[disabled] #barcamppage .attending a.focus,
+#barcamppage .attending a.disabled:active,
+#barcamppage .attending a[disabled]:active,
+fieldset[disabled] #barcamppage .attending a:active,
+#barcamppage .attending a.disabled.active,
+#barcamppage .attending a[disabled].active,
+fieldset[disabled] #barcamppage .attending a.active {
   background-color: #ffffff;
   border-color: #cccccc;
 }
-#barcamp .attending a .badge {
+#barcamppage .attending a .badge {
   color: #ffffff;
   background-color: #333333;
 }
