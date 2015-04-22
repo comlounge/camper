@@ -1,3 +1,42 @@
+{% macro barcamp_buttons() -%}
+    {% if logged_in %}
+    <div class="widget-join">
+        {% if barcamp.is_registered(user) %}
+            <div class="attending">
+                <i class="fa fa-check"></i> I am attending!<br>
+                <a title="{{_('Change whether you come or come not.')}}" data-toggle="tooltip" data-placement="top"
+                href="{{url_for('barcamps.register', slug=slug)}}">{{_('Change?')}}</a>
+            </div>
+        {% else %}
+            <div>
+                <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
+                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
+            </div>
+            {% if view.can_subscribe %}
+                <div>
+                <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
+                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
+                </div>
+            {% else %}
+                <div>
+                <a title="{{_('I don\'t want to receive notifications anymore')}}" data-toggle="tooltip" data-placement="bottom"
+                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
+                </div>
+            {% endif %}
+        {% endif %} {# is registered_user #}
+
+    {% else %}
+        <div class="alert alert-info">
+            <h4>{{_("Attention!")}}</h4>
+            {{_('In order to mark your interest in this barcamp you first have to')}}
+            <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
+            {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
+        </div>
+    {% endif %} {# logged in#}
+{%- endmacro %} {# barcamp_buttons #}
+
+
+
 {% set body_id="barcamppage" %}
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
@@ -68,50 +107,59 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
-{% block content %}
+{# we replace the whole container because of the image gallery #}
+{% block container %}
 
-
-    <div id="barcamp">
-
-        <nav class="navbar navbar-barcamp" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    </button>
+    <div class="container" id="barcamp">
+        <div id="barcamp-menu">
+            <nav class="navbar navbar-barcamp" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            {% for action in actions %}
+                                <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% if is_admin or is_main_admin %}
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="manage"><a target="manage" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
+                        </ul>
+                        {% endif %}
+                    </div>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        {% for action in actions %}
-                            <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% if is_admin or is_main_admin %}
-                    <ul class="nav navbar-nav pull-right">
-                        <li class="manage"><a target="manage" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
-                    </ul>
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+    </div>
+
+    {% block inbetween %}
+        
+    {% endblock %}
+
+    <div class="container">
 
         {% block headline %}
         {% endblock %}
 
         {% block flashes %}
+            {% for m in get_flashes(with_categories=True) %}
+                <div class="alert alert-{{m[0]}}">
+                <strong>{{m[1]}}</strong><br>
+                </div>
+            {% endfor %}
         {% endblock %}
 
-        {% for m in get_flashes(with_categories=True) %}
-            <div class="alert alert-{{m[0]}}">
-            <strong>{{m[1]}}</strong><br>
-            </div>
-        {% endfor %}
+        {% block above_main_content %}
+        {% endblock %}
 
         {% block outer_content %}
             <div id="main-content" class="row">
@@ -139,50 +187,10 @@
                     {% block main_content %}
                     {% endblock %}
 
-                </div>
+                </div><!-- #content-area -->
+
                 <aside class="col-lg-3 col-md-3">
                     {% block widgets %}
-                        {% macro barcamp_buttons() -%}
-
-
-                        {% if logged_in %}
-                        <div class="widget-join">
-
-
-
-                            {% if barcamp.is_registered(user) %}
-                                <div class="attending">
-                                    <i class="fa fa-check"></i> I am attending!<br>
-                                    <a title="{{_('Change whether you come or come not.')}}" data-toggle="tooltip" data-placement="top"
-                                    href="{{url_for('barcamps.register', slug=slug)}}">{{_('Change?')}}</a>
-                                </div>
-                            {% else %}
-                                <div>
-                                    <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
-                                </div>
-                                {% if view.can_subscribe %}
-                                    <div>
-                                    <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
-                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
-                                    </div>
-                                {% else %}
-                                    <div>
-                                    <a title="{{_('I don\'t want to receive notifications anymore')}}" data-toggle="tooltip" data-placement="bottom"
-                                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
-                                    </div>
-                                {% endif %}
-                            {% endif %}
-
-                        {% else %}
-                            <div class="alert alert-info">
-                                <h4>{{_("Attention!")}}</h4>
-                                {{_('In order to mark your interest in this barcamp you first have to')}}
-                                <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
-                                {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
-                            </div>
-                        {% endif %}
-                        {%- endmacro %}
 
                         {{barcamp_buttons()}}
 
@@ -192,6 +200,7 @@
                                 <fb:share-button href="{{url}}" type="button">
                                 </fb:share-button>
                             </div>
+
                             <div class="twitter-button">
                                 <a href="https://twitter.com/share"
                                    class="twitter-share-button"
@@ -201,6 +210,7 @@
                                    data-count="none"
                                    data-hashtags="{{barcamp.hashtag}}">Tweet</a>
                             </div>
+
                             <div class="gplus-button">
                                 <!-- Place this tag where you want the +1 button to render. -->
                                 <div class="g-plusone" data-size="medium" data-annotation="none"></div>
@@ -217,14 +227,22 @@
                                 </script>
                             </div>
 
-                        </div>
-                    {% endblock %}
+                        </div> {# social media#}
+                    {% endblock %} {# widgets #}
                 </aside>{# -- widget -- #}
             </div>{# -- #main-content --#}
-        {% endblock %}
+        {% endblock %} {# outer_content #}
 
-    </div><!-- #barcamp -->
-{% endblock %}
+        {% block footer %}
+        <footer>
+            <div class="container">
+                <a href="/impressum.html">Impressum</a>
+            </div>
+        </footer>
+        {% endblock %}
+    </div> {# #container #}
+{% endblock %} {# container #}
+
 {% block js %}
     <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
     <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
