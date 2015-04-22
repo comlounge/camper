@@ -268,7 +268,8 @@ class CamperApp(Application):
                     'logo_full' : "1140x",
                     'medium_user' : "296x",
                     'userlist': '80x80!',
-                    'fullwidth' : "850x"
+                    'fullwidth' : "850x",
+                    'gallery' : "700x300!",
                 })
             ],
         ))
