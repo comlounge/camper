@@ -11,6 +11,7 @@ class ListView(BarcampBaseHandler):
     """show all blog entries for a barcamp"""
 
     template = "view.html"
+    action = "blog"
 
     @ensure_barcamp()
     def get(self, slug = None):
@@ -25,6 +26,7 @@ class ArticleView(BarcampBaseHandler):
     """show a single blog entry"""
 
     template = "entry.html"
+    action = "blog"
 
     @ensure_barcamp()
     def get(self, slug = None, blog_slug = None):

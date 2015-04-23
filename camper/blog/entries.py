@@ -10,6 +10,7 @@ class ListView(BarcampBaseHandler):
     """show all blog entries for a barcamp"""
 
     template = "entries.html"
+    action = "blog"
 
     @logged_in()
     @ensure_barcamp()
