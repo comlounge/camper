@@ -7686,6 +7686,19 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
 #blogentry header {
   overflow: auto;
 }
+article.blogentry {
+  overflow: auto;
+  margin-bottom: 20px;
+}
+article.blogentry .blog-image.pull-left {
+  margin-right: 20px;
+}
+article.blogentry .blog-image.pull-right {
+  margin-left: 20px;
+}
+article.blogentry header {
+  margin-bottom: 10px;
+}
 #bloglisting article {
   margin-bottom: 50px;
 }

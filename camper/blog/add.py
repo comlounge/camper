@@ -21,7 +21,7 @@ class EntryForm(BaseForm):
                 default = None,
     )
     image       = UploadField(T(u"Title image"))
-
+    gallery     = SelectField(T(u'Gallery to show on homepage'), default = -1)
 
 
 class AddView(BarcampBaseHandler):
@@ -35,6 +35,13 @@ class AddView(BarcampBaseHandler):
     def get(self, slug = None):
         """render the view"""
         form = EntryForm(self.request.form, config = self.config)
+
+        # get the gallery choices
+        galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
+        choices = [(str(g._id), g.title) for g in galleries ]
+        choices.insert(0, ("-1", self._('do not show a gallery')))
+        form.gallery.choices = choices
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             entry = db.BlogEntry(f)

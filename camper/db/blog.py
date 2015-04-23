@@ -22,6 +22,9 @@ class BlogEntrySchema(Schema):
     layout          = String() # name of layout
     content         = String()
     tags 			= List(String()) # list of tags (string)
+
+
+    gallery         = String() # id of the gallery to use
     
     barcamp         = String() # or empty for homepage (for later)
     

@@ -24,14 +24,14 @@
                 </div>
             {% endif %}
         {% endif %} {# is registered_user #}
-
+    </div>
     {% else %}
-        <div class="alert alert-info">
-            <h4>{{_("Attention!")}}</h4>
-            {{_('In order to mark your interest in this barcamp you first have to')}}
-            <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
-            {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
-        </div>
+    <div class="alert alert-info">
+        <h4>{{_("Attention!")}}</h4>
+        {{_('In order to mark your interest in this barcamp you first have to')}}
+        <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
+        {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
+    </div>
     {% endif %} {# logged in#}
 {%- endmacro %} {# barcamp_buttons #}
 
@@ -57,7 +57,7 @@
 
     <style>
         body, #barcamppage {
-            background-image: url('{{view.background_image_url.logo_full}}');
+            background-image: url('{{barcamp_view.background_image_url.logo_full}}');
             background-color: {{barcamp.background_color}};
             color: {{barcamp.text_color}};
         } 

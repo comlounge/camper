@@ -22,6 +22,13 @@ class EditView(BarcampBaseHandler):
         entry = self.config.dbs.blog.get(ObjectId(eid))
         view = EntryView(entry, self)
         form = EntryForm(self.request.form, obj = entry, config = self.config)
+
+        # get the gallery choices
+        galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
+        choices = [(str(g._id), g.title) for g in galleries ]
+        choices.insert(0, ("-1", self._('do not show a gallery')))
+        form.gallery.choices = choices
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             entry.update(f)

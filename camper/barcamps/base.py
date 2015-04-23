@@ -79,6 +79,7 @@ class BarcampBaseHandler(BaseHandler):
         """provide more information to the render method"""
         payload = super(BarcampBaseHandler, self).render_context
         payload['view'] = self.barcamp_view
+        payload['barcamp_view'] = self.barcamp_view
         payload['actions'] = self.actions
         return payload
 
