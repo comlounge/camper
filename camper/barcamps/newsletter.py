@@ -4,7 +4,7 @@ import copy
 import json
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
-from camper.handlers.forms import BooleanValueField, checkbox_button
+from camper.handlers.forms import MultiCheckboxField
 from wtforms import *
 from sfext.babel import T
 from .base import BarcampBaseHandler
@@ -21,8 +21,15 @@ class NewsletterForm(BaseForm):
     body    = TextAreaField(T("Newsletter body"), [validators.Required()],
                 #description = T('please describe your barcamp here'),
     )
-    recipients = RadioField(T("Recipients"), [validators.Required()],
-        choices = [("participants", T("Participants")), ("subscribers", T("interested people")), ("all", T("both"))])
+    recipients = MultiCheckboxField(T("Recipients"), [validators.Required()],
+        choices = [
+            ("subscribers", T("People watching the barcamp")), 
+            ("participants", T("Participants (going)")), 
+            ("maybe", T("People who might come (maybe)")), 
+            ("waitinglist", T("People on Waiting List"))
+        ]
+    )
+
     testmail = TextField(T("E-Mail address for testing the newsletter"),
                 description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
     )
@@ -57,13 +64,22 @@ class NewsletterEditView(BarcampBaseHandler):
                         )
             elif self.request.form.has_key('send_newsletter'):
                 # send newsletter to recipients
+                print f
                 recipient_ids = []
-                if f['recipients']=="subscribers":
+                if "subscribers" in f['recipients']:
                     recipient_ids = self.barcamp.subscribers
-                elif f['recipients']=="participants":
-                    recipient_ids = self.barcamp.event.participants
-                elif f['recipients']=="all":
-                    recipient_ids = self.barcamp.event.participants + self.barcamp.subscribers
+                if "participants" in f['recipients']:
+                    # collect all the participants from all event
+                    for event in self.barcamp.eventlist:
+                        recipient_ids = recipient_ids + event.participants
+                if 'waitinglist' in f['recipients']:
+                    for event in self.barcamp.eventlist:
+                        recipient_ids = recipient_ids + event.waiting_list
+                if 'maybe' in f['recipients']:
+                    for event in self.barcamp.eventlist:
+                        recipient_ids = recipient_ids + event.maybe
+
+                # unduplicate the list
                 recipient_ids = set(recipient_ids)
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
                 for user in users:

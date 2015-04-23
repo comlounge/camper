@@ -59,12 +59,14 @@
 {% endfor %}
 {%- endmacro -%}
 
-{%- macro form_field_multicheckbox(field) -%}
+{%- macro form_field_multicheckbox(field, input_class) -%}
     {% for subfield in field %}
-        <label class="checkbox">
-            {{ subfield() }}
-            {{ subfield.label.text }}
-        </label>
+        <div class="checkbox">
+            <label>
+                {{ subfield(class=input_class) }}
+                {{ subfield.label.text }}
+            </label>
+        </div>
     {% endfor %}
 {%- endmacro -%}
 
@@ -86,7 +88,7 @@
         {% else%}
             {{ form_field_label(field, label_class) }}
             {% if field.type == 'MultiCheckboxField' %}
-                {{ form_field_multicheckbox(field) }}
+                {{ form_field_multicheckbox(field, input_class) }}
             {% elif field.type == 'RadioField' %}
                 {{ form_field_radio(field) }}
             {% else %}

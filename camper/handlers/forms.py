@@ -5,8 +5,7 @@ import datetime
 
 from camper import BaseForm
 
-from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerField, DecimalField
-from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
+from wtforms import *
 from wtforms import validators as v
 from wtforms.widgets import html_params, HTMLString, HiddenInput, TextInput
 from wtforms.compat import text_type, iteritems
@@ -18,6 +17,17 @@ import bleach
 ###
 ### CUSTOM WIDGETS etc.
 ###
+
+
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
 
 
 def checkbox_button(field, **kwargs):

@@ -108,7 +108,7 @@ class BarcampView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        return self.barcamp.gallery is not None
+        return self.barcamp.gallery != "-1"
 
 
     @property
@@ -123,6 +123,7 @@ class BarcampView(object):
         """properly format the start and end date if given"""
         bc = self.barcamp
         if bc.start_date and bc.end_date:
+            # TODO: localize it
             return "%s - %s" %(
                 bc.start_date.strftime('%d.%m.%Y'),
                 bc.end_date.strftime('%d.%m.%Y'))
