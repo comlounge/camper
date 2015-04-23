@@ -1,5 +1,6 @@
 from sfext.uploader import AssetNotFound
 from wtforms.widgets import html_params
+import bson
 
 class EntryView(object):
     """wrapper around a blog entry to provide additional features"""
@@ -49,3 +50,16 @@ class EntryView(object):
             v.metadata['width'],
             v.metadata['height'],
             amap)
+
+    @property
+    def has_gallery(self):
+        """return whether this barcamp features a gallery"""
+        return self.entry.gallery is not None
+
+
+    @property
+    def gallery(self):
+        """return the gallery"""
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(self.entry.gallery))
+        return gallery
+
