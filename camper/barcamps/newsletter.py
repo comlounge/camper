@@ -23,11 +23,12 @@ class NewsletterForm(BaseForm):
     )
     recipients = MultiCheckboxField(T("Recipients"), [validators.Required()],
         choices = [
-            ("subscribers", T("People watching the barcamp")), 
+            #("subscribers", T("People watching the barcamp")), 
             ("participants", T("Participants (going)")), 
             ("maybe", T("People who might come (maybe)")), 
             ("waitinglist", T("People on Waiting List"))
-        ]
+        ],
+        default = ['participants', 'waitinglist']
     )
 
     testmail = TextField(T("E-Mail address for testing the newsletter"),
@@ -64,7 +65,7 @@ class NewsletterEditView(BarcampBaseHandler):
                         )
             elif self.request.form.has_key('send_newsletter'):
                 # send newsletter to recipients
-                print f
+
                 recipient_ids = []
                 if "subscribers" in f['recipients']:
                     recipient_ids = self.barcamp.subscribers
@@ -86,7 +87,7 @@ class NewsletterEditView(BarcampBaseHandler):
                     send_to = user.email
                     mailer.mail(send_to, f['subject'], f['body'])
                 self.flash(self._("newsletter sent successfully"), category="info")
-                return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+                return redirect(self.url_for("barcamps.dashboard", slug = self.barcamp.slug))
 
         return self.render(
             view = self.barcamp_view,
