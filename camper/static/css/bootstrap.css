@@ -6749,6 +6749,26 @@ textarea.wysiwyg {
 form {
   margin-bottom: 30px;
 }
+.admin-participants {
+  padding-left: 0;
+  list-style: none;
+}
+.admin-participants img {
+  width: 25px;
+  height: 25px;
+  margin-right: 5px;
+  border: 1px solid #e0e0e0;
+}
+.admin-participants .actions {
+  float: right !important;
+}
+.admin-participants .participant-name {
+  font-size: 16px;
+}
+.admin-participants > li {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 7px 0;
+}
 [ng\:cloak],
 [ng-cloak],
 [data-ng-cloak],

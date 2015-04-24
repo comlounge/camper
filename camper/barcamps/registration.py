@@ -144,6 +144,18 @@ class RegistrationData(BarcampBaseHandler):
                 title = self.barcamp.name,
                 **self.barcamp)
 
+        # check if we can fill up the participants from the waiting list
+        uids = event.fill_participants()
+        users = self.app.module_map.userbase.get_users_by_ids(uids)
+        for user in users:
+            # send out a welcome email
+            self.mail_template("welcome",
+                view = view,
+                send_to = user.email,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
         ud = {
             'eid' : eid,
             'full' : event.full,
@@ -205,34 +217,6 @@ class RegistrationForm(BarcampBaseHandler):
             form = form,
             **self.barcamp)
 
-
-    def old_get(self):
-        # register the user
-        registered = self.barcamp.register(self.user)
-        view = self.barcamp_view
-        if registered == 'waiting':
-            self.flash(self._("Unfortunately the list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants."), category="danger")
-            self.mail_template("onwaitinglist",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
-        elif registered == 'participating':
-            self.flash(self._("You are now on the list of participants for this barcamp."), category="success")
-            self.mail_template("welcome",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
-
-        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
-
-        return self.render(
-            view = self.barcamp_view,
-            barcamp = self.barcamp,
-            title = self.barcamp.name,
-            form = form,
-            **self.barcamp)
 
     post = get
 

@@ -33,6 +33,7 @@ class Action(object):
         self.url = url
         self.active = active
 
+
 class BarcampBaseHandler(BaseHandler):
     """extend the base handler for barcamp specific extensions"""
 

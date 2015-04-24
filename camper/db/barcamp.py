@@ -165,16 +165,20 @@ class Event(Record):
 
         if status=="going":
             if not force and len(self.participants) >= self.size:
+                # user induced action
                 if uid not in self.waiting_list:
                     self.waiting_list.append(uid)
                     if uid in self.maybe:
                         self.maybe.remove(uid)
                     status = 'waitinglist'
             else:
+                # force is only done by admins and can overpop an event. 
                 if uid not in self.participants:
                     self.participants.append(uid)
                     if uid in self.maybe:
                         self.maybe.remove(uid)
+                    if uid in self.waiting_list:
+                        self.waiting_list.remove(uid)
                     status = 'going'
             return status
         elif status=="maybe" or status=="notgoing":
@@ -187,13 +191,33 @@ class Event(Record):
             if status=="notgoing" and uid in self.maybe:
                 self.maybe.remove(uid)
             return status
+        elif status=="waiting":
+            # this is something only the admin can do
+            if uid in self.participants:
+                self.participants.remove(uid)
+                print "found"
+            if uid in self.maybe:
+                self.maybe.remove(uid)
+            if uid not in self.waiting_list:
+                self.waiting_list.append(uid)
+            return status
+
 
     
-            # TODO: move this to a separate method so we can send out mails
-            # check if we can move ppl from the waitinglist
-            if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
-                nuid = self.waiting_list.pop(0)
-                self.participants.append(nuid)
+    def fill_participants(self):
+        """try to fill up the participant list from the waiting list in case
+        there is space. This should be called after somebody was removed from the
+        participants list or the size was increased.
+        It returns a list of user ids so you can send out mails.
+
+        """
+        uids = []
+        while len(self.participants) < self.size and len(self.waiting_list)>0:
+            nuid = self.waiting_list.pop(0)
+            self.participants.append(nuid)
+            uids.append(nuid)
+        return uids
+
 
     @property
     def rooms(self):

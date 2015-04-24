@@ -204,6 +204,86 @@ class EventView(BarcampBaseHandler):
     post = get
 
 
+class EventParticipants(BarcampBaseHandler):
+    """view for handling the participnats list for an event"""
+
+    template = 'admin/event_participants.html'
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None, eid = None):
+        """show the event participants screen"""
+        event = self.barcamp.get_event(eid)
+
+        # get all the lists
+        ub = self.app.module_map.userbase
+        participants = list(ub.get_users_by_ids(event.participants))
+        maybe = list(ub.get_users_by_ids(event.maybe))
+        waitinglist = list(ub.get_users_by_ids(event.waiting_list))
+
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            participants = participants,
+            maybe = maybe,
+            waitinglist = waitinglist,
+            event = event,
+            eid = event._id,
+            title = self.barcamp.name,
+            **self.barcamp)
+
+    @ensure_barcamp()
+    @asjson()
+    @is_admin()
+    def post(self, slug = None, eid = None):
+        """handle users and lists
+
+        you have to provide a userid as uid and a status in the form data
+        status can be ``going``, ``maybe``, ``notgoing`` and ``waitinglist``
+
+        """
+        uid = self.request.form.get("uid")
+        status = self.request.form.get("status") # can be join, maybe, notgoubg
+        event = self.barcamp.get_event(eid)
+
+        status = event.set_status(uid, status, force = True)
+
+        # send out the mail
+        view = self.barcamp_view
+        if status=="going":
+            self.mail_template("welcome",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        elif status=="waitinglist":
+            self.mail_template("onwaitinglist",
+                view = view,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        uids = event.fill_participants()
+        users = self.app.module_map.userbase.get_users_by_ids(uids)
+        for user in users:
+            # send out a welcome email
+            self.mail_template("welcome",
+                view = view,
+                send_to = user.email,
+                barcamp = self.barcamp,
+                title = self.barcamp.name,
+                **self.barcamp)
+
+        self.barcamp.events[eid] = event
+        self.barcamp.save()
+        return {'status' : 'success', 'reload' : True}
+
+
+
+
+
 class GetLocation(BaseHandler):
     """retrieve a location by address and return json"""
 

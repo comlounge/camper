@@ -86,6 +86,8 @@ class BarcampModule(Module):
         URL('/<slug>/admin/events/<eid>', 'event',                      events.EventView),
         URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard',  sessionboard.SessionBoard),
         URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
+        URL('/<slug>/admin/events/<eid>/users', 'event_participants',   events.EventParticipants),
+
 
         # TODO: rename this and move this out of events (in base?)
         URL('/_/admin/getlocation', 'event_location',                   events.GetLocation), # not bound to barcamp so it also works in add form
