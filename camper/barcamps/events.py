@@ -246,6 +246,8 @@ class EventParticipants(BarcampBaseHandler):
         uid = self.request.form.get("uid")
         status = self.request.form.get("status") # can be join, maybe, notgoubg
         event = self.barcamp.get_event(eid)
+        
+        user = self.app.module_map.userbase.get_user_by_id(uid)
 
         status = event.set_status(uid, status, force = True)
 
@@ -254,6 +256,7 @@ class EventParticipants(BarcampBaseHandler):
         if status=="going":
             self.mail_template("welcome",
                 view = view,
+                user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 **self.barcamp)
@@ -261,6 +264,7 @@ class EventParticipants(BarcampBaseHandler):
         elif status=="waitinglist":
             self.mail_template("onwaitinglist",
                 view = view,
+                user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 **self.barcamp)
@@ -271,7 +275,7 @@ class EventParticipants(BarcampBaseHandler):
             # send out a welcome email
             self.mail_template("welcome",
                 view = view,
-                send_to = user.email,
+                user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 **self.barcamp)
