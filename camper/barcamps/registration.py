@@ -151,7 +151,7 @@ class RegistrationData(BarcampBaseHandler):
             # send out a welcome email
             self.mail_template("welcome",
                 view = view,
-                send_to = user.email,
+                user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 **self.barcamp)
