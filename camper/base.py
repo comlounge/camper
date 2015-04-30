@@ -108,7 +108,7 @@ class BarcampView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        return self.barcamp.gallery != "-1"
+        return self.barcamp.gallery and self.barcamp.gallery != "-1"
 
 
     @property
