@@ -28,7 +28,7 @@ class EventForm(BaseForm):
     start_time                  = TextField(T(u"start time"), [validators.Required()], description="")
     end_time                    = TextField(T(u"end time"), [validators.Required()], description="")
     size                        = SelectField(T(u"max. number of participants"), [validators.Required()], 
-                                        choices = [(str(n),str(n)) for n in range(1, 1000)])
+                                        choices = [(str(n),str(n)) for n in range(1, 500)])
     
     own_location                = BooleanField(T("use different location"), widget = ACheckboxInput())
     location_name               = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
@@ -70,6 +70,7 @@ class EventsView(BarcampBaseHandler):
             obj['end_time'] = "23:00"
 
         form = EventForm(self.request.form, config = self.config, **obj)
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
@@ -142,6 +143,14 @@ class EventView(BarcampBaseHandler):
         event['location_lng'] = event.location['lng']
 
         form = EventForm(self.request.form, obj = event, config = self.config)
+        if self.barcamp.public:
+            # the minimum size should be the old event size
+            min_count = event.size
+            choices = [(str(n),str(n)) for n in range(event.size, 500)]
+            form['size'].validators = [validators.Required(), 
+                validators.NumberRange(min=min_count, message=self._("you cannot reduce the participant number, the minimum amount is %s") %min_count)]
+            form['size'].choices = choices
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
@@ -193,6 +202,18 @@ class EventView(BarcampBaseHandler):
             else:
                     # using user provided coordinates
                     event.update(f)
+
+            # check if we can fill up the participants from the waiting list
+            uids = event.fill_participants()
+            users = self.app.module_map.userbase.get_users_by_ids(uids)
+            for user in users:
+                # send out a welcome email
+                self.mail_template("welcome",
+                    view = self.barcamp_view,
+                    user = user,
+                    barcamp = self.barcamp,
+                    title = self.barcamp.name,
+                    **self.barcamp)
             
             # create and save the event object inside the barcamp
             self.barcamp.events[eid] = event
