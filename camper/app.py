@@ -70,21 +70,21 @@ def markdownify(text, level=1):
 ACCEPTED_LANGUAGES = ['de', 'en']
 
 def parseAcceptLanguage(acceptLanguage):
-  if acceptLanguage is None:
-    return [("en", 1)]
-  languages = acceptLanguage.split(",")
-  locale_q_pairs = []
+    """parse the accept language header"""
+    if acceptLanguage is None:
+        return [("en", 1)]
+    languages = acceptLanguage.split(",")
+    locale_q_pairs = []
 
-  for language in languages:
-    if language.split(";")[0] == language:
-      # no q => q = 1
-      locale_q_pairs.append((language.strip(), "1"))
-    else:
-      locale = language.split(";")[0].strip()
-      q = language.split(";")[1].split("=")[1]
-      locale_q_pairs.append((locale, q))
-
-  return locale_q_pairs
+    for language in languages:
+        if language.split(";")[0] == language:
+            # no q => q = 1
+            locale_q_pairs.append((language.strip(), "1"))
+        else:
+            locale = language.split(";")[0].strip()
+            q = language.split(";")[1].split("=")[1]
+            locale_q_pairs.append((locale, q))
+    return locale_q_pairs
 
 def get_locale(handler):
     al = handler.request.headers.get('Accept-Language')
