@@ -37,30 +37,6 @@ class BarcampSubscribe(BarcampBaseHandler):
                 self.flash(self._("%(fullname)s has been removed from the list of people interested in this barcamp") %user, category="danger")
         return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
-class BarcampAdminRegister(BarcampBaseHandler):
-    """admins adds user to participants list regardless if this list is full or not.
-
-    This will be called by the context menu in the userlist view
-    
-    """
-
-    @is_admin()
-    @ensure_barcamp()
-    def post(self, slug = None):
-        # get the username from the form
-        username = self.request.form.get("u", None)
-        if username is not None:
-            user = self.app.module_map.userbase.get_user_by_username(username)
-            # register the user
-            self.barcamp.register(user, force=True)
-            view = self.barcamp_view
-            self.flash(self._('User %s has been registered!' % username))
-            self.mail_template("welcome",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
-        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class BarcampRegister(BarcampBaseHandler):
     """adds a user to the participants list if the list is not full, otherwise waiting list"""
@@ -219,35 +195,6 @@ class RegistrationForm(BarcampBaseHandler):
 
 
     post = get
-
-class BarcampUnregister(BarcampBaseHandler):
-    """removes a user from the participants list and might move user up from the waiting list"""
-
-    @ensure_barcamp()
-    def post(self, slug = None):
-        """only a post without parameters is done to remove."""
-        event = self.barcamp.event
-        view = self.barcamp_view
-
-        # get the username from the form
-        username = self.request.form.get("u", None)
-        if username is not None:
-            user = self.app.module_map.userbase.get_user_by_username(username)
-        else:
-            user = self.user
-
-        # now check if we are allowed to to any changes to the user. We are if a) we are that user or b) we are an admin
-        if not view.is_admin and not user==self.user:
-            self.flash(self._("You are not allowed to change this."), category="danger")
-            return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
-
-        self.barcamp.unregister(user)
-
-        if user == self.user:
-            self.flash(self._("You have been removed from the list of participants."), category="danger")
-        else:
-            self.flash(self._("%(fullname)s has been removed from the list of participants.") %user, category="danger")
-        return redirect(self.url_for(".userlist", slug = self.barcamp.slug))
 
 class RegistrationDataExport(BarcampBaseHandler):
     """exports the barcamp registration data"""

@@ -420,20 +420,6 @@ class Barcamp(Record):
         return list(ub.get_users_by_ids(self.subscribers))
 
     @property
-    def participant_users(self):
-        """return a list of user objects of the participants"""
-        ub = self._collection.md.app.module_map.userbase
-        return list(ub.get_users_by_ids(self.event.participants))
-
-    registered_users = participant_users
-
-    @property
-    def waitinglist_users(self):
-        """return a list of user objects of the people on the waitinglist"""
-        ub = self._collection.md.app.module_map.userbase
-        return list(ub.get_users_by_ids(self.event.waiting_list))
-
-    @property
     def event(self):
         """returns the main event object or None in case there is no event"""
         return {}
@@ -472,45 +458,6 @@ class Barcamp(Record):
         uid = unicode(user._id)
         if uid in self.subscribers:
             self.subscribers.remove(uid)
-        self.put()
-
-    def register(self, user, force=False):
-        """register a user to the main event of the barcamp as participant"""
-        uid = unicode(user._id)
-        status = None
-        if not force and len(self.event.participants) >= self.size:
-            if uid not in self.event.waiting_list:
-                self.event.waiting_list.append(uid)
-                if uid in self.subscribers:
-                    self.subscribers.remove(uid)
-                self.put()
-                status = 'waiting'
-        else:
-            if uid not in self.event.participants:
-                self.event.participants.append(uid)
-                if uid in self.subscribers:
-                    self.subscribers.remove(uid)
-                self.put()
-                status = 'participating'
-        return status
-
-    def unregister(self, user):
-        """remove registered user from participants list and/or waiting list"""
-        uid = unicode(user._id)
-        if uid in self.event.participants:
-            self.event.participants.remove(uid)
-        if uid in self.event.waiting_list:
-            self.event.waiting_list.remove(uid)
-
-        if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
-            # somebody from the waiting list can move up
-            nuid = self.event.waiting_list[0]
-            self.event.waiting_list = self.event.waiting_list[1:]
-            self.event.participants.append(nuid)
-
-        # you are now still a subscriber
-        self.subscribe(user)
-
         self.put()
 
 class Barcamps(Collection):
