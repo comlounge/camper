@@ -195,7 +195,6 @@ class Event(Record):
             # this is something only the admin can do
             if uid in self.participants:
                 self.participants.remove(uid)
-                print "found"
             if uid in self.maybe:
                 self.maybe.remove(uid)
             if uid not in self.waiting_list:
