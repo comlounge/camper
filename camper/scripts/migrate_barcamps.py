@@ -40,6 +40,7 @@ class MigrateBarcamps(ScriptBase):
         if not e.has_key("own_location"):
             e['own_location'] = False
             log.info("own location set")
+        e['description'] = markdownify(e['description'])
         return e
 
     def generate_events(self, e):
