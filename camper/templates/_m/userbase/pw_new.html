@@ -1,0 +1,29 @@
+{% extends M.userbase.config.master_template %}
+{% import "_m/userbase/macros.html" as formmacros with context %}
+
+{% block content %}
+<div id="index">
+    <div class="row">
+        <div class="col-md-8">
+            <section class="form">
+                <h2>{{_('Set new password')}}</h2>
+                <div class="description">
+                    {{_("Use the form below to set a new password for your account.")}}
+                </div>
+                <form data-parsley-validate method="POST" action="{{url}}">
+                    <input type="hidden" name="code" value="{{code}}">
+                    {{ formmacros.form_field(form.password, required = True, id="password") }}
+                    {{ formmacros.form_field(form.password2, required = True, **{'data-parsley-equalto' : '#password' }) }}
+                    <fieldset class="form-actions">
+                        <div class="input">
+                            <input type="submit" class="btn btn-primary btn-large" value="{{_("Save new password")}}">
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+{% endblock %}
