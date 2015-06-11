@@ -473,7 +473,6 @@ class BaseHandler(starflyer.Handler):
             footer_pages = footer_pages,
             ga = self.config.ga,
             userview = partial(UserView, self.app),
-            locale = str(self.babel_locale),
             image_tag = self.get_image_tag,
         )
         if self.barcamp is not None:
