@@ -153,7 +153,7 @@ class CamperApp(Application):
         babel_module(
             locale_selector_func = get_locale,
         ),
-        userbase.username_userbase(
+        userbase.email_userbase(
             url_prefix                  = "/users",
             mongodb_name                = "camper",
             master_template             = "master.html",
@@ -161,9 +161,9 @@ class CamperApp(Application):
             double_opt_in               = True,
             enable_registration         = True,
             enable_usereditor           = True,
-            user_class                  = db.CamperUser,
+            #user_class                  = db.CamperUser,
             use_remember                = True,
-            login_form                  = login.UsernameLoginForm,
+            login_form                  = login.EMailLoginForm,
             urls                        = {
                 'activation'            : {'endpoint' : 'userbase.activate'},
                 'activation_success'    : {'endpoint' : 'index'},
