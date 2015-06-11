@@ -7,11 +7,14 @@ class MigrateUsers(ScriptBase):
         users = self.app.config.dbs.db.users
 
         for u in users.find():
-            u['_password'] = u['password']
-            del u['password']
-
-            users.save(u)
-            log.info("user %s saved" %u['fullname'])
+            print u
+            if u.has_key('password'):
+                u['_password'] = u['password']
+                del u['password']
+                users.save(u)
+            else:
+                print "** user %s could not be converted" %u['fullname']
+            print "user %s saved" %u['fullname']
 
         
 
