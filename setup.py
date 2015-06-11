@@ -43,5 +43,6 @@ setup(name='camper',
           [console_scripts]
           change_path = camper.scripts.change_path:change_path
           migrate_barcamps = camper.scripts.migrate_barcamps:migrate_barcamps
+          migrate_users = camper.scripts.migrate_users:migrate_users
       """,
       )
