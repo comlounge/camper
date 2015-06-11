@@ -5,9 +5,9 @@
         <div class="col-lg-9" id="content-area">
             <div class="form">
                 <h2>{{_('Please register')}}</h2>
-                <form class="boxform form-horizontal validate" method="POST" action="{{url}}" role="form">
+                <form class="validate" method="POST" action="{{url}}" role="form">
                     {% for field in form %}
-                        {{ formmacros.form_field(field, label_class="col-lg-2", input_class="col-lg-6", required =field.flags.required)}}
+                        {{ formmacros.form_field(field, required =field.flags.required)}}
                     {% endfor %}
 
                     <fieldset class="form-actions">
