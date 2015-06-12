@@ -1158,7 +1158,7 @@ msgstr "Einloggen"
 
 #: templates/master.html:112
 msgid "my profile"
-msgstr "Mein Profile"
+msgstr "Mein Profil"
 
 #: templates/master.html:113
 msgid "Change Password"
