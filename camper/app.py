@@ -228,6 +228,7 @@ class CamperApp(Application):
 
         # user stuff
         URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
+        URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 

@@ -5,39 +5,44 @@
     {% block title %}
         <h1>{{_('Edit public profile')}}</h1>
     {% endblock %}
-    <form class="" data-parsley-validate method="POST" action="{{url}}">  
-        {{ formmacros.form_field(form.fullname, required = True) }}
-        {{ formmacros.form_field(form.image, input_class="",
-            label=_("Upload Profile Image"), delete_label=_("Delete"), revert_label=("Revert"),
-            preview_url = image,
-            upload_url=url_for("asset_upload"))}}
+    <form class="" data-parsley-validate method="POST" action="{{url}}" id="profile-edit-form"> 
+        <input type="hidden" name="user_id" value="{{user_id}}">
+        <div class="row">
+            <div class="col-md-6">
+                
+                {{ formmacros.form_field(form.fullname, required = True, input_class="input-lg") }}
+                {{ formmacros.form_field(form.username, required = True, placeholder="username", input_class="input-sm") }}
 
-{#
-        {{ formmacros.form_field(form.image, 
-                label="Hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
-                preview_url = image,
-                delete_url=url_for("profile_image_delete"),
-                upload_url=url_for("asset_upload"))}}
-#}
-        {{ formmacros.form_field(form.bio, rows=4) }}
-        {{ formmacros.form_field(form.organisation, maxlength=100) }}
-        <div class="form-group">
-            <label for="twitter">{{_('Twitter-Account')}}</label>
-            <div class="input-group">
-                <span class="input-group-addon" id="twitter-prepend">@</span>
-                {{form.twitter(placeholder=_('Username'), class="form-control", maxlength=100, **{'aria-describedby': 'twitter-prepend'})}}
+
+                {{ formmacros.form_field(form.bio, rows=4) }}
+                {{ formmacros.form_field(form.organisation, maxlength=100) }}
+                <div class="form-group">
+                    <label for="twitter">{{_('Twitter-Account')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="twitter-prepend">@</span>
+                        {{form.twitter(placeholder=_('Username'), class="form-control", maxlength=100, **{'aria-describedby': 'twitter-prepend'})}}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="facebook">{{_('Facebook-Account')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="facebook-prepend">https://facebook.com/</span>
+                        {{form.facebook(class="form-control", maxlength=50, **{'aria-describedby': 'facebook-prepend'})}}
+                    </div>
+                </div>
+                {{ formmacros.form_field(form.tshirt) }}
+            </div>
+            <div class="col-md-6">
+
+                {{ formmacros.form_field(form.image, input_class="",
+                    label=_("Upload Profile Image"), delete_label=_("Delete"), revert_label=("Revert"),
+                    preview_url = image,
+                    upload_url=url_for("profile_image_upload"))}}
             </div>
         </div>
-        <div class="form-group">
-            <label for="facebook">{{_('Facebook-Account')}}</label>
-            <div class="input-group">
-                <span class="input-group-addon" id="facebook-prepend">https://facebook.com/</span>
-                {{form.facebook(class="form-control", maxlength=50, **{'aria-describedby': 'facebook-prepend'})}}
-            </div>
-        </div>
-        {{ formmacros.form_field(form.tshirt) }}
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="{{_('Update Profile')}}">
+            <a href="{{url_for("profile", username = user.username)}}" class="btn btn-large btn-default">{{_('Cancel')}}</a>
         {% endblock %}
     </form>
 {% endblock %}

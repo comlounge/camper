@@ -34,6 +34,8 @@ class AssetUploadView(BaseHandler):
 
     """
 
+    variant = "thumb"
+
     def postprocess(self, asset, *args, **kwargs):
         """override this function to do something with the asset"""
         return None
@@ -70,7 +72,7 @@ class AssetUploadView(BaseHandler):
         if rv is not None:
             return rv
         return {
-            'url' : self.url_for("asset", asset_id = asset.variants['thumb']._id),
+            'url' : self.url_for("asset", asset_id = asset.variants[self.variant]._id),
             'status' : "success",
             'asset_id' : asset_id
         }

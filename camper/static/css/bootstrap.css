@@ -6849,6 +6849,11 @@ h6 {
   height: 32px;
   border: 1px solid #333;
 }
+#profile-edit-form .preview-area img {
+  padding: 1px;
+  border: 1px solid #a0a0a8;
+  margin-bottom: 5px;
+}
 /*
 ** navbar
 */

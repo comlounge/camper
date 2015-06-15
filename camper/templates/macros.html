@@ -33,7 +33,7 @@
 {%- macro form_field_errors(field) -%}
     {% if field.errors %}
         {%- for error in field.errors -%}
-        <span class="label label-important">{{ error }}</span>
+        <span class="label label-danger">{{ error }}</span>
         {%- endfor -%}
     {% endif %}
 {%- endmacro -%}

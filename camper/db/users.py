@@ -10,15 +10,13 @@ class CamperUserSchema(UserSchema):
     """extended user schema for camper"""
 
     bio                 = String()
+    username            = String()
     twitter             = String()
     facebook            = String()
     homepage            = String()
     tshirt              = String()
     organisation        = String()
     image               = String()
-
-
-
 
 
 class CamperUser(User):
