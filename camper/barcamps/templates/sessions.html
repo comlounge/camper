@@ -58,6 +58,23 @@
                 <div class="description">
                     {{session.description|md(level=3)}}
                 </div>
+                {% for comment in session.get_comments() %}
+                    <div class="media comment">
+                        {% if is_admin %}
+                            <a href="#" 
+                                data-confirm="{{_('Are you sure?')}}"
+                                data-url="{{url_for('.session_comments', slug = slug, sid = session._id)}}"
+                                data-cid="{{comment._id}}"
+                                class="deletebutton btn-xs btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
+                        {% endif %}
+                        <a href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
+                            <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
+                        </a>
+                        <div class="media-body">{{comment.comment}}
+                            <footer>{{_("comment by")}} {{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                        </div>
+                    </div>
+                {% endfor %}
                 <div class="media comments">
                     <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
                         <img class="profile-image" src="{{userview(user).image_thumb}}">

@@ -7236,6 +7236,10 @@ h1.logo {
 /*
  * session proposals
  */
+.media.comment .profile-image {
+  width: 32px !important;
+  height: 32px !important;
+}
 .votecontainer {
   border: 1px solid #ddd;
   padding: 5px;
@@ -7320,6 +7324,10 @@ h1.logo {
 #sessionproposals footer {
   color: #aaa;
   font-size: 12px;
+  margin: 0;
+  padding: 0;
+  margin-top: 5px;
+  padding-top: 2px;
 }
 #userlist .media-list.participants h5 {
   margin: 0;
