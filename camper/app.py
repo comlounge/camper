@@ -161,7 +161,7 @@ class CamperApp(Application):
             double_opt_in               = True,
             enable_registration         = True,
             enable_usereditor           = True,
-            #user_class                  = db.CamperUser,
+            user_class                  = db.CamperUser,
             use_remember                = True,
             login_form                  = login.EMailLoginForm,
             urls                        = {
