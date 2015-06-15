@@ -41,7 +41,7 @@ class DesignView(BarcampBaseHandler):
     @is_admin()
     def get(self, slug = None):
         """show the form"""
-        form = DesignForm(self.request.form, config = self.config)
+        form = DesignForm(self.request.form, obj = self.barcamp, config = self.config)
 
         # get the gallery choices
         galleries = self.config.dbs.galleries.by_barcamp(self.barcamp)
