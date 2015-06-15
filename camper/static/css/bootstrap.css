@@ -6833,9 +6833,16 @@ h5,
 h6 {
   font-family: "Roboto", "Helvetica Neue", sans-serif;
 }
+#user-profile h2 {
+  margin-top: 0;
+}
 .profile-image {
   border: 1px solid #ccc;
   padding: 1px;
+}
+.profile-image-dummy {
+  height: 200px;
+  font-size: 100px;
 }
 .profile-image-mini {
   width: 32px;
