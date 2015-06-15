@@ -54,7 +54,7 @@ class EntryView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        return self.entry.gallery is not None
+        return self.entry.gallery is not None and self.entry.gallery != "-1"
 
 
     @property
