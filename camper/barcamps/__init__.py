@@ -62,6 +62,8 @@ class BarcampModule(Module):
         URL('/<slug>/logo', 'barcamp_logo',                             images.Logo),
         URL('/<slug>/admin/dashboard', 'dashboard',                     dashboard.DashboardView),
         URL('/<slug>/admin/sponsors', 'sponsors',                       sponsors.SponsorsView),
+        URL('/<slug>/admin/sponsors/sort', 'sponsors_sort',             sponsors.SponsorsSort),
+
 
         URL('/<slug>/admin/design', 'admin_design',                     design.DesignView),
 

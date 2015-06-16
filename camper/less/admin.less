@@ -380,21 +380,23 @@ form {
 // sponsor edit page
 //
 
+#admin-sponsors {
+    .list-unstyled;
+    padding-bottom: 80px;
+    li {
+        height: 180px;
+    }
+}
 .sponsor.action-container {
     .row;
     .sponsor-image {
         .make-md-column(4);
     }
-    position: relative;
-    width: auto;
     .sponsor-description {
         .make-md-column(8);
     }
     .actions {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 100;
+        .pull-right;
     }
 }
 

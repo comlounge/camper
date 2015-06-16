@@ -2,18 +2,13 @@
 {% extends "admin_master.html" %}
 
 {% block content %}
-
+    <div class="page-header">
+        <h1>{{_('Manage Sponsors')}}</h1>
+    </div>
+    <div id="sponsor-list">
+        <ul id="admin-sponsors" data-url="{{sort_url}}">
             {% for sponsor in view.sponsors %}
-                <div class="sponsor action-container">
-                    <div class="sponsor-image">
-                        <a href="{{sponsor.url}}">{{sponsor.image}}</a>
-                    </div>
-                    <div class="sponsor-description">
-                        <h5>{{sponsor.name}}</h5>
-                        <a href="{{sponsor.url}}">{{sponsor.url}}</a>
-                    </div>
-
-                    {% if is_admin %}
+                <li class="sponsor action-container" id="sponsor-{{sponsor.idx}}">
                     <div class="sponsor-edit actions">
                         <a 
                             data-confirm="Sind Sie sicher?" 
@@ -21,23 +16,34 @@
                             data-idx="{{sponsor.idx}}"
                             role="button" 
                             class="asset-delete btn btn-xs btn-danger">
-                            <i class="fa fa-trash"></i></a>
+                            <i class="fa fa-trash"></i>
+                        </a>
+                        <span class="handle btn btn-xs btn-info"><i class="fa fa-arrows"></i></span>
                     </div>
-                    {% endif %}
-                </div>
+                    <div class="sponsor-image">
+                        <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    </div>
+                    <div class="sponsor-description">
+                        <h5>{{sponsor.name}}</h5>
+                        <a href="{{sponsor.url}}">{{sponsor.url}}</a>
+                    </div>
+                </li>
             {% endfor %}
+        </ul>
+    </div>
+        
 
-        <form id="sponsor-form" method="POST" action="{{url_for("barcamps.sponsors", slug=slug)}}">
-            <h3>Neuen Sponsor anlegen</h3>
-            {{ formmacros.form_field(sponsor_form.name, required=true)}}
-            {{ formmacros.form_field(sponsor_form.url, input_class="url", required=true, placeholder=_('https://'))}}
-            {{ formmacros.form_field(sponsor_form.image, input_class="",
-                label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
-                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
-            <div class="pull-right">
-                <input type="submit" class="btn btn-lg btn-primary" value="Anlegen">
-            </div>
-        </form>
+    <form id="sponsor-form" method="POST" action="{{url_for("barcamps.sponsors", slug=slug)}}">
+        <h3>Neuen Sponsor anlegen</h3>
+        {{ formmacros.form_field(sponsor_form.name, required=true)}}
+        {{ formmacros.form_field(sponsor_form.url, input_class="url", required=true, placeholder=_('https://'))}}
+        {{ formmacros.form_field(sponsor_form.image, input_class="",
+            label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
+            upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+        <div class="pull-right">
+            <input type="submit" class="btn btn-lg btn-primary" value="Anlegen">
+        </div>
+    </form>
 
 {% endblock %}
 
@@ -45,5 +51,32 @@
     <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
     <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
     {% block bcjs %}
+        <script>
+            $(document).ready(function () {
+                $("#admin-sponsors").sortable({
+                        handle: ".handle",
+                        axis: "y",
+                        containment: "#sponsor-list",
+                        helper: "clone",
+                        update: function(event, ui) {
+                            var result = $(this).sortable("toArray");
+                            var pids = result.join(",");
+                            var url = $(this).data("url");
+                            $.ajax({
+                                type: 'post',
+                                data: {'pids' : pids},
+                                url: url,
+                                success: function(data) {
+                                    // fix the id order again after a successful sort
+                                    $(".sponsor").each(function(idx, elem) {
+                                        $(elem).attr("id", "sponsor-"+idx);
+                                    })
+                                }
+                            });
+                        }
+                });
+            })
+        </script>
+        
     {% endblock %}
 {% endblock %}

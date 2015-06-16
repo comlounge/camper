@@ -1,5 +1,5 @@
 #encoding=utf8
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
 from camper.handlers.forms import *
@@ -33,6 +33,7 @@ class SponsorsView(BarcampBaseHandler):
             barcamp = self.barcamp,
             sponsor_form = form,
             title = self.barcamp.name,
+            sort_url = self.url_for("barcamps.sponsors_sort", slug = slug),
             **self.barcamp)
 
     @logged_in()
@@ -62,3 +63,21 @@ class SponsorsView(BarcampBaseHandler):
         self.barcamp.put()
         return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
 
+class SponsorsSort(BarcampBaseHandler):
+    """sort the sponsors"""
+
+    @asjson()
+    @is_admin()
+    @ensure_barcamp()
+    def post(self, slug = None):
+        """ajax handler for sorting the sponsors"""
+        pids = self.request.form.get("pids").split(",")
+        pids = [int(p.split("-")[1]) for p in pids]
+        sponsors = self.barcamp.sponsors
+        new_sponsors = [sponsors[i] for i in pids]
+        self.barcamp.sponsors = new_sponsors
+        self.barcamp.put()
+        return {
+            'success' : True,
+            'pids'    : pids
+        }
