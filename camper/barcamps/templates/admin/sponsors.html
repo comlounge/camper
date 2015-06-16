@@ -5,7 +5,14 @@
 
             {% for sponsor in view.sponsors %}
                 <div class="sponsor action-container">
-                    <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    <div class="sponsor-image">
+                        <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                    </div>
+                    <div class="sponsor-description">
+                        <h5>{{sponsor.name}}</h5>
+                        <a href="{{sponsor.url}}">{{sponsor.url}}</a>
+                    </div>
+
                     {% if is_admin %}
                     <div class="sponsor-edit actions">
                         <a 

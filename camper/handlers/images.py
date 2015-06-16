@@ -34,7 +34,7 @@ class AssetUploadView(BaseHandler):
 
     """
 
-    variant = "thumb"
+    variant = "medium_user"
 
     def postprocess(self, asset, *args, **kwargs):
         """override this function to do something with the asset"""

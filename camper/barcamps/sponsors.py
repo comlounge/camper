@@ -47,9 +47,9 @@ class SponsorsView(BarcampBaseHandler):
             del f['image']
             self.barcamp.sponsors.append(f)
             self.barcamp.put()
-            self.flash("Neuen Sponsor angelegt", category="info")
+            self.flash(self._('created new sponsor'), category="info")
         else:
-            self.flash("Leider enthielt das Formular einen Fehler", category="danger")
+            self.flash(self._('The form contains errors. Please correct them and try again.'), category="danger")
         return redirect(self.url_for("barcamps.sponsors", slug = self.barcamp.slug))
 
     @logged_in()

@@ -44,7 +44,6 @@ body.admin {
         .preview-area {
             float: left;
             margin-right: 10px;
-            width: 106px;
             border: 1px solid #e0e0e0;
             padding: 2px;
         }
@@ -373,6 +372,29 @@ form {
     > li {
         border-bottom: 1px solid #f0f0f0;
         padding: 7px 0;
+    }
+}
+
+
+//
+// sponsor edit page
+//
+
+.sponsor.action-container {
+    .row;
+    .sponsor-image {
+        .make-md-column(4);
+    }
+    position: relative;
+    width: auto;
+    .sponsor-description {
+        .make-md-column(8);
+    }
+    .actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
     }
 }
 
