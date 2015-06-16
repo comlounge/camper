@@ -41,22 +41,15 @@
         </div>
 
         <!-- sponsoren -->
+        <div class="row" id="sponsors">
+            <div class="col-md-12">
             {% for sponsor in view.sponsors %}
-                <div class="sponsor action-container">
+                <div class="sponsor">
                     <a href="{{sponsor.url}}">{{sponsor.image}}</a>
-                    {% if is_admin %}
-                    <div class="sponsor-edit actions">
-                        <a 
-                            data-confirm="Sind Sie sicher?" 
-                            data-url="{{url_for('barcamps.sponsors', slug = slug)}}" 
-                            data-idx="{{sponsor.idx}}"
-                            role="button" 
-                            class="asset-delete btn btn-xs btn-danger">
-                            <i class="fa fa-trash"></i></a>
-                    </div>
-                    {% endif %}
                 </div>
             {% endfor %}
+            </div>
+        </div>
 {% endblock %}
 
 
