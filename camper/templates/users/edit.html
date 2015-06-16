@@ -11,7 +11,7 @@
             <div class="col-md-6">
                 
                 {{ formmacros.form_field(form.fullname, required = True, input_class="input-lg") }}
-                {{ formmacros.form_field(form.username, required = True, placeholder="username", input_class="input-sm") }}
+                {{ formmacros.form_field(form.username, required = True, placeholder="username", input_class="input-sm", **{'data-parsley-type' : 'alphanum'}) }}
 
 
                 {{ formmacros.form_field(form.bio, rows=4) }}
