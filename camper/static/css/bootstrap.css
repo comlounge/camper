@@ -6771,11 +6771,17 @@ form {
   border-bottom: 1px solid #f0f0f0;
   padding: 7px 0;
 }
+#admin-sponsors {
+  padding-left: 0;
+  list-style: none;
+  padding-bottom: 80px;
+}
+#admin-sponsors li {
+  height: 180px;
+}
 .sponsor.action-container {
   margin-left: -15px;
   margin-right: -15px;
-  position: relative;
-  width: auto;
 }
 .sponsor.action-container .sponsor-image {
   position: relative;
@@ -6802,10 +6808,7 @@ form {
   }
 }
 .sponsor.action-container .actions {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 100;
+  float: right !important;
 }
 [ng\:cloak],
 [ng-cloak],
