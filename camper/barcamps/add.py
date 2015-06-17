@@ -7,6 +7,8 @@ from sfext.babel import T
 import uuid
 import datetime
 import requests
+import pycountry
+import gettext
 from form import MyDateField
 
 class BarcampAddForm(BaseForm):
@@ -43,7 +45,7 @@ class BarcampAddForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
-    location_country             = TextField(T("Country"), default="Germany")
+    location_country             = SelectField(T("Country"), default="DE")
     location_lat                 = HiddenField()
     location_lng                 = HiddenField()
 
@@ -57,6 +59,13 @@ class AddView(BaseHandler):
     def get(self):
         """render the view"""
         form = BarcampAddForm(self.request.form, config = self.config)
+
+        # get countries and translate them
+        trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+            languages=[str(self.babel_locale)])
+        
+        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        form.location_country.choices = countries
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['admins'] = [self.user._id]

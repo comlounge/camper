@@ -8,6 +8,8 @@ from wtforms import *
 from sfext.babel import T
 from .base import BarcampBaseHandler, LocationNotFound
 import requests
+import gettext
+import pycountry
 from camper import utils
 from camper.handlers.forms import WYSIWYGField
 
@@ -46,7 +48,7 @@ class BarcampEditForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
-    location_country             = TextField(T("Country"), default="Germany")
+    location_country             = SelectField(T("Country"), default="DE")
     location_lat                 = HiddenField()
     location_lng                 = HiddenField()
 
@@ -75,6 +77,14 @@ class EditView(BarcampBaseHandler):
         obj['location_description'] = self.barcamp.location['description']
 
         form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
+
+        # get countries and translate them
+        trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+            languages=[str(self.babel_locale)])
+        
+        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        form.location_country.choices = countries
+
         
         # remove the slug field if we are public already
         if self.barcamp.public:

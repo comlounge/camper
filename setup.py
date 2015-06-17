@@ -36,6 +36,7 @@ setup(name='camper',
         "xlwt",
         "bleach",
         "isodate",
+        "pycountry",
       ],
       entry_points="""
           [paste.app_factory]

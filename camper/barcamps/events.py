@@ -9,6 +9,8 @@ import uuid
 import pprint
 import datetime
 import requests
+import gettext
+import pycountry
 from camper.form import MyDateField, ATextInput, ACheckboxInput, ATextArea
 
 
@@ -35,7 +37,7 @@ class EventForm(BaseForm):
     location_street             = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city               = TextField(T("city"), [])
     location_zip                = TextField(T("zip"), [])
-    location_country            = TextField(T("Country"), default="Germany")
+    location_country            = SelectField(T("Country"), default="DE")
     location_url                = TextField(T("homepage"), [], description=T('web site of the venue (optional)'))
     location_phone              = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email              = TextField(T("email"), [], description=T('email address of the venue (optional)'))
@@ -70,6 +72,14 @@ class EventsView(BarcampBaseHandler):
             obj['end_time'] = "23:00"
 
         form = EventForm(self.request.form, config = self.config, **obj)
+
+        # get countries and translate them
+        trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+            languages=[str(self.babel_locale)])
+        
+        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        form.location_country.choices = countries
+
 
         if self.request.method == 'POST' and form.validate():
             f = form.data
