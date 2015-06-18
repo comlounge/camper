@@ -80,7 +80,7 @@ class AddView(BaseHandler):
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'country'   : 'de',
+                'country'   : f['location_country'],
             }
 
             pid = unicode(uuid.uuid4())[:8]
@@ -134,7 +134,7 @@ class AddView(BaseHandler):
 
             self.flash(self._("%s has been created") %f['name'], category="info")
             return redirect(self.url_for("barcamps.edit", slug = barcamp.slug))
-        return self.render(form = form, slug = None, show_slug=True)
+        return self.render(form = form, slug = None, show_slug=True, bcid = '')
     post = get
 
 class ValidateView(BaseHandler):
@@ -150,17 +150,26 @@ class ValidateView(BaseHandler):
         itself.
 
         """
+        orig_slug = None
+        bcid = self.request.args.get("bcid", None) # bcid can be None on the add screen
+
         if "slug" in self.request.args:
             bc = self.config.dbs.barcamps.by_slug(self.request.args['slug'])
+
+            # check if there exists no barcamp with this slug yet
             if bc is None:
                 return {'validated' : True}
-            if self.barcamp is not None and self.barcamp._id == bc._id:
+
+            # check if we have an existing barcamp and it's not it's own slug
+            new_slug_id = str(bc._id)
+            if new_slug_id == bcid:
                 return {'validated' : True}
+                
             return {
                 'validated' : False,
                 'msg' : self._("This name is already taken. Please choose a different one")
             }
-        return True
+        return {'validated' : False} # slug should appear, really!
 
 
 

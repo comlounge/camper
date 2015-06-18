@@ -27,6 +27,7 @@
                         placeholder=_('url short name without whitespaces, e.g. pythoncamp2011'), 
                         pattern="^[a-zA-Z0-9_\-]+$",
                         **{'data-parsley-remote-validator' : 'bcslug',
+                           'data-parsley-remote-options' : '{ "data": { "bcid": "'+bcid+'" } }',
                            'data-parsley-remote': '1',
                            'data-parsley-remote-message' : _('This shortname is already taken.')})
                         }}

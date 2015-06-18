@@ -101,7 +101,7 @@ class EditView(BarcampBaseHandler):
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'country'   : 'de',
+                'country'   : f['location_country'],
                 'lat'       : f['location_lat'] or None,
                 'lng'       : f['location_lng'] or None,
             }
@@ -130,6 +130,7 @@ class EditView(BarcampBaseHandler):
                     city = self.barcamp.location['city']
                     zip = self.barcamp.location['zip']
                     country = self.barcamp.location['country']
+                    country = self.barcamp.location.country_name
                     try:
                         lat, lng = self.retrieve_location(street, zip, city, country)
                         self.barcamp.location['lat'] = lat
@@ -141,10 +142,10 @@ class EditView(BarcampBaseHandler):
                     self.barcamp.update(f)
 
             self.barcamp.put()
-            self.flash("Barcamp aktualisiert", category="info")
+            self.flash(self._("The barcamp has been updated."), category="info")
             return redirect(self.url_for("barcamps.edit", slug = self.barcamp.slug))
 
-        return self.render(form = form)
+        return self.render(form = form, show_slug = not self.barcamp.public, bcid = str(self.barcamp._id))
     post = get
 
 
