@@ -429,7 +429,6 @@ $(document).ready( () ->
             $('#error-city').popover("show")
             return
 
-
         $("#location-picker").modal("show")
 
         if $("#location_lat").val()

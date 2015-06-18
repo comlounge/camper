@@ -7,6 +7,8 @@
         <h1>{{_('Create a new Barcamp')}}</h1>
     {% endblock %}
 
+    {{ locationpicker() }}
+
     <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
         <input type="hidden" id="tmp_lat" name="tmp_lat" value="">
         <input type="hidden" id="tmp_lng" name="tmp_lng" value="">

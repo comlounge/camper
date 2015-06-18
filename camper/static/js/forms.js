@@ -482,6 +482,7 @@ $(document).ready(function() {
     zip = $('#location_zip').val();
     city = $('#location_city').val();
     country = $('#location_country').val();
+    console.log(country);
     if (street === "") {
       $('#error-street').popover("show");
       return;
@@ -491,6 +492,7 @@ $(document).ready(function() {
       return;
     }
     $("#location-picker").modal("show");
+    console.log("ok");
     if ($("#location_lat").val()) {
       lat = $("#location_lat").val();
       lng = $("#location_lng").val();
