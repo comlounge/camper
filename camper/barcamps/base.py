@@ -9,12 +9,11 @@ import werkzeug.exceptions
 import requests
 import copy
 from sfext.uploader import AssetNotFound
+from camper.base import LocationNotFound
 
 
-__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound', 'LocationRetriever', 'GalleryView']
+__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound',  'GalleryView']
 
-class LocationNotFound(Exception):
-    """raised when a location was not found"""
 
 class Action(object):
     """an action to be display in navbars etc."""

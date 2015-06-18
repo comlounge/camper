@@ -15,7 +15,10 @@ import bson
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'LocationNotFound', 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
+
+class LocationNotFound(Exception):
+    """raised when a location was not found"""
 
 class UserView(object):
     """adapter for a user object to provide additional data such as profile image etc."""
@@ -546,6 +549,7 @@ class BaseHandler(starflyer.Handler):
         data = requests.get(url).json()
 
         if len(data)==0:
+
             # trying again but only with city
             url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
                 city,
