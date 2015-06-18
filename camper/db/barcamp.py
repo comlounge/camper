@@ -2,6 +2,7 @@ from mongogogo import *
 import datetime
 from camper.exceptions import *
 import isodate
+import pycountry
 
 __all__=["Barcamp", "BarcampSchema", "Barcamps", "Event"]
 
@@ -27,7 +28,7 @@ class WorkflowError(BaseError):
 
 
 
-class Location(Schema):
+class LocationSchema(Schema):
     """a location described by name, lat and long"""
     name            = String()
     street          = String()
@@ -41,6 +42,8 @@ class Location(Schema):
 
     lat = Float()
     lng = Float()
+
+
 
 class Sponsor(Schema):
     """a location described by name, lat and long"""
@@ -74,6 +77,17 @@ class MailsSchema(Schema):
     fromwaitinglist_text    = String()
 
 
+class Location(Record):
+    """a location"""
+
+    schema = LocationSchema()
+
+    @property
+    def country_name(self):
+        """retrieve the country name from the country db. It's not i18n"""
+        return pycountry.countries.get(alpha2 = self.country).name
+    
+
 class EventSchema(Schema):
     """a sub schema describing one event"""
     _id                 = String(required=True)
@@ -82,13 +96,15 @@ class EventSchema(Schema):
     date                = DateTime()
     start_time          = String()
     end_time            = String()
-    location            = Location()
+    location            = LocationSchema(kls = Location)
     participants        = List(String()) # TODO: ref
     size                = Integer()
     maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
     own_location        = Boolean() # flag if the barcamp address is used or not 
     timetable           = Dict(default={}) # will be stored as dict with rooms and timeslots and sessions
+
+
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
@@ -242,7 +258,7 @@ class BarcampSchema(Schema):
     workflow            = String(required = True, default = "created")
 
     # location
-    location            = Location()
+    location            = LocationSchema(kls = Location)
 
     # base data
     name                = String(required = True)
@@ -251,7 +267,6 @@ class BarcampSchema(Schema):
     registration_date   = Date() # date when the registration starts
     start_date          = Date()
     end_date            = Date()
-    location            = Location()
     #size                = Integer(default = 0) # amount of people allowed
     twitter             = String() # only the username
     hashtag             = String()
@@ -459,6 +474,9 @@ class Barcamp(Record):
         if uid in self.subscribers:
             self.subscribers.remove(uid)
         self.put()
+
+
+
 
 class Barcamps(Collection):
 
