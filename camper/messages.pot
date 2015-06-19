@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-06-19 12:01+0200\n"
+"POT-Creation-Date: 2015-06-19 17:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,7 +127,7 @@ msgstr ""
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:337 base.py:507
+#: base.py:337 base.py:512
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
@@ -365,7 +365,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/edit.py:26 barcamps/edit.py:229 barcamps/events.py:25
-#: barcamps/galleries.py:31 barcamps/sessionboard.py:17
+#: barcamps/galleries.py:31 barcamps/sessionboard.py:18
 #: barcamps/templates/sessions.html:106 barcamps/templates/admin/add.html:40
 #: barcamps/templates/admin/event_macros.html:88
 #: barcamps/templates/admin/gallery_macros.html:38
@@ -686,12 +686,12 @@ msgstr ""
 msgid "Your information was updated"
 msgstr ""
 
-#: barcamps/sessionboard.py:15 barcamps/templates/admin/events.html:19
+#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:19
 #: barcamps/templates/admin/sessionboard.html:31
 msgid "Name"
 msgstr ""
 
-#: barcamps/sessionboard.py:16 barcamps/templates/admin/sessionboard.html:38
+#: barcamps/sessionboard.py:17 barcamps/templates/admin/sessionboard.html:38
 msgid "Capacity"
 msgstr ""
 
@@ -1640,7 +1640,7 @@ msgstr ""
 #: barcamps/templates/admin/sessionboard.html:25
 #: barcamps/templates/admin/sessionboard.html:55
 #: barcamps/templates/admin/sessionboard.html:183
-#: barcamps/templates/admin/sessionboard.html:219
+#: barcamps/templates/admin/sessionboard.html:218
 msgid "Add new room"
 msgstr ""
 
@@ -1677,7 +1677,7 @@ msgid "Add new timeslot"
 msgstr ""
 
 #: barcamps/templates/admin/sessionboard.html:79
-#: barcamps/templates/admin/sessionboard.html:219
+#: barcamps/templates/admin/sessionboard.html:218
 msgid "Time"
 msgstr ""
 
@@ -1744,23 +1744,19 @@ msgid "Room"
 msgstr ""
 
 #: barcamps/templates/admin/sessionboard.html:191
-msgid "lock session"
-msgstr ""
-
-#: barcamps/templates/admin/sessionboard.html:192
 msgid "delete timeslot"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:227
+#: barcamps/templates/admin/sessionboard.html:226
 #: templates/admin_master.html:23
 msgid "public view"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:230
+#: barcamps/templates/admin/sessionboard.html:229
 msgid "Download PDF"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:233
+#: barcamps/templates/admin/sessionboard.html:232
 msgid "for use as direction signs"
 msgstr ""
 
@@ -1768,32 +1764,29 @@ msgstr ""
 msgid "Rooms and Times"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:234
-msgid "the complete session plan, one sheet per session"
-msgstr ""
-
-#: barcamps/templates/admin/sessionboard.html:234
-msgid "Session plan"
-msgstr ""
-
-#: barcamps/templates/admin/sessionboard.html:235
+#: barcamps/templates/admin/sessionboard.html:238
 msgid "each time on a separate sheet"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:235
+#: barcamps/templates/admin/sessionboard.html:239
 msgid "Time Signs"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:236
+#: barcamps/templates/admin/sessionboard.html:240
 msgid "each room on a separate sheet for directions or session plan"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:236
+#: barcamps/templates/admin/sessionboard.html:241
 msgid "Room Signs"
 msgstr ""
 
 #: barcamps/templates/admin/sponsors.html:6
 msgid "Manage Sponsors"
+msgstr ""
+
+#: barcamps/templates/pdfs/sessionboard_rooms.html:15
+#: barcamps/templates/pdfs/sessionboard_roomtime.html:23
+msgid "people"
 msgstr ""
 
 #: blog/add.py:19
@@ -2161,27 +2154,31 @@ msgstr ""
 msgid "private"
 msgstr ""
 
-#: templates/index.html:49
+#: templates/index.html:45
+msgid "the barcamp tool"
+msgstr ""
+
+#: templates/index.html:48
 msgid "Organize your own Barcamp"
 msgstr ""
 
-#: templates/index.html:51
+#: templates/index.html:50
 msgid "How do I do it?"
 msgstr ""
 
-#: templates/index.html:63
-msgid "Upcoming events"
+#: templates/index.html:62
+msgid "Recent Barcamps"
 msgstr ""
 
-#: templates/index.html:69
+#: templates/index.html:68
 msgid "There are no barcamps coming up in the near future. Maybe organize one?"
 msgstr ""
 
-#: templates/index.html:77
+#: templates/index.html:76
 msgid "My Events"
 msgstr ""
 
-#: templates/index.html:83
+#: templates/index.html:82
 msgid "New Events"
 msgstr ""
 
