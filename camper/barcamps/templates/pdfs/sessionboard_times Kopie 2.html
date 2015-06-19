@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"                                                                                                                                              
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', _full=True, filename="css/pdf.css")}}?v={{r}}" type="text/css" />
+</head>
+
+<body>
+	{% for slot in timeslots %}
+		<div class="slot">{{slot.time.strftime('%H:%M')}}
+			{% if slot.blocked %}
+				<div class="byline">{{slot.reason}}</div>
+			{% endif %}
+		</div>
+		<pdf:nextpage />
+	{% endfor %}
+</body>

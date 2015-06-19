@@ -86,6 +86,7 @@ class BarcampModule(Module):
         URL('/<slug>/admin/events/<eid>', 'event',                      events.EventView),
         URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard',  sessionboard.SessionBoard),
         URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
+        URL('/<slug>/admin/events/<eid>/sessionboard.pdf', 'sessionboard_print', sessionboard.SessionBoardPrint),
         URL('/<slug>/admin/events/<eid>/users', 'event_participants',   events.EventParticipants),
 
 

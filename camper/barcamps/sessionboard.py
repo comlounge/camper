@@ -2,6 +2,7 @@
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
+from camper.base import aspdf
 from camper.handlers.forms import *
 from sfext.babel import T
 from wtforms import *
@@ -87,5 +88,35 @@ class SessionBoardData(BarcampBaseHandler):
         self.barcamp.save()
         return {'status' : 'ok'}
 
+
+class SessionBoardPrint(BarcampBaseHandler):
+    """return a PDF of the session board data"""
+
+    @is_admin()
+    @ensure_barcamp()
+    @aspdf()
+    def get(self, slug = None, eid = None):
+        """return times, rooms or both as PDF"""
+
+        print "ok"
+
+        fmt = self.request.args.get("fmt", "times") # can be "times", "rooms", "both"
+
+        event = self.barcamp.get_event(eid)
+        rooms = event.rooms
+        timeslots = event.timeslots
+        sessions = event.timetable.get('sessions', {})
+
+
+        tmplname = "pdfs/sessionboard_%s.html" %fmt
+        print rooms
+        out = self.render(tmplname = tmplname,
+                event = event,
+                rooms = rooms,
+                timeslots = timeslots,
+                sessions = sessions,
+                barcamp = self.barcamp
+            )
+        return out
 
 
