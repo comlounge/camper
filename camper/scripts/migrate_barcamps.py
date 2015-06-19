@@ -63,6 +63,7 @@ class MigrateBarcamps(ScriptBase):
     def fix_location(self, e):
         """move the location from the event to the barcamp"""
         self.barcamp['location'] = e['location']
+        self.barcamp['location']['country'] = self.barcamp['location']['country'].upper()
         log.info("location copied")
 
 
