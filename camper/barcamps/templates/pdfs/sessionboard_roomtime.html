@@ -17,4 +17,13 @@
 		</div>
 		<pdf:nextpage />
 	{% endfor %}
+	{% for room in rooms %}
+		<div class="room">
+			<p>{{room.name|upper}}</p>
+			<p class="capacity">({{room.capacity}} {{_('people')}})</p>
+			<p class="byline">{{room.description}}</p>
+		</div>
+		<pdf:nextpage />
+	{% endfor %}
+
 </body>
