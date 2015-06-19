@@ -29,7 +29,7 @@ class EditForm(BaseForm):
     fullname      = TextField(T(u"Fullname"))
     username      = TextField(T(u"url name (username)"), [validators.Length(min=4, max=50), validators.Required(), validators.Regexp('^[a-zA-Z0-9_]+$')], description=T("this is the url path of your profile page, should only contain letters and numbers"))
     bio           = TextAreaField(T(u"About me"))
-    organisation  = TextField(T(u"Organisation"), [validators.Length(max=100)], description = T("your school, company, institution (max. 100 characters)"))
+    organisation  = TextField(T(u"Organization"), [validators.Length(max=100)], description = T("your school, company, institution (max. 100 characters)"))
     twitter       = TextField(T(u"Twitter"), [validators.Length(max=100)], description = T("your twitter username"))
     facebook      = TextField(T(u"Facebook"), [validators.Length(max=255)], description = T("path to your facebook profile (without domain)"))
     tshirt        = SelectField(T(u"T shirt size"), choices = TSHIRT_CHOICES)

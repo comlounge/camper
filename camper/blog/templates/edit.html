@@ -48,7 +48,7 @@
             ) }}
         {% block action %}
             <input type="submit" class="btn btn-lg btn-default" value="{{_('Save')}}">
-            <input type="submit" id="publish-button" name="publish" class="btn btn-lg btn-primary" value="{{_('Publish and Save')}}" style="{{'display: none' if view.entry.workflow!='draft'}}">
+            <input type="submit" id="publish-button" name="publish" class="btn btn-lg btn-primary" value="{{_('Save and Publish')}}" style="{{'display: none' if view.entry.workflow!='draft'}}">
         {% endblock %}
     </form>
 {% endblock %}
