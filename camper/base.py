@@ -377,16 +377,21 @@ class aspdf(object):
     """converts a template to PDF"""
 
     def __call__(self, method):
+        """takes a dict output of a handler method and returns it as JSON wrapped in a Response"""
 
         that = self
-
+    
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             html = method(self, *args, **kwargs)
             pdf = pisa.CreatePDF(html)
-            self.response.headers['Content-Type'] = "application/pdf"
-            #self.response.headers['Content-Disposition']="attachment; filename=\"test.pdf\""
-            self.response.data = pdf.dest.getvalue()
+
+            response = self.app.response_class()
+            response.content_type = "application/pdf"
+            #response.content_disposition = "attachment; filename=\"...\""
+            response.data = pdf.dest.getvalue()
+            return response
+            
         return wrapper
 
 
