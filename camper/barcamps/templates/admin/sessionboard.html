@@ -188,7 +188,6 @@
                         <tr class="sorted" ng-repeat="slot in timeslots" ng-class="{warning: slot.blocked}" ng-model="sessionplan">
                             <td class="time-slot">
                                 <span>{[{slot.time | date: 'shortTime' : 'UTC'}]}</span>
-                                <a ng-click="delete_timeslot($index)" data-toggle="tooltip" title="{{_('lock session')}}" href="" class="btn btn-xs btn-warning"><i class="fa fa-lock"></i></a>
                                 <a ng-click="delete_timeslot($index)" data-toggle="tooltip" title="{{_('delete timeslot')}}" href="" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
                             <td ng-repeat="room in rooms | slice:1:10000" class="sessionslot" 
