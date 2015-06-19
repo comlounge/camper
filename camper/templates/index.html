@@ -42,8 +42,7 @@
                     <div class="text-center logo-container">
                         <h1 class="logo">
                             <span>camper</span>
-                            <small>Das Barcamp-Tool</small>
-                            <!--<img src="{{url_for("static", filename="/img/camperfull.png")}}" class="img-responsive2" alt="Camper - logo">-->
+                            <small>{{_('the barcamp tool')}}</small>
                         </h1>
                         {% if logged_in %}
                             <a href="{{url_for("barcamps.add")}}" class="btn btn-primary btn-lg">{{_('Organize your own Barcamp')}}</a>
@@ -60,7 +59,7 @@
     <div class="row barcamp-listing">
         <div class="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
             <h2>
-            {{_("Upcoming events")}}
+            {{_("Recent Barcamps")}}
             </h2>
             {% if soon_barcamps %}
                 {{listing(soon_barcamps) }}
