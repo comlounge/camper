@@ -107,9 +107,7 @@ class SessionBoardPrint(BarcampBaseHandler):
         timeslots = event.timeslots
         sessions = event.timetable.get('sessions', {})
 
-
         tmplname = "pdfs/sessionboard_%s.html" %fmt
-        print rooms
         out = self.render(tmplname = tmplname,
                 event = event,
                 rooms = rooms,
