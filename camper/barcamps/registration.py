@@ -209,17 +209,100 @@ class RegistrationDataExport(BarcampBaseHandler):
 
         filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
+        users = {}
+        ub = self.app.module_map.userbase
+
+        def process_list(userlist, state="going"):
+            """process a user list"""
+            for user in userlist:
+                uid = str(user._id)
+                if uid not in users:
+                    # new user
+                    u = {
+                        'fullname' : user.fullname,
+                        'tshirt'   : user.tshirt,
+                        'attendance' : {
+                            eid : state
+                        }
+                    }
+                    users[uid] = u
+                else:
+                    # set state for this event on existing user
+                    users[uid]['attendance'][eid] = state 
+            
+
+
+        # retrieve all the users of all the lists 
+        events = []
+        for e in self.barcamp.eventlist:
+
+            # gather event information
+            date = e.date.strftime("%d.%m.%Y") # TODO: localize?
+            title = e.name
+            eid = str(e._id)
+            column_title = "%s: %s" %(date, title)
+            events.append({
+                'id' : eid,
+                'date' : date,
+                'title' : title,
+                'column' : column_title
+            })
+
+            # process users
+            participants = list(ub.get_users_by_ids(e.participants))
+            maybe = list(ub.get_users_by_ids(e.maybe))
+            waitinglist = list(ub.get_users_by_ids(e.waiting_list))
+            
+            process_list(participants, "going")
+            process_list(maybe, "maybe")
+            process_list(waitinglist, "waiting")
+
+
         # do the actual excel export
         wb = xlwt.Workbook()
         ws = wb.add_sheet('Registration Data')
         i = 1
 
         # headlines
+        ws.write(0, 0, "Name")
+
+        # event titles
         c = 1
-        ws.write(0,0,"Name")
-        for k in [f['title'] for f in form]:
-            ws.write(0,c,k)
+        for e in events:
+            ws.write(0, c, e['column'])
             c = c + 1
+
+        # registration form data titles
+        for k in [f['title'] for f in form]:
+            ws.write(0, c, k)
+            c = c + 1
+
+        # now write all the users
+        for uid, record in users.items():
+            c = 1
+            ws.write(i, 0, unicode(record['fullname'])) #name
+
+            # write attendance
+            for e in events:
+                attending = record['attendance'].get(e['id'], 'not going')
+                ws.write(i, c, attending)
+                c = c + 1
+
+            # write registration data if present
+            record = data.get(uid, {})    
+            for field in [f['name'] for f in form]:
+                ws.write(i, c, unicode(record.get(field, "n/a")))
+                c = c + 1
+
+            i = i + 1
+
+        stream = StringIO()
+        wb.save(stream)
+        response = self.app.response_class(stream.getvalue(), content_type="application/excel")
+        response.headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
+        return response
+
+
 
         # data
         for uid, record in data.items():
