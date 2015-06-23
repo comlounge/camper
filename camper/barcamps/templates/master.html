@@ -61,6 +61,11 @@
             background-color: {{barcamp.background_color}};
             color: {{barcamp.text_color}};
         } 
+        #barcamppage p a, #barcamppage .byline a { color: {{barcamp.link_color}}; }
+        #barcamppage p a:hover, #barcamppage .byline a:hover  { color: {{barcamp.link_color}}; }
+
+        #barcamppage .byline { color: {{barcamp.text_color}}; }
+
         #barcamp-details, #bloglisting {
             color: {{barcamp.text_color}};
         }
@@ -68,15 +73,15 @@
             background-color: {{barcamp.header_color}};
         }
 
-        .navbar-barcamp .navbar-nav > li > a {
+        #barcamppage .navbar-barcamp .navbar-nav > li > a {
             color: {{barcamp.navbar_link_color}};
             border-color: {{barcamp.navbar_border_color}};
         }
-        .navbar-barcamp .navbar-nav > li.active > a {
+        #barcamppage .navbar-barcamp .navbar-nav > li.active > a {
             background: {{barcamp.navbar_active_bg}};
-            color: {{barcamp.active_color}};
+            color: {{barcamp.navbar_active_color}};
         }
-        .navbar-barcamp .navbar-nav > li:hover > a {
+        #barcamppage .navbar-barcamp .navbar-nav > li:hover > a {
             background: {{barcamp.navbar_hover_bg}};
         }
 

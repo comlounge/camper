@@ -334,6 +334,19 @@ class Barcamp(Record):
         'registration_form'        : [],
         'registration_data'        : {},
         'planning_pad_public'        : False,
+        'background_color'      : '#fcfcfa',
+        'link_color'            : '#337CBB',
+        'text_color'            : '#333',
+
+        'header_color'          : '#fff',
+        'navbar_link_color'     : '#d8d8d8',
+        'navbar_active_bg'      : '#333',
+        'navbar_active_color'   : '#555',
+        'navbar_border_color'   : '#f0f0f0',
+        'navbar_active_bg'      : '#fff',
+        'navbar_hover_bg'       : '#fff'
+
+
     }
 
     workflow_states = {

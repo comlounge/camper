@@ -5,7 +5,7 @@
 <h1>{{_("Barcamp Design and Layout")}}</h1>
 
 <form id="design-form" method="POST" action="{{url}}">
-    {{ formmacros.form_field(form.font, required=True, placeholder=_("Font to use"))}}
+    {# {{ formmacros.form_field(form.font, required=True, placeholder=_("Font to use"))}} #}
     <div class="row">
         <div class="col-sm-3">
             {{ formmacros.form_field(form.link_color, input_class="", required=True, placeholder=_('Link Color'))}}
@@ -26,16 +26,18 @@
             {{ formmacros.form_field(form.navbar_link_color, input_class="", required=True, placeholder=_('Background Color'))}}
         </div>
         <div class="col-sm-4">
-            {{ formmacros.form_field(form.navbar_active_color, input_class="", required=True, placeholder=_('Active Text Color'))}}
-        </div>
-        <div class="col-sm-4">
             {{ formmacros.form_field(form.navbar_border_color, input_class="", required=True, placeholder=_('Border Color'))}}
         </div>
         <div class="col-sm-4">
-            {{ formmacros.form_field(form.navbar_active_bg, input_class="", required=True, placeholder=_('Active Background Color'))}}
-        </div>
-        <div class="col-sm-4">
             {{ formmacros.form_field(form.navbar_hover_bg, input_class="", required=True, placeholder=_('Hover Background Color'))}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            {{ formmacros.form_field(form.navbar_active_color, input_class="", required=True, placeholder=_('Active Text Color'))}}
+        </div>
+        <div class="col-sm-6">
+            {{ formmacros.form_field(form.navbar_active_bg, input_class="", required=True, placeholder=_('Active Background Color'))}}
         </div>
     </div>
 

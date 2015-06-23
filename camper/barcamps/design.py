@@ -15,7 +15,7 @@ class DesignForm(BaseForm):
     logo                    = UploadField(T(u"Barcamp Logo"))
     background_image        = UploadField(T(u"Background-Image"))
     fb_image                = UploadField(T(u"Image for Facebook"))
-    font                    = StringField(T(u"Font to use"), default='"Helvetica Neue", "Helvetica", "Arial", sans-serif')
+    #font                    = StringField(T(u"Font to use"), default='"Helvetica Neue", "Helvetica", "Arial", sans-serif')
     link_color              = ColorField(T(u"Link Color"), default='#333')
     header_color            = ColorField(T(u"Header Background Color"), default='#fcfcfa')
     text_color              = ColorField(T(u"Text Color"), default='#333')
