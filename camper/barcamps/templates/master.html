@@ -8,10 +8,13 @@
                 href="{{url_for('barcamps.register', slug=slug)}}">{{_('Change?')}}</a>
             </div>
         {% else %}
-            <div>
-                <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
-            </div>
+            {% if barcamp.workflow == "registration" %}
+                <div>
+                    <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
+                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
+                </div>
+            {% endif %}
+            {#
             {% if view.can_subscribe %}
                 <div>
                 <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
@@ -23,6 +26,9 @@
                 href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
                 </div>
             {% endif %}
+
+            ## we keep this out for now as this needs to be conceptialized first. ppl can already say maybe and get newsletters
+            #}
         {% endif %} {# is registered_user #}
     </div>
     {% else %}
@@ -179,7 +185,7 @@
                                 <input type="hidden" name="wf" value="registration">
                                 <div class="well">
                                     <button class="pull-right btn btn-small btn-success">{{_('open registration')}}</button>
-                                    <b style="color: red">{{_('Registration for this barcamp is not yet open. People can only subscribe to it but not take part.')}}</b>
+                                    <b style="color: red">{{_('Registration for this barcamp is not yet open.')}}</b>
                                 </div>
                             </form>
                         {% endif %}

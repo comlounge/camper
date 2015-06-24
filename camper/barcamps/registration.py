@@ -47,6 +47,9 @@ class BarcampRegister(BarcampBaseHandler):
     def get(self, slug = None):
         """handle the barcamp registration for multiple events with optional registration form"""
 
+        if self.barcamp.workflow != "registration":
+            return "registration is not open yet"
+
         # check if the user has filled out all the required information on the form already
         uid = unicode(self.user._id)
         if not self.barcamp.registration_data.has_key(uid):
@@ -97,6 +100,12 @@ class RegistrationData(BarcampBaseHandler):
     @asjson()
     def post(self, slug = None):
         """add a user to the participant or maybe list"""
+        if self.barcamp.workflow != "registration":
+            return {
+                'status' : 'error',
+                'message' : 'registration is not possible'
+            }
+
         eid = self.request.form.get("eid")
         uid = unicode(self.user._id)
         status = self.request.form.get("status") # can be join, maybe, not
