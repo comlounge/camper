@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-06-19 17:37+0200\n"
+"POT-Creation-Date: 2015-06-24 12:23+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -230,7 +230,7 @@ msgstr "Land"
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 
-#: barcamps/add.py:112 barcamps/edit.py:139 barcamps/events.py:211
+#: barcamps/add.py:112 barcamps/edit.py:139 barcamps/events.py:219
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
 
@@ -300,10 +300,6 @@ msgstr "Hintergrundbild"
 #: barcamps/design.py:17
 msgid "Image for Facebook"
 msgstr "Bild für Facebook"
-
-#: barcamps/design.py:18 barcamps/templates/admin/design.html:8
-msgid "Font to use"
-msgstr "zu benutzender Zeichensetz"
 
 #: barcamps/design.py:19 barcamps/templates/admin/design.html:11
 msgid "Link Color"
@@ -475,7 +471,7 @@ msgstr "Betreff"
 msgid "Body"
 msgstr "Mailtext"
 
-#: barcamps/edit.py:212 barcamps/events.py:161
+#: barcamps/edit.py:212 barcamps/events.py:169
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
@@ -560,15 +556,15 @@ msgstr "anderen Ort benutzen"
 msgid "The event has been created"
 msgstr "Die Veranstaltung wurde erstellt."
 
-#: barcamps/events.py:231
+#: barcamps/events.py:239
 msgid "The event has been successfully updated"
 msgstr "Veranstaltung erfolgreich aktualisiert"
 
-#: barcamps/events.py:337
+#: barcamps/events.py:345
 msgid "no full address was given"
 msgstr "Es wurde keine volle Adresse angegeben "
 
-#: barcamps/events.py:343
+#: barcamps/events.py:351
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr "Wir konnten keine Geo-Koordinaten für diese Adresse ermitteln."
 
@@ -706,7 +702,7 @@ msgstr ""
 "%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
 "entfernt."
 
-#: barcamps/registration.py:185
+#: barcamps/registration.py:194
 msgid "Your information was updated"
 msgstr "Deine Informationen wurden aktualisiert"
 
@@ -771,56 +767,40 @@ msgstr "Teilnahmestatus ändern"
 msgid "Change?"
 msgstr "Ändern?"
 
-#: barcamps/templates/master.html:12
+#: barcamps/templates/master.html:13
 msgid "Click here to participate in the barcamp"
 msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 
-#: barcamps/templates/master.html:13
+#: barcamps/templates/master.html:14
 #: barcamps/templates/participant_data.html:17
 #: barcamps/templates/registration.html:48 templates/master.html:92
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr "Registrieren"
 
-#: barcamps/templates/master.html:17
-msgid "Watch this barcamp in order to receive notifications"
-msgstr "Beobachte dieses Barcamp, um Benachrichtigungen zu erhalten"
-
-#: barcamps/templates/master.html:18
-msgid "Watch"
-msgstr "Beobachten"
-
-#: barcamps/templates/master.html:22
-msgid "I don't want to receive notifications anymore"
-msgstr "Ich will keine Benachrichtigungen mehr erhalten"
-
-#: barcamps/templates/master.html:23
-msgid "Do not watch"
-msgstr "Nicht mehr beobachten"
-
-#: barcamps/templates/master.html:30
+#: barcamps/templates/master.html:36
 msgid "Attention!"
 msgstr "Achtung!"
 
-#: barcamps/templates/master.html:31
+#: barcamps/templates/master.html:37
 msgid "In order to mark your interest in this barcamp you first have to"
 msgstr ""
 "Um Dich als InteressentIn für dieses Barcamp zu registrieren, musst Du "
 "Dich zunächst im System"
 
-#: barcamps/templates/master.html:32
+#: barcamps/templates/master.html:38
 msgid "register"
 msgstr "registrieren"
 
-#: barcamps/templates/master.html:32
+#: barcamps/templates/master.html:38
 msgid "or"
 msgstr "oder"
 
-#: barcamps/templates/master.html:32 templates/M/userbase/login.html:20
+#: barcamps/templates/master.html:38 templates/M/userbase/login.html:20
 msgid "login"
 msgstr "einloggen"
 
-#: barcamps/templates/master.html:33
+#: barcamps/templates/master.html:39
 msgid ""
 "on the site itself and then come back to this barcamp to mark your "
 "interest."
@@ -828,32 +808,28 @@ msgstr ""
 "und dann zu diesem Barcamp zurückkommen, um Dich speziell für dieses "
 "anzumelden."
 
-#: barcamps/templates/master.html:135
+#: barcamps/templates/master.html:142
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:172
+#: barcamps/templates/master.html:179
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:173
+#: barcamps/templates/master.html:180
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
-#: barcamps/templates/master.html:180
+#: barcamps/templates/master.html:187
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:181
-msgid ""
-"Registration for this barcamp is not yet open. People can only subscribe "
-"to it but not take part."
+#: barcamps/templates/master.html:188
+msgid "Registration for this barcamp is not yet open."
 msgstr ""
-"Die Registrierung für dieses Barcamp ist noch nicht eröffnet. Besucher "
-"können nur Informationen abonnieren, sich aber nicht als Teilnehmer "
-"registrieren"
+"Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
-#: barcamps/templates/master.html:207
+#: barcamps/templates/master.html:214
 msgid "Join us at"
 msgstr "Treffe uns beim "
 
@@ -943,7 +919,7 @@ msgstr "Dokumentation"
 
 #: barcamps/templates/sessions.html:5
 msgid "Session Proposals"
-msgstr "Sessionvorschläge"
+msgstr "Sessionvorschlag"
 
 #: barcamps/templates/sessions.html:11
 msgid "Sort by:"
@@ -993,7 +969,7 @@ msgstr "Füge Deinen Kommentar hinzu"
 
 #: barcamps/templates/sessions.html:119
 msgid "Create proposal"
-msgstr "Sessionvorschläge"
+msgstr "Neuer Sessionvorschlag"
 
 #: barcamps/templates/sessions.html:121
 msgid "Your proposal"
@@ -1268,37 +1244,37 @@ msgid "Barcamp Design and Layout"
 msgstr "Barcamp Design und Layout"
 
 #: barcamps/templates/admin/design.html:29
-msgid "Active Text Color"
-msgstr "Aktive Text-Farbe"
-
-#: barcamps/templates/admin/design.html:32
 msgid "Border Color"
 msgstr "Rahmenfarbe"
 
-#: barcamps/templates/admin/design.html:35
-msgid "Active Background Color"
-msgstr "Aktive Hintergrundfarbe"
-
-#: barcamps/templates/admin/design.html:38
+#: barcamps/templates/admin/design.html:32
 msgid "Hover Background Color"
 msgstr "Hover Hintergrundfarbe"
 
-#: barcamps/templates/admin/design.html:45
-#: barcamps/templates/admin/design.html:50
-#: barcamps/templates/admin/design.html:55
+#: barcamps/templates/admin/design.html:37
+msgid "Active Text Color"
+msgstr "Aktive Text-Farbe"
+
+#: barcamps/templates/admin/design.html:40
+msgid "Active Background Color"
+msgstr "Aktive Hintergrundfarbe"
+
+#: barcamps/templates/admin/design.html:47
+#: barcamps/templates/admin/design.html:52
+#: barcamps/templates/admin/design.html:57
 msgid "Upload Image"
 msgstr "Bild hochladen"
 
-#: barcamps/templates/admin/design.html:45
-#: barcamps/templates/admin/design.html:50
-#: barcamps/templates/admin/design.html:55
+#: barcamps/templates/admin/design.html:47
+#: barcamps/templates/admin/design.html:52
+#: barcamps/templates/admin/design.html:57
 #: barcamps/templates/admin/gallery_macros.html:50 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:132
 #: templates/users/edit.html:38
 msgid "Delete"
 msgstr "Löschen"
 
-#: barcamps/templates/admin/design.html:58
+#: barcamps/templates/admin/design.html:60
 #: barcamps/templates/admin/gallery_macros.html:23
 msgid "Update"
 msgstr "Aktualisieren"
@@ -2460,4 +2436,19 @@ msgstr "Mein Profil"
 
 #~ msgid "Upcoming events"
 #~ msgstr "Zukünftige Veranstaltungen"
+
+#~ msgid "Font to use"
+#~ msgstr "zu benutzender Zeichensetz"
+
+#~ msgid "Watch this barcamp in order to receive notifications"
+#~ msgstr "Beobachte dieses Barcamp, um Benachrichtigungen zu erhalten"
+
+#~ msgid "Watch"
+#~ msgstr "Beobachten"
+
+#~ msgid "I don't want to receive notifications anymore"
+#~ msgstr "Ich will keine Benachrichtigungen mehr erhalten"
+
+#~ msgid "Do not watch"
+#~ msgstr "Nicht mehr beobachten"
 
