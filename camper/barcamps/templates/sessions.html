@@ -9,13 +9,9 @@
         <div class="clearfix">
             <div id="sort-buttons" class="pull-right">
                 {{_('Sort by:')}}
-                <span class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-sm btn-primary active" data-sort="date">
-                        <input type="checkbox" autocomplete="off" {{'checked' if sort=='date'}}> {{_('Date')}}
-                    </label>
-                    <label class="btn btn-sm btn-primary" data-sort="votes">
-                        <input type="checkbox" autocomplete="off" {{'checked' if sort=='votes'}}> {{_('Votes')}}
-                    </label>
+                <span class="btn-group">
+                    <a href="{{url_for('barcamps.sessions', slug = slug)}}?sort=date" id="sort-date" type="button" class="btn btn-xs btn-info {{'active' if sort=="date"}}">{{_('Date')}}</a>
+                    <a href="{{url_for('barcamps.sessions', slug = slug)}}?sort=votes" id="sort-votes" type="button" class="btn btn-xs btn-info {{'active' if sort=="votes"}}">{{_('Votes')}}</a>
                 </span>
             </div>
             {% if is_admin %}
