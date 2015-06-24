@@ -53,8 +53,6 @@ class DesignView(BarcampBaseHandler):
             f = form.data
             self.barcamp.update(f)
             self.barcamp.save()
-        else:
-            print "could not save data for barcamp design", form.errors
         return self.render(form = form)
 
     post = get
