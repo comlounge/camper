@@ -54,17 +54,19 @@ class BarcampRegister(BarcampBaseHandler):
 
         # check if the user has filled out all the required information on the form already
         uid = unicode(self.user._id)
-        if not self.barcamp.registration_data.has_key(uid):
-            # user is not in list
+
+        if not self.barcamp.registration_data.has_key(uid) and self.barcamp.registration_form:
+            # user is not in list and we have a form
             return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
 
         # now check the fields
-        ok = True
-        data = self.barcamp.registration_data[uid]
-        for field in self.barcamp.registration_form:
-            if field['required'] and field['name'] not in data:
-                ok = False
-                return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
+        if self.barcamp.registration_form:
+            ok = True
+            data = self.barcamp.registration_data[uid]
+            for field in self.barcamp.registration_form:
+                if field['required'] and field['name'] not in data:
+                    ok = False
+                    return redirect(self.url_for(".registration_form", slug = self.barcamp.slug))
 
         # user can register, show the list of events
 
