@@ -58,7 +58,7 @@ class UserView(object):
                 pass
         if image is not None:
             return """<img class="profile-image-userlist" src="%s">""" %image
-        return """<div class="profile-image-userlist missing" style="width: 80px; height: 80px; text-align: center; color: #ccc;font-size: 50px;"><i class="fa fa-user"></i></div>"""
+        return """<div class="profile-image-userlist missing"><i class="fa fa-user"></i></div>"""
 
     @property
     def barcamps(self):

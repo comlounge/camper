@@ -6890,6 +6890,15 @@ h6 {
   height: 32px;
   border: 1px solid #333;
 }
+.profile-image-userlist {
+  width: 80px;
+  height: 80px;
+}
+.profile-image-userlist.missing {
+  text-align: center;
+  color: #ccc;
+  font-size: 50px;
+}
 #profile-edit-form .preview-area img {
   padding: 1px;
   border: 1px solid #a0a0a8;
@@ -7347,11 +7356,22 @@ h1.logo {
 #sessionproposals .comment-area {
   width: 100%;
 }
-#sessionproposals .media.comments .profile-image {
+#sessionproposals .media.comment .profile-image-userlist,
+#sessionproposals .media.comments .profile-image-userlist {
   width: 32px;
   height: 32px;
 }
+#sessionproposals .media.comment .profile-image-userlist.missing,
+#sessionproposals .media.comments .profile-image-userlist.missing {
+  font-size: 30px;
+}
+#sessionproposals .media.comment .media-body,
 #sessionproposals .media.comments .media-body {
+  display: block;
+}
+#sessionproposals .media.comment .comment-text,
+#sessionproposals .media.comments .comment-text {
+  min-height: 35px;
   display: block;
 }
 #sessionproposals .description {

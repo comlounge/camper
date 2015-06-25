@@ -29,7 +29,7 @@
                 </div>
             </div>
             <a class="media-left" href="{{url_for('profile', username = session.user.username)}}">
-                <img class="profile-image" src="{{userview(session.user).image_thumb}}">
+                {{userview(session.user).image_thumb_tag}}
             </a>
             <div class="media-body show-box">
                 {% if is_admin or user_id == session.user._id %}
@@ -64,30 +64,34 @@
                                 class="deletebutton btn-xs btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
                         {% endif %}
                         <a href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
-                            <img class="profile-image" src="{{userview(comment.user).image_thumb}}">
+                            {{userview(comment.user).image_thumb_tag}}
                         </a>
-                        <div class="media-body">{{comment.comment}}
+                        <div class="media-body">
+                            <span class="comment-text">{{comment.comment}}</span>
                             <footer>{{_("comment by")}} {{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
                         </div>
                     </div>
                 {% endfor %}
-                <div class="media comments">
-                    <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
-                        <img class="profile-image" src="{{userview(user).image_thumb}}">
-                    </a>
-                    <div class="media-body">
-                        {% if logged_in %}
-                        <form method="post" class="form-horizontal clearfix" action="{{url_for('.session_comments', slug = slug, sid = session._id)}}">
-                            <fieldset>
-                            <div class="control-group">
-                                <textarea placeholder="{{_('Your comment')}}" class="comment-area" name="comment" rows=3></textarea>
-                            </div>
-                            <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
-                            </fieldset>
-                        </form>
-                        {% endif %}
+                {% if logged_in %}
+                    <div class="media comments">
+                        <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
+                            {{userview(user).image_thumb_tag}}
+                        </a>
+                        <div class="media-body">
+                            {% if logged_in %}
+                            <form method="post" class="form-horizontal clearfix" action="{{url_for('.session_comments', slug = slug, sid = session._id)}}">
+                                <fieldset>
+                                <div class="control-group">
+                                    <textarea placeholder="{{_('Your comment')}}" class="comment-area" name="comment" rows=3></textarea>
+                                </div>
+                                <button href="#" class="btn btn-small btn-primary">{{_("add your comment")}}</button>
+                                </fieldset>
+                            </form>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                {% endif %}
             </div>
             {% if is_admin or user_id == session.user._id %}
             <form class="media-body edit-box well form-validate" method="POST" 

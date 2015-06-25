@@ -88,6 +88,16 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid #333;
 }
 
+.profile-image-userlist {
+    width: 80px;
+    height: 80px;
+    &.missing {
+        text-align: center;
+        color: #ccc;
+        font-size: 50px;
+    }
+}
+
 #profile-edit-form {
     .preview-area {
         img {
@@ -451,12 +461,19 @@ h1.logo {
     .comment-area {
         width: 100%;
     }
-    .media.comments {
-        .profile-image {
+    .media.comment, .media.comments {
+        .profile-image-userlist {
             width: 32px;
             height: 32px;
+            &.missing {
+                font-size: 30px;
+            }
         }
         .media-body {
+            display: block;
+        }
+        .comment-text {
+            min-height: 35px;
             display: block;
         }
     }
