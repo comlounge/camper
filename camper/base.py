@@ -44,6 +44,23 @@ class UserView(object):
         return None
 
     @property
+    def image_thumb_tag(self):
+        """return the image tag"""
+        u = self.user
+        uf = self.app.url_for
+        image = None
+        if u.image is not None and u.image!="":
+            try:
+                image =  uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['userlist']._id)
+            except AssetNotFound:
+                pass
+            except KeyError:
+                pass
+        if image is not None:
+            return """<img class="profile-image-userlist" src="%s">""" %image
+        return """<div class="profile-image-userlist missing" style="width: 80px; height: 80px; text-align: center; color: #ccc;font-size: 50px;"><i class="fa fa-user"></i></div>"""
+
+    @property
     def barcamps(self):
         """return a list of barcamps the user either is an admin for or takes parts in"""
 

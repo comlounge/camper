@@ -5,7 +5,7 @@
     {% for myuser in users %}
         <li class="participant">
             <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
-                <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
+                {{userview(myuser).image_thumb_tag}}
             </a>
             <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
                 {{myuser.fullname}}
