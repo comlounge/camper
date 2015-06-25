@@ -400,6 +400,8 @@ class Barcamp(Record):
         :param states: give the list of states which count as registered (defaults to all)
         :returns: ``True`` or ``False``
         """
+        if user is None: 
+            return False
         uid = user.user_id
         for event in self.eventlist:
             if uid in event.participants and 'going' in states:
