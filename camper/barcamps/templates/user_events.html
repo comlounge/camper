@@ -36,12 +36,18 @@
             </ul>
 
             <div class="actions">
-                {% if is_registered %}
-                    <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Change')}}</a>
+                {% if not logged_in %}
+                    <a href="{{url_for("userbase.login", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Login to join!')}}</a>
                 {% else %}
-                    <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-success"><i class="fa fa-asterisk"></i> {{_('Join!')}}</a>
+                    {% if is_registered %}
+                        <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Change')}}</a>
+                    {% else %}
+                        <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-success"><i class="fa fa-asterisk"></i> {{_('Join!')}}</a>
+                    {% endif %}
                 {% endif %}
-                <a href="{{url_for(".events", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
+                {% if is_admin %}
+                    <a href="{{url_for(".events", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
+                {% endif %}
             </div>
 
         </div>
