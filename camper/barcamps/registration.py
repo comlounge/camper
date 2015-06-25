@@ -13,6 +13,7 @@ class BarcampSubscribe(BarcampBaseHandler):
     """adds a user to the subscription list"""
 
     @ensure_barcamp()
+    @logged_in()
     def post(self, slug = None):
         """only a post without parameters is done to add. Post again to unsubscribe"""
         view = self.barcamp_view
@@ -44,6 +45,7 @@ class BarcampRegister(BarcampBaseHandler):
     template = 'registration.html'
 
     @ensure_barcamp()
+    @logged_in()
     def get(self, slug = None):
         """handle the barcamp registration for multiple events with optional registration form"""
 
@@ -79,6 +81,7 @@ class RegistrationData(BarcampBaseHandler):
 
     @ensure_barcamp()
     @asjson()
+    @logged_in()
     def get(self, slug = None):
         """return the list of events with state of user"""
         r = []
@@ -98,6 +101,7 @@ class RegistrationData(BarcampBaseHandler):
 
     @ensure_barcamp()
     @asjson()
+    @logged_in()
     def post(self, slug = None):
         """add a user to the participant or maybe list"""
         if self.barcamp.workflow != "registration":
@@ -161,6 +165,7 @@ class RegistrationForm(BarcampBaseHandler):
     template = 'participant_data.html'
 
     @ensure_barcamp()
+    @logged_in()
     def get(self, slug = None):
         """show paticipants data form"""
 
