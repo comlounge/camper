@@ -417,10 +417,11 @@ class BaseForm(Form):
 
     LANGUAGES = ['de', 'en']
 
-    def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, **kwargs):
+    def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, handler = None, **kwargs):
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
         self.config = config
         self.app = app
+        self.handler = handler
 
 
 class BaseHandler(starflyer.Handler):
