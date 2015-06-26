@@ -38,11 +38,11 @@ class EditForm(BaseForm):
     # TODO: maybe change email, too?
     def validate_email(form, field):
         if form.app.module_map.userbase.users.find({'email' : field.data}).count() > 0:
-            raise ValidationError(T('this email address is already taken'))
+            raise ValidationError(form.handler._('this email address is already taken'))
 
     def validate_username(form, field):
         if form.app.module_map.userbase.users.find({'username' : field.data, '_id' : {'$ne': ObjectId(form.data['user_id'])}}).count() > 0:
-            raise ValidationError(T('this url path is already taken'))
+            raise ValidationError(form.handler._('this url path is already taken'))
 
 
 class ProfileEditView(BaseHandler):
@@ -53,7 +53,7 @@ class ProfileEditView(BaseHandler):
     @logged_in()
     def get(self):
         """render the view"""
-        form = EditForm(self.request.form, obj = self.user, config = self.config, app = self.app)
+        form = EditForm(self.request.form, obj = self.user, config = self.config, app = self.app, handler = self)
         if self.user.image:
             try:
                 asset = self.app.module_map.uploader.get(self.user.image)
