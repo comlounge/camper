@@ -66,6 +66,23 @@ class MigrateBarcamps(ScriptBase):
         self.barcamp['location']['country'] = self.barcamp['location']['country'].upper()
         log.info("location copied")
 
+    def fix_design(self):
+        """fix the barcamp design"""
+        self.barcamp.update({
+            'background_color'      : '#fcfcfa',
+            'link_color'            : '#337CBB',
+            'text_color'            : '#333',
+
+            'header_color'          : '#fff',
+            'navbar_link_color'     : '#888',
+            'navbar_active_bg'      : '#555',
+            'navbar_active_color'   : '#eee',
+            'navbar_border_color'   : '#f0f0f0',
+            'navbar_hover_bg'       : '#f8f8f8'
+        })
+
+
+
 
     def __call__(self):
         barcamps = self.app.config.dbs.db.barcamps
@@ -78,6 +95,7 @@ class MigrateBarcamps(ScriptBase):
             # fix the single event to contain all necessary new fields
             e = b['events'][0]
             e = self.fix_event(e)
+            self.fix_design()
 
             # generate the events
             self.generate_events(e)

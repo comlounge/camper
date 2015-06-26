@@ -339,12 +339,11 @@ class Barcamp(Record):
         'text_color'            : '#333',
 
         'header_color'          : '#fff',
-        'navbar_link_color'     : '#d8d8d8',
-        'navbar_active_bg'      : '#333',
-        'navbar_active_color'   : '#555',
+        'navbar_link_color'     : '#888',
+        'navbar_active_bg'      : '#555',
+        'navbar_active_color'   : '#eee',
         'navbar_border_color'   : '#f0f0f0',
-        'navbar_active_bg'      : '#fff',
-        'navbar_hover_bg'       : '#fff'
+        'navbar_hover_bg'       : '#f8f8f8'
 
 
     }
