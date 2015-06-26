@@ -30,6 +30,7 @@ $.fn.uploader = function(opts) {
         $(widget).find(".progress-bar").css("width", "0%");
         $(widget).find(".progress").show();
         $(widget).find(".preview-area").hide();
+        $(widget).find(".missing-area").hide();
         return $(widget).find(".uploader-buttons").hide();
       },
       onComplete: function(id, filename, json) {
@@ -73,6 +74,9 @@ $.fn.uploader = function(opts) {
     $(this).find(".deletebutton").click(function() {
       $(widget).find(".preview-area img").attr("src", "");
       $(widget).find(".preview-area").hide();
+      if (!original_id) {
+        $(widget).find(".missing-area").show();
+      }
       $(widget).find(".deletebutton").hide();
       $(widget).find(".revertbutton").show();
       $("#" + field_id).val("");
@@ -86,6 +90,7 @@ $.fn.uploader = function(opts) {
         $(widget).find(".preview-area img").attr("src", "");
         $(widget).find(".preview-area").hide();
         $(widget).find(".deletebutton").hide();
+        $(widget).find(".missing-area").show();
       } else {
         $(widget).find(".preview-area").show();
         $(widget).find(".deletebutton").show();

@@ -37,6 +37,7 @@
                 {{ formmacros.form_field(form.image, input_class="",
                     label=_("Upload Profile Image"), delete_label=_("Delete"), revert_label=("Revert"),
                     preview_url = image,
+                    missing_tag = '<div class="profile-image-userlist missing"><i class="fa fa-user"></i></div>',
                     upload_url=url_for("profile_image_upload"))}}
             </div>
         </div>

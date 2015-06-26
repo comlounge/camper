@@ -151,7 +151,10 @@ class UploadWidget(object):
                 data-postproc="{{postproc}}">
             {{hidden}}
             <div class="preview-area" style="display: {{'block' if preview_url else 'none'}}">
-                <img src="{{preview_url}}">
+                    <img src="{{preview_url}}">                
+            </div>
+            <div class="missing-area" style="display: {{'block' if not preview_url and missing_tag else 'none'}}">
+                {{missing_tag}}
             </div>
             <div class="upload-area">
                 <div class="uploader-buttons">
@@ -195,6 +198,7 @@ class UploadWidget(object):
             'delete_label'  : kwargs['delete_label'],
             'revert_label'  : kwargs['revert_label'],
             'btn_class'     : kwargs.get('btn_class', 'btn btn-default'),
+            'missing_tag'   : kwargs.get('missing_tag', ''),
             'value-filename' : '',
             'value-id'      : '',
             'name'          : field.name,

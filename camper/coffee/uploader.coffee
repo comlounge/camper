@@ -23,6 +23,7 @@ $.fn.uploader = (opts = {}) ->
                 $(widget).find(".progress-bar").css("width", "0%")
                 $(widget).find(".progress").show()
                 $(widget).find(".preview-area").hide()
+                $(widget).find(".missing-area").hide()
                 $(widget).find(".uploader-buttons").hide()
             onComplete: (id, filename, json) ->
                 if json.status == "error" 
@@ -58,6 +59,8 @@ $.fn.uploader = (opts = {}) ->
         $(this).find(".deletebutton").click () ->
             $(widget).find(".preview-area img").attr("src", "")
             $(widget).find(".preview-area").hide()
+            if not original_id
+                $(widget).find(".missing-area").show()
             $(widget).find(".deletebutton").hide()
             $(widget).find(".revertbutton").show()
             $("#"+field_id).val("")
@@ -70,6 +73,7 @@ $.fn.uploader = (opts = {}) ->
                 $(widget).find(".preview-area img").attr("src", "")
                 $(widget).find(".preview-area").hide()
                 $(widget).find(".deletebutton").hide()
+                $(widget).find(".missing-area").show()
             else
                 $(widget).find(".preview-area").show()
                 $(widget).find(".deletebutton").show()
