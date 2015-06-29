@@ -3,8 +3,9 @@
 import pymongo
 import yaml
 import pkg_resources
+import werkzeug.exceptions
 
-from starflyer import Application, URL, AttributeMapper
+from starflyer import Application, URL, AttributeMapper, Handler
 from sfext.uploader import upload_module, Assets, ImageSizeProcessor
 from sfext.uploader.stores import FilesystemStore
 from sfext.babel import babel_module, T
@@ -114,6 +115,22 @@ def get_locale(handler):
     return l
 
 ###
+### robots.txt
+### 
+
+class RobotsTXT(Handler):
+    """serve robots.txt"""
+
+    template = "robots.txt"
+
+    def get(self):
+        """serve the file"""
+        if self.config.hide_from_crawlers:
+            return self.render()
+        raise werkzeug.exceptions.NotFound()
+
+
+###
 ### APP
 ###
 
@@ -121,6 +138,7 @@ class CamperApp(Application):
     """application"""
 
     defaults = {
+        'hide_from_crawlers'    : False,
         'log_name'              : "camper",
         'script_virtual_host'   : "http://localhost:8222",
         'virtual_host'          : "http://localhost:8222",
@@ -217,6 +235,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
