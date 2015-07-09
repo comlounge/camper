@@ -45,7 +45,8 @@ module.exports = function(grunt) {
             bootstrap: {
                 options: {
                     repository: "https://github.com/twbs/bootstrap.git",
-                    directory: 'tmp/bootstrap'
+                    directory: 'tmp/bootstrap',
+                    branch: 'v3.3.5'
                 }
             }
         },
