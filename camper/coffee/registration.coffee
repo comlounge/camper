@@ -92,41 +92,9 @@ $.fn.eventlist = (opts, {}) ->
     $(this).each(init)
     this
 
-# datelist is used on the user_event screen to display labels for the events
-
-$.fn.datelist = (opts, {}) ->
-    
-    dataurl = null
-
-    update_date = (d) ->
-        elem = $("#ne-"+d.eid)
-
-        if d.participant
-            elem.find(".plabel-going").show()
-        else if d.maybe
-            elem.find(".plabel-maybe").show()
-        else if d.waitinglist
-            elem.find(".plabel-waiting").show()
-        else
-            elem.find(".plabel-not").show()
-    
-    init = () ->
-        dataurl = $(this).data("url")
-        $.ajax 
-            url: dataurl
-            type: "GET"
-            success: (data) ->
-                for d in data
-                    update_date(d)
-
-
-    $(this).each(init)
-    this
-
 
 $(document).ready () ->
     $("#eventlist").eventlist()
-    $("#datelist").datelist()
     $('.participant-avatar').tooltip
         container: 'body'
 
