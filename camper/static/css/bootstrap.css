@@ -8462,3 +8462,8 @@ article.blogentry .gallery img {
   float: right;
   margin: 0 0 10px 10px;
 }
+#participant-data .description {
+  margin: 20px 0;
+  font-size: 17px;
+  color: #333;
+}
