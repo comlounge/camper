@@ -8178,6 +8178,9 @@ footer {
 section {
   margin-bottom: 50px;
 }
+#user-events-content #my-actions {
+  margin-top: 40px;
+}
 #user-events-content .participation-details {
   padding: 15px;
   margin-bottom: 20px;
