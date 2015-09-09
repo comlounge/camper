@@ -16,18 +16,26 @@ $.fn.eventlist = function(opts, _arg) {
         elem.find(".btn-join").show();
       }
       elem.find(".btn-maybe").show();
+      elem.find(".infolabel.plabel-going").hide();
+      elem.find(".infolabel.plabel-notgoing").show();
     } else {
       elem.find(".dropdown-toggle").removeClass("btn-info").removeClass("btn-success").removeClass("btn-warning");
       if (d.participant) {
         elem.find(".label-going").show();
+        elem.find(".infolabel.plabel-going").show();
+        elem.find(".infolabel.plabel-notgoing").hide();
         elem.find(".dlabel.maybe").show();
         elem.find(".dropdown-toggle").addClass("btn-success");
       } else if (d.waitinglist) {
         elem.find(".label-waitinglist").show();
+        elem.find(".infolabel.plabel-going").hide();
+        elem.find(".infolabel.plabel-notgoing").show();
         elem.find(".dlabel.maybe").show();
         elem.find(".dropdown-toggle").addClass("btn-warning");
       } else if (d.maybe) {
         elem.find(".label-maybe").show();
+        elem.find(".infolabel.plabel-going").hide();
+        elem.find(".infolabel.plabel-notgoing").show();
         elem.find(".dlabel.going").show();
         elem.find(".dropdown-toggle").addClass("btn-info");
       }
@@ -35,7 +43,18 @@ $.fn.eventlist = function(opts, _arg) {
       elem.find(".dropdown-toggle").show();
     }
     elem.find(".filled").text(d.filled);
-    return elem.find(".size").text(d.size);
+    elem.find(".size").text(d.size);
+    elem = $("#ne-" + d.eid);
+    elem.find(".plabel").hide();
+    if (d.participant) {
+      return elem.find(".plabel-going").show();
+    } else if (d.maybe) {
+      return elem.find(".plabel-maybe").show();
+    } else if (d.waitinglist) {
+      return elem.find(".plabel-waiting").show();
+    } else {
+      return elem.find(".plabel-not").show();
+    }
   };
   init = function() {
     dataurl = $(this).data("url");
@@ -88,7 +107,7 @@ $.fn.datelist = function(opts, _arg) {
   dataurl = null;
   update_date = function(d) {
     var elem;
-    elem = $("#e-" + d.eid);
+    elem = $("#ne-" + d.eid);
     if (d.participant) {
       return elem.find(".plabel-going").show();
     } else if (d.maybe) {

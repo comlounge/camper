@@ -8165,12 +8165,12 @@ footer {
   padding: 3px;
   margin-top: 3px;
 }
-#eventlist .actions {
-  min-height: 70px;
-}
 #eventlist button,
 #eventlist .pselect {
   display: none;
+}
+#eventlist .registration-eventlist .actions {
+  min-height: 70px;
 }
 .nodescription {
   margin-bottom: 30px;
@@ -8178,15 +8178,72 @@ footer {
 section {
   margin-bottom: 50px;
 }
+#user-events-content .participation-details {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+  color: #8a6d3b;
+  display: block;
+  min-height: 75px;
+}
+#user-events-content .participation-details h4 {
+  margin-top: 0;
+  color: inherit;
+}
+#user-events-content .participation-details .alert-link {
+  font-weight: bold;
+}
+#user-events-content .participation-details > p,
+#user-events-content .participation-details > ul {
+  margin-bottom: 0;
+}
+#user-events-content .participation-details > p + p {
+  margin-top: 5px;
+}
+#user-events-content .participation-details hr {
+  border-top-color: #f7e1b5;
+}
+#user-events-content .participation-details .alert-link {
+  color: #66512c;
+}
+#user-events-content .participation-details:before,
+#user-events-content .participation-details:after {
+  content: " ";
+  display: table;
+}
+#user-events-content .participation-details:after {
+  clear: both;
+}
+#user-events-content .participation-details:before,
+#user-events-content .participation-details:after {
+  content: " ";
+  display: table;
+}
+#user-events-content .participation-details:after {
+  clear: both;
+}
+#user-events-content .infolabel {
+  display: none;
+  float: left !important;
+  padding-top: 15px;
+}
+#user-events-content .participation-status {
+  margin-bottom: 20px;
+}
 #user-events-content .event-name,
 #user-events-content .event-date {
   display: block;
+  font-weight: bold;
 }
 #user-events-content .event-date {
   display: block;
-  font-size: 10px;
+  font-weight: normal;
+  font-size: 13px;
 }
-#user-events-content .plabel {
+#user-events-content #datelist .plabel {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
@@ -8197,52 +8254,49 @@ section {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
-  font-size: 9px;
   display: none;
+  font-size: 9px;
 }
-a#user-events-content .plabel:hover,
-a#user-events-content .plabel:focus {
+a#user-events-content #datelist .plabel:hover,
+a#user-events-content #datelist .plabel:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
 }
-#user-events-content .plabel:empty {
+#user-events-content #datelist .plabel:empty {
   display: none;
 }
-.btn #user-events-content .plabel {
+.btn #user-events-content #datelist .plabel {
   position: relative;
   top: -1px;
 }
-#user-events-content .plabel-going {
+#user-events-content #datelist .plabel.plabel-going {
   background-color: #5cb85c;
 }
-#user-events-content .plabel-going[href]:hover,
-#user-events-content .plabel-going[href]:focus {
+#user-events-content #datelist .plabel.plabel-going[href]:hover,
+#user-events-content #datelist .plabel.plabel-going[href]:focus {
   background-color: #449d44;
 }
-#user-events-content .plabel-maybe {
+#user-events-content #datelist .plabel.plabel-maybe {
   background-color: #5bc0de;
 }
-#user-events-content .plabel-maybe[href]:hover,
-#user-events-content .plabel-maybe[href]:focus {
+#user-events-content #datelist .plabel.plabel-maybe[href]:hover,
+#user-events-content #datelist .plabel.plabel-maybe[href]:focus {
   background-color: #31b0d5;
 }
-#user-events-content .plabel-waiting {
+#user-events-content #datelist .plabel.plabel-waiting {
   background-color: #f0ad4e;
 }
-#user-events-content .plabel-waiting[href]:hover,
-#user-events-content .plabel-waiting[href]:focus {
+#user-events-content #datelist .plabel.plabel-waiting[href]:hover,
+#user-events-content #datelist .plabel.plabel-waiting[href]:focus {
   background-color: #ec971f;
 }
-#user-events-content .plabel-not {
+#user-events-content #datelist .plabel.plabel-not {
   background-color: #777777;
 }
-#user-events-content .plabel-not[href]:hover,
-#user-events-content .plabel-not[href]:focus {
+#user-events-content #datelist .plabel.plabel-not[href]:hover,
+#user-events-content #datelist .plabel.plabel-not[href]:focus {
   background-color: #5e5e5e;
-}
-#user-events-content .actions {
-  margin-top: 30px;
 }
 #user-events-content .sessiontable {
   margin-top: 30px;

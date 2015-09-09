@@ -647,13 +647,14 @@ footer {
         padding: 3px;
         margin-top: 3px;
     }
-    .actions {
-        min-height: 70px;
-    }
     button, .pselect {
         display: none;
     }
-
+    .registration-eventlist {
+        .actions {
+            min-height: 70px;
+        }
+    }
 }
 
 .nodescription {
@@ -669,28 +670,42 @@ section {
 //
 
 #user-events-content {
+    .participation-details {
+        .alert;
+        .alert-warning;
+        display: block;
+        .clearfix;
+        min-height: 75px;
+    }
+
+    .infolabel {
+        display: none;
+        .pull-left;
+        padding-top: 15px;
+    }
+
+    .participation-status {
+        margin-bottom: 20px;
+    }
     .event-name, .event-date {
         display: block;
+        font-weight: bold;
     }
     .event-date {
         display: block;
-        font-size: 10px;
+        font-weight: normal;
+        font-size: 13px;
     }
-
-    .plabel {
+    #datelist .plabel {
         .label;
-        font-size: 9px;
         display: none;
+        font-size: 9px;
+        &.plabel-going { .label-success; }
+        &.plabel-maybe { .label-info; }
+        &.plabel-waiting { .label-warning; }
+        &.plabel-not { .label-default; }
     }
-    .plabel-going { .label-success; }
-    .plabel-maybe { .label-info; }
-    .plabel-waiting { .label-warning; }
-    .plabel-not { .label-default; }
-
-    .actions {
-        margin-top: 30px;
-    }
-
+    
     .sessiontable {
         .slot {
             padding: 10px;
