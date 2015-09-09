@@ -41,6 +41,7 @@ class Events(BarcampBaseHandler):
             sessionplan = e.timetable.get('sessions', {}),
             rooms = e.rooms,
             timeslots = e.timeslots,
+            has_form = len(self.barcamp.registration_form) != 0,
             has_form_data = self.barcamp.registration_data.has_key(uid),
             form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)
