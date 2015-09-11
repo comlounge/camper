@@ -125,8 +125,8 @@
         <div class="well" id="proposal-form-container" style="display: none;">
             <legend>{{_('Your proposal')}}</legend>
             <form method="post" action="{{url}}" class="form-horizontal">
-                {{formmacros.form_field(form.title, input_class="required", label_class="col-sm-2", size="col-sm-6")}}
-                {{formmacros.form_field(form.description, rows=5, cols=60, label_class="col-sm-2", size="col-sm-6")}}
+                {{formmacros.form_field(form.title, required=True, input_class="required", label_class="col-sm-2", size="col-sm-6")}}
+                {{formmacros.form_field(form.description, required=True, rows=5, cols=60, label_class="col-sm-2", size="col-sm-6")}}
                 <div class="form-actions">
                     <button id="proposal-cancel" class="pull-right btn btn-default">{{_('Cancel')}}</button>
                     <input type="submit" class="btn btn-large btn-primary" value="{{_('Add proposal')}}">
