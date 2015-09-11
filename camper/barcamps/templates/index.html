@@ -34,7 +34,8 @@
             <div class="col-lg-12">
                 <div class="widget-show">
                     <div class="description">
-                        {{description|md}}
+                        <h2 class="sr-only">{{_('Description')}}</h2>
+                        {{description}}
                     </div>
                 </div>
             </div>
@@ -43,6 +44,7 @@
         <!-- sponsoren -->
         <div class="row" id="sponsors">
             <div class="col-md-12">
+                <h2>{{_('Sponsors')}}</h2>
             {% for sponsor in view.sponsors %}
                 <div class="sponsor">
                     {{sponsor.image}}
