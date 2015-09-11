@@ -20,7 +20,7 @@
     <div id="user-events-content" class="row">
 
         <!-- sidebar -->
-        <div class="col-lg-2 col-md-2" id="eventlisting-area">
+        <div class="col-lg-2 col-md-2" id="eventlisting-area" role="navigation">
             <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}"> 
                 {% for event in barcamp.eventlist %}
                     <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
@@ -59,8 +59,10 @@
         </div>
         
         <!-- main content -->
-        <div class="col-md-10" id="content-area">
-            <ul class="nav nav-pills hide" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}" style="margin-bottom: 20px;">
+        <div class="col-md-10" id="content-area" role="main">
+            <ul class="nav nav-pills hide" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}" 
+                    style="margin-bottom: 20px;" 
+                    role="navigation">
                 {% for event in barcamp.eventlist %}
                     <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
                         <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
@@ -76,6 +78,7 @@
                 {% if logged_in and has_form and has_form_data %}
 
                     <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+                        <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
                         <span class="infolabel plabel plabel-going"><i class="fa fa-check"></i> {{_('I attend this event')}}</span>
                         <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
                         
@@ -106,6 +109,7 @@
                 {% endif %}
                 {% if logged_in and has_form and not has_form_data %}
                     <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+                        <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
                         <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
                         <a href="{{url_for(".registration_form", slug = slug)}}"
                             class="btn btn-lg btn-primary pull-right"
@@ -148,6 +152,7 @@
                     <!-- session / timetable -->
                     <div role="tabpanel" class="tab-pane" id="sessions">
 
+                        <h3 class="sr-only">{{_('Time Table')}}</h3>
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered sessiontable">
                                 <colgroup>
