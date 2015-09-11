@@ -93,7 +93,7 @@
 
 {% endblock %}
 {% block topcontainer %}
-    <div class="bcdetail-bg" id="bc-header">
+    <div class="bcdetail-bg" id="bc-header" role="banner">
         <div class="container">
             <div class="header action-container content-area">
                 {% if logo %}
@@ -170,7 +170,7 @@
         {% endblock %}
 
         {% block outer_content %}
-            <div id="main-content" class="row">
+            <div id="main-content" class="row" role="main">
                 <div class="col-lg-9 col-md-9" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
