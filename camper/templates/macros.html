@@ -9,13 +9,13 @@
 
 {% macro my_field(field, prepend=None, append=None, input_class="", no_size=False, required=False, size="") -%}
     {% if no_size %}
-        {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required=required, **kwargs)}}
+        {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required = required == True, **kwargs)}}
         {% if field.description %}
             <p class="help-block">{{ _(field.description) }}</p>
         {% endif %}
     {% else %}
         <div class="{{size}}">
-            {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required=required, **kwargs) }}
+            {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required = required == True, **kwargs) }}
             {% if field.description %}
                 <p class="help-block">{{ _(field.description) }}</p>
             {% endif %}

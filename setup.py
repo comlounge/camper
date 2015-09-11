@@ -37,6 +37,7 @@ setup(name='camper',
         "bleach",
         "isodate",
         "pycountry",
+        "wtforms"
       ],
       entry_points="""
           [paste.app_factory]
