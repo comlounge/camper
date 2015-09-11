@@ -27,6 +27,7 @@ class Events(BarcampBaseHandler):
         participants = list(ub.get_users_by_ids(e.participants))
         maybe = list(ub.get_users_by_ids(e.maybe))
         waitinglist = list(ub.get_users_by_ids(e.waiting_list))
+        uid = unicode(self.user._id)
 
         return self.render(
             view = self.barcamp_view,
@@ -40,4 +41,7 @@ class Events(BarcampBaseHandler):
             sessionplan = e.timetable.get('sessions', {}),
             rooms = e.rooms,
             timeslots = e.timeslots,
+            has_form = len(self.barcamp.registration_form) != 0,
+            has_form_data = self.barcamp.registration_data.has_key(uid),
+            form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)

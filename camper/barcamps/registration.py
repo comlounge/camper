@@ -199,7 +199,7 @@ class RegistrationForm(BarcampBaseHandler):
             self.barcamp.registration_data[uid] = f
             self.barcamp.save()
             self.flash(self._("Your information was updated"), category="success")
-            return redirect(self.url_for(".register", slug = self.barcamp.slug))
+            return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
 
         # show the form
         return self.render(

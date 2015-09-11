@@ -22,7 +22,7 @@
 
         <section>
         <h2>{{_('Please register for the events you want to participate in')}}</h2>
-        <ul id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+        <ul id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
         {% for event in barcamp.eventlist %}
             <li data-id="{{event._id}}" id="e-{{event._id}}" class="event">
                 <div class="row">

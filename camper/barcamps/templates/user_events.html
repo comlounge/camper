@@ -21,41 +21,98 @@
 
         <!-- sidebar -->
         <div class="col-lg-2 col-md-2" id="eventlisting-area">
-            <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+            <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}"> 
                 {% for event in barcamp.eventlist %}
-                    <li id="e-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
+                    <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
                         <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
                             {{event.name}}
                             <span class="plabel plabel-going">{{_('Going')}}</span>
                             <span class="plabel plabel-maybe">{{_('Maybe')}}</span>
                             <span class="plabel plabel-waiting">{{_('Waiting')}}</span>
                             <span class="plabel plabel-not">{{_('Not going')}}</span>
+                            
+                            <span class="event-date">{{dateformat(event.date)}}</span>
+                        </a></li>
+                {% endfor %}
+                
+            </ul>
+            <div id="my-actions">
+                <h4>{{_('My data')}}</h4>
+                <dl class="formdata">
+                {% for k,v in form_data.iteritems() %}        
+                        <dt>{{k}}</dz>
+                        <dd>{{v|striptags}}</dd>
+                {% endfor %}
+                </dl>
+                {% if logged_in and has_form %}
+                    {% if has_form_data %}
+                        <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('edit')}}</a>
+                    {% else %}
+                        <div class="alert alert-danger">{{_('please enter your personal data in order to register for this event')}}</div>
+                        <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('add')}}</a>
+                        
+                    {% endif %}
+                {% endif %}
+            </div>
+
+
+        </div>
+        
+        <!-- main content -->
+        <div class="col-md-10" id="content-area">
+            <ul class="nav nav-pills hide" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}" style="margin-bottom: 20px;">
+                {% for event in barcamp.eventlist %}
+                    <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
+                        <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
+                            {{event.name}}
                             <span class="event-date">{{dateformat(event.date)}}</span>
                         </a></li>
                 {% endfor %}
             </ul>
 
-            <div class="actions">
-                {% if not logged_in %}
-                    <a href="{{url_for("userbase.login", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Login to join!')}}</a>
-                {% else %}
-                    {% if is_registered %}
-                        <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-info"><i class="fa fa-pencil"></i> {{_('Change')}}</a>
-                    {% else %}
-                        <a href="{{url_for(".register", slug=slug)}}" class="btn btn-block btn-success"><i class="fa fa-asterisk"></i> {{_('Join!')}}</a>
-                    {% endif %}
+
+            <div role="tabpanel" id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+
+                {% if logged_in and has_form and has_form_data %}
+
+                    <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+                        <span class="infolabel plabel plabel-going"><i class="fa fa-check"></i> {{_('I attend this event')}}</span>
+                        <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
+                        
+                        <div class="pull-right actions">
+                            <button data-status="going" 
+                                    title="{{_('Register')}}" class="btn btn-lg btn-primary btn-join">{{_('Register')}}</button>
+                            <button data-status="going"
+                                    title="{{_('Join')}}" class="btn btn-lg btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                            <button data-status="maybe"
+                                    title="{{_('Join')}}" class="btn btn-lg btn-info btn-maybe">{{_('Maybe')}}</button>
+                            <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+
+                            <div class="btn-group pselect">
+                                <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                                    <span class="plabel label-going">{{_('Going')}}</span>
+                                    <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                                    <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                                    <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
-                {% if is_admin %}
-                    <a href="{{url_for(".events", slug=slug)}}" class="btn btn-block btn-default"><i class="fa fa-gear"></i> {{_('Admin')}}</a>
+                {% if logged_in and has_form and not has_form_data %}
+                    <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+                        <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
+                        <a href="{{url_for(".registration_form", slug = slug)}}"
+                            class="btn btn-lg btn-primary pull-right"
+                            title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Register')}}</a>
+                    </div>
+
                 {% endif %}
-            </div>
-
-        </div>
-
-        <!-- main content -->
-        <div class="col-lg-10 col-md-10" id="content-area">
-            <div role="tabpanel">
-
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
@@ -72,6 +129,7 @@
 
                     <!-- userlist /participants -->
                     <div role="tabpanel" class="tab-pane active" id="userlist">
+                        
                         <section id="participants">
                             <h4>{{_('Participants')}}</h4>
                             {{ userlist(participants)}}

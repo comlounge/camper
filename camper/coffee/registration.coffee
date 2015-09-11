@@ -15,19 +15,27 @@ $.fn.eventlist = (opts, {}) ->
             else
                 elem.find(".btn-join").show()
             elem.find(".btn-maybe").show()
+            elem.find(".infolabel.plabel-going").hide()
+            elem.find(".infolabel.plabel-notgoing").show()
         else
             # we have somehow signed up
             elem.find(".dropdown-toggle").removeClass("btn-info").removeClass("btn-success").removeClass("btn-warning")
             if d.participant
                 elem.find(".label-going").show()
+                elem.find(".infolabel.plabel-going").show()
+                elem.find(".infolabel.plabel-notgoing").hide()
                 elem.find(".dlabel.maybe").show()
                 elem.find(".dropdown-toggle").addClass("btn-success")
             else if d.waitinglist
                 elem.find(".label-waitinglist").show()
+                elem.find(".infolabel.plabel-going").hide()
+                elem.find(".infolabel.plabel-notgoing").show()
                 elem.find(".dlabel.maybe").show()
                 elem.find(".dropdown-toggle").addClass("btn-warning")
             else if d.maybe
                 elem.find(".label-maybe").show()
+                elem.find(".infolabel.plabel-going").hide()
+                elem.find(".infolabel.plabel-notgoing").show()
                 elem.find(".dlabel.going").show()
                 elem.find(".dropdown-toggle").addClass("btn-info")
             elem.find(".pselect").show()
@@ -36,6 +44,21 @@ $.fn.eventlist = (opts, {}) ->
         # set the event size
         elem.find(".filled").text(d.filled)
         elem.find(".size").text(d.size)
+
+
+        # update datelist
+        elem = $("#ne-"+d.eid)
+        elem.find(".plabel").hide()
+
+        if d.participant
+            elem.find(".plabel-going").show()
+        else if d.maybe
+            elem.find(".plabel-maybe").show()
+        else if d.waitinglist
+            elem.find(".plabel-waiting").show()
+        else
+            elem.find(".plabel-not").show()
+
     
     init = () ->
         dataurl = $(this).data("url")
@@ -69,40 +92,9 @@ $.fn.eventlist = (opts, {}) ->
     $(this).each(init)
     this
 
-# datelist is used on the user_event screen to display labels for the events
-
-$.fn.datelist = (opts, {}) ->
-    
-    dataurl = null
-
-    update_date = (d) ->
-        elem = $("#e-"+d.eid)
-        if d.participant
-            elem.find(".plabel-going").show()
-        else if d.maybe
-            elem.find(".plabel-maybe").show()
-        else if d.waitinglist
-            elem.find(".plabel-waiting").show()
-        else
-            elem.find(".plabel-not").show()
-
-    init = () ->
-        dataurl = $(this).data("url")
-        $.ajax 
-            url: dataurl
-            type: "GET"
-            success: (data) ->
-                for d in data
-                    update_date(d)
-
-
-    $(this).each(init)
-    this
-
 
 $(document).ready () ->
     $("#eventlist").eventlist()
-    $("#datelist").datelist()
     $('.participant-avatar').tooltip
         container: 'body'
 

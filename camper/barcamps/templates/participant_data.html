@@ -2,21 +2,23 @@
 
 {% block main_content %}
     {% block title %}
-        <h1>{{_('Register for %s') %barcamp.name}}</h1>
+        <div id="participant-data">
+            <h1>{{_('My participant data for %s') %barcamp.name}}</h1>
 
-        <div class="description">
-        {{_("Please fill out this form in order to register your participation in this barcamp")}}
+            <div class="description">
+                {{_("Please enter your data for participating in this event")}}
+            </div>
+
+            <form class="validate form-horizontal" method="POST" action="{{url}}">
+                <fieldset>
+                {% for field in form %}
+                    {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
+                {% endfor %}
+                </fieldset>
+                <input type="submit" value="{{_("Save")}}" class="btn btn-primary">
+                
+            </form>
         </div>
-
-        <form class="validate form-horizontal" method="POST" action="{{url}}">
-            <fieldset>
-            {% for field in form %}
-                {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
-            {% endfor %}
-            </fieldset>
-            <input type="submit" value="{{_("Register")}}" class="btn btn-primary">
-            
-        </form>
     {% endblock %}
 
 {% endblock %}

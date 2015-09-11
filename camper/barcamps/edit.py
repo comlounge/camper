@@ -79,8 +79,13 @@ class EditView(BarcampBaseHandler):
         form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
 
         # get countries and translate them
-        trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
-            languages=[str(self.babel_locale)])
+        try:
+            trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
+        except IOError:
+            # en only has iso3166_2
+            trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
         
         countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
