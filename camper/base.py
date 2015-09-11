@@ -57,7 +57,7 @@ class UserView(object):
             except KeyError:
                 pass
         if image is not None:
-            return """<img class="profile-image-userlist" src="%s">""" %image
+            return """<img alt="%s" class="profile-image-userlist" src="%s">""" %(u.fullname, image)
         return """<div class="profile-image-userlist missing"><i class="fa fa-user"></i></div>"""
 
     @property

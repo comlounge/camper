@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['less/*.less', 'static/js/*.js'],
-                tasks: ['less', 'uglify:core'],
+                tasks: ['less', 'css'],
                 options: {
                     spawn: false,
                 },
@@ -145,6 +145,7 @@ module.exports = function(grunt) {
     //grunt.registerTask('default', ['coffee', 'less']);
     grunt.registerTask('default', ['less', 'bower_concat', 'coffee', 'uglify']);
     grunt.registerTask('js', ['concat', 'uglify']);
+    grunt.registerTask('css', ['less', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
 };

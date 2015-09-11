@@ -7797,10 +7797,6 @@ h1.logo {
 /*
  * session proposals
  */
-.media.comment .profile-image {
-  width: 32px !important;
-  height: 32px !important;
-}
 .votecontainer {
   border: 1px solid #ddd;
   padding: 5px;
@@ -7857,34 +7853,13 @@ h1.logo {
   overflow: auto;
   margin-bottom: 50px;
 }
-#sessionproposals article .media-body {
-  width: 100%;
-}
 #sessionproposals .byline {
   font-size: 90%;
   color: #888;
   margin: -5px 0 10px 0;
 }
 #sessionproposals .comment-area {
-  width: 100%;
-}
-#sessionproposals .media.comment .profile-image-userlist,
-#sessionproposals .media.comments .profile-image-userlist {
-  width: 32px;
-  height: 32px;
-}
-#sessionproposals .media.comment .profile-image-userlist.missing,
-#sessionproposals .media.comments .profile-image-userlist.missing {
-  font-size: 30px;
-}
-#sessionproposals .media.comment .media-body,
-#sessionproposals .media.comments .media-body {
-  display: block;
-}
-#sessionproposals .media.comment .comment-text,
-#sessionproposals .media.comments .comment-text {
-  min-height: 35px;
-  display: block;
+  margin-top: 30px;
 }
 #sessionproposals .description {
   font-size: 16px;
@@ -7894,6 +7869,7 @@ h1.logo {
   margin-top: 5px;
 }
 #sessionproposals footer {
+  border: 0;
   color: #aaa;
   font-size: 12px;
   margin: 0;
