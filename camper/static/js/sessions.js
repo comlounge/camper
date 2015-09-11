@@ -48,7 +48,7 @@ $(document).ready(function() {
     $(this).closest(".edit-box").hide();
     return $(this).closest(".edit-box").parent().find(".show-box").show();
   });
-  return $(".session-delete-button").click(function() {
+  $(".session-delete-button").click(function() {
     var confirm_msg, that, url;
     confirm_msg = $(this).data("confirm");
     that = this;
@@ -64,6 +64,30 @@ $(document).ready(function() {
         success: function(data, status) {
           if (data.status === "success") {
             return $(that).closest("article").css("background-color", "red").slideUp();
+          }
+        }
+      });
+    }
+    return false;
+  });
+  return $(".comment-delete-button").click(function() {
+    var comment_id, confirm_msg, that, url;
+    confirm_msg = $(this).data("confirm");
+    that = this;
+    comment_id = $(this).data("cid");
+    console.log(comment_id);
+    if (confirm(confirm_msg)) {
+      $(that).find("#comment-" + comment_id).css("background-color", "red").slideUp();
+      url = $(this).data("url");
+      $.ajax({
+        url: url,
+        data: {
+          method: "delete"
+        },
+        type: "POST",
+        success: function(data, status) {
+          if (data.status === "success") {
+            return $(that).closest("#comment-" + comment_id).css("background-color", "red").slideUp();
           }
         }
       });

@@ -57,9 +57,27 @@ $(document).ready( () ->
                         $(that).closest("article").css("background-color", "red").slideUp()
             )
         return false
-                
-
     )
+    $(".comment-delete-button").click( () ->
+        confirm_msg = $(this).data("confirm")
+        that = this
+        comment_id = $(this).data("cid")
+        console.log comment_id
+        if confirm(confirm_msg) 
+            $(that).find("#comment-" + comment_id ).css("background-color", "red").slideUp()
+            url = $(this).data("url")
+            $.ajax(
+                url: url
+                data:
+                    method: "delete"
+                type: "POST"
+                success: (data, status) ->
+                    if (data.status == "success")
+                        $(that).closest("#comment-" + comment_id).css("background-color", "red").slideUp()
+            )
+        return false
+    )
+
 )
 
 
