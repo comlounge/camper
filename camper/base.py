@@ -230,8 +230,10 @@ class BarcampView(object):
         i = 0
         for sponsor in self.barcamp.sponsors:
             width = 220
-            tag = """<a href="%s"><img width="%s" src="%s"></a>""" %(
+            tag = """<a title="%s" href="%s"><img alt="%s" width="%s" src="%s"></a>""" %(
+                sponsor['name'],
                 sponsor['url'],
+                sponsor['name'],
                 width,
                 self.handler.url_for("asset", asset_id = sponsor['logo']))
             res.append(
