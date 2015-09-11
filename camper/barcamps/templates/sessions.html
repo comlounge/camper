@@ -40,12 +40,12 @@
                         <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
                            title="{{_('Edit Session Proposal')}}"
                            href="#" 
-                           class="session-edit-button btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                           class="session-edit-button btn btn-sm btn-info"><i class="fa fa-pencil"></i></a>
                         <a data-confirm="{{_('Are you sure?')}}" 
                            data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
                            title="{{_('Delete Session Proposal')}}"
                            href="#" 
-                           class="session-delete-button btn btn-xs btn-danger"><i class="fa fa-trash"></i></a>
+                           class="session-delete-button btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                     </div>
                 {% endif %}
                 <h3 class="media-heading">{{session.title|striptags}}</h3>
@@ -63,9 +63,10 @@
                         {% if is_admin %}
                             <a href="#" 
                                 data-confirm="{{_('Are you sure?')}}"
+                                title="{{_('Delete Comment')}}"
                                 data-url="{{url_for('.session_comments', slug = slug, sid = session._id)}}"
                                 data-cid="{{comment._id}}"
-                                class="deletebutton btn-xs btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
+                                class="deletebutton btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
                         {% endif %}
                         <div class="media-left">
                             <a title="{{comment.user.fullname}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
