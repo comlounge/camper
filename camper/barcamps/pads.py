@@ -30,6 +30,7 @@ class PlanningPadView(BarcampBaseHandler):
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
+            padtitle = self._("Planning Pad"),
             show_public_switch = True,
             pad = self.barcamp.planning_pad,
             title = self.barcamp.name,
@@ -55,6 +56,7 @@ class DocumentationPadView(BarcampBaseHandler):
             barcamp = self.barcamp,
             posts = posts,
             usermap = usermap,
+            padtitle = self._("Documentation Pad"),
             pad = self.barcamp.documentation_pad,
             title = self.barcamp.name,
             form = form,
