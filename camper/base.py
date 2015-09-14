@@ -135,7 +135,7 @@ class BarcampView(object):
             return False
         try:
             gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
-        except ObjectNotFound:
+        except:
             return False
         return True
 
