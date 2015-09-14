@@ -12,6 +12,7 @@ from HTMLParser import HTMLParser
 from functools import partial
 import requests 
 import bson
+from mongogogo import ObjectNotFound
 
 from wtforms.ext.i18n.form import Form
 
@@ -130,7 +131,13 @@ class BarcampView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        return self.barcamp.gallery and self.barcamp.gallery != "-1"
+        if self.barcamp.gallery and self.barcamp.gallery != "-1":
+            return False
+        try:
+            gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
+        except ObjectNotFound:
+            return False
+        return True
 
 
     @property
