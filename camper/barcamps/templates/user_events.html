@@ -120,10 +120,10 @@
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
+                    <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
                         {{_('Participants')}}</a>
                     </li>
-                    <li role="presentation"><a href="#sessions" aria-controls="timetable" role="tab" data-toggle="tab">
+                    <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="timetable" role="tab" data-toggle="tab">
                         {{_('Timetable')}}</a>
                     </li>
                 </ul>
@@ -132,7 +132,7 @@
                 <div class="tab-content">
 
                     <!-- userlist /participants -->
-                    <div role="tabpanel" class="tab-pane active" id="userlist">
+                    <div role="tabpanel" class="tab-pane {{'active' if active_tab=='participants'}}" id="userlist">
                         
                         <section id="participants">
                             <h4>{{_('Participants')}}</h4>
@@ -150,7 +150,7 @@
                     </div>
 
                     <!-- session / timetable -->
-                    <div role="tabpanel" class="tab-pane" id="sessions">
+                    <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">
 
                         <h3 class="sr-only">{{_('Time Table')}}</h3>
                         <div class="table-responsive">

@@ -36,6 +36,7 @@ class SessionPad(BarcampBaseHandler):
 
         return self.render(
             session = session,
+            event = event,
             pad = pid,
             view = self.barcamp_view,
             barcamp = self.barcamp,

@@ -28,6 +28,7 @@ class Events(BarcampBaseHandler):
         maybe = list(ub.get_users_by_ids(e.maybe))
         waitinglist = list(ub.get_users_by_ids(e.waiting_list))
         uid = unicode(self.user._id)
+        active_tab = self.request.args.get("at", "participants")
 
         return self.render(
             view = self.barcamp_view,
@@ -37,6 +38,7 @@ class Events(BarcampBaseHandler):
             maybe = maybe,
             waitinglist = waitinglist,
             title = self.barcamp.name,
+            active_tab = active_tab,
             is_registered = self.barcamp.is_registered(self.user),
             sessionplan = e.timetable.get('sessions', {}),
             rooms = e.rooms,

@@ -1,15 +1,27 @@
+{% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
 
 {% block main_content %}
+<div id="sessionpad">
     <div class="page-header">
+        <ol class="breadcrumb">
+            <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+            <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
+            <li><a href="{{url_for('.user_events', slug = slug, eid = event._id)}}?at=timetable">{{event.name}}</a></li>
+            <li class="active">{{session.title}}</li>
+        </ol>
         <h1>{{session.title}}
         <br>    
+            <div class="authors">
+                {{_('by')}} 
+                    {% for moderator in session.moderator %}
+                        {{moderator.name}}{{ ',' if not loop.last else ''}}
+                    {% endfor %}
+            </div>
             <small>{{session.description}}</small>
         </h1>
-        {% for moderator in session.moderator %}
-            {{moderator.name}}{{ ',' if not loop.last else ''}}
-        {% endfor %}
     </div>
     <h2>{{_('Documentation')}}</h2>
-    <iframe name='embed_readwrite' src='/_pads/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=789 height=500></iframe>
+    <iframe title="{{_('Session Documentation')}}" name='embed_readwrite' src='/_pads/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width=789 height=500></iframe>
+</div>
 {% endblock %}

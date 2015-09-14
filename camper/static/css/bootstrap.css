@@ -8377,6 +8377,11 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
 #user-events-content .sessiontable .description {
   display: none;
 }
+#sessionpad h1 .authors {
+  font-size: 60%;
+  line-height: 1.5;
+  color: #555;
+}
 #blogentry header {
   overflow: auto;
 }

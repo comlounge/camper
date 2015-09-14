@@ -135,7 +135,7 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             {% for action in actions %}
-                                <li class="{{'active' if action.active}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
+                                <li class="{{'active' if active_action == action.aid}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
                             {% endfor %}
                         </ul>
                         {% if is_admin or is_main_admin %}
