@@ -1,5 +1,6 @@
 from sfext.uploader import AssetNotFound
 from wtforms.widgets import html_params
+from mongogogo import ObjectNotFound
 import bson
 
 class EntryView(object):
@@ -54,7 +55,18 @@ class EntryView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        return self.entry.gallery is not None and self.entry.gallery != "-1"
+
+        has_gallery = self.entry.gallery is not None and self.entry.gallery != "-1"
+        if not has_gallery:
+            return False
+
+        # now check if gallery still exists in the database
+        try:
+            gallery = self.config.dbs.galleries.get(bson.ObjectId(self.entry.gallery))
+        except ObjectNotFound:
+            return False
+        return True
+
 
 
     @property
