@@ -12,9 +12,9 @@ from camper.handlers.forms import *
 
 class DesignForm(BaseForm):
     """form for design aspects of a barcamp"""
-    logo                    = UploadField(T(u"Barcamp Logo"))
-    background_image        = UploadField(T(u"Background-Image"))
-    fb_image                = UploadField(T(u"Image for Facebook"))
+    logo                    = UploadField(T(u"Barcamp Logo"), description = T('The logo should be 1140px wide and not more than 400 px high'))
+    background_image        = UploadField(T(u"Background-Image"), description=T("If given, this image is used as a background behind all your barcamp content"))
+    fb_image                = UploadField(T(u"Image for Facebook"), description=T('This image is used when posting links to facebook. Best is 1200 x 630 but minimum it should be 600 x 315px'))
     #font                    = StringField(T(u"Font to use"), default='"Helvetica Neue", "Helvetica", "Arial", sans-serif')
     link_color              = ColorField(T(u"Link Color"), default='#333')
     header_color            = ColorField(T(u"Header Background Color"), default='#fcfcfa')
@@ -27,7 +27,9 @@ class DesignForm(BaseForm):
     navbar_hover_bg         = ColorField(T(u"Navbar Hover Background Color"), default='#d0d0d0')
     navbar_active_bg        = ColorField(T(u"Navbar Active Background Color"), default='#333')
 
-    gallery                 = SelectField(T(u'Gallery to show on homepage'), default = -1)
+    gallery                 = SelectField(T(u'Gallery to show on homepage'), 
+                                    description = T('The gallery will be displayed on the homepage of your barcamp between barcamp navigation and the rest of the content'), 
+                                    default = -1)
 
 
 

@@ -5,16 +5,17 @@
 <h1>{{_("Barcamp Design and Layout")}}</h1>
 
 <form id="design-form" method="POST" action="{{url}}">
+    <div class="alert alert-info alert-dismissable" role="alert">{{_('Click on the colors to open a color picker')}}</div>
     {# {{ formmacros.form_field(form.font, required=True, placeholder=_("Font to use"))}} #}
     <div class="row">
         <div class="col-sm-3">
             {{ formmacros.form_field(form.link_color, input_class="", required=True, placeholder=_('Link Color'))}}
         </div>
         <div class="col-sm-3">
-            {{ formmacros.form_field(form.header_color, input_class="", required=True, placeholder=_('Header Background Color'))}}
+            {{ formmacros.form_field(form.text_color, input_class="", required=True, placeholder=_('Text Color'))}}
         </div>
         <div class="col-sm-3">
-            {{ formmacros.form_field(form.text_color, input_class="", required=True, placeholder=_('Text Color'))}}
+            {{ formmacros.form_field(form.header_color, input_class="", required=True, placeholder=_('Header Background Color'))}}
         </div>
         <div class="col-sm-3">
             {{ formmacros.form_field(form.background_color, input_class="", required=True, placeholder=_('Background Color'))}}
@@ -57,6 +58,7 @@
         label=_("Upload Image"), delete_label=_("Delete"), revert_label=("Revert"),
         preview_url = view.fb_image_url.small,
         upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+
     <input type="submit" class="btn btn-lg btn-primary" value="{{_('Update')}}">
 </form>
 
