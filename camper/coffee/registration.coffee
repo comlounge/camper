@@ -46,18 +46,23 @@ $.fn.eventlist = (opts, {}) ->
         elem.find(".size").text(d.size)
 
 
+        update = (elem) ->
+            elem.find(".plabel").hide()
+
+            if d.participant
+                elem.find(".plabel-going").show()
+            else if d.maybe
+                elem.find(".plabel-maybe").show()
+            else if d.waitinglist
+                elem.find(".plabel-waiting").show()
+            else
+                elem.find(".plabel-not").show()
+
         # update datelist
         elem = $("#ne-"+d.eid)
-        elem.find(".plabel").hide()
-
-        if d.participant
-            elem.find(".plabel-going").show()
-        else if d.maybe
-            elem.find(".plabel-maybe").show()
-        else if d.waitinglist
-            elem.find(".plabel-waiting").show()
-        else
-            elem.find(".plabel-not").show()
+        update(elem)
+        elem = $("#ne2-"+d.eid)
+        update(elem)
 
     
     init = () ->

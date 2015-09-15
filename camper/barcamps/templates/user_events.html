@@ -22,7 +22,7 @@
 
         <!-- sidebar -->
         <div class="col-lg-2 col-md-2" id="eventlisting-area" role="navigation">
-            <ul class="nav nav-pills nav-stacked" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}"> 
+            <ul class="nav nav-pills nav-stacked datelist" id="datelist-sidebar" data-url="{{url_for('.registrationdata', slug=slug)}}"> 
                 {% for event in barcamp.eventlist %}
                     <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
                         <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
@@ -63,18 +63,6 @@
         
         <!-- main content -->
         <div class="col-md-10" id="content-area" role="main">
-            <ul class="nav nav-pills hide" id="datelist" data-url="{{url_for('.registrationdata', slug=slug)}}" 
-                    style="margin-bottom: 20px;" 
-                    role="navigation">
-                {% for event in barcamp.eventlist %}
-                    <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
-                        <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
-                            {{event.name}}
-                            <span class="event-date">{{dateformat(event.date)}}</span>
-                        </a></li>
-                {% endfor %}
-            </ul>
-
 
             <div role="tabpanel" id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
 
@@ -126,7 +114,7 @@
                     <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
                         {{_('Participants')}}</a>
                     </li>
-                    <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="timetable" role="tab" data-toggle="tab">
+                    <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
                         {{_('Timetable')}}</a>
                     </li>
                 </ul>
@@ -159,9 +147,9 @@
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered sessiontable">
                                 <colgroup>
-                                    <col width="10%"></col>
+                                    <col style="width: 10%">
                                     {% for room in rooms %}
-                                        <col width="{{90/rooms|length}}"></col>
+                                        <col style="width: {{90/rooms|length}}%">
                                     {% endfor %}
                                 </colgroup>
                                 <thead>
@@ -169,7 +157,7 @@
                                         <th>&nbsp;</th>
                                         {% for room in rooms %}
                                         <th>
-                                            <h4>{{room.name}}</h4>
+                                            {{room.name}}
                                             <small>{{room.description}}</small><br>
                                             <small>{{room.capacity}} {{_("persons")}}</small>
                                         </th>
