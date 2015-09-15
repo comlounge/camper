@@ -44,6 +44,8 @@
 
     {{ formmacros.form_field(form.gallery) }}
 
+    {{ formmacros.form_field(form.hide_tabs) }}
+
     {{ formmacros.form_field(form.logo, input_class="",
         label=_("Upload Image"), delete_label=_("Delete"), revert_label=("Revert"),
         preview_url = view.logo_url.small,

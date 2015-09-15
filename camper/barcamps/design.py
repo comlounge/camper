@@ -10,6 +10,17 @@ from .base import BarcampBaseHandler
 from camper import utils
 from camper.handlers.forms import *
 
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+
 class DesignForm(BaseForm):
     """form for design aspects of a barcamp"""
     logo                    = UploadField(T(u"Barcamp Logo"), description = T('The logo should be 1140px wide and not more than 400 px high'))
@@ -26,6 +37,14 @@ class DesignForm(BaseForm):
     navbar_border_color     = ColorField(T(u"Navbar Border Color"), default='#b0b0b0')
     navbar_hover_bg         = ColorField(T(u"Navbar Hover Background Color"), default='#d0d0d0')
     navbar_active_bg        = ColorField(T(u"Navbar Active Background Color"), default='#333')
+
+    hide_tabs               = MultiCheckboxField(T(u'Hide Navigation Tabs'), description=T(u'Select here which barcamp tabs not to show'),
+                                choices=[
+                                    ('sessions', T('Session Proposals')),
+                                    ('events', T('Events')),
+                                    ('blog', T('Blog')),
+                                ]
+                              )
 
     gallery                 = SelectField(T(u'Gallery to show on homepage'), 
                                     description = T('The gallery will be displayed on the homepage of your barcamp between barcamp navigation and the rest of the content'), 

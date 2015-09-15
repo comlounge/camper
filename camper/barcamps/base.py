@@ -56,13 +56,15 @@ class BarcampBaseHandler(BaseHandler):
         # we need to check for barcamp as pages use this handler, too and pages can also be on the top level 
         if bc is not None:
             actions.append(Action('home', T("Home"), uf('barcamps.index', slug = self.barcamp.slug), self.action == 'home'))
-            actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
+            if "sessions" not in bc.hide_tabs:
+                actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
             # only show events if we actually have any defined
-            if bc.events:
+            if bc.events and "events" not in bc.hide_tabs:
                 actions.append(Action('events', T("events"), uf('barcamps.user_events', slug = bc.slug), self.action == 'events'))
             if bc.planning_pad_public or self.is_admin:
                 actions.append(Action('planning', T("planning"), uf('barcamps.planning_pad', slug = bc.slug), self.action == 'planning'))
-            actions.append(Action('blog', T("Blog"), uf('blog.view', slug = bc.slug), self.action == 'blog'))
+            if self.config.dbs.blog.by_barcamp(self.barcamp, only_published = True).count() > 0 and "blog" not in bc.hide_tabs:
+                actions.append(Action('blog', T("Blog"), uf('blog.view', slug = bc.slug), self.action == 'blog'))
             for page in self.barcamp_view.pages_for("menu"):
                 pid = "page_%s" %page._id
                 actions.append(Action(pid, page.menu_title, uf('pages.barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))

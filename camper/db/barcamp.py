@@ -298,6 +298,7 @@ class BarcampSchema(Schema):
     navbar_border_color = String() # border color of all navbar items
     navbar_active_bg    = String() # bg color of active item
     navbar_hover_bg     = String() # bg color when hovering
+    hide_tabs           = List(String(), default=[]) # list of tab ids to hide
 
     gallery             = String() # gallery to show on homepage
 
@@ -343,7 +344,8 @@ class Barcamp(Record):
         'navbar_active_bg'      : '#555',
         'navbar_active_color'   : '#eee',
         'navbar_border_color'   : '#f0f0f0',
-        'navbar_hover_bg'       : '#f8f8f8'
+        'navbar_hover_bg'       : '#f8f8f8',
+        'hide_tabs'             : [],
 
 
     }
