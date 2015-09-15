@@ -27,9 +27,9 @@ class IndexView(BaseHandler):
             }).sort("created",pymongo.DESCENDING)
         else:
             my_barcamps = None
-        soon_barcamps = [BarcampView(barcamp, self) for barcamp in soon_barcamps]
+        soon_barcamps = [BarcampView(barcamp, self) for barcamp in soon_barcamps if not barcamp.hide_barcamp]
         soon_barcamps = [b  for b in soon_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
-        new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps]
+        new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps if not barcamp.hide_barcamp]
         new_barcamps = [b  for b in new_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
         if my_barcamps:
             my_barcamps = [BarcampView(barcamp, self) for barcamp in my_barcamps]

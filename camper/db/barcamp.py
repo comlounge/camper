@@ -276,6 +276,8 @@ class BarcampSchema(Schema):
     twitterwall         = String() # URL
     #fbAdminId           = String() # optional admin id for facebook use
 
+    hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
+
     # documentation
     planning_pad        = String() # ID of the planning etherpad
     documentation_pad   = String() # ID of the pad for documentation
@@ -346,6 +348,7 @@ class Barcamp(Record):
         'navbar_border_color'   : '#f0f0f0',
         'navbar_hover_bg'       : '#f8f8f8',
         'hide_tabs'             : [],
+        'hide_barcamp'          : False,
 
 
     }
