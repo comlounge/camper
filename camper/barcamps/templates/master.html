@@ -52,13 +52,13 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta property="og:image" content="http://" />
-    <meta property="og:description" content="{{barcamp.description|e}}" />
+    <meta property="og:description" content="{{barcamp.seo_description|textify}}" />
     {% if barcamp.hide_barcamp %}
     <meta name="robots" value="noindex, nofollow">
     {% endif %}
     <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamps.index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
-    <meta name="description" content="{{barcamp.description|e}}" />
+    <meta name="description" content="{{barcamp.seo_description|textify}}" />
 
     <style>
         body, #barcamppage {

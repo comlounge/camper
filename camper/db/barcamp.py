@@ -267,15 +267,18 @@ class BarcampSchema(Schema):
     registration_date   = Date() # date when the registration starts
     start_date          = Date()
     end_date            = Date()
-    #size                = Integer(default = 0) # amount of people allowed
+
+    seo_description     = String() # description for meta tags
+    seo_keywords        = String() # keywords for meta tags
+    
     twitter             = String() # only the username
     hashtag             = String()
     gplus               = String()
     facebook            = String() # facebook page
     homepage            = String() # URL
     twitterwall         = String() # URL
-    #fbAdminId           = String() # optional admin id for facebook use
 
+    
     hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
 
     # documentation
@@ -349,6 +352,8 @@ class Barcamp(Record):
         'navbar_hover_bg'       : '#f8f8f8',
         'hide_tabs'             : [],
         'hide_barcamp'          : False,
+        'seo_description'       : '', 
+        'seo_keywords'          : ''
 
 
     }

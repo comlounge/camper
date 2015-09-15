@@ -63,6 +63,10 @@ else:
 def markdownify(text, level=1):
     return bleach.linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
 
+def textify(text):
+    """return a plain text copy of a possible html text"""
+    return bleach.clean(text, strip = True, tags = [])
+
 ###
 ### i18n
 ###
@@ -231,6 +235,7 @@ class CamperApp(Application):
         'currency' : do_currency,
         'tojson' : _tojson_filter,
         'md' : markdownify,
+        'textify' : textify,
     }
 
     routes = [

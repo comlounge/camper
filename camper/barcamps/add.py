@@ -26,6 +26,10 @@ class BarcampAddForm(BaseForm):
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
     )
+    seo_description     = TextField(T('Meta Description'), 
+                            [validators.Length(max=160)],
+                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
+    hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
