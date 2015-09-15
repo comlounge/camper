@@ -5,7 +5,7 @@ $.fn.eventlist = function(opts, _arg) {
   _arg;
   dataurl = null;
   update_event = function(d) {
-    var elem, update;
+    var elem;
     elem = $("#e-" + d.eid);
     elem.find(".plabel").hide();
     elem.find(".dlabel").hide();
@@ -45,22 +45,17 @@ $.fn.eventlist = function(opts, _arg) {
     }
     elem.find(".filled").text(d.filled);
     elem.find(".size").text(d.size);
-    update = function(elem) {
-      elem.find(".plabel").hide();
-      if (d.participant) {
-        return elem.find(".plabel-going").show();
-      } else if (d.maybe) {
-        return elem.find(".plabel-maybe").show();
-      } else if (d.waitinglist) {
-        return elem.find(".plabel-waiting").show();
-      } else {
-        return elem.find(".plabel-not").show();
-      }
-    };
     elem = $("#ne-" + d.eid);
-    update(elem);
-    elem = $("#ne2-" + d.eid);
-    return update(elem);
+    elem.find(".plabel").hide();
+    if (d.participant) {
+      return elem.find(".plabel-going").show();
+    } else if (d.maybe) {
+      return elem.find(".plabel-maybe").show();
+    } else if (d.waitinglist) {
+      return elem.find(".plabel-waiting").show();
+    } else {
+      return elem.find(".plabel-not").show();
+    }
   };
   init = function() {
     dataurl = $(this).data("url");
