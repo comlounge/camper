@@ -1698,7 +1698,7 @@ msgstr "Zurücksetzen"
 
 #: barcamps/templates/admin/mails_edit.html:7
 msgid "Edit mail templates"
-msgstr "Bearbeite Mail-Templates"
+msgstr "Bearbeite Email-Vorlagen"
 
 #: barcamps/templates/admin/mails_edit.html:9
 msgid "for your barcamp"
@@ -2342,7 +2342,7 @@ msgstr "Galerien"
 
 #: templates/admin_master.html:32
 msgid "edit mail templates"
-msgstr "Mail-Templates"
+msgstr "Email-Vorlagen"
 
 #: templates/admin_master.html:33
 msgid "download participants"
