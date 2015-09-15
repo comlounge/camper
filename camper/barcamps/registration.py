@@ -83,9 +83,10 @@ class RegistrationData(BarcampBaseHandler):
 
     @ensure_barcamp()
     @asjson()
-    @logged_in()
     def get(self, slug = None):
         """return the list of events with state of user"""
+        if not self.logged_in:
+            return {}
         r = []
         uid = unicode(self.user._id)
         for e in self.barcamp.eventlist:
