@@ -27,7 +27,10 @@ class Events(BarcampBaseHandler):
         participants = list(ub.get_users_by_ids(e.participants))
         maybe = list(ub.get_users_by_ids(e.maybe))
         waitinglist = list(ub.get_users_by_ids(e.waiting_list))
-        uid = unicode(self.user._id)
+        if self.logged_in:
+            uid = unicode(self.user._id)
+        else:
+            uid = None
         active_tab = self.request.args.get("at", "participants")
 
         return self.render(

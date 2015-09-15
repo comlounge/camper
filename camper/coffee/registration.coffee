@@ -46,6 +46,7 @@ $.fn.eventlist = (opts, {}) ->
         elem.find(".size").text(d.size)
 
 
+
         # update datelist
         elem = $("#ne-"+d.eid)
         elem.find(".plabel").hide()

@@ -8222,7 +8222,7 @@ section {
   font-weight: normal;
   font-size: 13px;
 }
-#user-events-content #datelist .plabel {
+#user-events-content .datelist .plabel {
   display: inline;
   padding: .2em .6em .3em;
   font-size: 75%;
@@ -8236,45 +8236,45 @@ section {
   display: none;
   font-size: 9px;
 }
-a#user-events-content #datelist .plabel:hover,
-a#user-events-content #datelist .plabel:focus {
+a#user-events-content .datelist .plabel:hover,
+a#user-events-content .datelist .plabel:focus {
   color: #ffffff;
   text-decoration: none;
   cursor: pointer;
 }
-#user-events-content #datelist .plabel:empty {
+#user-events-content .datelist .plabel:empty {
   display: none;
 }
-.btn #user-events-content #datelist .plabel {
+.btn #user-events-content .datelist .plabel {
   position: relative;
   top: -1px;
 }
-#user-events-content #datelist .plabel.plabel-going {
+#user-events-content .datelist .plabel.plabel-going {
   background-color: #5cb85c;
 }
-#user-events-content #datelist .plabel.plabel-going[href]:hover,
-#user-events-content #datelist .plabel.plabel-going[href]:focus {
+#user-events-content .datelist .plabel.plabel-going[href]:hover,
+#user-events-content .datelist .plabel.plabel-going[href]:focus {
   background-color: #449d44;
 }
-#user-events-content #datelist .plabel.plabel-maybe {
+#user-events-content .datelist .plabel.plabel-maybe {
   background-color: #5bc0de;
 }
-#user-events-content #datelist .plabel.plabel-maybe[href]:hover,
-#user-events-content #datelist .plabel.plabel-maybe[href]:focus {
+#user-events-content .datelist .plabel.plabel-maybe[href]:hover,
+#user-events-content .datelist .plabel.plabel-maybe[href]:focus {
   background-color: #31b0d5;
 }
-#user-events-content #datelist .plabel.plabel-waiting {
+#user-events-content .datelist .plabel.plabel-waiting {
   background-color: #f0ad4e;
 }
-#user-events-content #datelist .plabel.plabel-waiting[href]:hover,
-#user-events-content #datelist .plabel.plabel-waiting[href]:focus {
+#user-events-content .datelist .plabel.plabel-waiting[href]:hover,
+#user-events-content .datelist .plabel.plabel-waiting[href]:focus {
   background-color: #ec971f;
 }
-#user-events-content #datelist .plabel.plabel-not {
+#user-events-content .datelist .plabel.plabel-not {
   background-color: #777777;
 }
-#user-events-content #datelist .plabel.plabel-not[href]:hover,
-#user-events-content #datelist .plabel.plabel-not[href]:focus {
+#user-events-content .datelist .plabel.plabel-not[href]:hover,
+#user-events-content .datelist .plabel.plabel-not[href]:focus {
   background-color: #5e5e5e;
 }
 #user-events-content .sessiontable {
