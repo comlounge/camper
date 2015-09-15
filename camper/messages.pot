@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-15 15:41+0200\n"
+"POT-Creation-Date: 2015-09-15 15:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2290,6 +2290,14 @@ msgstr ""
 
 #: templates/index.html:82
 msgid "New Events"
+msgstr ""
+
+#: templates/index.html:93
+msgid "supported by"
+msgstr ""
+
+#: templates/index.html:97
+msgid "in cooperation with"
 msgstr ""
 
 #: templates/macros.html:122

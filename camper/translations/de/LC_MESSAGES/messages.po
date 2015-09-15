@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-09-15 15:41+0200\n"
+"POT-Creation-Date: 2015-09-15 15:46+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -2399,6 +2399,14 @@ msgstr "Meine Veranstaltungen"
 msgid "New Events"
 msgstr "Neue Veranstaltungen"
 
+#: templates/index.html:93
+msgid "supported by"
+msgstr "gefördert durch"
+
+#: templates/index.html:97
+msgid "in cooperation with"
+msgstr "in Kooperation mit"
+
 #: templates/macros.html:122
 msgid "Really Delete?"
 msgstr "Wirklich löschen?"
@@ -2602,13 +2610,7 @@ msgstr "Profil bearbeiten"
 #~ msgstr "Treffe uns beim "
 
 #~ msgid ""
-#~ "Please fill out this form in order"
-#~ " to register your participation in "
-#~ "this barcamp"
 #~ msgstr ""
-#~ "Bitte fülle dieses Formular aus, um "
-#~ "Dich für das Barcamp als Teilnehmer "
-#~ "zu registrieren"
 
 #~ msgid "Login to join!"
 #~ msgstr ""
