@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-09-15 15:46+0200\n"
+"POT-Creation-Date: 2015-09-15 15:51+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -1572,6 +1572,10 @@ msgstr ""
 
 #: barcamps/templates/admin/galleries.html:23
 msgid "Actions"
+msgstr ""
+
+#: barcamps/templates/admin/galleries.html:41
+msgid "Title of new gallery"
 msgstr ""
 
 #: barcamps/templates/admin/galleries.html:42
