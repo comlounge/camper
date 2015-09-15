@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-09-15 15:51+0200\n"
+"POT-Creation-Date: 2015-09-15 15:57+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -790,6 +790,18 @@ msgstr "max. Personenzahl "
 #: barcamps/sessions.py:107
 msgid "your comment has been added."
 msgstr "Dein Kommentar wurde hinzugefügt."
+
+#: barcamps/sponsors.py:16
+msgid "Name of sponsor"
+msgstr "Name des Sponsors"
+
+#: barcamps/sponsors.py:17
+msgid "URL of sponsor website"
+msgstr "URL der Sponsor-Website"
+
+#: barcamps/sponsors.py:18
+msgid "Sponsor Logo"
+msgstr "Sponsor-Logo"
 
 #: barcamps/sponsors.py:51
 msgid "created new sponsor"
@@ -1992,6 +2004,10 @@ msgstr "Raumschilder"
 #: barcamps/templates/admin/sponsors.html:6
 msgid "Manage Sponsors"
 msgstr "Sponsoren verwalten"
+
+#: barcamps/templates/admin/sponsors.html:37
+msgid "Add new sponsor"
+msgstr "Neuen Sponsor anlegen"
 
 #: barcamps/templates/pdfs/sessionboard_rooms.html:15
 #: barcamps/templates/pdfs/sessionboard_roomtime.html:23

@@ -13,9 +13,9 @@ from camper.handlers.forms import *
 class SponsorForm(BaseForm):
     """form for adding a new sponsor"""
     # base data
-    name                = TextField(u"Name des Sponsors", [validators.Length(max=300), validators.Required()])
-    url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
-    image               = UploadField(u"Sponsor-Logo")
+    name                = TextField(T(u"Name of sponsor"), [validators.Length(max=300), validators.Required()])
+    url                 = TextField(T(u"URL of sponsor website"), [validators.URL(), validators.Required()])
+    image               = UploadField(T(u"Sponsor Logo"))
 
 class SponsorsView(BarcampBaseHandler):
     """shows the lists of subscribers, participants, waiting list"""

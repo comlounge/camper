@@ -34,13 +34,13 @@
         
 
     <form id="sponsor-form" method="POST" action="{{url_for("barcamps.sponsors", slug=slug)}}">
-        <h3>Neuen Sponsor anlegen</h3>
+        <h3>{{_('Add new sponsor')}}</h3>
         {{ formmacros.form_field(sponsor_form.name, required=true)}}
         {{ formmacros.form_field(sponsor_form.url, input_class="url", required=true, placeholder=_('https://'))}}
         {{ formmacros.form_field(sponsor_form.image, input_class="",
             label="Bild hochladen", delete_label="Löschen", revert_label="Zurücksetzen",
             upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
-        <div class="pull-right">
+        <div class="">
             <input type="submit" class="btn btn-lg btn-primary" value="Anlegen">
         </div>
     </form>

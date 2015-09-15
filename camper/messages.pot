@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-09-15 15:51+0200\n"
+"POT-Creation-Date: 2015-09-15 15:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -761,6 +761,18 @@ msgstr ""
 
 #: barcamps/sessions.py:107
 msgid "your comment has been added."
+msgstr ""
+
+#: barcamps/sponsors.py:16
+msgid "Name of sponsor"
+msgstr ""
+
+#: barcamps/sponsors.py:17
+msgid "URL of sponsor website"
+msgstr ""
+
+#: barcamps/sponsors.py:18
+msgid "Sponsor Logo"
 msgstr ""
 
 #: barcamps/sponsors.py:51
@@ -1896,6 +1908,10 @@ msgstr ""
 
 #: barcamps/templates/admin/sponsors.html:6
 msgid "Manage Sponsors"
+msgstr ""
+
+#: barcamps/templates/admin/sponsors.html:37
+msgid "Add new sponsor"
 msgstr ""
 
 #: barcamps/templates/pdfs/sessionboard_rooms.html:15

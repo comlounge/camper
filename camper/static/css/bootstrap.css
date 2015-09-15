@@ -7259,6 +7259,9 @@ form {
   border-bottom: 1px solid #f0f0f0;
   padding: 7px 0;
 }
+#sponsor-form {
+  margin-bottom: 130px;
+}
 #admin-sponsors {
   padding-left: 0;
   list-style: none;
