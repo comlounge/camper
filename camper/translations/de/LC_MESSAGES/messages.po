@@ -317,7 +317,7 @@ msgstr "Barcamp-Logo"
 
 #: barcamps/design.py:26
 msgid "The logo should be 1140px wide and not more than 400 px high"
-msgstr ""
+msgstr "Das Logo sollte 1140px breit sein und nicht höher als 400px."
 
 #: barcamps/design.py:27
 msgid "Background-Image"
@@ -327,7 +327,7 @@ msgstr "Hintergrundbild"
 msgid ""
 "If given, this image is used as a background behind all your barcamp "
 "content"
-msgstr ""
+msgstr "Dieses Bild ersetzt die Hintergrundfarbe."
 
 #: barcamps/design.py:28
 msgid "Image for Facebook"
@@ -337,7 +337,7 @@ msgstr "Bild für Facebook"
 msgid ""
 "This image is used when posting links to facebook. Best is 1200 x 630 but"
 " minimum it should be 600 x 315px"
-msgstr ""
+msgstr "Dieses Bild wird genutzt, wenn Links bei Facebook gepostet werden. Es sollte möglichst 1200x630 Pixel groß sein, mindestens aber 600x315 Pixel"
 
 #: barcamps/design.py:30 barcamps/templates/admin/design.html:12
 msgid "Link Color"
@@ -378,11 +378,11 @@ msgstr "Navbar aktive Hintergrundfarbe"
 
 #: barcamps/design.py:41
 msgid "Hide Navigation Tabs"
-msgstr ""
+msgstr "Navigations-Reiter verstecken "
 
 #: barcamps/design.py:41
 msgid "Select here which barcamp tabs not to show"
-msgstr ""
+msgstr "Entscheide hier, welche Reiter der Hauptnavigation angezeigt werden sollen"
 
 #: barcamps/design.py:43 barcamps/templates/sessions.html:8
 msgid "Session Proposals"
@@ -401,7 +401,7 @@ msgstr "Galerie für die Homepage"
 msgid ""
 "The gallery will be displayed on the homepage of your barcamp between "
 "barcamp navigation and the rest of the content"
-msgstr ""
+msgstr "Die Galerie wird auf der Startseite zwischen der Hauptnavigation des Barcamps und dem restlichen Inhalt angezeigt."
 
 #: barcamps/design.py:70 blog/add.py:42 blog/edit.py:29
 msgid "do not show a gallery"
@@ -1022,9 +1022,8 @@ msgid "Documentation"
 msgstr "Dokumentation"
 
 #: barcamps/templates/sessionpad.html:25
-#, fuzzy
 msgid "Session Documentation"
-msgstr "Dokumentation"
+msgstr "Session-Dokumentation"
 
 #: barcamps/templates/sessions.html:12
 msgid "Sort by:"
