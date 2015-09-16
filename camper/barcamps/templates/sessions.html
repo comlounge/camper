@@ -67,7 +67,7 @@
                                 title="{{_('Delete Comment')}}"
                                 data-url="{{url_for('.session_comments', slug = slug, sid = session._id)}}"
                                 data-cid="{{comment._id}}"
-                                class="comment-delete-button btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
+                                class="deletebutton btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
                         {% endif %}
                         <div class="media-left">
                             <a title="{{comment.user.fullname}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">

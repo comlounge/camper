@@ -58,25 +58,29 @@ $(document).ready( () ->
             )
         return false
     )
-    $(".comment-delete-button").click( () ->
-        confirm_msg = $(this).data("confirm")
-        that = this
-        comment_id = $(this).data("cid")
-        console.log comment_id
-        if confirm(confirm_msg) 
-            $(that).find("#comment-" + comment_id ).css("background-color", "red").slideUp()
-            url = $(this).data("url")
+    $(".comment .deletebutton").click( () ->
+        confirm_message = $(this).data("confirm")
+        url = $(this).data("url")
+        cid = $(this).data("cid")
+        elem = $(this).closest(".comment")
+        if confirm(confirm_message)
             $.ajax(
                 url: url
+                type: "POST"
                 data:
                     method: "delete"
-                type: "POST"
-                success: (data, status) ->
-                    if (data.status == "success")
-                        $(that).closest("#comment-" + comment_id).css("background-color", "red").slideUp()
+                    cid: cid
+                success: (data) ->
+                    if data.status=="success"
+                        elem.css("background", "red")
+                        elem.slideUp()
             )
+        else
+            return false
         return false
     )
+
+
 
 )
 

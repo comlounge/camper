@@ -298,29 +298,6 @@ $(document).ready( () ->
             return
     )
 
-    # session comment deletion
-    $(".comment .deletebutton").click( () ->
-        confirm_message = $(this).data("confirm")
-        url = $(this).data("url")
-        cid = $(this).data("cid")
-        elem = $(this).closest(".comment")
-        if confirm(confirm_message)
-            $.ajax(
-                url: url
-                type: "POST"
-                data:
-                    method: "delete"
-                    cid: cid
-                success: (data) ->
-                    if data.status=="success"
-                        elem.css("background", "red")
-                        elem.slideUp()
-            )
-        else
-            return false
-        return false
-    )
-
     $("#blog-add-button").click( () -> 
         $("#blog-add-button-container").slideUp();
         $("#blog-add-form").slideDown();
