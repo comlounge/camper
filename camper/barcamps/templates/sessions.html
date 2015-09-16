@@ -22,14 +22,22 @@
 
 
     {% for session in sessions %}
+        {% set voted_for = session.has_voted(user._id) %}
         <article class="media session">
             <div class="votecontainer pull-right" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
+                {% if logged_in %}
+                    <span class="sr-only">{{_('You have voted for this proposal. Remove your vote.') if voted_for else _('You have not voted for this proposal')}}</span>
+                {% endif %}
                 <div class="votes" id="vote-{{session._id}}">{{session.vote_count}}</div>
                 <div class="votebutton {{'disabled' if not logged_in}}">
-                    <a  title="{{_('Vote for this proposal')}}" 
+                    <a  title="{{_('Vote for this proposal') if not voted_for else _('Remove vote for this proposal')}}" 
                         id="votebutton-{{session._id}}" 
                         data-id="{{session._id}}" 
-                        class="vote {{'active' if session.has_voted(user._id) else 'inactive'}}"><i class="fa fa-thumbs-up"></i></a>
+                        class="vote {{'active' if voted_for else 'inactive'}}"><i class="fa fa-thumbs-up"></i>
+                        {% if logged_in %}
+                            <span class="sr-only">{{_('Remove your vote.') if voted_for else _('Vote for this proposal')}}</span>
+                        {% endif %}
+                        </a>
                 </div>
             </div>
             <a title="{{session.user.fullname}}" class="media-left" href="{{url_for('profile', username = session.user.username)}}">
