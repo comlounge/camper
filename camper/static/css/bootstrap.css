@@ -7749,6 +7749,18 @@ h1.logo {
 .navbar-barcamp .container-fluid {
   padding-left: 0;
 }
+.navbar-barcamp .navbar-toggle {
+  width: 40%;
+  margin: 0;
+  border-color: #dddddd;
+}
+.navbar-barcamp .navbar-toggle:hover,
+.navbar-barcamp .navbar-toggle:focus {
+  background-color: #dddddd;
+}
+.navbar-barcamp .navbar-toggle .icon-bar {
+  background-color: #888888;
+}
 .navbar-barcamp .navbar-nav > li > a {
   -webkit-transition: color 0.3s;
   transition: color 0.3s;
@@ -7783,6 +7795,11 @@ h1.logo {
 .navbar-barcamp .navbar-nav > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
+}
+@media (max-width: 991px) {
+  .navbar-barcamp .navbar-nav li a {
+    text-align: center;
+  }
 }
 #barcamp-details {
   font-size: 16px;

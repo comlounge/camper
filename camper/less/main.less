@@ -303,6 +303,8 @@ h1.logo {
     font-size: 80px;
     text-transform: uppercase;
 }
+
+
 .navbar-barcamp {
     
     margin: 0;
@@ -327,6 +329,20 @@ h1.logo {
     }
     .navbar-collapse { padding-left: 0;}
     .container-fluid { padding-left: 0;}
+
+    .navbar-toggle {
+        width: 40%;
+        margin: 0;
+        
+        border-color: @navbar-default-toggle-border-color;
+        &:hover,
+        &:focus {
+            background-color: @navbar-default-toggle-hover-bg;
+        }
+        .icon-bar {
+            background-color: @navbar-default-toggle-icon-bar-bg;
+        }
+    }
 
     .navbar-nav {
         > li > a {
@@ -370,6 +386,10 @@ h1.logo {
             &:focus {
                 color: @navbar-default-link-disabled-color;
                 background-color: @navbar-default-link-disabled-bg;
+            }
+        }
+        @media (max-width: @grid-float-breakpoint-max) {
+            li a { text-align: center;
             }
         }
     }
