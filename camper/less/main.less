@@ -230,6 +230,26 @@ body#startpage {
 ** barcamp detail seite
 */
 
+#bc-header {
+    .byline {
+        @media (min-width: @screen-md-min) {
+            .location {
+                .pull-left;
+            }
+            .date {
+                .pull-right;
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            .location, .date { 
+                text-align: center; 
+                line-height: 2;
+                font-size: 13px;
+            }
+        }
+    }
+}
+
 .bcdetail-bg {
     background: white;
     margin-top: -20px;

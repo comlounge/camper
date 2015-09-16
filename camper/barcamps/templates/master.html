@@ -106,12 +106,12 @@
                 {% endif %}
             </div>
             <div class="byline clearfix">
-                <div class="pull-left location">
+                <div class="location">
                     <i class="fa fa-location-arrow"></i> <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>, 
                     {{barcamp.location.street}}, 
                     {{barcamp.location.zip}} {{barcamp.location.city}}
                 </div>
-                <div class="pull-right date">
+                <div class="date">
                     <i class="fa fa-calendar"></i> {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
                 </div>
             </div>
