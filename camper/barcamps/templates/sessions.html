@@ -8,8 +8,8 @@
             {{_('Session Proposals')}}
         </h2>
         <div class="clearfix">
-            <div id="sort-buttons" class="pull-right">
-                {{_('Sort by:')}}
+            <div id="sort-buttons">
+                <span class="title">{{_('Sort by:')}}</span>
                 <span class="btn-group">
                     <a href="{{url_for('barcamps.sessions', slug = slug)}}?sort=date" id="sort-date" class="btn btn-xs btn-info {{'active' if sort=="date"}}">{{_('Date')}}</a>
                     <a href="{{url_for('barcamps.sessions', slug = slug)}}?sort=votes" id="sort-votes" class="btn btn-xs btn-info {{'active' if sort=="votes"}}">{{_('Votes')}}</a>

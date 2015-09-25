@@ -491,6 +491,20 @@ h1.logo {
     margin-bottom: 20px;
     .clearfix;
     display: block;
+    @media (min-width: @screen-md-min) {
+        .pull-right;
+    }
+    @media (max-width: @screen-md-max) {
+        text-align: center;
+        margin: 0 auto;
+        .btn {
+            .btn-lg;
+        }
+        .title {
+            display: none;
+            .hide;
+        }
+    }
 }
 
 .votes {

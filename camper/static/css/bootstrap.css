@@ -7908,6 +7908,27 @@ h1.logo {
 #sort-buttons:after {
   clear: both;
 }
+@media (min-width: 992px) {
+  #sort-buttons {
+    float: right !important;
+  }
+}
+@media (max-width: 1199px) {
+  #sort-buttons {
+    text-align: center;
+    margin: 0 auto;
+  }
+  #sort-buttons .btn {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 0px;
+  }
+  #sort-buttons .title {
+    display: none;
+    display: none !important;
+  }
+}
 .votes {
   font-size: 130%;
   font-weight: bold;
