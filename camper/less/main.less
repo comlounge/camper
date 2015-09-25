@@ -332,8 +332,11 @@ h1.logo {
 
     .navbar-toggle {
         width: 40%;
-        margin: 0;
-        
+        float: none;
+        margin: 0 auto;
+        display: block;
+        text-transform: uppercase;
+
         border-color: @navbar-default-toggle-border-color;
         &:hover,
         &:focus {
@@ -393,6 +396,9 @@ h1.logo {
             }
         }
     }
+    @media (max-width: @grid-float-breakpoint-max) {
+        padding-left: 15px;
+    }
 }
 
 #barcamp-details {
@@ -451,6 +457,34 @@ h1.logo {
         font-size: 80%;
         color: #888;
     }
+    .vote {
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 30px;
+        text-decoration: none;
+    }
+    .vote.active {
+        color: #fa0;
+    }
+    .vote.inactive {
+        color: #ccc;
+    }
+    @media (min-width: @screen-md-min) {
+        width: 50px;
+        .vote {
+            width: 24px;
+            height: 38px;
+            display: block;            
+        }
+    }
+    @media (max-width: @screen-md-max) {
+        width: 100%;
+        margin-left: 0;
+        background: #f8f8fa;
+        .vote {
+            .btn-block;
+        }
+    }
 }
 
 #sort-buttons {
@@ -463,22 +497,8 @@ h1.logo {
     font-size: 130%;
     font-weight: bold;
 }
-.vote {
-    width: 24px;
-    height: 38px;
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
-    font-size: 30px;
-}
-.vote.active {
-    color: #fa0;
-    //background: url(../img/star.png) no-repeat;
-}
-.vote.inactive {
-    color: #ccc;
-    //background: url(../img/star_empty.png) no-repeat;
-}
+
+
 
 
 #sessionproposals {
@@ -509,6 +529,15 @@ h1.logo {
         padding: 0;
         margin-top: 5px;
         padding-top: 2px;
+    }
+    .session-actions {
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: @screen-md-max) {
+        .media-left {
+            display: none;
+        }
     }
 }
 

@@ -24,7 +24,7 @@
     {% for session in sessions %}
         {% set voted_for = session.has_voted(user._id) %}
         <article class="media session">
-            <div class="votecontainer pull-right" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
+            <div class="votecontainer pull-right hidden-sm hidden-xs" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}" aria-hidden="true">
                 {% if logged_in %}
                     <span class="sr-only">{{_('You have voted for this proposal. Remove your vote.') if voted_for else _('You have not voted for this proposal')}}</span>
                 {% endif %}
@@ -44,19 +44,6 @@
                 {{userview(session.user).image_thumb_tag}}
             </a>
             <div class="media-body show-box">
-                {% if is_admin or user_id == session.user._id %}
-                    <div class="pull-right">
-                        <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
-                           title="{{_('Edit Session Proposal')}}"
-                           href="#" 
-                           class="session-edit-button btn btn-sm btn-info"><i class="fa fa-pencil"></i></a>
-                        <a data-confirm="{{_('Are you sure?')}}" 
-                           data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
-                           title="{{_('Delete Session Proposal')}}"
-                           href="#" 
-                           class="session-delete-button btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
-                    </div>
-                {% endif %}
                 <h3 class="media-heading">{{session.title|striptags}}</h3>
                 <div class="byline">
                     {{_('added by')}}
@@ -66,6 +53,35 @@
                 <div class="description">
                     {{session.description|md(level=3)}}
                 </div>
+
+                {% if is_admin or user_id == session.user._id %}
+                    <div class="session-actions">
+                        <a data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           title="{{_('Edit Session Proposal')}}"
+                           href="#" 
+                           class="session-edit-button btn btn-sm btn-info"><i class="fa fa-pencil"></i> {{_('Edit')}}</a>
+                        <a data-confirm="{{_('Are you sure?')}}" 
+                           data-url="{{url_for('barcamps.session', slug=slug, sid = session._id)}}" 
+                           title="{{_('Delete Session Proposal')}}"
+                           href="#" 
+                           class="session-delete-button btn btn-sm btn-danger"><i class="fa fa-trash"></i> {{_('Delete')}}</a>
+                    </div>
+                {% endif %}
+
+                <div class="votecontainer hidden-lg hidden-md" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
+                    <div class="votes" id="vote-{{session._id}}">{{session.vote_count}}</div>
+                    <div class="votebutton {{'disabled' if not logged_in}}">
+                        <a  title="{{_('Vote for this proposal') if not voted_for else _('Remove vote for this proposal')}}" 
+                            id="votebutton-{{session._id}}" 
+                            data-id="{{session._id}}" 
+                            class="vote responsive {{'active' if voted_for else 'inactive'}}"><i class="fa fa-thumbs-up"></i>
+                            {% if logged_in %}
+                                <span class="">{{_('Remove your vote.') if voted_for else _('Vote for this proposal')}}</span>
+                            {% endif %}
+                            </a>
+                    </div>
+                </div>
+
                 <div class="comment-area">
                 {% for comment in session.get_comments() %}
                     <div class="media comment" id="comment-{{comment._id}}">
@@ -108,6 +124,7 @@
                 {% endif %}
                 </div>
             </div>
+
             {% if is_admin or user_id == session.user._id %}
             <form class="media-body edit-box well form-validate" method="POST" 
                   style="display: none; width: 100%;"

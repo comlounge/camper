@@ -7751,7 +7751,10 @@ h1.logo {
 }
 .navbar-barcamp .navbar-toggle {
   width: 40%;
-  margin: 0;
+  float: none;
+  margin: 0 auto;
+  display: block;
+  text-transform: uppercase;
   border-color: #dddddd;
 }
 .navbar-barcamp .navbar-toggle:hover,
@@ -7801,6 +7804,11 @@ h1.logo {
     text-align: center;
   }
 }
+@media (max-width: 991px) {
+  .navbar-barcamp {
+    padding-left: 15px;
+  }
+}
 #barcamp-details {
   font-size: 16px;
   color: #333;
@@ -7847,6 +7855,39 @@ h1.logo {
   font-size: 80%;
   color: #888;
 }
+.votecontainer .vote {
+  margin: 0 auto;
+  cursor: pointer;
+  font-size: 30px;
+  text-decoration: none;
+}
+.votecontainer .vote.active {
+  color: #fa0;
+}
+.votecontainer .vote.inactive {
+  color: #ccc;
+}
+@media (min-width: 992px) {
+  .votecontainer {
+    width: 50px;
+  }
+  .votecontainer .vote {
+    width: 24px;
+    height: 38px;
+    display: block;
+  }
+}
+@media (max-width: 1199px) {
+  .votecontainer {
+    width: 100%;
+    margin-left: 0;
+    background: #f8f8fa;
+  }
+  .votecontainer .vote {
+    display: block;
+    width: 100%;
+  }
+}
 #sort-buttons {
   margin-bottom: 20px;
   display: block;
@@ -7870,20 +7911,6 @@ h1.logo {
 .votes {
   font-size: 130%;
   font-weight: bold;
-}
-.vote {
-  width: 24px;
-  height: 38px;
-  display: block;
-  margin: 0 auto;
-  cursor: pointer;
-  font-size: 30px;
-}
-.vote.active {
-  color: #fa0;
-}
-.vote.inactive {
-  color: #ccc;
 }
 #sessionproposals article {
   overflow: auto;
@@ -7912,6 +7939,14 @@ h1.logo {
   padding: 0;
   margin-top: 5px;
   padding-top: 2px;
+}
+#sessionproposals .session-actions {
+  margin-bottom: 10px;
+}
+@media (max-width: 1199px) {
+  #sessionproposals .media-left {
+    display: none;
+  }
 }
 #userlist .media-list.participants h5 {
   margin: 0;
