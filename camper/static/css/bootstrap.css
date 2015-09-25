@@ -7413,14 +7413,36 @@ body#startpage .frontpage-bg {
   margin-top: -20px;
   margin-bottom: 30px;
 }
+body#startpage .footer {
+  background: white;
+}
+@media (max-width: 1199px) {
+  body#startpage .footer {
+    text-align: center;
+    padding: 20px 0;
+  }
+}
 body#startpage h2 {
   color: #333;
   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
+@media (max-width: 1199px) {
+  body#startpage h2 {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+}
 body#startpage .logo-container {
   margin-bottom: 50px;
+}
+@media (max-width: 1199px) {
+  body#startpage .logo-container .btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 body#startpage h1.logo {
   margin-top: 50px;
@@ -7438,6 +7460,17 @@ body#startpage h1.logo small {
   display: block;
   font-size: 40px;
   text-transform: lowercase;
+}
+@media (max-width: 1199px) {
+  body#startpage h1.logo {
+    font-size: 50px;
+  }
+  body#startpage h1.logo span {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+  body#startpage h1.logo small {
+    font-size: 20px;
+  }
 }
 body#startpage article.barcamp {
   background: #f8f8f5;
@@ -7475,20 +7508,6 @@ body#startpage article.barcamp .byline {
 body#startpage article.barcamp.barcamp-full {
   margin-bottom: 30px;
 }
-body#startpage article.barcamp.barcamp-full .logo,
-body#startpage article.barcamp.barcamp-full .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 1200px) {
-  body#startpage article.barcamp.barcamp-full .logo,
-  body#startpage article.barcamp.barcamp-full .description {
-    float: left;
-    width: 100%;
-  }
-}
 body#startpage article.barcamp.barcamp-full .logo img,
 body#startpage article.barcamp.barcamp-full .description img {
   background: white;
@@ -7499,43 +7518,21 @@ body#startpage article.barcamp.barcamp-full h3 {
 body#startpage article.barcamp.barcamp-full .byline {
   float: right !important;
 }
-body#startpage article.barcamp.barcamp-small {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 1200px) {
-  body#startpage article.barcamp.barcamp-small {
-    float: left;
-    width: 100%;
-  }
-}
 body#startpage article.barcamp.barcamp-small img {
   background: white;
-}
-body#startpage article.barcamp.barcamp-small .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 1200px) {
-  body#startpage article.barcamp.barcamp-small .description {
-    float: left;
-    width: 100%;
-  }
 }
 body#startpage article.barcamp.barcamp-small h3 {
   padding-left: 5px;
 }
 @media (max-width: 1199px) {
   body#startpage article.barcamp h3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-top: 10px;
     margin-left: 10px;
   }
   body#startpage article.barcamp .byline {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 }
 /*

@@ -131,15 +131,34 @@ body#startpage {
         margin-top: -20px;
         margin-bottom: 30px;
     }
-    
+    .footer {
+        background: white;
+        @media (max-width: @screen-md-max) {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+    }
+
     h2 { 
         color: #333;
         font-family: 'Roboto', sans-serif;
         text-transform: uppercase;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        @media (max-width: @screen-md-max) {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
     }
     .logo-container {
         margin-bottom: 50px;
+        @media (max-width: @screen-md-max) {
+            .btn {
+                .btn-block;
+                margin-bottom: 10px;
+            }
+        }
     }
     h1.logo {
         margin-top: 50px;
@@ -156,6 +175,15 @@ body#startpage {
             display: block; 
             font-size: 40px;
             text-transform: lowercase;
+        }
+        @media (max-width: @screen-md-max) {
+            font-size: 50px;
+            span {
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+            }
+            small {
+                font-size: 20px;
+            }
         }
     }
 
@@ -193,7 +221,6 @@ body#startpage {
         }    
         &.barcamp-full {
             .logo, .description {
-                .make-lg-column(12);
                 img { background: white; }
             }
             h3 { .pull-left; }
@@ -203,10 +230,8 @@ body#startpage {
             margin-bottom: 30px;
         }
         &.barcamp-small {
-            .make-lg-column(12);
             img { background: white; }
             .description {
-                .make-lg-column(12);
             }
             h3 {
                 padding-left: 5px;
@@ -215,11 +240,13 @@ body#startpage {
         }
         @media (max-width: @screen-md-max) {
             h3 {
+                overflow: hidden;
+                text-overflow: ellipsis;
                 margin-top: 10px;
                 margin-left: 10px;
             }
             .byline {
-                margin-left: 20px;
+                margin-left: 10px;
             }
         }
 
