@@ -7750,7 +7750,7 @@ h1.logo {
   width: 40%;
   float: none;
   margin: 0 auto;
-  display: block;
+  display: none;
   text-transform: uppercase;
   border-color: #dddddd;
 }
@@ -7760,6 +7760,11 @@ h1.logo {
 }
 .navbar-barcamp .navbar-toggle .icon-bar {
   background-color: #888888;
+}
+@media (max-width: 991px) {
+  .navbar-barcamp .navbar-toggle {
+    display: block;
+  }
 }
 .navbar-barcamp .navbar-nav > li > a {
   -webkit-transition: color 0.3s;

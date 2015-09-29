@@ -361,7 +361,7 @@ h1.logo {
         width: 40%;
         float: none;
         margin: 0 auto;
-        display: block;
+        display: none;
         text-transform: uppercase;
 
         border-color: @navbar-default-toggle-border-color;
@@ -372,8 +372,8 @@ h1.logo {
         .icon-bar {
             background-color: @navbar-default-toggle-icon-bar-bg;
         }
-        @media (min-width: @grid-float-breakpoint-min) {
-            .hide;
+        @media (max-width: @grid-float-breakpoint-max) {
+            display: block;
         }
 
     }
