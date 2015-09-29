@@ -20,3 +20,4 @@ docs/_build
 tmp
 node_modules
 .DS_Store
+camper/templates/M
