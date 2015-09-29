@@ -2,6 +2,7 @@
 import starflyer
 from starflyer import redirect, AttributeMapper
 import functools
+import urllib
 import wtforms
 import userbase
 from xhtml2pdf import pisa
@@ -576,25 +577,27 @@ class BaseHandler(starflyer.Handler):
     def retrieve_location(self, street, zip, city, country):
         """retrieve coords for a location based on the address etc. stored in ``f``"""
         
-        url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s, %s&format=json&polygon=0&addressdetails=1" %(
-            street, city, country
-        )
+        query = u"%s, %s, %s" %(street, city, country)
+        query = urllib.quote(query.encode("utf-8"))
 
+        url = "https://api.mapbox.com/v4/geocode/mapbox.places/%s.json?access_token=%s" %(query, self.config.mapbox_access_token)
         data = requests.get(url).json()
+        data = data['features']
 
         if len(data)==0:
+            query = u"%s, %s" %(city, country)
+            query = urllib.quote(query.encode("utf-8"))
 
             # trying again but only with city
-            url = "http://open.mapquestapi.com/nominatim/v1/search.php?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
-                city,
-                country
-            )
+            url = "https://api.mapbox.com/v4/geocode/mapbox_places/%s.json?access_token=%s" %(query, self.config.mapbox_access_token)
             data = requests.get(url).json()
+            data = data['features']
 
         if len(data)==0:
             raise LocationNotFound()
 
-        # we have at least one entry, take the first one
-        result = data[0]
-        return result['lat'], result['lon']
+        # for some reason in geojson it is (long,lat). Oh yeah
+        return tuple(reversed(data[0]['center']))
+
+
 
