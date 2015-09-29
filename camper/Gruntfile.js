@@ -6,9 +6,11 @@ module.exports = function(grunt) {
 
         coffee: {
             compile: {
-                files: {
-                    'static/js/sessions.js': 'coffee/sesions.coffee'
-                }
+                files: 
+                    [
+                        { src: 'coffee/admin/*.coffee', dest: 'static/js/admin.js' },
+                        { src: 'coffee/*.coffee', dest: 'static/js/public.js' }
+                    ]
             }
         },
 
@@ -52,6 +54,17 @@ module.exports = function(grunt) {
         },
 
         bower_concat: {
+            public: {
+                dest: 'static/js/public_components.js',
+                cssDest: 'static/css/public_components.css',
+                include: [
+                    'jquery',
+                    'jquery-ui',
+                    'bootstrap',
+                    "mjolnic-bootstrap-colorpicker",
+                    'bootstrap-confirmation2'
+                ]
+            },
             all: {
                 dest: 'static/js/components.js',
                 cssDest: 'static/css/components.css',
@@ -91,38 +104,24 @@ module.exports = function(grunt) {
             }
         },
 
-        concat: {
-            options: {
-                stripBanners: false
-            },
-            bootstrap: {
-                src: [
-                    'tmp/bootstrap/js/transition.js',
-                    'tmp/bootstrap/js/alert.js',
-                    'tmp/bootstrap/js/button.js',
-                    'tmp/bootstrap/js/carousel.js',
-                    'tmp/bootstrap/js/collapse.js',
-                    'tmp/bootstrap/js/dropdown.js',
-                    'tmp/bootstrap/js/modal.js',
-                    'tmp/bootstrap/js/tooltip.js',
-                    'tmp/bootstrap/js/popover.js',
-                    'tmp/bootstrap/js/scrollspy.js',
-                    'tmp/bootstrap/js/tab.js',
-                    'tmp/bootstrap/js/affix.js'
-                ],
-                dest: 'static/js/bt.js'
-            }
-        },
         uglify: {
             options: {
                 preserveComments: 'some',
                 sourceMap: true
             },
-            core: {
-                src: '<%= concat.bootstrap.dest %>',
-                dest: 'static/js/bt.min.js'
+            admin: {
+                src: 'static/js/admin.js',
+                dest: 'static/js/admin.min.js'
+            },
+            public: {
+                src: 'static/js/public.js',
+                dest: 'static/js/public.min.js'
+            },
+            public_components: {
+                src: ['static/js/public_components.js'],
+                dest: 'static/js/public_components.min.js'
             }
-            /*
+            /* uglify hangs with this maybe because of https://github.com/gruntjs/grunt-contrib-uglify/issues/233
             components: {
                 src: '<%= bower_concat.all.dest %>',
                 dest: 'static/js/components.min.js'
@@ -144,7 +143,8 @@ module.exports = function(grunt) {
     // Default task(s).
     //grunt.registerTask('default', ['coffee', 'less']);
     grunt.registerTask('default', ['less', 'bower_concat', 'coffee', 'uglify']);
-    grunt.registerTask('js', ['concat', 'uglify']);
+    grunt.registerTask('js', ['coffee', 'uglify:public', 'uglify:admin', 'uglify:public_components']);
+    grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify']);
     grunt.registerTask('css', ['less', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 

@@ -14,7 +14,7 @@
     <div id="bigmap" 
         data-lat="{{barcamp.location.lat}}"  
         data-lng="{{barcamp.location.lng}}" 
-        data-apikey="{{cloudmade_key}}" 
-        data-admin="{{1 if is_admin else 0}}"
-        class="span9" style="height:600px"></div>
+        data-accesstoken="{{mapbox_access_token}}" 
+        style="width: 600px; height: 600px;"
+        ></div>
 {% endblock %}

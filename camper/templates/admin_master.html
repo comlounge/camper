@@ -10,6 +10,13 @@
 {% block head %}
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
+    {% if locale == "de" %}
+        <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js')}}"></script>
+        <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+    {% elif locale == "en" %}
+        <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.en.js')}}"></script>
+    {% endif %}
+
 
 {% endblock %}
 
