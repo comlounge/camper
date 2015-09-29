@@ -154,6 +154,7 @@ class CamperApp(Application):
         'mongodb_name'          : "camper",
         'mongodb_port'          : 27017,
         'mongodb_host'          : "localhost",
+        'mongodb_url'           : "mongodb://localhost/camper",
         'mapbox_access_token'   : "",
         'mapbox_map_id'         : "",
         'secret_key'            : "7cs687cds6c786cd89&%$%&hhhs8c7zcbs87ct d7stc 8c7cs8 78 7dts 8cs97tugjgjzGUZGUzgcdcg&%%$",
@@ -263,10 +264,7 @@ class CamperApp(Application):
     def finalize_setup(self):
         """do our own configuration stuff"""
         self.config.dbs = AttributeMapper()
-        mydb = self.config.dbs.db = pymongo.Connection(
-            self.config.mongodb_host,
-            int(self.config.mongodb_port)
-        )[self.config.mongodb_name]
+        mydb = self.config.dbs.db = pymongo.MongoClient(self.config.mongodb_url)[self.config.mongodb_name]
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps, app=self, config=self.config)
         self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
         self.config.dbs.pages = db.Pages(mydb.pages, app=self, config=self.config)
