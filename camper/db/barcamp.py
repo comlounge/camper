@@ -110,12 +110,12 @@ class Event(Record):
     """wraps event data with a class to provider more properties etc."""
 
     schema = EventSchema()
-    _protected = ['barcamp']
+    _protected = ['_barcamp']
 
     def __init__(self, *args, **kwargs):
         """initialize the event"""
         super(Event, self).__init__(*args, **kwargs)
-        self.barcamp = None
+        self._barcamp = kwargs.get('_barcamp', None)
 
     @property
     def state(self):
@@ -197,7 +197,7 @@ class Event(Record):
                         self.waiting_list.remove(uid)
                     status = 'going'
             return status
-            
+
         elif status=="maybe" or status=="notgoing":
             if uid in self.participants:
                 self.participants.remove(uid)
@@ -237,6 +237,9 @@ class Event(Record):
         It returns a list of user ids so you can send out mails.
 
         """
+        # only fill participation list if we are in preregistration mode
+        if self._barcamp.preregistration:
+            return []
         uids = []
         while len(self.participants) < self.size and len(self.waiting_list)>0:
             nuid = self.waiting_list.pop(0)
@@ -403,7 +406,7 @@ class Barcamp(Record):
     def get_event(self, eid):
         """return the event for the given id or None"""
         e = self.events[eid]
-        return Event(e)
+        return Event(e, _barcamp = self)
 
     @property
     def eventlist(self):
@@ -412,7 +415,7 @@ class Barcamp(Record):
         def s(a,b):
             return cmp(a['date'], b['date'])
         events.sort(s)
-        events = [Event(e) for e in events]
+        events = [Event(e, _barcamp = self) for e in events]
         return events
 
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
@@ -479,12 +482,12 @@ class Barcamp(Record):
         if self.events == []:
             return None
         event = self.events[0]
-        event.barcamp = self
+        event._barcamp = self
         return event
 
     def get_events(self):
         """return the events wrapped in the ``Event`` class"""
-        return [Event(e) for e in self.events]
+        return [Event(e, _barcamp = self) for e in self.events]
 
     @property
     def state(self):
