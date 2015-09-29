@@ -197,6 +197,7 @@ class Event(Record):
                         self.waiting_list.remove(uid)
                     status = 'going'
             return status
+            
         elif status=="maybe" or status=="notgoing":
             if uid in self.participants:
                 self.participants.remove(uid)
@@ -207,6 +208,7 @@ class Event(Record):
             if status=="notgoing" and uid in self.maybe:
                 self.maybe.remove(uid)
             return status
+
         elif status=="waiting":
             # this is something only the admin can do
             if uid in self.participants:
@@ -217,6 +219,15 @@ class Event(Record):
                 self.waiting_list.append(uid)
             return status
 
+        elif status=="deleted":
+            # remove a user from the barcamp            
+            if uid in self.participants:
+                self.participants.remove(uid)
+            if uid in self.maybe:
+                self.maybe.remove(uid)
+            if uid in self.waiting_list:
+                self.waiting_list.remove(uid)
+            return status
 
     
     def fill_participants(self):

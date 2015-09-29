@@ -19,9 +19,9 @@
 				    	<li><a href="#" data-status="waiting" data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-right"></i> {{_('Move to waiting list')}}</a></li>
 				    {% elif typ=="waitinglist" %}
 				    	<li><a href="#" data-status="going" data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Move to participants')}}</a></li>
-				    {% elif typ=="maybe" %}
-  					{% endif %}
-				    <li><a href="#" class="text-danger"><i class="fa fa-trash"></i> {{_('remove from event')}}</a></li>
+                    {% elif typ=="maybe" %}
+                    {% endif %}
+			        <li><a href="#" data-status="deleted" data-uid="{{myuser._id}}" class="listaction"><span class="text-danger"><i class="fa fa-trash"></i> {{_('remove from event')}}</span></a></li>
   				</ul>
 			</div>
         </li>
@@ -70,6 +70,14 @@ $(document).ready( function () {
 		var uid = $(this).data("uid");
 		var status = $(this).data("status");
 		var url = document.location.href;
+        console.log($(this));
+        if (status == "deleted") {
+            var msg = $("body").data("i18n-areyousure");
+            if (!confirm(msg)) {
+                return true;
+            }
+        }
+
 		$.ajax({
 			url: url,
 			type: "POST",

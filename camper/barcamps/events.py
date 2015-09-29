@@ -299,7 +299,7 @@ class EventParticipants(BarcampBaseHandler):
         user = self.app.module_map.userbase.get_user_by_id(uid)
 
         status = event.set_status(uid, status, force = True)
-
+        
         # send out the mail
         view = self.barcamp_view
         if status=="going":
@@ -318,7 +318,9 @@ class EventParticipants(BarcampBaseHandler):
                 title = self.barcamp.name,
                 **self.barcamp)
 
+        # eventually fill in new people in the participant list
         uids = event.fill_participants()
+
         users = self.app.module_map.userbase.get_users_by_ids(uids)
         for user in users:
             # send out a welcome email
