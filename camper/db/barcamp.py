@@ -280,6 +280,8 @@ class BarcampSchema(Schema):
 
     
     hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
+    preregistration     = Boolean(default=False) # if ppl need to be put manually on the participation list
+
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
