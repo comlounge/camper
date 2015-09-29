@@ -180,7 +180,7 @@ class Event(Record):
         """
 
         if status=="going":
-            if not force and len(self.participants) >= self.size:
+            if not force and (len(self.participants) >= self.size or self._barcamp.preregistration):
                 # user induced action
                 if uid not in self.waiting_list:
                     self.waiting_list.append(uid)
