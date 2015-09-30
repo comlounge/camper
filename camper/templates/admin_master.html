@@ -12,15 +12,14 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
 
     <script src="{{url_for('static', filename='js/components.js')}}"></script>
-    <script src="{{url_for('static', filename='js/TweenMax.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/admin.js')}}"></script>
-    <script src="{{url_for("static", filename='js/components/parsleyjs/dist/parsley.remote.min.js')}}"></script>
+    <script src="{{url_for("static", filename='js/parsley.remote.min.js')}}"></script>
     
     {% if locale == "de" %}
-        <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.de.js')}}"></script>
-        <script src="{{url_for('static', filename='js/components/angular-i18n/angular-locale_de-de.js')}}"></script>
+        <script src="{{url_for('static', filename='js/bootstrap-datepicker.de.js')}}"></script>
+        <script src="{{url_for('static', filename='js/angular-locale_de-de.js')}}"></script>
     {% elif locale == "en" %}
-        <script src="{{url_for('static', filename='js/components/bootstrap-datepicker/js/locales/bootstrap-datepicker.en.js')}}"></script>
+        <script src="{{url_for('static', filename='js/bootstrap-datepicker.en-GB.js')}}"></script>
     {% endif %}
 
 
