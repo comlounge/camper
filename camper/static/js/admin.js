@@ -507,49 +507,6 @@
 
   $(document).ready(function() {
     $(".urlscheme").limitchars();
-    $(".form-validate").validate({
-      noshowErrors: function(errorMap, errorList) {
-        var form, position;
-        $.each(this.successList, function(index, value) {
-          $(value).removeClass("has-error");
-          return $(value).popover('hide');
-        });
-        form = this.currentForm;
-        position = $(form).data("errorposition") || 'right';
-        return $.each(errorList, function(index, value) {
-          var _popover;
-          _popover = $(value.element).popover({
-            trigger: 'manual',
-            placement: position,
-            content: value.message,
-            template: '<div class="popover error"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'
-          });
-          _popover.data('popover').options.content = value.message;
-          $(value.element).addClass("has-error");
-          return $(value.element).popover('show');
-        });
-      }
-    });
-    $("#sponsor-form").validate({
-      rules: {
-        "upload-value-id": {
-          required: true
-        }
-      },
-      submitHandler: function(form) {
-        if ($(form).find("#image").val()) {
-          return form.submit();
-        } else {
-          return alert("Bitte lade ein Logo hoch");
-        }
-      },
-      highlight: function(label) {
-        return $(label).closest('.form-group').addClass('has-error');
-      },
-      success: function(label) {
-        return label.text('').closest('.form-group').removeClass("has-error").addClass('has-success');
-      }
-    });
     $(".action-confirm").click(function() {
       var confirm_msg;
       confirm_msg = $(this).data("confirm");

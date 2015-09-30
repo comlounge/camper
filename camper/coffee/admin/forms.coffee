@@ -320,49 +320,6 @@ bm(jQuery)
 
 $(document).ready( () ->
     $(".urlscheme").limitchars()
-    # TODO: remove this old code once parsley is working
-    $(".form-validate").validate(
-        noshowErrors: (errorMap, errorList) ->
-            $.each( this.successList , (index, value) ->
-                $(value).removeClass("has-error")
-                $(value).popover('hide')
-            )
-            form = this.currentForm
-            position = $(form).data("errorposition") or 'right'
-            $.each( errorList , (index, value) ->
-                _popover = $(value.element).popover(
-                        trigger: 'manual'
-                        placement: position
-                        content: value.message
-                        template: '<div class="popover error"><div class="arrow"></div><div class="popover-inner"><div class="popover-content"><p></p></div></div></div>'
-                )
-
-                _popover.data('popover').options.content = value.message
-                $(value.element).addClass("has-error")
-                $(value.element).popover('show')
-            )
-    )
-    $("#sponsor-form").validate(
-        rules: {
-          "upload-value-id": {
-            required: true
-          },
-        },
-
-        submitHandler: (form) ->
-            if $(form).find("#image").val()
-                form.submit()
-            else
-                alert("Bitte lade ein Logo hoch")
-    
-        highlight: (label) ->
-            $(label).closest('.form-group').addClass('has-error')
-        success: (label) ->
-            label
-                .text('')
-                .closest('.form-group').removeClass("has-error").addClass('has-success')
-    )
-
     # generic confirm button
     $(".action-confirm").click( () ->
         confirm_msg = $(this).data("confirm")

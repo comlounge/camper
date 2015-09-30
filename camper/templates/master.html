@@ -18,11 +18,11 @@
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
 
+        <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/public_components.css")}}" />
         <link href="{{url_for("static", filename="css/font-awesome.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/bootstrap.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
-        <link rel="stylesheet" href="{{url_for("static", filename="js/components/jquery-ui/themes/smoothness/jquery-ui.min.css")}}">
 
         <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
         <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
@@ -41,7 +41,8 @@
         <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
         <link rel="icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
  
-        <script src="{{url_for('static', filename='js/components/angular/angular.min.js')}}"></script>
+        <script src="{{url_for("static", filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/angular.min.js')}}"></script>
         <script src="{{url_for('static', filename='js/TweenMax.min.js')}}"></script>
 
         {% block head %}
@@ -157,9 +158,9 @@
         <script src="{{url_for('static', filename='js/public.js')}}"></script>
 
         {% if locale == "de" %}
-            <script src="{{url_for('static', filename='js/components/parsleyjs/src/i18n/de.js')}}"></script>
+            <script src="{{url_for('static', filename='js/parsley-de.js')}}"></script>
         {% elif locale == "en" %}
-            <script src="{{url_for('static', filename='js/components/parsleyjs/src/i18n/en.js')}}"></script>
+            <script src="{{url_for('static', filename='js/parsley-en.js')}}"></script>
         {% endif %}
         
         <script>

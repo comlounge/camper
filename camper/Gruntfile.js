@@ -58,7 +58,6 @@ module.exports = function(grunt) {
                 dest: 'static/js/public_components.js',
                 cssDest: 'static/css/public_components.css',
                 include: [
-                    'jquery',
                     'jquery-ui',
                     'bootstrap',
                     "mjolnic-bootstrap-colorpicker",
@@ -73,14 +72,15 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
+                    'jquery-ui',
+                    "bootstrap",
+                    "jquery-timepicker-jt",
                     "angular-mocks",
                     "angular-route",
                     "angular-jquery-timepicker",
                     "ng-tags-input",
-                    "jquery-timepicker-jt",
                     "angular-ui-sortable",
                     "angular-ui-autocomplete",
-                    "angular-i18n",
                     "underscore",
                     "angular-promise-tracker",
                     "marked",
