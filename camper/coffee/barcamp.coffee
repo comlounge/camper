@@ -234,6 +234,8 @@ $.fn.uploader2 = (opts = {}) ->
 
 $(document).ready( () ->
 
+    console.log "okok"
+
     $(".gallerycontainer").gallery()
 
     $(".upload-widget").uploader()
@@ -325,8 +327,6 @@ $(document).ready( () ->
         false
     )
 
-    $(".colorpicker-container").colorpicker();
-
     $("a.form-submit").click ->
         action = $(this).attr("href")
         form = $(this).closest("form")
@@ -388,7 +388,49 @@ $(document).ready( () ->
     # event selector on events pages
     $("#select-event").change ->
         window.location = $("#select-event option:selected").attr("value")
+    
+
+    # location modal opener
+    map = null
+    layer = null
+    $(".open-location-modal").click( (e) ->
+        e.preventDefault()
         
+        title = $(this).data("title")
+        $("#location-title").text(title)
+        
+        accesstoken = $(this).data("accesstoken")
+        L.mapbox.accessToken = accesstoken
+        if !map
+            map = L.mapbox.map('location-map', 'mapbox.streets')
+
+        lat = $(this).data("lat")
+        lng = $(this).data("lng")
+        map.setView([lat, lng], 14)
+
+        # set marker
+
+        if layer
+            map.removeLayer(layer)
+        layer = L.mapbox.featureLayer(
+            type: 'Feature'
+            geometry: 
+                type: 'Point'
+                coordinates: [lng, lat]
+            properties: 
+                title: title
+                description: ""
+                "marker-symbol": "star"
+                "marker-size": "medium"
+                "marker-color": "#f44"
+        ).addTo(map);
+
+        # now open the modal
+        $('#location-modal').modal 'show'
+    )
+    $('#location-modal').on('shown.bs.modal', () ->
+        map.invalidateSize()
+    )
 )
 
 

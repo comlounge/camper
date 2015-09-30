@@ -263,6 +263,8 @@
   };
 
   $(document).ready(function() {
+    var layer, map;
+    console.log("okok");
     $(".gallerycontainer").gallery();
     $(".upload-widget").uploader();
     $('[data-toggle=confirmation]').confirmation({
@@ -357,7 +359,6 @@
       }
       return false;
     });
-    $(".colorpicker-container").colorpicker();
     $("a.form-submit").click(function() {
       var action, form;
       action = $(this).attr("href");
@@ -418,8 +419,45 @@
       marker = L.marker([lat, lng]).addTo(map);
       return console.log(marker);
     });
-    return $("#select-event").change(function() {
+    $("#select-event").change(function() {
       return window.location = $("#select-event option:selected").attr("value");
+    });
+    map = null;
+    layer = null;
+    $(".open-location-modal").click(function(e) {
+      var accesstoken, lat, lng, title;
+      e.preventDefault();
+      title = $(this).data("title");
+      $("#location-title").text(title);
+      accesstoken = $(this).data("accesstoken");
+      L.mapbox.accessToken = accesstoken;
+      if (!map) {
+        map = L.mapbox.map('location-map', 'mapbox.streets');
+      }
+      lat = $(this).data("lat");
+      lng = $(this).data("lng");
+      map.setView([lat, lng], 14);
+      if (layer) {
+        map.removeLayer(layer);
+      }
+      layer = L.mapbox.featureLayer({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [lng, lat]
+        },
+        properties: {
+          title: title,
+          description: "",
+          "marker-symbol": "star",
+          "marker-size": "medium",
+          "marker-color": "#f44"
+        }
+      }).addTo(map);
+      return $('#location-modal').modal('show');
+    });
+    return $('#location-modal').on('shown.bs.modal', function() {
+      return map.invalidateSize();
     });
   });
 

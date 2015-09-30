@@ -89,12 +89,9 @@
         #barcamppage .navbar-barcamp .navbar-nav > li:hover > a {
             background: {{barcamp.navbar_hover_bg}};
         }
-
-
-
     </style>
-
 {% endblock %}
+
 {% block topcontainer %}
     <div class="bcdetail-bg" id="bc-header" role="banner">
         <div class="container">
@@ -107,9 +104,17 @@
             </div>
             <div class="byline clearfix">
                 <div class="location">
-                    <i class="fa fa-location-arrow"></i> <a href="{{url_for('barcamps.location', slug=slug)}}"><strong>{{barcamp.location.name}}</strong></a>, 
-                    {{barcamp.location.street}}, 
-                    {{barcamp.location.zip}} {{barcamp.location.city}}
+                    <i class="fa fa-location-arrow"></i> <a href="#" 
+                        class="open-location-modal"
+                        title = "{{_('Open map in modal')}}"
+                        data-accesstoken = "{{mapbox_access_token}}"
+                        data-lat = "{{barcamp.location.lat}}" 
+                        data-lng = "{{barcamp.location.lng}}"
+                        data-title = "{{barcamp.location.name|e}}">
+                            <strong>{{barcamp.location.name|e}}</strong>
+                    </a>, 
+                    {{barcamp.location.street|e}}, 
+                    {{barcamp.location.zip|e}} {{barcamp.location.city|e}}
                 </div>
                 <div class="date">
                     <i class="fa fa-calendar"></i> {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
@@ -122,6 +127,24 @@
 
 {# we replace the whole container because of the image gallery #}
 {% block container %}
+    <div class="modal fade" id="location-modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="location-title"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="locationmap" id="location-map" style="height: 400px; width: 100%;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 
     <div class="container" id="barcamp">
         <div id="barcamp-menu">
