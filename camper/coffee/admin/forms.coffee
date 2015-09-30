@@ -319,7 +319,11 @@ bm = ($) ->
 bm(jQuery)
 
 $(document).ready( () ->
+
+    $(".colorpicker-container").colorpicker();
+
     $(".urlscheme").limitchars()
+    
     # generic confirm button
     $(".action-confirm").click( () ->
         confirm_msg = $(this).data("confirm")

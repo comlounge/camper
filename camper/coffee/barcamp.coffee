@@ -326,7 +326,6 @@ $(document).ready( () ->
     )
 
     $(".colorpicker-container").colorpicker();
-    #$("#location-picker").colorbox({inline:true, width:642});
 
     $("a.form-submit").click ->
         action = $(this).attr("href")
