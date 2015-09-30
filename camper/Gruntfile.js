@@ -15,13 +15,20 @@ module.exports = function(grunt) {
         },
 
         watch: {
-            scripts: {
-                files: ['less/*.less', 'static/js/*.js'],
+            css: {
+                files: ['less/*.less'],
                 tasks: ['less', 'css'],
                 options: {
                     spawn: false,
                 },
             },
+            js: {
+                files: ['coffee/**/*.coffee'],
+                tasks: ['js'],
+                options: {
+                    spawn: false,
+                },
+            }
         },
 
         less: {
@@ -118,7 +125,7 @@ module.exports = function(grunt) {
                 dest: 'static/js/public.min.js'
             },
             public_components: {
-                src: ['static/js/public_components.js'],
+                src: ['static/js/public_components.js', 'static/js/fileuploader.js'],
                 dest: 'static/js/public_components.min.js'
             }
             /* uglify hangs with this maybe because of https://github.com/gruntjs/grunt-contrib-uglify/issues/233

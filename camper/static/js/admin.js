@@ -506,6 +506,7 @@
   bm(jQuery);
 
   $(document).ready(function() {
+    $(".colorpicker-container").colorpicker();
     $(".urlscheme").limitchars();
     $(".action-confirm").click(function() {
       var confirm_msg;
