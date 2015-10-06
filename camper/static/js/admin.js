@@ -777,298 +777,295 @@
 }).call(this);
 
 (function() {
-  var INTEGER_REGEXP, app, guid, s4;
+  's4 = () ->\n    Math.floor((1 + Math.random()) * 0x10000)\n           .toString(16)\n           .substring(1)\n\nguid = () ->\n    return s4() + s4() + \'-\' + s4() + \'-\' + s4() + \'-\' +\n           s4() + \'-\' + s4() + s4() + s4()\n\napp = angular.module(\'barcamptool\', [\'ui.timepicker\', \'ui.sortable\', \'ngTagsInput\', \'ui.autocomplete\']);\n\napp.filter \'slice\', () ->\n    return (arr, start, end) ->\n        if arr \n            return arr.slice(start, end)\n        else\n            return arr\n\n\napp.config ($interpolateProvider) ->\n    $interpolateProvider\n    .startSymbol(\'{[{\')\n    .endSymbol(\'}]}\')\n\n\napp.controller \'SessionBoardCtrl\', ($scope, $http, $q, $filter) ->\n\n    # set some defaults\n\n    $scope.sessionplan = {}\n\n    $scope.sortableOptions =\n        axis: \'x\'\n        items: "td"\n        placeholder: "sortable-placeholder"\n        containment: \'parent\'\n        cancel: ".not-sortable"\n        opacity: 0.5\n\n    $scope.room = {\n        name: \'\',\n        description: \'\',\n        capacity: \'\'\n    }\n    $scope.timeslot = {\n        time: null,\n        blocked: false,\n        reason: \'\'\n    }\n\n    $scope.timePickerOptions =\n        step: 15\n        timeFormat: \'G:i\'\n        minTime: "00:00"\n        maxTime: "24:00"\n        appendTo: \'body\'\n\n    # load initial data from server\n    $http.get("sessionboard/data").success (data) ->\n        $scope.rooms = data.rooms\n        $scope.rooms.unshift({})\n        $scope.timeslots = data.timeslots\n        $scope.participants = data.participants\n        $scope.proposals = data.proposals\n        $scope.sessionplan = data.sessions\n\n            \n    #\n    # room related\n    #\n\n    $scope.roomModalMode = "add"\n    $scope.room_idx = null # for remembering which room to update\n\n    $scope.add_room_form = () ->\n        $scope.roomModalMode = "add"\n        $scope.room = {}\n        document.getElementById("add-room-form").reset()\n        $(\'#add-room-modal\').modal(\'show\')\n        $(\'#room-form-name\').focus()\n        undefined\n\n    $scope.add_room = () ->\n        if $scope.room_form.$error.$invalid\n            return\n        $scope.room.id = guid()\n        $scope.rooms.push($scope.room)\n        $scope.room = angular.copy($scope.room)\n        $(\'#add-room-modal\').modal(\'hide\')\n        return\n\n    $scope.edit_room = (idx) ->\n        $scope.roomModalMode = "edit"\n        $scope.room = angular.copy($scope.rooms[idx])\n        $scope.room_idx = idx        \n        $(\'#add-room-modal\').modal(\'show\')\n        return\n    \n    $scope.update_room = () ->\n        if $scope.room_form.$error.$invalid\n            return\n        $scope.rooms[$scope.room_idx] = $scope.room\n        $(\'#add-room-modal\').modal(\'hide\')\n        return\n        \n    $scope.delete_room = (idx) ->\n        $scope.rooms.splice(idx,1)\n        undefined\n\n\n    #\n    # timeslot related\n    #\n\n    $scope.timeslotModalMode = "add"\n    $scope.timeslot_idx = null # for remembering which timeslot to update\n\n    $scope.add_timeslot_form = () ->\n        $scope.timeslotModalMode = "add"\n        document.getElementById("add-timeslot-form").reset()\n\n        # pre-set the next possible time\n        if $scope.timeslots.length\n            last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length-1]).time)\n            last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000) # convert to UTC\n            new_time = new Date(last_time.getTime() + 60*60000)\n            $("#timepicker").timepicker(\'setTime\', new_time)\n            $scope.timeslot.time = new_time\n        else\n            d = Date.now() # TODO: set the date of the day of the event\n            dd = new Date()\n            dd.setTime(d)\n            dd.setHours(9)\n            dd.setMinutes(0)\n            dd.setSeconds(0)\n            $("#timepicker").timepicker(\'option\', \'minTime\', \'00:00\')\n            $("#timepicker").timepicker(\'setTime\', dd)\n            $scope.timeslot.time = dd\n\n        $(\'#add-timeslot-modal\').modal(\'show\')\n        $(\'#timepicker\').focus()\n        return\n\n    $scope.add_timeslot = () ->\n\n        if $scope.timeslot_form.$error.$invalid\n            return\n\n        d = $scope.timeslot.time\n\n        # get the local timezone offset\n        now = new Date()\n        localOffset = now.getTimezoneOffset()\n        \n        # convert to utc by removing the local offset\n        utc = new Date(d.getTime() - localOffset*60000)\n        \n        $scope.timeslot.time = utc\n        $scope.timeslots.push $scope.timeslot\n\n        $scope.timeslots = _.sortBy($scope.timeslots, (item) ->\n            t = item.time\n            # loaded timeslots are string and not objects\n            if typeof(t) == \'string\'\n                return new Date(t)\n            return t\n        )\n        $scope.timeslot = angular.copy($scope.timeslot)\n        $(\'#add-timeslot-modal\').modal(\'hide\')\n        $scope.timeslot.blocked = false\n        $scope.timeslot.reason = ""\n        return\n\n    $scope.delete_timeslot = (idx) ->\n        $scope.timeslots.splice(idx,1)\n        undefined\n\n\n    #\n    # slot related\n    #\n\n    $scope.session_id = null # for remembering which session to update (format: $room.id@$slot.time)\n    $scope.session = {}\n    $scope.add_session = (slot, room) ->\n        d = new Date(slot.time)\n        fd = $filter(\'date\')(d, \'hh:mm\', \'UTC\')\n        idx = $scope.session_idx = room.id+"@"+fd\n        if $scope.sessionplan.hasOwnProperty(idx)\n            $scope.session = angular.copy($scope.sessionplan[idx])\n        else\n            $scope.session = \n                sid: guid() # we need a unique id for easier referencing\n                slug: \'\' # the slug for easier url referencing\n                _id: idx\n                title: \'\'\n                description: \'\'\n                moderator: []\n        \n\n        #$scope.room = angular.copy($scope.rooms[idx])\n        $(\'#edit-session-modal\').modal(\'show\')\n        $("#ac-title").focus()\n        selectedItem = null\n        $("#ac-title").autocomplete\n            source: $scope.proposals\n            appendTo: \'#edit-session-modal\'\n            open: (event, ui) ->\n                selectedItem = null\n            select: (event, ui) ->\n                selectedItem = ui\n            change: (event, ui) ->\n                selected = false\n                if selectedItem\n                    value = selectedItem.item.value\n                else\n                    return\n                user_id = selectedItem.item.user_id\n\n                # update the scope\n                $scope.$apply( () ->\n                    # search for user\n                    for user in $scope.participants\n                        if user._id == user_id\n                            $scope.session.moderator = [user]\n                            break\n                    $scope.session.title = value\n                    $scope.session.description = selectedItem.item.description\n                )\n        return\n\n    $scope.update_session = () ->\n        idx = $scope.session._id\n        $scope.session = angular.copy($scope.session)\n        \n        # create filename for it\n        orig_slug = $scope.session.title.replace(/[^a-z0-9]/gi, \'_\').toLowerCase();\n        suffix = 0\n        slug = orig_slug + \'\'\n\n        # check if slug is already taken\n        while true\n            for sid, session of $scope.sessionplan\n                if session.slug == slug and idx != sid\n                    suffix++  \n                    slug = orig_slug+suffix # append number\n                    break\n            break\n\n        $scope.session.slug = slug\n\n        $scope.sessionplan[idx] = $scope.session\n        $(\'#edit-session-modal\').modal(\'hide\')\n        return\n\n\n    $scope.get_session_id = (slot, room) ->\n        d = new Date(slot.time)\n        fd = $filter(\'date\')(d, \'hh:mm\', \'UTC\')\n        idx = room.id+"@"+fd\n        return idx\n     \n    $scope.loadParticipants = () ->\n        deferred = $q.defer()\n        deferred.resolve($scope.participants)\n        return deferred.promise;\n\n    #\n    # server communications\n    #\n\n    $scope.save_to_server = () ->\n        # clean up rooms\n        rooms = angular.copy($scope.rooms)\n        rooms.splice(0,1) # remove first empty element\n        data = \n            rooms: rooms\n            timeslots: $scope.timeslots\n            sessions: $scope.sessionplan\n        $http.post("sessionboard/data", data).success (data) ->\n            # TODO: catch some error here\n            return\n        .error (data) ->\n            # TODO: explain error\n            return\n\n    $scope.$watch( \'rooms\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n    $scope.$watch( \'timeslots\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n\n    $scope.$watch( \'sessionplan\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n\n\n\nINTEGER_REGEXP = ///^\n    [0-9]+\n    $///i\n\n# we only catch . here, the rest is done by the default validator\napp.directive(\'integer\', () ->\n    return {\n        restrict: "AE",\n        require: \'ngModel\',\n        link: ($scope, elm, attrs, ctrl) ->\n            ctrl.$validators.integer = (modelValue, viewValue) ->\n                if ctrl.$isEmpty(modelValue)\n                    return true\n                if viewValue.match INTEGER_REGEXP\n                    return true\n                \n                # it is invalid\n                return false\n    }\n)\n';
 
-  s4 = function() {
-    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+
+}).call(this);
+
+(function() {
+  var guid;
+
+  Array.prototype.toDict = function(key) {
+    return this.reduce((function(dict, obj) {
+      if (obj[key] != null) {
+        dict[obj[key]] = obj;
+      }
+      return dict;
+    }), {});
   };
 
   guid = function() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
-  app = angular.module('barcamptool', ['ui.timepicker', 'ui.sortable', 'ngTagsInput', 'ui.autocomplete']);
-
-  app.filter('slice', function() {
-    return function(arr, start, end) {
-      if (arr) {
-        return arr.slice(start, end);
+  $.fn.serializeObject = function() {
+    var a, o;
+    o = {};
+    a = this.serializeArray();
+    $.each(a, function() {
+      if (o[this.name] !== void 0) {
+        if (!o[this.name].push) {
+          o[this.name] = [o[this.name]];
+        }
+        return o[this.name].push(this.value || '');
       } else {
-        return arr;
+        return o[this.name] = this.value || '';
       }
-    };
-  });
-
-  app.config(function($interpolateProvider) {
-    return $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
-  });
-
-  app.controller('SessionBoardCtrl', function($scope, $http, $q, $filter) {
-    $scope.sessionplan = {};
-    $scope.sortableOptions = {
-      axis: 'x',
-      items: "td",
-      placeholder: "sortable-placeholder",
-      containment: 'parent',
-      cancel: ".not-sortable",
-      opacity: 0.5
-    };
-    $scope.room = {
-      name: '',
-      description: '',
-      capacity: ''
-    };
-    $scope.timeslot = {
-      time: null,
-      blocked: false,
-      reason: ''
-    };
-    $scope.timePickerOptions = {
-      step: 15,
-      timeFormat: 'G:i',
-      minTime: "00:00",
-      maxTime: "24:00",
-      appendTo: 'body'
-    };
-    $http.get("sessionboard/data").success(function(data) {
-      $scope.rooms = data.rooms;
-      $scope.rooms.unshift({});
-      $scope.timeslots = data.timeslots;
-      $scope.participants = data.participants;
-      $scope.proposals = data.proposals;
-      return $scope.sessionplan = data.sessions;
     });
-    $scope.roomModalMode = "add";
-    $scope.room_idx = null;
-    $scope.add_room_form = function() {
-      $scope.roomModalMode = "add";
-      $scope.room = {};
-      document.getElementById("add-room-form").reset();
-      $('#add-room-modal').modal('show');
-      $('#room-form-name').focus();
-      return void 0;
-    };
-    $scope.add_room = function() {
-      if ($scope.room_form.$error.$invalid) {
-        return;
-      }
-      $scope.room.id = guid();
-      $scope.rooms.push($scope.room);
-      $scope.room = angular.copy($scope.room);
-      $('#add-room-modal').modal('hide');
-    };
-    $scope.edit_room = function(idx) {
-      $scope.roomModalMode = "edit";
-      $scope.room = angular.copy($scope.rooms[idx]);
-      $scope.room_idx = idx;
-      $('#add-room-modal').modal('show');
-    };
-    $scope.update_room = function() {
-      if ($scope.room_form.$error.$invalid) {
-        return;
-      }
-      $scope.rooms[$scope.room_idx] = $scope.room;
-      $('#add-room-modal').modal('hide');
-    };
-    $scope.delete_room = function(idx) {
-      $scope.rooms.splice(idx, 1);
-      return void 0;
-    };
-    $scope.timeslotModalMode = "add";
-    $scope.timeslot_idx = null;
-    $scope.add_timeslot_form = function() {
-      var d, dd, last_time, new_time;
-      $scope.timeslotModalMode = "add";
-      document.getElementById("add-timeslot-form").reset();
-      if ($scope.timeslots.length) {
-        last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length - 1]).time);
-        last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000);
-        new_time = new Date(last_time.getTime() + 60 * 60000);
-        $("#timepicker").timepicker('setTime', new_time);
-        $scope.timeslot.time = new_time;
-      } else {
-        d = Date.now();
-        dd = new Date();
-        dd.setTime(d);
-        dd.setHours(9);
-        dd.setMinutes(0);
-        dd.setSeconds(0);
-        $("#timepicker").timepicker('option', 'minTime', '00:00');
-        $("#timepicker").timepicker('setTime', dd);
-        $scope.timeslot.time = dd;
-      }
-      $('#add-timeslot-modal').modal('show');
-      $('#timepicker').focus();
-    };
-    $scope.add_timeslot = function() {
-      var d, localOffset, now, utc;
-      if ($scope.timeslot_form.$error.$invalid) {
-        return;
-      }
-      d = $scope.timeslot.time;
-      now = new Date();
-      localOffset = now.getTimezoneOffset();
-      utc = new Date(d.getTime() - localOffset * 60000);
-      $scope.timeslot.time = utc;
-      $scope.timeslots.push($scope.timeslot);
-      $scope.timeslots = _.sortBy($scope.timeslots, function(item) {
-        var t;
-        t = item.time;
-        if (typeof t === 'string') {
-          return new Date(t);
-        }
-        return t;
+    return o;
+  };
+
+  $.fn.sessionboard = function(opts) {
+    var element, init, init_handlers, loadState, render, saveState;
+    if (opts == null) {
+      opts = {};
+    }
+    element = null;
+    init = function(opts) {
+      element = $(this);
+      $(this).on("update", function() {
+        saveState();
+        return render();
       });
-      $scope.timeslot = angular.copy($scope.timeslot);
-      $('#add-timeslot-modal').modal('hide');
-      $scope.timeslot.blocked = false;
-      $scope.timeslot.reason = "";
+      loadState();
+      return element.version = 0;
     };
-    $scope.delete_timeslot = function(idx) {
-      $scope.timeslots.splice(idx, 1);
-      return void 0;
+    loadState = function() {
+      return $.ajax({
+        url: "sessionboard/data",
+        dataType: 'json',
+        cache: false,
+        success: function(data) {
+          element.data = data;
+          return render();
+        },
+        error: function(xhr, status, err) {
+          return console.error("url", status, err.toString());
+        }
+      });
     };
-    $scope.session_id = null;
-    $scope.session = {};
-    $scope.add_session = function(slot, room) {
-      var d, fd, idx, selectedItem;
-      d = new Date(slot.time);
-      fd = $filter('date')(d, 'hh:mm', 'UTC');
-      idx = $scope.session_idx = room.id + "@" + fd;
-      if ($scope.sessionplan.hasOwnProperty(idx)) {
-        $scope.session = angular.copy($scope.sessionplan[idx]);
-      } else {
-        $scope.session = {
-          sid: guid(),
-          slug: '',
-          _id: idx,
-          title: '',
-          description: '',
-          moderator: []
-        };
-      }
-      $('#edit-session-modal').modal('show');
-      $("#ac-title").focus();
-      selectedItem = null;
-      $("#ac-title").autocomplete({
-        source: $scope.proposals,
-        appendTo: '#edit-session-modal',
-        open: function(event, ui) {
-          return selectedItem = null;
+    saveState = function() {
+      return $.ajax({
+        url: "sessionboard/data",
+        data: JSON.stringify(element.data),
+        contentType: 'application/json',
+        type: 'POST',
+        success: function(data) {
+          return console.log("ok");
         },
-        select: function(event, ui) {
-          return selectedItem = ui;
-        },
-        change: function(event, ui) {
-          var selected, user_id, value;
-          selected = false;
-          if (selectedItem) {
-            value = selectedItem.item.value;
-          } else {
-            return;
-          }
-          user_id = selectedItem.item.user_id;
-          return $scope.$apply(function() {
-            var user, _i, _len, _ref;
-            _ref = $scope.participants;
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              user = _ref[_i];
-              if (user._id === user_id) {
-                $scope.session.moderator = [user];
-                break;
-              }
-            }
-            $scope.session.title = value;
-            return $scope.session.description = selectedItem.item.description;
+        error: function(data) {
+          return console.log("not so ok");
+        }
+      });
+    };
+    render = function() {
+      var colwidth, html;
+      colwidth = 90 / (element.data.rooms.length + 1);
+      html = JST["sessiontest"]({
+        data: element.data,
+        colwidth: colwidth,
+        version: element.version
+      });
+      $("#newsessions").html(html);
+      init_handlers();
+      return element.version = element.version + 1;
+    };
+    init_handlers = function() {
+      var room_dict;
+      room_dict = element.data.rooms.toDict("id");
+      $("#roomcontainment").sortable({
+        axis: 'x',
+        helper: "clone",
+        items: "td",
+        placeholder: "sortable-placeholder",
+        containment: 'parent',
+        cancel: ".not-sortable",
+        opacity: 0.5,
+        update: function(event, ui) {
+          var new_rooms;
+          new_rooms = [];
+          $("#newsessions #roomcontainment .sorted").each(function() {
+            var id;
+            id = $(this).data("id");
+            return new_rooms.push(room_dict[id]);
           });
+          element.data.rooms = new_rooms;
+          return $("#newsessions").trigger("update");
         }
       });
-    };
-    $scope.update_session = function() {
-      var idx, orig_slug, session, sid, slug, suffix, _ref;
-      idx = $scope.session._id;
-      $scope.session = angular.copy($scope.session);
-      orig_slug = $scope.session.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      suffix = 0;
-      slug = orig_slug + '';
-      while (true) {
-        _ref = $scope.sessionplan;
-        for (sid in _ref) {
-          session = _ref[sid];
-          if (session.slug === slug && idx !== sid) {
-            suffix++;
-            slug = orig_slug + suffix;
-            break;
+      $("#add-room-modal-button").click(function() {
+        var html;
+        html = JST["room-modal"]({
+          add_room: true
+        });
+        $("#modals").html(html);
+        $('#add-room-modal').modal('show');
+        $('#room-form-name').focus();
+        $(".add-room-button").click(function() {
+          var room;
+          room = $("#add-room-form").serializeObject();
+          if (!room.name) {
+            return alert("Please enter a name");
           }
+          if (!room.capacity) {
+            return alert("Please enter a capacity");
+          }
+          element.data.rooms.push(room);
+          $("#newsessions").trigger("update");
+          $('#add-room-modal').modal('hide');
+        });
+        return false;
+      });
+      $(".del-room-button").click(function() {
+        var idx;
+        if (confirm($('body').data("i18n-areyousure"))) {
+          idx = $(this).data("index");
+          element.data.rooms.splice(idx, 1);
+          return $("#newsessions").trigger("update");
         }
-        break;
-      }
-      $scope.session.slug = slug;
-      $scope.sessionplan[idx] = $scope.session;
-      $('#edit-session-modal').modal('hide');
+      });
+      return $(".edit-room-modal-button").click(function() {
+        var html, idx, room;
+        idx = $(this).data("index");
+        room = element.data.rooms[idx];
+        html = JST["room-modal"]({
+          room: room,
+          room_idx: idx,
+          add_room: false
+        });
+        $("#modals").html(html);
+        $('#add-room-modal').modal('show');
+        $('#room-form-name').focus();
+        $(".update-room-button").click(function() {
+          var room_idx;
+          room = $("#add-room-form").serializeObject();
+          console.log(room);
+          room_idx = room['room_idx'];
+          if (!room_idx) {
+            return alert("Error");
+          }
+          if (!room.name) {
+            return alert("Please enter a name");
+          }
+          if (!room.capacity) {
+            return alert("Please enter a capacity");
+          }
+          room = JSON.parse(JSON.stringify(room));
+          console.log(room_idx);
+          element.data.rooms[room_idx] = room;
+          $("#newsessions").trigger("update");
+          $('#add-room-modal').modal('hide');
+        });
+        return false;
+      });
     };
-    $scope.get_session_id = function(slot, room) {
-      var d, fd, idx;
-      d = new Date(slot.time);
-      fd = $filter('date')(d, 'hh:mm', 'UTC');
-      idx = room.id + "@" + fd;
-      return idx;
-    };
-    $scope.loadParticipants = function() {
-      var deferred;
-      deferred = $q.defer();
-      deferred.resolve($scope.participants);
-      return deferred.promise;
-    };
-    $scope.save_to_server = function() {
-      var data, rooms;
-      rooms = angular.copy($scope.rooms);
-      rooms.splice(0, 1);
-      data = {
-        rooms: rooms,
-        timeslots: $scope.timeslots,
-        sessions: $scope.sessionplan
+    $(this).each(init);
+    return this;
+  };
+
+  $(document).ready(function() {
+    return $("#newsessions").sessionboard();
+  });
+
+}).call(this);
+
+(function() {
+  var Colgroup, RoomHeader, SessionTable;
+
+  Colgroup = React.createClass({
+    render: function() {
+      var cols;
+      cols = this.props.cols.map(function(colWidth, index) {
+        return React.createElement("col", {
+          "key": 'col' + index,
+          "width": colWidth
+        });
+      });
+      return React.createElement("colgroup", null, cols);
+    }
+  });
+
+  RoomHeader = React.createClass({
+    render: function() {
+      var tds;
+      tds = this.props.rooms.map(function(room, index) {
+        return React.createElement("td", {
+          "className": "room-slot"
+        }, React.createElement("h5", {
+          "className": "room-name"
+        }, room.name), React.createElement("div", {
+          "class": "room-actions"
+        }), React.createElement("small", null, room.description), React.createElement("br", null), React.createElement("small", null, room.capacity, " persons"));
+      });
+      return React.createElement("thead", null, React.createElement("tr", {
+        "id": "roomcontainment"
+      }, React.createElement("td", null), tds));
+    }
+  });
+
+  SessionTable = React.createClass({
+    getInitialState: function() {
+      return {
+        rooms: [],
+        timeslots: [],
+        participants: {},
+        proposals: {},
+        sessionplan: {}
       };
-      return $http.post("sessionboard/data", data).success(function(data) {}).error(function(data) {});
-    };
-    $scope.$watch('rooms', function(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        $scope.save_to_server();
-      }
-      return void 0;
-    }, true);
-    $scope.$watch('timeslots', function(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        $scope.save_to_server();
-      }
-      return void 0;
-    }, true);
-    return $scope.$watch('sessionplan', function(newValue, oldValue) {
-      if (newValue !== oldValue) {
-        $scope.save_to_server();
-      }
-      return void 0;
-    }, true);
+    },
+    loadSessionPlan: function() {
+      return $.ajax({
+        url: "sessionboard/data",
+        dataType: 'json',
+        cache: false,
+        success: (function(data) {
+          console.log("success");
+          this.setState({
+            rooms: data.rooms,
+            timeslots: data.timeslots,
+            participants: data.participants,
+            proposals: data.proposals,
+            sessionplan: data.sessionplan
+          });
+        }).bind(this),
+        error: (function(xhr, status, err) {
+          return console.error(this.props.url, status, err.toString());
+        }).bind(this)
+      });
+    },
+    componentDidMount: function() {
+      console.log("mounted");
+      return this.loadSessionPlan();
+    },
+    render: function() {
+      var l, room, widths;
+      l = this.state.rooms.length;
+      widths = [
+        (function() {
+          var _i, _len, _ref, _results;
+          _ref = this.state.rooms;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            room = _ref[_i];
+            _results.push(90 / l);
+          }
+          return _results;
+        }).call(this)
+      ];
+      widths = widths[0];
+      widths.unshift(10);
+      return React.createElement("div", {
+        "class": "table-responsive"
+      }, React.createElement("table", {
+        "className": "table table-bordered sessiontable"
+      }, React.createElement(Colgroup, {
+        "cols": widths
+      }), React.createElement(RoomHeader, {
+        "rooms": this.state.rooms
+      })));
+    }
   });
 
-  INTEGER_REGEXP = /^[0-9]+$/i;
-
-  app.directive('integer', function() {
-    return {
-      restrict: "AE",
-      require: 'ngModel',
-      link: function($scope, elm, attrs, ctrl) {
-        return ctrl.$validators.integer = function(modelValue, viewValue) {
-          if (ctrl.$isEmpty(modelValue)) {
-            return true;
-          }
-          if (viewValue.match(INTEGER_REGEXP)) {
-            return true;
-          }
-          return false;
-        };
-      }
-    };
-  });
+  $(document).ready(function() {});
 
 }).call(this);

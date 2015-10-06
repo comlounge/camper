@@ -1,0 +1,61 @@
+<div class="table-responsive">
+    <p>{{version}}</p>
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="10%">
+            {{#each data.rooms}}
+                <col width="{{../colwidth}}%">
+            {{/each}}
+                <col width="{{colwidth}}%">
+        </colgroup>
+
+        <thead>
+            <tr id="roomcontainment">
+                <td></td>
+                {{#each data.rooms}}
+                <td class="sorted room-slot" data-id="{{id}}" id="room-{{id}}">
+                    <h5 class="room-name">{{name}}</h5>
+                    <div class="room-actions">
+                        <a data-index="{{@index}}" data-confirm="Are you sure?" class="del-room-button btn btn-xs btn-danger" title="delete room" href="#"><i class="fa fa-trash"></i></a>
+                        <a data-index="{{@index}}" class="edit-room-modal-button btn btn-xs btn-info" title="edit room" href="#" ><i class="fa fa-pencil"></i></a>
+                        <span title="drag to sort this list" class="btn btn-xs btn-info"><i class="fa fa-arrows"></i></span>
+                    </div>
+                    <small>{{description}}</small><br />
+                    <small>{{capacity}} persons</small>
+                </td>
+                {{/each}}
+                <td class="not-sortable">
+                    <div id="add-room-div" class="nobig-button-panel">
+                        <a title="Add new room" href="#" id="add-room-modal-button" class="add-room-modal-button btn btn-lg btn-block btn-primary">
+                            <i class="fa fa-plus"></i> Room
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>1</b></td>
+                <td class="slot">Slot 1</td>
+                <td class="slot">Slot 2</td>
+                <td class="slot">Slot 3</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>1</b></td>
+                <td class="slot">Slot 4</td>
+                <td class="slot">Slot 5</td>
+                <td class="slot">Slot 6</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>1</b></td>
+                <td class="slot">Slot 7</td>
+                <td class="slot">Slot 8</td>
+                <td class="slot">Slot 9</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

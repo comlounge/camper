@@ -7,9 +7,17 @@
 
 {{eventnav(active="timetable", title=_('Edit event timetable'))}}
 
-<div class="container-fluid" id="sessionboard-container" ng-app="barcamptool">
+<div class="container-fluid" id="sessionboard-container" nong-app="barcamptool">
     <div class="row">
-        <div id="sessionboard" ng-controller="SessionBoardCtrl">
+        <div id="sessionboard" nong-controller="SessionBoardCtrl">
+            
+            <div id="modals">
+            </div>
+            
+            <div id="newsessions">
+            </div>
+
+
 
 
             {#
@@ -17,48 +25,6 @@
             #}
 
 
-            <div class="modal" id="add-room-modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">{{_('Add new room')}}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form name="room_form" class="novalidate form-horizontal" role="form" id="add-room-form">
-                                <input type="hidden" name="room_idx" ng-model="room_idx">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">{{_('Name')}}</label>
-                                    <span class="label label-danger" data-ng-show="submitted && addRoomForm.name.$error.required">{{_('This field is required')}}!</span>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" ng-model="room.name" id="room-form-name" name="name" required placeholder="{{_('e.g. seminar room')}}">
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">{{_('Capacity')}}</label>
-                                    <div class="col-sm-5">
-                                        <input type="number" class="form-control" ng-model="room.capacity" integer min=1 max=1000 name="capacity" required>
-                                        <span class="help-block" ng-show="room_form.room.capacity.$error.integer">{{_('The value is not a valid integer')}}</span>
-                                        <span class="help-block" ng-show="room_form.room.capacity.$error.min || room_form.room.capacity.$error.max">{{_('The value must be in range 1 to 1000')}}</span>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">{{_('Description')}}</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" maxlength=100 ng-model="room.description" name="description" placeholder="{{_('e.g. beamer available')}}"></textarea>
-                                    </div>
-                                </div> 
-                            </form>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button ng-if="roomModalMode=='add'" data-ng-click="add_room()" class="btn btn-primary">{{_('Add new room')}}</button>
-                            <button ng-if="roomModalMode=='edit'" data-ng-click="update_room()" class="btn btn-primary">{{_('Update room')}}</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
 
 
             {#
@@ -160,6 +126,7 @@
             {#
              #     main page
             #}
+            {#
             <div class="table-responsive">
                 <table class="table table-bordered sessiontable" ng-cloak>
                     <colgroup>
@@ -222,6 +189,7 @@
                     </tbody>
                 </table>
             </div>
+            #}
             <div class="actions" id="sessionboard-actions">
                 <a class="btn btn-success" href="{{url_for('.user_events', slug = slug, eid = event._id)}}#sessions"><i class="fa fa-eye"></i> {{_('public view')}}</a>
                 <div class="btn-group">
@@ -248,5 +216,5 @@
 {% endblock %}
 
     {% block bcjs %}
-    <script src="{{url_for("static", filename='js/sessionboard-controller.js')}}"></script>
+        <script src="{{url_for('static', filename="templates/templates.js")}}">
     {% endblock %}

@@ -4,13 +4,23 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        coffee: {
+        cjsx: {
             compile: {
                 files: 
                     [
                         { src: 'coffee/admin/*.coffee', dest: 'static/js/admin.js' },
                         { src: 'coffee/*.coffee', dest: 'static/js/public.js' }
                     ]
+            }
+        },
+        handlebars: {
+            compile: {
+                options: {
+                    processName: function(filePath) {
+                        return filePath.replace(/^static\/templates\//, '').replace(/\.hbs$/, '');
+                    }
+                },
+                files: {'static/templates/templates.js': 'static/templates/*.hbs'},
             }
         },
 
@@ -25,6 +35,13 @@ module.exports = function(grunt) {
             js: {
                 files: ['coffee/**/*.coffee'],
                 tasks: ['js'],
+                options: {
+                    spawn: false,
+                },
+            },
+            hbs: {
+                files: ['static/templates/*.hbs'],
+                tasks: ['hbs'],
                 options: {
                     spawn: false,
                 },
@@ -79,7 +96,9 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
+                    'react',
                     'jquery-ui',
+                    'handlebars',
                     "bootstrap",
                     "jquery-timepicker-jt",
                     "angular-mocks",
@@ -146,11 +165,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-bower-concat');
+    grunt.loadNpmTasks('grunt-coffee-react');
+    grunt.loadNpmTasks('grunt-contrib-handlebars');
 
     // Default task(s).
-    //grunt.registerTask('default', ['coffee', 'less']);
-    grunt.registerTask('default', ['less', 'bower_concat', 'coffee', 'uglify']);
-    grunt.registerTask('js', ['coffee', 'uglify:public', 'uglify:admin', 'uglify:public_components']);
+    //grunt.registerTask('default', ['cjsx', 'less']);
+    grunt.registerTask('default', ['less', 'bower_concat', 'cjsx', 'uglify']);
+    grunt.registerTask('hbs', ['handlebars']);
+    grunt.registerTask('js', ['cjsx', 'uglify:public', 'uglify:admin']);
     grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify']);
     grunt.registerTask('css', ['less', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
