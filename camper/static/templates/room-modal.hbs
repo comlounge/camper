@@ -9,6 +9,7 @@
                 <form name="room_form" class="form-horizontal" role="form" id="add-room-form">
                     {{#unless add_room}}
                     <input type="hidden" name="room_idx" value="{{room_idx}}">
+                    <input type="hidden" name="id" value="{{room.id}}">
                     {{/unless}}
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>

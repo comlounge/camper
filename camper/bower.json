@@ -29,6 +29,8 @@
     "markdown-js": "~0.6.2",
     "marked": "~0.3.3",
     "mjolnic-bootstrap-colorpicker": "~2.3",
+    "moment": "~2.10.6",
+    "moment-timezone": "~0.4.0",
     "ng-tags-input": "~3.0.0",
     "parsleyjs": "~2.0.7",
     "parsleyjs-bootstrap3": "*",

@@ -783,7 +783,8 @@
 }).call(this);
 
 (function() {
-  var guid;
+  var guid, s4,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Array.prototype.toDict = function(key) {
     return this.reduce((function(dict, obj) {
@@ -794,9 +795,18 @@
     }), {});
   };
 
+  s4 = function() {
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  };
+
   guid = function() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
+
+  Handlebars.registerHelper("formatTime", function(datetime, format) {
+    format = "HH:mm";
+    return moment(datetime).tz('UTC').format(format);
+  });
 
   $.fn.serializeObject = function() {
     var a, o;
@@ -815,85 +825,99 @@
     return o;
   };
 
-  $.fn.sessionboard = function(opts) {
-    var element, init, init_handlers, loadState, render, saveState;
-    if (opts == null) {
-      opts = {};
-    }
-    element = null;
-    init = function(opts) {
-      element = $(this);
-      $(this).on("update", function() {
-        saveState();
-        return render();
-      });
-      loadState();
-      return element.version = 0;
+  (function($, window, document) {
+    var Plugin, defaults, pluginName;
+    pluginName = "sessionboard";
+    defaults = {
+      foo: "bar"
     };
-    loadState = function() {
-      return $.ajax({
-        url: "sessionboard/data",
-        dataType: 'json',
-        cache: false,
-        success: function(data) {
-          element.data = data;
-          return render();
-        },
-        error: function(xhr, status, err) {
-          return console.error("url", status, err.toString());
-        }
-      });
-    };
-    saveState = function() {
-      return $.ajax({
-        url: "sessionboard/data",
-        data: JSON.stringify(element.data),
-        contentType: 'application/json',
-        type: 'POST',
-        success: function(data) {
-          return console.log("ok");
-        },
-        error: function(data) {
-          return console.log("not so ok");
-        }
-      });
-    };
-    render = function() {
-      var colwidth, html;
-      colwidth = 90 / (element.data.rooms.length + 1);
-      html = JST["sessiontest"]({
-        data: element.data,
-        colwidth: colwidth,
-        version: element.version
-      });
-      $("#newsessions").html(html);
-      init_handlers();
-      return element.version = element.version + 1;
-    };
-    init_handlers = function() {
-      var room_dict;
-      room_dict = element.data.rooms.toDict("id");
-      $("#roomcontainment").sortable({
-        axis: 'x',
-        helper: "clone",
-        items: "td",
-        placeholder: "sortable-placeholder",
-        containment: 'parent',
-        cancel: ".not-sortable",
-        opacity: 0.5,
-        update: function(event, ui) {
-          var new_rooms;
-          new_rooms = [];
-          $("#newsessions #roomcontainment .sorted").each(function() {
-            var id;
-            id = $(this).data("id");
-            return new_rooms.push(room_dict[id]);
-          });
-          element.data.rooms = new_rooms;
-          return $("#newsessions").trigger("update");
-        }
-      });
-      $("#add-room-modal-button").click(function() {
+    Plugin = (function() {
+      function Plugin(element, options) {
+        this.element = element;
+        this.add_timeslot = __bind(this.add_timeslot, this);
+        this.add_timeslot_modal = __bind(this.add_timeslot_modal, this);
+        this.edit_room = __bind(this.edit_room, this);
+        this.edit_room_modal = __bind(this.edit_room_modal, this);
+        this.del_room = __bind(this.del_room, this);
+        this.add_room = __bind(this.add_room, this);
+        this.add_room_modal = __bind(this.add_room_modal, this);
+        this.version = 0;
+        this.data = {};
+        this.options = $.extend({}, defaults, options);
+        this._defaults = defaults;
+        this._name = pluginName;
+        this.init();
+      }
+
+      Plugin.prototype.init = function() {
+        $(this.element).on('update', (function(_this) {
+          return function() {
+            _this.saveState();
+            return _this.render();
+          };
+        })(this));
+        return this.loadState();
+      };
+
+      Plugin.prototype.loadState = function() {
+        return $.ajax({
+          url: "sessionboard/data",
+          dataType: 'json',
+          cache: false,
+          success: (function(_this) {
+            return function(data) {
+              _this.data = data;
+              return _this.render();
+            };
+          })(this),
+          error: (function(_this) {
+            return function(xhr, status, err) {
+              return console.error("url", status, err.toString());
+            };
+          })(this)
+        });
+      };
+
+      Plugin.prototype.saveState = function() {
+        var data;
+        data = {
+          rooms: this.data.rooms,
+          timeslots: this.data.timeslots,
+          sessions: this.data.sessions
+        };
+        return $.ajax({
+          url: "sessionboard/data",
+          data: JSON.stringify(this.data),
+          contentType: 'application/json',
+          type: 'POST',
+          success: (function(_this) {
+            return function(data) {
+              return console.log("ok");
+            };
+          })(this),
+          error: (function(_this) {
+            return function(data) {
+              return console.log("not so ok");
+            };
+          })(this)
+        });
+      };
+
+      Plugin.prototype.render = function() {
+        var colwidth, html;
+        console.log(this.data);
+        colwidth = 90 / (this.data.rooms.length + 1);
+        html = JST["sessiontest"]({
+          data: this.data,
+          colwidth: colwidth,
+          version: this.version
+        });
+        $("#newsessions").html(html);
+        this.init_handlers();
+        return this.version = this.version + 1;
+      };
+
+      Plugin.prototype.add_room_modal = function() {
         var html;
         html = JST["room-modal"]({
           add_room: true
@@ -901,33 +925,42 @@
         $("#modals").html(html);
         $('#add-room-modal').modal('show');
         $('#room-form-name').focus();
-        $(".add-room-button").click(function() {
-          var room;
-          room = $("#add-room-form").serializeObject();
-          if (!room.name) {
-            return alert("Please enter a name");
-          }
-          if (!room.capacity) {
-            return alert("Please enter a capacity");
-          }
-          element.data.rooms.push(room);
-          $("#newsessions").trigger("update");
-          $('#add-room-modal').modal('hide');
-        });
+        $(".add-room-button").click(this.add_room);
         return false;
-      });
-      $(".del-room-button").click(function() {
+      };
+
+      Plugin.prototype.add_room = function() {
+        var room;
+        room = $("#add-room-form").serializeObject();
+        room.id = guid();
+        if (!room.name) {
+          return alert("Please enter a name");
+        }
+        if (!room.capacity) {
+          return alert("Please enter a capacity");
+        }
+        this.data.rooms.push(room);
+        $("#newsessions").trigger("update");
+        $('#add-room-modal').modal('hide');
+      };
+
+      Plugin.prototype.del_room = function(event) {
+
+        /*
+        delete a room after asking for confirmation
+         */
         var idx;
         if (confirm($('body').data("i18n-areyousure"))) {
-          idx = $(this).data("index");
-          element.data.rooms.splice(idx, 1);
+          idx = $(event.currentTarget).data("index");
+          this.data.rooms.splice(idx, 1);
           return $("#newsessions").trigger("update");
         }
-      });
-      return $(".edit-room-modal-button").click(function() {
+      };
+
+      Plugin.prototype.edit_room_modal = function(event) {
         var html, idx, room;
-        idx = $(this).data("index");
-        room = element.data.rooms[idx];
+        idx = $(event.currentTarget).data("index");
+        room = this.data.rooms[idx];
         html = JST["room-modal"]({
           room: room,
           room_idx: idx,
@@ -936,32 +969,137 @@
         $("#modals").html(html);
         $('#add-room-modal').modal('show');
         $('#room-form-name').focus();
-        $(".update-room-button").click(function() {
-          var room_idx;
-          room = $("#add-room-form").serializeObject();
-          console.log(room);
-          room_idx = room['room_idx'];
-          if (!room_idx) {
-            return alert("Error");
-          }
-          if (!room.name) {
-            return alert("Please enter a name");
-          }
-          if (!room.capacity) {
-            return alert("Please enter a capacity");
-          }
-          room = JSON.parse(JSON.stringify(room));
-          console.log(room_idx);
-          element.data.rooms[room_idx] = room;
-          $("#newsessions").trigger("update");
-          $('#add-room-modal').modal('hide');
-        });
+        $(".update-room-button").click(this.edit_room);
         return false;
+      };
+
+      Plugin.prototype.edit_room = function(event) {
+        var room, room_idx;
+        room = $("#add-room-form").serializeObject();
+        room_idx = room['room_idx'];
+        if (!room_idx) {
+          return alert("Error");
+        }
+        if (!room.name) {
+          return alert("Please enter a name");
+        }
+        if (!room.capacity) {
+          return alert("Please enter a capacity");
+        }
+        room = JSON.parse(JSON.stringify(room));
+        this.data.rooms[room_idx] = room;
+        $("#newsessions").trigger("update");
+        $('#add-room-modal').modal('hide');
+        return false;
+      };
+
+      Plugin.prototype.set_next_time = function() {
+
+        /*
+        computes the next possible time for the timeslot modal
+         */
+        var d, dd, l, last_time, new_time;
+        l = this.data.timeslots.length;
+        if (l) {
+          last_time = new Date(this.data.timeslots[l - 1].time);
+          last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000);
+          new_time = new Date(last_time.getTime() + 60 * 60000);
+          return $("#timepicker").timepicker('setTime', new_time);
+        } else {
+          d = Date.now();
+          dd = new Date();
+          dd.setTime(d);
+          dd.setHours(9);
+          dd.setMinutes(0);
+          dd.setSeconds(0);
+          $("#timepicker").timepicker('option', 'minTime', '00:00');
+          return $("#timepicker").timepicker('setTime', dd);
+        }
+      };
+
+      Plugin.prototype.add_timeslot_modal = function(event) {
+
+        /*
+        show the timeslot modal and set the next available time
+         */
+        var html;
+        html = JST["timeslot-modal"]();
+        $("#modals").html(html);
+        $("#timepicker").timepicker({
+          timeFormat: "G:i",
+          show24: true
+        });
+        this.set_next_time();
+        $('#add-timeslot-modal').modal('show');
+        $('#timepicker').focus();
+        $("#add-timeslot-button").click(this.add_timeslot);
+        return false;
+      };
+
+      Plugin.prototype.add_timeslot = function(event) {
+
+        /*
+        add a new timeslot to the list of timeslots
+         */
+        var entered_time, localOffset, now, timeslot, utc;
+        timeslot = $("#add-timeslot-form").serializeObject();
+        now = new Date();
+        localOffset = now.getTimezoneOffset();
+        entered_time = $("#timepicker").timepicker("getTime");
+        utc = new Date(entered_time - localOffset * 60000);
+        timeslot.time = utc;
+        this.data.timeslots.push(timeslot);
+        $("#newsessions").trigger("update");
+        $('#add-timeslot-modal').modal('hide');
+      };
+
+      Plugin.prototype.init_handlers = function() {
+        var room_dict, that;
+        that = this;
+        try {
+          room_dict = this.data.rooms.toDict("id");
+        } catch (_error) {
+          room_dict = {};
+        }
+        $("#roomcontainment").sortable({
+          axis: 'x',
+          helper: "clone",
+          items: "td",
+          placeholder: "sortable-placeholder",
+          containment: 'parent',
+          cancel: ".not-sortable",
+          opacity: 0.5,
+          update: (function(_this) {
+            return function(event, ui) {
+              var new_rooms;
+              new_rooms = [];
+              $("#newsessions #roomcontainment .sorted").each(function() {
+                var id;
+                id = $(this).data("id");
+                return new_rooms.push(room_dict[id]);
+              });
+              _this.data.rooms = new_rooms;
+              return $("#newsessions").trigger("update");
+            };
+          })(this)
+        });
+        $("#add-room-modal-button").click(this.add_room_modal);
+        $(".del-room-button").click(this.del_room);
+        $(".edit-room-modal-button").click(this.edit_room_modal);
+        return $("#add-timeslot-modal-button").click(this.add_timeslot_modal);
+      };
+
+      return Plugin;
+
+    })();
+    return $.fn[pluginName] = function(options) {
+      return this.each(function() {
+        if (!$.data(this, "plugin_" + pluginName)) {
+          return $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+        }
       });
     };
-    $(this).each(init);
-    return this;
-  };
+  })(jQuery, window, document);
 
   $(document).ready(function() {
     return $("#newsessions").sessionboard();

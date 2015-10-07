@@ -35,27 +35,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td><b>1</b></td>
-                <td class="slot">Slot 1</td>
-                <td class="slot">Slot 2</td>
-                <td class="slot">Slot 3</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><b>1</b></td>
-                <td class="slot">Slot 4</td>
-                <td class="slot">Slot 5</td>
-                <td class="slot">Slot 6</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td><b>1</b></td>
-                <td class="slot">Slot 7</td>
-                <td class="slot">Slot 8</td>
-                <td class="slot">Slot 9</td>
-                <td></td>
-            </tr>
+
+            {{#each data.timeslots}}
+                <tr class="sorted" class="{{#if blocked}}warning{{/if}}">
+                    <td class="time-slot">
+                        <span>{{formatTime time "short"}}</span>
+                        <a  href="#" 
+                            data-toggle="tooltip" 
+                            title="delete timeslot" 
+                            class="btn btn-xs btn-danger del-timeslot-button"><i class="fa fa-trash"></i></a>
+                    </td>
+                    {{#each ../data.rooms}}
+                    <td>
+                    </td>
+                    {{/each}}
+                    <td></td>
+                </tr>
+            {{/each}}
+                <tr>
+                    <td>
+                        <div class="nobig-button-panel">
+                            <a  title="Add new timeslot" href="#" 
+                                id="add-timeslot-modal-button"
+                                class="btn btn-lg btn-block btn-info">
+                                <i class="fa fa-plus"></i> Time</a>
+                        </div>
+                    </td>
+                    <td colspan="{{data.rooms.length}}"></td>
+
+                </tr>
         </tbody>
     </table>
 </div>

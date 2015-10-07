@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    require('handlebars');
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -96,9 +98,10 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
-                    'react',
                     'jquery-ui',
                     'handlebars',
+                    'moment',
+                    'moment-timezone',
                     "bootstrap",
                     "jquery-timepicker-jt",
                     "angular-mocks",

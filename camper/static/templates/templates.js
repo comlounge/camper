@@ -1,10 +1,12 @@
 this["JST"] = this["JST"] || {};
 
 this["JST"]["room-modal"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
-    var helper;
+    var stack1, helper, alias1=this.escapeExpression;
 
   return "                    <input type=\"hidden\" name=\"room_idx\" value=\""
-    + this.escapeExpression(((helper = (helper = helpers.room_idx || (depth0 != null ? depth0.room_idx : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"room_idx","hash":{},"data":data}) : helper)))
+    + alias1(((helper = (helper = helpers.room_idx || (depth0 != null ? depth0.room_idx : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"room_idx","hash":{},"data":data}) : helper)))
+    + "\">\n                    <input type=\"hidden\" name=\"id\" value=\""
+    + alias1(this.lambda(((stack1 = (depth0 != null ? depth0.room : depth0)) != null ? stack1.id : stack1), depth0))
     + "\">\n";
 },"3":function(depth0,helpers,partials,data) {
     return "                <button class=\"add-room-button btn btn-primary\">Add new room</button>\n";
@@ -31,7 +33,7 @@ this["JST"]["sessionboard"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.
 
   return "\n"
     + this.escapeExpression(((helper = (helper = helpers.data || (depth0 != null ? depth0.data : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"data","hash":{},"data":data}) : helper)))
-    + "\n<div class=\"table-responsive\">\n    <table class=\"table table-bordered sessiontable\">\n        <colgroup>\n            <col width=\"10%\">\n            \n            <col ng-repeat=\"room in rooms | slice:1:10000\" width=\"{[{90/rooms.length}]}%\">\n        </colgroup>\n        <thead>\n            <tr id=\"roomcontainment\" ui-sortable=\"sortableOptions\" ng-model=\"rooms\">\n                <td></td>\n                <td class=\"sorted room-slot\" ng-repeat=\"room in rooms | slice:1:10000\" data-id=\"{[{room.id}]}\">\n                    <h5 class=\"room-name\">{[{room.name}]}</h5>\n                    <div class=\"room-actions\">\n                    </div>\n                    <small>{[{room.description}]}</small><br>\n                    <small>{[{room.capacity}]} persons</small>\n                </td>\n                <td class=\"not-sortable\">\n                    \n                </td>\n            </tr>\n        </thead>\n    </table>\n</div>\n";
+    + "\n<div class=\"table-responsive\">\n    <table class=\"table table-bordered sessiontable\">\n        <colgroup>\n            <col width=\"10%\">\n            \n            \n            <col ng-repeat=\"room in rooms | slice:1:10000\" width=\"{[{90/rooms.length}]}%\">\n        </colgroup>\n        <thead>\n            <tr id=\"roomcontainment\" ui-sortable=\"sortableOptions\" ng-model=\"rooms\">\n                <td></td>\n                <td class=\"sorted room-slot\" ng-repeat=\"room in rooms | slice:1:10000\" data-id=\"{[{room.id}]}\">\n                    <h5 class=\"room-name\">{[{room.name}]}</h5>\n                    <div class=\"room-actions\">\n                    </div>\n                    <small>{[{room.description}]}</small><br>\n                    <small>{[{room.capacity}]} persons</small>\n                </td>\n                <td class=\"not-sortable\">\n                    \n                </td>\n            </tr>\n        </thead>\n    </table>\n</div>\n";
 },"useData":true});
 
 this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,partials,data,blockParams,depths) {
@@ -56,6 +58,20 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + "</small><br />\n                    <small>"
     + alias3(((helper = (helper = helpers.capacity || (depth0 != null ? depth0.capacity : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"capacity","hash":{},"data":data}) : helper)))
     + " persons</small>\n                </td>\n";
+},"5":function(depth0,helpers,partials,data,blockParams,depths) {
+    var stack1;
+
+  return "                <tr class=\"sorted\" class=\""
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.blocked : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\">\n                    <td class=\"time-slot\">\n                        <span>"
+    + this.escapeExpression((helpers.formatTime || (depth0 && depth0.formatTime) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.time : depth0),"short",{"name":"formatTime","hash":{},"data":data}))
+    + "</span>\n                        <a  href=\"#\" \n                            data-toggle=\"tooltip\" \n                            title=\"delete timeslot\" \n                            class=\"btn btn-xs btn-danger del-timeslot-button\"><i class=\"fa fa-trash\"></i></a>\n                    </td>\n"
+    + ((stack1 = helpers.each.call(depth0,((stack1 = (depths[1] != null ? depths[1].data : depths[1])) != null ? stack1.rooms : stack1),{"name":"each","hash":{},"fn":this.program(8, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "                    <td></td>\n                </tr>\n";
+},"6":function(depth0,helpers,partials,data) {
+    return "warning";
+},"8":function(depth0,helpers,partials,data) {
+    return "                    <td>\n                    </td>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
@@ -67,5 +83,17 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + alias3(((helper = (helper = helpers.colwidth || (depth0 != null ? depth0.colwidth : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"colwidth","hash":{},"data":data}) : helper)))
     + "%\">\n        </colgroup>\n\n        <thead>\n            <tr id=\"roomcontainment\">\n                <td></td>\n"
     + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.rooms : stack1),{"name":"each","hash":{},"fn":this.program(3, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "                <td class=\"not-sortable\">\n                    <div id=\"add-room-div\" class=\"nobig-button-panel\">\n                        <a title=\"Add new room\" href=\"#\" id=\"add-room-modal-button\" class=\"add-room-modal-button btn btn-lg btn-block btn-primary\">\n                            <i class=\"fa fa-plus\"></i> Room\n                        </a>\n                    </div>\n                </td>\n\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td><b>1</b></td>\n                <td class=\"slot\">Slot 1</td>\n                <td class=\"slot\">Slot 2</td>\n                <td class=\"slot\">Slot 3</td>\n                <td></td>\n            </tr>\n            <tr>\n                <td><b>1</b></td>\n                <td class=\"slot\">Slot 4</td>\n                <td class=\"slot\">Slot 5</td>\n                <td class=\"slot\">Slot 6</td>\n                <td></td>\n            </tr>\n            <tr>\n                <td><b>1</b></td>\n                <td class=\"slot\">Slot 7</td>\n                <td class=\"slot\">Slot 8</td>\n                <td class=\"slot\">Slot 9</td>\n                <td></td>\n            </tr>\n        </tbody>\n    </table>\n</div>";
+    + "                <td class=\"not-sortable\">\n                    <div id=\"add-room-div\" class=\"nobig-button-panel\">\n                        <a title=\"Add new room\" href=\"#\" id=\"add-room-modal-button\" class=\"add-room-modal-button btn btn-lg btn-block btn-primary\">\n                            <i class=\"fa fa-plus\"></i> Room\n                        </a>\n                    </div>\n                </td>\n\n            </tr>\n        </thead>\n        <tbody>\n\n"
+    + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.timeslots : stack1),{"name":"each","hash":{},"fn":this.program(5, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "                <tr>\n                    <td>\n                        <div class=\"nobig-button-panel\">\n                            <a  title=\"Add new timeslot\" href=\"#\" \n                                id=\"add-timeslot-modal-button\"\n                                class=\"btn btn-lg btn-block btn-info\">\n                                <i class=\"fa fa-plus\"></i> Time</a>\n                        </div>\n                    </td>\n                    <td colspan=\""
+    + alias3(this.lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.rooms : stack1)) != null ? stack1.length : stack1), depth0))
+    + "\"></td>\n\n                </tr>\n        </tbody>\n    </table>\n</div>";
 },"useData":true,"useDepths":true});
+
+this["JST"]["timeslot-modal"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "<div class=\"modal\" id=\"add-timeslot-modal\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\">Add new timeslot</h4>\n            </div>\n            <div class=\"modal-body\">\n                <form name=\"timeslot_form\" class=\"form-horizontal\" role=\"form\" id=\"add-timeslot-form\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">Time</label>\n                        <div class=\"col-sm-2\">\n                            <input type=\"text\" \n                                class=\"form-control\" \n                                id=\"timepicker\" \n                                value=\""
+    + this.escapeExpression(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
+    + "\" \n                                name=\"time\" \n                                required \n                                placeholder=\"e.g. 11:00\">\n                        </div>\n                    </div> \n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">Blocked?</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"checkbox\" class=\"form-control\" name=\"blocked\" required>\n                            <span class=\"help-block\">\n                                Define here if this time slot is blocked, e.g. because of a break. This means you cannot add sessions in this slot.\n                            </span>\n                        </div>\n                    </div> \n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">Reason for blocking</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"text\" class=\"form-control\" name=\"reason\" required placeholder=\"e.g. lunch break\">\n                        </div>\n                    </div> \n                </form>\n\n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"add-timeslot-button\" class=\"btn btn-primary\">Add new timeslot</button>\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n            </div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div><!-- /.modal -->\n";
+},"useData":true});
