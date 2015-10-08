@@ -7309,6 +7309,54 @@ form {
 .x-ng-cloak {
   display: none !important;
 }
+.bootstrap-tagsinput {
+  width: 100%;
+  border-radius: 0px !important;
+}
+.bootstrap-tagsinput input {
+  min-width: 150px;
+  padding: 0 !important;
+}
+.twitter-typeahead {
+  display: block !important;
+}
+.tt-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+.tt-suggestion {
+  width: auto;
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #333333;
+  white-space: nowrap;
+}
+.tt-suggestion:hover,
+.tt-suggestion:focus,
+.tt-suggestion.tt-cursor {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
+}
 .gallery {
   width: 100%;
   overflow: hidden;

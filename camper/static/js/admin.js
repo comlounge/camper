@@ -834,6 +834,8 @@
     Plugin = (function() {
       function Plugin(element, options) {
         this.element = element;
+        this.update_session = __bind(this.update_session, this);
+        this.add_session_modal = __bind(this.add_session_modal, this);
         this.add_timeslot = __bind(this.add_timeslot, this);
         this.add_timeslot_modal = __bind(this.add_timeslot_modal, this);
         this.edit_room = __bind(this.edit_room, this);
@@ -857,6 +859,11 @@
           };
         })(this));
         return this.loadState();
+      };
+
+      Plugin.prototype.update = function() {
+        this.saveState();
+        return this.render();
       };
 
       Plugin.prototype.loadState = function() {
@@ -903,12 +910,60 @@
         });
       };
 
+      Plugin.prototype.get_session_id = function(slot, room) {
+
+        /*
+        generate a session if from slot and room
+         */
+        var d, fd, idx;
+        d = new Date(slot.time);
+        fd = moment(d).tz('UTC').format("HH:mm");
+        idx = room.id + "@" + fd;
+        return idx;
+      };
+
+      Plugin.prototype.generate_sessiontable = function() {
+
+        /*
+        generates the session table for rendering.
+        
+        It basically is a list of lists for each column and row
+         */
+        var room, row, sid, slot, table, _i, _j, _len, _len1, _ref, _ref1;
+        table = [];
+        _ref = this.data.timeslots;
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+          slot = _ref[_i];
+          row = {
+            time: moment(slot.time).tz('UTC').format('HH:mm'),
+            blocked: slot.blocked,
+            reason: slot.reason,
+            slots: []
+          };
+          _ref1 = this.data.rooms;
+          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+            room = _ref1[_j];
+            sid = this.get_session_id(slot, room);
+            if (this.data.sessions[sid]) {
+              row.slots.push(this.data.sessions[sid]);
+            } else {
+              row.slots.push({
+                _id: sid
+              });
+            }
+          }
+          table.push(row);
+        }
+        return table;
+      };
+
       Plugin.prototype.render = function() {
-        var colwidth, html;
-        console.log(this.data);
+        var colwidth, html, sessions;
+        sessions = this.generate_sessiontable();
         colwidth = 90 / (this.data.rooms.length + 1);
         html = JST["sessiontest"]({
           data: this.data,
+          sessions: sessions,
           colwidth: colwidth,
           version: this.version
         });
@@ -987,8 +1042,11 @@
           return alert("Please enter a capacity");
         }
         room = JSON.parse(JSON.stringify(room));
+        if (room.room_idx) {
+          delete room.room_idx;
+        }
         this.data.rooms[room_idx] = room;
-        $("#newsessions").trigger("update");
+        this.update();
         $('#add-room-modal').modal('hide');
         return false;
       };
@@ -1049,8 +1107,97 @@
         utc = new Date(entered_time - localOffset * 60000);
         timeslot.time = utc;
         this.data.timeslots.push(timeslot);
+        this.data.timeslots = _.sortBy(this.data.timeslots, function(item) {
+          var t;
+          t = item.time;
+          if (typeof t === 'string') {
+            return new Date(t);
+          }
+          return t;
+        });
         $("#newsessions").trigger("update");
         $('#add-timeslot-modal').modal('hide');
+      };
+
+      Plugin.prototype.add_session_modal = function(event) {
+        var html, moderators, payload, proposals, sid;
+        sid = $(event.currentTarget).data("id");
+        payload = this.data.sessions[sid];
+        if (!payload) {
+          payload = {};
+        }
+        payload.session_idx = sid;
+        html = JST["session-modal"](payload);
+        $("#modals").html(html);
+        moderators = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          local: this.data.participants.map(function(p) {
+            return p.name;
+          })
+        });
+        $("#moderator").tagsinput({
+          tagClass: 'btn btn-info btn-xs',
+          typeaheadjs: {
+            source: moderators.ttAdapter()
+          }
+        });
+        proposals = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          local: this.data.proposals
+        });
+        $('#ac-title').typeahead({
+          hint: true,
+          minLength: 1
+        }, {
+          name: 'proposals',
+          displayKey: 'label',
+          source: proposals.ttAdapter()
+        }).bind("typeahead:select", (function(_this) {
+          return function(obj, datum, name) {
+            var user, user_id, _i, _len, _ref, _results;
+            $("#session-description").text(datum.description);
+            user_id = datum.user_id;
+            _ref = _this.data.participants;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              user = _ref[_i];
+              if (user._id === user_id) {
+                $('#moderator').tagsinput('removeAll');
+                _results.push($('#moderator').tagsinput('add', user.name));
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
+          };
+        })(this));
+        $('#edit-session-modal').modal('show');
+        return $("#update-session-button").click(this.update_session);
+      };
+
+      Plugin.prototype.update_session = function(event) {
+
+        /*
+        actually add the session to the data structure
+         */
+        var fd, session;
+        fd = $("#edit-session-form").serializeObject();
+        if (!fd.session_idx) {
+          alert("An error occurred, please reload the page");
+        }
+        session = {
+          sid: null,
+          slug: null,
+          _id: fd.session_idx,
+          title: fd.title,
+          description: fd.description,
+          moderator: fd.moderator
+        };
+        this.data.sessions[fd.session_idx] = session;
+        this.update();
+        return $('#edit-session-modal').modal('hide');
       };
 
       Plugin.prototype.init_handlers = function() {
@@ -1086,7 +1233,8 @@
         $("#add-room-modal-button").click(this.add_room_modal);
         $(".del-room-button").click(this.del_room);
         $(".edit-room-modal-button").click(this.edit_room_modal);
-        return $("#add-timeslot-modal-button").click(this.add_timeslot_modal);
+        $("#add-timeslot-modal-button").click(this.add_timeslot_modal);
+        return $(".sessionslot").click(this.add_session_modal);
       };
 
       return Plugin;
@@ -1104,106 +1252,5 @@
   $(document).ready(function() {
     return $("#newsessions").sessionboard();
   });
-
-}).call(this);
-
-(function() {
-  var Colgroup, RoomHeader, SessionTable;
-
-  Colgroup = React.createClass({
-    render: function() {
-      var cols;
-      cols = this.props.cols.map(function(colWidth, index) {
-        return React.createElement("col", {
-          "key": 'col' + index,
-          "width": colWidth
-        });
-      });
-      return React.createElement("colgroup", null, cols);
-    }
-  });
-
-  RoomHeader = React.createClass({
-    render: function() {
-      var tds;
-      tds = this.props.rooms.map(function(room, index) {
-        return React.createElement("td", {
-          "className": "room-slot"
-        }, React.createElement("h5", {
-          "className": "room-name"
-        }, room.name), React.createElement("div", {
-          "class": "room-actions"
-        }), React.createElement("small", null, room.description), React.createElement("br", null), React.createElement("small", null, room.capacity, " persons"));
-      });
-      return React.createElement("thead", null, React.createElement("tr", {
-        "id": "roomcontainment"
-      }, React.createElement("td", null), tds));
-    }
-  });
-
-  SessionTable = React.createClass({
-    getInitialState: function() {
-      return {
-        rooms: [],
-        timeslots: [],
-        participants: {},
-        proposals: {},
-        sessionplan: {}
-      };
-    },
-    loadSessionPlan: function() {
-      return $.ajax({
-        url: "sessionboard/data",
-        dataType: 'json',
-        cache: false,
-        success: (function(data) {
-          console.log("success");
-          this.setState({
-            rooms: data.rooms,
-            timeslots: data.timeslots,
-            participants: data.participants,
-            proposals: data.proposals,
-            sessionplan: data.sessionplan
-          });
-        }).bind(this),
-        error: (function(xhr, status, err) {
-          return console.error(this.props.url, status, err.toString());
-        }).bind(this)
-      });
-    },
-    componentDidMount: function() {
-      console.log("mounted");
-      return this.loadSessionPlan();
-    },
-    render: function() {
-      var l, room, widths;
-      l = this.state.rooms.length;
-      widths = [
-        (function() {
-          var _i, _len, _ref, _results;
-          _ref = this.state.rooms;
-          _results = [];
-          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            room = _ref[_i];
-            _results.push(90 / l);
-          }
-          return _results;
-        }).call(this)
-      ];
-      widths = widths[0];
-      widths.unshift(10);
-      return React.createElement("div", {
-        "class": "table-responsive"
-      }, React.createElement("table", {
-        "className": "table table-bordered sessiontable"
-      }, React.createElement(Colgroup, {
-        "cols": widths
-      }), React.createElement(RoomHeader, {
-        "rooms": this.state.rooms
-      })));
-    }
-  });
-
-  $(document).ready(function() {});
 
 }).call(this);

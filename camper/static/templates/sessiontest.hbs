@@ -36,17 +36,37 @@
         </thead>
         <tbody>
 
-            {{#each data.timeslots}}
+            {{#each sessions}}
                 <tr class="sorted" class="{{#if blocked}}warning{{/if}}">
                     <td class="time-slot">
-                        <span>{{formatTime time "short"}}</span>
+                        <span>{{time}}</span>
                         <a  href="#" 
                             data-toggle="tooltip" 
                             title="delete timeslot" 
                             class="btn btn-xs btn-danger del-timeslot-button"><i class="fa fa-trash"></i></a>
                     </td>
-                    {{#each ../data.rooms}}
-                    <td>
+                    {{#each slots}}
+                    <td class="sessionslot {{#unless ../blocked}}enabled{{/unless}}"
+                        data-id="{{_id}}">
+
+                        {{#if ../blocked}}
+                            <span>{{../reason}}</span>
+                        {{/if}}
+
+                        <h5>{{title}}</h5>
+                        <div class="description">{{description}}</div>
+                        <div class="moderators">
+                            {{moderators}}
+                        </div>
+
+                        {{#unless ../blocked}}
+                        <div class="pull-right slot-actions">
+                            <span><i class="fa fa-pencil"></i></span>
+                            <span class="text-danger"><i class="fa fa-trash"></i></span>
+                            <span><i class="fa fa-arrows"></i></span>
+                        </div>
+                        {{/unless}}
+
                     </td>
                     {{/each}}
                     <td></td>

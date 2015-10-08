@@ -28,6 +28,20 @@ this["JST"]["room-modal"] = Handlebars.template({"1":function(depth0,helpers,par
     + "                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n            </div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div><!-- /.modal -->\n";
 },"useData":true});
 
+this["JST"]["session-modal"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "<div class=\"modal\" id=\"edit-session-modal\">\n    <div class=\"modal-dialog modal-lg\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\">Edit Session</h4>\n            </div>\n            <div class=\"modal-body\">\n                <form name=\"timeslot_form\" class=\"form-horizontal\" role=\"form\" id=\"edit-session-form\">\n                    <input type=\"hidden\" name=\"session_idx\" value=\""
+    + alias3(((helper = (helper = helpers.session_idx || (depth0 != null ? depth0.session_idx : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"session_idx","hash":{},"data":data}) : helper)))
+    + "\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-3 control-label\">Title</label>\n                        <div class=\"col-sm-8\">\n                            <input \n                            	name=\"title\" required \n                            	type=\"text\" \n                            	id=\"ac-title\" \n                            	nui-autocomplete=\"autocompleteOptions\" \n                            	class=\"form-control\" \n                            	value=\""
+    + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
+    + "\"\n                            	placeholder=\"enter the title of the session\">\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-3 control-label\">Description</label>\n                        <div class=\"col-sm-8\">\n                            <textarea \n                            	class=\"form-control\" \n                            	rows=10\n                            	id=\"session-description\"\n                            	name=\"description\"\n                            	placeholder=\"The description of the session\">"
+    + alias3(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"description","hash":{},"data":data}) : helper)))
+    + "</textarea>\n                        </div>\n                    </div> \n                    <div class=\"form-group\">\n                        <label class=\"col-sm-3 control-label\">Speaker / Moderator</label>\n                        <div class=\"col-sm-8\">\n                        	<input \n                        		id=\"moderator\"\n                        		name=\"moderator\"\n                        		type=\"text\"\n                        		value=\""
+    + alias3(((helper = (helper = helpers.moderator || (depth0 != null ? depth0.moderator : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"moderator","hash":{},"data":data}) : helper)))
+    + "\"\n                        		class=\"form-control\"\n                        		>\n                        </div>\n                    </div> \n                </form>\n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"update-session-button\" class=\"btn btn-primary\">Update Session</button>\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close</button>\n            </div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div><!-- /.mo";
+},"useData":true});
+
 this["JST"]["sessionboard"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper;
 
@@ -59,19 +73,43 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + alias3(((helper = (helper = helpers.capacity || (depth0 != null ? depth0.capacity : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"capacity","hash":{},"data":data}) : helper)))
     + " persons</small>\n                </td>\n";
 },"5":function(depth0,helpers,partials,data,blockParams,depths) {
-    var stack1;
+    var stack1, helper;
 
   return "                <tr class=\"sorted\" class=\""
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.blocked : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n                    <td class=\"time-slot\">\n                        <span>"
-    + this.escapeExpression((helpers.formatTime || (depth0 && depth0.formatTime) || helpers.helperMissing).call(depth0,(depth0 != null ? depth0.time : depth0),"short",{"name":"formatTime","hash":{},"data":data}))
+    + this.escapeExpression(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
     + "</span>\n                        <a  href=\"#\" \n                            data-toggle=\"tooltip\" \n                            title=\"delete timeslot\" \n                            class=\"btn btn-xs btn-danger del-timeslot-button\"><i class=\"fa fa-trash\"></i></a>\n                    </td>\n"
-    + ((stack1 = helpers.each.call(depth0,((stack1 = (depths[1] != null ? depths[1].data : depths[1])) != null ? stack1.rooms : stack1),{"name":"each","hash":{},"fn":this.program(8, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.slots : depth0),{"name":"each","hash":{},"fn":this.program(8, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                    <td></td>\n                </tr>\n";
 },"6":function(depth0,helpers,partials,data) {
     return "warning";
-},"8":function(depth0,helpers,partials,data) {
-    return "                    <td>\n                    </td>\n";
+},"8":function(depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
+
+  return "                    <td class=\"sessionslot "
+    + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(9, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\"\n                        data-id=\""
+    + alias3(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"_id","hash":{},"data":data}) : helper)))
+    + "\">\n\n"
+    + ((stack1 = helpers['if'].call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"if","hash":{},"fn":this.program(11, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n                        <h5>"
+    + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
+    + "</h5>\n                        <div class=\"description\">"
+    + alias3(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"description","hash":{},"data":data}) : helper)))
+    + "</div>\n                        <div class=\"moderators\">\n                            "
+    + alias3(((helper = (helper = helpers.moderators || (depth0 != null ? depth0.moderators : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"moderators","hash":{},"data":data}) : helper)))
+    + "\n                        </div>\n\n"
+    + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(13, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\n                    </td>\n";
+},"9":function(depth0,helpers,partials,data) {
+    return "enabled";
+},"11":function(depth0,helpers,partials,data,blockParams,depths) {
+    return "                            <span>"
+    + this.escapeExpression(this.lambda((depths[1] != null ? depths[1].reason : depths[1]), depth0))
+    + "</span>\n";
+},"13":function(depth0,helpers,partials,data) {
+    return "                        <div class=\"pull-right slot-actions\">\n                            <span><i class=\"fa fa-pencil\"></i></span>\n                            <span class=\"text-danger\"><i class=\"fa fa-trash\"></i></span>\n                            <span><i class=\"fa fa-arrows\"></i></span>\n                        </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
@@ -84,7 +122,7 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + "%\">\n        </colgroup>\n\n        <thead>\n            <tr id=\"roomcontainment\">\n                <td></td>\n"
     + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.rooms : stack1),{"name":"each","hash":{},"fn":this.program(3, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                <td class=\"not-sortable\">\n                    <div id=\"add-room-div\" class=\"nobig-button-panel\">\n                        <a title=\"Add new room\" href=\"#\" id=\"add-room-modal-button\" class=\"add-room-modal-button btn btn-lg btn-block btn-primary\">\n                            <i class=\"fa fa-plus\"></i> Room\n                        </a>\n                    </div>\n                </td>\n\n            </tr>\n        </thead>\n        <tbody>\n\n"
-    + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.timeslots : stack1),{"name":"each","hash":{},"fn":this.program(5, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.sessions : depth0),{"name":"each","hash":{},"fn":this.program(5, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                <tr>\n                    <td>\n                        <div class=\"nobig-button-panel\">\n                            <a  title=\"Add new timeslot\" href=\"#\" \n                                id=\"add-timeslot-modal-button\"\n                                class=\"btn btn-lg btn-block btn-info\">\n                                <i class=\"fa fa-plus\"></i> Time</a>\n                        </div>\n                    </td>\n                    <td colspan=\""
     + alias3(this.lambda(((stack1 = ((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.rooms : stack1)) != null ? stack1.length : stack1), depth0))
     + "\"></td>\n\n                </tr>\n        </tbody>\n    </table>\n</div>";

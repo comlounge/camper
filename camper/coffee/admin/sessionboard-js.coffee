@@ -14,7 +14,6 @@ guid = () ->
 Handlebars.registerHelper "formatTime", (datetime, format) ->
     format = "HH:mm"
     return moment(datetime).tz('UTC').format(format)
-  
 
 $.fn.serializeObject = () ->
     o = {}
@@ -30,7 +29,6 @@ $.fn.serializeObject = () ->
     return o
 
 do ( $ = jQuery, window, document ) ->
-
 
     pluginName = "sessionboard"
     defaults =
@@ -55,6 +53,10 @@ do ( $ = jQuery, window, document ) ->
                 @saveState()
                 @render()
             @loadState()
+
+        update: ->
+            @saveState()
+            @render()
 
         loadState: () ->
             $.ajax
@@ -83,11 +85,46 @@ do ( $ = jQuery, window, document ) ->
                 error: (data) =>
                     console.log "not so ok"
 
+        get_session_id: (slot, room) ->
+            ###
+            generate a session if from slot and room
+            ###
+            d = new Date(slot.time)
+            fd = moment(d).tz('UTC').format("HH:mm")
+            idx = room.id+"@"+fd
+            return idx
+
+
+        generate_sessiontable: () ->
+            ###
+            generates the session table for rendering.
+
+            It basically is a list of lists for each column and row
+            ###
+            table = []
+            for slot in @data.timeslots
+                row =
+                    time: moment(slot.time).tz('UTC').format('HH:mm')
+                    blocked: slot.blocked
+                    reason: slot.reason
+                    slots: []
+                for room in @data.rooms
+                    sid = @get_session_id(slot, room)
+                    if @data.sessions[sid]
+                        row.slots.push @data.sessions[sid]
+                    else
+                        row.slots.push {
+                            _id: sid
+                        }
+                table.push row
+            return table
+
         render: () ->
-            console.log @data
+            sessions = @generate_sessiontable()
             colwidth = 90/(this.data.rooms.length+1)
             html = JST["sessiontest"](
                 data: @data
+                sessions: sessions
                 colwidth: colwidth
                 version: @version
             )
@@ -150,9 +187,16 @@ do ( $ = jQuery, window, document ) ->
                 return alert("Please enter a name")
             if !room.capacity
                 return alert("Please enter a capacity")
+
+            # copy room data
             room = JSON.parse(JSON.stringify(room))
+
+            # don't save index as we have it in the list already
+            if room.room_idx
+                delete room.room_idx
+
             @data.rooms[room_idx] = room
-            $("#newsessions").trigger("update")
+            @update()
             $('#add-room-modal').modal('hide')
             false
 
@@ -213,6 +257,14 @@ do ( $ = jQuery, window, document ) ->
             
             timeslot.time = utc
             @data.timeslots.push timeslot
+
+            @data.timeslots = _.sortBy(@data.timeslots, (item) ->
+                t = item.time
+                # loaded timeslots are string and not objects
+                if typeof(t) == 'string'
+                    return new Date(t)
+                return t
+            )
             
             $("#newsessions").trigger("update")
             $('#add-timeslot-modal').modal('hide')
@@ -220,8 +272,80 @@ do ( $ = jQuery, window, document ) ->
             return
 
 
+        add_session_modal: (event) =>
+            sid = $(event.currentTarget).data("id")
+
+            # check if session already exists so we can prefill
+            
+            payload = @data.sessions[sid]
+            if !payload
+                payload = {}
+            payload.session_idx = sid
+
+            html = JST["session-modal"] payload
+            $("#modals").html(html)
+
+            # create moderator typeahead
+            moderators = new Bloodhound
+                datumTokenizer: Bloodhound.tokenizers.whitespace
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+                local: @data.participants.map (p) -> p.name
+
+            $("#moderator").tagsinput
+                tagClass: 'btn btn-info btn-xs'
+                typeaheadjs:
+                    source: moderators.ttAdapter()
+
+            # create session name typeahead
+            proposals = new Bloodhound
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label')
+                queryTokenizer: Bloodhound.tokenizers.whitespace
+                local: @data.proposals
+
+            $('#ac-title').typeahead(
+                {   
+                    hint: true,
+                    minLength: 1
+                },
+                {
+                    name: 'proposals'
+                    displayKey: 'label'
+                    source: proposals.ttAdapter()
+                }
+            ).bind("typeahead:select", (obj, datum, name) =>
+                
+                # we found a session, put in the rest of the form data
+
+                $("#session-description").text(datum.description)
+                user_id = datum.user_id
+                for user in @data.participants
+                    if user._id == user_id
+                        $('#moderator').tagsinput('removeAll')
+                        $('#moderator').tagsinput('add', user.name)
+            )
 
 
+            $('#edit-session-modal').modal('show')
+            $("#update-session-button").click @update_session
+
+
+        update_session: (event) =>
+            ###
+            actually add the session to the data structure
+            ###
+            fd = $("#edit-session-form").serializeObject()
+            if not fd.session_idx
+                alert("An error occurred, please reload the page")
+            session = 
+                sid: null # will be generated on the server
+                slug: null # will be generated on the server
+                _id: fd.session_idx
+                title: fd.title
+                description: fd.description
+                moderator: fd.moderator
+            @data.sessions[fd.session_idx] = session
+            @update()
+            $('#edit-session-modal').modal('hide')
 
         # initialize all drag/drop/sortable handlers
         init_handlers: () ->
@@ -229,7 +353,6 @@ do ( $ = jQuery, window, document ) ->
             that = this
             
             # sortable
-            
             try
                 room_dict = @data.rooms.toDict("id")
             catch
@@ -254,8 +377,7 @@ do ( $ = jQuery, window, document ) ->
             $(".del-room-button").click @del_room
             $(".edit-room-modal-button").click @edit_room_modal
             $("#add-timeslot-modal-button").click @add_timeslot_modal
-
-
+            $(".sessionslot").click @add_session_modal
 
     $.fn[pluginName] = ( options ) ->
         return this.each( () ->

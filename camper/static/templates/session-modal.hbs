@@ -1,0 +1,55 @@
+<div class="modal" id="edit-session-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Edit Session</h4>
+            </div>
+            <div class="modal-body">
+                <form name="timeslot_form" class="form-horizontal" role="form" id="edit-session-form">
+                    <input type="hidden" name="session_idx" value="{{session_idx}}">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Title</label>
+                        <div class="col-sm-8">
+                            <input 
+                            	name="title" required 
+                            	type="text" 
+                            	id="ac-title" 
+                            	nui-autocomplete="autocompleteOptions" 
+                            	class="form-control" 
+                            	value="{{title}}"
+                            	placeholder="enter the title of the session">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-8">
+                            <textarea 
+                            	class="form-control" 
+                            	rows=10
+                            	id="session-description"
+                            	name="description"
+                            	placeholder="The description of the session">{{description}}</textarea>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Speaker / Moderator</label>
+                        <div class="col-sm-8">
+                        	<input 
+                        		id="moderator"
+                        		name="moderator"
+                        		type="text"
+                        		value="{{moderator}}"
+                        		class="form-control"
+                        		>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="update-session-button" class="btn btn-primary">Update Session</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.mo
