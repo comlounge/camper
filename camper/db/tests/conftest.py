@@ -4,24 +4,26 @@ import datetime
 import pytest
 from starflyer import AttributeMapper
 
-DB_NAME = "camper_testing_78827628762"
+def pytest_addoption(parser):
+    parser.addoption("--mongo-url", action="store", default="")
+    parser.addoption("--mongo-name", action="store", default="camper_testing_78827628762")
 
-def setup_db():
-    db = pymongo.Connection()[DB_NAME]
+
+@pytest.fixture(scope="module")
+def db(request):
+    url = request.config.getoption("--mongo-url")
+    name = request.config.getoption("--mongo-name")
+
+    db = pymongo.MongoClient(url)[name]
+
+    def fin():
+        db.persons.remove()
+        db.pages.remove()
+        db.barcamps.remove()
+        db.sessions.remove()
+    request.addfinalizer(fin)
     return db
-
-def teardown_db(db):
-    db.persons.remove()
-    db.pages.remove()
-    db.barcamps.remove()
-    db.sessions.remove()
-
-def pytest_funcarg__db(request):
-    return request.cached_setup(
-        setup = setup_db,
-        teardown = teardown_db,
-        scope = "function")
-
+    
 def pytest_funcarg__config(request):
     """create a config with all the collections we need""" 
     db = request.getfuncargvalue("db")

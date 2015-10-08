@@ -37,7 +37,6 @@ do ( $ = jQuery, window, document ) ->
     class Plugin
         constructor: (@element, options) ->
 
-            @version = 0
             @data = {}
             @options = $.extend {}, defaults, options
 
@@ -47,11 +46,6 @@ do ( $ = jQuery, window, document ) ->
             @init()
 
         init: () ->
-
-
-            $(@element).on 'update', () =>
-                @saveState()
-                @render()
             @loadState()
 
         update: ->
@@ -70,7 +64,6 @@ do ( $ = jQuery, window, document ) ->
                     console.error("url", status, err.toString())
 
         saveState: () ->
-
             data =
                 rooms: this.data.rooms
                 timeslots: this.data.timeslots
@@ -120,17 +113,13 @@ do ( $ = jQuery, window, document ) ->
             return table
 
         render: () ->
-            sessions = @generate_sessiontable()
-            colwidth = 90/(this.data.rooms.length+1)
             html = JST["sessiontest"](
                 data: @data
-                sessions: sessions
-                colwidth: colwidth
-                version: @version
+                sessions: @generate_sessiontable()
+                colwidth: 90/(this.data.rooms.length+1)
             )
             $("#newsessions").html(html)
             this.init_handlers()
-            this.version = this.version + 1
 
         add_room_modal: () =>
             html = JST["room-modal"](
@@ -151,7 +140,7 @@ do ( $ = jQuery, window, document ) ->
             if !room.capacity
                 return alert("Please enter a capacity")
             @data.rooms.push(room)
-            $("#newsessions").trigger("update")
+            @update()
             $('#add-room-modal').modal('hide')
             return
 
@@ -162,7 +151,7 @@ do ( $ = jQuery, window, document ) ->
             if confirm($('body').data("i18n-areyousure"))
                 idx = $(event.currentTarget).data("index")
                 @data.rooms.splice(idx,1)
-                $("#newsessions").trigger("update")
+                @update()
 
         edit_room_modal: (event) =>
             idx = $(event.currentTarget).data("index")
@@ -265,10 +254,8 @@ do ( $ = jQuery, window, document ) ->
                     return new Date(t)
                 return t
             )
-            
-            $("#newsessions").trigger("update")
+            @update()
             $('#add-timeslot-modal').modal('hide')
-
             return
 
 
@@ -371,7 +358,7 @@ do ( $ = jQuery, window, document ) ->
                         id = $(this).data("id")
                         new_rooms.push(room_dict[id])
                     @data.rooms = new_rooms
-                    $("#newsessions").trigger("update")
+                    @update()
 
             $("#add-room-modal-button").click @add_room_modal
             $(".del-room-button").click @del_room

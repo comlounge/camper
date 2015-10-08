@@ -843,7 +843,6 @@
         this.del_room = __bind(this.del_room, this);
         this.add_room = __bind(this.add_room, this);
         this.add_room_modal = __bind(this.add_room_modal, this);
-        this.version = 0;
         this.data = {};
         this.options = $.extend({}, defaults, options);
         this._defaults = defaults;
@@ -852,12 +851,6 @@
       }
 
       Plugin.prototype.init = function() {
-        $(this.element).on('update', (function(_this) {
-          return function() {
-            _this.saveState();
-            return _this.render();
-          };
-        })(this));
         return this.loadState();
       };
 
@@ -958,18 +951,14 @@
       };
 
       Plugin.prototype.render = function() {
-        var colwidth, html, sessions;
-        sessions = this.generate_sessiontable();
-        colwidth = 90 / (this.data.rooms.length + 1);
+        var html;
         html = JST["sessiontest"]({
           data: this.data,
-          sessions: sessions,
-          colwidth: colwidth,
-          version: this.version
+          sessions: this.generate_sessiontable(),
+          colwidth: 90 / (this.data.rooms.length + 1)
         });
         $("#newsessions").html(html);
-        this.init_handlers();
-        return this.version = this.version + 1;
+        return this.init_handlers();
       };
 
       Plugin.prototype.add_room_modal = function() {
@@ -995,7 +984,7 @@
           return alert("Please enter a capacity");
         }
         this.data.rooms.push(room);
-        $("#newsessions").trigger("update");
+        this.update();
         $('#add-room-modal').modal('hide');
       };
 
@@ -1008,7 +997,7 @@
         if (confirm($('body').data("i18n-areyousure"))) {
           idx = $(event.currentTarget).data("index");
           this.data.rooms.splice(idx, 1);
-          return $("#newsessions").trigger("update");
+          return this.update();
         }
       };
 
@@ -1115,7 +1104,7 @@
           }
           return t;
         });
-        $("#newsessions").trigger("update");
+        this.update();
         $('#add-timeslot-modal').modal('hide');
       };
 
@@ -1226,7 +1215,7 @@
                 return new_rooms.push(room_dict[id]);
               });
               _this.data.rooms = new_rooms;
-              return $("#newsessions").trigger("update");
+              return _this.update();
             };
           })(this)
         });

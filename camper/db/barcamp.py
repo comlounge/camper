@@ -86,7 +86,35 @@ class Location(Record):
     def country_name(self):
         """retrieve the country name from the country db. It's not i18n"""
         return pycountry.countries.get(alpha2 = self.country).name
-    
+
+class SessionSchema(Schema):
+    """a session in a timetable"""
+    _id                 = String(required = True)   # the session index made out of timeslot and room
+    sid                 = String(required = True)   # the actual unique id   
+    slug                = String(required = True)   # slug for url referencing
+    title               = String(required = True)
+    description         = String()
+    moderator           = String() # actually list of names
+
+class RoomSchema(Schema):
+    """a room"""
+    id                  = String(required = True)   # uuid
+    name                = String(required = True)
+    capacity            = Integer(required = True, default = 20)
+    description         = String()
+
+class TimeSlotSchema(Schema):
+    """a timeslot"""
+    time                = DateTime()    # only time counts here
+    reason              = String()      # optional reason for blocking it
+    blocked             = Boolean()     # is it blocked?
+
+class TimeTableSchema(Schema):
+    """a timetable of an event"""
+    rooms = List(RoomSchema())
+    timeslot  = List(TimeSlotSchema())
+    sessions = Dict(SessionSchema())
+
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
@@ -96,7 +124,7 @@ class EventSchema(Schema):
     date                = DateTime()
     start_time          = String()
     end_time            = String()
-    location            = LocationSchema(kls = Location)
+    location            = LocationSchema(kls = Location, default = {})
     participants        = List(String()) # TODO: ref
     size                = Integer()
     maybe               = List(String()) # we maybe will implement this
@@ -339,7 +367,7 @@ class BarcampSchema(Schema):
     registration_data   = Dict() # user => data
 
     # default mail templates
-    mail_templates      = MailsSchema()
+    mail_templates      = MailsSchema(default = {})
 
 
 class Barcamp(Record):
@@ -369,9 +397,7 @@ class Barcamp(Record):
         'hide_tabs'             : [],
         'hide_barcamp'          : False,
         'seo_description'       : '', 
-        'seo_keywords'          : ''
-
-
+        'seo_keywords'          : '',
     }
 
     workflow_states = {
@@ -488,6 +514,16 @@ class Barcamp(Record):
     def get_events(self):
         """return the events wrapped in the ``Event`` class"""
         return [Event(e, _barcamp = self) for e in self.events]
+
+    def add_event(self, event):
+        """add an event"""
+
+        if event.get("_id", None) is None:
+            eid = event['_id'] = unicode(uuid.uuid4())
+        else:
+            eid = event['_id']
+        self.events[eid] = event
+        return event
 
     @property
     def state(self):
