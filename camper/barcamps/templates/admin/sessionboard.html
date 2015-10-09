@@ -20,50 +20,6 @@
 
             {#
              #  session modal
-
-            <div class="modal" id="edit-session-modal2">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">{{_('Edit Session')}}</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form name="timeslot_form" class="form-horizontal" role="form" id="edit-session-form">
-                                <input type="hidden" name="session_idx" ng-model="session_idx">
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{_('Title')}}</label>
-                                    <span class="label label-danger" data-ng-show="submitted && editSessionForm.tite.$error.required">{{_('This field is required')}}!</span>
-                                    <div class="col-sm-8">
-                                        <input type="text" id="ac-title" nui-autocomplete="autocompleteOptions" class="form-control" ng-model="session.title" name="title" required placeholder="{{_('enter the title of the session')}}">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{_('Description')}}</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" rows=10 name="description" ng-model="session.description" placeholder="{{_('The description of the session')}}"></textarea>
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label">{{_('Speaker / Moderator')}}</label>
-                                    <div class="col-sm-8">
-                                        
-                                        <tags-input ng-model="session.moderator" display-property="name"
-                                            replace-spaces-with-dashes="false"
-                                            placeholder="{{_('Add Organizer')}}">
-                                            <auto-complete source="loadParticipants()"></auto-complete>
-                                        </tags-input>
-                                    </div>
-                                </div> 
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button data-ng-click="update_session()" class="btn btn-primary">{{_('Update Session')}}</button>
-                            <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
             #}
 
 
