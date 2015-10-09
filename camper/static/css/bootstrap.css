@@ -7357,6 +7357,9 @@ form {
   outline: 0;
   background-color: #428bca;
 }
+.ui-draggable-dragging {
+  background: rgba(0, 0, 0, 0.1) !important;
+}
 .gallery {
   width: 100%;
   overflow: hidden;

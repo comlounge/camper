@@ -366,6 +366,25 @@ do ( $ = jQuery, window, document ) ->
                     @data.rooms = new_rooms
                     @update()
 
+            # drag n drop
+            $(".sessionslot.enabled").draggable
+                revert: true
+                snap: ".sessionslot.enabled"
+                zIndex: 10000
+            .droppable
+                hoverClass: "btn btn-info"
+                drop: (event, ui) =>
+                    src_idx = ui.draggable.data("id")
+                    dest_idx = $(event.target).data("id")
+                    old_element = @data.sessions[dest_idx]
+                    @data.sessions[dest_idx] = @data.sessions[src_idx]
+                    @data.sessions[dest_idx].id = dest_idx # update index in object
+                    if old_element
+                        @data.sessions[src_idx] = old_element
+                        @data.sessions[src_idx] = src_idx
+                    @update()
+
+
             $("#add-room-modal-button").click @add_room_modal
             $(".del-room-button").click @del_room
             $(".edit-room-modal-button").click @edit_room_modal

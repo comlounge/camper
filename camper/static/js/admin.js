@@ -1230,6 +1230,28 @@
             };
           })(this)
         });
+        $(".sessionslot.enabled").draggable({
+          revert: true,
+          snap: ".sessionslot.enabled",
+          zIndex: 10000
+        }).droppable({
+          hoverClass: "btn btn-info",
+          drop: (function(_this) {
+            return function(event, ui) {
+              var dest_idx, old_element, src_idx;
+              src_idx = ui.draggable.data("id");
+              dest_idx = $(event.target).data("id");
+              old_element = _this.data.sessions[dest_idx];
+              _this.data.sessions[dest_idx] = _this.data.sessions[src_idx];
+              _this.data.sessions[dest_idx].id = dest_idx;
+              if (old_element) {
+                _this.data.sessions[src_idx] = old_element;
+                _this.data.sessions[src_idx] = src_idx;
+              }
+              return _this.update();
+            };
+          })(this)
+        });
         $("#add-room-modal-button").click(this.add_room_modal);
         $(".del-room-button").click(this.del_room);
         $(".edit-room-modal-button").click(this.edit_room_modal);
