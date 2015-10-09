@@ -927,9 +927,10 @@
           row = {
             time: moment(slot.time).format('HH:mm'),
             blocked: slot.blocked,
-            reason: slot.reason,
+            block_reason: slot.reason,
             slots: []
           };
+          console.log(row);
           _ref1 = this.data.rooms;
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             room = _ref1[_j];

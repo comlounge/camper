@@ -96,8 +96,9 @@ do ( $ = jQuery, window, document ) ->
                 row =
                     time: moment(slot.time).format('HH:mm')
                     blocked: slot.blocked
-                    reason: slot.reason
+                    block_reason: slot.reason
                     slots: []
+                console.log row
                 for room in @data.rooms
                     sid = @get_session_id(slot, room)
                     if @data.sessions[sid]
