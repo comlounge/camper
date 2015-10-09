@@ -803,11 +803,6 @@
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   };
 
-  Handlebars.registerHelper("formatTime", function(datetime, format) {
-    format = "HH:mm";
-    return moment(datetime).tz('UTC').format(format);
-  });
-
   $.fn.serializeObject = function() {
     var a, o;
     o = {};
@@ -836,6 +831,7 @@
         this.element = element;
         this.update_session = __bind(this.update_session, this);
         this.add_session_modal = __bind(this.add_session_modal, this);
+        this.del_timeslot = __bind(this.del_timeslot, this);
         this.add_timeslot = __bind(this.add_timeslot, this);
         this.add_timeslot_modal = __bind(this.add_timeslot_modal, this);
         this.edit_room = __bind(this.edit_room, this);
@@ -867,6 +863,7 @@
           success: (function(_this) {
             return function(data) {
               _this.data = data;
+              console.log(_this.data.timeslots);
               return _this.render();
             };
           })(this),
@@ -928,7 +925,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           slot = _ref[_i];
           row = {
-            time: moment(slot.time).tz('UTC').format('HH:mm'),
+            time: moment(slot.time).format('HH:mm'),
             blocked: slot.blocked,
             reason: slot.reason,
             slots: []
@@ -1091,10 +1088,10 @@
         var entered_time, localOffset, now, timeslot, utc;
         timeslot = $("#add-timeslot-form").serializeObject();
         now = new Date();
+        entered_time = $("#timepicker").timepicker("getTime", now);
         localOffset = now.getTimezoneOffset();
-        entered_time = $("#timepicker").timepicker("getTime");
         utc = new Date(entered_time - localOffset * 60000);
-        timeslot.time = utc;
+        timeslot.time = utc.toISOString().replace("Z", "");
         this.data.timeslots.push(timeslot);
         this.data.timeslots = _.sortBy(this.data.timeslots, function(item) {
           var t;
@@ -1106,6 +1103,19 @@
         });
         this.update();
         $('#add-timeslot-modal').modal('hide');
+      };
+
+      Plugin.prototype.del_timeslot = function(event) {
+
+        /*
+        delete a timeslot after asking for confirmation
+         */
+        var idx;
+        if (confirm($('body').data("i18n-areyousure"))) {
+          idx = $(event.currentTarget).data("index");
+          this.data.timeslots.splice(idx, 1);
+          return this.update();
+        }
       };
 
       Plugin.prototype.add_session_modal = function(event) {
@@ -1223,6 +1233,7 @@
         $(".del-room-button").click(this.del_room);
         $(".edit-room-modal-button").click(this.edit_room_modal);
         $("#add-timeslot-modal-button").click(this.add_timeslot_modal);
+        $(".del-timeslot-button").click(this.del_timeslot);
         return $(".sessionslot").click(this.add_session_modal);
       };
 

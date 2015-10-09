@@ -108,7 +108,7 @@ class RoomSchema(Schema):
 
 class TimeSlotSchema(Schema):
     """a timeslot"""
-    time                = DateTime(required = True)    # only time counts here
+    time                = DateTime(required = True, ignoretz = True)    # only time counts here
     reason              = String(default = "", max_length = 200)      # optional reason for blocking it
     blocked             = Boolean(default = False)     # is it blocked?
 

@@ -73,13 +73,15 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + alias3(((helper = (helper = helpers.capacity || (depth0 != null ? depth0.capacity : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"capacity","hash":{},"data":data}) : helper)))
     + " persons</small>\n                </td>\n";
 },"5":function(depth0,helpers,partials,data,blockParams,depths) {
-    var stack1, helper;
+    var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
   return "                <tr class=\"sorted\" class=\""
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.blocked : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n                    <td class=\"time-slot\">\n                        <span>"
-    + this.escapeExpression(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
-    + "</span>\n                        <a  href=\"#\" \n                            data-toggle=\"tooltip\" \n                            title=\"delete timeslot\" \n                            class=\"btn btn-xs btn-danger del-timeslot-button\"><i class=\"fa fa-trash\"></i></a>\n                    </td>\n"
+    + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
+    + "</span>\n                        <a  href=\"#\" \n                            data-toggle=\"tooltip\" \n                            data-index=\""
+    + alias3(((helper = (helper = helpers.index || (data && data.index)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"index","hash":{},"data":data}) : helper)))
+    + "\"\n                            title=\"delete timeslot\" \n                            class=\"btn btn-xs btn-danger del-timeslot-button\"><i class=\"fa fa-trash\"></i></a>\n                    </td>\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.slots : depth0),{"name":"each","hash":{},"fn":this.program(8, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                    <td></td>\n                </tr>\n";
 },"6":function(depth0,helpers,partials,data) {

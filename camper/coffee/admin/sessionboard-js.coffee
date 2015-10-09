@@ -11,10 +11,6 @@ guid = () ->
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
            s4() + '-' + s4() + s4() + s4()
 
-Handlebars.registerHelper "formatTime", (datetime, format) ->
-    format = "HH:mm"
-    return moment(datetime).tz('UTC').format(format)
-
 $.fn.serializeObject = () ->
     o = {}
     a = this.serializeArray()
@@ -59,6 +55,7 @@ do ( $ = jQuery, window, document ) ->
                 cache: false
                 success: (data) =>
                     @data = data
+                    console.log @data.timeslots
                     @render()
                 error: (xhr, status, err) =>
                     console.error("url", status, err.toString())
@@ -97,7 +94,7 @@ do ( $ = jQuery, window, document ) ->
             table = []
             for slot in @data.timeslots
                 row =
-                    time: moment(slot.time).tz('UTC').format('HH:mm')
+                    time: moment(slot.time).format('HH:mm')
                     blocked: slot.blocked
                     reason: slot.reason
                     slots: []
@@ -237,14 +234,13 @@ do ( $ = jQuery, window, document ) ->
 
             # get the local timezone offset
             now = new Date()
-            localOffset = now.getTimezoneOffset()
             
             # convert to utc by removing the local offset
-            entered_time = $("#timepicker").timepicker("getTime")
-
+            entered_time = $("#timepicker").timepicker("getTime", now)
+            localOffset = now.getTimezoneOffset()
             utc = new Date(entered_time - localOffset*60000)
             
-            timeslot.time = utc
+            timeslot.time = utc.toISOString().replace("Z","") # remove timezone
             @data.timeslots.push timeslot
 
             @data.timeslots = _.sortBy(@data.timeslots, (item) ->
@@ -257,6 +253,15 @@ do ( $ = jQuery, window, document ) ->
             @update()
             $('#add-timeslot-modal').modal('hide')
             return
+
+        del_timeslot: (event) =>
+            ###
+            delete a timeslot after asking for confirmation
+            ###
+            if confirm($('body').data("i18n-areyousure"))
+                idx = $(event.currentTarget).data("index")
+                @data.timeslots.splice(idx,1)
+                @update()
 
 
         add_session_modal: (event) =>
@@ -364,6 +369,7 @@ do ( $ = jQuery, window, document ) ->
             $(".del-room-button").click @del_room
             $(".edit-room-modal-button").click @edit_room_modal
             $("#add-timeslot-modal-button").click @add_timeslot_modal
+            $(".del-timeslot-button").click @del_timeslot
             $(".sessionslot").click @add_session_modal
 
     $.fn[pluginName] = ( options ) ->
