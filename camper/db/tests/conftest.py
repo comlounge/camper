@@ -1,4 +1,4 @@
-from camper.db import Barcamp, Barcamps, BarcampSchema, Sessions, Comments, Pages
+from camper.db import Barcamp, Barcamps, BarcampSchema, Sessions, Comments, Pages, Event
 import pymongo
 import datetime
 import pytest
@@ -61,4 +61,34 @@ def barcamp(request):
         start_date = datetime.date(2012,7,13),
         end_date = datetime.date(2012,7,15)
     )
+    
+@pytest.fixture()
+def barcamp_with_event(request):
+    """example barcamp"""
+    bc = Barcamp(
+        name = "Barcamp",
+        description = "cool barcamp",
+        slug = "barcamp",
+        start_date = datetime.date(2012,7,13),
+        end_date = datetime.date(2012,7,15)
+    )
+
+    event = {
+        'name'              : 'Day 1',
+        'description'       : 'Description 1',
+        'date'              : datetime.date(2012,7,13),
+        'start_time'        : '10:00',
+        'end_time'          : '18:00',
+        'size'              : 10,
+        'own_location'      : False,
+        'timetable'         : {
+            'rooms'         : [],
+            'timeslots'     : [],
+            'sessions'      : {}
+        }
+    }
+    event = bc.add_event(Event(event))
+    return bc
+
+
     

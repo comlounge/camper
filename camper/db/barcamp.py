@@ -3,6 +3,7 @@ import datetime
 from camper.exceptions import *
 import isodate
 import pycountry
+from slugify import UniqueSlugify
 
 __all__=["Barcamp", "BarcampSchema", "Barcamps", "Event"]
 
@@ -90,49 +91,53 @@ class Location(Record):
 class SessionSchema(Schema):
     """a session in a timetable"""
     _id                 = String(required = True)   # the session index made out of timeslot and room
+    title               = String(required = True, max_length = 255)
+    description         = String(max_length = 5000)
+    moderator           = String(default = "") # actually list of names separated by comma
+
+    # sid and slug for url referencing, will be computed in before_serialze below in Barcamps
     sid                 = String(required = True)   # the actual unique id   
-    slug                = String(required = True)   # slug for url referencing
-    title               = String(required = True)
-    description         = String()
-    moderator           = String() # actually list of names
+    slug                = String(required = True, max_length = 100)   
 
 class RoomSchema(Schema):
     """a room"""
     id                  = String(required = True)   # uuid
-    name                = String(required = True)
+    name                = String(required = True, max_length = 100)
     capacity            = Integer(required = True, default = 20)
-    description         = String()
+    description         = String(max_length = 1000)
 
 class TimeSlotSchema(Schema):
     """a timeslot"""
-    time                = DateTime()    # only time counts here
-    reason              = String()      # optional reason for blocking it
-    blocked             = Boolean()     # is it blocked?
+    time                = DateTime(required = True)    # only time counts here
+    reason              = String(default = "", max_length = 200)      # optional reason for blocking it
+    blocked             = Boolean(default = False)     # is it blocked?
 
 class TimeTableSchema(Schema):
     """a timetable of an event"""
-    rooms = List(RoomSchema())
-    timeslot  = List(TimeSlotSchema())
-    sessions = Dict(SessionSchema())
+    timeslots           = List(TimeSlotSchema())
+    rooms               = List(RoomSchema())
+    sessions            = Dict(SessionSchema(), default = {})
 
 
 class EventSchema(Schema):
     """a sub schema describing one event"""
     _id                 = String(required=True)
-    name                = String(required=True)
-    description         = String(required=True)
+    name                = String(required=True, max_length = 255)
+    description         = String(required=True, max_length = 5000)
     date                = DateTime()
-    start_time          = String()
-    end_time            = String()
+    start_time          = String(max_length = 5)
+    end_time            = String(max_length = 5)
     location            = LocationSchema(kls = Location, default = {})
     participants        = List(String()) # TODO: ref
     size                = Integer()
     maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
     own_location        = Boolean() # flag if the barcamp address is used or not 
-    timetable           = Dict(default={}) # will be stored as dict with rooms and timeslots and sessions
-
-
+    timetable           = TimeTableSchema(default = {
+                            'rooms' : [],
+                            'timeslots': [],
+                            'sessions' : {},
+                        })
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
@@ -565,4 +570,27 @@ class Barcamps(Collection):
     def get_by_user_id(self, user_id):
         """return all the barcamps the user is either participant, interested or an admin"""
 
+    def before_serialize(self, obj):
+        """make sure we have all required data for serializing"""
 
+        for event in obj.eventlist:
+            sessions = event.get('timetable', {}).get('sessions', {})
+            all_slugs = [session['slug'] for session in sessions.values()]
+
+            for session_idx, session in sessions.items():
+
+                # compute sid if missing
+                if session.get("sid", None) is None:
+                    session['sid'] = unicode(uuid.uuid4())
+
+                # compute slug if missing
+                slugify = UniqueSlugify(separator='_', uids = all_slugs, max_length = 50, to_lower = True)
+                orig_slug = session.get("sid", None)
+                new_slug = slugify(session['title'])
+
+                if orig_slug != new_slug:
+                    session['slug'] = new_slug
+                    all_slugs.append(new_slug)
+
+                event['timetable']['sessions'][session_idx] = session
+        return obj

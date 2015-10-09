@@ -81,7 +81,6 @@ class SessionBoardData(BarcampBaseHandler):
     @asjson()
     def post(self, slug = None, eid = None):
         """store room and timetable data"""
-        import pprint
         event = self.barcamp.get_event(eid)
         data = json.loads(self.request.data)
         event.timetable = {
@@ -89,7 +88,6 @@ class SessionBoardData(BarcampBaseHandler):
             'timeslots' : data.get("timeslots", []),
             'sessions' : data.get("sessions", {}),
         }
-        pprint.pprint(event)
         self.barcamp.events[eid] = event
         self.barcamp.save()
         return {'status' : 'ok'}

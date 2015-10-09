@@ -37,7 +37,8 @@ setup(name='camper',
         "bleach",
         "isodate",
         "pycountry",
-        "wtforms"
+        "wtforms",
+        "awesome-slugify"
       ],
       entry_points="""
           [paste.app_factory]
