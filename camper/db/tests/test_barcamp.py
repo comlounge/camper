@@ -112,7 +112,7 @@ def create_timetable():
     timeslots = [
         {
             "reason" : "",
-            "time" : datetime.datetime.now(),
+            "time" : "2015-10-07T09:00:00.000Z"
         },
     ]
     sessions = {
