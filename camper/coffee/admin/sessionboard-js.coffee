@@ -43,6 +43,8 @@ do ( $ = jQuery, window, document ) ->
 
         init: () ->
             @loadState()
+            $('#delete-all-sessions').click =>
+                @delete_all_sessions()
 
         update: ->
             @saveState()
@@ -55,7 +57,6 @@ do ( $ = jQuery, window, document ) ->
                 cache: false
                 success: (data) =>
                     @data = data
-                    console.log @data.timeslots
                     @render()
                 error: (xhr, status, err) =>
                     console.error("url", status, err.toString())
@@ -98,7 +99,6 @@ do ( $ = jQuery, window, document ) ->
                     blocked: slot.blocked
                     block_reason: slot.reason
                     slots: []
-                console.log row
                 for room in @data.rooms
                     sid = @get_session_id(slot, room)
                     if @data.sessions[sid]
@@ -118,6 +118,10 @@ do ( $ = jQuery, window, document ) ->
             )
             $("#newsessions").html(html)
             this.init_handlers()
+
+        delete_all_sessions: () =>
+            @data.sessions = {}
+            @update()
 
         add_room_modal: () =>
             html = JST["room-modal"](
@@ -317,7 +321,6 @@ do ( $ = jQuery, window, document ) ->
                         $('#moderator').tagsinput('add', user.name)
             )
 
-
             $('#edit-session-modal').modal('show')
             $("#update-session-button").click @update_session
 
@@ -337,6 +340,7 @@ do ( $ = jQuery, window, document ) ->
                 description: fd.description
                 moderator: fd.moderator
             @data.sessions[fd.session_idx] = session
+            console.log @data.sessions
             @update()
             $('#edit-session-modal').modal('hide')
 
@@ -374,14 +378,18 @@ do ( $ = jQuery, window, document ) ->
             .droppable
                 hoverClass: "btn btn-info"
                 drop: (event, ui) =>
+                    console.log @data.sessions
                     src_idx = ui.draggable.data("id")
                     dest_idx = $(event.target).data("id")
                     old_element = @data.sessions[dest_idx]
                     @data.sessions[dest_idx] = @data.sessions[src_idx]
-                    @data.sessions[dest_idx].id = dest_idx # update index in object
+                    @data.sessions[dest_idx]._id = dest_idx # update index in object
                     if old_element
                         @data.sessions[src_idx] = old_element
-                        @data.sessions[src_idx] = src_idx
+                        old_element._id = src_idx
+                    else
+                        delete @data.sessions[src_idx]
+                    console.log @data.sessions
                     @update()
 
 
@@ -399,6 +407,7 @@ do ( $ = jQuery, window, document ) ->
                     new Plugin( this, options ))
         )
 
-
-$(document).ready () ->
-    $("#newsessions").sessionboard()
+$ ->
+    console.log $("#newsessions").sessionboard()
+    $('.dropdown-toggle').dropdown()
+    

@@ -839,6 +839,7 @@
         this.del_room = __bind(this.del_room, this);
         this.add_room = __bind(this.add_room, this);
         this.add_room_modal = __bind(this.add_room_modal, this);
+        this.delete_all_sessions = __bind(this.delete_all_sessions, this);
         this.data = {};
         this.options = $.extend({}, defaults, options);
         this._defaults = defaults;
@@ -847,7 +848,12 @@
       }
 
       Plugin.prototype.init = function() {
-        return this.loadState();
+        this.loadState();
+        return $('#delete-all-sessions').click((function(_this) {
+          return function() {
+            return _this.delete_all_sessions();
+          };
+        })(this));
       };
 
       Plugin.prototype.update = function() {
@@ -863,7 +869,6 @@
           success: (function(_this) {
             return function(data) {
               _this.data = data;
-              console.log(_this.data.timeslots);
               return _this.render();
             };
           })(this),
@@ -930,7 +935,6 @@
             block_reason: slot.reason,
             slots: []
           };
-          console.log(row);
           _ref1 = this.data.rooms;
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             room = _ref1[_j];
@@ -957,6 +961,11 @@
         });
         $("#newsessions").html(html);
         return this.init_handlers();
+      };
+
+      Plugin.prototype.delete_all_sessions = function() {
+        this.data.sessions = {};
+        return this.update();
       };
 
       Plugin.prototype.add_room_modal = function() {
@@ -1196,6 +1205,7 @@
           moderator: fd.moderator
         };
         this.data.sessions[fd.session_idx] = session;
+        console.log(this.data.sessions);
         this.update();
         return $('#edit-session-modal').modal('hide');
       };
@@ -1239,15 +1249,19 @@
           drop: (function(_this) {
             return function(event, ui) {
               var dest_idx, old_element, src_idx;
+              console.log(_this.data.sessions);
               src_idx = ui.draggable.data("id");
               dest_idx = $(event.target).data("id");
               old_element = _this.data.sessions[dest_idx];
               _this.data.sessions[dest_idx] = _this.data.sessions[src_idx];
-              _this.data.sessions[dest_idx].id = dest_idx;
+              _this.data.sessions[dest_idx]._id = dest_idx;
               if (old_element) {
                 _this.data.sessions[src_idx] = old_element;
-                _this.data.sessions[src_idx] = src_idx;
+                old_element._id = src_idx;
+              } else {
+                delete _this.data.sessions[src_idx];
               }
+              console.log(_this.data.sessions);
               return _this.update();
             };
           })(this)
@@ -1272,8 +1286,9 @@
     };
   })(jQuery, window, document);
 
-  $(document).ready(function() {
-    return $("#newsessions").sessionboard();
+  $(function() {
+    console.log($("#newsessions").sessionboard());
+    return $('.dropdown-toggle').dropdown();
   });
 
 }).call(this);
