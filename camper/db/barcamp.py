@@ -572,8 +572,10 @@ class Barcamps(Collection):
 
         for event in obj.eventlist:
             sessions = event.get('timetable', {}).get('sessions', {})
-            all_slugs = [session['slug'] for session in sessions.values()]
 
+            # dict with all session slugs and their id
+            all_slugs = dict([(s['slug'], s['sid']) for s in sessions.values()])
+            
             for session_idx, session in sessions.items():
 
                 # compute sid if missing
@@ -581,13 +583,17 @@ class Barcamps(Collection):
                     session['sid'] = unicode(uuid.uuid4())
 
                 # compute slug if missing
-                slugify = UniqueSlugify(separator='_', uids = all_slugs, max_length = 50, to_lower = True)
-                orig_slug = session.get("sid", None)
-                new_slug = slugify(session['title'])
+                slugify = UniqueSlugify(separator='_', uids = all_slugs.keys(), max_length = 50, to_lower = True)
+                orig_slug = session.get("slug", None)
 
-                if orig_slug != new_slug:
+                # we need a new slug if a) the slug is None (new) or 
+                # b) another session with this slug exists already
+                # we can solve all this with .get() as the default is None anyway
+                my_sid = all_slugs.get(orig_slug, None) 
+                if my_sid != session['sid']: # for new ones it's None != xyz
+                    new_slug = slugify(session['title'])
                     session['slug'] = new_slug
-                    all_slugs.append(new_slug)
-
+                    all_slugs[new_slug] = session['sid'] 
                 event['timetable']['sessions'][session_idx] = session
+
         return obj

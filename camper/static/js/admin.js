@@ -1220,6 +1220,7 @@
           };
         })(this));
         $('#edit-session-modal').modal('show');
+        $('#ac-title').focus();
         return $("#edit-session-form").submit(this.update_session);
       };
 
