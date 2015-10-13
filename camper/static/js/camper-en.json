@@ -1,0 +1,83 @@
+{
+   "domain": "js",
+   "locale_data": {
+      "js": {
+         "": {
+            "domain": "js",
+            "plural_forms": "nplurals=2; plural=(n != 1)"
+         },
+         "Add new room": [
+            ""
+         ],
+         "Name": [
+            ""
+         ],
+         "e.g. seminar room 1": [
+            ""
+         ],
+         "Capacity": [
+            ""
+         ],
+         "Description": [
+            ""
+         ],
+         "e.g. beamer available": [
+            ""
+         ],
+         "Update": [
+            ""
+         ],
+         "Close": [
+            ""
+         ],
+         "Edit Session": [
+            ""
+         ],
+         "Title": [
+            ""
+         ],
+         "enter the title of the session": [
+            ""
+         ],
+         "The description of the session": [
+            ""
+         ],
+         "Speaker / Moderator": [
+            ""
+         ],
+         "Are you sure?": [
+            ""
+         ],
+         "delete room": [
+            ""
+         ],
+         "drag to sort this list": [
+            ""
+         ],
+         "persons": [
+            ""
+         ],
+         "Room": [
+            ""
+         ],
+         "delete timeslot": [
+            ""
+         ],
+         "Add new timeslot": [
+            ""
+         ],
+         "Time": [
+            ""
+         ],
+         "e.g. 11:00": [
+            ""
+         ],
+         "Blocked?": [
+            ""
+         ],
+         "Select if this time slot is blocked, e.g. because of a break. This means you cannot add sessions in this slot.": [
+            ""
+         ]
+      }
+   }
+}
