@@ -6965,6 +6965,77 @@ body.admin #sessionboard-container table {
   width: 100%;
   overflow: auto;
 }
+body.admin #sessionboard-container table th.time-slot {
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  font-weight: normal;
+}
+body.admin #sessionboard-container table th.time-slot:focus,
+body.admin #sessionboard-container table th.time-slot.focus {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+body.admin #sessionboard-container table th.time-slot:hover {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+body.admin #sessionboard-container table th.time-slot:active,
+body.admin #sessionboard-container table th.time-slot.active,
+.open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+body.admin #sessionboard-container table th.time-slot:active:hover,
+body.admin #sessionboard-container table th.time-slot.active:hover,
+.open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot:hover,
+body.admin #sessionboard-container table th.time-slot:active:focus,
+body.admin #sessionboard-container table th.time-slot.active:focus,
+.open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot:focus,
+body.admin #sessionboard-container table th.time-slot:active.focus,
+body.admin #sessionboard-container table th.time-slot.active.focus,
+.open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot.focus {
+  color: #ffffff;
+  background-color: #398439;
+  border-color: #255625;
+}
+body.admin #sessionboard-container table th.time-slot:active,
+body.admin #sessionboard-container table th.time-slot.active,
+.open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot {
+  background-image: none;
+}
+body.admin #sessionboard-container table th.time-slot.disabled,
+body.admin #sessionboard-container table th.time-slot[disabled],
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot,
+body.admin #sessionboard-container table th.time-slot.disabled:hover,
+body.admin #sessionboard-container table th.time-slot[disabled]:hover,
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot:hover,
+body.admin #sessionboard-container table th.time-slot.disabled:focus,
+body.admin #sessionboard-container table th.time-slot[disabled]:focus,
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot:focus,
+body.admin #sessionboard-container table th.time-slot.disabled.focus,
+body.admin #sessionboard-container table th.time-slot[disabled].focus,
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot.focus,
+body.admin #sessionboard-container table th.time-slot.disabled:active,
+body.admin #sessionboard-container table th.time-slot[disabled]:active,
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot:active,
+body.admin #sessionboard-container table th.time-slot.disabled.active,
+body.admin #sessionboard-container table th.time-slot[disabled].active,
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot.active {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+body.admin #sessionboard-container table th.time-slot .badge {
+  color: #5cb85c;
+  background-color: #ffffff;
+}
+body.admin #sessionboard-container table #roomcontainment th {
+  background: #202020;
+  color: #f0f0f0;
+}
 body.admin #sessionboard-container .room-slot {
   white-space: nowrap;
   position: relative;
@@ -7018,6 +7089,9 @@ body.admin #sessionboard-container #sessionboard-actions .tooltip-inner {
   max-width: 200px;
   /* If max-width does not work, try using width instead */
   width: 200px;
+}
+body.admin #sessionboard-container #table-buttons {
+  margin: 0 0 20px 0;
 }
 body.admin .sortable-placeholder {
   background: #cccccc;
@@ -7415,6 +7489,10 @@ h4,
 h5,
 h6 {
   font-family: "Roboto", "Helvetica Neue", sans-serif;
+}
+.btn-inverse {
+  background: black;
+  color: white;
 }
 #user-profile h2 {
   margin-top: 0;

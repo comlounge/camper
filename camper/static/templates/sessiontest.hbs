@@ -11,9 +11,9 @@
 
         <thead>
             <tr id="roomcontainment">
-                <td></td>
+                <th></th>
                 {{#each data.rooms}}
-                <td class="sorted room-slot" data-id="{{id}}" id="room-{{id}}">
+                <th class="sorted room-slot" data-id="{{id}}" id="room-{{id}}">
                     <h5 class="room-name">{{name}}</h5>
                     <div class="room-actions">
                         <a data-index="{{@index}}" data-confirm="{{_ 'Are you sure?'}}" class="del-room-button btn btn-xs btn-danger" title="{{_ 'delete room'}}" href="#"><i class="fa fa-trash"></i></a>
@@ -22,30 +22,22 @@
                     </div>
                     <small>{{description}}</small><br />
                     <small>{{capacity}} {{_ 'persons'}}</small>
-                </td>
+                </th>
                 {{/each}}
-                <td class="not-sortable">
-                    <div id="add-room-div" class="nobig-button-panel">
-                        <a title="{{_ 'Add new room'}}" href="#" id="add-room-modal-button" class="add-room-modal-button btn btn-lg btn-block btn-primary">
-                            <i class="fa fa-plus"></i> {{_ 'Room'}}
-                        </a>
-                    </div>
-                </td>
-
             </tr>
         </thead>
         <tbody>
 
             {{#each sessions}}
                 <tr class="sorted" class="{{#if blocked}}warning{{/if}}">
-                    <td class="time-slot">
+                    <th class="time-slot">
                         <span>{{time}}</span>
                         <a  href="#" 
                             data-toggle="tooltip" 
                             data-index="{{@index}}"
                             title="{{_ 'delete timeslot'}}" 
-                            class="btn btn-xs btn-danger del-timeslot-button"><i class="fa fa-trash"></i></a>
-                    </td>
+                            class="pull-right btn btn-xs btn-danger del-timeslot-button"><i class="fa fa-trash"></i></a>
+                    </th>
                     {{#each slots}}
                     <td class="sessionslot {{#unless ../blocked}}enabled{{/unless}}"
                         data-id="{{_id}}">
@@ -66,21 +58,19 @@
 
                     </td>
                     {{/each}}
-                    <td></td>
                 </tr>
             {{/each}}
-                <tr>
-                    <td>
-                        <div class="nobig-button-panel">
-                            <a  title="{{_ 'Add new timeslot'}}" href="#" 
-                                id="add-timeslot-modal-button"
-                                class="btn btn-lg btn-block btn-info">
-                                <i class="fa fa-plus"></i> {{_ 'Time'}}</a>
-                        </div>
-                    </td>
-                    <td colspan="{{data.rooms.length}}"></td>
-
-                </tr>
         </tbody>
     </table>
+</div>
+<div id="table-buttons">
+    <a  title="{{_ 'Add new timeslot'}}" href="#" 
+        id="add-timeslot-modal-button"
+        class="btn btn-lg btn-success">
+        <i class="fa fa-plus"></i> {{_ 'Add new time slot'}}
+    </a>
+    <a title="{{_ 'Add new room'}}" href="#" id="add-room-modal-button" class="add-room-modal-button btn btn-lg btn-inverse">
+        <i class="fa fa-plus"></i> {{_ 'Add new Room'}}
+    </a>
+
 </div>

@@ -118,7 +118,7 @@ do ( $ = jQuery, window, document ) ->
                 success: (data) =>
                     console.log "ok"
                 error: (data) =>
-                    console.log "not so ok"
+                    console.error "not so ok"
 
         get_session_id: (slot, room) ->
             ###
@@ -175,20 +175,17 @@ do ( $ = jQuery, window, document ) ->
             $('#add-room-modal').modal('show')
             $('#room-form-name').focus()
 
-            $(".add-room-button").click @add_room
+            $("#add-room-form").submit @add_room
             return false
 
-        add_room: () =>
+        add_room: (event) =>
+            event.preventDefault()
             room = $("#add-room-form").serializeObject()
             room.id = guid()
-            if !room.name
-                return alert("Please enter a name")
-            if !room.capacity
-                return alert("Please enter a capacity")
             @data.rooms.push(room)
             @update()
             $('#add-room-modal').modal('hide')
-            return
+            false
 
         del_room: (event) =>
             ###
@@ -200,6 +197,7 @@ do ( $ = jQuery, window, document ) ->
                 @update()
 
         edit_room_modal: (event) =>
+
             idx = $(event.currentTarget).data("index")
             room = @data.rooms[idx]
             html = JST["room-modal"](
@@ -210,18 +208,17 @@ do ( $ = jQuery, window, document ) ->
             $("#modals").html(html)
             $('#add-room-modal').modal('show')
             $('#room-form-name').focus()
-            $(".update-room-button").click @edit_room
+            $("#add-room-form").submit @edit_room
             false
 
         edit_room: (event) =>
+
+            event.preventDefault()
             room = $("#add-room-form").serializeObject()
             room_idx = room['room_idx']
             if !room_idx
+                console.error("room index was missing")
                 return alert("Error")
-            if !room.name
-                return alert("Please enter a name")
-            if !room.capacity
-                return alert("Please enter a capacity")
 
             # copy room data
             room = JSON.parse(JSON.stringify(room))
@@ -365,13 +362,15 @@ do ( $ = jQuery, window, document ) ->
             )
 
             $('#edit-session-modal').modal('show')
-            $("#update-session-button").click @update_session
+            $("#edit-session-form").submit @update_session
 
 
         update_session: (event) =>
             ###
             actually add the session to the data structure
             ###
+
+            event.preventDefault()
             fd = $("#edit-session-form").serializeObject()
             if not fd.session_idx
                 alert("An error occurred, please reload the page")
@@ -385,6 +384,7 @@ do ( $ = jQuery, window, document ) ->
             @data.sessions[fd.session_idx] = session
             @update()
             $('#edit-session-modal').modal('hide')
+            false
 
         # initialize all drag/drop/sortable handlers
         init_handlers: () ->

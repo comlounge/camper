@@ -88,6 +88,14 @@ body.admin {
         table {
             width: 100%;
             overflow: auto;
+            th.time-slot {
+                .btn-success;
+                font-weight: normal;
+            }
+            #roomcontainment th {
+                background: #202020;
+                color: #f0f0f0;
+            }
         }
         .room-slot {
             white-space: nowrap;
@@ -141,6 +149,10 @@ body.admin {
                 /* If max-width does not work, try using width instead */
                 width: 200px; 
             }
+        }
+
+        #table-buttons {
+            margin: 0 0 30px 0;
         }
     }
     .sortable-placeholder {

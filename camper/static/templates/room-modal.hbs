@@ -1,4 +1,5 @@
 <div class="modal" id="add-room-modal">
+    <form name="room_form" class="form-horizontal" role="form" id="add-room-form">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,7 +7,6 @@
                 <h4 class="modal-title">{{_ 'Add new room'}}</h4>
             </div>
             <div class="modal-body">
-                <form name="room_form" class="form-horizontal" role="form" id="add-room-form">
                     {{#unless add_room}}
                     <input type="hidden" name="room_idx" value="{{room_idx}}">
                     <input type="hidden" name="id" value="{{room.id}}">
@@ -29,8 +29,6 @@
                             <textarea class="form-control" maxlength=100 name="description" placeholder="{{_ 'e.g. beamer available'}}">{{room.description}}</textarea>
                         </div>
                     </div> 
-                </form>
-
             </div>
             <div class="modal-footer">
                 {{#if add_room}}
@@ -42,4 +40,5 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
+    </form>
 </div><!-- /.modal -->

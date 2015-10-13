@@ -942,7 +942,7 @@
           })(this),
           error: (function(_this) {
             return function(data) {
-              return console.log("not so ok");
+              return console.error("not so ok");
             };
           })(this)
         });
@@ -1019,23 +1019,19 @@
         $("#modals").html(html);
         $('#add-room-modal').modal('show');
         $('#room-form-name').focus();
-        $(".add-room-button").click(this.add_room);
+        $("#add-room-form").submit(this.add_room);
         return false;
       };
 
-      Plugin.prototype.add_room = function() {
+      Plugin.prototype.add_room = function(event) {
         var room;
+        event.preventDefault();
         room = $("#add-room-form").serializeObject();
         room.id = guid();
-        if (!room.name) {
-          return alert("Please enter a name");
-        }
-        if (!room.capacity) {
-          return alert("Please enter a capacity");
-        }
         this.data.rooms.push(room);
         this.update();
         $('#add-room-modal').modal('hide');
+        return false;
       };
 
       Plugin.prototype.del_room = function(event) {
@@ -1063,22 +1059,18 @@
         $("#modals").html(html);
         $('#add-room-modal').modal('show');
         $('#room-form-name').focus();
-        $(".update-room-button").click(this.edit_room);
+        $("#add-room-form").submit(this.edit_room);
         return false;
       };
 
       Plugin.prototype.edit_room = function(event) {
         var room, room_idx;
+        event.preventDefault();
         room = $("#add-room-form").serializeObject();
         room_idx = room['room_idx'];
         if (!room_idx) {
+          console.error("room index was missing");
           return alert("Error");
-        }
-        if (!room.name) {
-          return alert("Please enter a name");
-        }
-        if (!room.capacity) {
-          return alert("Please enter a capacity");
         }
         room = JSON.parse(JSON.stringify(room));
         if (room.room_idx) {
@@ -1227,7 +1219,7 @@
           };
         })(this));
         $('#edit-session-modal').modal('show');
-        return $("#update-session-button").click(this.update_session);
+        return $("#edit-session-form").submit(this.update_session);
       };
 
       Plugin.prototype.update_session = function(event) {
@@ -1236,6 +1228,7 @@
         actually add the session to the data structure
          */
         var fd, session;
+        event.preventDefault();
         fd = $("#edit-session-form").serializeObject();
         if (!fd.session_idx) {
           alert("An error occurred, please reload the page");
@@ -1250,7 +1243,8 @@
         };
         this.data.sessions[fd.session_idx] = session;
         this.update();
-        return $('#edit-session-modal').modal('hide');
+        $('#edit-session-modal').modal('hide');
+        return false;
       };
 
       Plugin.prototype.init_handlers = function() {
