@@ -97,7 +97,8 @@ class SessionSchema(Schema):
 
     # sid and slug for url referencing, will be computed in before_serialze below in Barcamps
     sid                 = String(required = True)   # the actual unique id   
-    slug                = String(required = True, max_length = 100)   
+    slug                = String(required = True, max_length = 100)
+    pad                 = String() # the pad id for the documentation
 
 class RoomSchema(Schema):
     """a room"""
