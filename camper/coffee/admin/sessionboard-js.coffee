@@ -24,6 +24,50 @@ $.fn.serializeObject = () ->
 
     return o
 
+
+# some i18n helpers
+
+init_i18n = () ->
+
+    locale = $("body").data("lang")
+
+    # load locale
+    $.ajax
+        url: "/static/js/camper-"+locale+".json"
+        type: "GET"
+        dataType: "json"
+        success: (data) ->
+
+            i18n = new Jed data
+                
+            trans = (string, params)->
+                i18n.translate(string).fetch(params)
+
+            ntrans = (string, plural_string, num, params)->
+                i18n.translate(string).ifPlural(num,plural_string).fetch(params)
+
+            Handlebars.registerHelper 'trans', (options) ->
+                content = options.fn(@)
+                return trans content,options.hash
+
+            Handlebars.registerHelper '_', (string,options) ->
+                content = string
+                return trans content, options.hash
+
+            Handlebars.registerHelper 'ntrans', (num,options) ->
+                content = options.fn(@)
+                plural_content = options.inverse(@)
+                return ntrans content,plural_content,num,options.hash
+
+            Handlebars.registerHelper 'n_', (num,string,plural_string,options) ->
+                return ntrans string,plural_string,num,options.hash
+
+            $("#newsessions").sessionboard()
+
+        error: () ->
+            alert("Could not load translations, please try again later")
+
+
 do ( $ = jQuery, window, document ) ->
 
     pluginName = "sessionboard"
@@ -294,8 +338,6 @@ do ( $ = jQuery, window, document ) ->
                     source: moderators.ttAdapter()
 
             # create session name typeahead
-            console.log @data.proposals
-            console.log 2
             proposals = new Bloodhound
                 datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value')
                 queryTokenizer: Bloodhound.tokenizers.whitespace
@@ -315,7 +357,6 @@ do ( $ = jQuery, window, document ) ->
 
                 $("#session-description").text(datum.description)
                 $("#ac-title").text(datum.value)
-                console.log datum
                 user_id = datum.user_id
                 for user in @data.participants
                     if user._id == user_id
@@ -342,7 +383,6 @@ do ( $ = jQuery, window, document ) ->
                 description: fd.description
                 moderator: fd.moderator
             @data.sessions[fd.session_idx] = session
-            console.log @data.sessions
             @update()
             $('#edit-session-modal').modal('hide')
 
@@ -380,7 +420,6 @@ do ( $ = jQuery, window, document ) ->
             .droppable
                 hoverClass: "btn btn-info"
                 drop: (event, ui) =>
-                    console.log @data.sessions
                     src_idx = ui.draggable.data("id")
                     dest_idx = $(event.target).data("id")
                     old_element = @data.sessions[dest_idx]
@@ -391,7 +430,6 @@ do ( $ = jQuery, window, document ) ->
                         old_element._id = src_idx
                     else
                         delete @data.sessions[src_idx]
-                    console.log @data.sessions
                     @update()
 
 
@@ -410,6 +448,6 @@ do ( $ = jQuery, window, document ) ->
         )
 
 $ ->
-    console.log $("#newsessions").sessionboard()
+    init_i18n()
     $('.dropdown-toggle').dropdown()
     

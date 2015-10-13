@@ -783,7 +783,7 @@
 }).call(this);
 
 (function() {
-  var guid, s4,
+  var guid, init_i18n, s4,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Array.prototype.toDict = function(key) {
@@ -818,6 +818,49 @@
       }
     });
     return o;
+  };
+
+  init_i18n = function() {
+    var locale;
+    locale = $("body").data("lang");
+    return $.ajax({
+      url: "/static/js/camper-" + locale + ".json",
+      type: "GET",
+      dataType: "json",
+      success: function(data) {
+        var i18n, ntrans, trans;
+        i18n = new Jed(data);
+        trans = function(string, params) {
+          return i18n.translate(string).fetch(params);
+        };
+        ntrans = function(string, plural_string, num, params) {
+          return i18n.translate(string).ifPlural(num, plural_string).fetch(params);
+        };
+        Handlebars.registerHelper('trans', function(options) {
+          var content;
+          content = options.fn(this);
+          return trans(content, options.hash);
+        });
+        Handlebars.registerHelper('_', function(string, options) {
+          var content;
+          content = string;
+          return trans(content, options.hash);
+        });
+        Handlebars.registerHelper('ntrans', function(num, options) {
+          var content, plural_content;
+          content = options.fn(this);
+          plural_content = options.inverse(this);
+          return ntrans(content, plural_content, num, options.hash);
+        });
+        Handlebars.registerHelper('n_', function(num, string, plural_string, options) {
+          return ntrans(string, plural_string, num, options.hash);
+        });
+        return $("#newsessions").sessionboard();
+      },
+      error: function() {
+        return alert("Could not load translations, please try again later");
+      }
+    });
   };
 
   (function($, window, document) {
@@ -1151,8 +1194,6 @@
             source: moderators.ttAdapter()
           }
         });
-        console.log(this.data.proposals);
-        console.log(2);
         proposals = new Bloodhound({
           datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -1170,7 +1211,6 @@
             var user, user_id, _i, _len, _ref, _results;
             $("#session-description").text(datum.description);
             $("#ac-title").text(datum.value);
-            console.log(datum);
             user_id = datum.user_id;
             _ref = _this.data.participants;
             _results = [];
@@ -1209,7 +1249,6 @@
           moderator: fd.moderator
         };
         this.data.sessions[fd.session_idx] = session;
-        console.log(this.data.sessions);
         this.update();
         return $('#edit-session-modal').modal('hide');
       };
@@ -1253,7 +1292,6 @@
           drop: (function(_this) {
             return function(event, ui) {
               var dest_idx, old_element, src_idx;
-              console.log(_this.data.sessions);
               src_idx = ui.draggable.data("id");
               dest_idx = $(event.target).data("id");
               old_element = _this.data.sessions[dest_idx];
@@ -1265,7 +1303,6 @@
               } else {
                 delete _this.data.sessions[src_idx];
               }
-              console.log(_this.data.sessions);
               return _this.update();
             };
           })(this)
@@ -1291,7 +1328,7 @@
   })(jQuery, window, document);
 
   $(function() {
-    console.log($("#newsessions").sessionboard());
+    init_i18n();
     return $('.dropdown-toggle').dropdown();
   });
 

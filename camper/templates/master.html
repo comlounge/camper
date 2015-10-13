@@ -50,7 +50,9 @@
     
     </head>
 
-    <body data-i18n-areyousure="{{_("Are you sure?")}}" id="{{body_id|d('')}}" data-lang="{{LANGUAGE}}" class="{{body_class}}">
+    <body data-i18n-areyousure="{{_("Are you sure?")}}" 
+        id="{{body_id|d('')}}"
+        data-lang="{{LANGUAGE}}" class="{{body_class}}">
         {% block navbar %}
         <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
             <div class="{{'container' if not container=="full" else "container-fluid"}}">

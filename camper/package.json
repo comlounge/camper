@@ -18,6 +18,10 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-git": "^0.2.14",
     "grunt-mkdir": "^0.1.2",
-    "handlebars": "^4.0.3"
+    "handlebars": "^4.0.3",
+    "po2json": "^0.4.1"
+  },
+  "dependencies": {
+    "jed": "^1.1.0"
   }
 }

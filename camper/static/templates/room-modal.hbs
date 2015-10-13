@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Add new room</h4>
+                <h4 class="modal-title">{{_ 'Add new room'}}</h4>
             </div>
             <div class="modal-body">
                 <form name="room_form" class="form-horizontal" role="form" id="add-room-form">
@@ -12,21 +12,21 @@
                     <input type="hidden" name="id" value="{{room.id}}">
                     {{/unless}}
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Name</label>
+                        <label class="col-sm-2 control-label">{{_ 'Name'}}</label>
                         <div class="col-sm-10">
-                            <input type="text" value="{{room.name}}" class="form-control" id="room-form-name" name="name" required placeholder="e.g. seminar room">
+                            <input type="text" value="{{room.name}}" class="form-control" id="room-form-name" name="name" required placeholder="{{_ 'e.g. seminar room 1'}}">
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Capacity</label>
+                        <label class="col-sm-2 control-label">{{_ 'Capacity'}}</label>
                         <div class="col-sm-5">
                             <input value="{{room.capacity}}" type="number" class="form-control" integer min=1 max=1000 name="capacity" required>
                         </div>
                     </div> 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
+                        <label class="col-sm-2 control-label">{{_ 'Description'}}</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control" maxlength=100 name="description" placeholder="e.g. beamer available">{{room.description}}</textarea>
+                            <textarea class="form-control" maxlength=100 name="description" placeholder="{{_ 'e.g. beamer available'}}">{{room.description}}</textarea>
                         </div>
                     </div> 
                 </form>
@@ -34,11 +34,11 @@
             </div>
             <div class="modal-footer">
                 {{#if add_room}}
-                <button class="add-room-button btn btn-primary">Add new room</button>
+                <button class="add-room-button btn btn-primary">{{_ 'Add new room'}}</button>
                 {{else}}    
-                <button class="update-room-button btn btn-primary">Update Room</button>
+                <button class="update-room-button btn btn-primary">{{_ 'Update'}}</button>
                 {{/if}}
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{_ 'Close'}}</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

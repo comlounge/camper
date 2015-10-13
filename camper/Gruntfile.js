@@ -100,6 +100,7 @@ module.exports = function(grunt) {
                 include: [
                     'jquery-ui',
                     'handlebars',
+                    'jed',
                     'moment',
                     'moment-timezone',
                     "bootstrap",
