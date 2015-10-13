@@ -289,10 +289,7 @@ class Event(Record):
     @property
     def timeslots(self):
         """return the timeslots"""
-        slots = self.timetable.get('timeslots', [])
-        for slot in slots:
-            slot['time'] = isodate.parse_datetime(slot['time'])
-        return slots
+        return self.timetable.get('timeslots', [])
 
 
 
