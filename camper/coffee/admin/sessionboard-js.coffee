@@ -294,19 +294,19 @@ do ( $ = jQuery, window, document ) ->
                     source: moderators.ttAdapter()
 
             # create session name typeahead
+            console.log @data.proposals
+            console.log 2
             proposals = new Bloodhound
-                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label')
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value')
                 queryTokenizer: Bloodhound.tokenizers.whitespace
                 local: @data.proposals
 
-            $('#ac-title').typeahead(
-                {   
-                    hint: true,
-                    minLength: 1
-                },
+            $('#ac-title').typeahead(null,
                 {
                     name: 'proposals'
-                    displayKey: 'label'
+                    display: 'value'
+                    templates:
+                        suggestion: Handlebars.compile('<div>{{label}}</div>')
                     source: proposals.ttAdapter()
                 }
             ).bind("typeahead:select", (obj, datum, name) =>
@@ -314,6 +314,8 @@ do ( $ = jQuery, window, document ) ->
                 # we found a session, put in the rest of the form data
 
                 $("#session-description").text(datum.description)
+                $("#ac-title").text(datum.value)
+                console.log datum
                 user_id = datum.user_id
                 for user in @data.participants
                     if user._id == user_id

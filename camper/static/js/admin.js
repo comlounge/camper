@@ -1151,22 +1151,26 @@
             source: moderators.ttAdapter()
           }
         });
+        console.log(this.data.proposals);
+        console.log(2);
         proposals = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('label'),
+          datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
           queryTokenizer: Bloodhound.tokenizers.whitespace,
           local: this.data.proposals
         });
-        $('#ac-title').typeahead({
-          hint: true,
-          minLength: 1
-        }, {
+        $('#ac-title').typeahead(null, {
           name: 'proposals',
-          displayKey: 'label',
+          display: 'value',
+          templates: {
+            suggestion: Handlebars.compile('<div>{{label}}</div>')
+          },
           source: proposals.ttAdapter()
         }).bind("typeahead:select", (function(_this) {
           return function(obj, datum, name) {
             var user, user_id, _i, _len, _ref, _results;
             $("#session-description").text(datum.description);
+            $("#ac-title").text(datum.value);
+            console.log(datum);
             user_id = datum.user_id;
             _ref = _this.data.participants;
             _results = [];
