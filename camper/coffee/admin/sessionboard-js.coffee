@@ -289,13 +289,15 @@ do ( $ = jQuery, window, document ) ->
             timeslot.time = utc.toISOString().replace("Z","") # remove timezone
             @data.timeslots.push timeslot
 
+            console.log @data.timeslots
             @data.timeslots = _.sortBy(@data.timeslots, (item) ->
                 t = item.time
                 # loaded timeslots are string and not objects
                 if typeof(t) == 'string'
-                    return new Date(t)
-                return t
-            )
+                    return moment(new Date(t)).format("HH:mm")
+                return moment(t).format("HH:mm")
+            )            
+            
             @update()
             $('#add-timeslot-modal').modal('hide')
             return

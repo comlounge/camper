@@ -1138,13 +1138,14 @@
         utc = new Date(entered_time - localOffset * 60000);
         timeslot.time = utc.toISOString().replace("Z", "");
         this.data.timeslots.push(timeslot);
+        console.log(this.data.timeslots);
         this.data.timeslots = _.sortBy(this.data.timeslots, function(item) {
           var t;
           t = item.time;
           if (typeof t === 'string') {
-            return new Date(t);
+            return moment(new Date(t)).format("HH:mm");
           }
-          return t;
+          return moment(t).format("HH:mm");
         });
         this.update();
         $('#add-timeslot-modal').modal('hide');
