@@ -13,10 +13,7 @@
         <h1>{{session.title}}
         <br>    
             <div class="authors">
-                {{_('by')}} 
-                    {% for moderator in session.moderator %}
-                        {{moderator.name}}{{ ',' if not loop.last else ''}}
-                    {% endfor %}
+                {{_('by')}} {{session.moderator}}
             </div>
             <small>{{session.description}}</small>
         </h1>
