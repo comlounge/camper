@@ -364,6 +364,7 @@ do ( $ = jQuery, window, document ) ->
             )
 
             $('#edit-session-modal').modal('show')
+            $('#ac-title').focus()
             $("#edit-session-form").submit @update_session
 
 
