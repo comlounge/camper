@@ -571,11 +571,12 @@ class Barcamps(Collection):
     def before_serialize(self, obj):
         """make sure we have all required data for serializing"""
 
+
         for event in obj.eventlist:
             sessions = event.get('timetable', {}).get('sessions', {})
 
-            # dict with all session slugs and their id
-            all_slugs = dict([(s['slug'], s['sid']) for s in sessions.values()])
+            # dict with all session slugs and their id except the new ones
+            all_slugs = dict([(s['slug'], s['sid']) for s in sessions.values() if s['slug'] is not None])
             
             for session_idx, session in sessions.items():
 
