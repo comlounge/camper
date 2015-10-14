@@ -117,7 +117,7 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
 },"5":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "                <tr class=\"sorted\" class=\""
+  return "                <tr class=\"sorted "
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.blocked : depth0),{"name":"if","hash":{},"fn":this.program(6, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\">\n                    <th class=\"time-slot\">\n                        <span>"
     + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
@@ -129,7 +129,7 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.slots : depth0),{"name":"each","hash":{},"fn":this.program(8, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "                </tr>\n";
 },"6":function(depth0,helpers,partials,data) {
-    return "warning";
+    return "danger";
 },"8":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 

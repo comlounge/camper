@@ -29,7 +29,7 @@
         <tbody>
 
             {{#each sessions}}
-                <tr class="sorted" class="{{#if blocked}}warning{{/if}}">
+                <tr class="sorted {{#if blocked}}danger{{/if}}">
                     <th class="time-slot">
                         <span>{{time}}</span>
                         <a  href="#" 
