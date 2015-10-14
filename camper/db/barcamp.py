@@ -576,18 +576,23 @@ class Barcamps(Collection):
         ### remove all sessions which have no room or timeslot anymore
         ###
 
-        # for event in obj.eventlist:
-        #     tt = event.get('timetable', {})
-        #     rooms = tt.get('rooms', [])
-        #     timeslots = tt.get('timeslots', [])
+        for event in obj.eventlist:
+            tt = event.get('timetable', {})
+            rooms = tt.get('rooms', [])
+            timeslots = tt.get('timeslots', [])
 
-        #     all_idxs = [] # list of all possible indexes of room/time
+            all_idxs = [] # list of all possible indexes of room/time
 
-        #     for room in rooms:
-        #         for timeslot in timeslots:
-        #             print timeslot
-        #             all_idxs.append("%s:%s" %(room['id'], timeslot['time'].strftime('HH:MM')))
-        #     print all_idx
+            for room in rooms:
+                for timeslot in timeslots:
+                    all_idxs.append("%s@%s" %(room['id'], timeslot['time']))
+
+            if 'sessions' in tt:
+                sessions = {}
+                for idx, session in tt['sessions'].items():
+                    if idx in all_idxs:
+                        sessions[idx] = session
+                event['timetable']['sessions'] = sessions
 
         ###
         ### fix all the sids and slugs in the session plan
