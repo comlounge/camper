@@ -943,7 +943,8 @@
           })(this),
           error: (function(_this) {
             return function(data) {
-              return console.error("not so ok");
+              alert("an error occurred saving the data");
+              return _this.loadState();
             };
           })(this)
         });
@@ -954,11 +955,7 @@
         /*
         generate a session if from slot and room
          */
-        var d, fd, idx;
-        d = new Date(slot.time);
-        fd = moment(d).tz('UTC').format("HH:mm");
-        idx = room.id + "@" + fd;
-        return idx;
+        return room.id + "@" + slot.time;
       };
 
       Plugin.prototype.generate_sessiontable = function() {
@@ -974,7 +971,7 @@
         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
           slot = _ref[_i];
           row = {
-            time: moment(slot.time).format('HH:mm'),
+            time: slot.time,
             blocked: slot.blocked,
             block_reason: slot.reason,
             slots: []
@@ -1088,22 +1085,20 @@
         /*
         computes the next possible time for the timeslot modal
          */
-        var d, dd, l, last_time, new_time;
+        var hour, l, last_time, parts;
         l = this.data.timeslots.length;
         if (l) {
-          last_time = new Date(this.data.timeslots[l - 1].time);
-          last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000);
-          new_time = new Date(last_time.getTime() + 60 * 60000);
-          return $("#timepicker").timepicker('setTime', new_time);
+          last_time = this.data.timeslots[l - 1].time;
+          try {
+            parts = last_time.split(":");
+            hour = parseInt(parts[0]) + 1;
+            return $("#timepicker").timepicker('setTime', hour + ':' + parts[1]);
+          } catch (_error) {
+
+          }
         } else {
-          d = Date.now();
-          dd = new Date();
-          dd.setTime(d);
-          dd.setHours(9);
-          dd.setMinutes(0);
-          dd.setSeconds(0);
           $("#timepicker").timepicker('option', 'minTime', '00:00');
-          return $("#timepicker").timepicker('setTime', dd);
+          return $("#timepicker").timepicker('setTime', '09:00');
         }
       };
 
@@ -1131,23 +1126,14 @@
         /*
         add a new timeslot to the list of timeslots
          */
-        var entered_time, localOffset, now, timeslot, utc;
+        var parts, timeslot;
         timeslot = $("#add-timeslot-form").serializeObject();
-        now = new Date();
-        entered_time = $("#timepicker").timepicker("getTime", now);
-        localOffset = now.getTimezoneOffset();
-        utc = new Date(entered_time - localOffset * 60000);
-        timeslot.time = utc.toISOString().replace("Z", "");
+        parts = timeslot.time.split(":");
+        if (parts[0].length === 1) {
+          timeslot.time = "0" + timeslot.time;
+        }
         this.data.timeslots.push(timeslot);
-        console.log(this.data.timeslots);
-        this.data.timeslots = _.sortBy(this.data.timeslots, function(item) {
-          var t;
-          t = item.time;
-          if (typeof t === 'string') {
-            return moment(new Date(t)).format("HH:mm");
-          }
-          return moment(t).format("HH:mm");
-        });
+        this.data.timeslots = _.sortBy(this.data.timeslots, 'time');
         this.update();
         $('#add-timeslot-modal').modal('hide');
       };

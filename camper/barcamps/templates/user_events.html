@@ -35,7 +35,6 @@
                             <span class="event-date">{{dateformat(event.date)}}</span>
                         </a></li>
                 {% endfor %}
-                
             </ul>
             {% if logged_in %}
             <div id="my-actions">
@@ -167,14 +166,14 @@
                                 <tbody>
                                     {% for slot in timeslots %}
                                     <tr class="{{'warning' if slot.blocked}}">
-                                        <th>{{slot.time.strftime("%H:%M")}}</th>
+                                        <th>{{slot.time}}</th>
                                     {% if slot.blocked %}
                                         {% for room in rooms %}
                                             <td>{{slot.reason}}</td>
                                         {% endfor %}
                                     {% else %}
                                         {% for room in rooms %}
-                                            {% set sid = room.id+"@"+slot.time.strftime("%H:%M") %}
+                                            {% set sid = room.id+"@"+slot.time %}
                                             <td class="slot {{'active' if sid in sessionplan}}">
                                             {% if sid in sessionplan %}
                                                 <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 

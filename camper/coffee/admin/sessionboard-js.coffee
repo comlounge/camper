@@ -27,6 +27,7 @@ $.fn.serializeObject = () ->
 
 # some i18n helpers
 
+
 init_i18n = () ->
 
     locale = $("body").data("lang")
@@ -118,17 +119,14 @@ do ( $ = jQuery, window, document ) ->
                 success: (data) =>
                     console.log "ok"
                 error: (data) =>
-                    console.error "not so ok"
+                    alert("an error occurred saving the data")
+                    @loadState()
 
         get_session_id: (slot, room) ->
             ###
             generate a session if from slot and room
             ###
-            d = new Date(slot.time)
-            fd = moment(d).tz('UTC').format("HH:mm")
-            idx = room.id+"@"+fd
-            return idx
-
+            return room.id+"@"+slot.time
 
         generate_sessiontable: () ->
             ###
@@ -139,7 +137,7 @@ do ( $ = jQuery, window, document ) ->
             table = []
             for slot in @data.timeslots
                 row =
-                    time: moment(slot.time).format('HH:mm')
+                    time: slot.time # moment(slot.time).format('HH:mm')
                     blocked: slot.blocked
                     block_reason: slot.reason
                     slots: []
@@ -239,19 +237,16 @@ do ( $ = jQuery, window, document ) ->
 
             l = @data.timeslots.length
             if l
-                last_time = new Date(@data.timeslots[l-1].time)
-                last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000) # convert to UTC
-                new_time = new Date(last_time.getTime() + 60*60000)
-                $("#timepicker").timepicker('setTime', new_time)
+                last_time = @data.timeslots[l-1].time
+                try
+                    parts = last_time.split(":")
+                    hour = parseInt(parts[0]) + 1
+                    $("#timepicker").timepicker('setTime', hour+':'+parts[1])
+                catch
+                    return
             else
-                d = Date.now() # TODO: set the date of the day of the event
-                dd = new Date()
-                dd.setTime(d)
-                dd.setHours(9)
-                dd.setMinutes(0)
-                dd.setSeconds(0)
                 $("#timepicker").timepicker('option', 'minTime', '00:00')
-                $("#timepicker").timepicker('setTime', dd)
+                $("#timepicker").timepicker('setTime', '09:00')
 
 
         add_timeslot_modal: (event) =>
@@ -277,27 +272,13 @@ do ( $ = jQuery, window, document ) ->
             ###
 
             timeslot = $("#add-timeslot-form").serializeObject()
+            parts = timeslot.time.split(":")
+            if parts[0].length == 1
+                timeslot.time = "0"+timeslot.time
 
-            # get the local timezone offset
-            now = new Date()
-            
-            # convert to utc by removing the local offset
-            entered_time = $("#timepicker").timepicker("getTime", now)
-            localOffset = now.getTimezoneOffset()
-            utc = new Date(entered_time - localOffset*60000)
-            
-            timeslot.time = utc.toISOString().replace("Z","") # remove timezone
             @data.timeslots.push timeslot
+            @data.timeslots = _.sortBy(@data.timeslots, 'time')
 
-            console.log @data.timeslots
-            @data.timeslots = _.sortBy(@data.timeslots, (item) ->
-                t = item.time
-                # loaded timeslots are string and not objects
-                if typeof(t) == 'string'
-                    return moment(new Date(t)).format("HH:mm")
-                return moment(t).format("HH:mm")
-            )            
-            
             @update()
             $('#add-timeslot-modal').modal('hide')
             return

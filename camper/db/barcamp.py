@@ -109,7 +109,8 @@ class RoomSchema(Schema):
 
 class TimeSlotSchema(Schema):
     """a timeslot"""
-    time                = DateTime(required = True, ignoretz = True)    # only time counts here
+    time                = Regexp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", required = True)    # only HH:MM here
+    #time                = String()
     reason              = String(default = "", max_length = 200)      # optional reason for blocking it
     blocked             = Boolean(default = False)     # is it blocked?
 
@@ -571,7 +572,26 @@ class Barcamps(Collection):
     def before_serialize(self, obj):
         """make sure we have all required data for serializing"""
 
+        ###
+        ### remove all sessions which have no room or timeslot anymore
+        ###
 
+        # for event in obj.eventlist:
+        #     tt = event.get('timetable', {})
+        #     rooms = tt.get('rooms', [])
+        #     timeslots = tt.get('timeslots', [])
+
+        #     all_idxs = [] # list of all possible indexes of room/time
+
+        #     for room in rooms:
+        #         for timeslot in timeslots:
+        #             print timeslot
+        #             all_idxs.append("%s:%s" %(room['id'], timeslot['time'].strftime('HH:MM')))
+        #     print all_idx
+
+        ###
+        ### fix all the sids and slugs in the session plan
+        ###
         for event in obj.eventlist:
             sessions = event.get('timetable', {}).get('sessions', {})
 
