@@ -1260,9 +1260,10 @@
           idx = $(event.currentTarget).closest(".sessionslot").data("id");
           elem_id = $(event.currentTarget).closest(".sessionslot").attr("id");
           delete this.data.sessions[idx];
+          this.saveState();
           $("#" + elem_id).css({
             background: "#f00"
-          }).fadeOut(400, this.update);
+          }).fadeOut(400, this.render);
         }
         return false;
       };
