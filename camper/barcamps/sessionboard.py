@@ -102,8 +102,6 @@ class SessionBoardPrint(BarcampBaseHandler):
     def get(self, slug = None, eid = None):
         """return times, rooms or both as PDF"""
 
-        print "ok"
-
         fmt = self.request.args.get("fmt", "times") # can be "times", "rooms", "both"
 
         event = self.barcamp.get_event(eid)
