@@ -263,7 +263,8 @@ do ( $ = jQuery, window, document ) ->
             @set_next_time()
             $('#add-timeslot-modal').modal('show')
             $('#timepicker').focus()
-            $("#add-timeslot-button").click @add_timeslot
+            $('#add-timeslot-form').parsley();
+            $("#add-timeslot-form").submit @add_timeslot
             return false
 
         add_timeslot: (event) =>
@@ -271,6 +272,7 @@ do ( $ = jQuery, window, document ) ->
             add a new timeslot to the list of timeslots
             ###
 
+            event.preventDefault()
             timeslot = $("#add-timeslot-form").serializeObject()
             parts = timeslot.time.split(":")
             if parts[0].length == 1

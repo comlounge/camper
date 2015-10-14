@@ -181,21 +181,21 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
 this["JST"]["timeslot-modal"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2=this.escapeExpression;
 
-  return "<div class=\"modal\" id=\"add-timeslot-modal\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\">"
+  return "<div class=\"modal\" id=\"add-timeslot-modal\">\n    <form name=\"timeslot_form\" class=\"form-horizontal\" role=\"form\" id=\"add-timeslot-form\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>\n                <h4 class=\"modal-title\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Add new timeslot",{"name":"_","hash":{},"data":data}))
-    + "</h4>\n            </div>\n            <div class=\"modal-body\">\n                <form name=\"timeslot_form\" class=\"form-horizontal\" role=\"form\" id=\"add-timeslot-form\">\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">"
+    + "</h4>\n            </div>\n            <div class=\"modal-body\">\n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Time",{"name":"_","hash":{},"data":data}))
-    + "</label>\n                        <div class=\"col-sm-2\">\n                            <input type=\"text\" \n                                class=\"form-control\" \n                                id=\"timepicker\" \n                                value=\""
+    + "</label>\n                    <div class=\"col-sm-2\">\n                        <input type=\"text\" \n                            class=\"form-control\" \n                            id=\"timepicker\" \n                            value=\""
     + alias2(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === "function" ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
-    + "\" \n                                name=\"time\" \n                                required \n                                placeholder=\""
+    + "\" \n                            name=\"time\" \n                            required \n                            data-parsley-pattern=\"^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$\"\n                            placeholder=\""
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"e.g. 11:00",{"name":"_","hash":{},"data":data}))
-    + "\">\n                        </div>\n                    </div> \n                    <div class=\"form-group\">\n                        <label class=\"col-sm-2 control-label\">"
+    + "\">\n                    </div>\n                </div> \n                <div class=\"form-group\">\n                    <label class=\"col-sm-2 control-label\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Blocked?",{"name":"_","hash":{},"data":data}))
-    + "</label>\n                        <div class=\"col-sm-10\">\n                            <input type=\"checkbox\" class=\"form-control\" name=\"blocked\" required>\n                            <span class=\"help-block\">\n                                "
+    + "</label>\n                    <div class=\"col-sm-10\">\n                        <input type=\"checkbox\" class=\"form-control\" name=\"blocked\" >\n                        <span class=\"help-block\">\n                            "
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Select if this time slot is blocked, e.g. because of a break. This means you cannot add sessions in this slot.",{"name":"_","hash":{},"data":data}))
-    + "\n                            </span>\n                        </div>\n                    </div>\n                </form>\n\n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"add-timeslot-button\" class=\"btn btn-primary\">"
+    + "\n                        </span>\n                    </div>\n                </div>\n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"add-timeslot-button\" class=\"btn btn-primary\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Add new timeslot",{"name":"_","hash":{},"data":data}))
     + "</button>\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Close",{"name":"_","hash":{},"data":data}))
-    + "</button>\n            </div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n</div><!-- /.modal -->\n";
+    + "</button>\n            </div>\n        </div><!-- /.modal-content -->\n    </div><!-- /.modal-dialog -->\n    </form>\n</div><!-- /.modal -->\n";
 },"useData":true});
