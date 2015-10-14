@@ -313,7 +313,7 @@ do ( $ = jQuery, window, document ) ->
 
 
         add_session_modal: (event) =>
-            sid = $(event.currentTarget).data("id")
+            sid = $(event.currentTarget).closest(".sessionslot").data("id")
 
             # check if session already exists so we can prefill
             
@@ -378,7 +378,7 @@ do ( $ = jQuery, window, document ) ->
             if not fd.session_idx
                 alert("An error occurred, please reload the page")
             session = 
-                sid: null # will be generated on the server
+                sid: guid() # we need this in order to delete the session
                 slug: null # will be generated on the server
                 _id: fd.session_idx
                 title: fd.title
@@ -388,6 +388,21 @@ do ( $ = jQuery, window, document ) ->
             @update()
             $('#edit-session-modal').modal('hide')
             false
+
+        del_session: (event) =>
+            ###
+            delete a session after asking for confirmation
+            ###
+            if confirm($('body').data("i18n-areyousure"))
+                idx = $(event.currentTarget).closest(".sessionslot").data("id")
+                elem_id = $(event.currentTarget).closest(".sessionslot").attr("id")
+                delete @data.sessions[idx]
+                $("#"+elem_id)
+                    .css
+                        background: "#f00"
+                    .fadeOut(400, @update)
+            false
+
 
         # initialize all drag/drop/sortable handlers
         init_handlers: () ->
@@ -441,7 +456,8 @@ do ( $ = jQuery, window, document ) ->
             $(".edit-room-modal-button").click @edit_room_modal
             $("#add-timeslot-modal-button").click @add_timeslot_modal
             $(".del-timeslot-button").click @del_timeslot
-            $(".sessionslot").click @add_session_modal
+            $(".edit-session-button").click @add_session_modal
+            $(".del-session-button").click @del_session
 
     $.fn[pluginName] = ( options ) ->
         return this.each( () ->

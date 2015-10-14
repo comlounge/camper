@@ -7074,16 +7074,16 @@ body.admin #sessionboard-container .moderators {
 }
 body.admin #sessionboard-container .sessionslot {
   position: relative;
-  padding-bottom: 30px;
+  height: 70px;
+  padding-bottom: 20px;
 }
 body.admin #sessionboard-container .sessionslot .slot-actions {
-  font-size: 12px;
   position: absolute;
   right: 5px;
   bottom: 5px;
 }
 body.admin #sessionboard-container .sessionslot .slot-actions span {
-  padding-left: 5px;
+  padding-left: 10px;
 }
 body.admin #sessionboard-container #sessionboard-actions .tooltip-inner {
   max-width: 200px;

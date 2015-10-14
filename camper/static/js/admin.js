@@ -872,6 +872,7 @@
     Plugin = (function() {
       function Plugin(element, options) {
         this.element = element;
+        this.del_session = __bind(this.del_session, this);
         this.update_session = __bind(this.update_session, this);
         this.add_session_modal = __bind(this.add_session_modal, this);
         this.del_timeslot = __bind(this.del_timeslot, this);
@@ -1166,7 +1167,7 @@
 
       Plugin.prototype.add_session_modal = function(event) {
         var html, moderators, payload, proposals, sid;
-        sid = $(event.currentTarget).data("id");
+        sid = $(event.currentTarget).closest(".sessionslot").data("id");
         payload = this.data.sessions[sid];
         if (!payload) {
           payload = {};
@@ -1236,7 +1237,7 @@
           alert("An error occurred, please reload the page");
         }
         session = {
-          sid: null,
+          sid: guid(),
           slug: null,
           _id: fd.session_idx,
           title: fd.title,
@@ -1246,6 +1247,23 @@
         this.data.sessions[fd.session_idx] = session;
         this.update();
         $('#edit-session-modal').modal('hide');
+        return false;
+      };
+
+      Plugin.prototype.del_session = function(event) {
+
+        /*
+        delete a session after asking for confirmation
+         */
+        var elem_id, idx;
+        if (confirm($('body').data("i18n-areyousure"))) {
+          idx = $(event.currentTarget).closest(".sessionslot").data("id");
+          elem_id = $(event.currentTarget).closest(".sessionslot").attr("id");
+          delete this.data.sessions[idx];
+          $("#" + elem_id).css({
+            background: "#f00"
+          }).fadeOut(400, this.update);
+        }
         return false;
       };
 
@@ -1308,7 +1326,8 @@
         $(".edit-room-modal-button").click(this.edit_room_modal);
         $("#add-timeslot-modal-button").click(this.add_timeslot_modal);
         $(".del-timeslot-button").click(this.del_timeslot);
-        return $(".sessionslot").click(this.add_session_modal);
+        $(".edit-session-button").click(this.add_session_modal);
+        return $(".del-session-button").click(this.del_session);
       };
 
       return Plugin;

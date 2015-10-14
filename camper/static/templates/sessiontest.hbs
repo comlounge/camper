@@ -40,19 +40,20 @@
                     </th>
                     {{#each slots}}
                     <td class="sessionslot {{#unless ../blocked}}enabled{{/unless}}"
+                        id="{{sid}}"
                         data-id="{{_id}}">
 
                         <h5>{{title}}</h5>
                         <div class="description">{{description}}</div>
                         <div class="moderators">
-                            {{moderators}}
+                            {{moderator}}
                         </div>
 
                         {{#unless ../blocked}}
                         <div class="pull-right slot-actions">
-                            <span><i class="fa fa-pencil"></i></span>
-                            <span class="text-danger"><i class="fa fa-trash"></i></span>
-                            <span><i class="fa fa-arrows"></i></span>
+                            <span class="edit-session-button btn btn-primary btn-xs"><i class="fa fa-pencil"></i> {{_ 'Edit'}}</span>
+                            <span class="del-session-button text-danger"><i class="fa fa-trash"></i></span>
+                            <span><i class="move-session-handle fa fa-arrows"></i></span>
                         </div>
                         {{/unless}}
 

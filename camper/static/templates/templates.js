@@ -135,6 +135,8 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
 
   return "                    <td class=\"sessionslot "
     + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(9, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "\"\n                        id=\""
+    + alias3(((helper = (helper = helpers.sid || (depth0 != null ? depth0.sid : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"sid","hash":{},"data":data}) : helper)))
     + "\"\n                        data-id=\""
     + alias3(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"_id","hash":{},"data":data}) : helper)))
     + "\">\n\n                        <h5>"
@@ -142,14 +144,16 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + "</h5>\n                        <div class=\"description\">"
     + alias3(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"description","hash":{},"data":data}) : helper)))
     + "</div>\n                        <div class=\"moderators\">\n                            "
-    + alias3(((helper = (helper = helpers.moderators || (depth0 != null ? depth0.moderators : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"moderators","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.moderator || (depth0 != null ? depth0.moderator : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"moderator","hash":{},"data":data}) : helper)))
     + "\n                        </div>\n\n"
     + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(11, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n                    </td>\n";
 },"9":function(depth0,helpers,partials,data) {
     return "enabled";
 },"11":function(depth0,helpers,partials,data) {
-    return "                        <div class=\"pull-right slot-actions\">\n                            <span><i class=\"fa fa-pencil\"></i></span>\n                            <span class=\"text-danger\"><i class=\"fa fa-trash\"></i></span>\n                            <span><i class=\"fa fa-arrows\"></i></span>\n                        </div>\n";
+    return "                        <div class=\"pull-right slot-actions\">\n                            <span class=\"edit-session-button btn btn-primary btn-xs\"><i class=\"fa fa-pencil\"></i> "
+    + this.escapeExpression((helpers._ || (depth0 && depth0._) || helpers.helperMissing).call(depth0,"Edit",{"name":"_","hash":{},"data":data}))
+    + "</span>\n                            <span class=\"del-session-button text-danger\"><i class=\"fa fa-trash\"></i></span>\n                            <span><i class=\"move-session-handle fa fa-arrows\"></i></span>\n                        </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data,blockParams,depths) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
