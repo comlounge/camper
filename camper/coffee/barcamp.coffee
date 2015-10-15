@@ -169,72 +169,10 @@ $.fn.gallery = (opts = {}) ->
     this
 
 
-$.fn.uploader2 = (opts = {}) ->
-    file_completed = false     
-    myfilename = null          
 
-    # show a sponsor
-    sponsor = (widget, json) ->
-        $(widget).find(".upload-area").hide()
-        img = $("<img>").attr(
-            "src" :  json.url
-            "width" : "100px"
-        )
-        $(widget).find(".upload-value-id").val(json.asset_id)
-        $(widget).find(".preview-area").children().remove()
-        $(widget).find(".preview-area").append(img).show()
-        
-    init = () ->
-        url = $(this).data("url")
-        postproc = $(this).data("postproc")
-        widget = this
-        uploader = new qq.FileUploaderBasic(
-            button: $(widget).find(".uploadbutton")[0]
-            action: url
-            multiple: false
-            sizeLimit: 10*1024*1024
-            allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']
-            onProgress: (id, filename, loaded, total) ->
-                perc = parseInt(Math.floor(loaded/total*100))+"%"
-                $(widget).find(".progressbar .progress").css("width", perc)
-            onSubmit: (id, filename) ->
-                $(widget).find(".progressbar").show()
-                $(widget).find(".preview-area").hide()
-            onComplete: (id, filename, json) ->
-                if json.status == "error" 
-                    file_completed = false
-                    myfilename = null
-                    alert(json.msg)
-                    $(widget).find(".upload-area").show()
-                    $(widget).find(".progressbar").hide()
-                    return false
-                if json.status == "success"
-                    file_completed = true
-                    field_id = $(widget).data("id")+"-id"
-                    $("#"+field_id).val(json.asset_id)
-                    if json.url
-                        $(widget).find(".preview-area img").attr("src", json.url)
-                        $(widget).find(".progressbar").hide()
-                        $(widget).find(".preview-area").show()
-                    if json.redirect
-                        window.location = json.redirect
-                        return
-                    if json.parent_redirect
-                        window.parent.window.location = json.parent_redirect
-                        window.close()
-                        return
-                    if postproc
-                        if postproc=="sponsor"
-                            sponsor(widget, json)
-                    $(widget).find(".upload-area").show()
-                    $(widget).find(".progressbar").hide()
-        )
-    $(this).each(init)
-    this
 
-$(document).ready( () ->
-
-    console.log "okok"
+$ ->
+    console.log "ok"
 
     $(".gallerycontainer").gallery()
 
@@ -260,25 +198,6 @@ $(document).ready( () ->
         f = $(p).find(".value").show()
         alert("Gespeichert")
         false
-    )
-
-    $('[data-action="set-layout"]').click( () ->
-        layout = $(this).data("layout")
-        url = $(this).attr("href")
-        that = this
-        $.ajax 
-            url: url
-            type: "POST"
-            data: 
-                layout: layout
-            success: (data) ->
-                $(that).closest(".barcamp-page")
-                .removeClass("layout-left")
-                .removeClass("layout-default")
-                .removeClass("layout-right")
-                .addClass("layout-"+data.layout)
-
-        return false
     )
 
     # asset deletion
@@ -335,55 +254,6 @@ $(document).ready( () ->
         form.submit()
         false
 
-    # map
-    $("#minimap").each( () ->
-        lat = $(this).data("lat")
-        lng = $(this).data("lng")
-        at = $(this).data("accesstoken")
-        mapid = $(this).data("mapid")
-        id = $(this).attr("id")
-        href = $(this).data("href")
-        L.mapbox.accessToken = at
-
-        options =
-            zoomControl: false
-            dragging: false
-            touchZoom: false
-            scrollWheelZoom: false
-            doubleClickZoom: false
-            center: [lat, lng]
-            zoom: 14
-            accessToken: at
-        map = L.mapbox.map(id, mapid, options)
-        L.Icon.Default.imagePath = '/static/img';
-        marker = L.marker([lat, lng]).addTo(map);
-        goto = (e) ->
-            document.location = href
-        marker.on("click", goto)
-        map.on("click", goto)
-    )
-    $("#edit-minimap").each( () ->
-        lat = $(this).data("lat")
-        lng = $(this).data("lng")
-        at = $(this).data("accesstoken")
-        mapid = $(this).data("mapid")
-        id = $(this).attr("id")
-        L.mapbox.accessToken = at
-
-        options =
-            zoomControl: false
-            dragging: true
-            touchZoom: false
-            scrollWheelZoom: false
-            doubleClickZoom: false
-            center: [lat, lng]
-            zoom: 15
-            accessToken: at
-        map = L.mapbox.map(id, mapid, options)
-        L.Icon.Default.imagePath = '/static/img';
-        marker = L.marker([lat, lng]).addTo(map);
-        console.log marker
-    )
 
     # event selector on events pages
     $("#select-event").change ->
@@ -431,6 +301,5 @@ $(document).ready( () ->
     $('#location-modal').on('shown.bs.modal', () ->
         map.invalidateSize()
     )
-)
 
 
