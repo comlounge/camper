@@ -154,11 +154,9 @@
 
         {% endblock %} 
 
-        <!-- Le javascript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{url_for('static', filename='js/public_components.min.js')}}"></script>
-        <script src="{{url_for('static', filename='js/public.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/fileuploader.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/public_components.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/public.js')}}"></script>
 
         {% if locale == "de" %}
             <script src="{{url_for('static', filename='js/parsley-de.js')}}"></script>

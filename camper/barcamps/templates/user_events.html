@@ -9,6 +9,8 @@
     {% for event in barcamp.eventlist %}
             <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
                 <div class="panel-heading">
+                    <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
+                    {% if logged_in and has_form and has_form_data %}
                     <div class="actions pull-right">
                         <button data-status="going" 
                                 title="{{_('Register')}}" class="btn btn-sm btn-primary btn-join">{{_('Register')}}</button>
@@ -32,13 +34,23 @@
                             </ul>
                         </div>
                     </div>
+
+                    {% endif %}
+                    {% if logged_in and has_form and not has_form_data %}
+                        <div class="participation-details event" data-id="{{event._id}}" id="e-{{event._id}}">
+                            <a href="{{url_for(".registration_form", slug = slug)}}"
+                                class="btn btn-sm btn-primary pull-right"
+                                title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Register')}}</a>
+                        </div>
+                    {% endif %}
+
                     <h4 class="panel-title">
                         <div class="date">
                             <span class="day">{{event.date.strftime("%d") }}</span>
                             <span class="month">{{event.date.strftime("%m") }}</span>
                             <span class="year">{{event.date.strftime("%Y") }}</span>
                         </div>
-                        <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}">
+                        <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}">
                             {{event.name}}
                         </a>
                     </h4>
@@ -63,9 +75,9 @@
 
                 </div>
                 <div class="panel-body">
-                    <a href="" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
-                    <a href="" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
-                    <a href="" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>
+                    <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#userlist" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
+                    <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
+                    {#<a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>#}
                 </div>
             </article>
         {% endfor %}
@@ -103,6 +115,3 @@
 {% endblock %}
 
 
-{% block bcjs %}
-    <script src="{{url_for("static", filename='js/registration.js')}}"></script>
-{% endblock %}

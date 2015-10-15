@@ -18,10 +18,8 @@ class Events(BarcampBaseHandler):
     @ensure_barcamp()
     def get(self, slug = None):
         """show the event list"""
-
         uid = unicode(self.user._id) if self.logged_in else None
-    
-        return self.render(
+        out = self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
             title = self.barcamp.name,
@@ -29,6 +27,7 @@ class Events(BarcampBaseHandler):
             has_form_data = self.barcamp.registration_data.has_key(uid),
             form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)
+        return out
 
 
 class Event(BarcampBaseHandler):

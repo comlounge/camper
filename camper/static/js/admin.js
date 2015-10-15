@@ -505,7 +505,7 @@
 
   bm(jQuery);
 
-  $(document).ready(function() {
+  $(function() {
     $(".colorpicker-container").colorpicker();
     $(".urlscheme").limitchars();
     $(".action-confirm").click(function() {
@@ -684,7 +684,7 @@
 }).call(this);
 
 (function() {
-  $(document).ready(function() {
+  $(function() {
     $("#imagelisting").on("click", ".imagedetailblock .edittoggle", function() {
       var id;
       $(this).closest(".imagedetails").hide();

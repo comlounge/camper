@@ -15,197 +15,185 @@
     {% endfor %}
     </ul>
 {% endmacro %}
+{% macro participation(args) %}
+    {% if logged_in and has_form and has_form_data %}
 
+        <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+            <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
+            <span class="infolabel plabel plabel-going"><i class="fa fa-check"></i> {{_('I attend this event')}}</span>
+            <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
+            
+            <div class="pull-right actions">
+                <button data-status="going" 
+                        title="{{_('Register')}}" class="btn btn-lg btn-primary btn-join">{{_('Register')}}</button>
+                <button data-status="going"
+                        title="{{_('Join')}}" class="btn btn-lg btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                <button data-status="maybe"
+                        title="{{_('Join')}}" class="btn btn-lg btn-info btn-maybe">{{_('Maybe')}}</button>
+                <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
 
-{% block outer_content %}
-    <div id="user-events-content" class="row">
-
-        <!-- sidebar -->
-        <div class="col-lg-2 col-md-2" id="eventlisting-area" role="navigation">
-            <ul class="nav nav-pills nav-stacked datelist" id="datelist-sidebar" data-url="{{url_for('.registrationdata', slug=slug)}}"> 
-                {% for event in barcamp.eventlist %}
-                    <li id="ne-{{event._id}}" role="presentation" class="{{'active' if event._id==active_event._id}}">
-                        <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}" class="event-name">
-                            {{event.name}}
-                            <span class="plabel plabel-going">{{_('Going')}}</span>
-                            <span class="plabel plabel-maybe">{{_('Maybe')}}</span>
-                            <span class="plabel plabel-waiting">{{_('Waiting')}}</span>
-                            <span class="plabel plabel-not">{{_('Not going')}}</span>
-                            
-                            <span class="event-date">{{dateformat(event.date)}}</span>
-                        </a></li>
-                {% endfor %}
-            </ul>
-            {% if logged_in %}
-            <div id="my-actions">
-                <h4>{{_('My data')}}</h4>
-                <dl class="formdata">
-                {% for k,v in form_data.iteritems() %}        
-                        <dt>{{k}}</dz>
-                        <dd>{{v|striptags}}</dd>
-                {% endfor %}
-                </dl>
-                {% if logged_in and has_form %}
-                    {% if has_form_data %}
-                        <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('edit')}}</a>
-                    {% else %}
-                        <div class="alert alert-danger">{{_('please enter your personal data in order to register for this event')}}</div>
-                        <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('add')}}</a>
-                        
-                    {% endif %}
-                {% endif %}
+                <div class="btn-group pselect">
+                    <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                        <span class="plabel label-going">{{_('Going')}}</span>
+                        <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                        <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                        <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                    </ul>
+                </div>
             </div>
-            {% endif %}
-
-
         </div>
-        
-        <!-- main content -->
-        <div class="col-md-10" id="content-area" role="main">
+    {% endif %}
 
-            <div role="tabpanel" id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+    {% if logged_in and has_form and not has_form_data %}
+        <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+            <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
+            <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
+            <a href="{{url_for(".registration_form", slug = slug)}}"
+                class="btn btn-lg btn-primary pull-right"
+                title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Register')}}</a>
+        </div>
+    {% endif %}
+    
+{% endmacro %}
 
-                {% if logged_in and has_form and has_form_data %}
+{% block main_content %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
+        <li class="active">{{active_event.name}}</li>
+    </ol>
 
-                    <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
-                        <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
-                        <span class="infolabel plabel plabel-going"><i class="fa fa-check"></i> {{_('I attend this event')}}</span>
-                        <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
-                        
-                        <div class="pull-right actions">
-                            <button data-status="going" 
-                                    title="{{_('Register')}}" class="btn btn-lg btn-primary btn-join">{{_('Register')}}</button>
-                            <button data-status="going"
-                                    title="{{_('Join')}}" class="btn btn-lg btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
-                            <button data-status="maybe"
-                                    title="{{_('Join')}}" class="btn btn-lg btn-info btn-maybe">{{_('Maybe')}}</button>
-                            <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+    <div id="user-events-content">
 
-                            <div class="btn-group pselect">
-                                <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <span class="plabel label-maybe">{{_('Maybe')}}</span>
-                                    <span class="plabel label-going">{{_('Going')}}</span>
-                                    <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
-                                    <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
-                                    <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                {% if logged_in and has_form and not has_form_data %}
-                    <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
-                        <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
-                        <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
-                        <a href="{{url_for(".registration_form", slug = slug)}}"
-                            class="btn btn-lg btn-primary pull-right"
-                            title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Register')}}</a>
-                    </div>
+        <div role="tabpanel" id="eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+            {{participation() }}
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
+                    {{_('Participants')}}</a>
+                </li>
+                <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
+                    {{_('Timetable')}}</a>
+                </li>
+            </ul>
 
-                {% endif %}
+            <!-- Tab panes -->
+            <div class="tab-content">
 
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
-                        {{_('Participants')}}</a>
-                    </li>
-                    <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
-                        {{_('Timetable')}}</a>
-                    </li>
-                </ul>
-
-                <!-- Tab panes -->
-                <div class="tab-content">
-
-                    <!-- userlist /participants -->
-                    <div role="tabpanel" class="tab-pane {{'active' if active_tab=='participants'}}" id="userlist">
-                        
-                        <section id="participants">
-                            <h4>{{_('Participants')}}</h4>
-                            {{ userlist(participants)}}
-                        </section>
-                        <section id="maybe">
-                            <h4>{{_('Maybe')}}</h4>
-                            {{ userlist(maybe)}}
-                        </section>
-                        <section id="waitinglist">
-                            <h4>{{_('Waiting list')}}</h4>
-                            {{ userlist(waitinglist)}}
-                        </section>
-                        
-                    </div>
-
-                    <!-- session / timetable -->
-                    <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">
-
-                        <h3 class="sr-only">{{_('Time Table')}}</h3>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered sessiontable">
-                                <colgroup>
-                                    <col style="width: 10%">
-                                    {% for room in rooms %}
-                                        <col style="width: {{90/rooms|length}}%">
-                                    {% endfor %}
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th>&nbsp;</th>
-                                        {% for room in rooms %}
-                                        <th>
-                                            {{room.name}}
-                                            <small>{{room.description}}</small><br>
-                                            <small>{{room.capacity}} {{_("persons")}}</small>
-                                        </th>
-                                        {% endfor %}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for slot in timeslots %}
-                                    <tr class="{{'warning' if slot.blocked}}">
-                                        <th>{{slot.time}}</th>
-                                    {% if slot.blocked %}
-                                        {% for room in rooms %}
-                                            <td>{{slot.reason}}</td>
-                                        {% endfor %}
-                                    {% else %}
-                                        {% for room in rooms %}
-                                            {% set sid = room.id+"@"+slot.time %}
-                                            <td class="slot {{'active' if sid in sessionplan}}">
-                                            {% if sid in sessionplan %}
-                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
-                                                   href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
-                                                <h5>{{sessionplan[sid].title}}</h5>
-                                                <div class="description">{{sessionplan[sid].description}}</div>
-                                                <div class="moderators">{{sessionplan[sid].moderator}}
-                                                </div>
-                                            </a>
-                                            {% endif %}
-                                            </td>
-                                        {% endfor %}
-                                    {% endif %}
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        {% if is_admin %}
-                            <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
-                        {% endif %}          
-
-                    </div>
+                <!-- userlist /participants -->
+                <div role="tabpanel" class="tab-pane {{'active' if active_tab=='participants'}}" id="userlist">
+                    
+                    <section id="participants">
+                        <h4>{{_('Participants')}}</h4>
+                        {{ userlist(participants)}}
+                    </section>
+                    <section id="maybe">
+                        <h4>{{_('Maybe')}}</h4>
+                        {{ userlist(maybe)}}
+                    </section>
+                    <section id="waitinglist">
+                        <h4>{{_('Waiting list')}}</h4>
+                        {{ userlist(waitinglist)}}
+                    </section>
+                    
                 </div>
 
-            </div>
+                <!-- session / timetable -->
+                <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">
 
-        </div>
+                    <h3 class="sr-only">{{_('Time Table')}}</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered sessiontable">
+                            <colgroup>
+                                <col style="width: 10%">
+                                {% for room in rooms %}
+                                    <col style="width: {{90/rooms|length}}%">
+                                {% endfor %}
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    {% for room in rooms %}
+                                    <th>
+                                        {{room.name}}
+                                        <small>{{room.description}}</small><br>
+                                        <small>{{room.capacity}} {{_("persons")}}</small>
+                                    </th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for slot in timeslots %}
+                                <tr class="{{'warning' if slot.blocked}}">
+                                    <th>{{slot.time}}</th>
+                                {% if slot.blocked %}
+                                    {% for room in rooms %}
+                                        <td>{{slot.reason}}</td>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for room in rooms %}
+                                        {% set sid = room.id+"@"+slot.time %}
+                                        <td class="slot {{'active' if sid in sessionplan}}">
+                                        {% if sid in sessionplan %}
+                                            <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
+                                               href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
+                                            <h5>{{sessionplan[sid].title}}</h5>
+                                            <div class="description">{{sessionplan[sid].description}}</div>
+                                            <div class="moderators">{{sessionplan[sid].moderator}}
+                                            </div>
+                                        </a>
+                                        {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                {% endif %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if is_admin %}
+                        <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
+                    {% endif %}          
+
+                </div>
+            </div>{# tab-content #}
+
+        </div>{# tabpanel #}
     </div>
 {% endblock %}
 
+{% block widgets %}
+    {{share_buttons()}}
+    {% if logged_in %}
+    <div id="my-actions" class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">{{_('My data')}}</h4>
+        </div>
+        <div class="panel-body">
+            <dl class="formdata">
+            {% for k,v in form_data.iteritems() %}        
+                    <dt>{{k}}</dt>
+                    <dd>{{v|striptags}}</dd>
+            {% endfor %}
+            </dl>
+            {% if logged_in and has_form %}
+                {% if has_form_data %}
+                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('edit')}}</a>
+                {% else %}
+                    <div class="alert alert-danger">{{_('please enter your personal data in order to register for this event')}}</div>
+                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('add')}}</a>
+                    
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
 
-{% block bcjs %}
-    <script src="{{url_for("static", filename='js/registration.js')}}"></script>
+    
 {% endblock %}
+
