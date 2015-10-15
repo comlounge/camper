@@ -293,6 +293,7 @@ class CamperApp(Application):
                     'userlist': '80x80!',
                     'fullwidth' : "850x",
                     'gallery' : "700x300!",
+                    'facebook' : "1200x630",
                 })
             ],
         ))
