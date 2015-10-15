@@ -81,8 +81,8 @@ $.fn.uploader = (opts = {}) ->
     $(this).each(init)
     this
 
-$(document).ready( () ->
+$ ->
     $(".upload-widget").uploader()
-)
+
 
 

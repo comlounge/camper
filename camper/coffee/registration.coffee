@@ -94,7 +94,7 @@ $.fn.eventlist = (opts, {}) ->
     this
 
 
-$(document).ready () ->
+$ ->
     $("#eventlist").eventlist()
     $('.participant-avatar').tooltip
         container: 'body'

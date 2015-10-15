@@ -1,4 +1,4 @@
-$(document).ready () ->
+$ ->
 
     $("#imagelisting").on "click", ".imagedetailblock .edittoggle", () ->
         $(this).closest(".imagedetails").hide()

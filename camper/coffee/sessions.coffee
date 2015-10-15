@@ -19,7 +19,7 @@ $.fn.sessionvoter = (opts = {}) ->
     this
 
 
-$(document).ready( () ->
+$ ->
     $(".votecontainer").sessionvoter()
     $("#new-proposal-button").click( () ->
         $(this).hide()
@@ -79,9 +79,5 @@ $(document).ready( () ->
             return false
         return false
     )
-
-
-
-)
 
 

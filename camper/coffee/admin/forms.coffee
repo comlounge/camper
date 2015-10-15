@@ -318,7 +318,7 @@ bm = ($) ->
 
 bm(jQuery)
 
-$(document).ready( () ->
+$ ->
 
     $(".colorpicker-container").colorpicker();
 
@@ -508,6 +508,5 @@ $(document).ready( () ->
         return false
 
 
-)
 
 
