@@ -1,6 +1,15 @@
+{% macro share_buttons() -%}
+    <div id="share-area">
+        <button class="btn btn-block btn-lg btn-primary"><i class="fa fa-facebook"></i> {{_('Share on Facebook')}}</button>
+        <button class="btn btn-block btn-lg btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</button>
+        <button class="btn btn-block btn-lg btn-danger"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</button>
+    </div>    
+{%- endmacro %}
+
 {% macro barcamp_buttons() -%}
     {% if logged_in %}
     <div class="widget-join">
+        <button class="btn btn-default btn-lg btn-block"><i class="fa fa-check"></i> Register</button>
         {% if barcamp.is_registered(user) %}
             <div class="attending">
                 <i class="fa fa-check"></i> I am attending!<br>
@@ -39,6 +48,12 @@
         {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
     </div>
     {% endif %} {# logged in#}
+                {% for sponsor in view.sponsors %}
+                <div class="sponsor">
+                    {{sponsor.image}}
+                </div>
+            {% endfor %}
+
 {%- endmacro %} {# barcamp_buttons #}
 
 
@@ -194,7 +209,7 @@
 
         {% block outer_content %}
             <div id="main-content" class="row" role="main">
-                <div class="col-lg-9 col-md-9" id="content-area">
+                <div class="col-md-9" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
                             <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
@@ -220,9 +235,10 @@
 
                 </div><!-- #content-area -->
 
-                <aside class="col-lg-3 col-md-3">
+                <aside class="col-md-3">
                     {% block widgets %}
 
+                        {{share_buttons()}}
                         {{barcamp_buttons()}}
 
                         <div class="socialmedia">

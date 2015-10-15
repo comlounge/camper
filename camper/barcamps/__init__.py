@@ -73,7 +73,7 @@ class BarcampModule(Module):
         URL('/<slug>/registrationdata',     'registrationdata',                 registration.RegistrationData),
 
         URL('/<slug>/events',               'user_events',                      user_events.Events),
-        URL('/<slug>/events/<eid>',         'user_events',                      user_events.Events),
+        URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
         URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
 
         URL('/<slug>/admin/galleries',      'admin_galleries',                  galleries.GalleryList),

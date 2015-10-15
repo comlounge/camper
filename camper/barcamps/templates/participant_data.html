@@ -1,24 +1,22 @@
 {% extends "_m/barcamps/master.html" %}
 
+{% block headline %}
+    <h1>{{_('My participant data for %s') %barcamp.name}}</h1>
+{% endblock %}
 {% block main_content %}
-    {% block title %}
-        <div id="participant-data">
-            <h1>{{_('My participant data for %s') %barcamp.name}}</h1>
-
-            <div class="description">
-                {{_("Please enter your data for participating in this event")}}
-            </div>
-
-            <form class="validate form-horizontal" method="POST" action="{{url}}">
-                <fieldset>
-                {% for field in form %}
-                    {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
-                {% endfor %}
-                </fieldset>
-                <input type="submit" value="{{_("Save")}}" class="btn btn-primary">
-                
-            </form>
+    <div id="participant-data">
+        <div class="description">
+            {{_("Please enter your data for participating in this event")}}
         </div>
-    {% endblock %}
 
+        <form class="validate form-horizontal" method="POST" action="{{url}}">
+            <fieldset>
+            {% for field in form %}
+                {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
+            {% endfor %}
+            </fieldset>
+            <input type="submit" value="{{_("Save")}}" class="btn btn-primary">
+            
+        </form>
+    </div>
 {% endblock %}
