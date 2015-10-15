@@ -155,7 +155,7 @@ class BarcampView(object):
     @property
     def has_gallery(self):
         """return whether this barcamp features a gallery"""
-        if self.barcamp.gallery and self.barcamp.gallery != "-1":
+        if self.barcamp.gallery and self.barcamp.gallery == "-1":
             return False
         try:
             gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
