@@ -100,17 +100,40 @@ class BarcampView(object):
     @property
     def logo_url(self):
         """return variants of the logo url"""
+        asset = self._get_image(self.barcamp.logo)
+        if asset is None:
+            return None
         uf = self.app.url_for
-        try:
-            asset = self.app.module_map.uploader.get(self.barcamp.logo)
-        except AssetNotFound:
-            return None
-        except Exception, e:
-            return None
         return dict(
                 [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
         )
 
+    def _get_image(self, asset_id):
+        """try to get an image by it's asset id or return None"""
+        try:
+            return self.app.module_map.uploader.get(asset_id)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return None
+
+
+    @property
+    def og_logo(self):
+        """return the logo for the open graph tag"""
+        # first try fb logo
+        uf = self.app.url_for
+        img = self._get_image(self.barcamp.fb_image)
+        if img is None:
+            img = self._get_image(self.barcamp.logo)
+        if img is None:
+            return "" # no url
+
+        v = img.variants.get('facebook', None) # fb size
+        if v is None:
+            return ""
+        return self.app.url_for("asset", asset_id = v._id, _full=True)
 
     @property
     def logosmall(self):
