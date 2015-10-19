@@ -555,8 +555,7 @@ class Barcamp(Record):
             self.subscribers.remove(uid)
         self.put()
 
-
-
+    
 
 class Barcamps(Collection):
 

@@ -1,15 +1,17 @@
 {% macro share_buttons() -%}
     <div id="share-area">
-        <button class="btn btn-block btn-lg btn-primary"><i class="fa fa-facebook"></i> {{_('Share on Facebook')}}</button>
-        <button class="btn btn-block btn-lg btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</button>
-        <button class="btn btn-block btn-lg btn-danger"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</button>
+        <a class="share-on-facebook btn btn-block btn-lg btn-primary" data-url="{{url|e}}"><i class="fa fa-facebook"></i> {{_('Share on Facebook')}}</a>
+        <a 
+            href="https://twitter.com/intent/tweet?text={{_('Check out %(name)s') | format(name=barcamp.name|e)}}&amp;hashtags={{barcamp.hashtag|e}}&amp;via={{barcamp.twitter|e}}&amp;related=barcamptools&amp;url={{url_for('.index', slug = barcamp.slug, _full=True ) }}" 
+            class="btn btn-block btn-lg btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</a>
+        <a class="share-on-googleplus btn btn-block btn-lg btn-danger" data-url="{{url|e}}"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</a>
     </div>    
 {%- endmacro %}
 
 {% macro barcamp_buttons() -%}
     {% if logged_in %}
     <div class="widget-join">
-        <button class="btn btn-default btn-lg btn-block"><i class="fa fa-check"></i> Register</button>
+        <button class="btn btn-default btn-lg btn-block"><i class="fa fa-check"></i> {{_('Register')}}</button>
         {% if barcamp.is_registered(user) %}
             <div class="attending">
                 <i class="fa fa-check"></i> I am attending!<br>
@@ -23,21 +25,6 @@
                     href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
                 </div>
             {% endif %}
-            {#
-            {% if view.can_subscribe %}
-                <div>
-                <a title="{{_('Watch this barcamp in order to receive notifications')}}" data-toggle="tooltip" data-placement="bottom"
-                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye"></i> {{_('Watch')}}</a>
-                </div>
-            {% else %}
-                <div>
-                <a title="{{_('I don\'t want to receive notifications anymore')}}" data-toggle="tooltip" data-placement="bottom"
-                href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-block btn-primary"><i class="fa fa-eye-slash"></i> {{_('Do not watch')}}</a>
-                </div>
-            {% endif %}
-
-            ## we keep this out for now as this needs to be conceptialized first. ppl can already say maybe and get newsletters
-            #}
         {% endif %} {# is registered_user #}
     </div>
     {% else %}

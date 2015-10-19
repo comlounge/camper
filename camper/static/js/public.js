@@ -307,10 +307,68 @@
       }).addTo(map);
       return $('#location-modal').modal('show');
     });
-    return $('#location-modal').on('shown.bs.modal', function() {
+    $('#location-modal').on('shown.bs.modal', function() {
       return map.invalidateSize();
     });
+    $(".share-on-facebook").click(function(e) {
+      var popup, url;
+      e.preventDefault();
+      url = encodeURIComponent($(this).data("url"));
+      console.log(url);
+      popup = window.open('//www.facebook.com/sharer.php?u=' + url, 'popupwindow', 'scrollbars=yes,width=800,height=400');
+      popup.focus();
+      return false;
+    });
+    return $(".share-on-googleplus").click(function(e) {
+      var popup, url;
+      e.preventDefault();
+      url = encodeURIComponent($(this).data("url"));
+      console.log(url);
+      popup = window.open('//plus.google.com/share?url=' + url, 'popupwindow', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+      popup.focus();
+      return false;
+    });
   });
+
+  (function() {
+    var handleIntent, height, intentRegex, left, m, target, top, width, winHeight, winWidth, windowOptions;
+    if (window.__twitterIntentHandler) {
+      return;
+    }
+    intentRegex = /twitter\.com(\:\d{2,4})?\/intent\/(\w+)/;
+    windowOptions = 'scrollbars=yes,resizable=yes,toolbar=no,location=yes';
+    width = 550;
+    height = 420;
+    winHeight = screen.height;
+    winWidth = screen.width;
+    handleIntent = function(e) {
+      var target;
+      e = e || window.event;
+      return target = e.target || e.srcElement;
+    };
+    while (target && target.nodeName.toLowerCase() !== 'a') {
+      target = target.parentNode;
+    }
+    if (target && target.nodeName.toLowerCase() === 'a' && target.href) {
+      m = target.href.match(intentRegex);
+      if (m) {
+        left = Math.round((winWidth / 2) - (width / 2));
+        top = 0;
+        if (winHeight > height) {
+          top = Math.round((winHeight / 2) - (height / 2));
+        }
+        window.open(target.href, 'intent', windowOptions + ',width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+        e.returnValue = false;
+        e.preventDefault && e.preventDefault();
+      }
+    }
+    if (document.addEventListener) {
+      document.addEventListener('click', handleIntent, false);
+    } else if (document.attachEvent) {
+      document.attachEvent('onclick', handleIntent);
+    }
+    return window.__twitterIntentHandler = true;
+  })();
 
 }).call(this);
 
