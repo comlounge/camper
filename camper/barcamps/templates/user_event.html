@@ -80,6 +80,10 @@
                 <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
                     {{_('Timetable')}}</a>
                 </li>
+                <li role="presentation" class="{{'active' if active_tab=='location'}}"><a href="#location" aria-controls="location" id="location-button" role="tab" data-toggle="tab">
+                    {{_('Location')}}</a>
+                </li>
+
             </ul>
 
             <!-- Tab panes -->
@@ -161,6 +165,17 @@
                     {% endif %}          
 
                 </div>
+                <div role="tabpanel" class="tab-pane {{'active' if active_tab=='location'}}" id="location">
+                    <div class="event-location-map" id="event-location-map"
+                        data-accesstoken = "{{mapbox_access_token}}"
+                        data-title = "{{active_event.location.name |e}}"
+                        data-description = "{{active_event.location.street|e}}, {{active_event.location.zip|e}} {{active_event.location.city|e}}"
+                        data-lat = "{{active_event.location.lat}}" 
+                        data-lng = "{{active_event.location.lng}}"
+                    >
+                    </div>
+                </div>
+
             </div>{# tab-content #}
 
         </div>{# tabpanel #}

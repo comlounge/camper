@@ -182,7 +182,7 @@
   };
 
   $(function() {
-    var layer, map;
+    var event_layer, event_map, layer, map;
     console.log("ok");
     $(".gallerycontainer").gallery();
     $(".upload-widget").uploader();
@@ -310,11 +310,48 @@
     $('#location-modal').on('shown.bs.modal', function() {
       return map.invalidateSize();
     });
+    event_map = null;
+    event_layer = null;
+    $(".event-location-map").each(function(index, value) {
+      var accesstoken, description, lat, lng, title;
+      lat = $(this).data("lat");
+      lng = $(this).data("lng");
+      title = $(this).data("title");
+      description = $(this).data("description");
+      accesstoken = $(this).data("accesstoken");
+      L.mapbox.accessToken = accesstoken;
+      if (!event_map) {
+        event_map = L.mapbox.map('event-location-map', 'mapbox.streets');
+      }
+      event_map.setView([lat, lng], 14);
+      if (event_layer) {
+        event_map.removeLayer(layer);
+      }
+      layer = L.mapbox.featureLayer({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [lng, lat]
+        },
+        properties: {
+          title: title,
+          description: description,
+          "marker-symbol": "star",
+          "marker-size": "medium",
+          "marker-color": "#f44"
+        }
+      }).addTo(event_map);
+      return event_map.invalidateSize();
+    });
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+      if (e.target.id === "location-button" && event_map) {
+        return event_map.invalidateSize();
+      }
+    });
     $(".share-on-facebook").click(function(e) {
       var popup, url;
       e.preventDefault();
       url = encodeURIComponent($(this).data("url"));
-      console.log(url);
       popup = window.open('//www.facebook.com/sharer.php?u=' + url, 'popupwindow', 'scrollbars=yes,width=800,height=400');
       popup.focus();
       return false;
@@ -323,7 +360,6 @@
       var popup, url;
       e.preventDefault();
       url = encodeURIComponent($(this).data("url"));
-      console.log(url);
       popup = window.open('//plus.google.com/share?url=' + url, 'popupwindow', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
       popup.focus();
       return false;

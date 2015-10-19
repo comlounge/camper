@@ -302,11 +302,52 @@ $ ->
         map.invalidateSize()
     )
 
+    # activate tab based map
+    event_map = null
+    event_layer = null
+    $(".event-location-map").each (index, value) ->
+        
+        lat = $(this).data("lat")
+        lng = $(this).data("lng")
+        title = $(this).data("title")
+        description = $(this).data("description")
+        accesstoken = $(this).data("accesstoken")
+
+        L.mapbox.accessToken = accesstoken
+
+        if !event_map
+            event_map = L.mapbox.map('event-location-map', 'mapbox.streets')
+
+
+        event_map.setView([lat, lng], 14)
+
+        if event_layer
+            event_map.removeLayer(layer)
+        layer = L.mapbox.featureLayer(
+            type: 'Feature'
+            geometry: 
+                type: 'Point'
+                coordinates: [lng, lat]
+            properties: 
+                title: title
+                description: description
+                "marker-symbol": "star"
+                "marker-size": "medium"
+                "marker-color": "#f44"
+        ).addTo(event_map)
+        event_map.invalidateSize()
+
+
+    # make map resize on showing it
+    $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+        if e.target.id == "location-button" and event_map
+            event_map.invalidateSize()
+        
+
     # social buttons
     $(".share-on-facebook").click (e) ->
         e.preventDefault()
         url = encodeURIComponent($(this).data("url"))
-        console.log url
         popup = window.open '//www.facebook.com/sharer.php?u='+url,
                     'popupwindow',
                     'scrollbars=yes,width=800,height=400'
@@ -316,7 +357,6 @@ $ ->
     $(".share-on-googleplus").click (e) ->
         e.preventDefault()
         url = encodeURIComponent($(this).data("url"))
-        console.log url
         popup = window.open '//plus.google.com/share?url='+url,
                     'popupwindow',
                     'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600'

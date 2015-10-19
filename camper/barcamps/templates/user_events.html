@@ -77,7 +77,7 @@
                 <div class="panel-body">
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#userlist" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
-                    {#<a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>#}
+                    <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>
                 </div>
             </article>
         {% endfor %}
