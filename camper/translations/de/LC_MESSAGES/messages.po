@@ -7,32 +7,2574 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-10-13 11:19+0200\n"
+"POT-Creation-Date: 2015-10-19 16:34+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
-"Language: de\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.1.1\n"
+"Generated-By: Babel 1.3\n"
 
-#: static/templates/room-modal.hbs:6
-msgid "Add new room"
-msgstr "Neuen Raum anlegen"
+#: app.py:199
+msgid "User unknown"
+msgstr "Benutzer unbekannt."
 
-#: static/templates/sessiontest.hbs:19
+#: app.py:200
+msgid "This email address cannot not be found in our user database"
+msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
+
+#: app.py:201
+msgid "Your password is not correct"
+msgstr "Das Passwort ist nicht korrekt"
+
+#: app.py:202
+msgid "Your user has not yet been activated."
+msgstr "Der Benutzer wurde noch nicht aktiviert."
+
+#: app.py:203
+msgid "Login failed"
+msgstr "Login fehlgeschlagen"
+
+#: app.py:204
+#, python-format
+msgid "Welcome, %(fullname)s"
+msgstr "Willkommen, %(fullname)s"
+
+#: app.py:205
+msgid "Your are now logged out"
+msgstr "Du bist jetzt ausgeloggt"
+
+#: app.py:206
+msgid ""
+"To finish the registration process please check your email with "
+"instructions on how to activate your account."
+msgstr ""
+"Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschliessen. "
+"Alle weiteren Informationen dazu findest Du in der E-Mail."
+
+#: app.py:207
+msgid "Your user registration has been successful"
+msgstr "Die Benutzerregistrierung war erfolgreich."
+
+#: app.py:208
+msgid "Your account has been activated"
+msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
+
+#: app.py:209
+#, python-format
+msgid ""
+"The activation code is not valid. Please try again or click <a "
+"href=\"%(url)s\">here</a> to get a new one."
+msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
+
+#: app.py:210
+msgid "A new activation code has been sent out, please check your email"
+msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
+
+#: app.py:211
+msgid "The user is already active. Please log in."
+msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
+
+#: app.py:212
+msgid "A link to set a new password has been sent to you"
+msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
+
+#: app.py:213
+msgid "Your password has been changed"
+msgstr "Dein Passwort wurde geändert."
+
+#: app.py:216
+msgid "The user has been updated."
+msgstr "Benutzerdaten aktualisiert"
+
+#: app.py:217
+msgid "The user has been added."
+msgstr "Der Benutzer wurde hinzugefügt."
+
+#: app.py:218
+msgid "The user has been deleted."
+msgstr "The user has been deleted."
+
+#: app.py:219
+msgid "The user has been activated."
+msgstr "Der Benutzer wurde aktiviert."
+
+#: app.py:220
+msgid "The user has been deactivated."
+msgstr "Der Benutzer wurde deaktiviert."
+
+#: app.py:224
+msgid "can manage users"
+msgstr "Kann Benutzer verwalten"
+
+#: app.py:225
+msgid "main administrator"
+msgstr "Hauptadministrator"
+
+#: base.py:184
+msgid "date to be announced"
+msgstr "Termin wird noch bekannt gegeben"
+
+#: base.py:194
+msgid "location to be announced"
+msgstr "Ort wird noch bekannt gegeben."
+
+#: base.py:346
+msgid "Please log in."
+msgstr "Bitte logge Dich zunächst ein!"
+
+#: base.py:383
+msgid "you don't have the correct permissions to access this page."
+msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
+
+#: base.py:389 base.py:565
+msgid "You don't have the correct permissions to access this page."
+msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
+
+#: base.py:401 base.py:407 base.py:419 base.py:422
+msgid "you don't have the permission to access this page."
+msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
+
+#: form.py:51
+msgid "Not a valid date value"
+msgstr "kein gültiger Wert"
+
+#: login.py:20
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: login.py:21
+msgid "Password"
+msgstr "Passwort"
+
+#: login.py:22 templates/M/userbase/login.html:27
+msgid "remember me"
+msgstr "erinnere Dich an mich"
+
+#: barcamps/add.py:29 barcamps/add.py:34 barcamps/edit.py:32
+#: barcamps/templates/admin/add.html:65
+#, fuzzy
+msgid "Hide Barcamp"
+msgstr "Barcamp-Logo"
+
+#: barcamps/add.py:29 barcamps/add.py:34 barcamps/edit.py:32
+msgid ""
+"If enabled this will hide this barcamp from showing up in the front page "
+"and in search engines"
+msgstr ""
+
+#: barcamps/add.py:30 barcamps/edit.py:33
+#, fuzzy
+msgid "Enable Pre-Registration"
+msgstr "Eröffne die Registrierung"
+
+#: barcamps/add.py:30 barcamps/edit.py:33
+msgid ""
+"If enabled users can only pre-register and an admin needs to put them on "
+"the participation list manually"
+msgstr ""
+
+#: barcamps/add.py:31 barcamps/edit.py:34 barcamps/templates/admin/add.html:47
+#, fuzzy
+msgid "Meta Description"
+msgstr "Beschreibung"
+
+#: barcamps/add.py:33 barcamps/edit.py:36
+msgid ""
+"The meta description is used for for search engines and often shows up in"
+" search results. It should be no more than 160 characters long."
+msgstr ""
+
+#: barcamps/add.py:42 barcamps/edit.py:45
+msgid "Facebook URL"
+msgstr "Facebook-URL"
+
+#: barcamps/add.py:42 barcamps/edit.py:45
+msgid "URL of the Facebook Page"
+msgstr "URL der Facebook-Seite"
+
+#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:20
+#: barcamps/events.py:36
+msgid "name of location"
+msgstr "Veranstaltungsort"
+
+#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:36
+msgid "please enter the name of the venue here"
+msgstr "Bitte gebe hier den Namen des Veranstaltungsortes ein"
+
+#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:37
+msgid "street and number "
+msgstr "Strasse und Hausnummer"
+
+#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:37
+msgid "street and number of the venue"
+msgstr "Strasse und Hausnummer des Veranstaltungsortes"
+
+#: barcamps/add.py:48 barcamps/edit.py:51 barcamps/events.py:38
+msgid "city"
+msgstr "Stadt"
+
+#: barcamps/add.py:49 barcamps/edit.py:52 barcamps/events.py:39
+#: barcamps/templates/admin/add.html:140 barcamps/templates/admin/add.html:141
+#: barcamps/templates/admin/event_macros.html:157
+#: barcamps/templates/admin/event_macros.html:158
+msgid "zip"
+msgstr "PLZ"
+
+#: barcamps/add.py:50 barcamps/edit.py:53 barcamps/events.py:41
+msgid "homepage"
+msgstr "Homepage"
+
+#: barcamps/add.py:50 barcamps/add.py:51 barcamps/edit.py:53
+#: barcamps/edit.py:54 barcamps/events.py:41 barcamps/events.py:42
+msgid "web site of the venue (optional)"
+msgstr "Homepage des Veranstaltungsortes (optional)"
+
+#: barcamps/add.py:51 barcamps/edit.py:54 barcamps/events.py:42
+msgid "phone"
+msgstr "Telefon"
+
+#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:43
+msgid "email"
+msgstr "E-Mail"
+
+#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:43
+msgid "email address of the venue (optional)"
+msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
+
+#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:44
+#: barcamps/templates/admin/participants_data_edit.html:20
+msgid "description"
+msgstr "Beschreibung"
+
+#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:44
+msgid "an optional description of the venue"
+msgstr "Beschreibung des Veranstaltungsortes (optional)"
+
+#: barcamps/add.py:54 barcamps/edit.py:57 barcamps/events.py:40
+#: barcamps/templates/admin/add.html:149 barcamps/templates/admin/add.html:150
+#: barcamps/templates/admin/event_macros.html:166
+#: barcamps/templates/admin/event_macros.html:167
+msgid "Country"
+msgstr "Land"
+
+#: barcamps/add.py:105
+msgid "Attention: One or both of the etherpads exist already!"
+msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
+
+#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:229
+msgid "the city was not found in the geo database"
+msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
+
+#: barcamps/add.py:137 scripts/set_default_mail_templates.py:24
+#, python-format
+msgid "Welcome to %s"
+msgstr "Willkommen zu %s"
+
+#: barcamps/add.py:139 scripts/set_default_mail_templates.py:26
+msgid ""
+"Unfortunately list of participants is already full. You have been put "
+"onto the waiting list and will be informed should you move on to the list"
+" of participants."
+msgstr ""
+"Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
+"Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
+
+#: barcamps/add.py:141 scripts/set_default_mail_templates.py:28
+msgid "You are now on the list of participants for this barcamp."
+msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
+
+#: barcamps/add.py:146
+#, python-format
+msgid "%s has been created"
+msgstr "%s wurde angelegt."
+
+#: barcamps/add.py:181 pages/add.py:93
+msgid "This name is already taken. Please choose a different one"
+msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
+
+#: barcamps/base.py:58 templates/master.html:71
+msgid "Home"
+msgstr "Startseite"
+
+#: barcamps/base.py:60 barcamps/templates/admin/dashboard.html:43
+msgid "session proposals"
+msgstr "Sessionvorschläge"
+
+#: barcamps/base.py:63
+msgid "events"
+msgstr "Veranstaltungen"
+
+#: barcamps/base.py:65
+msgid "planning"
+msgstr "Planung"
+
+#: barcamps/base.py:67 barcamps/design.py:35 templates/master.html:82
+msgid "Blog"
+msgstr "Blog"
+
+#: barcamps/base.py:73 barcamps/base.py:75
+msgid "Twitterwall"
+msgstr "Twitterwall"
+
+#: barcamps/delete.py:36
+msgid "The barcamp and all it's contents have been deleted!"
+msgstr "Das Barcamp und all seine Inhalte wurden erfolgreich gelöscht!"
+
+#: barcamps/design.py:16
+msgid "Barcamp Logo"
+msgstr "Barcamp-Logo"
+
+#: barcamps/design.py:16
+msgid "The logo should be 1140px wide and not more than 400 px high"
+msgstr "Das Logo sollte 1140px breit sein und nicht höher als 400px."
+
+#: barcamps/design.py:17
+msgid "Background-Image"
+msgstr "Hintergrundbild"
+
+#: barcamps/design.py:17
+msgid ""
+"If given, this image is used as a background behind all your barcamp "
+"content"
+msgstr "Dieses Bild ersetzt die Hintergrundfarbe."
+
+#: barcamps/design.py:18
+msgid "Image for Facebook"
+msgstr "Bild für Facebook"
+
+#: barcamps/design.py:18
+msgid ""
+"This image is used when posting links to facebook. Best is 1200 x 630 but"
+" minimum it should be 600 x 315px"
+msgstr ""
+"Dieses Bild wird genutzt, wenn Links bei Facebook gepostet werden. Es "
+"sollte möglichst 1200x630 Pixel groß sein, mindestens aber 600x315 Pixel"
+
+#: barcamps/design.py:20 barcamps/templates/admin/design.html:12
+msgid "Link Color"
+msgstr "Linkfarbe"
+
+#: barcamps/design.py:21 barcamps/templates/admin/design.html:18
+msgid "Header Background Color"
+msgstr "Hintergrundfarbe Header"
+
+#: barcamps/design.py:22 barcamps/templates/admin/design.html:15
+msgid "Text Color"
+msgstr "Textfarbe"
+
+#: barcamps/design.py:23 barcamps/templates/admin/design.html:21
+#: barcamps/templates/admin/design.html:27
+msgid "Background Color"
+msgstr "Hintergrundfarbe"
+
+#: barcamps/design.py:25
+msgid "Navbar Link Color"
+msgstr "Navbar Linkfarbe"
+
+#: barcamps/design.py:26
+msgid "Navbar Active Link Color"
+msgstr "Navbar aktive Linkfarbe"
+
+#: barcamps/design.py:27
+msgid "Navbar Border Color"
+msgstr "Navbar Rahmenfarbe"
+
+#: barcamps/design.py:28
+msgid "Navbar Hover Background Color"
+msgstr "Navbar Hover Hintergrundfarbe"
+
+#: barcamps/design.py:29
+msgid "Navbar Active Background Color"
+msgstr "Navbar aktive Hintergrundfarbe"
+
+#: barcamps/design.py:31
+msgid "Hide Navigation Tabs"
+msgstr "Navigations-Reiter verstecken "
+
+#: barcamps/design.py:31
+msgid "Select here which barcamp tabs not to show"
+msgstr "Entscheide hier, welche Reiter der Hauptnavigation angezeigt werden sollen"
+
+#: barcamps/design.py:33 barcamps/templates/sessions.html:8
+msgid "Session Proposals"
+msgstr "Sessionvorschläge"
+
+#: barcamps/design.py:34 barcamps/templates/participant_data.html:7
+#: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:67
+#: barcamps/templates/admin/events.html:9
+msgid "Events"
+msgstr "Veranstaltungen"
+
+#: barcamps/design.py:39 blog/add.py:24
+msgid "Gallery to show on homepage"
+msgstr "Galerie für die Homepage"
+
+#: barcamps/design.py:40
+msgid ""
+"The gallery will be displayed on the homepage of your barcamp between "
+"barcamp navigation and the rest of the content"
+msgstr ""
+"Die Galerie wird auf der Startseite zwischen der Hauptnavigation des "
+"Barcamps und dem restlichen Inhalt angezeigt."
+
+#: barcamps/design.py:60 blog/add.py:42 blog/edit.py:29
+msgid "do not show a gallery"
+msgstr "keine Galerie nutzen"
+
+#: barcamps/edit.py:22 barcamps/galleries.py:29
+#: barcamps/templates/sessions.html:134 barcamps/templates/admin/add.html:19
+#: barcamps/templates/admin/event_macros.html:82
+#: barcamps/templates/admin/galleries.html:22
+#: barcamps/templates/admin/gallery_macros.html:30
+#: barcamps/templates/admin/galleryadmin.html:20 blog/add.py:16
+#: blog/templates/entries.html:17 pages/add.py:14 pages/add.py:19
+#: pages/templates/entries.html:20 static/templates/session-modal.hbs:12
+msgid "Title"
+msgstr "Titel"
+
+#: barcamps/edit.py:23
+msgid ""
+"every barcamp needs a title. examples: \"Barcamp Aachen 2012\", "
+"\"JMStVCamp\""
+msgstr ""
+"Jedes Barcamp brauch einen Titel, z.B. 'Barcamp Aachen 2012' or "
+"'JugendBarcamp'"
+
+#: barcamps/edit.py:26 barcamps/edit.py:240 barcamps/events.py:25
+#: barcamps/galleries.py:31 barcamps/sessionboard.py:18
+#: barcamps/templates/index.html:38 barcamps/templates/sessions.html:138
+#: barcamps/templates/admin/add.html:41
+#: barcamps/templates/admin/event_macros.html:88
+#: barcamps/templates/admin/gallery_macros.html:38
+#: static/templates/room-modal.hbs:27 static/templates/session-modal.hbs:24
+msgid "Description"
+msgstr "Beschreibung"
+
+#: barcamps/edit.py:27
+msgid "please describe your barcamp here"
+msgstr "Bitte beschreibe Dein Barcamp hier"
+
+#: barcamps/edit.py:29
+msgid "slug / url name"
+msgstr "Kurzname in URL"
+
+#: barcamps/edit.py:30
+msgid ""
+"this is the short name, which appears in the URL. It can only contain "
+"letters and numbers as well as the characters _ and -. Examples are "
+"\"barcamp_aachen\" or \"bcac\""
+msgstr ""
+"Dies ist der Kurzname, der in der URL erscheint. Er kann nur Buchstaben "
+"und Ziffern enthalten sowie _ und -. Beispiele sind barcamp_aachen oder "
+"bcac "
+
+#: barcamps/edit.py:38
+msgid "start date"
+msgstr "Beginn"
+
+#: barcamps/edit.py:39
+msgid "end date"
+msgstr "Ende"
+
+#: barcamps/edit.py:40
+msgid "link to tweetwally twitterall"
+msgstr "Link zur tweetwally Twitterwall"
+
+#: barcamps/edit.py:41
+msgid ""
+"create your own twitterwall at <a "
+"href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, "
+"e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"
+msgstr ""
+"erzeuge Deine eigene Twitterwall unter <a "
+"href='http://tweetwally.com'>tweetwally.com</a> und gib die URL hier ein,"
+" z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>"
+
+#: barcamps/edit.py:42
+msgid "Twitter-Username"
+msgstr "Twitter-Benutzername"
+
+#: barcamps/edit.py:42
+msgid "only the username, max. 15 characters"
+msgstr "bitte nur den Benutzername, max. 15 Zeichen"
+
+#: barcamps/edit.py:43 barcamps/templates/admin/add.html:102
+msgid "Twitter-Hashtag"
+msgstr "Twitter-Hashtag"
+
+#: barcamps/edit.py:43
+msgid "max. 100 characters"
+msgstr "max. 100 Zeichen"
+
+#: barcamps/edit.py:44
+msgid "Google Plus URL"
+msgstr "Google Plus-URL"
+
+#: barcamps/edit.py:44
+msgid "URL of the Google Plus Profile"
+msgstr "URL des Google Plus Profils"
+
+#: barcamps/edit.py:46
+msgid "Homepage URL"
+msgstr "URL der Homepage"
+
+#: barcamps/edit.py:46
+msgid "link to the homepage of this barcamp in case one exists."
+msgstr "Link zur Homepage des Barcamps, soweit sie existiert"
+
+#: barcamps/edit.py:47
+msgid "Facebook Admin-ID"
+msgstr ""
+
+#: barcamps/edit.py:47
+msgid ""
+"ID of the facebook admin for the facebook page for this barcamp if one "
+"exists"
+msgstr ""
+
+#: barcamps/edit.py:156
+msgid "The barcamp has been updated."
+msgstr "Das Barcamp wurde aktualisiert"
+
+#: barcamps/edit.py:166 barcamps/edit.py:172 barcamps/edit.py:178
+#: barcamps/newsletter.py:18
+msgid "Subject"
+msgstr "Betreff"
+
+#: barcamps/edit.py:169 barcamps/edit.py:175 barcamps/edit.py:181
+msgid "Body"
+msgstr "Mailtext"
+
+#: barcamps/edit.py:223 barcamps/events.py:179
+#, python-format
+msgid "you cannot reduce the participant number, the minimum amount is %s"
+msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
+
+#: barcamps/edit.py:237
+msgid "Name of field"
+msgstr "Name des Feldes"
+
+#: barcamps/edit.py:238
+msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
+msgstr ""
+"Der Name des Feldes, das im Formular angezeigt werden soll, z.B. 'T"
+"-Shirt-Größe'"
+
+#: barcamps/edit.py:241
+msgid "please describe what the user should enter in this field."
+msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
+
+#: barcamps/edit.py:243 barcamps/templates/admin/participants_data_edit.html:21
+msgid "field type"
+msgstr "Art des Feldes"
+
+#: barcamps/edit.py:243
+msgid "1 line of text"
+msgstr "Textfeld mit einer einzelnen Zeile"
+
+#: barcamps/edit.py:243
+msgid "multiple lines of text"
+msgstr "Textfeld mit mehreren Zeilen"
+
+#: barcamps/edit.py:244
+msgid "please chose between a one-line text field or multi-line text area"
+msgstr ""
+"Bitte wähle zwischen einem einzeiligen Textfeld oder einem mehrzeiligen "
+"Textbereich"
+
+#: barcamps/edit.py:246
+msgid "field required?"
+msgstr "Feld erforderlich?"
+
+#: barcamps/edit.py:247
+msgid ""
+"If you enable this then the user cannot register before this field has "
+"been filled in."
+msgstr ""
+"Wenn Du diese Checkbox aktiviest, dann kann der Benutzer sich nicht "
+"registrieren, bevor er dieses Feld ausgefüllt hat."
+
+#: barcamps/events.py:22
+msgid "Title of this event, e.g. \"Day 1\" or \"Party\""
+msgstr "Titel der Veranstaltung, z.B. Tag 1 oder Party"
+
+#: barcamps/events.py:26
+msgid ""
+"This is not the common barcamp description but should be specific about "
+"this event."
+msgstr ""
+"Dies ist nicht die generelle Barcamp-Beschreibung, sondern die speziell "
+"zu dieser Veranstaltung"
+
+#: barcamps/events.py:29
+msgid "date"
+msgstr "Datum"
+
+#: barcamps/events.py:30
+msgid "start time"
+msgstr "Beginn"
+
+#: barcamps/events.py:31
+msgid "end time"
+msgstr "Ende"
+
+#: barcamps/events.py:32
+msgid "max. number of participants"
+msgstr "Max. Teilnehmerzahl"
+
+#: barcamps/events.py:35
+msgid "use different location"
+msgstr "anderen Ort benutzen"
+
+#: barcamps/events.py:114
+msgid "The event has been created"
+msgstr "Die Veranstaltung wurde erstellt."
+
+#: barcamps/events.py:249
+msgid "The event has been successfully updated"
+msgstr "Veranstaltung erfolgreich aktualisiert"
+
+#: barcamps/events.py:357
+msgid "no full address was given"
+msgstr "Es wurde keine volle Adresse angegeben "
+
+#: barcamps/events.py:363
+msgid "we couldn't lookup a geo coordinates for this address"
+msgstr "Wir konnten keine Geo-Koordinaten für diese Adresse ermitteln."
+
+#: barcamps/galleries.py:23
+msgid "New Image"
+msgstr "Neues Bild"
+
+#: barcamps/galleries.py:30
+msgid "Alt attribute"
+msgstr "Alt-Attribut"
+
+#: barcamps/galleries.py:32 barcamps/templates/admin/gallery_macros.html:42
+msgid "License"
+msgstr "Lizenz"
+
+#: barcamps/galleries.py:33 barcamps/templates/admin/gallery_macros.html:46
+msgid "Copyright Owner"
+msgstr "Bildinhaber"
+
+#: barcamps/galleries.py:55
+msgid "A new image gallery has been created"
+msgstr "Neue Galerie angelegt"
+
+#: barcamps/galleries.py:115
+msgid "The image could not be found"
+msgstr "Das Bild wurde nicht gefunden"
+
+#: barcamps/newsletter.py:21
+msgid "Newsletter body"
+msgstr "Inhalt des Newsletters"
+
+#: barcamps/newsletter.py:24
+msgid "Recipients"
+msgstr "Empfänger"
+
+#: barcamps/newsletter.py:27
+msgid "Participants (going)"
+msgstr "Teilnehmer"
+
+#: barcamps/newsletter.py:28
+msgid "People who might come (maybe)"
+msgstr "Unentschlossene"
+
+#: barcamps/newsletter.py:29
+msgid "People on Waiting List"
+msgstr "Warteliste"
+
+#: barcamps/newsletter.py:34
+msgid "E-Mail address for testing the newsletter"
+msgstr "E-Mail-Adresse zum Testen des Newsletters"
+
+#: barcamps/newsletter.py:35
+msgid ""
+"put your own e-mail address here in order to send the newsletter to this "
+"address for testing purposes"
+msgstr ""
+"gebe hier Deine eigene E-Mail-Adresse an, um den Newsletter testweise "
+"dorthin zu schicken "
+
+#: barcamps/newsletter.py:89
+msgid "newsletter sent successfully"
+msgstr "Newsletter erfolgreich versandt"
+
+#: barcamps/pads.py:10
+msgid "Post Title"
+msgstr "Titel des Artikels"
+
+#: barcamps/pads.py:11
+msgid "title of the blog post you are linking to"
+msgstr "Der Titel des Blog-Artikels zu dem verlinkt werden soll"
+
+#: barcamps/pads.py:13
+msgid "Post URL"
+msgstr "Artikel-URL"
+
+#: barcamps/pads.py:14
+msgid "URL of the blog post you want to link to"
+msgstr "Die URL des Blog-Artikels, zu dem verlinkt werden soll"
+
+#: barcamps/pads.py:33
+#, fuzzy
+msgid "Planning Pad"
+msgstr "Planung"
+
+#: barcamps/pads.py:59
+#, fuzzy
+msgid "Documentation Pad"
+msgstr "Dokumentation"
+
+#: barcamps/pads.py:77
+msgid "Your blog post has been posted."
+msgstr "Der Blog-Post wurde verlinkt."
+
+#: barcamps/pads.py:89
+msgid "User not allowed to delete this item"
+msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
+
+#: barcamps/permissions.py:31
+msgid "you cannot perform this action."
+msgstr "Du kannst diese Aktion nicht durchführen."
+
+#: barcamps/permissions.py:54
+msgid "camper: new barcamp created"
+msgstr "camper: neues Barcamp angelegt"
+
+#: barcamps/permissions.py:83
+msgid "a user with this email address wasn't found in our database."
+msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
+
+#: barcamps/permissions.py:90
+#, python-format
+msgid "%s is not an administrator for this barcamp."
+msgstr "%s is kein Administrator für dieses Barcamp"
+
+#: barcamps/permissions.py:100
+msgid "you cannot remove admin rights from the creator of this barcamp."
+msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
+
+#: barcamps/permissions.py:103
+msgid "you at least need to have one administrator."
+msgstr "Es wird mindestens ein Administrator benötigt."
+
+#: barcamps/permissions.py:108
+msgid "Administrator deleted."
+msgstr "Admin gelöscht."
+
+#: barcamps/registration.py:28
+msgid "You are not allowed to change this."
+msgstr "Du hast nicht die erforderlichen Rechte, um dies zu ändern."
+
+#: barcamps/registration.py:32
+msgid "You are now on the list of people interested in the barcamp"
+msgstr "Du bist nun auf der Liste der Barcamp-Interessenten."
+
+#: barcamps/registration.py:36
+msgid "You have been removed from the list of people interested in this barcamp"
+msgstr "Du wurdest erfolgreich von der Liste der Barcamp-Interessenten entfernt"
+
+#: barcamps/registration.py:38
+#, python-format
+msgid ""
+"%(fullname)s has been removed from the list of people interested in this "
+"barcamp"
+msgstr ""
+"%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
+"entfernt."
+
+#: barcamps/registration.py:202
+msgid "Your information was updated"
+msgstr "Deine Informationen wurden aktualisiert"
+
+#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:19
+#: static/templates/room-modal.hbs:15
+msgid "Name"
+msgstr "Name"
+
+#: barcamps/sessionboard.py:17 static/templates/room-modal.hbs:21
+msgid "Capacity"
+msgstr "max. Personenzahl "
+
+#: barcamps/sessions.py:107
+msgid "your comment has been added."
+msgstr "Dein Kommentar wurde hinzugefügt."
+
+#: barcamps/sponsors.py:16
+msgid "Name of sponsor"
+msgstr "Name des Sponsors"
+
+#: barcamps/sponsors.py:17
+msgid "URL of sponsor website"
+msgstr "URL der Sponsor-Website"
+
+#: barcamps/sponsors.py:18
+msgid "Sponsor Logo"
+msgstr "Sponsor-Logo"
+
+#: barcamps/sponsors.py:51
+msgid "created new sponsor"
+msgstr "Neuer Sponsor erstellt"
+
+#: barcamps/sponsors.py:53
+msgid "The form contains errors. Please correct them and try again."
+msgstr ""
+"Leider enthielt das Formular noch Fehler. Bitte behebe diese und versuche"
+" es erneut."
+
+#: barcamps/templates/docs.html:11
+msgid "Blog Posts about the camp"
+msgstr "Blog-Artikel über das Barcamp"
+
+#: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:63
+#: barcamps/templates/sessions.html:90
+#: barcamps/templates/admin/participants_data_edit.html:39
+#: static/templates/sessiontest.hbs:19 templates/master.html:54
 msgid "Are you sure?"
 msgstr "Bist Du sicher? (wirklich?)"
 
-#: static/templates/sessiontest.hbs:24
+#: barcamps/templates/docs.html:27 barcamps/templates/docs.html:30
+msgid "Add new blog post"
+msgstr "Neuen Blogpost hinzufügen"
+
+#: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:143
+#: barcamps/templates/sessions.html:158
+#: barcamps/templates/admin/event_macros.html:181
+#: barcamps/templates/admin/gallery_macros.html:24
+#: barcamps/templates/admin/galleryadmin.html:24 blog/templates/edit.html:28
+#: pages/templates/add.html:23 templates/users/edit.html:46
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: barcamps/templates/docs.html:35 barcamps/templates/participant_data.html:25
+#: barcamps/templates/sessions.html:142
+#: barcamps/templates/admin/galleryadmin.html:23
+#: barcamps/templates/admin/mails_edit.html:47 blog/templates/edit.html:50
+msgid "Save"
+msgstr "Speichern"
+
+#: barcamps/templates/index.html:48
+#, fuzzy
+msgid "Sponsors"
+msgstr "Neuer Sponsor"
+
+#: barcamps/templates/master.html:3
+#, fuzzy
+msgid "Share on Facebook"
+msgstr "Bild für Facebook"
+
+#: barcamps/templates/master.html:5
+#, fuzzy, python-format
+msgid "Check out %(name)s"
+msgstr "Willkommen, %(fullname)s"
+
+#: barcamps/templates/master.html:6
+msgid "Share on Twitter"
+msgstr ""
+
+#: barcamps/templates/master.html:7
+msgid "Share on Google+"
+msgstr ""
+
+#: barcamps/templates/master.html:21
+msgid "Click here to participate in the barcamp"
+msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
+
+#: barcamps/templates/master.html:24 barcamps/templates/registration.html:48
+#: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:58
+#: barcamps/templates/user_events.html:16
+#: barcamps/templates/user_events.html:43 templates/master.html:98
+#: templates/M/userbase/registration.html:15
+msgid "Register"
+msgstr "Registrieren"
+
+#: barcamps/templates/master.html:31
+msgid "Attention!"
+msgstr "Achtung!"
+
+#: barcamps/templates/master.html:32
+msgid "In order to mark your interest in this barcamp you first have to"
+msgstr ""
+"Um Dich als InteressentIn für dieses Barcamp zu registrieren, musst Du "
+"Dich zunächst im System"
+
+#: barcamps/templates/master.html:33
+msgid "register"
+msgstr "registrieren"
+
+#: barcamps/templates/master.html:33
+msgid "or"
+msgstr "oder"
+
+#: barcamps/templates/master.html:33 templates/M/userbase/login.html:20
+msgid "login"
+msgstr "einloggen"
+
+#: barcamps/templates/master.html:34
+msgid ""
+"on the site itself and then come back to this barcamp to mark your "
+"interest."
+msgstr ""
+"und dann zu diesem Barcamp zurückkommen, um Dich speziell für dieses "
+"anzumelden."
+
+#: barcamps/templates/master.html:112
+msgid "Open map in modal"
+msgstr ""
+
+#: barcamps/templates/master.html:145
+#: barcamps/templates/admin/event_macros.html:38
+#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:49
+#: static/templates/timeslot-modal.hbs:35
+msgid "Close"
+msgstr "Schließen"
+
+#: barcamps/templates/master.html:158
+msgid "Open menu"
+msgstr ""
+
+#: barcamps/templates/master.html:169
+msgid "Manage Barcamp"
+msgstr "Barcamp verwalten"
+
+#: barcamps/templates/master.html:206
+msgid "publish barcamp"
+msgstr "Barcamp veröffentlichen"
+
+#: barcamps/templates/master.html:207
+msgid "this barcamp is not public"
+msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
+
+#: barcamps/templates/master.html:214
+msgid "open registration"
+msgstr "Eröffne die Registrierung"
+
+#: barcamps/templates/master.html:215
+msgid "Registration for this barcamp is not yet open."
+msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
+
+#: barcamps/templates/pad.html:9
+msgid "This planning pad is public."
+msgstr "Das Planungs-Pad ist öffentlich"
+
+#: barcamps/templates/pad.html:10
+msgid "Make private"
+msgstr "Privat schalten"
+
+#: barcamps/templates/pad.html:14
+msgid "This planning pad is private."
+msgstr "Das Planungs-Pad ist NICHT öffentlich"
+
+#: barcamps/templates/pad.html:15
+msgid "Make public"
+msgstr "Öffentlich machen!"
+
+#: barcamps/templates/participant_data.html:6
+#: barcamps/templates/sessionpad.html:8 barcamps/templates/user_event.html:66
+#, fuzzy
+msgid "Homepage"
+msgstr "Homepage"
+
+#: barcamps/templates/participant_data.html:8
+#, fuzzy
+msgid "Registration Form"
+msgstr "Registrierung"
+
+#: barcamps/templates/participant_data.html:10
+#, fuzzy, python-format
+msgid "My participant data for %s"
+msgstr "Teilnehmer"
+
+#: barcamps/templates/participant_data.html:16
+msgid "Please enter your data for participating in this event"
+msgstr ""
+
+#: barcamps/templates/registration.html:5
+#, python-format
+msgid "Register for %s"
+msgstr "Registrieren für %s"
+
+#: barcamps/templates/registration.html:10 barcamps/templates/sessions.html:62
+#: barcamps/templates/admin/gallery_macros.html:49 blog/templates/add.html:19
+#: blog/templates/edit.html:19 blog/templates/edit.html:46
+#: blog/templates/entry.html:43 blog/templates/entry.html:45
+#: blog/templates/view.html:25 blog/templates/view.html:27
+#: static/templates/sessiontest.hbs:54
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: barcamps/templates/registration.html:24
+msgid "Please register for the events you want to participate in"
+msgstr ""
+"Bitte registriere Dich für die Veranstaltungen, an denen Du teilnehmen "
+"willst"
+
+#: barcamps/templates/registration.html:42
+#: barcamps/templates/user_events.html:71
+msgid "participants"
+msgstr "Teilnehmer"
+
+#: barcamps/templates/registration.html:50
+#: barcamps/templates/registration.html:52
+#: barcamps/templates/user_event.html:30 barcamps/templates/user_event.html:32
+#: barcamps/templates/user_events.html:18
+#: barcamps/templates/user_events.html:20
+msgid "Join"
+msgstr "Teilnehmen"
+
+#: barcamps/templates/registration.html:50
+#: barcamps/templates/user_event.html:30 barcamps/templates/user_events.html:18
+msgid "Join Waiting list"
+msgstr "Auf Warteliste setzen"
+
+#: barcamps/templates/registration.html:52
+#: barcamps/templates/registration.html:57
+#: barcamps/templates/registration.html:64
+#: barcamps/templates/user_event.html:32 barcamps/templates/user_event.html:37
+#: barcamps/templates/user_event.html:44 barcamps/templates/user_event.html:100
+#: barcamps/templates/user_events.html:20
+#: barcamps/templates/user_events.html:25
+#: barcamps/templates/user_events.html:32
+msgid "Maybe"
+msgstr "Vielleicht"
+
+#: barcamps/templates/registration.html:58
+#: barcamps/templates/registration.html:63
+#: barcamps/templates/user_event.html:38 barcamps/templates/user_event.html:43
+#: barcamps/templates/user_events.html:26
+#: barcamps/templates/user_events.html:31
+msgid "Going"
+msgstr "Ich gehe"
+
+#: barcamps/templates/registration.html:59
+#: barcamps/templates/user_event.html:39 barcamps/templates/user_event.html:104
+#: barcamps/templates/user_events.html:27 barcamps/templates/userlist.html:58
+msgid "Waiting list"
+msgstr "Warteliste"
+
+#: barcamps/templates/registration.html:65
+#: barcamps/templates/user_event.html:45 barcamps/templates/user_events.html:33
+msgid "Not Going"
+msgstr "Ich gehe nicht"
+
+#: barcamps/templates/sessionpad.html:16
+msgid "by"
+msgstr ""
+
+#: barcamps/templates/sessionpad.html:21
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: barcamps/templates/sessionpad.html:22
+msgid "Session Documentation"
+msgstr "Session-Dokumentation"
+
+#: barcamps/templates/sessions.html:12
+msgid "Sort by:"
+msgstr "Sortieren nach:"
+
+#: barcamps/templates/sessions.html:14
+#: barcamps/templates/admin/event_macros.html:96
+#: barcamps/templates/admin/events.html:20
+msgid "Date"
+msgstr "Datum"
+
+#: barcamps/templates/sessions.html:15
+msgid "Votes"
+msgstr "Votes"
+
+#: barcamps/templates/sessions.html:19
+msgid "Download as excel"
+msgstr "Als Excel herunterladen"
+
+#: barcamps/templates/sessions.html:29
+msgid "You have voted for this proposal. Remove your vote."
+msgstr ""
+
+#: barcamps/templates/sessions.html:29
+#, fuzzy
+msgid "You have not voted for this proposal"
+msgstr "Dein Vorschlag"
+
+#: barcamps/templates/sessions.html:33 barcamps/templates/sessions.html:38
+#: barcamps/templates/sessions.html:74 barcamps/templates/sessions.html:79
+#, fuzzy
+msgid "Vote for this proposal"
+msgstr "Dein Vorschlag"
+
+#: barcamps/templates/sessions.html:33 barcamps/templates/sessions.html:74
+#, fuzzy
+msgid "Remove vote for this proposal"
+msgstr "Dein Vorschlag"
+
+#: barcamps/templates/sessions.html:38 barcamps/templates/sessions.html:79
+#, fuzzy
+msgid "Remove your vote."
+msgstr "Benutzer von der Liste entfernen"
+
+#: barcamps/templates/sessions.html:49
+msgid "added by"
+msgstr "hinzugefügt von"
+
+#: barcamps/templates/sessions.html:51
+msgid "on"
+msgstr "am"
+
+#: barcamps/templates/sessions.html:60
+msgid "Edit Session Proposal"
+msgstr "Sessionvorschlag bearbeiten"
+
+#: barcamps/templates/sessions.html:65
+msgid "Delete Session Proposal"
+msgstr "Sessionvorschlag löschen"
+
+#: barcamps/templates/sessions.html:67 barcamps/templates/admin/design.html:50
+#: barcamps/templates/admin/design.html:55
+#: barcamps/templates/admin/design.html:60
+#: barcamps/templates/admin/gallery_macros.html:50 blog/templates/edit.html:38
+#: pages/templates/edit.html:17 templates/macros.html:132
+#: templates/users/edit.html:38
+msgid "Delete"
+msgstr "Löschen"
+
+#: barcamps/templates/sessions.html:91
+#, fuzzy
+msgid "Delete Comment"
+msgstr "Raum löschen"
+
+#: barcamps/templates/sessions.html:117
+#, fuzzy
+msgid "Kommentar"
+msgstr "Kommentar von "
+
+#: barcamps/templates/sessions.html:118
+msgid "Your comment"
+msgstr "Dein Kommentar"
+
+#: barcamps/templates/sessions.html:120
+msgid "add your comment"
+msgstr "Füge Deinen Kommentar hinzu"
+
+#: barcamps/templates/sessions.html:151
+msgid "Create proposal"
+msgstr "Neuer Sessionvorschlag"
+
+#: barcamps/templates/sessions.html:153
+msgid "Your proposal"
+msgstr "Dein Vorschlag"
+
+#: barcamps/templates/sessions.html:159
+msgid "Add proposal"
+msgstr "Vorschlag hinzufügen"
+
+#: barcamps/templates/sessions.html:165
+msgid ""
+"In order to be able to create or vote for proposals, you need to be "
+"logged in."
+msgstr ""
+"Um eigene Vorschläge hinzuzufügen oder bestehende zu bewerten, musst Du "
+"eingeloggt sein."
+
+#: barcamps/templates/sessions.html:166
+msgid "you can log in and register here"
+msgstr "Du kannst Dich hier einloggen oder registrieren"
+
+#: barcamps/templates/user_event.html:22 barcamps/templates/user_event.html:54
+#: barcamps/templates/user_events.html:12
+#, fuzzy
+msgid "Change Participation Status"
+msgstr "Teilnehmerzahl erhöhen"
+
+#: barcamps/templates/user_event.html:23
+#, fuzzy
+msgid "I attend this event"
+msgstr "Veranstaltungen"
+
+#: barcamps/templates/user_event.html:24 barcamps/templates/user_event.html:55
+msgid "I am not attending this event"
+msgstr ""
+
+#: barcamps/templates/user_event.html:58 barcamps/templates/user_event.html:204
+#: barcamps/templates/user_events.html:43
+#: barcamps/templates/user_events.html:106
+#, fuzzy
+msgid "Add my registration data"
+msgstr "Registrierung"
+
+#: barcamps/templates/user_event.html:78 barcamps/templates/user_event.html:96
+#: barcamps/templates/user_events.html:78 barcamps/templates/userlist.html:50
+#: barcamps/templates/admin/dashboard.html:18
+#: barcamps/templates/admin/event_macros.html:13
+#: barcamps/templates/admin/event_participants.html:43
+#: barcamps/templates/admin/events.html:21
+msgid "Participants"
+msgstr "Teilnehmer"
+
+#: barcamps/templates/user_event.html:81 barcamps/templates/user_events.html:79
+#: barcamps/templates/admin/event_macros.html:12
+msgid "Timetable"
+msgstr "Zeitraster"
+
+#: barcamps/templates/user_event.html:84 barcamps/templates/user_events.html:80
+#: barcamps/templates/admin/add.html:124
+#: barcamps/templates/admin/event_macros.html:141
+msgid "Location"
+msgstr "Veranstaltungsort"
+
+#: barcamps/templates/user_event.html:113
+#, fuzzy
+msgid "Time Table"
+msgstr "Zeitraster"
+
+#: barcamps/templates/user_event.html:129 static/templates/sessiontest.hbs:24
 msgid "persons"
 msgstr "Personen"
 
-#: static/templates/sessiontest.hbs:30
-msgid "Room"
-msgstr "Raum"
+#: barcamps/templates/user_event.html:147
+msgid "Documentation for"
+msgstr "Dokumentation für"
+
+#: barcamps/templates/user_event.html:164
+msgid "Edit Sessions"
+msgstr "Sessions bearbeiten"
+
+#: barcamps/templates/user_event.html:190
+#: barcamps/templates/user_events.html:92
+msgid "My data"
+msgstr ""
+
+#: barcamps/templates/user_event.html:201
+#: barcamps/templates/user_events.html:103
+#, fuzzy
+msgid "Change my registration data"
+msgstr "Eröffne die Registrierung"
+
+#: barcamps/templates/user_event.html:201
+#: barcamps/templates/user_events.html:103
+#, fuzzy
+msgid "edit"
+msgstr "Bearbeiten"
+
+#: barcamps/templates/user_event.html:203
+#: barcamps/templates/user_events.html:105
+msgid "please enter your personal data in order to register for this event"
+msgstr ""
+
+#: barcamps/templates/user_event.html:204
+#: barcamps/templates/user_events.html:106
+#, fuzzy
+msgid "add"
+msgstr "Hinzufügen"
+
+#: barcamps/templates/userlist.html:17
+msgid "register user as participant"
+msgstr "auf Teilnehmerliste setzen"
+
+#: barcamps/templates/userlist.html:20
+msgid "remove user from list"
+msgstr "Benutzer von der Liste entfernen"
+
+#: barcamps/templates/userlist.html:54
+#: barcamps/templates/admin/dashboard.html:27
+msgid "Interested"
+msgstr "Interessiert"
+
+#: barcamps/templates/admin/add.html:7
+msgid "Create a new Barcamp"
+msgstr "neues Barcamp anlegen"
+
+#: barcamps/templates/admin/add.html:21
+msgid "name of barcamp, e.g. \"PythonCamp\""
+msgstr "Name des Barcamps, z.B. 'PythonCamp'"
+
+#: barcamps/templates/admin/add.html:26 pages/add.py:30
+msgid "URL name"
+msgstr "URL-Kurzname"
+
+#: barcamps/templates/admin/add.html:29
+msgid "url short name without whitespaces, e.g. pythoncamp2011"
+msgstr "URL-Kurzname ohne Leerzeichen, z.B. pythoncamp2021"
+
+#: barcamps/templates/admin/add.html:34 pages/templates/add.html:14
+#: pages/templates/edit.html:13
+msgid "This shortname is already taken."
+msgstr "Dieser Kurzname ist schon vergeben"
+
+#: barcamps/templates/admin/add.html:43
+#: barcamps/templates/admin/event_macros.html:90
+msgid "Add more info"
+msgstr "Weitere Infos hinzufügen"
+
+#: barcamps/templates/admin/add.html:49
+msgid "barcamp description in 160 chars"
+msgstr ""
+
+#: barcamps/templates/admin/add.html:53
+msgid "From"
+msgstr "Von"
+
+#: barcamps/templates/admin/add.html:55
+msgid "Start date"
+msgstr "Beginn"
+
+#: barcamps/templates/admin/add.html:58
+#: barcamps/templates/admin/event_macros.html:109
+msgid "to"
+msgstr "bis"
+
+#: barcamps/templates/admin/add.html:61
+msgid "End date"
+msgstr "Ende"
+
+#: barcamps/templates/admin/add.html:71
+#, fuzzy
+msgid "Pre-Registration"
+msgstr "Eröffne die Registrierung"
+
+#: barcamps/templates/admin/add.html:80
+msgid "Social"
+msgstr "Social Media"
+
+#: barcamps/templates/admin/add.html:82
+msgid "Website"
+msgstr "Webseite"
+
+#: barcamps/templates/admin/add.html:84
+#: barcamps/templates/admin/sponsors.html:39
+msgid "https://"
+msgstr "https://"
+
+#: barcamps/templates/admin/add.html:89 handlers/users/edit.py:33
+msgid "Twitter"
+msgstr "Twitter"
+
+#: barcamps/templates/admin/add.html:91
+msgid "Twitter Account"
+msgstr "Twitter-Konto"
+
+#: barcamps/templates/admin/add.html:94 templates/users/edit.html:20
+msgid "Twitter-Account"
+msgstr "Twitter-Konto"
+
+#: barcamps/templates/admin/add.html:99
+msgid "Twitter Hashtag"
+msgstr "Twitter-Hashtag"
+
+#: barcamps/templates/admin/add.html:108 handlers/users/edit.py:34
+msgid "Facebook"
+msgstr "Facebook"
+
+#: barcamps/templates/admin/add.html:110
+msgid "https://facebook.com/..."
+msgstr ""
+
+#: barcamps/templates/admin/add.html:114
+msgid "Google Plus"
+msgstr "Google Plus"
+
+#: barcamps/templates/admin/add.html:116
+msgid "https://plus.google.com/+<name>"
+msgstr ""
+
+#: barcamps/templates/admin/add.html:127
+#: barcamps/templates/admin/event_macros.html:144
+msgid "Where"
+msgstr "Wo"
+
+#: barcamps/templates/admin/add.html:129
+#: barcamps/templates/admin/event_macros.html:146
+msgid "Name of location"
+msgstr "Name des Veranstaltungsortes"
+
+#: barcamps/templates/admin/add.html:130
+#: barcamps/templates/admin/event_macros.html:147
+msgid "Name of the location"
+msgstr "Name des Veranstaltungsortes"
+
+#: barcamps/templates/admin/add.html:132
+#: barcamps/templates/admin/event_macros.html:149
+msgid "Please enter a street"
+msgstr "Bitte gebe eine Straße ein"
+
+#: barcamps/templates/admin/add.html:134 barcamps/templates/admin/add.html:135
+#: barcamps/templates/admin/event_macros.html:151
+#: barcamps/templates/admin/event_macros.html:152
+msgid "Street"
+msgstr "Straße"
+
+#: barcamps/templates/admin/add.html:143
+#: barcamps/templates/admin/event_macros.html:160
+msgid "Please enter a city"
+msgstr "Bitte gebe eine Stadt ein"
+
+#: barcamps/templates/admin/add.html:145 barcamps/templates/admin/add.html:146
+#: barcamps/templates/admin/event_macros.html:162
+#: barcamps/templates/admin/event_macros.html:163
+msgid "City"
+msgstr "Stadt"
+
+#: barcamps/templates/admin/add.html:154
+#: barcamps/templates/admin/event_macros.html:171
+msgid "show the map"
+msgstr "Auf Karte anzeigen"
+
+#: barcamps/templates/admin/add.html:164
+msgid "create Barcamp"
+msgstr "neues Barcamp anlegen"
+
+#: barcamps/templates/admin/dashboard.html:6
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: barcamps/templates/admin/dashboard.html:35
+msgid "on waiting list"
+msgstr "auf Warteliste"
+
+#: barcamps/templates/admin/dashboard.html:48
+msgid "edit participants"
+msgstr "Teilnehmer bearbeiten"
+
+#: barcamps/templates/admin/delete.html:8
+msgid ""
+"If you delete this barcamp, the following information will be deleted "
+"PERMANENTLY:"
+msgstr ""
+"Wenn Du dieses Barcamp löschst, werden die folgenden Informationen "
+"PERMANENT gelöscht:"
+
+#: barcamps/templates/admin/delete.html:10
+msgid "all information about the barcamp"
+msgstr "Alle Informationen zu diesem Barcamp"
+
+#: barcamps/templates/admin/delete.html:11
+msgid "all your pages"
+msgstr "alle Deine Seiten"
+
+#: barcamps/templates/admin/delete.html:12
+msgid "all participants lists"
+msgstr "alle Teilnehmerlisten"
+
+#: barcamps/templates/admin/delete.html:13
+msgid "all documentation if not hosted externally"
+msgstr "jegliche Dokumentation, soweit sie nicht extern gehostet wird."
+
+#: barcamps/templates/admin/delete.html:14
+msgid "all session proposals"
+msgstr "alle Sessionvorschläge"
+
+#: barcamps/templates/admin/delete.html:19
+msgid "yes, DELETE the barcamp"
+msgstr "JA, bitte lösche dieses Barcamp"
+
+#: barcamps/templates/admin/delete.html:20
+msgid "No, DO NOT delete the barcamp"
+msgstr "NEEEEIN, lösche dieses Barcamp doch nicht!"
+
+#: barcamps/templates/admin/design.html:5
+msgid "Barcamp Design and Layout"
+msgstr "Barcamp Design und Layout"
+
+#: barcamps/templates/admin/design.html:8
+msgid "Click on the colors to open a color picker"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:30
+msgid "Border Color"
+msgstr "Rahmenfarbe"
+
+#: barcamps/templates/admin/design.html:33
+msgid "Hover Background Color"
+msgstr "Hover Hintergrundfarbe"
+
+#: barcamps/templates/admin/design.html:38
+msgid "Active Text Color"
+msgstr "Aktive Text-Farbe"
+
+#: barcamps/templates/admin/design.html:41
+msgid "Active Background Color"
+msgstr "Aktive Hintergrundfarbe"
+
+#: barcamps/templates/admin/design.html:50
+#: barcamps/templates/admin/design.html:55
+#: barcamps/templates/admin/design.html:60
+msgid "Upload Image"
+msgstr "Bild hochladen"
+
+#: barcamps/templates/admin/design.html:64
+#: barcamps/templates/admin/gallery_macros.html:23
+#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
+msgid "Update"
+msgstr "Aktualisieren"
+
+#: barcamps/templates/admin/event.html:9
+#: barcamps/templates/admin/events.html:34
+msgid "Edit event details"
+msgstr "Veranstaltungsdetails bearbeiten"
+
+#: barcamps/templates/admin/event.html:12
+msgid "Update event"
+msgstr "Veranstaltung aktualisieren"
+
+#: barcamps/templates/admin/event_macros.html:6
+msgid "back to event listing"
+msgstr "Zurück zur Veranstaltungsliste"
+
+#: barcamps/templates/admin/event_macros.html:11
+msgid "Details"
+msgstr "Details"
+
+#: barcamps/templates/admin/event_macros.html:29
+msgid "for"
+msgstr "für"
+
+#: barcamps/templates/admin/event_macros.html:39
+msgid "Select location"
+msgstr "Veranstaltungsort wählen"
+
+#: barcamps/templates/admin/event_macros.html:43
+msgid "place marker on address"
+msgstr "Adresse suchen"
+
+#: barcamps/templates/admin/event_macros.html:54
+msgid "loading indicator"
+msgstr "Ladeanzeige"
+
+#: barcamps/templates/admin/event_macros.html:55
+msgid "retrieving location"
+msgstr "Adresse wird gesucht"
+
+#: barcamps/templates/admin/event_macros.html:59
+msgid "Understood"
+msgstr "Verstanden"
+
+#: barcamps/templates/admin/event_macros.html:65
+msgid "Save location"
+msgstr "Veranstaltungsort speichern"
+
+#: barcamps/templates/admin/event_macros.html:66
+msgid "close"
+msgstr "Schließen"
+
+#: barcamps/templates/admin/event_macros.html:66
+msgid "close map"
+msgstr "Karte schließen"
+
+#: barcamps/templates/admin/event_macros.html:84
+msgid "e.g. \"Day 1\" or \"Warm up Party\""
+msgstr "z.B. Tag 1 oder Warm-Up-Party"
+
+#: barcamps/templates/admin/event_macros.html:94
+msgid "When"
+msgstr "Wann"
+
+#: barcamps/templates/admin/event_macros.html:98
+#, python-format
+msgid ""
+"Be aware that this barcamp is public and %(amount)s people already signed"
+" up for it. So changing the date might not be the best idea."
+msgstr ""
+"Bitte beachte, dass dieses Barcamp schon öffentlich ist und sich schon "
+"%(amount)s Personen angemeldet haben. Eine Änderung des Datums ist also "
+"vielleicht keine so gute Idee"
+
+#: barcamps/templates/admin/event_macros.html:102
+msgid "from"
+msgstr "vom"
+
+#: barcamps/templates/admin/event_macros.html:105
+#, fuzzy
+msgid "Start Time"
+msgstr "Beginn"
+
+#: barcamps/templates/admin/event_macros.html:106
+#, fuzzy
+msgid "Start time"
+msgstr "Beginn"
+
+#: barcamps/templates/admin/event_macros.html:112
+#, fuzzy
+msgid "End Time"
+msgstr "Ende"
+
+#: barcamps/templates/admin/event_macros.html:113
+#, fuzzy
+msgid "End time"
+msgstr "Ende"
+
+#: barcamps/templates/admin/event_macros.html:117
+msgid "How many"
+msgstr "Wie viele"
+
+#: barcamps/templates/admin/event_macros.html:124
+msgid ""
+"Because the barcamp is public you can only increase the number of "
+"participants. Once you do people on the waiting list will move up to the "
+"participant list automatically and an email will be sent out to them."
+msgstr ""
+"Da das Barcamp schon öffentlich ist, kannst Du die Teilnehmerzahl nur "
+"erhöhen. Wenn Du das tustrücken Personen von der Warteliste automatisch "
+"nach und werden per E-Mail informiert."
+
+#: barcamps/templates/admin/event_macros.html:133
+msgid "Use different location than the main barcamp location"
+msgstr "Benutzer einen anderen Veranstaltungsort als den des Barcamps"
+
+#: barcamps/templates/admin/event_participants.html:19
+msgid "Move to waiting list"
+msgstr "Auf Warteliste verschieben"
+
+#: barcamps/templates/admin/event_participants.html:21
+msgid "Move to participants"
+msgstr "Auf Teilnehmerliste verschieben"
+
+#: barcamps/templates/admin/event_participants.html:24
+msgid "remove from event"
+msgstr "Benutzer entfernen"
+
+#: barcamps/templates/admin/event_participants.html:38
+msgid "Manage Participants"
+msgstr "Teilnehmer verwalten"
+
+#: barcamps/templates/admin/event_participants.html:44
+msgid "Waitinglist"
+msgstr "Warteliste"
+
+#: barcamps/templates/admin/event_participants.html:45
+msgid "Maybe coming"
+msgstr "Komme vielleicht"
+
+#: barcamps/templates/admin/events.html:10
+msgid ""
+"A barcamp consists of one or multiple days called events. You can define "
+"these below"
+msgstr ""
+"Ein Barcamp besteht aus einer oder mehreren Veranstaltungen "
+"(normalerweise 1 pro Tag)."
+
+#: barcamps/templates/admin/events.html:22
+msgid "Waiting"
+msgstr "Warteliste"
+
+#: barcamps/templates/admin/events.html:36
+#: barcamps/templates/admin/sessionboard.html:8
+msgid "Edit event timetable"
+msgstr "Zeitraster bearbeiten"
+
+#: barcamps/templates/admin/events.html:37
+msgid "Manage participants"
+msgstr "Teilnehmerzahl erhöhen"
+
+#: barcamps/templates/admin/events.html:40
+#: barcamps/templates/admin/events.html:44
+msgid "Delete Event?"
+msgstr "Veranstaltung löschen?"
+
+#: barcamps/templates/admin/events.html:46 blog/templates/entries.html:41
+#: pages/templates/entries.html:39 templates/macros.html:124
+msgid "Yes"
+msgstr "Ja"
+
+#: barcamps/templates/admin/events.html:49 blog/templates/entries.html:44
+#: pages/templates/entries.html:42 templates/macros.html:127
+msgid "No"
+msgstr "Nö"
+
+#: barcamps/templates/admin/events.html:61
+msgid "no events have been defined yet."
+msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
+
+#: barcamps/templates/admin/events.html:67
+msgid "Show add event form"
+msgstr "Zeige Veranstatungsformular"
+
+#: barcamps/templates/admin/events.html:67
+msgid "Add event"
+msgstr "Veranstaltung hinzufügen"
+
+#: barcamps/templates/admin/events.html:71
+msgid "Create new event"
+msgstr "Neue Veranstaltung anlegen"
+
+#: barcamps/templates/admin/events.html:72
+msgid "Create event"
+msgstr "neue Veranstaltung anlegen"
+
+#: barcamps/templates/admin/galleries.html:8
+msgid "Image Galleries"
+msgstr "Bildergalerien"
+
+#: barcamps/templates/admin/galleries.html:9
+msgid ""
+"Create image galleries here which you can then use on barcamp pages and "
+"blog posts"
+msgstr ""
+"Erstelle Bildergalerien, die danach auf der Homepage oder in Blog-"
+"Artikeln genutzt werden können"
+
+#: barcamps/templates/admin/galleries.html:23
+msgid "Actions"
+msgstr "Aktionen"
+
+#: barcamps/templates/admin/galleries.html:41
+msgid "Title of new gallery"
+msgstr "Titel der neuen Galerie"
+
+#: barcamps/templates/admin/galleries.html:42
+msgid "Add Gallery"
+msgstr "Galerie hinzufügen"
+
+#: barcamps/templates/admin/gallery_macros.html:18
+msgid "Title of image"
+msgstr "löschen"
+
+#: barcamps/templates/admin/gallery_macros.html:19
+msgid "The alt tag"
+msgstr "Alt-Tag"
+
+#: barcamps/templates/admin/gallery_macros.html:20
+msgid "The secret behind this picture"
+msgstr "Das Geheimnis dieses Bildes"
+
+#: barcamps/templates/admin/gallery_macros.html:21
+msgid "e.g. CC-BY"
+msgstr "z.B. CC-BY"
+
+#: barcamps/templates/admin/gallery_macros.html:22
+msgid "who should be credited?"
+msgstr "Wer sollte als Autor genannt werden?"
+
+#: barcamps/templates/admin/gallery_macros.html:34
+msgid "Alt Tag"
+msgstr "Alt-Tag"
+
+#: barcamps/templates/admin/galleryadmin.html:9
+msgid "back to gallery listing"
+msgstr "Zurück zur Liste aller Galerien"
+
+#: barcamps/templates/admin/galleryadmin.html:15
+msgid "Gallery"
+msgstr "Galerie"
+
+#: barcamps/templates/admin/galleryadmin.html:21
+msgid "Title of gallery"
+msgstr "Titel der Galerie"
+
+#: barcamps/templates/admin/galleryadmin.html:37 blog/templates/add.html:13
+#: pages/templates/add.html:18
+msgid "Upload image"
+msgstr "Bild hochladen"
+
+#: barcamps/templates/admin/galleryadmin.html:37 blog/templates/add.html:13
+#: pages/templates/add.html:18
+msgid "Delete image"
+msgstr "Bild löschen"
+
+#: barcamps/templates/admin/galleryadmin.html:37 blog/templates/add.html:13
+#: pages/templates/add.html:18
+msgid "Revert"
+msgstr "Zurücksetzen"
+
+#: barcamps/templates/admin/mails_edit.html:7
+msgid "Edit mail templates"
+msgstr "Bearbeite Email-Vorlagen"
+
+#: barcamps/templates/admin/mails_edit.html:9
+msgid "for your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/admin/mails_edit.html:15
+msgid "Tip!"
+msgstr "Tipp!"
+
+#: barcamps/templates/admin/mails_edit.html:15
+msgid ""
+"You can use <code>((fullname))</code> in a mail body which will be "
+"replaced by\n"
+"        the name of the user the mail is sent to, e.g. 'Hello "
+"((fullname)),... '"
+msgstr ""
+"Du kannst <code>((fullname))</code> in einem Mailtext benutzen, um den "
+"vollen Namen des Benutzer einzuseten, an den die Mail geschickt wird. "
+"Beispiel: 'Hallo ((fullname)), ...'"
+
+#: barcamps/templates/admin/mails_edit.html:20
+msgid "Welcome Mail"
+msgstr "Willkommens-Mail"
+
+#: barcamps/templates/admin/mails_edit.html:22
+msgid ""
+"The Welcome Mail is sent when a user has successfully registered as "
+"participant. It is\n"
+"                not sent if the user is going to be moved to the waiting "
+"list in case the participant list is already full."
+msgstr ""
+"Die Willkommens-Mail wird an einen Benutzer gesendet, der sich "
+"erfolgreich als Teilnehmer registriert hat. Sie wird nicht gesendet, wenn"
+" der Benutzer auf der Warteliste landete. Dann gilt die Mail unten."
+
+#: barcamps/templates/admin/mails_edit.html:29
+msgid "Waitinglist Mail"
+msgstr "Wartelisten-Mail"
+
+#: barcamps/templates/admin/mails_edit.html:31
+msgid ""
+"This Mail is sent when the maximum number of participant has been reached"
+" and the user is being\n"
+"                moved onto the waitinglist."
+msgstr ""
+"Diese Mail wird an einen Benutzer gesendet, wenn die maximale "
+"Teilnehmerzahl erreicht wurde und er auf der Warteliste landet."
+
+#: barcamps/templates/admin/mails_edit.html:38
+msgid "From Waitinglist Mail"
+msgstr "Warteliste-zu-Teilnehmer-Mail"
+
+#: barcamps/templates/admin/mails_edit.html:40
+msgid ""
+"This Mail is sent to a user who is being moved from the waiting list to "
+"the participants list.\n"
+"                This can happen if an existing participant cancels his "
+"participation or if the barcamp admin increases\n"
+"                the number of participants"
+msgstr ""
+"Diese Mail wird an einen Benutzer gesendet, der von der Warteliste auf "
+"die Teilnehmerliste nachrückt. Dies passiert entweder, wenn ein "
+"Teilnehmer absagt oder wenn der Veranstalter die Kapazität des  Barcamps "
+"erhöht. "
+
+#: barcamps/templates/admin/participants_data_edit.html:6
+msgid "Edit the participant registration form"
+msgstr "Bearbeite das Registrierungsformular"
+
+#: barcamps/templates/admin/participants_data_edit.html:8
+msgid ""
+"If you want a user to enter additional data like t-shirt size, food "
+"preferences etc. you can define that here. Just add a custom\n"
+"            fields for all the informatin you want to gather. You can "
+"choose between single-line and multi-line text fields. Also you can "
+"define if the\n"
+"            field is required to be filled in. The user will then have to"
+" enter that data when clicking on the participate button. You can "
+"download that data\n"
+"            along with the name of the participants under the \"download "
+"participants\" menu item in the admin box."
+msgstr ""
+"Hier kannst Du definieren, welche zusätzlichen Informationen Du vom "
+"Benutzer beim Registrierungsprozess abfragen willst. Dies kann z.B. T"
+"-Shirt-Größe, Essensoptionen oder ähnliches sein. Du kannst bei jedem "
+"Feld wählen, ob es ein ein- oder mehrzeiliges Feld sein soll und ob ein "
+"Benutzer es zwingend ausfüllen muss. Ein Benutzer muss diese Daten dann "
+"beim  Registrierungsprozess angeben. Diese Daten kannst Du danach dann "
+"unter 'Teilnehmer herunterladen' inklusive Namen der Teilnehmer "
+"herunterladen. "
+
+#: barcamps/templates/admin/participants_data_edit.html:19
+msgid "title"
+msgstr "Titel"
+
+#: barcamps/templates/admin/participants_data_edit.html:22
+msgid "required?"
+msgstr "erforderlich?"
+
+#: barcamps/templates/admin/participants_data_edit.html:48
+msgid "Add a new field"
+msgstr "Füge ein neues Feld hinzu"
+
+#: barcamps/templates/admin/participants_data_edit.html:56
+msgid "Add"
+msgstr "Hinzufügen"
+
+#: barcamps/templates/admin/participants_edit.html:7
+msgid "Increase number of participants"
+msgstr "Erhöhe die Teilnehmerzahl"
+
+#: barcamps/templates/admin/participants_edit.html:12
+msgid "update"
+msgstr "Aktualisieren"
+
+#: barcamps/templates/admin/send_newsletter.html:6
+#: barcamps/templates/admin/send_newsletter.html:25
+msgid "Send Newsletter"
+msgstr "Newsletter versenden"
+
+#: barcamps/templates/admin/send_newsletter.html:8
+msgid ""
+"With this form you can send a newsletter to either all participants, all "
+"interested members or both groups. You can also test the newsletter by "
+"sending it to an email address of your choice"
+msgstr ""
+"Mit diesem Formular kannst Du einen Newsletter entweder an alle "
+"Teilnehmer des Barcamps, alle Interessierten oder beide Gruppen schicken."
+" Du kann Dir vorher den Newsletter als Test an eine beliebige Adresse "
+"schicken lassen."
+
+#: barcamps/templates/admin/send_newsletter.html:19
+msgid "Send Test Mail"
+msgstr "Test-Newsletter versenden"
+
+#: barcamps/templates/admin/send_newsletter.html:21
+msgid "Really send Newsletter?"
+msgstr "Den Newsletter wirklich versenden?"
+
+#: barcamps/templates/admin/sessionboard.html:30 templates/admin_master.html:34
+msgid "public view"
+msgstr "Öffentliche Ansicht"
+
+#: barcamps/templates/admin/sessionboard.html:33
+msgid "Download PDF"
+msgstr "Als PDF herunterladen"
+
+#: barcamps/templates/admin/sessionboard.html:36
+msgid "for use as direction signs"
+msgstr "zur Nutzung als Wegweiser"
+
+#: barcamps/templates/admin/sessionboard.html:37
+msgid "Rooms and Times"
+msgstr "Räume und Zeiten"
+
+#: barcamps/templates/admin/sessionboard.html:42
+msgid "each time on a separate sheet"
+msgstr "jede Zeit auf einem separaten Blatt"
+
+#: barcamps/templates/admin/sessionboard.html:43
+msgid "Time Signs"
+msgstr "Schilder mit Zeiten"
+
+#: barcamps/templates/admin/sessionboard.html:44
+msgid "each room on a separate sheet for directions or session plan"
+msgstr ""
+"jeder Raum auf einem eigenen Blatt z.B. als Wegweiser oder für den "
+"Sessionplan"
+
+#: barcamps/templates/admin/sessionboard.html:45
+msgid "Room Signs"
+msgstr "Raumschilder"
+
+#: barcamps/templates/admin/sponsors.html:6
+msgid "Manage Sponsors"
+msgstr "Sponsoren verwalten"
+
+#: barcamps/templates/admin/sponsors.html:37
+msgid "Add new sponsor"
+msgstr "Neuen Sponsor anlegen"
+
+#: barcamps/templates/pdfs/sessionboard_rooms.html:15
+#: barcamps/templates/pdfs/sessionboard_roomtime.html:23
+msgid "people"
+msgstr ""
+
+#: blog/add.py:19
+msgid "Content"
+msgstr "Inhalt"
+
+#: blog/add.py:20
+msgid "Publishing Date"
+msgstr "Veröffentlichungsdatum"
+
+#: blog/add.py:23
+msgid "Title image"
+msgstr "itelbild"
+
+#: blog/add.py:52
+msgid "The blog entry was created"
+msgstr "Der Blog-Artikel wurde angelegt"
+
+#: blog/edit.py:38
+msgid "The blog entry was updated"
+msgstr "Der Blog-Artikel wurde aktualisiert"
+
+#: blog/templates/add.html:7
+msgid "Create a new Blog entry"
+msgstr "neuen Artikel anlegen"
+
+#: blog/templates/add.html:18 blog/templates/edit.html:45
+msgid "Published immediately"
+msgstr "Direkt veröffentlichen"
+
+#: blog/templates/add.html:20 blog/templates/edit.html:47
+msgid "Now"
+msgstr "Jetzt"
+
+#: blog/templates/add.html:24
+msgid "Save as draft"
+msgstr "Als Draft speichern"
+
+#: blog/templates/add.html:25
+#, fuzzy
+msgid "Publish and Save"
+msgstr "Barcamp veröffentlichen"
+
+#: blog/templates/edit.html:9
+msgid "Edit Blog Entry"
+msgstr "Blog-Artikel bearbeiten"
+
+#: blog/templates/edit.html:11
+msgid "View blog post"
+msgstr "Blog-Artikel ansehen"
+
+#: blog/templates/edit.html:18
+msgid "Status"
+msgstr "Status"
+
+#: blog/templates/edit.html:24 blog/templates/entries.html:18
+msgid "Published"
+msgstr "Veröffentlicht"
+
+#: blog/templates/edit.html:25 blog/templates/view.html:13
+msgid "Draft"
+msgstr "Draft"
+
+#: blog/templates/edit.html:27
+msgid "Ok"
+msgstr "Ok"
+
+#: blog/templates/edit.html:38 pages/templates/edit.html:17
+msgid "Upload new image"
+msgstr "Neues Bild hochladen"
+
+#: blog/templates/edit.html:38 pages/templates/edit.html:17
+msgid "Revert to original image"
+msgstr "Original-Bild wiederherstellen"
+
+#: blog/templates/edit.html:51
+msgid "Save and Publish"
+msgstr "Speichern und Veröffentlichen"
+
+#: blog/templates/entries.html:7 blog/templates/view.html:8
+msgid "Blog Entries"
+msgstr "Blog-Einträge"
+
+#: blog/templates/entries.html:28
+msgid "draft"
+msgstr "Draft"
+
+#: blog/templates/entries.html:35
+msgid "Delete Blog Entry"
+msgstr "Blog-Eintrag löschen"
+
+#: blog/templates/entries.html:39
+msgid "Delete Entry?"
+msgstr "Eintrag löschen?"
+
+#: blog/templates/entries.html:54
+msgid "Add new blog entry"
+msgstr "Neuen Blog-Artikel hinzufügen"
+
+#: handlers/forms.py:93
+msgid "Not a valid currency value"
+msgstr "kein gültiger Wert"
+
+#: handlers/sponsor.py:8
+msgid "Your Name"
+msgstr "Dein Name"
+
+#: handlers/sponsor.py:9
+msgid "Your E-Mail address"
+msgstr "Deine E-Mail-Adresse"
+
+#: handlers/sponsor.py:10
+msgid "please enter your email address so we can contact you"
+msgstr "Bitte gebe eine E-Mail-Adresse ein, so dass wir Dich kontaktieren können"
+
+#: handlers/sponsor.py:12
+msgid "Name of the proposed youth barcamp"
+msgstr "Name des Barcamps, das Du organisieren möchtest"
+
+#: handlers/sponsor.py:13
+msgid "Planned date of barcamp"
+msgstr "voraussichtliches Datum des Barcamps"
+
+#: handlers/sponsor.py:14
+msgid "Reason for sponsorship"
+msgstr "Was genau brauchst Du an Hilfe?"
+
+#: handlers/sponsor.py:15
+msgid "please describe your barcamp here esp. in regards of youth participation"
+msgstr ""
+"Bitte beschreibe Dein Barcamp hier insbesondere im Hinblick auf "
+"Jugendpartizipation und wobei Du Hilfe brauchst"
+
+#: handlers/sponsor.py:33
+msgid "camper: new barcamp sponsorshop requested"
+msgstr "Camper: Neues Barcamp-Sponsorship angefragt"
+
+#: handlers/sponsor.py:35
+msgid ""
+"your sponsorship request has been sent and we will come back to you "
+"shortly."
+msgstr "Deine Sponsor-Anfrage wurde an YouthPart weitergeleitet"
+
+#: handlers/upload.py:77
+#, python-format
+msgid "file '%s' has been deleted"
+msgstr "Die Datei '%s' wurde erfolgreich gelöscht"
+
+#: handlers/users/edit.py:29
+msgid "Fullname"
+msgstr "Voller Name"
+
+#: handlers/users/edit.py:30
+msgid "url name (username)"
+msgstr "URL-Pfad (Benutzername)"
+
+#: handlers/users/edit.py:30
+msgid ""
+"this is the url path of your profile page, should only contain letters "
+"and numbers"
+msgstr ""
+"Dies ist der URL-Pfade zu Deinem Profil, er sollte nur Buchstaben und "
+"Zahlen enthalten."
+
+#: handlers/users/edit.py:31 templates/users/profile.html:21
+msgid "About me"
+msgstr "Über mich"
+
+#: handlers/users/edit.py:32
+msgid "Organization"
+msgstr "Organisation"
+
+#: handlers/users/edit.py:32
+msgid "your school, company, institution (max. 100 characters)"
+msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
+
+#: handlers/users/edit.py:33
+msgid "your twitter username"
+msgstr "Dein Twitter-Benutzername"
+
+#: handlers/users/edit.py:34
+msgid "path to your facebook profile (without domain)"
+msgstr "Pfad zum Facebook-Profil (ohne Domain)"
+
+#: handlers/users/edit.py:35
+msgid "T shirt size"
+msgstr "T-Shirt-Größe"
+
+#: handlers/users/edit.py:36
+msgid "Profile Image (optional)"
+msgstr "Profil-Bild (optional)"
+
+#: handlers/users/edit.py:41
+msgid "this email address is already taken"
+msgstr "Diese E-Mail-Adresse ist schon vergeben"
+
+#: handlers/users/edit.py:45
+msgid "this url path is already taken"
+msgstr "Dieser URL-Pfad ist schon vergeben"
+
+#: handlers/users/edit.py:69
+msgid "Your profile has been updated"
+msgstr "Dein Profilbild wurde aktualisiert"
+
+#: handlers/users/edit.py:73
+msgid "There have been errors in the form"
+msgstr "Das Formular beinhaltet einen Fehler"
+
+#: handlers/users/edit.py:94
+msgid "Your profile image has been deleted"
+msgstr "Dein Profilbild wurde erfolgreich gelöscht"
+
+#: pages/add.py:15
+msgid "title of the page (max. 80 characters)"
+msgstr "Titel der Seite (max. 80 Zeichen)"
+
+#: pages/add.py:20
+msgid "Page title (max. 80 characters)"
+msgstr "Seitentitel (max. 80 Zeichen)"
+
+#: pages/add.py:21
+msgid "Layout"
+msgstr "Layout"
+
+#: pages/add.py:23
+msgid "Image on top"
+msgstr "Bild oben"
+
+#: pages/add.py:24
+msgid "Image on left side"
+msgstr "Bild links"
+
+#: pages/add.py:25
+msgid "Image on right side"
+msgstr "Bild rechts"
+
+#: pages/add.py:27
+msgid "define how to layout the page"
+msgstr "Page-Layout"
+
+#: pages/add.py:28
+msgid "Menu title"
+msgstr "Menü-Titel"
+
+#: pages/add.py:29
+msgid "Page title in menu (max. 30 characters)"
+msgstr "Seitentitel im Menü (max. 30 Zeichen)"
+
+#: pages/add.py:31
+msgid "short name in the URL (no spaces, max. 20 characters, needs to be unique)"
+msgstr ""
+"Kurzname in der URL (keine Leerzeichen, max. 20 Zeichen, muss eindeutig "
+"sein)"
+
+#: pages/add.py:32
+msgid "Page Contents"
+msgstr "Seiteninhalt"
+
+#: pages/add.py:33
+msgid "The actual contents of the page"
+msgstr "Der eigentliche Inhalt der Seite"
+
+#: pages/add.py:34
+msgid "Image (optional)"
+msgstr "Bild (optional)"
+
+#: pages/edit.py:32
+msgid "page updated."
+msgstr "Seite aktualisiert."
+
+#: pages/edit.py:39
+msgid "Unfortunately the form contains errors. Please fix them and try again."
+msgstr ""
+"Leider enthielt das Formular noch Fehler. Bitte behebe diese und versuche"
+" es erneut."
+
+#: pages/view.py:59
+msgid "the page has been deleted"
+msgstr "Die Seite wurde gelöscht"
+
+#: pages/templates/add.html:7
+msgid "Create new page"
+msgstr "neue Seite anlegen"
+
+#: pages/templates/add.html:10 pages/templates/edit.html:9
+msgid "Page title"
+msgstr "Seitentitel"
+
+#: pages/templates/add.html:11 pages/templates/edit.html:10
+msgid "short name for URL"
+msgstr "Kurzname für die URL"
+
+#: pages/templates/add.html:16 pages/templates/edit.html:15
+msgid "short title for menu"
+msgstr "Kurztitel für Menü"
+
+#: pages/templates/add.html:22
+msgid "Create page"
+msgstr "neue Seite anlegen"
+
+#: pages/templates/edit.html:6
+msgid "Edit Page"
+msgstr "Seite bearbeiten"
+
+#: pages/templates/edit.html:23
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+#: pages/templates/entries.html:7 templates/admin_master.html:40
+msgid "Custom Pages"
+msgstr "Eigene Seiten"
+
+#: pages/templates/entries.html:33 pages/templates/entries.html:37
+msgid "Delete Page?"
+msgstr "Seite löschen?"
+
+#: pages/templates/entries.html:57
+msgid "Add new page"
+msgstr "neue Seite anlegen"
+
+#: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
+#: static/templates/sessiontest.hbs:73
+msgid "Add new room"
+msgstr "Neuen Raum hinzufügen"
+
+#: static/templates/room-modal.hbs:17
+#, fuzzy
+msgid "e.g. seminar room 1"
+msgstr "z.B. Seminarraum"
+
+#: static/templates/room-modal.hbs:29
+msgid "e.g. beamer available"
+msgstr "z.B. Beamer verfügbar"
+
+#: static/templates/session-modal.hbs:7
+msgid "Edit Session"
+msgstr "Sessions bearbeiten"
+
+#: static/templates/session-modal.hbs:20
+msgid "enter the title of the session"
+msgstr "Bitte gebe hier den Titel der Session ein"
+
+#: static/templates/session-modal.hbs:31
+msgid "The description of the session"
+msgstr "Sessionbeschreibung"
+
+#: static/templates/session-modal.hbs:35
+msgid "Speaker / Moderator"
+msgstr "Vortragender / Moderator"
+
+#: static/templates/sessiontest.hbs:19
+msgid "delete room"
+msgstr "Raum löschen"
+
+#: static/templates/sessiontest.hbs:21
+msgid "drag to sort this list"
+msgstr "Ziehen, um Liste zu sortieren"
+
+#: static/templates/sessiontest.hbs:38
+msgid "delete timeslot"
+msgstr "Zeitslot löschen"
+
+#: static/templates/sessiontest.hbs:68 static/templates/timeslot-modal.hbs:7
+#: static/templates/timeslot-modal.hbs:34
+msgid "Add new timeslot"
+msgstr "Neuen Zeitslot hinzufügen"
+
+#: static/templates/sessiontest.hbs:71
+#, fuzzy
+msgid "Add new time slot"
+msgstr "Neuen Zeitslot hinzufügen"
+
+#: static/templates/sessiontest.hbs:74
+#, fuzzy
+msgid "Add new Room"
+msgstr "Neuen Raum hinzufügen"
+
+#: static/templates/timeslot-modal.hbs:11
+msgid "Time"
+msgstr "Zeit"
+
+#: static/templates/timeslot-modal.hbs:20
+msgid "e.g. 11:00"
+msgstr "z.B. 11:00"
+
+#: static/templates/timeslot-modal.hbs:24
+msgid "Blocked?"
+msgstr "Gesperrt?"
+
+#: static/templates/timeslot-modal.hbs:28
+#, fuzzy
+msgid ""
+"Select if this time slot is blocked, e.g. because of a break. This means "
+"you cannot add sessions in this slot."
+msgstr ""
+"Definiere hier, welche Slot gesperrt sind, z.B. wegen einer Pause. Dies "
+"bedeutet, dass keine Session für diesem Slot hinzugefügt werden können"
+
+#: templates/admin_master.html:35
+msgid "Upload Logo"
+msgstr "Logo hochladen"
+
+#: templates/admin_master.html:36
+msgid "edit base information"
+msgstr "Barcamp bearbeiten "
+
+#: templates/admin_master.html:37
+msgid "edit events"
+msgstr "Veranstaltungen"
+
+#: templates/admin_master.html:38
+msgid "edit registration form"
+msgstr "Registrierung"
+
+#: templates/admin_master.html:39
+msgid "Manage Blog"
+msgstr "Blogverwaltung"
+
+#: templates/admin_master.html:41
+msgid "Design and Layout"
+msgstr "Design und Layout"
+
+#: templates/admin_master.html:42
+msgid "Galleries"
+msgstr "Galerien"
+
+#: templates/admin_master.html:43
+msgid "edit mail templates"
+msgstr "Email-Vorlagen"
+
+#: templates/admin_master.html:44
+msgid "download participants"
+msgstr "Teilnehmer herunterladen"
+
+#: templates/admin_master.html:45
+msgid "send newsletter"
+msgstr "Newsletter versenden"
+
+#: templates/admin_master.html:46
+msgid "new sponsor"
+msgstr "Neuer Sponsor"
+
+#: templates/admin_master.html:47
+msgid "edit permissions"
+msgstr "Berechtigungen"
+
+#: templates/admin_master.html:50
+msgid "DELETE BARCAMP"
+msgstr "LÖSCHE DAS BARCAMP"
+
+#: templates/index.html:18
+msgid "private"
+msgstr "privat"
+
+#: templates/index.html:45
+#, fuzzy
+msgid "the barcamp tool"
+msgstr "Barcamp-Logo"
+
+#: templates/index.html:48
+msgid "Organize your own Barcamp"
+msgstr "Plane Dein eigenes Barcamp"
+
+#: templates/index.html:50
+msgid "How do I do it?"
+msgstr "Wie mache ich das?"
+
+#: templates/index.html:62
+msgid "Recent Barcamps"
+msgstr "Aktuelle Barcamps"
+
+#: templates/index.html:68
+msgid "There are no barcamps coming up in the near future. Maybe organize one?"
+msgstr ""
+"Es gibt keine Barcamps in der näheren Zukunft. Willst Du eines "
+"organisieren?"
+
+#: templates/index.html:76
+msgid "My Events"
+msgstr "Meine Veranstaltungen"
+
+#: templates/index.html:82
+msgid "New Events"
+msgstr "Neue Veranstaltungen"
+
+#: templates/index.html:92
+msgid "supported by"
+msgstr "gefördert durch"
+
+#: templates/index.html:96
+msgid "in cooperation with"
+msgstr "in Kooperation mit"
+
+#: templates/macros.html:29
+msgid "This field is required"
+msgstr "Dieses Feld muss angegeben werden"
+
+#: templates/macros.html:122
+msgid "Really Delete?"
+msgstr "Wirklich löschen?"
+
+#: templates/master.html:83
+msgid "Ideas / Feedback"
+msgstr "Ideen / Feedback"
+
+#: templates/master.html:93
+msgid "ADMINISTRATION"
+msgstr "Verwaltung"
+
+#: templates/master.html:97
+msgid "Login"
+msgstr "Einloggen"
+
+#: templates/master.html:103
+msgid "my profile"
+msgstr "Mein Profil"
+
+#: templates/master.html:104 templates/users/profile.html:45
+msgid "Change Password"
+msgstr "Passwort ändern"
+
+#: templates/master.html:105
+msgid "Log out"
+msgstr "Ausloggen"
+
+#: templates/sponsoring.html:6
+msgid "Request Sponsorship"
+msgstr "Sponsorship beantragen"
+
+#: templates/sponsoring.html:8
+msgid ""
+"If you want to organize a youth barcamp you have the possibilty to get 1 "
+"hour of support from YouthPart.  In order to receive this please fill out"
+" the form below"
+msgstr ""
+"Wenn Du ein Jugendbarcamp veranstalten willst, hast Du die Möglichkeit, "
+"\"\n"
+"\"eine Stunde Support von YouthPart zu beantragen. Fülle dazu bitte das "
+"unten stehende \"\n"
+"\"Formular aus."
+
+#: templates/sponsoring.html:18
+msgid "send request"
+msgstr "Anfrage absenden"
+
+#: templates/M/userbase/login.html:14
+msgid "Real camper log in!"
+msgstr "Richtige Camper loggen sich ein!"
+
+#: templates/M/userbase/login.html:16
+msgid "username"
+msgstr "Benutzername"
+
+#: templates/M/userbase/login.html:17
+msgid "password"
+msgstr "Passwort"
+
+#: templates/M/userbase/login.html:31
+msgid "password forgotten?"
+msgstr "Passwort vergessen?"
+
+#: templates/M/userbase/login.html:34
+msgid "register a new user"
+msgstr "neuen Benutzer registrieren"
+
+#: templates/M/userbase/registration.html:7
+msgid "Please register"
+msgstr "Bitte registriere Dich"
+
+#: templates/M/userbase/registration.html:24
+msgid "missing activation email?"
+msgstr "Fehlt die Aktivierungs-EMail?"
+
+#: templates/M/userbase/registration.html:25
+msgid "Please send me a new activation code"
+msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
+
+#: templates/users/edit.html:6
+msgid "Edit public profile"
+msgstr "Öffentliches Profil bearbeiten"
+
+#: templates/users/edit.html:23
+msgid "Username"
+msgstr "Benutzername"
+
+#: templates/users/edit.html:27
+msgid "Facebook-Account"
+msgstr "Facebook-Account"
+
+#: templates/users/edit.html:38
+msgid "Upload Profile Image"
+msgstr "Profilbild hochladen"
+
+#: templates/users/edit.html:45
+msgid "Update Profile"
+msgstr "Profil aktualisieren"
+
+#: templates/users/profile.html:25
+msgid "This could be a text about you"
+msgstr "Dies könnte ein Text über Dich sein"
+
+#: templates/users/profile.html:32 templates/users/profile.html:39
+msgid "not given"
+msgstr "nicht angegeben"
+
+#: templates/users/profile.html:44
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
 
 #~ msgid "interested people"
 #~ msgstr "Interessierte"
@@ -139,11 +2681,14 @@ msgstr "Raum"
 #~ msgid "Admin"
 #~ msgstr "Administrator"
 
-#~ msgid "Add new room"
-#~ msgstr "Neuen Raum hinzufügen"
+#~ msgid "Change whether you come or come not."
+#~ msgstr "Teilnahmestatus ändern"
 
-#~ msgid "e.g. seminar room"
-#~ msgstr "z.B. Seminarraum"
+#~ msgid "Change?"
+#~ msgstr "Ändern?"
+
+#~ msgid "Not going"
+#~ msgstr "Ich gehe nicht"
 
 #~ msgid "The value is not a valid integer"
 #~ msgstr "Der Wert ist keine ganze Zahl"
@@ -151,23 +2696,8 @@ msgstr "Raum"
 #~ msgid "The value must be in range 1 to 1000"
 #~ msgstr "Der Wert muss zwischen 1 und 1000 liegen"
 
-#~ msgid "e.g. beamer available"
-#~ msgstr "z.B. Beamer verfügbar"
-
 #~ msgid "Update room"
 #~ msgstr "Raum aktualisieren"
-
-#~ msgid "Add new timeslot"
-#~ msgstr "Neuen Zeitslot hinzufügen"
-
-#~ msgid "Time"
-#~ msgstr "Zeit"
-
-#~ msgid "e.g. 11:00"
-#~ msgstr "z.B. 11:00"
-
-#~ msgid "Blocked?"
-#~ msgstr "Gesperrt?"
 
 #~ msgid "Reason for blocking"
 #~ msgstr "Grund der Sperrung"
@@ -175,1931 +2705,15 @@ msgstr "Raum"
 #~ msgid "e.g. lunch break"
 #~ msgstr "z.B. Mittagspause"
 
-#~ msgid "Edit Session"
-#~ msgstr "Sessions bearbeiten"
-
-#~ msgid "enter the title of the session"
-#~ msgstr "Bitte gebe hier den Titel der Session ein"
-
-#~ msgid "The description of the session"
-#~ msgstr "Sessionbeschreibung"
-
-#~ msgid "Speaker / Moderator"
-#~ msgstr "Vortragender / Moderator"
-
 #~ msgid "Add Organizer"
 #~ msgstr "Inhaber hinzufügen "
 
 #~ msgid "Update Session"
 #~ msgstr "Session aktualisieren"
 
-#~ msgid "delete room"
-#~ msgstr "Raum löschen"
-
 #~ msgid "edit room"
 #~ msgstr "Raum bearbeiten"
 
-#~ msgid "drag to sort this list"
-#~ msgstr "Ziehen, um Liste zu sortieren"
-
 #~ msgid "Room"
 #~ msgstr "Raum"
-
-#~ msgid "delete timeslot"
-#~ msgstr "Zeitslot löschen"
-
-#~ msgid "User unknown"
-#~ msgstr "Benutzer unbekannt."
-
-#~ msgid "This email address cannot not be found in our user database"
-#~ msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
-
-#~ msgid "Your password is not correct"
-#~ msgstr "Das Passwort ist nicht korrekt"
-
-#~ msgid "Your user has not yet been activated."
-#~ msgstr "Der Benutzer wurde noch nicht aktiviert."
-
-#~ msgid "Login failed"
-#~ msgstr "Login fehlgeschlagen"
-
-#~ msgid "Welcome, %(fullname)s"
-#~ msgstr "Willkommen, %(fullname)s"
-
-#~ msgid "Your are now logged out"
-#~ msgstr "Du bist jetzt ausgeloggt"
-
-#~ msgid ""
-#~ "To finish the registration process "
-#~ "please check your email with "
-#~ "instructions on how to activate your "
-#~ "account."
-#~ msgstr ""
-#~ "Bitte checke Deine E-Mail, um den "
-#~ "Registrierungsprozess abzuschliessen. Alle weiteren"
-#~ " Informationen dazu findest Du in der"
-#~ " E-Mail."
-
-#~ msgid "Your user registration has been successful"
-#~ msgstr "Die Benutzerregistrierung war erfolgreich."
-
-#~ msgid "Your account has been activated"
-#~ msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
-
-#~ msgid ""
-#~ "The activation code is not valid. "
-#~ "Please try again or click <a "
-#~ "href=\"%(url)s\">here</a> to get a new "
-#~ "one."
-#~ msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
-
-#~ msgid "A new activation code has been sent out, please check your email"
-#~ msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
-
-#~ msgid "The user is already active. Please log in."
-#~ msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
-
-#~ msgid "A link to set a new password has been sent to you"
-#~ msgstr ""
-#~ "Ein Link, um ein neues Passwort zu"
-#~ " setzen, wurde Dir per E-Mail "
-#~ "zugesandt."
-
-#~ msgid "Your password has been changed"
-#~ msgstr "Dein Passwort wurde geändert."
-
-#~ msgid "The user has been updated."
-#~ msgstr "Benutzerdaten aktualisiert"
-
-#~ msgid "The user has been added."
-#~ msgstr "Der Benutzer wurde hinzugefügt."
-
-#~ msgid "The user has been deleted."
-#~ msgstr "The user has been deleted."
-
-#~ msgid "The user has been activated."
-#~ msgstr "Der Benutzer wurde aktiviert."
-
-#~ msgid "The user has been deactivated."
-#~ msgstr "Der Benutzer wurde deaktiviert."
-
-#~ msgid "can manage users"
-#~ msgstr "Kann Benutzer verwalten"
-
-#~ msgid "main administrator"
-#~ msgstr "Hauptadministrator"
-
-#~ msgid "date to be announced"
-#~ msgstr "Termin wird noch bekannt gegeben"
-
-#~ msgid "location to be announced"
-#~ msgstr "Ort wird noch bekannt gegeben."
-
-#~ msgid "Please log in."
-#~ msgstr "Bitte logge Dich zunächst ein!"
-
-#~ msgid "you don't have the correct permissions to access this page."
-#~ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
-
-#~ msgid "You don't have the correct permissions to access this page."
-#~ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
-
-#~ msgid "you don't have the permission to access this page."
-#~ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
-
-#~ msgid "Not a valid date value"
-#~ msgstr "kein gültiger Wert"
-
-#~ msgid "E-Mail"
-#~ msgstr "E-Mail"
-
-#~ msgid "Password"
-#~ msgstr "Passwort"
-
-#~ msgid "remember me"
-#~ msgstr "erinnere Dich an mich"
-
-#~ msgid "Hide Barcamp"
-#~ msgstr "Barcamp-Logo"
-
-#~ msgid ""
-#~ "If enabled this will hide this "
-#~ "barcamp from showing up in the "
-#~ "front page and in search engines"
-#~ msgstr ""
-
-#~ msgid "Enable Pre-Registration"
-#~ msgstr "Eröffne die Registrierung"
-
-#~ msgid ""
-#~ "If enabled users can only pre-"
-#~ "register and an admin needs to put"
-#~ " them on the participation list "
-#~ "manually"
-#~ msgstr ""
-
-#~ msgid "Meta Description"
-#~ msgstr "Beschreibung"
-
-#~ msgid ""
-#~ "The meta description is used for "
-#~ "for search engines and often shows "
-#~ "up in search results. It should be"
-#~ " no more than 160 characters long."
-#~ msgstr ""
-
-#~ msgid "Facebook URL"
-#~ msgstr "Facebook-URL"
-
-#~ msgid "URL of the Facebook Page"
-#~ msgstr "URL der Facebook-Seite"
-
-#~ msgid "name of location"
-#~ msgstr "Veranstaltungsort"
-
-#~ msgid "please enter the name of the venue here"
-#~ msgstr "Bitte gebe hier den Namen des Veranstaltungsortes ein"
-
-#~ msgid "street and number "
-#~ msgstr "Strasse und Hausnummer"
-
-#~ msgid "street and number of the venue"
-#~ msgstr "Strasse und Hausnummer des Veranstaltungsortes"
-
-#~ msgid "city"
-#~ msgstr "Stadt"
-
-#~ msgid "zip"
-#~ msgstr "PLZ"
-
-#~ msgid "homepage"
-#~ msgstr "Homepage"
-
-#~ msgid "web site of the venue (optional)"
-#~ msgstr "Homepage des Veranstaltungsortes (optional)"
-
-#~ msgid "phone"
-#~ msgstr "Telefon"
-
-#~ msgid "email"
-#~ msgstr "E-Mail"
-
-#~ msgid "email address of the venue (optional)"
-#~ msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
-
-#~ msgid "description"
-#~ msgstr "Beschreibung"
-
-#~ msgid "an optional description of the venue"
-#~ msgstr "Beschreibung des Veranstaltungsortes (optional)"
-
-#~ msgid "Country"
-#~ msgstr "Land"
-
-#~ msgid "Attention: One or both of the etherpads exist already!"
-#~ msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
-
-#~ msgid "the city was not found in the geo database"
-#~ msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
-
-#~ msgid "Welcome to %s"
-#~ msgstr "Willkommen zu %s"
-
-#~ msgid ""
-#~ "Unfortunately list of participants is "
-#~ "already full. You have been put "
-#~ "onto the waiting list and will be"
-#~ " informed should you move on to "
-#~ "the list of participants."
-#~ msgstr ""
-#~ "Leider ist die Teilnehmerliste schon "
-#~ "voll. Du wurdest daher auf die "
-#~ "Warteliste gesetzt und wirst informiert, "
-#~ "sobald ein Platz frei wird."
-
-#~ msgid "You are now on the list of participants for this barcamp."
-#~ msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
-
-#~ msgid "%s has been created"
-#~ msgstr "%s wurde angelegt."
-
-#~ msgid "This name is already taken. Please choose a different one"
-#~ msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
-
-#~ msgid "Home"
-#~ msgstr "Startseite"
-
-#~ msgid "session proposals"
-#~ msgstr "Sessionvorschläge"
-
-#~ msgid "events"
-#~ msgstr "Veranstaltungen"
-
-#~ msgid "planning"
-#~ msgstr "Planung"
-
-#~ msgid "Blog"
-#~ msgstr "Blog"
-
-#~ msgid "Twitterwall"
-#~ msgstr "Twitterwall"
-
-#~ msgid "The barcamp and all it's contents have been deleted!"
-#~ msgstr "Das Barcamp und all seine Inhalte wurden erfolgreich gelöscht!"
-
-#~ msgid "Barcamp Logo"
-#~ msgstr "Barcamp-Logo"
-
-#~ msgid "The logo should be 1140px wide and not more than 400 px high"
-#~ msgstr "Das Logo sollte 1140px breit sein und nicht höher als 400px."
-
-#~ msgid "Background-Image"
-#~ msgstr "Hintergrundbild"
-
-#~ msgid ""
-#~ "If given, this image is used as"
-#~ " a background behind all your barcamp"
-#~ " content"
-#~ msgstr "Dieses Bild ersetzt die Hintergrundfarbe."
-
-#~ msgid "Image for Facebook"
-#~ msgstr "Bild für Facebook"
-
-#~ msgid ""
-#~ "This image is used when posting "
-#~ "links to facebook. Best is 1200 x"
-#~ " 630 but minimum it should be "
-#~ "600 x 315px"
-#~ msgstr ""
-#~ "Dieses Bild wird genutzt, wenn Links "
-#~ "bei Facebook gepostet werden. Es sollte"
-#~ " möglichst 1200x630 Pixel groß sein, "
-#~ "mindestens aber 600x315 Pixel"
-
-#~ msgid "Link Color"
-#~ msgstr "Linkfarbe"
-
-#~ msgid "Header Background Color"
-#~ msgstr "Hintergrundfarbe Header"
-
-#~ msgid "Text Color"
-#~ msgstr "Textfarbe"
-
-#~ msgid "Background Color"
-#~ msgstr "Hintergrundfarbe"
-
-#~ msgid "Navbar Link Color"
-#~ msgstr "Navbar Linkfarbe"
-
-#~ msgid "Navbar Active Link Color"
-#~ msgstr "Navbar aktive Linkfarbe"
-
-#~ msgid "Navbar Border Color"
-#~ msgstr "Navbar Rahmenfarbe"
-
-#~ msgid "Navbar Hover Background Color"
-#~ msgstr "Navbar Hover Hintergrundfarbe"
-
-#~ msgid "Navbar Active Background Color"
-#~ msgstr "Navbar aktive Hintergrundfarbe"
-
-#~ msgid "Hide Navigation Tabs"
-#~ msgstr "Navigations-Reiter verstecken "
-
-#~ msgid "Select here which barcamp tabs not to show"
-#~ msgstr ""
-#~ "Entscheide hier, welche Reiter der "
-#~ "Hauptnavigation angezeigt werden sollen"
-
-#~ msgid "Session Proposals"
-#~ msgstr "Sessionvorschläge"
-
-#~ msgid "Events"
-#~ msgstr "Veranstaltungen"
-
-#~ msgid "Gallery to show on homepage"
-#~ msgstr "Galerie für die Homepage"
-
-#~ msgid ""
-#~ "The gallery will be displayed on "
-#~ "the homepage of your barcamp between "
-#~ "barcamp navigation and the rest of "
-#~ "the content"
-#~ msgstr ""
-#~ "Die Galerie wird auf der Startseite "
-#~ "zwischen der Hauptnavigation des Barcamps "
-#~ "und dem restlichen Inhalt angezeigt."
-
-#~ msgid "do not show a gallery"
-#~ msgstr "keine Galerie nutzen"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid ""
-#~ "every barcamp needs a title. examples:"
-#~ " \"Barcamp Aachen 2012\", \"JMStVCamp\""
-#~ msgstr ""
-#~ "Jedes Barcamp brauch einen Titel, z.B."
-#~ " 'Barcamp Aachen 2012' or 'JugendBarcamp'"
-
-#~ msgid "Description"
-#~ msgstr "Beschreibung"
-
-#~ msgid "please describe your barcamp here"
-#~ msgstr "Bitte beschreibe Dein Barcamp hier"
-
-#~ msgid "slug / url name"
-#~ msgstr "Kurzname in URL"
-
-#~ msgid ""
-#~ "this is the short name, which "
-#~ "appears in the URL. It can only"
-#~ " contain letters and numbers as well"
-#~ " as the characters _ and -. "
-#~ "Examples are \"barcamp_aachen\" or \"bcac\""
-#~ msgstr ""
-#~ "Dies ist der Kurzname, der in der"
-#~ " URL erscheint. Er kann nur "
-#~ "Buchstaben und Ziffern enthalten sowie _"
-#~ " und -. Beispiele sind barcamp_aachen "
-#~ "oder bcac "
-
-#~ msgid "start date"
-#~ msgstr "Beginn"
-
-#~ msgid "end date"
-#~ msgstr "Ende"
-
-#~ msgid "link to tweetwally twitterall"
-#~ msgstr "Link zur tweetwally Twitterwall"
-
-#~ msgid ""
-#~ "create your own twitterwall at <a "
-#~ "href='http://tweetwally.com'>tweetwally.com</a> and enter"
-#~ " the URL here, e.g. "
-#~ "<tt>http://jmstvcamp.tweetwally.com/</tt>"
-#~ msgstr ""
-#~ "erzeuge Deine eigene Twitterwall unter "
-#~ "<a href='http://tweetwally.com'>tweetwally.com</a> und "
-#~ "gib die URL hier ein, z.B. "
-#~ "<tt>http://jmstvcamp.tweetwally.com/</tt>"
-
-#~ msgid "Twitter-Username"
-#~ msgstr "Twitter-Benutzername"
-
-#~ msgid "only the username, max. 15 characters"
-#~ msgstr "bitte nur den Benutzername, max. 15 Zeichen"
-
-#~ msgid "Twitter-Hashtag"
-#~ msgstr "Twitter-Hashtag"
-
-#~ msgid "max. 100 characters"
-#~ msgstr "max. 100 Zeichen"
-
-#~ msgid "Google Plus URL"
-#~ msgstr "Google Plus-URL"
-
-#~ msgid "URL of the Google Plus Profile"
-#~ msgstr "URL des Google Plus Profils"
-
-#~ msgid "Homepage URL"
-#~ msgstr "URL der Homepage"
-
-#~ msgid "link to the homepage of this barcamp in case one exists."
-#~ msgstr "Link zur Homepage des Barcamps, soweit sie existiert"
-
-#~ msgid "Facebook Admin-ID"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "ID of the facebook admin for the"
-#~ " facebook page for this barcamp if"
-#~ " one exists"
-#~ msgstr ""
-
-#~ msgid "The barcamp has been updated."
-#~ msgstr "Das Barcamp wurde aktualisiert"
-
-#~ msgid "Subject"
-#~ msgstr "Betreff"
-
-#~ msgid "Body"
-#~ msgstr "Mailtext"
-
-#~ msgid "you cannot reduce the participant number, the minimum amount is %s"
-#~ msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
-
-#~ msgid "Name of field"
-#~ msgstr "Name des Feldes"
-
-#~ msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
-#~ msgstr ""
-#~ "Der Name des Feldes, das im "
-#~ "Formular angezeigt werden soll, z.B. 'T"
-#~ "-Shirt-Größe'"
-
-#~ msgid "please describe what the user should enter in this field."
-#~ msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
-
-#~ msgid "field type"
-#~ msgstr "Art des Feldes"
-
-#~ msgid "1 line of text"
-#~ msgstr "Textfeld mit einer einzelnen Zeile"
-
-#~ msgid "multiple lines of text"
-#~ msgstr "Textfeld mit mehreren Zeilen"
-
-#~ msgid "please chose between a one-line text field or multi-line text area"
-#~ msgstr ""
-#~ "Bitte wähle zwischen einem einzeiligen "
-#~ "Textfeld oder einem mehrzeiligen Textbereich"
-
-#~ msgid "field required?"
-#~ msgstr "Feld erforderlich?"
-
-#~ msgid ""
-#~ "If you enable this then the user"
-#~ " cannot register before this field "
-#~ "has been filled in."
-#~ msgstr ""
-#~ "Wenn Du diese Checkbox aktiviest, dann"
-#~ " kann der Benutzer sich nicht "
-#~ "registrieren, bevor er dieses Feld "
-#~ "ausgefüllt hat."
-
-#~ msgid "Title of this event, e.g. \"Day 1\" or \"Party\""
-#~ msgstr "Titel der Veranstaltung, z.B. Tag 1 oder Party"
-
-#~ msgid ""
-#~ "This is not the common barcamp "
-#~ "description but should be specific about"
-#~ " this event."
-#~ msgstr ""
-#~ "Dies ist nicht die generelle Barcamp-"
-#~ "Beschreibung, sondern die speziell zu "
-#~ "dieser Veranstaltung"
-
-#~ msgid "date"
-#~ msgstr "Datum"
-
-#~ msgid "start time"
-#~ msgstr "Beginn"
-
-#~ msgid "end time"
-#~ msgstr "Ende"
-
-#~ msgid "max. number of participants"
-#~ msgstr "Max. Teilnehmerzahl"
-
-#~ msgid "use different location"
-#~ msgstr "anderen Ort benutzen"
-
-#~ msgid "The event has been created"
-#~ msgstr "Die Veranstaltung wurde erstellt."
-
-#~ msgid "The event has been successfully updated"
-#~ msgstr "Veranstaltung erfolgreich aktualisiert"
-
-#~ msgid "no full address was given"
-#~ msgstr "Es wurde keine volle Adresse angegeben "
-
-#~ msgid "we couldn't lookup a geo coordinates for this address"
-#~ msgstr "Wir konnten keine Geo-Koordinaten für diese Adresse ermitteln."
-
-#~ msgid "New Image"
-#~ msgstr "Neues Bild"
-
-#~ msgid "Alt attribute"
-#~ msgstr "Alt-Attribut"
-
-#~ msgid "License"
-#~ msgstr "Lizenz"
-
-#~ msgid "Copyright Owner"
-#~ msgstr "Bildinhaber"
-
-#~ msgid "A new image gallery has been created"
-#~ msgstr "Neue Galerie angelegt"
-
-#~ msgid "The image could not be found"
-#~ msgstr "Das Bild wurde nicht gefunden"
-
-#~ msgid "Newsletter body"
-#~ msgstr "Inhalt des Newsletters"
-
-#~ msgid "Recipients"
-#~ msgstr "Empfänger"
-
-#~ msgid "Participants (going)"
-#~ msgstr "Teilnehmer"
-
-#~ msgid "People who might come (maybe)"
-#~ msgstr "Unentschlossene"
-
-#~ msgid "People on Waiting List"
-#~ msgstr "Warteliste"
-
-#~ msgid "E-Mail address for testing the newsletter"
-#~ msgstr "E-Mail-Adresse zum Testen des Newsletters"
-
-#~ msgid ""
-#~ "put your own e-mail address here "
-#~ "in order to send the newsletter to"
-#~ " this address for testing purposes"
-#~ msgstr ""
-#~ "gebe hier Deine eigene E-Mail-Adresse"
-#~ " an, um den Newsletter testweise "
-#~ "dorthin zu schicken "
-
-#~ msgid "newsletter sent successfully"
-#~ msgstr "Newsletter erfolgreich versandt"
-
-#~ msgid "Post Title"
-#~ msgstr "Titel des Artikels"
-
-#~ msgid "title of the blog post you are linking to"
-#~ msgstr "Der Titel des Blog-Artikels zu dem verlinkt werden soll"
-
-#~ msgid "Post URL"
-#~ msgstr "Artikel-URL"
-
-#~ msgid "URL of the blog post you want to link to"
-#~ msgstr "Die URL des Blog-Artikels, zu dem verlinkt werden soll"
-
-#~ msgid "Planning Pad"
-#~ msgstr "Planung"
-
-#~ msgid "Documentation Pad"
-#~ msgstr "Dokumentation"
-
-#~ msgid "Your blog post has been posted."
-#~ msgstr "Der Blog-Post wurde verlinkt."
-
-#~ msgid "User not allowed to delete this item"
-#~ msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
-
-#~ msgid "you cannot perform this action."
-#~ msgstr "Du kannst diese Aktion nicht durchführen."
-
-#~ msgid "camper: new barcamp created"
-#~ msgstr "camper: neues Barcamp angelegt"
-
-#~ msgid "a user with this email address wasn't found in our database."
-#~ msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
-
-#~ msgid "%s is not an administrator for this barcamp."
-#~ msgstr "%s is kein Administrator für dieses Barcamp"
-
-#~ msgid "you cannot remove admin rights from the creator of this barcamp."
-#~ msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
-
-#~ msgid "you at least need to have one administrator."
-#~ msgstr "Es wird mindestens ein Administrator benötigt."
-
-#~ msgid "Administrator deleted."
-#~ msgstr "Admin gelöscht."
-
-#~ msgid "You are not allowed to change this."
-#~ msgstr "Du hast nicht die erforderlichen Rechte, um dies zu ändern."
-
-#~ msgid "You are now on the list of people interested in the barcamp"
-#~ msgstr "Du bist nun auf der Liste der Barcamp-Interessenten."
-
-#~ msgid ""
-#~ "You have been removed from the "
-#~ "list of people interested in this "
-#~ "barcamp"
-#~ msgstr "Du wurdest erfolgreich von der Liste der Barcamp-Interessenten entfernt"
-
-#~ msgid ""
-#~ "%(fullname)s has been removed from the"
-#~ " list of people interested in this"
-#~ " barcamp"
-#~ msgstr ""
-#~ "%(fullname)s wurde erfolgreich von der "
-#~ "Liste der Barcamp-Interessenten entfernt."
-
-#~ msgid "Your information was updated"
-#~ msgstr "Deine Informationen wurden aktualisiert"
-
-#~ msgid "Name"
-#~ msgstr "Name"
-
-#~ msgid "Capacity"
-#~ msgstr "max. Personenzahl "
-
-#~ msgid "your comment has been added."
-#~ msgstr "Dein Kommentar wurde hinzugefügt."
-
-#~ msgid "Name of sponsor"
-#~ msgstr "Name des Sponsors"
-
-#~ msgid "URL of sponsor website"
-#~ msgstr "URL der Sponsor-Website"
-
-#~ msgid "Sponsor Logo"
-#~ msgstr "Sponsor-Logo"
-
-#~ msgid "created new sponsor"
-#~ msgstr "Neuer Sponsor erstellt"
-
-#~ msgid "The form contains errors. Please correct them and try again."
-#~ msgstr ""
-#~ "Leider enthielt das Formular noch "
-#~ "Fehler. Bitte behebe diese und versuche"
-#~ " es erneut."
-
-#~ msgid "Blog Posts about the camp"
-#~ msgstr "Blog-Artikel über das Barcamp"
-
-#~ msgid "Add new blog post"
-#~ msgstr "Neuen Blogpost hinzufügen"
-
-#~ msgid "Cancel"
-#~ msgstr "Abbrechen"
-
-#~ msgid "Save"
-#~ msgstr "Speichern"
-
-#~ msgid "Sponsors"
-#~ msgstr "Neuer Sponsor"
-
-#~ msgid "Change whether you come or come not."
-#~ msgstr "Teilnahmestatus ändern"
-
-#~ msgid "Change?"
-#~ msgstr "Ändern?"
-
-#~ msgid "Click here to participate in the barcamp"
-#~ msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
-
-#~ msgid "Register"
-#~ msgstr "Registrieren"
-
-#~ msgid "Attention!"
-#~ msgstr "Achtung!"
-
-#~ msgid "In order to mark your interest in this barcamp you first have to"
-#~ msgstr ""
-#~ "Um Dich als InteressentIn für dieses "
-#~ "Barcamp zu registrieren, musst Du Dich"
-#~ " zunächst im System"
-
-#~ msgid "register"
-#~ msgstr "registrieren"
-
-#~ msgid "or"
-#~ msgstr "oder"
-
-#~ msgid "login"
-#~ msgstr "einloggen"
-
-#~ msgid ""
-#~ "on the site itself and then come"
-#~ " back to this barcamp to mark "
-#~ "your interest."
-#~ msgstr ""
-#~ "und dann zu diesem Barcamp zurückkommen,"
-#~ " um Dich speziell für dieses "
-#~ "anzumelden."
-
-#~ msgid "Open map in modal"
-#~ msgstr ""
-
-#~ msgid "Close"
-#~ msgstr "Schließen"
-
-#~ msgid "Open menu"
-#~ msgstr ""
-
-#~ msgid "Manage Barcamp"
-#~ msgstr "Barcamp verwalten"
-
-#~ msgid "publish barcamp"
-#~ msgstr "Barcamp veröffentlichen"
-
-#~ msgid "this barcamp is not public"
-#~ msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
-
-#~ msgid "open registration"
-#~ msgstr "Eröffne die Registrierung"
-
-#~ msgid "Registration for this barcamp is not yet open."
-#~ msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
-
-#~ msgid "This planning pad is public."
-#~ msgstr "Das Planungs-Pad ist öffentlich"
-
-#~ msgid "Make private"
-#~ msgstr "Privat schalten"
-
-#~ msgid "This planning pad is private."
-#~ msgstr "Das Planungs-Pad ist NICHT öffentlich"
-
-#~ msgid "Make public"
-#~ msgstr "Öffentlich machen!"
-
-#~ msgid "My participant data for %s"
-#~ msgstr "Teilnehmer"
-
-#~ msgid "Please enter your data for participating in this event"
-#~ msgstr ""
-
-#~ msgid "Register for %s"
-#~ msgstr "Registrieren für %s"
-
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
-
-#~ msgid "Please register for the events you want to participate in"
-#~ msgstr ""
-#~ "Bitte registriere Dich für die "
-#~ "Veranstaltungen, an denen Du teilnehmen "
-#~ "willst"
-
-#~ msgid "participants"
-#~ msgstr "Teilnehmer"
-
-#~ msgid "Join"
-#~ msgstr "Teilnehmen"
-
-#~ msgid "Join Waiting list"
-#~ msgstr "Auf Warteliste setzen"
-
-#~ msgid "Maybe"
-#~ msgstr "Vielleicht"
-
-#~ msgid "Going"
-#~ msgstr "Ich gehe"
-
-#~ msgid "Waiting list"
-#~ msgstr "Warteliste"
-
-#~ msgid "Not Going"
-#~ msgstr "Ich gehe nicht"
-
-#~ msgid "Homepage"
-#~ msgstr "Homepage"
-
-#~ msgid "by"
-#~ msgstr ""
-
-#~ msgid "Documentation"
-#~ msgstr "Dokumentation"
-
-#~ msgid "Session Documentation"
-#~ msgstr "Session-Dokumentation"
-
-#~ msgid "Sort by:"
-#~ msgstr "Sortieren nach:"
-
-#~ msgid "Date"
-#~ msgstr "Datum"
-
-#~ msgid "Votes"
-#~ msgstr "Votes"
-
-#~ msgid "Download as excel"
-#~ msgstr "Als Excel herunterladen"
-
-#~ msgid "You have voted for this proposal. Remove your vote."
-#~ msgstr ""
-
-#~ msgid "You have not voted for this proposal"
-#~ msgstr "Dein Vorschlag"
-
-#~ msgid "Vote for this proposal"
-#~ msgstr "Dein Vorschlag"
-
-#~ msgid "Remove vote for this proposal"
-#~ msgstr "Dein Vorschlag"
-
-#~ msgid "Remove your vote."
-#~ msgstr "Benutzer von der Liste entfernen"
-
-#~ msgid "added by"
-#~ msgstr "hinzugefügt von"
-
-#~ msgid "on"
-#~ msgstr "am"
-
-#~ msgid "Edit Session Proposal"
-#~ msgstr "Sessionvorschlag bearbeiten"
-
-#~ msgid "Delete Session Proposal"
-#~ msgstr "Sessionvorschlag löschen"
-
-#~ msgid "Delete"
-#~ msgstr "Löschen"
-
-#~ msgid "Delete Comment"
-#~ msgstr "Raum löschen"
-
-#~ msgid "Kommentar"
-#~ msgstr "Kommentar von "
-
-#~ msgid "Your comment"
-#~ msgstr "Dein Kommentar"
-
-#~ msgid "add your comment"
-#~ msgstr "Füge Deinen Kommentar hinzu"
-
-#~ msgid "Create proposal"
-#~ msgstr "Neuer Sessionvorschlag"
-
-#~ msgid "Your proposal"
-#~ msgstr "Dein Vorschlag"
-
-#~ msgid "Add proposal"
-#~ msgstr "Vorschlag hinzufügen"
-
-#~ msgid ""
-#~ "In order to be able to create "
-#~ "or vote for proposals, you need to"
-#~ " be logged in."
-#~ msgstr ""
-#~ "Um eigene Vorschläge hinzuzufügen oder "
-#~ "bestehende zu bewerten, musst Du "
-#~ "eingeloggt sein."
-
-#~ msgid "you can log in and register here"
-#~ msgstr "Du kannst Dich hier einloggen oder registrieren"
-
-#~ msgid "Waiting"
-#~ msgstr "Warteliste"
-
-#~ msgid "Not going"
-#~ msgstr "Ich gehe nicht"
-
-#~ msgid "My data"
-#~ msgstr ""
-
-#~ msgid "Change my registration data"
-#~ msgstr "Eröffne die Registrierung"
-
-#~ msgid "edit"
-#~ msgstr "Bearbeiten"
-
-#~ msgid "please enter your personal data in order to register for this event"
-#~ msgstr ""
-
-#~ msgid "Add my registration data"
-#~ msgstr "Registrierung"
-
-#~ msgid "add"
-#~ msgstr "Hinzufügen"
-
-#~ msgid "Change Participation Status"
-#~ msgstr "Teilnehmerzahl erhöhen"
-
-#~ msgid "I attend this event"
-#~ msgstr "Veranstaltungen"
-
-#~ msgid "I am not attending this event"
-#~ msgstr ""
-
-#~ msgid "Participants"
-#~ msgstr "Teilnehmer"
-
-#~ msgid "Timetable"
-#~ msgstr "Zeitraster"
-
-#~ msgid "Time Table"
-#~ msgstr "Zeitraster"
-
-#~ msgid "Documentation for"
-#~ msgstr "Dokumentation für"
-
-#~ msgid "Edit Sessions"
-#~ msgstr "Sessions bearbeiten"
-
-#~ msgid "register user as participant"
-#~ msgstr "auf Teilnehmerliste setzen"
-
-#~ msgid "remove user from list"
-#~ msgstr "Benutzer von der Liste entfernen"
-
-#~ msgid "Interested"
-#~ msgstr "Interessiert"
-
-#~ msgid "Create a new Barcamp"
-#~ msgstr "neues Barcamp anlegen"
-
-#~ msgid "name of barcamp, e.g. \"PythonCamp\""
-#~ msgstr "Name des Barcamps, z.B. 'PythonCamp'"
-
-#~ msgid "URL name"
-#~ msgstr "URL-Kurzname"
-
-#~ msgid "url short name without whitespaces, e.g. pythoncamp2011"
-#~ msgstr "URL-Kurzname ohne Leerzeichen, z.B. pythoncamp2021"
-
-#~ msgid "This shortname is already taken."
-#~ msgstr "Dieser Kurzname ist schon vergeben"
-
-#~ msgid "Add more info"
-#~ msgstr "Weitere Infos hinzufügen"
-
-#~ msgid "barcamp description in 160 chars"
-#~ msgstr ""
-
-#~ msgid "From"
-#~ msgstr "Von"
-
-#~ msgid "Start date"
-#~ msgstr "Beginn"
-
-#~ msgid "to"
-#~ msgstr "bis"
-
-#~ msgid "End date"
-#~ msgstr "Ende"
-
-#~ msgid "Pre-Registration"
-#~ msgstr "Eröffne die Registrierung"
-
-#~ msgid "Social"
-#~ msgstr "Social Media"
-
-#~ msgid "Website"
-#~ msgstr "Webseite"
-
-#~ msgid "https://"
-#~ msgstr "https://"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Twitter Account"
-#~ msgstr "Twitter-Konto"
-
-#~ msgid "Twitter-Account"
-#~ msgstr "Twitter-Konto"
-
-#~ msgid "Twitter Hashtag"
-#~ msgstr "Twitter-Hashtag"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "https://facebook.com/..."
-#~ msgstr ""
-
-#~ msgid "Google Plus"
-#~ msgstr "Google Plus"
-
-#~ msgid "https://plus.google.com/+<name>"
-#~ msgstr ""
-
-#~ msgid "Location"
-#~ msgstr "Veranstaltungsort"
-
-#~ msgid "Where"
-#~ msgstr "Wo"
-
-#~ msgid "Name of location"
-#~ msgstr "Name des Veranstaltungsortes"
-
-#~ msgid "Name of the location"
-#~ msgstr "Name des Veranstaltungsortes"
-
-#~ msgid "Please enter a street"
-#~ msgstr "Bitte gebe eine Straße ein"
-
-#~ msgid "Street"
-#~ msgstr "Straße"
-
-#~ msgid "Please enter a city"
-#~ msgstr "Bitte gebe eine Stadt ein"
-
-#~ msgid "City"
-#~ msgstr "Stadt"
-
-#~ msgid "show the map"
-#~ msgstr "Auf Karte anzeigen"
-
-#~ msgid "create Barcamp"
-#~ msgstr "neues Barcamp anlegen"
-
-#~ msgid "Dashboard"
-#~ msgstr "Dashboard"
-
-#~ msgid "on waiting list"
-#~ msgstr "auf Warteliste"
-
-#~ msgid "edit participants"
-#~ msgstr "Teilnehmer bearbeiten"
-
-#~ msgid ""
-#~ "If you delete this barcamp, the "
-#~ "following information will be deleted "
-#~ "PERMANENTLY:"
-#~ msgstr ""
-#~ "Wenn Du dieses Barcamp löschst, werden"
-#~ " die folgenden Informationen PERMANENT "
-#~ "gelöscht:"
-
-#~ msgid "all information about the barcamp"
-#~ msgstr "Alle Informationen zu diesem Barcamp"
-
-#~ msgid "all your pages"
-#~ msgstr "alle Deine Seiten"
-
-#~ msgid "all participants lists"
-#~ msgstr "alle Teilnehmerlisten"
-
-#~ msgid "all documentation if not hosted externally"
-#~ msgstr "jegliche Dokumentation, soweit sie nicht extern gehostet wird."
-
-#~ msgid "all session proposals"
-#~ msgstr "alle Sessionvorschläge"
-
-#~ msgid "yes, DELETE the barcamp"
-#~ msgstr "JA, bitte lösche dieses Barcamp"
-
-#~ msgid "No, DO NOT delete the barcamp"
-#~ msgstr "NEEEEIN, lösche dieses Barcamp doch nicht!"
-
-#~ msgid "Barcamp Design and Layout"
-#~ msgstr "Barcamp Design und Layout"
-
-#~ msgid "Click on the colors to open a color picker"
-#~ msgstr ""
-
-#~ msgid "Border Color"
-#~ msgstr "Rahmenfarbe"
-
-#~ msgid "Hover Background Color"
-#~ msgstr "Hover Hintergrundfarbe"
-
-#~ msgid "Active Text Color"
-#~ msgstr "Aktive Text-Farbe"
-
-#~ msgid "Active Background Color"
-#~ msgstr "Aktive Hintergrundfarbe"
-
-#~ msgid "Upload Image"
-#~ msgstr "Bild hochladen"
-
-#~ msgid "Update"
-#~ msgstr "Aktualisieren"
-
-#~ msgid "Edit event details"
-#~ msgstr "Veranstaltungsdetails bearbeiten"
-
-#~ msgid "Update event"
-#~ msgstr "Veranstaltung aktualisieren"
-
-#~ msgid "back to event listing"
-#~ msgstr "Zurück zur Veranstaltungsliste"
-
-#~ msgid "Details"
-#~ msgstr "Details"
-
-#~ msgid "for"
-#~ msgstr "für"
-
-#~ msgid "Select location"
-#~ msgstr "Veranstaltungsort wählen"
-
-#~ msgid "place marker on address"
-#~ msgstr "Adresse suchen"
-
-#~ msgid "loading indicator"
-#~ msgstr "Ladeanzeige"
-
-#~ msgid "retrieving location"
-#~ msgstr "Adresse wird gesucht"
-
-#~ msgid "Understood"
-#~ msgstr "Verstanden"
-
-#~ msgid "Save location"
-#~ msgstr "Veranstaltungsort speichern"
-
-#~ msgid "close"
-#~ msgstr "Schließen"
-
-#~ msgid "close map"
-#~ msgstr "Karte schließen"
-
-#~ msgid "e.g. \"Day 1\" or \"Warm up Party\""
-#~ msgstr "z.B. Tag 1 oder Warm-Up-Party"
-
-#~ msgid "When"
-#~ msgstr "Wann"
-
-#~ msgid ""
-#~ "Be aware that this barcamp is "
-#~ "public and %(amount)s people already "
-#~ "signed up for it. So changing the"
-#~ " date might not be the best "
-#~ "idea."
-#~ msgstr ""
-#~ "Bitte beachte, dass dieses Barcamp schon"
-#~ " öffentlich ist und sich schon "
-#~ "%(amount)s Personen angemeldet haben. Eine "
-#~ "Änderung des Datums ist also vielleicht"
-#~ " keine so gute Idee"
-
-#~ msgid "from"
-#~ msgstr "vom"
-
-#~ msgid "Start Time"
-#~ msgstr "Beginn"
-
-#~ msgid "Start time"
-#~ msgstr "Beginn"
-
-#~ msgid "End Time"
-#~ msgstr "Ende"
-
-#~ msgid "End time"
-#~ msgstr "Ende"
-
-#~ msgid "How many"
-#~ msgstr "Wie viele"
-
-#~ msgid ""
-#~ "Because the barcamp is public you "
-#~ "can only increase the number of "
-#~ "participants. Once you do people on "
-#~ "the waiting list will move up to"
-#~ " the participant list automatically and "
-#~ "an email will be sent out to "
-#~ "them."
-#~ msgstr ""
-#~ "Da das Barcamp schon öffentlich ist, "
-#~ "kannst Du die Teilnehmerzahl nur "
-#~ "erhöhen. Wenn Du das tustrücken Personen"
-#~ " von der Warteliste automatisch nach "
-#~ "und werden per E-Mail informiert."
-
-#~ msgid "Use different location than the main barcamp location"
-#~ msgstr "Benutzer einen anderen Veranstaltungsort als den des Barcamps"
-
-#~ msgid "Move to waiting list"
-#~ msgstr "Auf Warteliste verschieben"
-
-#~ msgid "Move to participants"
-#~ msgstr "Auf Teilnehmerliste verschieben"
-
-#~ msgid "remove from event"
-#~ msgstr "Benutzer entfernen"
-
-#~ msgid "Manage Participants"
-#~ msgstr "Teilnehmer verwalten"
-
-#~ msgid "Waitinglist"
-#~ msgstr "Warteliste"
-
-#~ msgid "Maybe coming"
-#~ msgstr "Komme vielleicht"
-
-#~ msgid ""
-#~ "A barcamp consists of one or "
-#~ "multiple days called events. You can "
-#~ "define these below"
-#~ msgstr ""
-#~ "Ein Barcamp besteht aus einer oder "
-#~ "mehreren Veranstaltungen (normalerweise 1 pro"
-#~ " Tag)."
-
-#~ msgid "Edit event timetable"
-#~ msgstr "Zeitraster bearbeiten"
-
-#~ msgid "Manage participants"
-#~ msgstr "Teilnehmerzahl erhöhen"
-
-#~ msgid "Delete Event?"
-#~ msgstr "Veranstaltung löschen?"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nö"
-
-#~ msgid "no events have been defined yet."
-#~ msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
-
-#~ msgid "Show add event form"
-#~ msgstr "Zeige Veranstatungsformular"
-
-#~ msgid "Add event"
-#~ msgstr "Veranstaltung hinzufügen"
-
-#~ msgid "Create new event"
-#~ msgstr "Neue Veranstaltung anlegen"
-
-#~ msgid "Create event"
-#~ msgstr "neue Veranstaltung anlegen"
-
-#~ msgid "Image Galleries"
-#~ msgstr "Bildergalerien"
-
-#~ msgid ""
-#~ "Create image galleries here which you"
-#~ " can then use on barcamp pages "
-#~ "and blog posts"
-#~ msgstr ""
-#~ "Erstelle Bildergalerien, die danach auf "
-#~ "der Homepage oder in Blog-Artikeln "
-#~ "genutzt werden können"
-
-#~ msgid "Actions"
-#~ msgstr "Aktionen"
-
-#~ msgid "Title of new gallery"
-#~ msgstr "Titel der neuen Galerie"
-
-#~ msgid "Add Gallery"
-#~ msgstr "Galerie hinzufügen"
-
-#~ msgid "Title of image"
-#~ msgstr "löschen"
-
-#~ msgid "The alt tag"
-#~ msgstr "Alt-Tag"
-
-#~ msgid "The secret behind this picture"
-#~ msgstr "Das Geheimnis dieses Bildes"
-
-#~ msgid "e.g. CC-BY"
-#~ msgstr "z.B. CC-BY"
-
-#~ msgid "who should be credited?"
-#~ msgstr "Wer sollte als Autor genannt werden?"
-
-#~ msgid "Alt Tag"
-#~ msgstr "Alt-Tag"
-
-#~ msgid "back to gallery listing"
-#~ msgstr "Zurück zur Liste aller Galerien"
-
-#~ msgid "Gallery"
-#~ msgstr "Galerie"
-
-#~ msgid "Title of gallery"
-#~ msgstr "Titel der Galerie"
-
-#~ msgid "Upload image"
-#~ msgstr "Bild hochladen"
-
-#~ msgid "Delete image"
-#~ msgstr "Bild löschen"
-
-#~ msgid "Revert"
-#~ msgstr "Zurücksetzen"
-
-#~ msgid "Edit mail templates"
-#~ msgstr "Bearbeite Email-Vorlagen"
-
-#~ msgid "for your barcamp"
-#~ msgstr "für Dein Barcamp"
-
-#~ msgid "Tip!"
-#~ msgstr "Tipp!"
-
-#~ msgid ""
-#~ "You can use <code>((fullname))</code> in "
-#~ "a mail body which will be replaced"
-#~ " by\n"
-#~ "        the name of the user the"
-#~ " mail is sent to, e.g. 'Hello "
-#~ "((fullname)),... '"
-#~ msgstr ""
-#~ "Du kannst <code>((fullname))</code> in einem"
-#~ " Mailtext benutzen, um den vollen "
-#~ "Namen des Benutzer einzuseten, an den"
-#~ " die Mail geschickt wird. Beispiel: "
-#~ "'Hallo ((fullname)), ...'"
-
-#~ msgid "Welcome Mail"
-#~ msgstr "Willkommens-Mail"
-
-#~ msgid ""
-#~ "The Welcome Mail is sent when a"
-#~ " user has successfully registered as "
-#~ "participant. It is\n"
-#~ "                not sent if the user "
-#~ "is going to be moved to the "
-#~ "waiting list in case the participant "
-#~ "list is already full."
-#~ msgstr ""
-#~ "Die Willkommens-Mail wird an einen "
-#~ "Benutzer gesendet, der sich erfolgreich "
-#~ "als Teilnehmer registriert hat. Sie wird"
-#~ " nicht gesendet, wenn der Benutzer "
-#~ "auf der Warteliste landete. Dann gilt"
-#~ " die Mail unten."
-
-#~ msgid "Waitinglist Mail"
-#~ msgstr "Wartelisten-Mail"
-
-#~ msgid ""
-#~ "This Mail is sent when the maximum"
-#~ " number of participant has been "
-#~ "reached and the user is being\n"
-#~ "                moved onto the waitinglist."
-#~ msgstr ""
-#~ "Diese Mail wird an einen Benutzer "
-#~ "gesendet, wenn die maximale Teilnehmerzahl "
-#~ "erreicht wurde und er auf der "
-#~ "Warteliste landet."
-
-#~ msgid "From Waitinglist Mail"
-#~ msgstr "Warteliste-zu-Teilnehmer-Mail"
-
-#~ msgid ""
-#~ "This Mail is sent to a user "
-#~ "who is being moved from the "
-#~ "waiting list to the participants list."
-#~ "\n"
-#~ "                This can happen if an"
-#~ " existing participant cancels his "
-#~ "participation or if the barcamp admin"
-#~ " increases\n"
-#~ "                the number of participants"
-#~ msgstr ""
-#~ "Diese Mail wird an einen Benutzer "
-#~ "gesendet, der von der Warteliste auf "
-#~ "die Teilnehmerliste nachrückt. Dies passiert"
-#~ " entweder, wenn ein Teilnehmer absagt "
-#~ "oder wenn der Veranstalter die Kapazität"
-#~ " des  Barcamps erhöht. "
-
-#~ msgid "Edit the participant registration form"
-#~ msgstr "Bearbeite das Registrierungsformular"
-
-#~ msgid ""
-#~ "If you want a user to enter "
-#~ "additional data like t-shirt size, food"
-#~ " preferences etc. you can define that"
-#~ " here. Just add a custom\n"
-#~ "            fields for all the "
-#~ "informatin you want to gather. You "
-#~ "can choose between single-line and "
-#~ "multi-line text fields. Also you "
-#~ "can define if the\n"
-#~ "            field is required to be "
-#~ "filled in. The user will then have"
-#~ " to enter that data when clicking "
-#~ "on the participate button. You can "
-#~ "download that data\n"
-#~ "            along with the name of "
-#~ "the participants under the \"download "
-#~ "participants\" menu item in the admin"
-#~ " box."
-#~ msgstr ""
-#~ "Hier kannst Du definieren, welche "
-#~ "zusätzlichen Informationen Du vom Benutzer "
-#~ "beim Registrierungsprozess abfragen willst. "
-#~ "Dies kann z.B. T-Shirt-Größe, "
-#~ "Essensoptionen oder ähnliches sein. Du "
-#~ "kannst bei jedem Feld wählen, ob "
-#~ "es ein ein- oder mehrzeiliges Feld "
-#~ "sein soll und ob ein Benutzer es"
-#~ " zwingend ausfüllen muss. Ein Benutzer "
-#~ "muss diese Daten dann beim  "
-#~ "Registrierungsprozess angeben. Diese Daten "
-#~ "kannst Du danach dann unter 'Teilnehmer"
-#~ " herunterladen' inklusive Namen der "
-#~ "Teilnehmer herunterladen. "
-
-#~ msgid "title"
-#~ msgstr "Titel"
-
-#~ msgid "required?"
-#~ msgstr "erforderlich?"
-
-#~ msgid "Add a new field"
-#~ msgstr "Füge ein neues Feld hinzu"
-
-#~ msgid "Add"
-#~ msgstr "Hinzufügen"
-
-#~ msgid "Increase number of participants"
-#~ msgstr "Erhöhe die Teilnehmerzahl"
-
-#~ msgid "update"
-#~ msgstr "Aktualisieren"
-
-#~ msgid "Send Newsletter"
-#~ msgstr "Newsletter versenden"
-
-#~ msgid ""
-#~ "With this form you can send a "
-#~ "newsletter to either all participants, "
-#~ "all interested members or both groups."
-#~ " You can also test the newsletter "
-#~ "by sending it to an email address"
-#~ " of your choice"
-#~ msgstr ""
-#~ "Mit diesem Formular kannst Du einen "
-#~ "Newsletter entweder an alle Teilnehmer "
-#~ "des Barcamps, alle Interessierten oder "
-#~ "beide Gruppen schicken. Du kann Dir "
-#~ "vorher den Newsletter als Test an "
-#~ "eine beliebige Adresse schicken lassen."
-
-#~ msgid "Send Test Mail"
-#~ msgstr "Test-Newsletter versenden"
-
-#~ msgid "Really send Newsletter?"
-#~ msgstr "Den Newsletter wirklich versenden?"
-
-#~ msgid "public view"
-#~ msgstr "Öffentliche Ansicht"
-
-#~ msgid "Download PDF"
-#~ msgstr "Als PDF herunterladen"
-
-#~ msgid "for use as direction signs"
-#~ msgstr "zur Nutzung als Wegweiser"
-
-#~ msgid "Rooms and Times"
-#~ msgstr "Räume und Zeiten"
-
-#~ msgid "each time on a separate sheet"
-#~ msgstr "jede Zeit auf einem separaten Blatt"
-
-#~ msgid "Time Signs"
-#~ msgstr "Schilder mit Zeiten"
-
-#~ msgid "each room on a separate sheet for directions or session plan"
-#~ msgstr ""
-#~ "jeder Raum auf einem eigenen Blatt "
-#~ "z.B. als Wegweiser oder für den "
-#~ "Sessionplan"
-
-#~ msgid "Room Signs"
-#~ msgstr "Raumschilder"
-
-#~ msgid "Manage Sponsors"
-#~ msgstr "Sponsoren verwalten"
-
-#~ msgid "Add new sponsor"
-#~ msgstr "Neuen Sponsor anlegen"
-
-#~ msgid "people"
-#~ msgstr ""
-
-#~ msgid "Content"
-#~ msgstr "Inhalt"
-
-#~ msgid "Publishing Date"
-#~ msgstr "Veröffentlichungsdatum"
-
-#~ msgid "Title image"
-#~ msgstr "itelbild"
-
-#~ msgid "The blog entry was created"
-#~ msgstr "Der Blog-Artikel wurde angelegt"
-
-#~ msgid "The blog entry was updated"
-#~ msgstr "Der Blog-Artikel wurde aktualisiert"
-
-#~ msgid "Create a new Blog entry"
-#~ msgstr "neuen Artikel anlegen"
-
-#~ msgid "Published immediately"
-#~ msgstr "Direkt veröffentlichen"
-
-#~ msgid "Now"
-#~ msgstr "Jetzt"
-
-#~ msgid "Save as draft"
-#~ msgstr "Als Draft speichern"
-
-#~ msgid "Publish and Save"
-#~ msgstr "Barcamp veröffentlichen"
-
-#~ msgid "Edit Blog Entry"
-#~ msgstr "Blog-Artikel bearbeiten"
-
-#~ msgid "View blog post"
-#~ msgstr "Blog-Artikel ansehen"
-
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "Published"
-#~ msgstr "Veröffentlicht"
-
-#~ msgid "Draft"
-#~ msgstr "Draft"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "Upload new image"
-#~ msgstr "Neues Bild hochladen"
-
-#~ msgid "Revert to original image"
-#~ msgstr "Original-Bild wiederherstellen"
-
-#~ msgid "Save and Publish"
-#~ msgstr "Speichern und Veröffentlichen"
-
-#~ msgid "Blog Entries"
-#~ msgstr "Blog-Einträge"
-
-#~ msgid "draft"
-#~ msgstr "Draft"
-
-#~ msgid "Delete Blog Entry"
-#~ msgstr "Blog-Eintrag löschen"
-
-#~ msgid "Delete Entry?"
-#~ msgstr "Eintrag löschen?"
-
-#~ msgid "Add new blog entry"
-#~ msgstr "Neuen Blog-Artikel hinzufügen"
-
-#~ msgid "Not a valid currency value"
-#~ msgstr "kein gültiger Wert"
-
-#~ msgid "Your Name"
-#~ msgstr "Dein Name"
-
-#~ msgid "Your E-Mail address"
-#~ msgstr "Deine E-Mail-Adresse"
-
-#~ msgid "please enter your email address so we can contact you"
-#~ msgstr ""
-#~ "Bitte gebe eine E-Mail-Adresse ein, "
-#~ "so dass wir Dich kontaktieren können"
-
-#~ msgid "Name of the proposed youth barcamp"
-#~ msgstr "Name des Barcamps, das Du organisieren möchtest"
-
-#~ msgid "Planned date of barcamp"
-#~ msgstr "voraussichtliches Datum des Barcamps"
-
-#~ msgid "Reason for sponsorship"
-#~ msgstr "Was genau brauchst Du an Hilfe?"
-
-#~ msgid ""
-#~ "please describe your barcamp here esp."
-#~ " in regards of youth participation"
-#~ msgstr ""
-#~ "Bitte beschreibe Dein Barcamp hier "
-#~ "insbesondere im Hinblick auf "
-#~ "Jugendpartizipation und wobei Du Hilfe "
-#~ "brauchst"
-
-#~ msgid "camper: new barcamp sponsorshop requested"
-#~ msgstr "Camper: Neues Barcamp-Sponsorship angefragt"
-
-#~ msgid ""
-#~ "your sponsorship request has been sent"
-#~ " and we will come back to you"
-#~ " shortly."
-#~ msgstr "Deine Sponsor-Anfrage wurde an YouthPart weitergeleitet"
-
-#~ msgid "file '%s' has been deleted"
-#~ msgstr "Die Datei '%s' wurde erfolgreich gelöscht"
-
-#~ msgid "Fullname"
-#~ msgstr "Voller Name"
-
-#~ msgid "url name (username)"
-#~ msgstr "URL-Pfad (Benutzername)"
-
-#~ msgid ""
-#~ "this is the url path of your "
-#~ "profile page, should only contain "
-#~ "letters and numbers"
-#~ msgstr ""
-#~ "Dies ist der URL-Pfade zu Deinem"
-#~ " Profil, er sollte nur Buchstaben und"
-#~ " Zahlen enthalten."
-
-#~ msgid "About me"
-#~ msgstr "Über mich"
-
-#~ msgid "Organization"
-#~ msgstr "Organisation"
-
-#~ msgid "your school, company, institution (max. 100 characters)"
-#~ msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
-
-#~ msgid "your twitter username"
-#~ msgstr "Dein Twitter-Benutzername"
-
-#~ msgid "path to your facebook profile (without domain)"
-#~ msgstr "Pfad zum Facebook-Profil (ohne Domain)"
-
-#~ msgid "T shirt size"
-#~ msgstr "T-Shirt-Größe"
-
-#~ msgid "Profile Image (optional)"
-#~ msgstr "Profil-Bild (optional)"
-
-#~ msgid "this email address is already taken"
-#~ msgstr "Diese E-Mail-Adresse ist schon vergeben"
-
-#~ msgid "this url path is already taken"
-#~ msgstr "Dieser URL-Pfad ist schon vergeben"
-
-#~ msgid "Your profile has been updated"
-#~ msgstr "Dein Profilbild wurde aktualisiert"
-
-#~ msgid "There have been errors in the form"
-#~ msgstr "Das Formular beinhaltet einen Fehler"
-
-#~ msgid "Your profile image has been deleted"
-#~ msgstr "Dein Profilbild wurde erfolgreich gelöscht"
-
-#~ msgid "title of the page (max. 80 characters)"
-#~ msgstr "Titel der Seite (max. 80 Zeichen)"
-
-#~ msgid "Page title (max. 80 characters)"
-#~ msgstr "Seitentitel (max. 80 Zeichen)"
-
-#~ msgid "Layout"
-#~ msgstr "Layout"
-
-#~ msgid "Image on top"
-#~ msgstr "Bild oben"
-
-#~ msgid "Image on left side"
-#~ msgstr "Bild links"
-
-#~ msgid "Image on right side"
-#~ msgstr "Bild rechts"
-
-#~ msgid "define how to layout the page"
-#~ msgstr "Page-Layout"
-
-#~ msgid "Menu title"
-#~ msgstr "Menü-Titel"
-
-#~ msgid "Page title in menu (max. 30 characters)"
-#~ msgstr "Seitentitel im Menü (max. 30 Zeichen)"
-
-#~ msgid ""
-#~ "short name in the URL (no spaces,"
-#~ " max. 20 characters, needs to be "
-#~ "unique)"
-#~ msgstr ""
-#~ "Kurzname in der URL (keine Leerzeichen,"
-#~ " max. 20 Zeichen, muss eindeutig "
-#~ "sein)"
-
-#~ msgid "Page Contents"
-#~ msgstr "Seiteninhalt"
-
-#~ msgid "The actual contents of the page"
-#~ msgstr "Der eigentliche Inhalt der Seite"
-
-#~ msgid "Image (optional)"
-#~ msgstr "Bild (optional)"
-
-#~ msgid "page updated."
-#~ msgstr "Seite aktualisiert."
-
-#~ msgid "Unfortunately the form contains errors. Please fix them and try again."
-#~ msgstr ""
-#~ "Leider enthielt das Formular noch "
-#~ "Fehler. Bitte behebe diese und versuche"
-#~ " es erneut."
-
-#~ msgid "the page has been deleted"
-#~ msgstr "Die Seite wurde gelöscht"
-
-#~ msgid "Create new page"
-#~ msgstr "neue Seite anlegen"
-
-#~ msgid "Page title"
-#~ msgstr "Seitentitel"
-
-#~ msgid "short name for URL"
-#~ msgstr "Kurzname für die URL"
-
-#~ msgid "short title for menu"
-#~ msgstr "Kurztitel für Menü"
-
-#~ msgid "Create page"
-#~ msgstr "neue Seite anlegen"
-
-#~ msgid "Edit Page"
-#~ msgstr "Seite bearbeiten"
-
-#~ msgid "Save changes"
-#~ msgstr "Änderungen speichern"
-
-#~ msgid "Custom Pages"
-#~ msgstr "Eigene Seiten"
-
-#~ msgid "Delete Page?"
-#~ msgstr "Seite löschen?"
-
-#~ msgid "Add new page"
-#~ msgstr "neue Seite anlegen"
-
-#~ msgid "Upload Logo"
-#~ msgstr "Logo hochladen"
-
-#~ msgid "edit base information"
-#~ msgstr "Barcamp bearbeiten "
-
-#~ msgid "edit events"
-#~ msgstr "Veranstaltungen"
-
-#~ msgid "edit registration form"
-#~ msgstr "Registrierung"
-
-#~ msgid "Manage Blog"
-#~ msgstr "Blogverwaltung"
-
-#~ msgid "Design and Layout"
-#~ msgstr "Design und Layout"
-
-#~ msgid "Galleries"
-#~ msgstr "Galerien"
-
-#~ msgid "edit mail templates"
-#~ msgstr "Email-Vorlagen"
-
-#~ msgid "download participants"
-#~ msgstr "Teilnehmer herunterladen"
-
-#~ msgid "send newsletter"
-#~ msgstr "Newsletter versenden"
-
-#~ msgid "new sponsor"
-#~ msgstr "Neuer Sponsor"
-
-#~ msgid "edit permissions"
-#~ msgstr "Berechtigungen"
-
-#~ msgid "DELETE BARCAMP"
-#~ msgstr "LÖSCHE DAS BARCAMP"
-
-#~ msgid "private"
-#~ msgstr "privat"
-
-#~ msgid "the barcamp tool"
-#~ msgstr "Barcamp-Logo"
-
-#~ msgid "Organize your own Barcamp"
-#~ msgstr "Plane Dein eigenes Barcamp"
-
-#~ msgid "How do I do it?"
-#~ msgstr "Wie mache ich das?"
-
-#~ msgid "There are no barcamps coming up in the near future. Maybe organize one?"
-#~ msgstr ""
-#~ "Es gibt keine Barcamps in der "
-#~ "näheren Zukunft. Willst Du eines "
-#~ "organisieren?"
-
-#~ msgid "My Events"
-#~ msgstr "Meine Veranstaltungen"
-
-#~ msgid "New Events"
-#~ msgstr "Neue Veranstaltungen"
-
-#~ msgid "supported by"
-#~ msgstr "gefördert durch"
-
-#~ msgid "in cooperation with"
-#~ msgstr "in Kooperation mit"
-
-#~ msgid "This field is required"
-#~ msgstr "Dieses Feld muss angegeben werden"
-
-#~ msgid "Really Delete?"
-#~ msgstr "Wirklich löschen?"
-
-#~ msgid "Ideas / Feedback"
-#~ msgstr "Ideen / Feedback"
-
-#~ msgid "ADMINISTRATION"
-#~ msgstr "Verwaltung"
-
-#~ msgid "Login"
-#~ msgstr "Einloggen"
-
-#~ msgid "my profile"
-#~ msgstr "Mein Profil"
-
-#~ msgid "Change Password"
-#~ msgstr "Passwort ändern"
-
-#~ msgid "Log out"
-#~ msgstr "Ausloggen"
-
-#~ msgid "Request Sponsorship"
-#~ msgstr "Sponsorship beantragen"
-
-#~ msgid ""
-#~ "If you want to organize a youth"
-#~ " barcamp you have the possibilty to"
-#~ " get 1 hour of support from "
-#~ "YouthPart.  In order to receive this "
-#~ "please fill out the form below"
-#~ msgstr ""
-#~ "Wenn Du ein Jugendbarcamp veranstalten "
-#~ "willst, hast Du die Möglichkeit, \"\n"
-#~ ""
-#~ "\"eine Stunde Support von YouthPart zu"
-#~ " beantragen. Fülle dazu bitte das "
-#~ "unten stehende \"\n"
-#~ "\"Formular aus."
-
-#~ msgid "send request"
-#~ msgstr "Anfrage absenden"
-
-#~ msgid "Real camper log in!"
-#~ msgstr "Richtige Camper loggen sich ein!"
-
-#~ msgid "username"
-#~ msgstr "Benutzername"
-
-#~ msgid "password"
-#~ msgstr "Passwort"
-
-#~ msgid "password forgotten?"
-#~ msgstr "Passwort vergessen?"
-
-#~ msgid "register a new user"
-#~ msgstr "neuen Benutzer registrieren"
-
-#~ msgid "Please register"
-#~ msgstr "Bitte registriere Dich"
-
-#~ msgid "missing activation email?"
-#~ msgstr "Fehlt die Aktivierungs-EMail?"
-
-#~ msgid "Please send me a new activation code"
-#~ msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
-
-#~ msgid "Edit public profile"
-#~ msgstr "Öffentliches Profil bearbeiten"
-
-#~ msgid "Username"
-#~ msgstr "Benutzername"
-
-#~ msgid "Facebook-Account"
-#~ msgstr "Facebook-Account"
-
-#~ msgid "Upload Profile Image"
-#~ msgstr "Profilbild hochladen"
-
-#~ msgid "Update Profile"
-#~ msgstr "Profil aktualisieren"
-
-#~ msgid "This could be a text about you"
-#~ msgstr "Dies könnte ein Text über Dich sein"
-
-#~ msgid "not given"
-#~ msgstr "nicht angegeben"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Profil bearbeiten"
 

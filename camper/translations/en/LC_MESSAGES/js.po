@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-13 12:18+0200\n"
+"POT-Creation-Date: 2015-10-19 16:34+0200\n"
 "PO-Revision-Date: 2015-10-13 11:23+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -17,8 +17,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 1.3\n"
 
-#: static/templates/room-modal.hbs:6 static/templates/room-modal.hbs:37
-#: static/templates/sessiontest.hbs:29
+#: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
+#: static/templates/sessiontest.hbs:73
 msgid "Add new room"
 msgstr ""
 
@@ -42,16 +42,16 @@ msgstr ""
 msgid "e.g. beamer available"
 msgstr ""
 
-#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:49
+#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
 msgid "Update"
 msgstr ""
 
-#: static/templates/room-modal.hbs:41 static/templates/session-modal.hbs:50
-#: static/templates/timeslot-modal.hbs:44
+#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:49
+#: static/templates/timeslot-modal.hbs:35
 msgid "Close"
 msgstr ""
 
-#: static/templates/session-modal.hbs:6
+#: static/templates/session-modal.hbs:7
 msgid "Edit Session"
 msgstr ""
 
@@ -87,32 +87,40 @@ msgstr ""
 msgid "persons"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:30
-msgid "Room"
-msgstr ""
-
-#: static/templates/sessiontest.hbs:46
+#: static/templates/sessiontest.hbs:38
 msgid "delete timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:75 static/templates/timeslot-modal.hbs:6
-#: static/templates/timeslot-modal.hbs:43
+#: static/templates/sessiontest.hbs:54
+msgid "Edit"
+msgstr ""
+
+#: static/templates/sessiontest.hbs:68 static/templates/timeslot-modal.hbs:7
+#: static/templates/timeslot-modal.hbs:34
 msgid "Add new timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:78 static/templates/timeslot-modal.hbs:11
+#: static/templates/sessiontest.hbs:71
+msgid "Add new time slot"
+msgstr ""
+
+#: static/templates/sessiontest.hbs:74
+msgid "Add new Room"
+msgstr ""
+
+#: static/templates/timeslot-modal.hbs:11
 msgid "Time"
 msgstr ""
 
-#: static/templates/timeslot-modal.hbs:19
+#: static/templates/timeslot-modal.hbs:20
 msgid "e.g. 11:00"
 msgstr ""
 
-#: static/templates/timeslot-modal.hbs:23
+#: static/templates/timeslot-modal.hbs:24
 msgid "Blocked?"
 msgstr ""
 
-#: static/templates/timeslot-modal.hbs:27
+#: static/templates/timeslot-modal.hbs:28
 msgid ""
 "Select if this time slot is blocked, e.g. because of a break. This means "
 "you cannot add sessions in this slot."
@@ -122,5 +130,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Update Session"
+#~ msgstr ""
+
+#~ msgid "Room"
 #~ msgstr ""
 
