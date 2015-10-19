@@ -93,7 +93,6 @@ module.exports = function(grunt) {
                 dest: 'static/js/components.js',
                 cssDest: 'static/css/components.css',
                 exclude: [
-                    'angular',
                     'modernizr'
                 ],
                 include: [
