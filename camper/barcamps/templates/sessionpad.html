@@ -6,8 +6,8 @@
     <div class="page-header">
         <ol class="breadcrumb">
             <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
-            <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
-            <li><a href="{{url_for('.user_events', slug = slug, eid = event._id)}}?at=timetable">{{event.name}}</a></li>
+            <li><a href="{{url_for('.user_events', slug = slug)}}">{{_('Events')}}</a></li>
+            <li><a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">{{event.name}}</a></li>
             <li class="active">{{session.title}}</li>
         </ol>
         <h1>{{session.title}}

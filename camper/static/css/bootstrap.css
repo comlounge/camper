@@ -7949,6 +7949,9 @@ h1.logo {
 #barcamp-details p {
   margin-bottom: 20px;
 }
+.widget-join {
+  margin-bottom: 20px;
+}
 .widget-join form,
 .widget-join div {
   margin-bottom: 5px;

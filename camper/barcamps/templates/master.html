@@ -11,18 +11,17 @@
 {% macro barcamp_buttons() -%}
     {% if logged_in %}
     <div class="widget-join">
-        <button class="btn btn-default btn-lg btn-block"><i class="fa fa-check"></i> {{_('Register')}}</button>
         {% if barcamp.is_registered(user) %}
             <div class="attending">
                 <i class="fa fa-check"></i> I am attending!<br>
-                <a title="{{_('Change whether you come or come not.')}}" data-toggle="tooltip" data-placement="top"
-                href="{{url_for('barcamps.register', slug=slug)}}">{{_('Change?')}}</a>
             </div>
         {% else %}
             {% if barcamp.workflow == "registration" %}
                 <div>
                     <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                    href="{{url_for('barcamps.register', slug=slug)}}" class="btn btn-lg btn-block btn-success">{{_('Register')}}</a>
+                    href="{{url_for('barcamps.user_events', slug=slug)}}" class="btn btn-lg btn-block btn-default">
+                    <i class="fa fa-check"></i>
+                    {{_('Register')}}</a>
                 </div>
             {% endif %}
         {% endif %} {# is registered_user #}
