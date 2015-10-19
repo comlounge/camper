@@ -528,7 +528,6 @@
       autoclose: true,
       language: $("body").data("lang")
     });
-    $('.datepicker').datepicker();
     $('.datetime-widget').publish_date();
     $(".view-edit-group").view_edit_group();
     $('.change-state').click(function() {

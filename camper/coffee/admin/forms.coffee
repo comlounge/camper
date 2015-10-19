@@ -345,9 +345,6 @@ $ ->
         format: 'd.m.yyyy'
         autoclose: true
         language: $("body").data("lang")
-
-    $('.datepicker').datepicker()
-
     
     # blog admin stuff
     $('.datetime-widget').publish_date()
