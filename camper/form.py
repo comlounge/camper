@@ -2,33 +2,7 @@ from wtforms import *
 from wtforms.widgets import *
 import datetime
 
-__all__ = ['ATextInput', 'MyDateField', 'ACheckboxInput', 'ATextArea']
-
-class ATextInput(TextInput):
-    """angular js aware text input widget"""
-    def __call__(self, field, **kwargs):
-        for key in list(kwargs):
-            if key.startswith('ng_'):
-                kwargs['ng-' + key[3:]] = kwargs.pop(key)
-        return super(ATextInput, self).__call__(field, **kwargs)
-
-class ACheckboxInput(CheckboxInput):
-    """angular js aware checkbox widget"""
-    def __call__(self, field, **kwargs):
-        for key in list(kwargs):
-            if key.startswith('ng_'):
-                kwargs['ng-' + key[3:]] = kwargs.pop(key)
-        return super(ACheckboxInput, self).__call__(field, **kwargs)
-
-class ATextArea(TextArea):
-    """angular js aware text area widget"""
-    def __call__(self, field, **kwargs):
-        for key in list(kwargs):
-            if key.startswith('ng_'):
-                kwargs['ng-' + key[3:]] = kwargs.pop(key)
-        return super(ATextArea, self).__call__(field, **kwargs)
-
-
+__all__ = ['MyDateField']
 
 class MyDateField(DateTimeField):
     """

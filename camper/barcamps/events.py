@@ -11,20 +11,18 @@ import datetime
 import requests
 import gettext
 import pycountry
-from camper.form import MyDateField, ATextInput, ACheckboxInput, ATextArea
+from camper.form import MyDateField
 
 
 
 class EventForm(BaseForm):
     """form for adding an event to a barcamp"""
     name                = TextField(T(u"name of location"), [validators.Length(max=300), validators.Required()],
-                widget=ATextInput(),
                 description = T(u'Title of this event, e.g. "Day 1" or "Party"'),
     )
 
     description                 = TextAreaField(T(u"Description"), [],
                 description = T(u'This is not the common barcamp description but should be specific about this event.'),
-                widget = ATextArea()
     )
     date                        = MyDateField(T(u"date"), [validators.Required()], default=None, format="%d.%m.%Y", description="")
     start_time                  = TextField(T(u"start time"), [validators.Required()], description="")
@@ -32,7 +30,7 @@ class EventForm(BaseForm):
     size                        = SelectField(T(u"max. number of participants"), [validators.Required()], 
                                         choices = [(str(n),str(n)) for n in range(1, 500)])
     
-    own_location                = BooleanField(T("use different location"), widget = ACheckboxInput())
+    own_location                = BooleanField(T("use different location"))
     location_name               = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street             = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city               = TextField(T("city"), [])

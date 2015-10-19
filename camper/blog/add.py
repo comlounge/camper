@@ -7,15 +7,13 @@ from camper.barcamps.base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
 from sfext.babel import T
-from camper.form import MyDateField, ATextInput, ACheckboxInput, ATextArea
+from camper.form import MyDateField
 
 __all__=['AddView', 'EntryForm']
 
 class EntryForm(BaseForm):
     """form for adding an event to a barcamp"""
-    title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()],
-                widget=ATextInput(),
-    )
+    title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()])
     content     = WYSIWYGField(T(u"Content"), [])
     published   = DateTimePickerField(T(u"Publishing Date"),
                 default = None,
