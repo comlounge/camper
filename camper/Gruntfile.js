@@ -84,7 +84,6 @@ module.exports = function(grunt) {
                 dest: 'static/js/public_components.js',
                 cssDest: 'static/css/public_components.css',
                 include: [
-                    'jquery-ui',
                     'bootstrap',
                     "mjolnic-bootstrap-colorpicker",
                     'bootstrap-confirmation2'
@@ -98,7 +97,6 @@ module.exports = function(grunt) {
                     'modernizr'
                 ],
                 include: [
-                    'jquery-ui',
                     'handlebars',
                     'jed',
                     'moment',
@@ -138,11 +136,11 @@ module.exports = function(grunt) {
                 dest: 'static/js/admin.min.js'
             },
             public: {
-                src: 'static/js/public.js',
+                src: ['static/js/public.js'],
                 dest: 'static/js/public.min.js'
             },
             public_components: {
-                src: ['static/js/public_components.js', 'static/js/fileuploader.js'],
+                src: ['static/js/jquery-ui.js', 'static/js/public_components.js', 'static/js/fileuploader.js'],
                 dest: 'static/js/public_components.min.js'
             }
             /* uglify hangs with this maybe because of https://github.com/gruntjs/grunt-contrib-uglify/issues/233
