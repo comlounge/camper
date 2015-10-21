@@ -104,8 +104,17 @@ class EventsView(BarcampBaseHandler):
                 street = f['location']['street']
                 city = f['location']['city']
                 zip = f['location']['zip']
-                country = f['location']['country']
-                f = self.retrieve_location(street, zip, city, country)
+                country = f['location']['country']        
+                try:
+                    lat, lng = self.retrieve_location(street, zip, city, country)
+                    f['location']['lat'] = lat
+                    f['location']['lng'] = lng
+                except LocationNotFound:
+                    self.flash(self._("the city was not found in the geo database"), category="danger")
+
+            if self.request.form.get('own_coords', 'no') == "yes":
+                f['location']['lat'] = f['location_lat']
+                f['location']['lng'] = f['location_lng']
 
             # create and save the event object inside the barcamp
             eid = f['_id'] = unicode(uuid.uuid4())
