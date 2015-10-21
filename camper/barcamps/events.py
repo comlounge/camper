@@ -99,9 +99,13 @@ class EventsView(BarcampBaseHandler):
             }
 
             # retrieve geo location (but only when not in test mode as we might be offline)
-            if f['location_street'] and not self.config.testing and f['own_location']:
-                f = self.retrieve_location(f)
-
+            # and if user hasn't provided own coors
+            if self.request.form.get('own_coords', "no") != "yes" and f['location_street'] and not self.config.testing and f['own_location']:
+                street = f['location']['street']
+                city = f['location']['city']
+                zip = f['location']['zip']
+                country = f['location']['country']
+                f = self.retrieve_location(street, zip, city, country)
 
             # create and save the event object inside the barcamp
             eid = f['_id'] = unicode(uuid.uuid4())
