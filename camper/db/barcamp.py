@@ -294,7 +294,7 @@ class Event(Record):
         return self.timetable.get('timeslots', [])
 
     @property
-    def location(self):
+    def event_location(self):
         """return the event location or the barcamp location depending on settings"""
         if self.own_location:
             return self.location

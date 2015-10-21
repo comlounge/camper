@@ -168,10 +168,10 @@
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='location'}}" id="location">
                     <div class="event-location-map" id="event-location-map"
                         data-accesstoken = "{{mapbox_access_token}}"
-                        data-title = "{{active_event.location.name |e}}"
-                        data-description = "{{active_event.location.street|e}}, {{active_event.location.zip|e}} {{active_event.location.city|e}}"
-                        data-lat = "{{active_event.location.lat}}" 
-                        data-lng = "{{active_event.location.lng}}"
+                        data-title = "{{active_event.event_location.name |e}}"
+                        data-description = "{{active_event.event_location.street|e}}, {{active_event.event_location.zip|e}} {{active_event.event_location.city|e}}"
+                        data-lat = "{{active_event.event_location.lat}}" 
+                        data-lng = "{{active_event.event_location.lng}}"
                     >
                     </div>
                 </div>
