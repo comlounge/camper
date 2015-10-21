@@ -2,7 +2,7 @@
     <div id="share-area">
         <a class="share-on-facebook btn btn-block btn-lg btn-primary" data-url="{{url|e}}"><i class="fa fa-facebook"></i> {{_('Share on Facebook')}}</a>
         <a 
-            href="https://twitter.com/intent/tweet?text={{_('Check out %(name)s') | format(name=barcamp.name|e)}}&amp;hashtags={{barcamp.hashtag|e}}&amp;via={{barcamp.twitter|e}}&amp;related=barcamptools&amp;url={{url_for('.index', slug = barcamp.slug, _full=True ) }}" 
+            href="https://twitter.com/intent/tweet?text={{_('Check out %(name)s') | format(name=barcamp.name|e)}}&amp;hashtags={{barcamp.hashtag|e}}&amp;via={{barcamp.twitter|e}}&amp;related=barcamptools&amp;url={{url_for('barcamps.index', slug = barcamp.slug, _full=True ) }}" 
             class="btn btn-block btn-lg btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</a>
         <a class="share-on-googleplus btn btn-block btn-lg btn-danger" data-url="{{url|e}}"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</a>
     </div>    
