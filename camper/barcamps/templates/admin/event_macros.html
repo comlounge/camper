@@ -94,7 +94,7 @@
             <label for="date" class="col-sm-2 control-label">{{_('When')}}</label>
             <div class="col-sm-4">
                 {{formmacros.f(form.date, required = True, placeholder=_('Date'))}}
-                {% if barcamp.public %}
+                {% if barcamp.public and event.participants|length > 0 %}
                     <div class="help-block"><p class="text-danger">{{_('Be aware that this barcamp is public and %(amount)s people already signed up for it. So changing the date might not be the best idea.')|format(amount=event.participants|length)}}</p></div>
                 {% endif %}
             </div>
