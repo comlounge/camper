@@ -466,22 +466,6 @@ $ ->
             whitespace: '-'
     })
 
-    # handler for event deletion
-    $(".delete-event").click () ->                                                                                                                                                                                                                                            
-        d = $(this).data("event")
-        url = $(this).data("url")
-        $.ajax(
-            url: url
-            type: "POST"
-            data:
-                method: "delete"
-                event: d
-            success: () ->
-                window.location.reload()
-            )
-
-        return false
-
     # generic delbutton handler (see macros.html)
     # you need to have a listing container around so that it works
     # with dynamically added elements

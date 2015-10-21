@@ -51,21 +51,25 @@
         return $("#location-view").hide();
       }
     });
-    $(".delete-event").click(function() {
-      var d, url;
-      d = $(this).data("event");
-      url = $(this).data("url");
-      $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-          method: "delete",
-          event: d
-        },
-        success: function() {
-          return window.location.reload();
-        }
-      });
+    $(".delete-event").click(function(e) {
+      var d, msg, url;
+      e.preventDefault();
+      msg = $('body').data("i18n-areyousure");
+      if (confirm(msg)) {
+        d = $(this).data("event");
+        url = $(this).data("url");
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            method: "delete",
+            event: d
+          },
+          success: function() {
+            return window.location.reload();
+          }
+        });
+      }
       return false;
     });
     if ($('#own_location').is(":checked")) {
@@ -635,23 +639,6 @@
     $("#pageform #slug").slugify("#title", {
       separator: '',
       whitespace: '-'
-    });
-    $(".delete-event").click(function() {
-      var d, url;
-      d = $(this).data("event");
-      url = $(this).data("url");
-      $.ajax({
-        url: url,
-        type: "POST",
-        data: {
-          method: "delete",
-          event: d
-        },
-        success: function() {
-          return window.location.reload();
-        }
-      });
-      return false;
     });
     return $(".listing").on("click", ".confirmdelete", function() {
       var d, url;

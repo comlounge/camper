@@ -31,20 +31,22 @@ $(document).ready () ->
         else
             $("#location-view").hide()
 
-    $(".delete-event").click () ->
-        d = $(this).data("event")
-        url = $(this).data("url")
+    $(".delete-event").click (e) ->
+        e.preventDefault()
+        msg = $('body').data("i18n-areyousure")
+        if confirm(msg)
+            d = $(this).data("event")
+            url = $(this).data("url")
 
-        $.ajax(
-            url: url
-            type: "POST"
-            data:
-                method: "delete"
-                event: d
-            success: () ->
-                window.location.reload()
-            )
-
+            $.ajax(
+                url: url
+                type: "POST"
+                data:
+                    method: "delete"
+                    event: d
+                success: () ->
+                    window.location.reload()
+                )
         return false
 
     if $('#own_location').is(":checked")

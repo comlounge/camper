@@ -40,15 +40,7 @@
                                 title="{{_('Delete Event?')}}" 
                                 href = "#"
                                 data-event = "{{event._id}}"
-                                data-url="{{url_for("barcamps.events", slug = slug)}}" 
-                                data-title="{{_('Delete Event?')}}" 
-                                data-toggle="confirmation" 
-                                data-btn-ok-label="{{_('Yes')}}" 
-                                data-btn-ok-icon="fa fa-ok" 
-                                data-btn-ok-class="btn btn-success btn-xs" 
-                                data-btn-cancel-label="{{_('No')}}" 
-                                data-btn-cancel-icon="fa fa-ban" 
-                                data-btn-cancel-class="btn btn-danger btn-xs">
+                                data-url="{{url_for("barcamps.events", slug = slug)}}">
                                     <i class="fa fa-trash"></i>
                             </a>
                         </td>
@@ -72,7 +64,4 @@
             {{ eventform({}, label=_('Create event')) }}
         </div>
     </div>
-{% endblock %}
-{% block bcjs %}
-<script src="{{url_for("static", filename='js/event-controller.js')}}"></script>
 {% endblock %}
