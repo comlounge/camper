@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-10-19 16:34+0200\n"
+"POT-Creation-Date: 2015-10-21 12:21+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -135,7 +135,7 @@ msgstr ""
 msgid "you don't have the permission to access this page."
 msgstr ""
 
-#: form.py:51
+#: form.py:25
 msgid "Not a valid date value"
 msgstr ""
 
@@ -191,64 +191,64 @@ msgid "URL of the Facebook Page"
 msgstr ""
 
 #: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:20
-#: barcamps/events.py:36
+#: barcamps/events.py:34
 msgid "name of location"
 msgstr ""
 
-#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:36
+#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:34
 msgid "please enter the name of the venue here"
 msgstr ""
 
-#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:37
+#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:35
 msgid "street and number "
 msgstr ""
 
-#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:37
+#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:35
 msgid "street and number of the venue"
 msgstr ""
 
-#: barcamps/add.py:48 barcamps/edit.py:51 barcamps/events.py:38
+#: barcamps/add.py:48 barcamps/edit.py:51 barcamps/events.py:36
 msgid "city"
 msgstr ""
 
-#: barcamps/add.py:49 barcamps/edit.py:52 barcamps/events.py:39
+#: barcamps/add.py:49 barcamps/edit.py:52 barcamps/events.py:37
 #: barcamps/templates/admin/add.html:140 barcamps/templates/admin/add.html:141
 #: barcamps/templates/admin/event_macros.html:157
 #: barcamps/templates/admin/event_macros.html:158
 msgid "zip"
 msgstr ""
 
-#: barcamps/add.py:50 barcamps/edit.py:53 barcamps/events.py:41
+#: barcamps/add.py:50 barcamps/edit.py:53 barcamps/events.py:39
 msgid "homepage"
 msgstr ""
 
 #: barcamps/add.py:50 barcamps/add.py:51 barcamps/edit.py:53
-#: barcamps/edit.py:54 barcamps/events.py:41 barcamps/events.py:42
+#: barcamps/edit.py:54 barcamps/events.py:39 barcamps/events.py:40
 msgid "web site of the venue (optional)"
 msgstr ""
 
-#: barcamps/add.py:51 barcamps/edit.py:54 barcamps/events.py:42
+#: barcamps/add.py:51 barcamps/edit.py:54 barcamps/events.py:40
 msgid "phone"
 msgstr ""
 
-#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:43
+#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:41
 msgid "email"
 msgstr ""
 
-#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:43
+#: barcamps/add.py:52 barcamps/edit.py:55 barcamps/events.py:41
 msgid "email address of the venue (optional)"
 msgstr ""
 
-#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:44
+#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:42
 #: barcamps/templates/admin/participants_data_edit.html:20
 msgid "description"
 msgstr ""
 
-#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:44
+#: barcamps/add.py:53 barcamps/edit.py:56 barcamps/events.py:42
 msgid "an optional description of the venue"
 msgstr ""
 
-#: barcamps/add.py:54 barcamps/edit.py:57 barcamps/events.py:40
+#: barcamps/add.py:54 barcamps/edit.py:57 barcamps/events.py:38
 #: barcamps/templates/admin/add.html:149 barcamps/templates/admin/add.html:150
 #: barcamps/templates/admin/event_macros.html:166
 #: barcamps/templates/admin/event_macros.html:167
@@ -259,7 +259,7 @@ msgstr ""
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr ""
 
-#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:229
+#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:231
 msgid "the city was not found in the geo database"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgstr ""
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
-#: barcamps/base.py:58 templates/master.html:71
+#: barcamps/base.py:58 templates/master.html:70
 msgid "Home"
 msgstr ""
 
@@ -304,7 +304,7 @@ msgstr ""
 msgid "planning"
 msgstr ""
 
-#: barcamps/base.py:67 barcamps/design.py:35 templates/master.html:82
+#: barcamps/base.py:67 barcamps/design.py:35 templates/master.html:81
 msgid "Blog"
 msgstr ""
 
@@ -399,7 +399,7 @@ msgstr ""
 msgid "Events"
 msgstr ""
 
-#: barcamps/design.py:39 blog/add.py:24
+#: barcamps/design.py:39 blog/add.py:22
 msgid "Gallery to show on homepage"
 msgstr ""
 
@@ -409,7 +409,7 @@ msgid ""
 "barcamp navigation and the rest of the content"
 msgstr ""
 
-#: barcamps/design.py:60 blog/add.py:42 blog/edit.py:29
+#: barcamps/design.py:60 blog/add.py:40 blog/edit.py:29
 msgid "do not show a gallery"
 msgstr ""
 
@@ -430,7 +430,7 @@ msgid ""
 "\"JMStVCamp\""
 msgstr ""
 
-#: barcamps/edit.py:26 barcamps/edit.py:240 barcamps/events.py:25
+#: barcamps/edit.py:26 barcamps/edit.py:240 barcamps/events.py:24
 #: barcamps/galleries.py:31 barcamps/sessionboard.py:18
 #: barcamps/templates/index.html:38 barcamps/templates/sessions.html:138
 #: barcamps/templates/admin/add.html:41
@@ -529,7 +529,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: barcamps/edit.py:223 barcamps/events.py:179
+#: barcamps/edit.py:223 barcamps/events.py:181
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
@@ -572,49 +572,49 @@ msgid ""
 "been filled in."
 msgstr ""
 
-#: barcamps/events.py:22
+#: barcamps/events.py:21
 msgid "Title of this event, e.g. \"Day 1\" or \"Party\""
 msgstr ""
 
-#: barcamps/events.py:26
+#: barcamps/events.py:25
 msgid ""
 "This is not the common barcamp description but should be specific about "
 "this event."
 msgstr ""
 
-#: barcamps/events.py:29
+#: barcamps/events.py:27
 msgid "date"
 msgstr ""
 
-#: barcamps/events.py:30
+#: barcamps/events.py:28
 msgid "start time"
 msgstr ""
 
-#: barcamps/events.py:31
+#: barcamps/events.py:29
 msgid "end time"
 msgstr ""
 
-#: barcamps/events.py:32
+#: barcamps/events.py:30
 msgid "max. number of participants"
 msgstr ""
 
-#: barcamps/events.py:35
+#: barcamps/events.py:33
 msgid "use different location"
 msgstr ""
 
-#: barcamps/events.py:114
+#: barcamps/events.py:116
 msgid "The event has been created"
 msgstr ""
 
-#: barcamps/events.py:249
+#: barcamps/events.py:251
 msgid "The event has been successfully updated"
 msgstr ""
 
-#: barcamps/events.py:357
+#: barcamps/events.py:359
 msgid "no full address was given"
 msgstr ""
 
-#: barcamps/events.py:363
+#: barcamps/events.py:365
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr ""
 
@@ -800,7 +800,7 @@ msgstr ""
 #: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:63
 #: barcamps/templates/sessions.html:90
 #: barcamps/templates/admin/participants_data_edit.html:39
-#: static/templates/sessiontest.hbs:19 templates/master.html:54
+#: static/templates/sessiontest.hbs:19 templates/master.html:53
 msgid "Are you sure?"
 msgstr ""
 
@@ -852,7 +852,7 @@ msgstr ""
 #: barcamps/templates/master.html:24 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:58
 #: barcamps/templates/user_events.html:16
-#: barcamps/templates/user_events.html:43 templates/master.html:98
+#: barcamps/templates/user_events.html:43 templates/master.html:97
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
@@ -1866,19 +1866,19 @@ msgstr ""
 msgid "people"
 msgstr ""
 
-#: blog/add.py:19
+#: blog/add.py:17
 msgid "Content"
 msgstr ""
 
-#: blog/add.py:20
+#: blog/add.py:18
 msgid "Publishing Date"
 msgstr ""
 
-#: blog/add.py:23
+#: blog/add.py:21
 msgid "Title image"
 msgstr ""
 
-#: blog/add.py:52
+#: blog/add.py:50
 msgid "The blog entry was created"
 msgstr ""
 
@@ -2347,27 +2347,27 @@ msgstr ""
 msgid "Really Delete?"
 msgstr ""
 
-#: templates/master.html:83
+#: templates/master.html:82
 msgid "Ideas / Feedback"
 msgstr ""
 
-#: templates/master.html:93
+#: templates/master.html:92
 msgid "ADMINISTRATION"
 msgstr ""
 
-#: templates/master.html:97
+#: templates/master.html:96
 msgid "Login"
 msgstr ""
 
-#: templates/master.html:103
+#: templates/master.html:102
 msgid "my profile"
 msgstr ""
 
-#: templates/master.html:104 templates/users/profile.html:45
+#: templates/master.html:103 templates/users/profile.html:45
 msgid "Change Password"
 msgstr ""
 
-#: templates/master.html:105
+#: templates/master.html:104
 msgid "Log out"
 msgstr ""
 
