@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-10-21 12:21+0200\n"
+"POT-Creation-Date: 2015-10-27 15:24+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -259,7 +259,8 @@ msgstr ""
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr ""
 
-#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:231
+#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:113
+#: barcamps/events.py:240
 msgid "the city was not found in the geo database"
 msgstr ""
 
@@ -529,7 +530,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: barcamps/edit.py:223 barcamps/events.py:181
+#: barcamps/edit.py:223 barcamps/events.py:190
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
@@ -602,19 +603,19 @@ msgstr ""
 msgid "use different location"
 msgstr ""
 
-#: barcamps/events.py:116
+#: barcamps/events.py:125
 msgid "The event has been created"
 msgstr ""
 
-#: barcamps/events.py:251
+#: barcamps/events.py:260
 msgid "The event has been successfully updated"
 msgstr ""
 
-#: barcamps/events.py:359
+#: barcamps/events.py:368
 msgid "no full address was given"
 msgstr ""
 
-#: barcamps/events.py:365
+#: barcamps/events.py:374
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr ""
 
@@ -1596,37 +1597,26 @@ msgid "Manage participants"
 msgstr ""
 
 #: barcamps/templates/admin/events.html:40
-#: barcamps/templates/admin/events.html:44
 msgid "Delete Event?"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:46 blog/templates/entries.html:41
-#: pages/templates/entries.html:39 templates/macros.html:124
-msgid "Yes"
-msgstr ""
-
-#: barcamps/templates/admin/events.html:49 blog/templates/entries.html:44
-#: pages/templates/entries.html:42 templates/macros.html:127
-msgid "No"
-msgstr ""
-
-#: barcamps/templates/admin/events.html:61
+#: barcamps/templates/admin/events.html:53
 msgid "no events have been defined yet."
 msgstr ""
 
-#: barcamps/templates/admin/events.html:67
+#: barcamps/templates/admin/events.html:59
 msgid "Show add event form"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:67
+#: barcamps/templates/admin/events.html:59
 msgid "Add event"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:71
+#: barcamps/templates/admin/events.html:63
 msgid "Create new event"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:72
+#: barcamps/templates/admin/events.html:64
 msgid "Create event"
 msgstr ""
 
@@ -1956,6 +1946,16 @@ msgstr ""
 
 #: blog/templates/entries.html:39
 msgid "Delete Entry?"
+msgstr ""
+
+#: blog/templates/entries.html:41 pages/templates/entries.html:39
+#: templates/macros.html:124
+msgid "Yes"
+msgstr ""
+
+#: blog/templates/entries.html:44 pages/templates/entries.html:42
+#: templates/macros.html:127
+msgid "No"
 msgstr ""
 
 #: blog/templates/entries.html:54

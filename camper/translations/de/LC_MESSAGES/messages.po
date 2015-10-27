@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-10-21 12:21+0200\n"
+"POT-Creation-Date: 2015-10-27 15:24+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -155,37 +155,41 @@ msgstr "erinnere Dich an mich"
 
 #: barcamps/add.py:29 barcamps/add.py:34 barcamps/edit.py:32
 #: barcamps/templates/admin/add.html:65
-#, fuzzy
 msgid "Hide Barcamp"
-msgstr "Barcamp-Logo"
+msgstr "Barcamp verstecken?"
 
 #: barcamps/add.py:29 barcamps/add.py:34 barcamps/edit.py:32
 msgid ""
 "If enabled this will hide this barcamp from showing up in the front page "
 "and in search engines"
 msgstr ""
+"Wenn dies angeschaltet ist, dann wird das Barcamp nicht auf der Homepage "
+"angezeigt und sollte nicht in Suchmaschinen auftauchen."
 
 #: barcamps/add.py:30 barcamps/edit.py:33
-#, fuzzy
 msgid "Enable Pre-Registration"
-msgstr "Eröffne die Registrierung"
+msgstr "Voranmeldung anschalten"
 
 #: barcamps/add.py:30 barcamps/edit.py:33
 msgid ""
 "If enabled users can only pre-register and an admin needs to put them on "
 "the participation list manually"
 msgstr ""
+"Wenn dies angeschaltet ist, dann können sich Besucher nur voranmelden, "
+"nehmen aber nicht automatisch teil. Der Barcamp-Admin muss diese Personen"
+" manuell freischalten."
 
 #: barcamps/add.py:31 barcamps/edit.py:34 barcamps/templates/admin/add.html:47
-#, fuzzy
 msgid "Meta Description"
-msgstr "Beschreibung"
+msgstr "Meta-Description"
 
 #: barcamps/add.py:33 barcamps/edit.py:36
 msgid ""
 "The meta description is used for for search engines and often shows up in"
 " search results. It should be no more than 160 characters long."
 msgstr ""
+"Die Meta-Description wird von Suchmaschinen genutzt und in den "
+"Suchresultaten angezeigt. Sie sollte nicht mehr als 160 Zeichen lang sein"
 
 #: barcamps/add.py:42 barcamps/edit.py:45
 msgid "Facebook URL"
@@ -264,7 +268,8 @@ msgstr "Land"
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 
-#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:231
+#: barcamps/add.py:123 barcamps/edit.py:150 barcamps/events.py:113
+#: barcamps/events.py:240
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
 
@@ -548,7 +553,7 @@ msgstr "Betreff"
 msgid "Body"
 msgstr "Mailtext"
 
-#: barcamps/edit.py:223 barcamps/events.py:181
+#: barcamps/edit.py:223 barcamps/events.py:190
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
@@ -629,19 +634,19 @@ msgstr "Max. Teilnehmerzahl"
 msgid "use different location"
 msgstr "anderen Ort benutzen"
 
-#: barcamps/events.py:116
+#: barcamps/events.py:125
 msgid "The event has been created"
 msgstr "Die Veranstaltung wurde erstellt."
 
-#: barcamps/events.py:251
+#: barcamps/events.py:260
 msgid "The event has been successfully updated"
 msgstr "Veranstaltung erfolgreich aktualisiert"
 
-#: barcamps/events.py:359
+#: barcamps/events.py:368
 msgid "no full address was given"
 msgstr "Es wurde keine volle Adresse angegeben "
 
-#: barcamps/events.py:365
+#: barcamps/events.py:374
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr "Wir konnten keine Geo-Koordinaten für diese Adresse ermitteln."
 
@@ -1313,7 +1318,7 @@ msgstr "Weitere Infos hinzufügen"
 
 #: barcamps/templates/admin/add.html:49
 msgid "barcamp description in 160 chars"
-msgstr ""
+msgstr "Barcamp-Beschreibung in 160 Zeichen"
 
 #: barcamps/templates/admin/add.html:53
 msgid "From"
@@ -1671,37 +1676,26 @@ msgid "Manage participants"
 msgstr "Teilnehmerzahl erhöhen"
 
 #: barcamps/templates/admin/events.html:40
-#: barcamps/templates/admin/events.html:44
 msgid "Delete Event?"
 msgstr "Veranstaltung löschen?"
 
-#: barcamps/templates/admin/events.html:46 blog/templates/entries.html:41
-#: pages/templates/entries.html:39 templates/macros.html:124
-msgid "Yes"
-msgstr "Ja"
-
-#: barcamps/templates/admin/events.html:49 blog/templates/entries.html:44
-#: pages/templates/entries.html:42 templates/macros.html:127
-msgid "No"
-msgstr "Nö"
-
-#: barcamps/templates/admin/events.html:61
+#: barcamps/templates/admin/events.html:53
 msgid "no events have been defined yet."
 msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
 
-#: barcamps/templates/admin/events.html:67
+#: barcamps/templates/admin/events.html:59
 msgid "Show add event form"
 msgstr "Zeige Veranstatungsformular"
 
-#: barcamps/templates/admin/events.html:67
+#: barcamps/templates/admin/events.html:59
 msgid "Add event"
 msgstr "Veranstaltung hinzufügen"
 
-#: barcamps/templates/admin/events.html:71
+#: barcamps/templates/admin/events.html:63
 msgid "Create new event"
 msgstr "Neue Veranstaltung anlegen"
 
-#: barcamps/templates/admin/events.html:72
+#: barcamps/templates/admin/events.html:64
 msgid "Create event"
 msgstr "neue Veranstaltung anlegen"
 
@@ -2061,6 +2055,16 @@ msgstr "Blog-Eintrag löschen"
 #: blog/templates/entries.html:39
 msgid "Delete Entry?"
 msgstr "Eintrag löschen?"
+
+#: blog/templates/entries.html:41 pages/templates/entries.html:39
+#: templates/macros.html:124
+msgid "Yes"
+msgstr "Ja"
+
+#: blog/templates/entries.html:44 pages/templates/entries.html:42
+#: templates/macros.html:127
+msgid "No"
+msgstr "Nö"
 
 #: blog/templates/entries.html:54
 msgid "Add new blog entry"
