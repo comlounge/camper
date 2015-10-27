@@ -114,7 +114,7 @@ module.exports = function(grunt) {
                     "bootstrap-confirmation2",
                     "typeahead.js",
                     "bootstrap-tagsinput",
-                    "shariff",
+                    "speakingurl",
                     "jquery-slugify"
                 ],
                 dependencies: {
