@@ -865,9 +865,8 @@ msgid "Save"
 msgstr "Speichern"
 
 #: barcamps/templates/index.html:48
-#, fuzzy
 msgid "Sponsors"
-msgstr "Neuer Sponsor"
+msgstr "Sponsoren"
 
 #: barcamps/templates/master.html:3
 #, fuzzy
@@ -2406,7 +2405,6 @@ msgid "send newsletter"
 msgstr "Newsletter versenden"
 
 #: templates/admin_master.html:45
-#, fuzzy
 msgid "manage sponsors"
 msgstr "Sponsoren verwalten"
 
