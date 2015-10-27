@@ -6776,8 +6776,9 @@ body.admin .navbar-side li {
   line-height: 1.5;
 }
 body.admin .navbar-side li i {
-  width: 20px;
+  width: 30px;
   display: block;
+  font-size: 20px;
   float: left;
 }
 body.admin .navbar-side li span {
