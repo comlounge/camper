@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-27 15:24+0100\n"
+"POT-Creation-Date: 2015-10-27 15:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2163,7 +2163,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: pages/templates/entries.html:7 templates/admin_master.html:40
+#: pages/templates/entries.html:7 templates/admin_master.html:39
 msgid "Custom Pages"
 msgstr ""
 
@@ -2248,54 +2248,50 @@ msgid ""
 msgstr ""
 
 #: templates/admin_master.html:35
-msgid "Upload Logo"
-msgstr ""
-
-#: templates/admin_master.html:36
 msgid "edit base information"
 msgstr ""
 
-#: templates/admin_master.html:37
+#: templates/admin_master.html:36
 msgid "edit events"
 msgstr ""
 
-#: templates/admin_master.html:38
+#: templates/admin_master.html:37
 msgid "edit registration form"
 msgstr ""
 
-#: templates/admin_master.html:39
+#: templates/admin_master.html:38
 msgid "Manage Blog"
 msgstr ""
 
-#: templates/admin_master.html:41
+#: templates/admin_master.html:40
 msgid "Design and Layout"
 msgstr ""
 
-#: templates/admin_master.html:42
+#: templates/admin_master.html:41
 msgid "Galleries"
 msgstr ""
 
-#: templates/admin_master.html:43
+#: templates/admin_master.html:42
 msgid "edit mail templates"
 msgstr ""
 
-#: templates/admin_master.html:44
+#: templates/admin_master.html:43
 msgid "download participants"
 msgstr ""
 
-#: templates/admin_master.html:45
+#: templates/admin_master.html:44
 msgid "send newsletter"
 msgstr ""
 
-#: templates/admin_master.html:46
-msgid "new sponsor"
+#: templates/admin_master.html:45
+msgid "manage sponsors"
 msgstr ""
 
-#: templates/admin_master.html:47
+#: templates/admin_master.html:46
 msgid "edit permissions"
 msgstr ""
 
-#: templates/admin_master.html:50
+#: templates/admin_master.html:49
 msgid "DELETE BARCAMP"
 msgstr ""
 
