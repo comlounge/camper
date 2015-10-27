@@ -554,7 +554,7 @@
         })(this)
       });
     });
-    tinyMCE.baseURL = "/static/js/components/tinymce/";
+    tinyMCE.baseURL = "/static/js/tinymce/";
     tinymce.init({
       selector: '.wysiwyg',
       menubar: false,

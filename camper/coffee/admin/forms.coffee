@@ -366,13 +366,14 @@ $ ->
                 @escape()
         )
 
-    tinyMCE.baseURL = "/static/js/components/tinymce/"
+    tinyMCE.baseURL = "/static/js/tinymce/"
     tinymce.init
         selector:'.wysiwyg'
         menubar: false
         plugins: ['image', 'link', 'code']
         toolbar: "undo redo | formatselect | bold italic | bullist numlist | blockquote | removeformat | image link | code"
         content_css : "/static/css/tinymce.css"
+
 
     #
     # map editor related
