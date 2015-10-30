@@ -11,8 +11,8 @@ class LogoEditor
 
         @icon_svg = $("#icon-svg") # the inline SVG with the barcamp icon
         @icon_img = null
-        @icon_width = 0
-        @icon_height = 0
+        @icon_width = 220
+        @icon_height = 220
 
         # font constants
         @font_weight = 60
@@ -32,6 +32,8 @@ class LogoEditor
         @image_scale = 1 # the scale factor for the whole image (icon + texts)
         @current_length = 7 # length of texts
         @old_length = 7 # old length to check for changes
+        @logo_factor = 0.9 # the scale factor of the logo 
+
 
         @textinput1 = $('#logoinput1')
         @textinput2 = $('#logoinput2')
@@ -43,23 +45,15 @@ class LogoEditor
     # initialize the logo editor
     init: () =>
         @init_ui()
-        @init_icon(@update)
-
+        @init_icon()
+        @update()
+        
     # initialize the barcamp icon in the form
     init_icon: (callback) ->
         # initialize the icon in the form
         container = @icon_svg.find('g#container')
         container.attr('transform', 'scale('+@icon_label_scale+')')
         $('#logoicon').attr('src', "data:image/svg+xml;base64,"+window.btoa($(@icon_svg).prop('outerHTML')))
-
-        @icon_img = new Image()
-        @icon_img.src = "data:image/svg+xml;base64,"+window.btoa($(@icon_svg).prop('outerHTML'))
-        @icon_img.onload = () =>
-            @icon_width = @icon_img.width
-            @icon_height = @icon_img.height
-            console.log "#{@icon_width} x #{@icon_height}"
-
-            callback()
 
 
     # initialize all UI elements
@@ -105,11 +99,26 @@ class LogoEditor
         # clear the canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-        # draw the elements
-        offset = @draw_icon(canvas, scale)
-        console.log offset
+        # draw the elements and call the callback because of async image loading
+        @draw_icon(canvas, scale)
+        offset = 220*0.9 + 220*0.12
+        @draw_text(canvas, scale, offset, offset+text_width1)
+        console.log(offset)
 
-        
+    # draw the 2 texts
+    draw_text: (canvas, scale, offset1, offset2) ->
+        ctx = canvas.getContext("2d")
+
+        font1 = "bold #{@font_weight * scale * 0.7}px #{@font_family}"
+        font2 = "normal #{@font_weight * scale * 0.7}px #{@font_family}"
+
+        ctx.font = font1
+        ctx.fillStyle = @color1
+        ctx.fillText(@text1, offset1, canvas.height/2 + scale*12)
+
+        ctx.fillStyle = @color2
+        ctx.font = font2
+        ctx.fillText(@text2, (offset2), canvas.height/2+scale*12)
 
 
 
@@ -118,7 +127,7 @@ class LogoEditor
         ctx = canvas.getContext("2d")
 
         # set the scale and color of the svg 
-        logo_factor = 0.5
+        logo_factor = 0.9
         svg_scale = logo_factor * scale
         container = @icon_svg.find('g#container')
         container.attr('transform', "scale(#{svg_scale})")
@@ -128,13 +137,6 @@ class LogoEditor
         img = new Image()
         img.src = "data:image/svg+xml;base64,"+window.btoa($(@icon_svg).prop('outerHTML'))
         img.onload = () ->
-
-            # remember the size of the scaled icon
-            @icon_width = img.width()
-            @icon_height = img.height()
-
-            # clear the old area
-            #ctx.clearRect(0, 0, image_offset, canvas.height)
 
             # center the icon in the y center
             y = (canvas.height/2) - 10 - (scale * logo_factor * 45)

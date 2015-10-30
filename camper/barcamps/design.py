@@ -40,6 +40,14 @@ class DesignForm(BaseForm):
                                     description = T('The gallery will be displayed on the homepage of your barcamp between barcamp navigation and the rest of the content'), 
                                     default = -1)
 
+    # logo generator fields
+    logo_color_logo         = HiddenField()
+    logo_color1             = HiddenField()
+    logo_color2             = HiddenField()
+    logo_text1              = HiddenField()
+    logo_text2              = HiddenField()
+    logo_scale              = HiddenField()
+
 
 
 class DesignView(BarcampBaseHandler):

@@ -100,18 +100,12 @@ module.exports = function(grunt) {
                     'jed',
                     'moment',
                     'moment-timezone',
-                    "bootstrap",
                     "jquery-timepicker-jt",
                     "underscore",
-                    "marked",
-                    "bootstrap-markdown",
-                    "tinymce",
                     "parsleyjs",
                     "parsleyjs-bootstrap3",
-                    "mjolnic-bootstrap-colorpicker",
                     "bootstrap-datepicker",
                     "datepair",
-                    "bootstrap-confirmation2",
                     "typeahead.js",
                     "bootstrap-tagsinput",
                     "speakingurl",
@@ -141,14 +135,26 @@ module.exports = function(grunt) {
             public_components: {
                 src: ['static/js/jquery-ui.js', 'static/js/public_components.js', 'static/js/fileuploader.js'],
                 dest: 'static/js/public_components.min.js'
-            }
+            },
             /* uglify hangs with this maybe because of https://github.com/gruntjs/grunt-contrib-uglify/issues/233
+            */
             components: {
                 src: '<%= bower_concat.all.dest %>',
+                dest: 'static/js/components.pre.min.js'
+            }
+        },
+        concat: {
+            options: {
+                preserveComments: 'some',
+                sourceMap: true
+            },
+            // we need this to add tinymce as uglify breaks with it
+            components: {
+                src: ['static/js/components.pre.min.js', 'static/js/components/tinymce/tinymce.min.js'],
                 dest: 'static/js/components.min.js'
             }
-            */
         }
+        
     });
 
     // Load the plugin that provides the "uglify" task.
@@ -168,7 +174,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['less', 'bower_concat', 'cjsx', 'uglify']);
     grunt.registerTask('hbs', ['handlebars']);
     grunt.registerTask('js', ['cjsx', 'uglify:public', 'uglify:admin']);
-    grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify']);
+    grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify', 'concat']);
     grunt.registerTask('css', ['less', 'uglify']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 

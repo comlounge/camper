@@ -359,7 +359,6 @@
       options = {
         zoom: 14
       };
-      console.log(this.options);
       this.map = L.mapbox.map(this.$element.attr('id'), this.options.mapid, options);
       this.lat = null;
       this.lng = null;
@@ -764,8 +763,282 @@
 }).call(this);
 
 (function() {
-  's4 = () ->\n    Math.floor((1 + Math.random()) * 0x10000)\n           .toString(16)\n           .substring(1)\n\nguid = () ->\n    return s4() + s4() + \'-\' + s4() + \'-\' + s4() + \'-\' +\n           s4() + \'-\' + s4() + s4() + s4()\n\napp = angular.module(\'barcamptool\', [\'ui.timepicker\', \'ui.sortable\', \'ngTagsInput\', \'ui.autocomplete\']);\n\napp.filter \'slice\', () ->\n    return (arr, start, end) ->\n        if arr \n            return arr.slice(start, end)\n        else\n            return arr\n\n\napp.config ($interpolateProvider) ->\n    $interpolateProvider\n    .startSymbol(\'{[{\')\n    .endSymbol(\'}]}\')\n\n\napp.controller \'SessionBoardCtrl\', ($scope, $http, $q, $filter) ->\n\n    # set some defaults\n\n    $scope.sessionplan = {}\n\n    $scope.sortableOptions =\n        axis: \'x\'\n        items: "td"\n        placeholder: "sortable-placeholder"\n        containment: \'parent\'\n        cancel: ".not-sortable"\n        opacity: 0.5\n\n    $scope.room = {\n        name: \'\',\n        description: \'\',\n        capacity: \'\'\n    }\n    $scope.timeslot = {\n        time: null,\n        blocked: false,\n        reason: \'\'\n    }\n\n    $scope.timePickerOptions =\n        step: 15\n        timeFormat: \'G:i\'\n        minTime: "00:00"\n        maxTime: "24:00"\n        appendTo: \'body\'\n\n    # load initial data from server\n    $http.get("sessionboard/data").success (data) ->\n        $scope.rooms = data.rooms\n        $scope.rooms.unshift({})\n        $scope.timeslots = data.timeslots\n        $scope.participants = data.participants\n        $scope.proposals = data.proposals\n        $scope.sessionplan = data.sessions\n\n            \n    #\n    # room related\n    #\n\n    $scope.roomModalMode = "add"\n    $scope.room_idx = null # for remembering which room to update\n\n    $scope.add_room_form = () ->\n        $scope.roomModalMode = "add"\n        $scope.room = {}\n        document.getElementById("add-room-form").reset()\n        $(\'#add-room-modal\').modal(\'show\')\n        $(\'#room-form-name\').focus()\n        undefined\n\n    $scope.add_room = () ->\n        if $scope.room_form.$error.$invalid\n            return\n        $scope.room.id = guid()\n        $scope.rooms.push($scope.room)\n        $scope.room = angular.copy($scope.room)\n        $(\'#add-room-modal\').modal(\'hide\')\n        return\n\n    $scope.edit_room = (idx) ->\n        $scope.roomModalMode = "edit"\n        $scope.room = angular.copy($scope.rooms[idx])\n        $scope.room_idx = idx        \n        $(\'#add-room-modal\').modal(\'show\')\n        return\n    \n    $scope.update_room = () ->\n        if $scope.room_form.$error.$invalid\n            return\n        $scope.rooms[$scope.room_idx] = $scope.room\n        $(\'#add-room-modal\').modal(\'hide\')\n        return\n        \n    $scope.delete_room = (idx) ->\n        $scope.rooms.splice(idx,1)\n        undefined\n\n\n    #\n    # timeslot related\n    #\n\n    $scope.timeslotModalMode = "add"\n    $scope.timeslot_idx = null # for remembering which timeslot to update\n\n    $scope.add_timeslot_form = () ->\n        $scope.timeslotModalMode = "add"\n        document.getElementById("add-timeslot-form").reset()\n\n        # pre-set the next possible time\n        if $scope.timeslots.length\n            last_time = new Date(angular.copy($scope.timeslots[$scope.timeslots.length-1]).time)\n            last_time = new Date(last_time.getTime() + last_time.getTimezoneOffset() * 60000) # convert to UTC\n            new_time = new Date(last_time.getTime() + 60*60000)\n            $("#timepicker").timepicker(\'setTime\', new_time)\n            $scope.timeslot.time = new_time\n        else\n            d = Date.now() # TODO: set the date of the day of the event\n            dd = new Date()\n            dd.setTime(d)\n            dd.setHours(9)\n            dd.setMinutes(0)\n            dd.setSeconds(0)\n            $("#timepicker").timepicker(\'option\', \'minTime\', \'00:00\')\n            $("#timepicker").timepicker(\'setTime\', dd)\n            $scope.timeslot.time = dd\n\n        $(\'#add-timeslot-modal\').modal(\'show\')\n        $(\'#timepicker\').focus()\n        return\n\n    $scope.add_timeslot = () ->\n\n        if $scope.timeslot_form.$error.$invalid\n            return\n\n        d = $scope.timeslot.time\n\n        # get the local timezone offset\n        now = new Date()\n        localOffset = now.getTimezoneOffset()\n        \n        # convert to utc by removing the local offset\n        utc = new Date(d.getTime() - localOffset*60000)\n        \n        $scope.timeslot.time = utc\n        $scope.timeslots.push $scope.timeslot\n\n        $scope.timeslots = _.sortBy($scope.timeslots, (item) ->\n            t = item.time\n            # loaded timeslots are string and not objects\n            if typeof(t) == \'string\'\n                return new Date(t)\n            return t\n        )\n        $scope.timeslot = angular.copy($scope.timeslot)\n        $(\'#add-timeslot-modal\').modal(\'hide\')\n        $scope.timeslot.blocked = false\n        $scope.timeslot.reason = ""\n        return\n\n    $scope.delete_timeslot = (idx) ->\n        $scope.timeslots.splice(idx,1)\n        undefined\n\n\n    #\n    # slot related\n    #\n\n    $scope.session_id = null # for remembering which session to update (format: $room.id@$slot.time)\n    $scope.session = {}\n    $scope.add_session = (slot, room) ->\n        d = new Date(slot.time)\n        fd = $filter(\'date\')(d, \'hh:mm\', \'UTC\')\n        idx = $scope.session_idx = room.id+"@"+fd\n        if $scope.sessionplan.hasOwnProperty(idx)\n            $scope.session = angular.copy($scope.sessionplan[idx])\n        else\n            $scope.session = \n                sid: guid() # we need a unique id for easier referencing\n                slug: \'\' # the slug for easier url referencing\n                _id: idx\n                title: \'\'\n                description: \'\'\n                moderator: []\n        \n\n        #$scope.room = angular.copy($scope.rooms[idx])\n        $(\'#edit-session-modal\').modal(\'show\')\n        $("#ac-title").focus()\n        selectedItem = null\n        $("#ac-title").autocomplete\n            source: $scope.proposals\n            appendTo: \'#edit-session-modal\'\n            open: (event, ui) ->\n                selectedItem = null\n            select: (event, ui) ->\n                selectedItem = ui\n            change: (event, ui) ->\n                selected = false\n                if selectedItem\n                    value = selectedItem.item.value\n                else\n                    return\n                user_id = selectedItem.item.user_id\n\n                # update the scope\n                $scope.$apply( () ->\n                    # search for user\n                    for user in $scope.participants\n                        if user._id == user_id\n                            $scope.session.moderator = [user]\n                            break\n                    $scope.session.title = value\n                    $scope.session.description = selectedItem.item.description\n                )\n        return\n\n    $scope.update_session = () ->\n        idx = $scope.session._id\n        $scope.session = angular.copy($scope.session)\n        \n        # create filename for it\n        orig_slug = $scope.session.title.replace(/[^a-z0-9]/gi, \'_\').toLowerCase();\n        suffix = 0\n        slug = orig_slug + \'\'\n\n        # check if slug is already taken\n        while true\n            for sid, session of $scope.sessionplan\n                if session.slug == slug and idx != sid\n                    suffix++  \n                    slug = orig_slug+suffix # append number\n                    break\n            break\n\n        $scope.session.slug = slug\n\n        $scope.sessionplan[idx] = $scope.session\n        $(\'#edit-session-modal\').modal(\'hide\')\n        return\n\n\n    $scope.get_session_id = (slot, room) ->\n        d = new Date(slot.time)\n        fd = $filter(\'date\')(d, \'hh:mm\', \'UTC\')\n        idx = room.id+"@"+fd\n        return idx\n     \n    $scope.loadParticipants = () ->\n        deferred = $q.defer()\n        deferred.resolve($scope.participants)\n        return deferred.promise;\n\n    #\n    # server communications\n    #\n\n    $scope.save_to_server = () ->\n        # clean up rooms\n        rooms = angular.copy($scope.rooms)\n        rooms.splice(0,1) # remove first empty element\n        data = \n            rooms: rooms\n            timeslots: $scope.timeslots\n            sessions: $scope.sessionplan\n        $http.post("sessionboard/data", data).success (data) ->\n            # TODO: catch some error here\n            return\n        .error (data) ->\n            # TODO: explain error\n            return\n\n    $scope.$watch( \'rooms\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n    $scope.$watch( \'timeslots\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n\n    $scope.$watch( \'sessionplan\', (newValue, oldValue) ->\n        if newValue != oldValue\n            $scope.save_to_server()\n        undefined\n    , true)\n\n\n\n\nINTEGER_REGEXP = ///^\n    [0-9]+\n    $///i\n\n# we only catch . here, the rest is done by the default validator\napp.directive(\'integer\', () ->\n    return {\n        restrict: "AE",\n        require: \'ngModel\',\n        link: ($scope, elm, attrs, ctrl) ->\n            ctrl.$validators.integer = (modelValue, viewValue) ->\n                if ctrl.$isEmpty(modelValue)\n                    return true\n                if viewValue.match INTEGER_REGEXP\n                    return true\n                \n                # it is invalid\n                return false\n    }\n)\n';
+  var LogoEditor,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
+  LogoEditor = (function() {
+    function LogoEditor() {
+      this.update = __bind(this.update, this);
+      this.init = __bind(this.init, this);
+      this.canvas = $("#logocanvas")[0];
+      this.final_canvas = $("#finalcanvas")[0];
+      this.export_canvas = $("#exportcanvas")[0];
+      this.tmp_canvas = $("#tmp_canvas")[0];
+      this.tmp_text = $("#tmp_text");
+      this.icon_svg = $("#icon-svg");
+      this.icon_img = null;
+      this.icon_width = 220;
+      this.icon_height = 220;
+      this.font_weight = 60;
+      this.font_family = "Open Sans";
+      this.text1 = "bar";
+      this.text2 = "camp";
+      this.color_logo = "#b5d749";
+      this.color1 = "#5f7e53";
+      this.color2 = "#b5d749";
+      this.icon_label_scale = 2;
+      this.icon_width = 90;
+      this.image_scale = 1;
+      this.current_length = 7;
+      this.old_length = 7;
+      this.logo_factor = 0.9;
+      this.textinput1 = $('#logoinput1');
+      this.textinput2 = $('#logoinput2');
+      this.colorinput_logo = $('#colorinput_logo');
+      this.colorinput1 = $('#colorinput1');
+      this.colorinput2 = $('#colorinput2');
+    }
+
+    LogoEditor.prototype.init = function() {
+      this.init_ui();
+      this.init_icon();
+      return this.update();
+    };
+
+    LogoEditor.prototype.init_icon = function(callback) {
+      var container;
+      container = this.icon_svg.find('g#container');
+      container.attr('transform', 'scale(' + this.icon_label_scale + ')');
+      return $('#logoicon').attr('src', "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML')));
+    };
+
+    LogoEditor.prototype.init_ui = function() {
+      $(".colorpicker-container-logo").colorpicker().on('changeColor', (function(_this) {
+        return function(ev) {
+          _this.color_logo = $(colorinput_logo).val();
+          _this.color1 = $(colorinput1).val();
+          _this.color2 = $(colorinput2).val();
+          return _this.update();
+        };
+      })(this));
+      return $('.logoinput').on('keyup', function(e) {
+        this.text1 = $(textinput1).val();
+        this.text2 = $(textinput2).val();
+        return this.update();
+      });
+    };
+
+    LogoEditor.prototype.update = function() {
+      console.log("updated");
+      return this.resize();
+    };
+
+    LogoEditor.prototype.draw_logo = function(canvas, scale) {
+      var ctx, font1, font2, offset, text_width1, text_width2;
+      ctx = canvas.getContext("2d");
+      console.log("drawing with scale " + scale);
+      font1 = "bold " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
+      font2 = "normal " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
+      text_width1 = $("#tmp_text").css('font', font1).text(this.text1).width();
+      text_width2 = $("#tmp_text").css('font', font2).text(this.text2).width();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      this.draw_icon(canvas, scale);
+      offset = 220 * 0.9 + 220 * 0.12;
+      this.draw_text(canvas, scale, offset, offset + text_width1);
+      return console.log(offset);
+    };
+
+    LogoEditor.prototype.draw_text = function(canvas, scale, offset1, offset2) {
+      var ctx, font1, font2;
+      ctx = canvas.getContext("2d");
+      font1 = "bold " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
+      font2 = "normal " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
+      ctx.font = font1;
+      ctx.fillStyle = this.color1;
+      ctx.fillText(this.text1, offset1, canvas.height / 2 + scale * 12);
+      ctx.fillStyle = this.color2;
+      ctx.font = font2;
+      return ctx.fillText(this.text2, offset2, canvas.height / 2 + scale * 12);
+    };
+
+    LogoEditor.prototype.draw_icon = function(canvas, scale) {
+      var container, ctx, img, logo_factor, svg_scale;
+      ctx = canvas.getContext("2d");
+      logo_factor = 0.9;
+      svg_scale = logo_factor * scale;
+      container = this.icon_svg.find('g#container');
+      container.attr('transform', "scale(" + svg_scale + ")");
+      $(container.children()[0]).css('fill', this.color_logo);
+      img = new Image();
+      img.src = "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML'));
+      return img.onload = function() {
+        var y;
+        y = (canvas.height / 2) - 10 - (scale * logo_factor * 45);
+        return ctx.drawImage(img, 0, y);
+      };
+    };
+
+    LogoEditor.prototype.resize = function() {
+      var scale;
+      scale = 3;
+      return this.draw_logo(this.tmp_canvas, scale);
+    };
+
+    return LogoEditor;
+
+  })();
+
+  $.fn.logoeditor = function(opts) {
+    var canvas, center_y, color1, color2, color_logo, create_image, ctx, draw_image, draw_text, dummy, export_png, font_family, font_weight, has_scaled, icon_image_scale, image_offset, image_scale, init, logo_scale, max_scale, old_length, rescale, set_icon, svg, text1, text2;
+    if (opts == null) {
+      opts = {};
+    }
+    canvas = null;
+    ctx = null;
+    svg = null;
+    dummy = null;
+    font_weight = 60;
+    font_family = "Open Sans";
+    text1 = "";
+    text2 = "";
+    color_logo = "#B5D749";
+    color1 = "#5F7E53";
+    color2 = "#B5D749";
+    max_scale = 3;
+    image_scale = max_scale;
+    icon_image_scale = 2;
+    image_offset = 90;
+    has_scaled = false;
+    logo_scale = 0.7;
+    old_length = 0;
+    init = function() {
+      var colorinput1, colorinput2, colorinput_logo, textinput1, textinput2;
+      canvas = $('#logocanvas')[0];
+      ctx = canvas.getContext("2d");
+      dummy = $('#dummy_text');
+      textinput1 = $('#logoinput1');
+      textinput2 = $('#logoinput2');
+      colorinput_logo = $('#colorinput_logo');
+      colorinput1 = $('#colorinput1');
+      colorinput2 = $('#colorinput2');
+      text1 = $(textinput1).val();
+      text2 = $(textinput2).val();
+      $(".colorpicker-container-logo").colorpicker().on('changeColor', function(ev) {
+        console.log("oh, an update");
+        color_logo = $(colorinput_logo).val();
+        color1 = $(colorinput1).val();
+        color2 = $(colorinput2).val();
+        draw_image();
+        return draw_text();
+      });
+      $('.logoinput').on('keyup', function(e) {
+        text1 = $(textinput1).val();
+        text2 = $(textinput2).val();
+        draw_text();
+        return rescale();
+      });
+      create_image();
+      console.log("inited");
+      return $('#logoeditor-modal').on('shown.bs.modal', function() {
+        set_icon();
+        draw_image();
+        return draw_text();
+      });
+    };
+    create_image = function() {
+      svg = $("body").find('svg');
+      set_icon();
+      return draw_image();
+    };
+    set_icon = function() {
+      var container;
+      container = svg.find('g#container');
+      container.attr('transform', 'scale(' + icon_image_scale + ')');
+      return $('#logoicon').attr('src', "data:image/svg+xml;base64," + window.btoa($(svg).prop('outerHTML')));
+    };
+    draw_image = function() {
+      var container, img;
+      container = svg.find('g#container');
+      container.attr('transform', 'scale(' + logo_scale * image_scale + ')');
+      $(container.children()[0]).css('fill', color_logo);
+      img = new Image();
+      img.src = "data:image/svg+xml;base64," + window.btoa($(svg).prop('outerHTML'));
+      return img.onload = function() {
+        var logo_width;
+        ctx.clearRect(0, 0, image_offset, canvas.height);
+        console.log("centering");
+        console.log(img.width);
+        logo_width = img.width;
+        image_offset = img.width / 2 + (img.width * 0.1);
+        console.log(image_offset);
+        ctx.drawImage(img, 0, center_y());
+        return $('#exportpng').attr('href', canvas.toDataURL('image/png'));
+      };
+    };
+    draw_text = function() {
+      console.log("drawing text");
+      console.log(image_offset);
+      ctx.clearRect(image_offset, 0, canvas.width, canvas.height);
+      ctx.fillStyle = color1;
+      ctx.font = "bold " + font_weight * image_scale * 0.7 + "px " + font_family;
+      $(dummy).css('font', ctx.font);
+      ctx.fillText(text1, image_offset, canvas.height / 2 + image_scale * 12);
+      $(dummy).text(text1);
+      ctx.fillStyle = color2;
+      ctx.font = "normal " + font_weight * image_scale * 0.7 + "px " + font_family;
+      return ctx.fillText(text2, image_offset + $(dummy).width(), canvas.height / 2 + image_scale * 12);
+    };
+    center_y = function() {
+      return (canvas.height / 2) - image_scale * logo_scale * 45 - 10;
+    };
+    rescale = function() {
+      var current_length, logo_width, total_width;
+      console.log("rescale");
+      current_length = text1.length + text2.length;
+      console.log(current_length);
+      total_width = image_offset * image_scale + $(dummy).width() + ctx.measureText(text2).width;
+      console.log(image_scale);
+      image_scale = 2;
+      logo_width = image_scale * logo_scale * 45;
+      console.log(logo_width);
+      draw_image();
+      draw_text();
+      old_length = current_length;
+      return;
+      console.log(total_width);
+      if (total_width >= canvas.width && current_length > old_length) {
+        image_scale -= 0.2;
+        draw_image();
+        draw_text();
+        has_scaled = true;
+      } else if (total_width <= canvas.width * 0.85 && image_scale < max_scale && current_length < old_length) {
+        image_scale += 0.2;
+        draw_image();
+        draw_text();
+        has_scaled = false;
+      }
+      return old_length = current_length;
+    };
+    export_png = function(e) {
+      var dt;
+      e.preventDefault();
+      console.log("EXPORT");
+      dt = canvas.toDataURL('image/png');
+      console.log(dt);
+      dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
+      console.log(dt);
+      return window.location = dt;
+    };
+    $(this).each(init);
+    return this;
+  };
+
+  $(function() {
+    var le;
+    le = new LogoEditor();
+    le.init();
+    return $("#logoeditor-modal").modal("show");
+  });
 
 }).call(this);
 

@@ -11,15 +11,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/components.css")}}" />
 
-    <script src="{{url_for('static', filename='js/components.js')}}"></script>
-    <script src="{{url_for('static', filename='js/admin.js')}}"></script>
-    <script src="{{url_for("static", filename='js/parsley.remote.min.js')}}"></script>
-    
-    {% if locale == "de" %}
-        <script src="{{url_for('static', filename='js/bootstrap-datepicker.de.js')}}"></script>
-    {% elif locale == "en" %}
-        <script src="{{url_for('static', filename='js/bootstrap-datepicker.en-GB.js')}}"></script>
-    {% endif %}
+
 
 
 {% endblock %}
@@ -68,6 +60,15 @@
 {% endblock %}
 
 {% block js %}
+    <script src="{{url_for('static', filename='js/components.min.js')}}"></script>
+    <script src="{{url_for("static", filename='js/parsley.remote.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/admin.js')}}"></script>
+    
+    {% if locale == "de" %}
+        <script src="{{url_for('static', filename='js/bootstrap-datepicker.de.js')}}"></script>
+    {% elif locale == "en" %}
+        <script src="{{url_for('static', filename='js/bootstrap-datepicker.en-GB.js')}}"></script>
+    {% endif %}
     <script>
         CONFIG = {
             slug_validation_url : "{{url_for('barcamps.validate')}}",

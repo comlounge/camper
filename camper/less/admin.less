@@ -343,7 +343,7 @@ body.admin {
     }
 }
 
-.colorpicker-container {
+.colorpicker-container, .colorpicker-container-logo {
     input { 
         width: auto; 
         float: left; 
@@ -353,6 +353,22 @@ body.admin {
         i {
             width: 100%;
             height: 100%
+        }
+    }
+}
+.colorpicker {
+    z-index: 10000;
+}
+
+.colorpicker-container-logo {
+    input {
+        height: 35px;
+        width: 100px;
+    }
+    .input-group-addon {
+        i { 
+            width: 20px !important; 
+            height: 20px !important;
         }
     }
 }
@@ -475,4 +491,19 @@ form {
 
 .ui-draggable-dragging {
     background: rgba(0,0,0, 0.1) !important;
+}
+
+
+
+// logo editor
+
+#logoeditor {
+    .inputtable td {
+        padding: 0 10px 0 10px;
+    }
+
+
+    #dummy_text {
+        position: fixed;
+    }
 }
