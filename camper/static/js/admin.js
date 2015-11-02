@@ -767,36 +767,35 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   LogoEditor = (function() {
+    LogoEditor.prototype.font_weight = 180;
+
+    LogoEditor.prototype.font_family = "Open Sans";
+
+    LogoEditor.prototype.icon_factor = 2.7;
+
+    LogoEditor.prototype.icon_label_scale = 2;
+
     function LogoEditor() {
       this.update = __bind(this.update, this);
       this.init = __bind(this.init, this);
       this.canvas = $("#logocanvas")[0];
       this.final_canvas = $("#finalcanvas")[0];
       this.export_canvas = $("#exportcanvas")[0];
-      this.tmp_canvas = $("#tmp_canvas")[0];
       this.tmp_text = $("#tmp_text");
       this.icon_svg = $("#icon-svg");
       this.icon_img = null;
-      this.icon_width = 220;
-      this.icon_height = 220;
-      this.font_weight = 60;
-      this.font_family = "Open Sans";
-      this.text1 = "bar";
-      this.text2 = "camp";
-      this.color_logo = "#b5d749";
-      this.color1 = "#5f7e53";
-      this.color2 = "#b5d749";
-      this.icon_label_scale = 2;
-      this.icon_width = 90;
-      this.image_scale = 1;
       this.current_length = 7;
       this.old_length = 7;
-      this.logo_factor = 0.9;
       this.textinput1 = $('#logoinput1');
       this.textinput2 = $('#logoinput2');
       this.colorinput_logo = $('#colorinput_logo');
       this.colorinput1 = $('#colorinput1');
       this.colorinput2 = $('#colorinput2');
+      this.text1 = this.textinput1.val();
+      this.text2 = this.textinput2.val();
+      this.color_logo = this.colorinput_logo.val();
+      this.color1 = this.colorinput1.val();
+      this.color2 = this.colorinput2.val();
     }
 
     LogoEditor.prototype.init = function() {
@@ -815,17 +814,19 @@
     LogoEditor.prototype.init_ui = function() {
       $(".colorpicker-container-logo").colorpicker().on('changeColor', (function(_this) {
         return function(ev) {
-          _this.color_logo = $(colorinput_logo).val();
-          _this.color1 = $(colorinput1).val();
-          _this.color2 = $(colorinput2).val();
+          _this.color_logo = _this.colorinput_logo.val();
+          _this.color1 = _this.colorinput1.val();
+          _this.color2 = _this.colorinput2.val();
           return _this.update();
         };
       })(this));
-      return $('.logoinput').on('keyup', function(e) {
-        this.text1 = $(textinput1).val();
-        this.text2 = $(textinput2).val();
-        return this.update();
-      });
+      return $('.logoinput').on('keyup', (function(_this) {
+        return function(e) {
+          _this.text1 = _this.textinput1.val();
+          _this.text2 = _this.textinput2.val();
+          return _this.update();
+        };
+      })(this));
     };
 
     LogoEditor.prototype.update = function() {
@@ -833,55 +834,73 @@
       return this.resize();
     };
 
-    LogoEditor.prototype.draw_logo = function(canvas, scale) {
-      var ctx, font1, font2, offset, text_width1, text_width2;
+    LogoEditor.prototype.draw_logo = function(canvas) {
+      var ctx, icon_width, offsets, scale, text_width1;
       ctx = canvas.getContext("2d");
-      console.log("drawing with scale " + scale);
-      font1 = "bold " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
-      font2 = "normal " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
-      text_width1 = $("#tmp_text").css('font', font1).text(this.text1).width();
-      text_width2 = $("#tmp_text").css('font', font2).text(this.text2).width();
+      offsets = this.compute_scale(canvas);
+      scale = offsets.scale;
+      text_width1 = offsets.text_width1;
+      icon_width = offsets.icon_width;
+      console.log("drawing with scale " + offsets.scale);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       this.draw_icon(canvas, scale);
-      offset = 220 * 0.9 + 220 * 0.12;
-      this.draw_text(canvas, scale, offset, offset + text_width1);
-      return console.log(offset);
+      return this.draw_text(canvas, scale, icon_width, icon_width + text_width1);
+    };
+
+    LogoEditor.prototype.compute_scale = function(canvas) {
+      var factor, font1, font2, full_width, icon_width, scale, text_width1, text_width2;
+      font1 = "bold " + (this.font_weight * 0.7) + "px " + this.font_family;
+      font2 = "normal " + (this.font_weight * 0.7) + "px " + this.font_family;
+      text_width1 = $("#tmp_text").css('font', font1).text(this.text1).width();
+      text_width2 = $("#tmp_text").css('font', font2).text(this.text2).width();
+      icon_width = 90 * this.icon_factor;
+      full_width = icon_width + text_width1 + text_width2;
+      factor = canvas.width / full_width;
+      scale = Math.min(1, factor * 0.98);
+      return {
+        scale: scale,
+        icon_width: icon_width * scale,
+        text_width1: text_width1 * scale,
+        text_width2: text_width2 * scale
+      };
     };
 
     LogoEditor.prototype.draw_text = function(canvas, scale, offset1, offset2) {
       var ctx, font1, font2;
       ctx = canvas.getContext("2d");
+      ctx.clearRect(offset1, 0, canvas.width - offset1, canvas.height);
       font1 = "bold " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
       font2 = "normal " + (this.font_weight * scale * 0.7) + "px " + this.font_family;
       ctx.font = font1;
       ctx.fillStyle = this.color1;
-      ctx.fillText(this.text1, offset1, canvas.height / 2 + scale * 12);
+      ctx.fillText(this.text1, offset1, canvas.height / 2 + scale * 40);
       ctx.fillStyle = this.color2;
       ctx.font = font2;
-      return ctx.fillText(this.text2, offset2, canvas.height / 2 + scale * 12);
+      return ctx.fillText(this.text2, offset2, canvas.height / 2 + scale * 40);
     };
 
     LogoEditor.prototype.draw_icon = function(canvas, scale) {
-      var container, ctx, img, logo_factor, svg_scale;
+      var container, ctx, img, svg_scale;
       ctx = canvas.getContext("2d");
-      logo_factor = 0.9;
-      svg_scale = logo_factor * scale;
+      svg_scale = this.icon_factor * scale;
       container = this.icon_svg.find('g#container');
       container.attr('transform', "scale(" + svg_scale + ")");
       $(container.children()[0]).css('fill', this.color_logo);
       img = new Image();
       img.src = "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML'));
-      return img.onload = function() {
-        var y;
-        y = (canvas.height / 2) - 10 - (scale * logo_factor * 45);
-        return ctx.drawImage(img, 0, y);
-      };
+      return img.onload = (function(_this) {
+        return function() {
+          var y;
+          y = (canvas.height / 2) - (scale * _this.icon_factor * 45);
+          return ctx.drawImage(img, 0, y);
+        };
+      })(this);
     };
 
     LogoEditor.prototype.resize = function() {
       var scale;
       scale = 3;
-      return this.draw_logo(this.tmp_canvas, scale);
+      return this.draw_logo(this.canvas);
     };
 
     return LogoEditor;
