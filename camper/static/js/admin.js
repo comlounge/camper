@@ -784,8 +784,6 @@
       this.tmp_text = $("#tmp_text");
       this.icon_svg = $("#icon-svg");
       this.icon_img = null;
-      this.current_length = 7;
-      this.old_length = 7;
       this.textinput1 = $('#logoinput1');
       this.textinput2 = $('#logoinput2');
       this.colorinput_logo = $('#colorinput_logo');
@@ -820,48 +818,114 @@
           return _this.update();
         };
       })(this));
-      return $('.logoinput').on('keyup', (function(_this) {
+      $('.logoinput').on('keyup', (function(_this) {
         return function(e) {
           _this.text1 = _this.textinput1.val();
           _this.text2 = _this.textinput2.val();
           return _this.update();
         };
       })(this));
+      $('#save-as-logo-button').click((function(_this) {
+        return function(e) {
+          var save_logo;
+          e.preventDefault();
+          $("#logo_color_logo").val(_this.colorinput_logo.val());
+          $("#logo_color1").val(_this.colorinput1.val());
+          $("#logo_color2").val(_this.colorinput2.val());
+          $("#logo_text1").val(_this.textinput1.val());
+          $("#logo_text2").val(_this.textinput2.val());
+          save_logo = function(canvas) {
+            var base64, data, parts;
+            data = canvas.toDataURL("image/png");
+            parts = data.split(",");
+            base64 = parts[parts.length - 1];
+            $("#save-as-logo-button").hide();
+            $("#saving-as-logo-button").show();
+            return $.ajax({
+              url: $("#logoeditor-modal").data("upload-url"),
+              type: "POST",
+              data: {
+                data: base64,
+                filename: "" + _this.text1 + _this.text2 + "logo.png"
+              },
+              success: function(data) {
+                var widget;
+                console.log("success");
+                console.log(data);
+                widget = $("#uploadwidget-logo");
+                $("#logo").val(data.asset_id);
+                widget.find(".uploader-buttons").show();
+                widget.find(".preview-area img").attr("src", data.url);
+                widget.find(".progress").hide();
+                widget.find(".preview-area").show();
+                $("#logoeditor-modal").modal("hide");
+                $("#save-as-logo-button").show();
+                return $("#saving-as-logo-button").hide();
+              },
+              error: function() {
+                $("#save-as-logo-button").show();
+                return $("#saving-as-logo-button").hide();
+              }
+            });
+          };
+          return _this.draw_logo(_this.final_canvas, 1.5, save_logo);
+        };
+      })(this));
+      return $('#save-as-png-button').click((function(_this) {
+        return function(e) {
+          var callback;
+          e.preventDefault();
+          callback = function(canvas) {
+            var a;
+            a = document.createElement("a");
+            a.download = "" + _this.text1 + _this.text2 + "logo.png";
+            a.href = canvas.toDataURL("image/png");
+            a.click();
+          };
+          _this.draw_logo(_this.export_canvas, 3.8, callback);
+          return $("#logoeditor-modal").modal("hide");
+        };
+      })(this));
     };
 
     LogoEditor.prototype.update = function() {
-      console.log("updated");
-      return this.resize();
+      return this.draw_logo(this.canvas, 1.1);
     };
 
-    LogoEditor.prototype.draw_logo = function(canvas) {
+    LogoEditor.prototype.draw_logo = function(canvas, screen_factor, callback) {
       var ctx, icon_width, offsets, scale, text_width1;
+      if (screen_factor == null) {
+        screen_factor = 1;
+      }
+      if (callback == null) {
+        callback = null;
+      }
       ctx = canvas.getContext("2d");
-      offsets = this.compute_scale(canvas);
+      offsets = this.compute_scale(canvas, screen_factor);
       scale = offsets.scale;
       text_width1 = offsets.text_width1;
       icon_width = offsets.icon_width;
       console.log("drawing with scale " + offsets.scale);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      this.draw_icon(canvas, scale);
-      return this.draw_text(canvas, scale, icon_width, icon_width + text_width1);
+      this.draw_text(canvas, scale, icon_width, icon_width + text_width1);
+      return this.draw_icon(canvas, scale, callback);
     };
 
-    LogoEditor.prototype.compute_scale = function(canvas) {
+    LogoEditor.prototype.compute_scale = function(canvas, screen_factor) {
       var factor, font1, font2, full_width, icon_width, scale, text_width1, text_width2;
       font1 = "bold " + (this.font_weight * 0.7) + "px " + this.font_family;
       font2 = "normal " + (this.font_weight * 0.7) + "px " + this.font_family;
       text_width1 = $("#tmp_text").css('font', font1).text(this.text1).width();
       text_width2 = $("#tmp_text").css('font', font2).text(this.text2).width();
       icon_width = 90 * this.icon_factor;
-      full_width = icon_width + text_width1 + text_width2;
-      factor = canvas.width / full_width;
+      full_width = (icon_width + text_width1 + text_width2) * 1.1;
+      factor = this.canvas.width / full_width;
       scale = Math.min(1, factor * 0.98);
       return {
-        scale: scale,
-        icon_width: icon_width * scale,
-        text_width1: text_width1 * scale,
-        text_width2: text_width2 * scale
+        scale: scale * screen_factor,
+        icon_width: icon_width * scale * screen_factor,
+        text_width1: text_width1 * scale * screen_factor,
+        text_width2: text_width2 * scale * screen_factor
       };
     };
 
@@ -879,27 +943,33 @@
       return ctx.fillText(this.text2, offset2, canvas.height / 2 + scale * 40);
     };
 
-    LogoEditor.prototype.draw_icon = function(canvas, scale) {
+    LogoEditor.prototype.draw_icon = function(canvas, scale, callback) {
       var container, ctx, img, svg_scale;
+      if (callback == null) {
+        callback = null;
+      }
       ctx = canvas.getContext("2d");
+      console.log(scale);
       svg_scale = this.icon_factor * scale;
       container = this.icon_svg.find('g#container');
       container.attr('transform', "scale(" + svg_scale + ")");
+      console.log(svg_scale);
       $(container.children()[0]).css('fill', this.color_logo);
-      img = new Image();
+      img = new Image(90 * this.icon_factor * scale, 90 * this.icon_factor * scale);
       img.src = "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML'));
       return img.onload = (function(_this) {
         return function() {
           var y;
           y = (canvas.height / 2) - (scale * _this.icon_factor * 45);
-          return ctx.drawImage(img, 0, y);
+          ctx.drawImage(img, 0, y);
+          if (callback) {
+            return callback(canvas);
+          }
         };
       })(this);
     };
 
     LogoEditor.prototype.resize = function() {
-      var scale;
-      scale = 3;
       return this.draw_logo(this.canvas);
     };
 
@@ -907,156 +977,10 @@
 
   })();
 
-  $.fn.logoeditor = function(opts) {
-    var canvas, center_y, color1, color2, color_logo, create_image, ctx, draw_image, draw_text, dummy, export_png, font_family, font_weight, has_scaled, icon_image_scale, image_offset, image_scale, init, logo_scale, max_scale, old_length, rescale, set_icon, svg, text1, text2;
-    if (opts == null) {
-      opts = {};
-    }
-    canvas = null;
-    ctx = null;
-    svg = null;
-    dummy = null;
-    font_weight = 60;
-    font_family = "Open Sans";
-    text1 = "";
-    text2 = "";
-    color_logo = "#B5D749";
-    color1 = "#5F7E53";
-    color2 = "#B5D749";
-    max_scale = 3;
-    image_scale = max_scale;
-    icon_image_scale = 2;
-    image_offset = 90;
-    has_scaled = false;
-    logo_scale = 0.7;
-    old_length = 0;
-    init = function() {
-      var colorinput1, colorinput2, colorinput_logo, textinput1, textinput2;
-      canvas = $('#logocanvas')[0];
-      ctx = canvas.getContext("2d");
-      dummy = $('#dummy_text');
-      textinput1 = $('#logoinput1');
-      textinput2 = $('#logoinput2');
-      colorinput_logo = $('#colorinput_logo');
-      colorinput1 = $('#colorinput1');
-      colorinput2 = $('#colorinput2');
-      text1 = $(textinput1).val();
-      text2 = $(textinput2).val();
-      $(".colorpicker-container-logo").colorpicker().on('changeColor', function(ev) {
-        console.log("oh, an update");
-        color_logo = $(colorinput_logo).val();
-        color1 = $(colorinput1).val();
-        color2 = $(colorinput2).val();
-        draw_image();
-        return draw_text();
-      });
-      $('.logoinput').on('keyup', function(e) {
-        text1 = $(textinput1).val();
-        text2 = $(textinput2).val();
-        draw_text();
-        return rescale();
-      });
-      create_image();
-      console.log("inited");
-      return $('#logoeditor-modal').on('shown.bs.modal', function() {
-        set_icon();
-        draw_image();
-        return draw_text();
-      });
-    };
-    create_image = function() {
-      svg = $("body").find('svg');
-      set_icon();
-      return draw_image();
-    };
-    set_icon = function() {
-      var container;
-      container = svg.find('g#container');
-      container.attr('transform', 'scale(' + icon_image_scale + ')');
-      return $('#logoicon').attr('src', "data:image/svg+xml;base64," + window.btoa($(svg).prop('outerHTML')));
-    };
-    draw_image = function() {
-      var container, img;
-      container = svg.find('g#container');
-      container.attr('transform', 'scale(' + logo_scale * image_scale + ')');
-      $(container.children()[0]).css('fill', color_logo);
-      img = new Image();
-      img.src = "data:image/svg+xml;base64," + window.btoa($(svg).prop('outerHTML'));
-      return img.onload = function() {
-        var logo_width;
-        ctx.clearRect(0, 0, image_offset, canvas.height);
-        console.log("centering");
-        console.log(img.width);
-        logo_width = img.width;
-        image_offset = img.width / 2 + (img.width * 0.1);
-        console.log(image_offset);
-        ctx.drawImage(img, 0, center_y());
-        return $('#exportpng').attr('href', canvas.toDataURL('image/png'));
-      };
-    };
-    draw_text = function() {
-      console.log("drawing text");
-      console.log(image_offset);
-      ctx.clearRect(image_offset, 0, canvas.width, canvas.height);
-      ctx.fillStyle = color1;
-      ctx.font = "bold " + font_weight * image_scale * 0.7 + "px " + font_family;
-      $(dummy).css('font', ctx.font);
-      ctx.fillText(text1, image_offset, canvas.height / 2 + image_scale * 12);
-      $(dummy).text(text1);
-      ctx.fillStyle = color2;
-      ctx.font = "normal " + font_weight * image_scale * 0.7 + "px " + font_family;
-      return ctx.fillText(text2, image_offset + $(dummy).width(), canvas.height / 2 + image_scale * 12);
-    };
-    center_y = function() {
-      return (canvas.height / 2) - image_scale * logo_scale * 45 - 10;
-    };
-    rescale = function() {
-      var current_length, logo_width, total_width;
-      console.log("rescale");
-      current_length = text1.length + text2.length;
-      console.log(current_length);
-      total_width = image_offset * image_scale + $(dummy).width() + ctx.measureText(text2).width;
-      console.log(image_scale);
-      image_scale = 2;
-      logo_width = image_scale * logo_scale * 45;
-      console.log(logo_width);
-      draw_image();
-      draw_text();
-      old_length = current_length;
-      return;
-      console.log(total_width);
-      if (total_width >= canvas.width && current_length > old_length) {
-        image_scale -= 0.2;
-        draw_image();
-        draw_text();
-        has_scaled = true;
-      } else if (total_width <= canvas.width * 0.85 && image_scale < max_scale && current_length < old_length) {
-        image_scale += 0.2;
-        draw_image();
-        draw_text();
-        has_scaled = false;
-      }
-      return old_length = current_length;
-    };
-    export_png = function(e) {
-      var dt;
-      e.preventDefault();
-      console.log("EXPORT");
-      dt = canvas.toDataURL('image/png');
-      console.log(dt);
-      dt = dt.replace(/^data:image\/[^;]*/, 'data:application/octet-stream');
-      console.log(dt);
-      return window.location = dt;
-    };
-    $(this).each(init);
-    return this;
-  };
-
   $(function() {
     var le;
     le = new LogoEditor();
-    le.init();
-    return $("#logoeditor-modal").modal("show");
+    return le.init();
   });
 
 }).call(this);

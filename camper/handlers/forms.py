@@ -142,6 +142,7 @@ class UploadWidget(object):
 
     tmpl = Template("""
         <div class="upload-widget"
+                id="uploadwidget-{{name}}"
                 data-id="{{name}}"
                 data-original-id="{{asset_id}}"
                 data-preview-url="{{preview_url}}"

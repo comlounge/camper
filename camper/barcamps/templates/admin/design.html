@@ -3,8 +3,8 @@
 
 {% block content %}
 <h1>{{_("Barcamp Design and Layout")}}</h1>
-<div class="hide">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 218" id="icon-svg">
+<div style="position: absolute; top: -100000px; left: -1000000px">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4220 4218" id="icon-svg">
     <g id="container" transform="scale(1.5)">
         <g transform="translate(6.17773, 3.72168)" style="fill:#26241f; fill-rule:nonzero; stroke:none; stroke-width:1; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;" >
             <path d="M34.5909 35.5508 C38.7022 33.8369 38.8662 27.2998 37.0401 23.8906 C34.5909 19.3183 28.4073 20.0781 24.2325 21.2715 C25.3897 17.9472 27.5127 13.4062 31.3467 12.75 C35.1534 12.0986 38.8799 14.4619 42.1905 15.9931 C45.1465 17.3623 50.3438 19.0801 52.4786 15.3457 C53.127 13.7695 51.2012 12.4707 49.5127 11.3994 C47.8282 10.3291 46.0342 9.30372 44.1612 8.60152 C84.7119 0 85.8301 85.081 42.9004 72.9551 C39.8008 72.081 36.8194 70.8213 33.9502 69.3672 C37.959 69.7002 42.2774 69.2754 45.4854 66.6748 C48.2325 64.4482 49.6827 59.8037 45.1563 58.7246 C41.0879 57.7549 36.6573 60.2324 32.6446 60.5732 C27.5918 61.0019 23.2832 61.1289 20.4102 57.1445 C22.6338 56.8672 24.3555 56.2754 25.2286 55.6435 C26.7403 54.5508 28.2051 53.0205 28.3379 51.0713 C28.5948 47.3408 25.7286 43.8467 22.5186 42.2578 C21.0342 41.5244 19.2578 41.2627 17.6543 41.7353 C15.5889 42.3447 14.9932 44.1269 13.5469 45.4971 C12.1309 46.8379 10.8086 47.8193 8.85747 48.209 C6.58207 48.6113 4.38277 47.5185 2.62989 46.1601 C1.67188 45.415 0.85645 44.5137 0 43.6572 C3.65821 44.1797 8.53517 45.123 10.6787 41.0185 C12.4024 37.7168 10.3565 33.9629 12.1787 30.6221 C14.5196 26.334 20.459 29.6943 23.376 31.3789 C26.7227 33.3125 30.0547 37.4394 34.5909 35.5508 Z" />
@@ -20,13 +20,15 @@
         </g>
     </g>
 </svg>
+<canvas id="exportcanvas" width="3000" height="1000" style="visibility: hidden"></canvas>
+<canvas id="finalcanvas" width="1140" height="335" style="visibility: hidden"></canvas>
+<p style="visibility: hidden; display: inline;" id="tmp_text"></p>
 </div>
-<canvas id="finalcanvas" width="1140" height="500" class="hide"></canvas>
-<canvas id="export" width="3000" height="1000" class="hide"></canvas>
+
 
     
-    
-<div class="modal" id="logoeditor-modal" tabindex="-1" role="dialog" aria-labelledby="logoeditor-label">
+<div class="modal" id="logoeditor-modal" tabindex="-1" role="dialog" aria-labelledby="logoeditor-label"
+    data-upload-url="{{url_for('barcamps.admin_design_upload', slug = slug)}}">
     <div class="modal-dialog">
         <div class="modal-content modal-lg">
             <div class="modal-header">
@@ -85,27 +87,23 @@
                 <br />
                 
                 <div>    
-                    <canvas id="logocanvas" width="850" height="218" style="border:1px solid #000000;">
+                    <canvas id="logocanvas" width="850" height="250" style="border:1px solid #000000;">
                     </canvas>
+
                 </div>
-                
-                <br />
-                
-                <div>    
-                    <a id="exportpng" download="logo.png" href="#">Download PNG</a>
-                </div>      
-            
+                        
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Cancel')}}</button>
-                <button type="button" class="btn btn-primary">{{_('Save as logo')}}</button>
-                <button type="button" class="btn btn-info">{{_('Download as PNG')}}</button>
+                <button type="button" id="save-as-logo-button" class="btn btn-primary">{{_('Save as logo')}}</button>
+                <button type="button" disabled id="saving-as-logo-button" 
+                        class="btn btn-primary" style="display: none;"><i class="fa fa-spinner fa-spin"></i> {{_('Saving ...')}}</button>
+                <button type="button" id="save-as-png-button" class="btn btn-info">{{_('Download as PNG')}}</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<p style="visibility: hidden; display: inline;" id="tmp_text"></p>
 
 <form id="design-form" method="POST" action="{{url}}">
 

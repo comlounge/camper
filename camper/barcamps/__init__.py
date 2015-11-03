@@ -66,6 +66,7 @@ class BarcampModule(Module):
 
 
         URL('/<slug>/admin/design',         'admin_design',                     design.DesignView),
+        URL('/<slug>/admin/design/upload',  'admin_design_upload',              design.LogoUpload),
 
         URL('/<slug>/subscribe',            'subscribe',                        registration.BarcampSubscribe),
         URL('/<slug>/register',             'register',                         registration.BarcampRegister),
