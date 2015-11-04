@@ -51,9 +51,9 @@ class LogoEditor
     # initialize the barcamp icon in the form
     init_icon: (callback) ->
         # initialize the icon in the form
-        container = @icon_svg.find('g#container')
-        container.attr('transform', 'scale('+@icon_label_scale+')')
-        $('#logoicon').attr('src', "data:image/svg+xml;base64,"+window.btoa($(@icon_svg).prop('outerHTML')))
+        #container = @icon_svg.find('g#container')
+        #container.attr('transform', 'scale('+20+')')
+        #$('#logoicon').attr('src', "data:image/svg+xml;base64,"+window.btoa($(@icon_svg).prop('outerHTML')))
 
 
     # initialize all UI elements
@@ -226,11 +226,9 @@ class LogoEditor
         ctx = canvas.getContext("2d")
 
         # set the scale and color of the svg 
-        console.log scale
         svg_scale = @icon_factor * scale
         container = @icon_svg.find('g#container')
         container.attr('transform', "scale(#{svg_scale})")
-        console.log svg_scale
         $(container.children()[0]).css('fill', @color_logo)
 
         img = new Image(90 * @icon_factor * scale, 90 * @icon_factor * scale)

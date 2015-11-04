@@ -7285,7 +7285,7 @@ body.admin .imagedetailblock {
 }
 .colorpicker-container-logo input {
   height: 35px;
-  width: 100px;
+  width: 130px;
 }
 .colorpicker-container-logo .input-group-addon i {
   width: 20px !important;
@@ -7451,6 +7451,13 @@ form {
 }
 #logoeditor .inputtable td {
   padding: 0 10px 0 10px;
+}
+#logoeditor #logoicon {
+  width: 50px;
+  height: 50px;
+}
+#logoeditor #logocanvas {
+  border: 1px solid #f0f0f0;
 }
 #logoeditor #dummy_text {
   position: fixed;

@@ -817,12 +817,7 @@
       return this.update();
     };
 
-    LogoEditor.prototype.init_icon = function(callback) {
-      var container;
-      container = this.icon_svg.find('g#container');
-      container.attr('transform', 'scale(' + this.icon_label_scale + ')');
-      return $('#logoicon').attr('src', "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML')));
-    };
+    LogoEditor.prototype.init_icon = function(callback) {};
 
     LogoEditor.prototype.init_ui = function() {
       $(".colorpicker-container-logo").colorpicker().on('changeColor', (function(_this) {
@@ -962,11 +957,9 @@
         callback = null;
       }
       ctx = canvas.getContext("2d");
-      console.log(scale);
       svg_scale = this.icon_factor * scale;
       container = this.icon_svg.find('g#container');
       container.attr('transform', "scale(" + svg_scale + ")");
-      console.log(svg_scale);
       $(container.children()[0]).css('fill', this.color_logo);
       img = new Image(90 * this.icon_factor * scale, 90 * this.icon_factor * scale);
       img.src = "data:image/svg+xml;base64," + window.btoa($(this.icon_svg).prop('outerHTML'));

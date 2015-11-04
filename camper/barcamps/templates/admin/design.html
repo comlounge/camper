@@ -40,12 +40,12 @@
                     <table class="inputtable">
                         <tbody>
                             <tr>
-                                <td><img src="" id="logoicon" width="55px"></td>
+                                <td class="text-center"><img id="logoicon" width="50" height="50" src="{{url_for('static', filename='img/barcamplogo.svg')}}"></td>
                                 <td>
-                                    <input type="text" class="logoinput" name="logoinput1" value="bar" id="logoinput1">
+                                    <input type="text" class="form-control logoinput" name="logoinput1" value="bar" id="logoinput1">
                                 </td>
                                 <td>
-                                    <input type="text" class="logoinput" name="logoinput2" value="camp" id="logoinput2">
+                                    <input type="text" class="form-control logoinput" name="logoinput2" value="camp" id="logoinput2">
                                 </td>
                             </tr>
                             <tr id="colors">
@@ -86,8 +86,9 @@
                 
                 <br />
                 
-                <div>    
-                    <canvas id="logocanvas" width="850" height="250" style="border:1px solid #000000;">
+                <div> 
+                    <p class="text-muted">{{_('Click on the colors to open a color picker')}}</p>
+                    <canvas id="logocanvas" width="850" height="250">
                     </canvas>
 
                 </div>
