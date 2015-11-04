@@ -174,9 +174,7 @@ bm = ($) ->
 
         options =
             zoom: 14
-        console.log this.options
         this.map = L.mapbox.map(this.$element.attr('id'), this.options.mapid, options)
-
 
         this.lat = null
         this.lng = null

@@ -8,6 +8,8 @@ from wtforms import *
 from sfext.babel import T
 from .base import BarcampBaseHandler
 from camper import utils
+import base64
+import StringIO
 from camper.handlers.forms import *
 
 
@@ -40,6 +42,14 @@ class DesignForm(BaseForm):
                                     description = T('The gallery will be displayed on the homepage of your barcamp between barcamp navigation and the rest of the content'), 
                                     default = -1)
 
+    # logo generator fields
+    logo_color_logo         = HiddenField()
+    logo_color1             = HiddenField()
+    logo_color2             = HiddenField()
+    logo_text1              = HiddenField()
+    logo_text2              = HiddenField()
+    logo_scale              = HiddenField()
+
 
 
 class DesignView(BarcampBaseHandler):
@@ -69,3 +79,34 @@ class DesignView(BarcampBaseHandler):
     post = get
 
         
+class LogoUpload(BaseHandler):
+    """special uploader for saving base64 encoded png images from the logo editor"""
+
+    @logged_in()
+    @is_admin()
+    @ensure_barcamp()
+    @asjson()
+    def post(self, slug = None):
+        """receive base64 data, create an asset and signal back success"""
+        filename = self.request.form.get("filename")
+        imgdata = base64.b64decode(self.request.form['data'])
+        stream = StringIO.StringIO(imgdata)
+        content_length = len(imgdata)
+        content_type = "image/png"
+
+        asset = self.app.module_map.uploader.add(
+            stream, 
+            filename = filename,
+            content_type = content_type,
+            content_length = content_length,
+            )
+
+        asset_id = unicode(asset._id)
+        return {
+            'url' : self.url_for("asset", asset_id = asset.variants['medium_user']._id),
+            'status' : "success",
+            'asset_id' : asset_id
+        }
+
+
+

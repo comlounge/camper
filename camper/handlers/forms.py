@@ -142,6 +142,7 @@ class UploadWidget(object):
 
     tmpl = Template("""
         <div class="upload-widget"
+                id="uploadwidget-{{name}}"
                 data-id="{{name}}"
                 data-original-id="{{asset_id}}"
                 data-preview-url="{{preview_url}}"
@@ -159,6 +160,9 @@ class UploadWidget(object):
             <div class="upload-area">
                 <div class="uploader-buttons">
                     <div class="uploadbutton {{btn_class}}"><i class="fa fa-upload"></i> {{label}}</div>
+                    {% if logo_generator %}
+                        <div data-target="#logoeditor-modal" data-toggle="modal" class="logogeneratorbutton btn btn-info"><i class="fa fa-magic"></i> {{logo_generator}}</div>
+                    {% endif %}
                     <div class="deletebutton btn btn-danger" style="display: {{'none' if not preview_url}} "><i class="fa fa-trash"></i> {{delete_label}}</div>
                     <div class="revertbutton btn btn-warning" style="display: none"><i class="fa fa-undo"></i> {{revert_label}}</div>
                 </div>
@@ -196,8 +200,9 @@ class UploadWidget(object):
             'delete_url'    : kwargs.get('delete_url',''),
             'label'         : kwargs['label'],
             'delete_label'  : kwargs['delete_label'],
+            'logo_generator'  : kwargs.get('logo_generator', None),
             'revert_label'  : kwargs['revert_label'],
-            'btn_class'     : kwargs.get('btn_class', 'btn btn-default'),
+            'btn_class'     : kwargs.get('btn_class', 'btn btn-primary'),
             'missing_tag'   : kwargs.get('missing_tag', ''),
             'value-filename' : '',
             'value-id'      : '',
