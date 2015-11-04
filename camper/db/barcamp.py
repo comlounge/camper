@@ -354,6 +354,13 @@ class BarcampSchema(Schema):
     header_color        = String()
     text_color          = String()
 
+    # logo
+    logo_color_logo     = String()
+    logo_color1         = String()
+    logo_color2         = String()
+    logo_text1          = String()
+    logo_text2          = String()
+
     navbar_link_color   = String() # text color of all navbar links
     navbar_active_color = String() # text color of active navbar item 
     navbar_border_color = String() # border color of all navbar items
