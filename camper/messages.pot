@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-10-27 15:32+0100\n"
+"POT-Creation-Date: 2015-11-04 17:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,7 +305,7 @@ msgstr ""
 msgid "planning"
 msgstr ""
 
-#: barcamps/base.py:67 barcamps/design.py:35 templates/master.html:81
+#: barcamps/base.py:67 barcamps/design.py:37 templates/master.html:81
 msgid "Blog"
 msgstr ""
 
@@ -317,100 +317,100 @@ msgstr ""
 msgid "The barcamp and all it's contents have been deleted!"
 msgstr ""
 
-#: barcamps/design.py:16
+#: barcamps/design.py:18
 msgid "Barcamp Logo"
 msgstr ""
 
-#: barcamps/design.py:16
+#: barcamps/design.py:18
 msgid "The logo should be 1140px wide and not more than 400 px high"
 msgstr ""
 
-#: barcamps/design.py:17
+#: barcamps/design.py:19
 msgid "Background-Image"
 msgstr ""
 
-#: barcamps/design.py:17
+#: barcamps/design.py:19
 msgid ""
 "If given, this image is used as a background behind all your barcamp "
 "content"
 msgstr ""
 
-#: barcamps/design.py:18
+#: barcamps/design.py:20
 msgid "Image for Facebook"
 msgstr ""
 
-#: barcamps/design.py:18
+#: barcamps/design.py:20
 msgid ""
 "This image is used when posting links to facebook. Best is 1200 x 630 but"
 " minimum it should be 600 x 315px"
 msgstr ""
 
-#: barcamps/design.py:20 barcamps/templates/admin/design.html:12
+#: barcamps/design.py:22 barcamps/templates/admin/design.html:146
 msgid "Link Color"
 msgstr ""
 
-#: barcamps/design.py:21 barcamps/templates/admin/design.html:18
+#: barcamps/design.py:23 barcamps/templates/admin/design.html:152
 msgid "Header Background Color"
 msgstr ""
 
-#: barcamps/design.py:22 barcamps/templates/admin/design.html:15
+#: barcamps/design.py:24 barcamps/templates/admin/design.html:149
 msgid "Text Color"
 msgstr ""
 
-#: barcamps/design.py:23 barcamps/templates/admin/design.html:21
-#: barcamps/templates/admin/design.html:27
+#: barcamps/design.py:25 barcamps/templates/admin/design.html:155
+#: barcamps/templates/admin/design.html:161
 msgid "Background Color"
 msgstr ""
 
-#: barcamps/design.py:25
+#: barcamps/design.py:27
 msgid "Navbar Link Color"
 msgstr ""
 
-#: barcamps/design.py:26
+#: barcamps/design.py:28
 msgid "Navbar Active Link Color"
 msgstr ""
 
-#: barcamps/design.py:27
+#: barcamps/design.py:29
 msgid "Navbar Border Color"
 msgstr ""
 
-#: barcamps/design.py:28
+#: barcamps/design.py:30
 msgid "Navbar Hover Background Color"
 msgstr ""
 
-#: barcamps/design.py:29
+#: barcamps/design.py:31
 msgid "Navbar Active Background Color"
 msgstr ""
 
-#: barcamps/design.py:31
+#: barcamps/design.py:33
 msgid "Hide Navigation Tabs"
 msgstr ""
 
-#: barcamps/design.py:31
+#: barcamps/design.py:33
 msgid "Select here which barcamp tabs not to show"
 msgstr ""
 
-#: barcamps/design.py:33 barcamps/templates/sessions.html:8
+#: barcamps/design.py:35 barcamps/templates/sessions.html:8
 msgid "Session Proposals"
 msgstr ""
 
-#: barcamps/design.py:34 barcamps/templates/participant_data.html:7
+#: barcamps/design.py:36 barcamps/templates/participant_data.html:7
 #: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:67
 #: barcamps/templates/admin/events.html:9
 msgid "Events"
 msgstr ""
 
-#: barcamps/design.py:39 blog/add.py:22
+#: barcamps/design.py:41 blog/add.py:22
 msgid "Gallery to show on homepage"
 msgstr ""
 
-#: barcamps/design.py:40
+#: barcamps/design.py:42
 msgid ""
 "The gallery will be displayed on the homepage of your barcamp between "
 "barcamp navigation and the rest of the content"
 msgstr ""
 
-#: barcamps/design.py:60 blog/add.py:40 blog/edit.py:29
+#: barcamps/design.py:70 blog/add.py:40 blog/edit.py:29
 msgid "do not show a gallery"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgid "Add new blog post"
 msgstr ""
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:143
-#: barcamps/templates/sessions.html:158
+#: barcamps/templates/sessions.html:158 barcamps/templates/admin/design.html:98
 #: barcamps/templates/admin/event_macros.html:181
 #: barcamps/templates/admin/gallery_macros.html:24
 #: barcamps/templates/admin/galleryadmin.html:24 blog/templates/edit.html:28
@@ -820,6 +820,7 @@ msgstr ""
 
 #: barcamps/templates/docs.html:35 barcamps/templates/participant_data.html:25
 #: barcamps/templates/sessions.html:142
+#: barcamps/templates/admin/design.html:188
 #: barcamps/templates/admin/galleryadmin.html:23
 #: barcamps/templates/admin/mails_edit.html:47 blog/templates/edit.html:50
 msgid "Save"
@@ -1086,9 +1087,9 @@ msgstr ""
 msgid "Delete Session Proposal"
 msgstr ""
 
-#: barcamps/templates/sessions.html:67 barcamps/templates/admin/design.html:50
-#: barcamps/templates/admin/design.html:55
-#: barcamps/templates/admin/design.html:60
+#: barcamps/templates/sessions.html:67 barcamps/templates/admin/design.html:122
+#: barcamps/templates/admin/design.html:128
+#: barcamps/templates/admin/design.html:133
 #: barcamps/templates/admin/gallery_macros.html:50 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:132
 #: templates/users/edit.html:38
@@ -1100,7 +1101,7 @@ msgid "Delete Comment"
 msgstr ""
 
 #: barcamps/templates/sessions.html:117
-msgid "Kommentar"
+msgid "Comment"
 msgstr ""
 
 #: barcamps/templates/sessions.html:118
@@ -1368,7 +1369,7 @@ msgstr ""
 msgid "create Barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/dashboard.html:6
+#: barcamps/templates/admin/dashboard.html:6 templates/admin_master.html:27
 msgid "Dashboard"
 msgstr ""
 
@@ -1418,36 +1419,60 @@ msgstr ""
 msgid "Barcamp Design and Layout"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:8
+#: barcamps/templates/admin/design.html:36
+#: barcamps/templates/admin/design.html:123
+msgid "Logo Generator"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:90
+#: barcamps/templates/admin/design.html:142
 msgid "Click on the colors to open a color picker"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:30
-msgid "Border Color"
+#: barcamps/templates/admin/design.html:99
+msgid "Save as logo"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:33
-msgid "Hover Background Color"
+#: barcamps/templates/admin/design.html:101
+msgid "Saving ..."
 msgstr ""
 
-#: barcamps/templates/admin/design.html:38
-msgid "Active Text Color"
+#: barcamps/templates/admin/design.html:102
+msgid "Download as PNG"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:41
-msgid "Active Background Color"
+#: barcamps/templates/admin/design.html:119
+msgid "Logos and Gallery"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:50
-#: barcamps/templates/admin/design.html:55
-#: barcamps/templates/admin/design.html:60
+#: barcamps/templates/admin/design.html:122
+#: barcamps/templates/admin/design.html:128
+#: barcamps/templates/admin/design.html:133
 msgid "Upload Image"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:64
-#: barcamps/templates/admin/gallery_macros.html:23
-#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
-msgid "Update"
+#: barcamps/templates/admin/design.html:141
+msgid "Colors"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:164
+msgid "Border Color"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:167
+msgid "Hover Background Color"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:172
+msgid "Active Text Color"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:175
+msgid "Active Background Color"
+msgstr ""
+
+#: barcamps/templates/admin/design.html:181
+msgid "Advanced settings"
 msgstr ""
 
 #: barcamps/templates/admin/event.html:9
@@ -1662,6 +1687,11 @@ msgstr ""
 msgid "who should be credited?"
 msgstr ""
 
+#: barcamps/templates/admin/gallery_macros.html:23
+#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
+msgid "Update"
+msgstr ""
+
 #: barcamps/templates/admin/gallery_macros.html:34
 msgid "Alt Tag"
 msgstr ""
@@ -1811,7 +1841,7 @@ msgstr ""
 msgid "Really send Newsletter?"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:30 templates/admin_master.html:34
+#: barcamps/templates/admin/sessionboard.html:30 templates/admin_master.html:26
 msgid "public view"
 msgstr ""
 
@@ -2004,7 +2034,7 @@ msgid ""
 "shortly."
 msgstr ""
 
-#: handlers/upload.py:77
+#: handlers/upload.py:78
 #, python-format
 msgid "file '%s' has been deleted"
 msgstr ""
@@ -2163,7 +2193,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: pages/templates/entries.html:7 templates/admin_master.html:39
+#: pages/templates/entries.html:7 templates/admin_master.html:32
 msgid "Custom Pages"
 msgstr ""
 
@@ -2247,51 +2277,51 @@ msgid ""
 "you cannot add sessions in this slot."
 msgstr ""
 
-#: templates/admin_master.html:35
+#: templates/admin_master.html:28
 msgid "edit base information"
 msgstr ""
 
-#: templates/admin_master.html:36
+#: templates/admin_master.html:29
 msgid "edit events"
 msgstr ""
 
-#: templates/admin_master.html:37
+#: templates/admin_master.html:30
 msgid "edit registration form"
 msgstr ""
 
-#: templates/admin_master.html:38
+#: templates/admin_master.html:31
 msgid "Manage Blog"
 msgstr ""
 
-#: templates/admin_master.html:40
+#: templates/admin_master.html:33
 msgid "Design and Layout"
 msgstr ""
 
-#: templates/admin_master.html:41
+#: templates/admin_master.html:34
 msgid "Galleries"
 msgstr ""
 
-#: templates/admin_master.html:42
+#: templates/admin_master.html:35
 msgid "edit mail templates"
 msgstr ""
 
-#: templates/admin_master.html:43
+#: templates/admin_master.html:36
 msgid "download participants"
 msgstr ""
 
-#: templates/admin_master.html:44
+#: templates/admin_master.html:37
 msgid "send newsletter"
 msgstr ""
 
-#: templates/admin_master.html:45
+#: templates/admin_master.html:38
 msgid "manage sponsors"
 msgstr ""
 
-#: templates/admin_master.html:46
+#: templates/admin_master.html:39
 msgid "edit permissions"
 msgstr ""
 
-#: templates/admin_master.html:49
+#: templates/admin_master.html:42
 msgid "DELETE BARCAMP"
 msgstr ""
 
