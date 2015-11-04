@@ -23,6 +23,18 @@ class LogoEditor
         @colorinput1 = $('#colorinput1')
         @colorinput2 = $('#colorinput2')
 
+        # copy from form if available
+        if $("#logo_color_logo").val()
+            @colorinput_logo.val($("#logo_color_logo").val())
+        if $("#logo_color1").val()
+            @colorinput1.val($("#logo_color1").val())
+        if $("#logo_color2").val()
+            @colorinput2.val($("#logo_color2").val())
+        if $("#logo_text1").val()
+            @textinput1.val($("#logo_text1").val())
+        if $("#logo_text2").val()
+            @textinput2.val($("#logo_text2").val())
+
         # input variables
         @text1 = @textinput1.val()
         @text2 = @textinput2.val()
@@ -87,10 +99,8 @@ class LogoEditor
                     data: 
                         data: base64
                         filename: "#{@text1}#{@text2}logo.png"
-                    success: (data) ->
-                        console.log "success"
-                        console.log data
 
+                    success: (data) ->
                         # now set data on upload widget
                         widget = $("#uploadwidget-logo")
 
@@ -105,6 +115,7 @@ class LogoEditor
                         $("#logoeditor-modal").modal("hide")
                         $("#save-as-logo-button").show()
                         $("#saving-as-logo-button").hide()
+
                     error: () ->
                         $("#save-as-logo-button").show()
                         $("#saving-as-logo-button").hide()

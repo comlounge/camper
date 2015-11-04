@@ -789,6 +789,21 @@
       this.colorinput_logo = $('#colorinput_logo');
       this.colorinput1 = $('#colorinput1');
       this.colorinput2 = $('#colorinput2');
+      if ($("#logo_color_logo").val()) {
+        this.colorinput_logo.val($("#logo_color_logo").val());
+      }
+      if ($("#logo_color1").val()) {
+        this.colorinput1.val($("#logo_color1").val());
+      }
+      if ($("#logo_color2").val()) {
+        this.colorinput2.val($("#logo_color2").val());
+      }
+      if ($("#logo_text1").val()) {
+        this.textinput1.val($("#logo_text1").val());
+      }
+      if ($("#logo_text2").val()) {
+        this.textinput2.val($("#logo_text2").val());
+      }
       this.text1 = this.textinput1.val();
       this.text2 = this.textinput2.val();
       this.color_logo = this.colorinput_logo.val();
@@ -850,8 +865,6 @@
               },
               success: function(data) {
                 var widget;
-                console.log("success");
-                console.log(data);
                 widget = $("#uploadwidget-logo");
                 $("#logo").val(data.asset_id);
                 widget.find(".uploader-buttons").show();
