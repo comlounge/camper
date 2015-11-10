@@ -29,7 +29,7 @@
                         <td><a href="{{url_for(".event",slug=slug,eid=event._id)}}" title="edit event {{event.name}}">{{event.name}}</a></td>
                         <td>{{dateformat(event.date)}}</td>
                         <td>{{event.participants|length}}/{{event.size}}</td>
-                        <td>{{event.waiting_list.length}}</td> 
+                        <td>{{event.waiting_list|length}}</td> 
                         <td>
                             <a data-toggle="tooltip" title="{{_('Edit event details')}}" href="{{url_for('.event', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
                                 

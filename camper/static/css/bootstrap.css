@@ -7462,6 +7462,34 @@ form {
 #logoeditor #dummy_text {
   position: fixed;
 }
+#eventlist .waitinglist {
+  height: 100%;
+  float: right;
+  border-left: 1px solid #eee;
+  padding-left: 5px;
+  margin-left: 15px;
+}
+#eventlist .waitinglist:before,
+#eventlist .waitinglist:after {
+  content: " ";
+  display: table;
+}
+#eventlist .waitinglist:after {
+  clear: both;
+}
+#eventlist .waitinglist:before,
+#eventlist .waitinglist:after {
+  content: " ";
+  display: table;
+}
+#eventlist .waitinglist:after {
+  clear: both;
+}
+#eventlist .waitinglist span {
+  color: #333;
+  display: block;
+  text-align: center;
+}
 .gallery {
   width: 100%;
   overflow: hidden;

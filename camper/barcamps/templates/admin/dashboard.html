@@ -3,53 +3,61 @@
 {% block content %}
     {% block title %}
     <div class="page-header">
-        <h1>{{_('Dashboard')}}</h1>
-        <h2>{{barcamp.name}}
+        <h1>{{barcamp.name}} {{_('Dashboard')}}</h1>
     </div>
     {% endblock %}
 
     <div id="dashboard">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="bigpanel">
-                    <div class="number">
-                        {{barcamp.participant_users|length}} / {{barcamp.size}}
-                    </div>
-                    {{_("Participants")}} <a href="{{url_for("barcamps.participants_edit", slug=slug)}}" class="btn btn-xs"><i class="fa fa-plus"></i></a>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="bigpanel">
-                    <div class="number">
-                        {{barcamp.subscriber_users|length}}
+
+        <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+            {% for event in barcamp.eventlist %}
+            <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
+                <div class="panel-heading">
+
+                    <h4 class="panel-title">
+                        <div class="waitinglist">
+                            <span class="amount">{{event.waiting_list|length}}</span>
+                            <span class="label">{{_('on waiting list')}}</span>
+                        </div>
+                        <div class="date">
+                            <span class="day">{{event.date.strftime("%d") }}</span>
+                            <span class="month">{{event.date.strftime("%m") }}</span>
+                            <span class="year">{{event.date.strftime("%Y") }}</span>
+                        </div>
+                        <a href="{{url_for('.event', slug = slug, eid = event._id)}}">
+                            {{event.name}}
+                        </a>
+                    </h4>
+
+                    <address>
+                        {{event.location.name}}, {{event.location.street}}, {{event.location.city}}
+                    </address>
+
+
+                    <div class="progress progress-events">
+                        {% set percent = event.participants|length / event.size * 100 %}
+                        <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
+                            role="progressbar" 
+                            aria-valuenow="{{event.participants|length}}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
+                            <span class="filled">{{event.participants|length}}</span>
+                            /
+                            <span class="size">{{event.size}}</span> 
+                            {{_('participants')}}
+
+                        </div>
                     </div>
 
-                    {{_("Interested")}}
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="bigpanel">
-                    <div class="number">
-                        {{barcamp.waitignlist_users|length}}
-                    </div>
-                    {{_("on waiting list")}}
+                <div class="panel-body">
+                    <a href="{{url_for('.event', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{_('Edit event details')}}</a>
+                    <a href="{{url_for('.sessionboard', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Edit Timetable / Sessions')}}</a>
+                    <a href="{{url_for('.event_participants', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Manage Participants')}}</a>
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="bigpanel">
-                    <div class="number">
-                        {{sessioncount}}
-                    </div>
-                    {{_("session proposals")}}
-                </div>
-            </div>
-
+            </article>
+            {% endfor %}
         </div>
-        <a href="{{url_for("barcamps.userlist", slug=slug)}}" class="btn btn-primary btn-sm pull-right"><i class="fa fa-pencil"></i> {{_("edit participants")}}</a>
     </div>
-
 {% endblock %}
 
-{% block bcjs %}
-    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
-{% endblock %}
