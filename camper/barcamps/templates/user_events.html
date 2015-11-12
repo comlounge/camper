@@ -2,7 +2,7 @@
 {% extends "_m/barcamps/master.html" %}
 
 {% block headline %}
-    <h2>{{_('Events for %(name)s' |format(name = barcamp.name))}}</h2>
+    <h2>{{gettext('Events for %(name)s') | format(name = barcamp.name|e)}}</h2>
 {% endblock %}
 {% block main_content %}
         <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">

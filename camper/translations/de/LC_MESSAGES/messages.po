@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-11-04 17:05+0100\n"
+"POT-Creation-Date: 2015-11-12 16:43+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -113,27 +113,27 @@ msgstr "Kann Benutzer verwalten"
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
-#: base.py:184
+#: base.py:185
 msgid "date to be announced"
 msgstr "Termin wird noch bekannt gegeben"
 
-#: base.py:194
+#: base.py:195
 msgid "location to be announced"
 msgstr "Ort wird noch bekannt gegeben."
 
-#: base.py:346
+#: base.py:347
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
 
-#: base.py:383
+#: base.py:384
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:389 base.py:565
+#: base.py:390 base.py:582
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:401 base.py:407 base.py:419 base.py:422
+#: base.py:402 base.py:408 base.py:420 base.py:423
 msgid "you don't have the permission to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -304,7 +304,7 @@ msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 msgid "Home"
 msgstr "Startseite"
 
-#: barcamps/base.py:60 barcamps/templates/admin/dashboard.html:43
+#: barcamps/base.py:60
 msgid "session proposals"
 msgstr "Sessionvorschläge"
 
@@ -409,7 +409,7 @@ msgstr "Sessionvorschläge"
 
 #: barcamps/design.py:36 barcamps/templates/participant_data.html:7
 #: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:67
-#: barcamps/templates/admin/events.html:9
+#: barcamps/templates/admin/events.html:10
 msgid "Events"
 msgstr "Veranstaltungen"
 
@@ -796,7 +796,7 @@ msgstr ""
 msgid "Your information was updated"
 msgstr "Deine Informationen wurden aktualisiert"
 
-#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:19
+#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:20
 #: static/templates/room-modal.hbs:15
 msgid "Name"
 msgstr "Name"
@@ -1017,6 +1017,7 @@ msgstr ""
 
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/user_events.html:71
+#: barcamps/templates/admin/dashboard.html:47
 msgid "participants"
 msgstr "Teilnehmer"
 
@@ -1081,7 +1082,7 @@ msgstr "Sortieren nach:"
 
 #: barcamps/templates/sessions.html:14
 #: barcamps/templates/admin/event_macros.html:96
-#: barcamps/templates/admin/events.html:20
+#: barcamps/templates/admin/events.html:21
 msgid "Date"
 msgstr "Datum"
 
@@ -1200,10 +1201,9 @@ msgstr "Meine Registrierungsdaten angeben"
 
 #: barcamps/templates/user_event.html:78 barcamps/templates/user_event.html:96
 #: barcamps/templates/user_events.html:78 barcamps/templates/userlist.html:50
-#: barcamps/templates/admin/dashboard.html:18
 #: barcamps/templates/admin/event_macros.html:13
-#: barcamps/templates/admin/event_participants.html:43
-#: barcamps/templates/admin/events.html:21
+#: barcamps/templates/admin/event_participants.html:45
+#: barcamps/templates/admin/events.html:22
 msgid "Participants"
 msgstr "Teilnehmer"
 
@@ -1259,6 +1259,11 @@ msgstr ""
 msgid "add"
 msgstr "Hinzufügen"
 
+#: barcamps/templates/user_events.html:5
+#, python-format
+msgid "Events for %(name)s"
+msgstr "Veranstaltungen für %(name)s"
+
 #: barcamps/templates/userlist.html:17
 msgid "register user as participant"
 msgstr "auf Teilnehmerliste setzen"
@@ -1268,7 +1273,6 @@ msgid "remove user from list"
 msgstr "Benutzer von der Liste entfernen"
 
 #: barcamps/templates/userlist.html:54
-#: barcamps/templates/admin/dashboard.html:27
 msgid "Interested"
 msgstr "Interessiert"
 
@@ -1418,13 +1422,24 @@ msgstr "neues Barcamp anlegen"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: barcamps/templates/admin/dashboard.html:35
+#: barcamps/templates/admin/dashboard.html:20
 msgid "on waiting list"
 msgstr "auf Warteliste"
 
-#: barcamps/templates/admin/dashboard.html:48
-msgid "edit participants"
-msgstr "Teilnehmer bearbeiten"
+#: barcamps/templates/admin/dashboard.html:54
+#: barcamps/templates/admin/event.html:11
+#: barcamps/templates/admin/events.html:35
+msgid "Edit event details"
+msgstr "Veranstaltungsdetails bearbeiten"
+
+#: barcamps/templates/admin/dashboard.html:55
+msgid "Edit Timetable / Sessions"
+msgstr "Zeitplan / Sessions bearbeiten"
+
+#: barcamps/templates/admin/dashboard.html:56
+#: barcamps/templates/admin/event_participants.html:40
+msgid "Manage Participants"
+msgstr "Teilnehmer verwalten"
 
 #: barcamps/templates/admin/delete.html:8
 msgid ""
@@ -1522,12 +1537,7 @@ msgstr "Aktive Hintergrundfarbe"
 msgid "Advanced settings"
 msgstr ""
 
-#: barcamps/templates/admin/event.html:9
-#: barcamps/templates/admin/events.html:34
-msgid "Edit event details"
-msgstr "Veranstaltungsdetails bearbeiten"
-
-#: barcamps/templates/admin/event.html:12
+#: barcamps/templates/admin/event.html:14
 msgid "Update event"
 msgstr "Veranstaltung aktualisieren"
 
@@ -1631,31 +1641,27 @@ msgstr ""
 msgid "Use different location than the main barcamp location"
 msgstr "Benutzer einen anderen Veranstaltungsort als den des Barcamps"
 
-#: barcamps/templates/admin/event_participants.html:19
+#: barcamps/templates/admin/event_participants.html:21
 msgid "Move to waiting list"
 msgstr "Auf Warteliste verschieben"
 
-#: barcamps/templates/admin/event_participants.html:21
+#: barcamps/templates/admin/event_participants.html:23
 msgid "Move to participants"
 msgstr "Auf Teilnehmerliste verschieben"
 
-#: barcamps/templates/admin/event_participants.html:24
+#: barcamps/templates/admin/event_participants.html:26
 msgid "remove from event"
 msgstr "Benutzer entfernen"
 
-#: barcamps/templates/admin/event_participants.html:38
-msgid "Manage Participants"
-msgstr "Teilnehmer verwalten"
-
-#: barcamps/templates/admin/event_participants.html:44
+#: barcamps/templates/admin/event_participants.html:46
 msgid "Waitinglist"
 msgstr "Warteliste"
 
-#: barcamps/templates/admin/event_participants.html:45
+#: barcamps/templates/admin/event_participants.html:47
 msgid "Maybe coming"
 msgstr "Komme vielleicht"
 
-#: barcamps/templates/admin/events.html:10
+#: barcamps/templates/admin/events.html:11
 msgid ""
 "A barcamp consists of one or multiple days called events. You can define "
 "these below"
@@ -1663,40 +1669,40 @@ msgstr ""
 "Ein Barcamp besteht aus einer oder mehreren Veranstaltungen "
 "(normalerweise 1 pro Tag)."
 
-#: barcamps/templates/admin/events.html:22
+#: barcamps/templates/admin/events.html:23
 msgid "Waiting"
 msgstr "Warteliste"
 
-#: barcamps/templates/admin/events.html:36
+#: barcamps/templates/admin/events.html:37
 #: barcamps/templates/admin/sessionboard.html:8
 msgid "Edit event timetable"
 msgstr "Zeitraster bearbeiten"
 
-#: barcamps/templates/admin/events.html:37
+#: barcamps/templates/admin/events.html:38
 msgid "Manage participants"
 msgstr "Teilnehmerzahl erhöhen"
 
-#: barcamps/templates/admin/events.html:40
+#: barcamps/templates/admin/events.html:41
 msgid "Delete Event?"
 msgstr "Veranstaltung löschen?"
 
-#: barcamps/templates/admin/events.html:53
+#: barcamps/templates/admin/events.html:54
 msgid "no events have been defined yet."
 msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
 
-#: barcamps/templates/admin/events.html:59
+#: barcamps/templates/admin/events.html:60
 msgid "Show add event form"
 msgstr "Zeige Veranstatungsformular"
 
-#: barcamps/templates/admin/events.html:59
+#: barcamps/templates/admin/events.html:60
 msgid "Add event"
 msgstr "Veranstaltung hinzufügen"
 
-#: barcamps/templates/admin/events.html:63
+#: barcamps/templates/admin/events.html:64
 msgid "Create new event"
 msgstr "Neue Veranstaltung anlegen"
 
-#: barcamps/templates/admin/events.html:64
+#: barcamps/templates/admin/events.html:65
 msgid "Create event"
 msgstr "neue Veranstaltung anlegen"
 
@@ -2726,4 +2732,7 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "Barcamp-Logo"
 #~ msgstr "Barcamp-Logo"
+
+#~ msgid "edit participants"
+#~ msgstr "Teilnehmer bearbeiten"
 

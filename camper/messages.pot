@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-04 17:05+0100\n"
+"POT-Creation-Date: 2015-11-12 16:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,27 +111,27 @@ msgstr ""
 msgid "main administrator"
 msgstr ""
 
-#: base.py:184
+#: base.py:185
 msgid "date to be announced"
 msgstr ""
 
-#: base.py:194
+#: base.py:195
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:346
+#: base.py:347
 msgid "Please log in."
 msgstr ""
 
-#: base.py:383
+#: base.py:384
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:389 base.py:565
+#: base.py:390 base.py:582
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:401 base.py:407 base.py:419 base.py:422
+#: base.py:402 base.py:408 base.py:420 base.py:423
 msgid "you don't have the permission to access this page."
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: barcamps/base.py:60 barcamps/templates/admin/dashboard.html:43
+#: barcamps/base.py:60
 msgid "session proposals"
 msgstr ""
 
@@ -396,7 +396,7 @@ msgstr ""
 
 #: barcamps/design.py:36 barcamps/templates/participant_data.html:7
 #: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:67
-#: barcamps/templates/admin/events.html:9
+#: barcamps/templates/admin/events.html:10
 msgid "Events"
 msgstr ""
 
@@ -761,7 +761,7 @@ msgstr ""
 msgid "Your information was updated"
 msgstr ""
 
-#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:19
+#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:20
 #: static/templates/room-modal.hbs:15
 msgid "Name"
 msgstr ""
@@ -974,6 +974,7 @@ msgstr ""
 
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/user_events.html:71
+#: barcamps/templates/admin/dashboard.html:47
 msgid "participants"
 msgstr ""
 
@@ -1038,7 +1039,7 @@ msgstr ""
 
 #: barcamps/templates/sessions.html:14
 #: barcamps/templates/admin/event_macros.html:96
-#: barcamps/templates/admin/events.html:20
+#: barcamps/templates/admin/events.html:21
 msgid "Date"
 msgstr ""
 
@@ -1155,10 +1156,9 @@ msgstr ""
 
 #: barcamps/templates/user_event.html:78 barcamps/templates/user_event.html:96
 #: barcamps/templates/user_events.html:78 barcamps/templates/userlist.html:50
-#: barcamps/templates/admin/dashboard.html:18
 #: barcamps/templates/admin/event_macros.html:13
-#: barcamps/templates/admin/event_participants.html:43
-#: barcamps/templates/admin/events.html:21
+#: barcamps/templates/admin/event_participants.html:45
+#: barcamps/templates/admin/events.html:22
 msgid "Participants"
 msgstr ""
 
@@ -1214,6 +1214,11 @@ msgstr ""
 msgid "add"
 msgstr ""
 
+#: barcamps/templates/user_events.html:5
+#, python-format
+msgid "Events for %(name)s"
+msgstr ""
+
 #: barcamps/templates/userlist.html:17
 msgid "register user as participant"
 msgstr ""
@@ -1223,7 +1228,6 @@ msgid "remove user from list"
 msgstr ""
 
 #: barcamps/templates/userlist.html:54
-#: barcamps/templates/admin/dashboard.html:27
 msgid "Interested"
 msgstr ""
 
@@ -1373,12 +1377,23 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: barcamps/templates/admin/dashboard.html:35
+#: barcamps/templates/admin/dashboard.html:20
 msgid "on waiting list"
 msgstr ""
 
-#: barcamps/templates/admin/dashboard.html:48
-msgid "edit participants"
+#: barcamps/templates/admin/dashboard.html:54
+#: barcamps/templates/admin/event.html:11
+#: barcamps/templates/admin/events.html:35
+msgid "Edit event details"
+msgstr ""
+
+#: barcamps/templates/admin/dashboard.html:55
+msgid "Edit Timetable / Sessions"
+msgstr ""
+
+#: barcamps/templates/admin/dashboard.html:56
+#: barcamps/templates/admin/event_participants.html:40
+msgid "Manage Participants"
 msgstr ""
 
 #: barcamps/templates/admin/delete.html:8
@@ -1475,12 +1490,7 @@ msgstr ""
 msgid "Advanced settings"
 msgstr ""
 
-#: barcamps/templates/admin/event.html:9
-#: barcamps/templates/admin/events.html:34
-msgid "Edit event details"
-msgstr ""
-
-#: barcamps/templates/admin/event.html:12
+#: barcamps/templates/admin/event.html:14
 msgid "Update event"
 msgstr ""
 
@@ -1578,70 +1588,66 @@ msgstr ""
 msgid "Use different location than the main barcamp location"
 msgstr ""
 
-#: barcamps/templates/admin/event_participants.html:19
+#: barcamps/templates/admin/event_participants.html:21
 msgid "Move to waiting list"
 msgstr ""
 
-#: barcamps/templates/admin/event_participants.html:21
+#: barcamps/templates/admin/event_participants.html:23
 msgid "Move to participants"
 msgstr ""
 
-#: barcamps/templates/admin/event_participants.html:24
+#: barcamps/templates/admin/event_participants.html:26
 msgid "remove from event"
 msgstr ""
 
-#: barcamps/templates/admin/event_participants.html:38
-msgid "Manage Participants"
-msgstr ""
-
-#: barcamps/templates/admin/event_participants.html:44
+#: barcamps/templates/admin/event_participants.html:46
 msgid "Waitinglist"
 msgstr ""
 
-#: barcamps/templates/admin/event_participants.html:45
+#: barcamps/templates/admin/event_participants.html:47
 msgid "Maybe coming"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:10
+#: barcamps/templates/admin/events.html:11
 msgid ""
 "A barcamp consists of one or multiple days called events. You can define "
 "these below"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:22
+#: barcamps/templates/admin/events.html:23
 msgid "Waiting"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:36
+#: barcamps/templates/admin/events.html:37
 #: barcamps/templates/admin/sessionboard.html:8
 msgid "Edit event timetable"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:37
+#: barcamps/templates/admin/events.html:38
 msgid "Manage participants"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:40
+#: barcamps/templates/admin/events.html:41
 msgid "Delete Event?"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:53
+#: barcamps/templates/admin/events.html:54
 msgid "no events have been defined yet."
 msgstr ""
 
-#: barcamps/templates/admin/events.html:59
+#: barcamps/templates/admin/events.html:60
 msgid "Show add event form"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:59
+#: barcamps/templates/admin/events.html:60
 msgid "Add event"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:63
+#: barcamps/templates/admin/events.html:64
 msgid "Create new event"
 msgstr ""
 
-#: barcamps/templates/admin/events.html:64
+#: barcamps/templates/admin/events.html:65
 msgid "Create event"
 msgstr ""
 
