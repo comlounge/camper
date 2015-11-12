@@ -7,6 +7,7 @@ import wtforms
 import userbase
 from xhtml2pdf import pisa
 import werkzeug.exceptions
+import werkzeug.urls
 from sfext.babel import T
 from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
