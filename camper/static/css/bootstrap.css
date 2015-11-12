@@ -7698,6 +7698,9 @@ body#startpage article.barcamp.barcamp-full .logo img,
 body#startpage article.barcamp.barcamp-full .description img {
   background: white;
 }
+body#startpage article.barcamp.barcamp-full .description {
+  background: #f0f0ed;
+}
 body#startpage article.barcamp.barcamp-full h3 {
   float: left !important;
 }

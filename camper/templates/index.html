@@ -12,7 +12,7 @@
                     {{view.logo}}
                 </div>
                 {% endif %}
-                <div class="description">
+                <div class="description clearfix">
                     <div class="pull-right">
                         {% if not view.barcamp.public %}
                             <span class="label label-warning">{{_('private')}}</span>
@@ -57,7 +57,7 @@
 
 {% block content %} 
     <div class="row barcamp-listing">
-        <div class="col-lg-10 col-md-10 col-lg-offset-1 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-1">
             <h2>
             {{_("Recent Barcamps")}}
             </h2>
@@ -71,13 +71,13 @@
         </div>
     </div>
     <div class="row barcamp-listing">
-        <div class="col-lg-5 col-md-5 col-md-offset-1 col-lg-offset-1">
+        <div class="col-md-5 col-md-offset-1">
             {% if my_barcamps %}
                 <h2>{{_("My Events")}}</h2>
                 {{listing(my_barcamps, small=True) }}
             {% endif %}
         </div>
-        <div class="col-lg-5 col-md-5">
+        <div class="col-md-5">
             {% if new_barcamps %}
                 <h2>{{_("New Events")}}</h2>
                 {{listing(new_barcamps, small=True) }}
