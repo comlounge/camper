@@ -19,6 +19,7 @@ from wtforms.ext.i18n.form import Form
 
 __all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'LocationNotFound', 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
 
+
 class LocationNotFound(Exception):
     """raised when a location was not found"""
 
@@ -515,13 +516,29 @@ class BaseHandler(starflyer.Handler):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
+
+        # kinda complicated to just replace query parameter
+        url2 = werkzeug.urls.URL(*werkzeug.urls.url_parse(self.request.url))
+        query = url2.decode_query()
+
+        # now replace it or add it 
+        query['__l'] = "de"
+        de_query = werkzeug.urls.url_encode(query)
+        query['__l'] = "en"
+        en_query = werkzeug.urls.url_encode(query)
+
+        # re-encode urls
+        de_url = url2.replace(query = de_query).to_url()
+        en_url = url2.replace(query = en_query).to_url()
+    
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
             barcamp = self.barcamp,
-            #txt = self.config.i18n.de,
             title = self.config.title,
             url = self.request.url,
+            de_url = de_url,
+            en_url = en_url,
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,

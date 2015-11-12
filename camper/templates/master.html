@@ -84,9 +84,9 @@
                     <ul class="nav navbar-nav navbar-right"> 
                             <li class="divider-vertical"></li>
                         {% if LANGUAGE=="de" %}
-                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                            <li><a href="{{en_url}}">english</a></li>
                         {% else %}
-                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                            <li><a href="{{de_url}}">deutsch</a></li>
                         {% endif %}
                         {% if is_main_admin %}
                             <li><a href="{{url_for("admin_index")}}"><b>{{_('ADMINISTRATION')}}</b></a></li>
