@@ -985,8 +985,10 @@
 
   $(function() {
     var le;
-    le = new LogoEditor();
-    return le.init();
+    if ($("#logocanvas").length) {
+      le = new LogoEditor();
+      return le.init();
+    }
   });
 
 }).call(this);

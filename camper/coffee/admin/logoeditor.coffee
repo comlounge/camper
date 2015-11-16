@@ -167,7 +167,6 @@ class LogoEditor
     # so it should be the factor of which the export or final canvas is bigger
     compute_scale: (canvas, screen_factor) ->
 
-
         # compute text widths
         font1 = "bold #{@font_weight * 0.7}px #{@font_family}"
         font2 = "normal #{@font_weight * 0.7}px #{@font_family}"
@@ -251,11 +250,8 @@ class LogoEditor
         @draw_logo(@canvas)
 
 
-
-
-
-
 $ ->
-    le = new LogoEditor()
-    le.init()
+    if $("#logocanvas").length
+        le = new LogoEditor()
+        le.init()
 
