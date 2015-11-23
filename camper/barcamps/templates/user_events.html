@@ -58,17 +58,19 @@
                     <address>
                         {{event.location.name}}, {{event.location.street}}, {{event.location.city}}
                     </address>
-                    <div class="progress">
+                    <div class="progress-info">
+                        <span class="filled">{{event.participants|length}}</span>
+                        /
+                        <span class="size">{{event.size}}</span> 
+                        {{_('participants')}}
+                    </div>
+                    <div class="progress participants-progress">
                         {% set percent = event.participants|length / event.size * 100 %}
                         <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
                             role="progressbar" 
                             aria-valuenow="{{event.participants|length}}" 
                             aria-valuemin="0" 
                             aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
-                            <span class="filled">{{event.participants|length}}</span>
-                            /
-                            <span class="size">{{event.size}}</span> 
-                            {{_('participants')}}
 
                         </div>
                     </div>

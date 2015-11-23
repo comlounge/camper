@@ -15,10 +15,6 @@
                 <div class="panel-heading">
 
                     <h4 class="panel-title">
-                        <div class="waitinglist">
-                            <span class="amount">{{event.waiting_list|length}}</span>
-                            <span class="label">{{_('on waiting list')}}</span>
-                        </div>
                         <div class="date">
                             <span class="day">{{event.date.strftime("%d") }}</span>
                             <span class="month">{{event.date.strftime("%m") }}</span>
@@ -33,6 +29,17 @@
                         {{event.location.name}}, {{event.location.street}}, {{event.location.city}}
                     </address>
 
+                    <div class="progress-info">
+                        <span class="filled">{{event.participants|length}}</span>
+                        /
+                        <span class="size">{{event.size}}</span> 
+                        {{_('participants')}}
+                        <br>
+                        <span class="amount">{{event.waiting_list|length}}</span>
+                        {{_('on waiting list')}}
+
+                    </div>
+
 
                     <div class="progress progress-events">
                         {% set percent = event.participants|length / event.size * 100 %}
@@ -41,11 +48,6 @@
                             aria-valuenow="{{event.participants|length}}" 
                             aria-valuemin="0" 
                             aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
-                            <span class="filled">{{event.participants|length}}</span>
-                            /
-                            <span class="size">{{event.size}}</span> 
-                            {{_('participants')}}
-
                         </div>
                     </div>
 
