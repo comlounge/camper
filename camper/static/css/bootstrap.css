@@ -8063,7 +8063,7 @@ h1.logo {
   color: #fa0;
 }
 .votecontainer .vote.inactive {
-  color: #ccc;
+  color: #333;
 }
 @media (min-width: 992px) {
   .votecontainer {
