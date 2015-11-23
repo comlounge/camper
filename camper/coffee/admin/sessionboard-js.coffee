@@ -38,11 +38,8 @@ init_i18n = () ->
         type: "GET"
         dataType: "json"
         success: (data) ->
-            console.log "loaded i18n"
 
             i18n = new Jed data
-            console.log data
-            console.log i18n
                 
             trans = (string, params)->
                 i18n.translate(string).fetch(params)
@@ -55,9 +52,7 @@ init_i18n = () ->
                 return trans content,options.hash
 
             Handlebars.registerHelper '_', (string,options) ->
-                console.log string
                 content = string
-                console.log trans(content)
                 return trans content, options.hash
 
             Handlebars.registerHelper 'ntrans', (num,options) ->
@@ -122,7 +117,7 @@ do ( $ = jQuery, window, document ) ->
                 contentType : 'application/json'
                 type : 'POST'
                 success: (data) =>
-                    console.log "ok"
+                    return  
                 error: (data) =>
                     alert("an error occurred saving the data")
                     @loadState()

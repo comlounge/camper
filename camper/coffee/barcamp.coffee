@@ -172,7 +172,6 @@ $.fn.gallery = (opts = {}) ->
 
 
 $ ->
-    console.log "ok"
 
     $(".gallerycontainer").gallery()
 

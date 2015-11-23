@@ -183,7 +183,6 @@
 
   $(function() {
     var event_layer, event_map, layer, map;
-    console.log("ok");
     $(".gallerycontainer").gallery();
     $(".upload-widget").uploader();
     $('[data-toggle=confirmation]').confirmation({
