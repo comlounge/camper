@@ -1476,7 +1476,7 @@
         $("#roomcontainment").sortable({
           axis: 'x',
           helper: "clone",
-          items: "td",
+          items: "th",
           placeholder: "sortable-placeholder",
           containment: 'parent',
           cancel: ".not-sortable",
