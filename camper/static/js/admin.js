@@ -1040,7 +1040,10 @@
       dataType: "json",
       success: function(data) {
         var i18n, ntrans, trans;
+        console.log("loaded i18n");
         i18n = new Jed(data);
+        console.log(data);
+        console.log(i18n);
         trans = function(string, params) {
           return i18n.translate(string).fetch(params);
         };
@@ -1054,7 +1057,9 @@
         });
         Handlebars.registerHelper('_', function(string, options) {
           var content;
+          console.log(string);
           content = string;
+          console.log(trans(content));
           return trans(content, options.hash);
         });
         Handlebars.registerHelper('ntrans', function(num, options) {
