@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-23 12:41+0100\n"
+"POT-Creation-Date: 2015-11-23 14:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -847,6 +847,10 @@ msgstr ""
 msgid "Share on Google+"
 msgstr ""
 
+#: barcamps/templates/master.html:16
+msgid "I am attending!"
+msgstr ""
+
 #: barcamps/templates/master.html:21
 msgid "Click here to participate in the barcamp"
 msgstr ""
@@ -964,7 +968,7 @@ msgstr ""
 #: blog/templates/edit.html:19 blog/templates/edit.html:46
 #: blog/templates/entry.html:43 blog/templates/entry.html:45
 #: blog/templates/view.html:25 blog/templates/view.html:27
-#: static/templates/sessiontest.hbs:54
+#: static/templates/sessiontest.hbs:53
 msgid "Edit"
 msgstr ""
 
@@ -2216,7 +2220,7 @@ msgid "Add new page"
 msgstr ""
 
 #: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
-#: static/templates/sessiontest.hbs:73
+#: static/templates/sessiontest.hbs:72
 msgid "Add new room"
 msgstr ""
 
@@ -2252,20 +2256,20 @@ msgstr ""
 msgid "drag to sort this list"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:38
+#: static/templates/sessiontest.hbs:37
 msgid "delete timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:68 static/templates/timeslot-modal.hbs:7
+#: static/templates/sessiontest.hbs:67 static/templates/timeslot-modal.hbs:7
 #: static/templates/timeslot-modal.hbs:34
 msgid "Add new timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:71
+#: static/templates/sessiontest.hbs:70
 msgid "Add new time slot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:74
+#: static/templates/sessiontest.hbs:73
 msgid "Add new Room"
 msgstr ""
 

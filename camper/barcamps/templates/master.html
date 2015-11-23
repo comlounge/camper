@@ -13,7 +13,7 @@
     <div class="widget-join">
         {% if barcamp.is_registered(user) %}
             <div class="attending">
-                <i class="fa fa-check"></i> I am attending!<br>
+                <i class="fa fa-check"></i> {{_('I am attending!')}}<br>
             </div>
         {% else %}
             {% if barcamp.workflow == "registration" %}

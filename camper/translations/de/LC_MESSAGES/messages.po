@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-11-23 12:41+0100\n"
+"POT-Creation-Date: 2015-11-23 14:27+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -884,6 +884,10 @@ msgstr "Auf Twitter teilen"
 msgid "Share on Google+"
 msgstr "Auf Google+ teilen"
 
+#: barcamps/templates/master.html:16
+msgid "I am attending!"
+msgstr "Ich nehme teil"
+
 #: barcamps/templates/master.html:21
 msgid "Click here to participate in the barcamp"
 msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
@@ -1005,7 +1009,7 @@ msgstr "Registrieren für %s"
 #: blog/templates/edit.html:19 blog/templates/edit.html:46
 #: blog/templates/entry.html:43 blog/templates/entry.html:45
 #: blog/templates/view.html:25 blog/templates/view.html:27
-#: static/templates/sessiontest.hbs:54
+#: static/templates/sessiontest.hbs:53
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -2308,7 +2312,7 @@ msgid "Add new page"
 msgstr "neue Seite anlegen"
 
 #: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
-#: static/templates/sessiontest.hbs:73
+#: static/templates/sessiontest.hbs:72
 msgid "Add new room"
 msgstr "Neuen Raum hinzufügen"
 
@@ -2344,20 +2348,20 @@ msgstr "Raum löschen"
 msgid "drag to sort this list"
 msgstr "Ziehen, um Liste zu sortieren"
 
-#: static/templates/sessiontest.hbs:38
+#: static/templates/sessiontest.hbs:37
 msgid "delete timeslot"
 msgstr "Zeitslot löschen"
 
-#: static/templates/sessiontest.hbs:68 static/templates/timeslot-modal.hbs:7
+#: static/templates/sessiontest.hbs:67 static/templates/timeslot-modal.hbs:7
 #: static/templates/timeslot-modal.hbs:34
 msgid "Add new timeslot"
 msgstr "Neuen Zeitslot hinzufügen"
 
-#: static/templates/sessiontest.hbs:71
+#: static/templates/sessiontest.hbs:70
 msgid "Add new time slot"
 msgstr "Neuen Zeitslot hinzufügen"
 
-#: static/templates/sessiontest.hbs:74
+#: static/templates/sessiontest.hbs:73
 msgid "Add new Room"
 msgstr "Neuen Raum hinzufügen"
 
