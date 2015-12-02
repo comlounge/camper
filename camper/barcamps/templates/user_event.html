@@ -61,12 +61,14 @@
     
 {% endmacro %}
 
-{% block main_content %}
+{% block outer_content %}
     <ol class="breadcrumb">
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
         <li class="active">{{active_event.name}}</li>
     </ol>
+
+    <h2>{{active_event.name}}</h2>
 
     <div id="user-events-content">
 
@@ -166,6 +168,7 @@
 
                 </div>
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='location'}}" id="location">
+                    <h3 class="sr-only">{{_('Location')}}</h3>
                     <div class="event-location-map" id="event-location-map"
                         data-accesstoken = "{{mapbox_access_token}}"
                         data-title = "{{active_event.event_location.name |e}}"
@@ -175,7 +178,6 @@
                     >
                     </div>
                 </div>
-
             </div>{# tab-content #}
 
         </div>{# tabpanel #}

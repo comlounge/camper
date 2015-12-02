@@ -6762,6 +6762,50 @@ button.close {
     display: none !important;
   }
 }
+.btn-inverse:hover {
+  color: #fff;
+  background: #333;
+}
+body.admin .admin-nav {
+  margin-top: 25px;
+}
+body.admin .admin-nav ul {
+  padding-left: 0;
+  list-style: none;
+}
+body.admin .admin-nav ul li {
+  display: block;
+  overflow: auto;
+  line-height: 2;
+  float: none;
+}
+body.admin .admin-nav ul li i {
+  width: 30px;
+  display: block;
+  font-size: 20px;
+  float: left;
+  line-height: 1.4;
+}
+body.admin .admin-nav ul li span {
+  display: block;
+  float: left;
+}
+body.admin .admin-nav ul li a {
+  font-size: 12px;
+  font-weight: normal;
+  color: #333;
+  line-height: 1;
+}
+body.admin .admin-nav ul li.active {
+  background: #f8f8fa;
+}
+body.admin .admin-nav ul li.active a {
+  color: #700;
+  font-weight: bold;
+}
+body.admin .admin-nav h4 {
+  margin-top: 30px;
+}
 body.admin .navbar-side {
   margin-top: 25px;
   border: 1px solid #d0d0d0;
@@ -7912,7 +7956,9 @@ h1.logo {
 }
 .event-location-map {
   width: 100%;
-  height: 400px;
+  height: 800px;
+  margin-top: 20px;
+  border: 1px solid #e0e0e0;
 }
 .navbar-barcamp {
   margin: 0;
@@ -8624,7 +8670,7 @@ a#user-events-content .datelist .plabel:focus {
 #user-events-content .sessiontable .slot {
   padding: 10px;
   position: relative;
-  padding-bottom: 40px;
+  padding-bottom: 10px;
 }
 #user-events-content .sessiontable .slot.active {
   cursor: pointer;
@@ -8636,9 +8682,6 @@ a#user-events-content .datelist .plabel:focus {
   margin: 0 0 4px 0;
 }
 #user-events-content .sessiontable .moderators {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
   color: #606060;
   font-size: 12px;
 }

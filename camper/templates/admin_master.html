@@ -22,7 +22,36 @@
         {% block full_content %}
         {% if slug %}
         <div class="{{'col-lg-2 col-md-2' if container=='full' else 'col-lg-3 col-md-4'}}">
-            <ul class="nav navbar-side">
+            <nav class="admin-nav">
+                <a class="btn btn-lg btn-block btn-success" href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-arrow-left"></i> {{_('public view')}}</a>
+
+                <h4>{{_('Basic Information')}}</h4>
+
+                <ul>
+                    <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
+                    <li class="{{'active' if menu=='sponsors'}}"><a href="{{url_for("barcamps.sponsors", slug=slug)}}" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('manage sponsors')}}</a></li>
+                    <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
+                    <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
+                </ul>
+
+                <h4>{{_('Information')}}</h4>
+                <ul>
+                    <li class="{{'active' if menu=='galleries'}}"><a href="{{url_for("barcamps.admin_galleries", slug=slug)}}"><i class="fa fa-photo"></i> {{_('Galleries')}}</a></li>
+                    <li class="{{'active' if menu=='blog'}}"><a href="{{url_for("blog.entries", slug=slug)}}"><i class="fa fa-newspaper-o"></i> {{_('Manage Blog')}}</a></li>
+                    <li class="{{'active' if menu=='pages'}}"><a href="{{url_for("pages.barcamp_pages", slug=slug)}}"><i class="fa fa-file"></i> {{_('Custom Pages')}}</a></li>
+                    <li class="{{'active' if menu=='newsletter_send'}}"><a href="{{url_for("barcamps.newsletter_send", slug=slug)}}"><i class="fa fa-share"></i> {{_('send newsletter')}}</a></li>
+
+                </ul>
+
+                <h4>{{_('Advanced')}}</h4>
+                <ul>
+                    <li class="{{'active' if menu=='design'}}"><a href="{{url_for("barcamps.admin_design", slug=slug)}}"><i class="fa fa-magic"></i> {{_('Design and Layout')}}</a></li>
+                    <li class="{{'active' if menu=='permissions'}}"><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="fa fa-list"></i> {{_('edit permissions')}}</a></li>
+                    <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
+                    <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
+                </ul>
+            </nav>
+            <ul class="nav navbar-side hide">
                 <li class="back-to-bc"><a href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-arrow-left"></i> {{_('public view')}}</a></li>
                 <li><a href="{{url_for("barcamps.dashboard", slug=slug)}}"><i class="fa fa-tachometer"></i> {{_('Dashboard')}}</a></li>
                 <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
