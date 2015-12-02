@@ -7120,7 +7120,7 @@ body.admin #sessionboard-container .moderators {
 body.admin #sessionboard-container .sessionslot {
   position: relative;
   height: 70px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 body.admin #sessionboard-container .sessionslot .slot-actions {
   position: absolute;
