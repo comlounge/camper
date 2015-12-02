@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-11-23 14:27+0100\n"
+"POT-Creation-Date: 2015-12-02 16:59+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -999,7 +999,7 @@ msgstr ""
 #: barcamps/templates/registration.html:57
 #: barcamps/templates/registration.html:64
 #: barcamps/templates/user_event.html:32 barcamps/templates/user_event.html:37
-#: barcamps/templates/user_event.html:44 barcamps/templates/user_event.html:100
+#: barcamps/templates/user_event.html:44 barcamps/templates/user_event.html:102
 #: barcamps/templates/user_events.html:20
 #: barcamps/templates/user_events.html:25
 #: barcamps/templates/user_events.html:32
@@ -1015,7 +1015,7 @@ msgid "Going"
 msgstr ""
 
 #: barcamps/templates/registration.html:59
-#: barcamps/templates/user_event.html:39 barcamps/templates/user_event.html:104
+#: barcamps/templates/user_event.html:39 barcamps/templates/user_event.html:106
 #: barcamps/templates/user_events.html:27 barcamps/templates/userlist.html:58
 msgid "Waiting list"
 msgstr ""
@@ -1152,13 +1152,13 @@ msgstr ""
 msgid "I am not attending this event"
 msgstr ""
 
-#: barcamps/templates/user_event.html:58 barcamps/templates/user_event.html:204
+#: barcamps/templates/user_event.html:58 barcamps/templates/user_event.html:206
 #: barcamps/templates/user_events.html:43
 #: barcamps/templates/user_events.html:108
 msgid "Add my registration data"
 msgstr ""
 
-#: barcamps/templates/user_event.html:78 barcamps/templates/user_event.html:96
+#: barcamps/templates/user_event.html:80 barcamps/templates/user_event.html:98
 #: barcamps/templates/user_events.html:80 barcamps/templates/userlist.html:50
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
@@ -1166,54 +1166,54 @@ msgstr ""
 msgid "Participants"
 msgstr ""
 
-#: barcamps/templates/user_event.html:81 barcamps/templates/user_events.html:81
+#: barcamps/templates/user_event.html:83 barcamps/templates/user_events.html:81
 #: barcamps/templates/admin/event_macros.html:12
 msgid "Timetable"
 msgstr ""
 
-#: barcamps/templates/user_event.html:84 barcamps/templates/user_events.html:82
-#: barcamps/templates/admin/add.html:124
+#: barcamps/templates/user_event.html:86 barcamps/templates/user_event.html:171
+#: barcamps/templates/user_events.html:82 barcamps/templates/admin/add.html:124
 #: barcamps/templates/admin/event_macros.html:141
 msgid "Location"
 msgstr ""
 
-#: barcamps/templates/user_event.html:113
+#: barcamps/templates/user_event.html:115
 msgid "Time Table"
 msgstr ""
 
-#: barcamps/templates/user_event.html:129 static/templates/sessiontest.hbs:24
+#: barcamps/templates/user_event.html:131 static/templates/sessiontest.hbs:24
 msgid "persons"
 msgstr ""
 
-#: barcamps/templates/user_event.html:147
+#: barcamps/templates/user_event.html:149
 msgid "Documentation for"
 msgstr ""
 
-#: barcamps/templates/user_event.html:164
+#: barcamps/templates/user_event.html:166
 msgid "Edit Sessions"
 msgstr ""
 
-#: barcamps/templates/user_event.html:190
+#: barcamps/templates/user_event.html:192
 #: barcamps/templates/user_events.html:94
 msgid "My data"
 msgstr ""
 
-#: barcamps/templates/user_event.html:201
+#: barcamps/templates/user_event.html:203
 #: barcamps/templates/user_events.html:105
 msgid "Change my registration data"
 msgstr ""
 
-#: barcamps/templates/user_event.html:201
+#: barcamps/templates/user_event.html:203
 #: barcamps/templates/user_events.html:105
 msgid "edit"
 msgstr ""
 
-#: barcamps/templates/user_event.html:203
+#: barcamps/templates/user_event.html:205
 #: barcamps/templates/user_events.html:107
 msgid "please enter your personal data in order to register for this event"
 msgstr ""
 
-#: barcamps/templates/user_event.html:204
+#: barcamps/templates/user_event.html:206
 #: barcamps/templates/user_events.html:108
 msgid "add"
 msgstr ""
@@ -1377,7 +1377,7 @@ msgstr ""
 msgid "create Barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/dashboard.html:6 templates/admin_master.html:27
+#: barcamps/templates/admin/dashboard.html:6 templates/admin_master.html:56
 msgid "Dashboard"
 msgstr ""
 
@@ -1856,6 +1856,7 @@ msgid "Delete all Sessions"
 msgstr ""
 
 #: barcamps/templates/admin/sessionboard.html:30 templates/admin_master.html:26
+#: templates/admin_master.html:55
 msgid "public view"
 msgstr ""
 
@@ -2207,7 +2208,8 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: pages/templates/entries.html:7 templates/admin_master.html:32
+#: pages/templates/entries.html:7 templates/admin_master.html:41
+#: templates/admin_master.html:61
 msgid "Custom Pages"
 msgstr ""
 
@@ -2292,50 +2294,62 @@ msgid ""
 msgstr ""
 
 #: templates/admin_master.html:28
+msgid "Basic Information"
+msgstr ""
+
+#: templates/admin_master.html:31 templates/admin_master.html:57
 msgid "edit base information"
 msgstr ""
 
-#: templates/admin_master.html:29
-msgid "edit events"
-msgstr ""
-
-#: templates/admin_master.html:30
-msgid "edit registration form"
-msgstr ""
-
-#: templates/admin_master.html:31
-msgid "Manage Blog"
-msgstr ""
-
-#: templates/admin_master.html:33
-msgid "Design and Layout"
-msgstr ""
-
-#: templates/admin_master.html:34
-msgid "Galleries"
-msgstr ""
-
-#: templates/admin_master.html:35
-msgid "edit mail templates"
-msgstr ""
-
-#: templates/admin_master.html:36
-msgid "download participants"
-msgstr ""
-
-#: templates/admin_master.html:37
-msgid "send newsletter"
-msgstr ""
-
-#: templates/admin_master.html:38
+#: templates/admin_master.html:32 templates/admin_master.html:67
 msgid "manage sponsors"
 msgstr ""
 
-#: templates/admin_master.html:39
+#: templates/admin_master.html:33 templates/admin_master.html:58
+msgid "edit events"
+msgstr ""
+
+#: templates/admin_master.html:34 templates/admin_master.html:59
+msgid "edit registration form"
+msgstr ""
+
+#: templates/admin_master.html:37
+msgid "Information"
+msgstr ""
+
+#: templates/admin_master.html:39 templates/admin_master.html:63
+msgid "Galleries"
+msgstr ""
+
+#: templates/admin_master.html:40 templates/admin_master.html:60
+msgid "Manage Blog"
+msgstr ""
+
+#: templates/admin_master.html:42 templates/admin_master.html:66
+msgid "send newsletter"
+msgstr ""
+
+#: templates/admin_master.html:46
+msgid "Advanced"
+msgstr ""
+
+#: templates/admin_master.html:48 templates/admin_master.html:62
+msgid "Design and Layout"
+msgstr ""
+
+#: templates/admin_master.html:49 templates/admin_master.html:68
 msgid "edit permissions"
 msgstr ""
 
-#: templates/admin_master.html:42
+#: templates/admin_master.html:50 templates/admin_master.html:64
+msgid "edit mail templates"
+msgstr ""
+
+#: templates/admin_master.html:51 templates/admin_master.html:65
+msgid "download participants"
+msgstr ""
+
+#: templates/admin_master.html:71
 msgid "DELETE BARCAMP"
 msgstr ""
 
