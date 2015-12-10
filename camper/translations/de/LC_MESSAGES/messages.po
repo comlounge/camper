@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2015-12-02 16:59+0100\n"
+"POT-Creation-Date: 2015-12-10 12:32+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -358,20 +358,20 @@ msgstr ""
 "Dieses Bild wird genutzt, wenn Links bei Facebook gepostet werden. Es "
 "sollte möglichst 1200x630 Pixel groß sein, mindestens aber 600x315 Pixel"
 
-#: barcamps/design.py:22 barcamps/templates/admin/design.html:146
+#: barcamps/design.py:22 barcamps/templates/admin/design.html:150
 msgid "Link Color"
 msgstr "Linkfarbe"
 
-#: barcamps/design.py:23 barcamps/templates/admin/design.html:152
+#: barcamps/design.py:23 barcamps/templates/admin/design.html:156
 msgid "Header Background Color"
 msgstr "Hintergrundfarbe Header"
 
-#: barcamps/design.py:24 barcamps/templates/admin/design.html:149
+#: barcamps/design.py:24 barcamps/templates/admin/design.html:153
 msgid "Text Color"
 msgstr "Textfarbe"
 
-#: barcamps/design.py:25 barcamps/templates/admin/design.html:155
-#: barcamps/templates/admin/design.html:161
+#: barcamps/design.py:25 barcamps/templates/admin/design.html:159
+#: barcamps/templates/admin/design.html:165
 msgid "Background Color"
 msgstr "Hintergrundfarbe"
 
@@ -428,6 +428,10 @@ msgstr ""
 #: barcamps/design.py:70 blog/add.py:40 blog/edit.py:29
 msgid "do not show a gallery"
 msgstr "keine Galerie nutzen"
+
+#: barcamps/design.py:77 barcamps/edit.py:156
+msgid "The barcamp has been updated."
+msgstr "Das Barcamp wurde aktualisiert"
 
 #: barcamps/edit.py:22 barcamps/galleries.py:29
 #: barcamps/templates/sessions.html:134 barcamps/templates/admin/add.html:19
@@ -539,10 +543,6 @@ msgid ""
 "ID of the facebook admin for the facebook page for this barcamp if one "
 "exists"
 msgstr ""
-
-#: barcamps/edit.py:156
-msgid "The barcamp has been updated."
-msgstr "Das Barcamp wurde aktualisiert"
 
 #: barcamps/edit.py:166 barcamps/edit.py:172 barcamps/edit.py:178
 #: barcamps/newsletter.py:18
@@ -796,7 +796,7 @@ msgstr ""
 msgid "Your information was updated"
 msgstr "Deine Informationen wurden aktualisiert"
 
-#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:20
+#: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:27
 #: static/templates/room-modal.hbs:15
 msgid "Name"
 msgstr "Name"
@@ -847,7 +847,8 @@ msgid "Add new blog post"
 msgstr "Neuen Blogpost hinzufügen"
 
 #: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:143
-#: barcamps/templates/sessions.html:158 barcamps/templates/admin/design.html:98
+#: barcamps/templates/sessions.html:158
+#: barcamps/templates/admin/design.html:102
 #: barcamps/templates/admin/event_macros.html:181
 #: barcamps/templates/admin/gallery_macros.html:24
 #: barcamps/templates/admin/galleryadmin.html:24 blog/templates/edit.html:28
@@ -857,7 +858,7 @@ msgstr "Abbrechen"
 
 #: barcamps/templates/docs.html:35 barcamps/templates/participant_data.html:25
 #: barcamps/templates/sessions.html:142
-#: barcamps/templates/admin/design.html:188
+#: barcamps/templates/admin/design.html:192
 #: barcamps/templates/admin/galleryadmin.html:23
 #: barcamps/templates/admin/mails_edit.html:47 blog/templates/edit.html:50
 msgid "Save"
@@ -949,19 +950,19 @@ msgstr "Menü"
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:206
+#: barcamps/templates/master.html:206 templates/admin_master.html:61
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:207
+#: barcamps/templates/master.html:207 templates/admin_master.html:62
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
-#: barcamps/templates/master.html:214
+#: barcamps/templates/master.html:214 templates/admin_master.html:69
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:215
+#: barcamps/templates/master.html:215 templates/admin_master.html:70
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
@@ -1086,7 +1087,7 @@ msgstr "Sortieren nach:"
 
 #: barcamps/templates/sessions.html:14
 #: barcamps/templates/admin/event_macros.html:96
-#: barcamps/templates/admin/events.html:21
+#: barcamps/templates/admin/events.html:28
 msgid "Date"
 msgstr "Datum"
 
@@ -1135,9 +1136,9 @@ msgstr "Sessionvorschlag bearbeiten"
 msgid "Delete Session Proposal"
 msgstr "Sessionvorschlag löschen"
 
-#: barcamps/templates/sessions.html:67 barcamps/templates/admin/design.html:122
-#: barcamps/templates/admin/design.html:128
-#: barcamps/templates/admin/design.html:133
+#: barcamps/templates/sessions.html:67 barcamps/templates/admin/design.html:126
+#: barcamps/templates/admin/design.html:132
+#: barcamps/templates/admin/design.html:137
 #: barcamps/templates/admin/gallery_macros.html:50 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:132
 #: templates/users/edit.html:38
@@ -1207,7 +1208,7 @@ msgstr "Meine Registrierungsdaten angeben"
 #: barcamps/templates/user_events.html:80 barcamps/templates/userlist.html:50
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
-#: barcamps/templates/admin/events.html:22
+#: barcamps/templates/admin/events.html:29
 msgid "Participants"
 msgstr "Teilnehmer"
 
@@ -1340,7 +1341,7 @@ msgid "Website"
 msgstr "Webseite"
 
 #: barcamps/templates/admin/add.html:84
-#: barcamps/templates/admin/sponsors.html:39
+#: barcamps/templates/admin/sponsors.html:46
 msgid "https://"
 msgstr "https://"
 
@@ -1422,7 +1423,7 @@ msgstr "Auf Karte anzeigen"
 msgid "create Barcamp"
 msgstr "neues Barcamp anlegen"
 
-#: barcamps/templates/admin/dashboard.html:6 templates/admin_master.html:56
+#: barcamps/templates/admin/dashboard.html:6
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -1432,7 +1433,7 @@ msgstr "auf Warteliste"
 
 #: barcamps/templates/admin/dashboard.html:56
 #: barcamps/templates/admin/event.html:11
-#: barcamps/templates/admin/events.html:35
+#: barcamps/templates/admin/events.html:42
 msgid "Edit event details"
 msgstr "Veranstaltungsdetails bearbeiten"
 
@@ -1485,59 +1486,66 @@ msgstr "NEEEEIN, lösche dieses Barcamp doch nicht!"
 msgid "Barcamp Design and Layout"
 msgstr "Barcamp Design und Layout"
 
-#: barcamps/templates/admin/design.html:36
-#: barcamps/templates/admin/design.html:123
+#: barcamps/templates/admin/design.html:7
+msgid ""
+"On this screen you should at least upload a logo or use the logo "
+"generator to create one. Optionally you can adjust the design to your "
+"liking."
+msgstr ""
+
+#: barcamps/templates/admin/design.html:40
+#: barcamps/templates/admin/design.html:127
 msgid "Logo Generator"
 msgstr ""
 
-#: barcamps/templates/admin/design.html:90
-#: barcamps/templates/admin/design.html:142
+#: barcamps/templates/admin/design.html:94
+#: barcamps/templates/admin/design.html:146
 msgid "Click on the colors to open a color picker"
 msgstr "Klicke auf eine Farbe, um die Farbauswahl zu öffnen"
 
-#: barcamps/templates/admin/design.html:99
+#: barcamps/templates/admin/design.html:103
 msgid "Save as logo"
 msgstr "Als Logo speichern"
 
-#: barcamps/templates/admin/design.html:101
+#: barcamps/templates/admin/design.html:105
 msgid "Saving ..."
 msgstr "Speichert ..."
 
-#: barcamps/templates/admin/design.html:102
+#: barcamps/templates/admin/design.html:106
 msgid "Download as PNG"
 msgstr "Als PNG herunterladen"
 
-#: barcamps/templates/admin/design.html:119
+#: barcamps/templates/admin/design.html:123
 msgid "Logos and Gallery"
 msgstr "Logos und Gallerie"
 
-#: barcamps/templates/admin/design.html:122
-#: barcamps/templates/admin/design.html:128
-#: barcamps/templates/admin/design.html:133
+#: barcamps/templates/admin/design.html:126
+#: barcamps/templates/admin/design.html:132
+#: barcamps/templates/admin/design.html:137
 msgid "Upload Image"
 msgstr "Bild hochladen"
 
-#: barcamps/templates/admin/design.html:141
+#: barcamps/templates/admin/design.html:145
 msgid "Colors"
 msgstr "Farben"
 
-#: barcamps/templates/admin/design.html:164
+#: barcamps/templates/admin/design.html:168
 msgid "Border Color"
 msgstr "Rahmenfarbe"
 
-#: barcamps/templates/admin/design.html:167
+#: barcamps/templates/admin/design.html:171
 msgid "Hover Background Color"
 msgstr "Hover Hintergrundfarbe"
 
-#: barcamps/templates/admin/design.html:172
+#: barcamps/templates/admin/design.html:176
 msgid "Active Text Color"
 msgstr "Aktive Text-Farbe"
 
-#: barcamps/templates/admin/design.html:175
+#: barcamps/templates/admin/design.html:179
 msgid "Active Background Color"
 msgstr "Aktive Hintergrundfarbe"
 
-#: barcamps/templates/admin/design.html:181
+#: barcamps/templates/admin/design.html:185
 msgid "Advanced settings"
 msgstr "Erweiterte Einstellungen"
 
@@ -1665,48 +1673,55 @@ msgstr "Warteliste"
 msgid "Maybe coming"
 msgstr "Komme vielleicht"
 
-#: barcamps/templates/admin/events.html:11
+#: barcamps/templates/admin/events.html:13
 msgid ""
-"A barcamp consists of one or multiple days called events. You can define "
-"these below"
+"A barcamp consists of one or more events. Each event e.g. represents a "
+"day of the barcamp like \"Saturday\". Participants have to register for a"
+" specific event instead of the whole barcamp. So you have to add at least"
+" one event here."
 msgstr ""
-"Ein Barcamp besteht aus einer oder mehreren Veranstaltungen "
-"(normalerweise 1 pro Tag)."
 
-#: barcamps/templates/admin/events.html:23
+#: barcamps/templates/admin/events.html:16
+msgid ""
+"For each event you can define a separate location, a separate amount of "
+"participanst, edit the timetable, manage participants and fill in the "
+"sessiontable."
+msgstr ""
+
+#: barcamps/templates/admin/events.html:30
 msgid "Waiting"
 msgstr "Warteliste"
 
-#: barcamps/templates/admin/events.html:37
+#: barcamps/templates/admin/events.html:44
 #: barcamps/templates/admin/sessionboard.html:8
 msgid "Edit event timetable"
 msgstr "Zeitraster bearbeiten"
 
-#: barcamps/templates/admin/events.html:38
+#: barcamps/templates/admin/events.html:45
 msgid "Manage participants"
 msgstr "Teilnehmerzahl erhöhen"
 
-#: barcamps/templates/admin/events.html:41
+#: barcamps/templates/admin/events.html:48
 msgid "Delete Event?"
 msgstr "Veranstaltung löschen?"
 
-#: barcamps/templates/admin/events.html:54
+#: barcamps/templates/admin/events.html:61
 msgid "no events have been defined yet."
 msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
 
-#: barcamps/templates/admin/events.html:60
+#: barcamps/templates/admin/events.html:67
 msgid "Show add event form"
 msgstr "Zeige Veranstatungsformular"
 
-#: barcamps/templates/admin/events.html:60
+#: barcamps/templates/admin/events.html:67
 msgid "Add event"
 msgstr "Veranstaltung hinzufügen"
 
-#: barcamps/templates/admin/events.html:64
+#: barcamps/templates/admin/events.html:71
 msgid "Create new event"
 msgstr "Neue Veranstaltung anlegen"
 
-#: barcamps/templates/admin/events.html:65
+#: barcamps/templates/admin/events.html:72
 msgid "Create event"
 msgstr "neue Veranstaltung anlegen"
 
@@ -1736,7 +1751,7 @@ msgstr "Galerie hinzufügen"
 
 #: barcamps/templates/admin/gallery_macros.html:18
 msgid "Title of image"
-msgstr "löschen"
+msgstr "Titel des Bildes"
 
 #: barcamps/templates/admin/gallery_macros.html:19
 msgid "The alt tag"
@@ -1892,11 +1907,11 @@ msgstr "Titel"
 msgid "required?"
 msgstr "erforderlich?"
 
-#: barcamps/templates/admin/participants_data_edit.html:48
+#: barcamps/templates/admin/participants_data_edit.html:49
 msgid "Add a new field"
 msgstr "Füge ein neues Feld hinzu"
 
-#: barcamps/templates/admin/participants_data_edit.html:56
+#: barcamps/templates/admin/participants_data_edit.html:57
 msgid "Add"
 msgstr "Hinzufügen"
 
@@ -1937,7 +1952,6 @@ msgid "Delete all Sessions"
 msgstr "Alle Sessions löschen"
 
 #: barcamps/templates/admin/sessionboard.html:30 templates/admin_master.html:26
-#: templates/admin_master.html:55
 msgid "public view"
 msgstr "Öffentliche Ansicht"
 
@@ -1975,7 +1989,18 @@ msgstr "Raumschilder"
 msgid "Manage Sponsors"
 msgstr "Sponsoren verwalten"
 
+#: barcamps/templates/admin/sponsors.html:8
+msgid ""
+"Here you can add and edit sponsors of your barcamp. They will be "
+"displayed in the right sidebar in public view."
+msgstr ""
+
 #: barcamps/templates/admin/sponsors.html:37
+#, fuzzy
+msgid "No sponsors defined yet."
+msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
+
+#: barcamps/templates/admin/sponsors.html:44
 msgid "Add new sponsor"
 msgstr "Neuen Sponsor anlegen"
 
@@ -2299,8 +2324,7 @@ msgstr "Seite bearbeiten"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: pages/templates/entries.html:7 templates/admin_master.html:41
-#: templates/admin_master.html:61
+#: pages/templates/entries.html:7 templates/admin_master.html:42
 msgid "Custom Pages"
 msgstr "Eigene Seiten"
 
@@ -2390,61 +2414,57 @@ msgstr ""
 msgid "Basic Information"
 msgstr "Basis-Informationen"
 
-#: templates/admin_master.html:31 templates/admin_master.html:57
+#: templates/admin_master.html:31
 msgid "edit base information"
 msgstr "Barcamp bearbeiten "
 
-#: templates/admin_master.html:32 templates/admin_master.html:67
-msgid "manage sponsors"
-msgstr "Sponsoren verwalten"
-
-#: templates/admin_master.html:33 templates/admin_master.html:58
-msgid "edit events"
-msgstr "Veranstaltungen"
-
-#: templates/admin_master.html:34 templates/admin_master.html:59
-msgid "edit registration form"
-msgstr "Registrierung"
-
-#: templates/admin_master.html:37
-msgid "Information"
-msgstr "Information"
-
-#: templates/admin_master.html:39 templates/admin_master.html:63
-msgid "Galleries"
-msgstr "Galerien"
-
-#: templates/admin_master.html:40 templates/admin_master.html:60
-msgid "Manage Blog"
-msgstr "Blogverwaltung"
-
-#: templates/admin_master.html:42 templates/admin_master.html:66
-msgid "send newsletter"
-msgstr "Newsletter versenden"
-
-#: templates/admin_master.html:46
-msgid "Advanced"
-msgstr "Erweitert"
-
-#: templates/admin_master.html:48 templates/admin_master.html:62
+#: templates/admin_master.html:32
 msgid "Design and Layout"
 msgstr "Design und Layout"
 
-#: templates/admin_master.html:49 templates/admin_master.html:68
+#: templates/admin_master.html:33
+msgid "manage sponsors"
+msgstr "Sponsoren verwalten"
+
+#: templates/admin_master.html:34
+msgid "edit events"
+msgstr "Veranstaltungen"
+
+#: templates/admin_master.html:35
+msgid "edit registration form"
+msgstr "Registrierung"
+
+#: templates/admin_master.html:38
+msgid "Information"
+msgstr "Information"
+
+#: templates/admin_master.html:40
+msgid "Galleries"
+msgstr "Galerien"
+
+#: templates/admin_master.html:41
+msgid "Manage Blog"
+msgstr "Blogverwaltung"
+
+#: templates/admin_master.html:43
+msgid "send newsletter"
+msgstr "Newsletter versenden"
+
+#: templates/admin_master.html:47
+msgid "Advanced"
+msgstr "Erweitert"
+
+#: templates/admin_master.html:49
 msgid "edit permissions"
 msgstr "Berechtigungen"
 
-#: templates/admin_master.html:50 templates/admin_master.html:64
+#: templates/admin_master.html:50
 msgid "edit mail templates"
 msgstr "Email-Vorlagen"
 
-#: templates/admin_master.html:51 templates/admin_master.html:65
+#: templates/admin_master.html:51
 msgid "download participants"
 msgstr "Teilnehmer herunterladen"
-
-#: templates/admin_master.html:71
-msgid "DELETE BARCAMP"
-msgstr "LÖSCHE DAS BARCAMP"
 
 #: templates/index.html:18
 msgid "private"
@@ -2756,4 +2776,16 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "edit participants"
 #~ msgstr "Teilnehmer bearbeiten"
+
+#~ msgid ""
+#~ "A barcamp consists of one or "
+#~ "multiple days called events. You can "
+#~ "define these below"
+#~ msgstr ""
+#~ "Ein Barcamp besteht aus einer oder "
+#~ "mehreren Veranstaltungen (normalerweise 1 pro"
+#~ " Tag)."
+
+#~ msgid "DELETE BARCAMP"
+#~ msgstr "LÖSCHE DAS BARCAMP"
 
