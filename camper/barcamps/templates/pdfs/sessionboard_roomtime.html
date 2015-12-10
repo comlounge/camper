@@ -10,7 +10,7 @@
 
 <body>
 	{% for slot in timeslots %}
-		<div class="slot">{{slot.time.strftime('%H:%M')}}
+		<div class="slot">{{slot.time}}
 			{% if slot.blocked %}
 				<div class="byline">{{slot.reason}}</div>
 			{% endif %}
