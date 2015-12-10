@@ -56,7 +56,9 @@
                     </h4>
 
                     <address>
+                        <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location">
                         {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
+                        </a>
                     </address>
                     <div class="progress-info">
                         <span class="filled">{{event.participants|length}}</span>
@@ -88,7 +90,7 @@
 
 {% block widgets %}
     {{share_buttons()}}
-    {% if logged_in %}
+    {% if logged_in and has_form and has_form_data %}
     <div id="my-actions" class="panel panel-default">
         <div class="panel-heading">
             <h4 class="panel-title">{{_('My data')}}</h4>
