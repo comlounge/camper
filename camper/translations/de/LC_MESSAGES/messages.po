@@ -2019,7 +2019,7 @@ msgstr "Veröffentlichungsdatum"
 
 #: blog/add.py:21
 msgid "Title image"
-msgstr "itelbild"
+msgstr "Titelbild"
 
 #: blog/add.py:50
 msgid "The blog entry was created"
