@@ -4,6 +4,10 @@
 {% block content %}
     <div class="page-header">
         <h1>{{_('Manage Sponsors')}}</h1>
+        <div class="help-block">
+            {{_('Here you can add and edit sponsors of your barcamp. They will be displayed in the right sidebar in public view.')}}
+    
+        </div>
     </div>
     <div id="sponsor-list">
         <ul id="admin-sponsors" data-url="{{sort_url}}">
@@ -29,6 +33,9 @@
                     </div>
                 </li>
             {% endfor %}
+            {% if not view.sponsors %}
+            <span class="alert alert-block alert-info">{{_('No sponsors defined yet.')}}</span>
+            {% endif %}
         </ul>
     </div>
         
