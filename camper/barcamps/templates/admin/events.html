@@ -8,7 +8,14 @@
 
     {% block title %}
         <h1>{{_('Events')}}</h1>
-        <small>{{_('A barcamp consists of one or multiple days called events. You can define these below')}}</small>
+        <div class="help-block">
+            <p>
+            {{_('A barcamp consists of one or more events. Each event e.g. represents a day of the barcamp like "Saturday". Participants have to register for a specific event instead of the whole barcamp. So you have to add at least one event here.')}}
+            </p>
+            <p>
+            {{_('For each event you can define a separate location, a separate amount of participanst, edit the timetable, manage participants and fill in the sessiontable.')}}
+            </p>
+        </div>
     {% endblock %}
     <hr>
 
