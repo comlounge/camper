@@ -7545,6 +7545,9 @@ form {
   position: relative;
   margin: 1em 0 2.5em;
 }
+.gallerycontainer {
+  margin-bottom: 30px;
+}
 .gallery-pictures {
   list-style-type: none;
   margin: 0;

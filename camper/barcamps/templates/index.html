@@ -15,7 +15,8 @@
                 <div class="gallery">
                     <ul class="gallery-pictures">
                         {% for image in view.gallery.images %}
-                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image")  }}</li>
+                        {{image}}
+                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image", alt=image.alt, title=image.title)  }}</li>
                         {% endfor %}
                     </ul>
                 </div>

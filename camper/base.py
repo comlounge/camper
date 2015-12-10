@@ -571,11 +571,14 @@ class BaseHandler(starflyer.Handler):
         asset = self.app.module_map.uploader.get(image_id)
         v = asset.variants[variant]
         url = self.app.url_for("asset", asset_id = v._id)
+        s=""
+        for a,d in kw.items():
+            s = s + '%s="%s" ' %(a,d)
         tag = """<img src="%s" width="%s" height="%s" %s>""" %(
             url,
             v.metadata['width'],
             v.metadata['height'],
-            "")
+            s)
         return tag
 
     def forbidden(self):
