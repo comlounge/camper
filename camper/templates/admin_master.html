@@ -29,6 +29,7 @@
 
                 <ul>
                     <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
+                    <li class="{{'active' if menu=='design'}}"><a href="{{url_for("barcamps.admin_design", slug=slug)}}"><i class="fa fa-magic"></i> {{_('Design and Layout')}}</a></li>
                     <li class="{{'active' if menu=='sponsors'}}"><a href="{{url_for("barcamps.sponsors", slug=slug)}}" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('manage sponsors')}}</a></li>
                     <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
                     <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
@@ -45,7 +46,6 @@
 
                 <h4>{{_('Advanced')}}</h4>
                 <ul>
-                    <li class="{{'active' if menu=='design'}}"><a href="{{url_for("barcamps.admin_design", slug=slug)}}"><i class="fa fa-magic"></i> {{_('Design and Layout')}}</a></li>
                     <li class="{{'active' if menu=='permissions'}}"><a href="{{url_for("barcamps.permissions", slug=slug)}}"><i class="fa fa-list"></i> {{_('edit permissions')}}</a></li>
                     <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
                     <li><a href="{{url_for("barcamps.registration_data_export", slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
