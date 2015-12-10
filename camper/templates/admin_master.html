@@ -54,6 +54,23 @@
         </div>
         {% endif %}
         <div class="{{'col-lg-10 col-md-10' if container=='full' else 'col-lg-9 col-md-8    '}}">
+                        {% if barcamp.workflow=="created" %}
+                            <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
+                                <input type="hidden" name="wf" value="public">
+                                <div class="well">
+                                    <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
+                                    <b style="color: red">{{_('this barcamp is not public')}}</b>
+                                </div>
+                            </form>
+                        {% elif barcamp.workflow == "public" %}
+                            <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
+                                <input type="hidden" name="wf" value="registration">
+                                <div class="well">
+                                    <button class="pull-right btn btn-small btn-success">{{_('open registration')}}</button>
+                                    <b style="color: red">{{_('Registration for this barcamp is not yet open.')}}</b>
+                                </div>
+                            </form>
+                        {% endif %}
 
             {% for m in get_flashes(with_categories=True) %}
                 <div class="alert alert-{{m[0]}}" role="alert">
