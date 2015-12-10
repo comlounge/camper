@@ -74,6 +74,7 @@ class DesignView(BarcampBaseHandler):
             f = form.data
             self.barcamp.update(f)
             self.barcamp.save()
+            self.flash(self._("The barcamp has been updated."), category="info")
         return self.render(form = form)
 
     post = get
