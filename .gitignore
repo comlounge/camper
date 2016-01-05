@@ -18,3 +18,4 @@ docs/_build
 .pydevproject
 .settings
 tmp
+.eggs
