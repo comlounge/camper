@@ -1,4 +1,3 @@
-from mongokit import Document, Connection, CustomType                                                                      
 import datetime
 from userbase.db import User
 
