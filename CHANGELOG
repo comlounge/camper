@@ -23,3 +23,9 @@
 
 - lots of new features/refactoring/cleanups, new design etc. 
 
+In order to migrate::
+
+    bin/migrate_barcamps -f etc/scripts.ini
+    bin/migrate_users -f etc/scripts.ini
+    bin/reprocess -f etc/scripts.ini
+
