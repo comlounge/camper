@@ -28,7 +28,7 @@ $.fn.sessionvoter = function(opts) {
   return this;
 };
 
-$(document).ready(function() {
+$(function() {
   $(".votecontainer").sessionvoter();
   $("#new-proposal-button").click(function() {
     $(this).hide();

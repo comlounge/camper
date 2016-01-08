@@ -101,7 +101,7 @@ $.fn.eventlist = function(opts, _arg) {
   return this;
 };
 
-$(document).ready(function() {
+$(function() {
   var hash, prefix;
   $("#eventlist").eventlist();
   $('.participant-avatar').tooltip({

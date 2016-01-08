@@ -102,6 +102,6 @@ $.fn.uploader = function(opts) {
   return this;
 };
 
-$(document).ready(function() {
+$(function() {
   return $(".upload-widget").uploader();
 });
