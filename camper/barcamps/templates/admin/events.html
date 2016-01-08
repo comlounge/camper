@@ -1,0 +1,75 @@
+{% extends "admin_master.html" %}
+{% set menu="events" %}
+{% from "_m/barcamps/admin/event_macros.html" import eventnav, locationpicker, eventform with context %}
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+
+    {{ locationpicker()}}
+
+    {% block title %}
+        <h1>{{_('Events')}}</h1>
+        <div class="help-block">
+            <p>
+            {{_('A barcamp consists of one or more events. Each event e.g. represents a day of the barcamp like "Saturday". Participants have to register for a specific event instead of the whole barcamp. So you have to add at least one event here.')}}
+            </p>
+            <p>
+            {{_('For each event you can define a separate location, a separate amount of participanst, edit the timetable, manage participants and fill in the sessiontable.')}}
+            </p>
+        </div>
+    {% endblock %}
+    <hr>
+
+    <div>
+        {% if events %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{{_('Name')}}</th>
+                    <th>{{_('Date')}}</th>
+                    <th>{{_('Participants')}}</th>
+                    <th>{{_('Waiting')}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for event in events %}
+                    <tr>
+                        <td><a href="{{url_for(".event",slug=slug,eid=event._id)}}" title="edit event {{event.name}}">{{event.name}}</a></td>
+                        <td>{{dateformat(event.date)}}</td>
+                        <td>{{event.participants|length}}/{{event.size}}</td>
+                        <td>{{event.waiting_list|length}}</td> 
+                        <td>
+                            <a data-toggle="tooltip" title="{{_('Edit event details')}}" href="{{url_for('.event', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                                
+                            <a data-toggle="tooltip" title="{{_('Edit event timetable')}}" href="{{url_for('.sessionboard', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-table"></i></a>
+                            <a data-toggle="tooltip" title="{{_('Manage participants')}}" href="{{url_for('.event_participants', slug=slug, eid=event._id)}}" class="btn btn-xs btn-info"><i class="fa fa-user"></i></a>
+
+                            <a  class="delete-event btn btn-danger btn-xs" 
+                                title="{{_('Delete Event?')}}" 
+                                href = "#"
+                                data-event = "{{event._id}}"
+                                data-url="{{url_for("barcamps.events", slug = slug)}}">
+                                    <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning text-warning">{{_('no events have been defined yet.')}}</div>
+        {% endif %}
+
+        <button id="show-add-form" 
+            class="btn btn-lg btn-primary" 
+            style="{{'display: none;' if events|length==0}}"
+            title="{{_('Show add event form')}}"><i class="fa fa-plus"></i> {{_('Add event')}}</button>
+
+        <hr>
+        <div id ="add-form-view" style="{{'display: none;' if events|length!=0}}">
+            <h2>{{_('Create new event')}}</h2>
+            {{ eventform({}, label=_('Create event')) }}
+        </div>
+    </div>
+{% endblock %}

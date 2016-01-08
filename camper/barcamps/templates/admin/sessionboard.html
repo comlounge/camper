@@ -1,0 +1,56 @@
+{% from "_m/barcamps/admin/event_macros.html" import eventnav with context %}
+{% set menu="events" %}
+{% set container="full" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+
+{{eventnav(active="timetable", title=_('Edit event timetable'))}}
+
+<div class="container-fluid" id="sessionboard-container">
+    <div class="row">
+        <div id="sessionboard">
+            
+            <div id="modals">
+            </div>
+            
+            <div id="newsessions">
+            </div>
+
+            <div class="actions" id="sessionboard-actions">
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{_('Delete all Sessions')}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="delete-all-sessions">Yes</a></li>
+                        <li><a href="#">No</a></li>
+                    </ul>
+                </div>
+                <a class="btn btn-default" href="{{url_for('.user_events', slug = slug, eid = event._id)}}#sessions"><i class="fa fa-eye"></i> {{_('public view')}}</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-print"></i> {{_('Download PDF')}} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('for use as direction signs')}}" 
+                            href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=roomtime">{{_('Rooms and Times')}}</a></li>
+                        {#
+                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('the complete session plan, one sheet per session')}}" 
+                            href="#">{{_('Session plan')}}</a></li>
+                        #}
+                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('each time on a separate sheet')}}" 
+                            href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=times">{{_('Time Signs')}}</a></li>
+                        <li><a data-toggle="tooltip" target)"print" data-placement="right" title="{{_('each room on a separate sheet for directions or session plan')}}" 
+                            href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=rooms">{{_('Room Signs')}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .row -->
+</div> <!-- .container -->
+{% endblock %}
+
+    {% block bcjs %}
+        <script src="{{url_for('static', filename="templates/templates.js")}}">
+    {% endblock %}

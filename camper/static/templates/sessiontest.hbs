@@ -1,0 +1,76 @@
+<div class="table-responsive">
+    <p>{{version}}</p>
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="10%">
+            {{#each data.rooms}}
+                <col width="{{../colwidth}}%">
+            {{/each}}
+                <col width="{{colwidth}}%">
+        </colgroup>
+
+        <thead>
+            <tr id="roomcontainment">
+                <th></th>
+                {{#each data.rooms}}
+                <th class="sorted room-slot" data-id="{{id}}" id="room-{{id}}">
+                    <h5 class="room-name">{{name}}</h5>
+                    <div class="room-actions">
+                        <a data-index="{{@index}}" data-confirm="{{_ 'Are you sure?'}}" class="del-room-button btn btn-xs btn-danger" title="{{_ 'delete room'}}" href="#"><i class="fa fa-trash"></i></a>
+                        <a data-index="{{@index}}" class="edit-room-modal-button btn btn-xs btn-info" title="edit room" href="#" ><i class="fa fa-pencil"></i></a>
+                        <span title="{{_ 'drag to sort this list'}}" class="btn btn-xs btn-info"><i class="fa fa-arrows"></i></span>
+                    </div>
+                    <small>{{description}}</small><br />
+                    <small>{{capacity}} {{_ 'persons'}}</small>
+                </th>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each sessions}}
+                <tr class="sorted {{#if blocked}}danger{{/if}}">
+                    <th class="time-slot">
+                        <span>{{time}}</span>
+                        <a  href="#" 
+                            data-toggle="tooltip" 
+                            data-index="{{@index}}"
+                            title="{{_ 'delete timeslot'}}" 
+                            class="pull-right btn btn-xs btn-danger del-timeslot-button"><i class="fa fa-trash"></i></a>
+                    </th>
+                    {{#each slots}}
+                    <td class="sessionslot {{#unless ../blocked}}enabled{{/unless}}"
+                        id="{{sid}}"
+                        data-id="{{_id}}">
+
+                        <h5>{{title}}</h5>
+                        <div class="description">{{description}}</div>
+                        <div class="moderators">
+                            {{moderator}}
+                        </div>
+
+                        {{#unless ../blocked}}
+                        <div class="pull-right slot-actions">
+                            <span class="edit-session-button btn btn-primary btn-xs"><i class="fa fa-pencil"></i> {{_ 'Edit'}}</span>
+                            <span class="del-session-button text-danger"><i class="fa fa-trash"></i></span>
+                            <span><i class="move-session-handle fa fa-arrows"></i></span>
+                        </div>
+                        {{/unless}}
+
+                    </td>
+                    {{/each}}
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<div id="table-buttons">
+    <a  title="{{_ 'Add new timeslot'}}" href="#" 
+        id="add-timeslot-modal-button"
+        class="btn btn-lg btn-success">
+        <i class="fa fa-plus"></i> {{_ 'Add new time slot'}}
+    </a>
+    <a title="{{_ 'Add new room'}}" href="#" id="add-room-modal-button" class="add-room-modal-button btn btn-lg btn-inverse">
+        <i class="fa fa-plus"></i> {{_ 'Add new Room'}}
+    </a>
+
+</div>

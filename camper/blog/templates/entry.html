@@ -1,0 +1,51 @@
+{% set menu="blog" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    <article class="blogentry">
+        <header>
+            <h2>{{view.entry.title}}</h2>
+            <div class="byline">{{dateformat(view.entry.published)}}</div>
+        </header>
+
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="filters hidden">
+            <defs>
+              <filter id="blur">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="0,0" />
+              </filter>
+            </defs>
+        </svg>
+
+        {% if view.has_gallery %}
+            <div class="gallerycontainer">
+                <div class="gallery">
+                    <ul class="gallery-pictures">
+                        {% for image in view.gallery.images %}
+                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image", alt=image.tag, title=image.title)  }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="gallery-pagination">
+                    {% for image in view.gallery.images -%}
+                        <button class="gallery-pagination-dot"></button>
+                    {% endfor %} 
+                </div>
+            </div>
+        {% else %}
+            {{view.title_image(class="img-responsive blog-image")}}
+        {% endif %}
+
+        <div class="content">
+            {{view.entry.content}}
+        </div>
+        {% if is_admin %}
+            <div class="admin">
+                <a class="btn btn-default btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                {% if view.entry.workflow=="draft" %}
+                    <a class="btn btn-primary btn-xs" href="{{url_for("blog.edit", slug=slug, eid = view.entry._id)}}"><i class="fa fa-pencil"></i> {{_("Edit")}}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </article>
+{% endblock %}
+

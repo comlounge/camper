@@ -6,9 +6,12 @@ from starflyer import Handler, redirect, asjson, AttributeMapper
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from wtforms import *
 from sfext.babel import T
-from .base import BarcampBaseHandler
+from .base import BarcampBaseHandler, LocationNotFound
 import requests
+import gettext
+import pycountry
 from camper import utils
+from camper.handlers.forms import WYSIWYGField
 
 class ParticipantCountForm(BaseForm):
     size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
@@ -20,20 +23,26 @@ class BarcampEditForm(BaseForm):
                 description = T('every barcamp needs a title. examples: "Barcamp Aachen 2012", "JMStVCamp"'),
     )
 
-    description         = TextAreaField(T("Description"), [validators.Required()],
+    description         = WYSIWYGField(T("Description"), [validators.Required()],
                 description = T('please describe your barcamp here'),
     )
     slug                = TextField(T("slug / url name"), [validators.Required()],
                 description = T('this is the short name, which appears in the URL. It can only contain letters and numbers as well as the characters _ and -. Examples are "barcamp_aachen" or "bcac"'),
     )
+    hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
+    preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually'))
+    seo_description     = TextField(T('Meta Description'), 
+                            [validators.Length(max=160)],
+                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
+
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
     twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
             description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
-    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
-    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=100)], description=T("only the username, max. 100 characters"))
+    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=15)], description=T("only the username, max. 15 characters"))
     hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
     gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
+    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
     homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
     fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
 
@@ -45,11 +54,15 @@ class BarcampEditForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
+    location_country             = SelectField(T("Country"), default="DE")
+    location_lat                 = HiddenField()
+    location_lng                 = HiddenField()
 
-class EditView(BaseHandler):
+
+class EditView(BarcampBaseHandler):
     """an index handler"""
 
-    template = "edit.html"
+    template = "admin/edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -65,10 +78,29 @@ class EditView(BaseHandler):
         obj['location_email'] = self.barcamp.location['email']
         obj['location_phone'] = self.barcamp.location['phone']
         obj['location_url'] = self.barcamp.location['url']
+        obj['location_lat'] = self.barcamp.location['lat']
+        obj['location_lng'] = self.barcamp.location['lng']
         obj['location_description'] = self.barcamp.location['description']
+
         form = BarcampEditForm(self.request.form, obj = obj, config = self.config)
+
+        # get countries and translate them
+        try:
+            trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
+        except IOError:
+            # en only has iso3166_2
+            trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
+        
+        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        form.location_country.choices = countries
+
+        
+        # remove the slug field if we are public already
         if self.barcamp.public:
             del form['slug']
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['location'] = {
@@ -80,35 +112,51 @@ class EditView(BaseHandler):
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'country'   : 'de',
+                'country'   : f['location_country'],
+                'lat'       : f['location_lat'] or None,
+                'lng'       : f['location_lng'] or None,
             }
-            # do the nominatim request to find out lat/long but only if street and city have not changed
-            if (form.data['location_street']!=self.barcamp.location['street'] or
-               form.data['location_city']!=self.barcamp.location['city'] or
-               form.data['location_zip']!=self.barcamp.location['zip']) or True:
-                    url = "http://nominatim.openstreetmap.org/search?q=%s, %s&format=json&polygon=0&addressdetails=1" %(
-                        form.data['location_street'],
-                        form.data['location_city'],
-                    )
-                    data = requests.get(url).json()
-                    if len(data)==0:
-                        # trying again but only with city
-                        url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
-                            form.data['location_city'],
-                        )
-                        data = requests.get(url).json()
-                    if len(data)==0:
-                        self.flash(self._("the city was not found in the geo database"), category="danger")
-                        return self.render(form = form)
-                    # we have at least one entry, take the first one
-                    result = data[0]
-                    f['location']['lat'] = result['lat']
-                    f['location']['lng'] = result['lon']
+
+            # remember old values to check if they have changed
+            old_street = self.barcamp.location['street']
+            old_zip = self.barcamp.location['zip']
+            old_city = self.barcamp.location['city']
+            old_country = self.barcamp.location['country']
+
+            # update it so we have the new data for comparison
             self.barcamp.update(f)
+
+            # check location only if it actually has changed
+            # also don't retrieve it if user has set own coordinates
+            if self.request.form.get('own_coords', "no") != "yes":
+                # computing coords from address
+                changed = (f['location_city'] != old_city or
+                    f['location_street'] != old_street or
+                    f['location_zip'] != old_zip or
+                    f['location_country'] != old_country)
+
+                # in case the address has changed, to a lookup
+                if changed and not self.config.testing:
+                    street = self.barcamp.location['street']
+                    city = self.barcamp.location['city']
+                    zip = self.barcamp.location['zip']
+                    country = self.barcamp.location['country']
+                    country = self.barcamp.location.country_name
+                    try:
+                        lat, lng = self.retrieve_location(street, zip, city, country)
+                        self.barcamp.location['lat'] = lat
+                        self.barcamp.location['lng'] = lng
+                    except LocationNotFound:
+                        self.flash(self._("the city was not found in the geo database"), category="danger")
+            else:
+                    # using user provided coordinates
+                    self.barcamp.update(f)
+
             self.barcamp.put()
-            self.flash("Barcamp aktualisiert", category="info")
-            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
-        return self.render(form = form)
+            self.flash(self._("The barcamp has been updated."), category="info")
+            return redirect(self.url_for("barcamps.edit", slug = self.barcamp.slug))
+
+        return self.render(form = form, show_slug = not self.barcamp.public, bcid = str(self.barcamp._id))
     post = get
 
 
@@ -137,7 +185,7 @@ class MailsEditForm(BaseForm):
 class MailsEditView(BarcampBaseHandler):
     """let the user define the mail templates"""
 
-    template = "mails_edit.html"
+    template = "admin/mails_edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -160,10 +208,10 @@ class MailsEditView(BarcampBaseHandler):
         )
     post = get
 
-class ParticipantsEditView(BaseHandler):
+class ParticipantsEditView(BarcampBaseHandler):
     """let the user increase the number of participants"""
 
-    template = "participants_edit.html"
+    template = "admin/participants_edit.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -221,7 +269,7 @@ class ParticipantDataEditForm(BaseForm):
 class ParticipantsDataEditView(BarcampBaseHandler):
     """let the user define the participant data form fields"""
 
-    template = "participants_data_edit.html"
+    template = "admin/participants_data_edit.html"
 
     @ensure_barcamp()
     @logged_in()

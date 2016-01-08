@@ -1,8 +1,11 @@
 from mongogogo import *
 import datetime
 from camper.exceptions import *
+import isodate
+import pycountry
+from slugify import UniqueSlugify
 
-__all__=["Barcamp", "BarcampSchema", "Barcamps"]
+__all__=["Barcamp", "BarcampSchema", "Barcamps", "Event"]
 
 class BaseError(Exception):
     """base class for exceptions"""
@@ -26,20 +29,22 @@ class WorkflowError(BaseError):
 
 
 
-class Location(Schema):
+class LocationSchema(Schema):
     """a location described by name, lat and long"""
-    name = String()
-    street = String()
-    city = String()
-    zip = String()
-    country = String()
-    url = String()
-    phone = String()
-    email = String()
-    description = String()
+    name            = String()
+    street          = String()
+    city            = String()
+    zip             = String()
+    country         = String()
+    url             = String()
+    phone           = String()
+    email           = String()
+    description     = String()
 
     lat = Float()
     lng = Float()
+
+
 
 class Sponsor(Schema):
     """a location described by name, lat and long"""
@@ -62,6 +67,7 @@ class RegistrationFieldSchema(Schema):
     fieldtype           = String(required=True)
     required            = Boolean()
 
+
 class MailsSchema(Schema):
     """a sub schema describing email templates"""
     welcome_subject         = String()
@@ -71,27 +77,80 @@ class MailsSchema(Schema):
     fromwaitinglist_subject = String()
     fromwaitinglist_text    = String()
 
+
+class Location(Record):
+    """a location"""
+
+    schema = LocationSchema()
+
+    @property
+    def country_name(self):
+        """retrieve the country name from the country db. It's not i18n"""
+        return pycountry.countries.get(alpha2 = self.country).name
+
+class SessionSchema(Schema):
+    """a session in a timetable"""
+    _id                 = String(required = True)   # the session index made out of timeslot and room
+    title               = String(required = True, max_length = 255)
+    description         = String(max_length = 5000)
+    moderator           = String(default = "") # actually list of names separated by comma
+
+    # sid and slug for url referencing, will be computed in before_serialze below in Barcamps
+    sid                 = String(required = True)   # the actual unique id   
+    slug                = String(required = True, max_length = 100)
+    pad                 = String() # the pad id for the documentation
+
+class RoomSchema(Schema):
+    """a room"""
+    id                  = String(required = True)   # uuid
+    name                = String(required = True, max_length = 100)
+    capacity            = Integer(required = True, default = 20)
+    description         = String(max_length = 1000)
+
+class TimeSlotSchema(Schema):
+    """a timeslot"""
+    time                = Regexp("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$", required = True)    # only HH:MM here
+    #time                = String()
+    reason              = String(default = "", max_length = 200)      # optional reason for blocking it
+    blocked             = Boolean(default = False)     # is it blocked?
+
+class TimeTableSchema(Schema):
+    """a timetable of an event"""
+    timeslots           = List(TimeSlotSchema())
+    rooms               = List(RoomSchema())
+    sessions            = Dict(SessionSchema(), default = {})
+
+
 class EventSchema(Schema):
     """a sub schema describing one event"""
-    name                = String(required=True)
-    description         = String(required=True)
-    start_date          = DateTime()
-    end_date            = DateTime()
-    location            = Location()
+    _id                 = String(required=True)
+    name                = String(required=True, max_length = 255)
+    description         = String(required=True, max_length = 5000)
+    date                = DateTime()
+    start_time          = String(max_length = 5)
+    end_time            = String(max_length = 5)
+    location            = LocationSchema(kls = Location, default = {})
     participants        = List(String()) # TODO: ref
+    size                = Integer()
+    maybe               = List(String()) # we maybe will implement this
     waiting_list        = List(String()) # TODO: ref
-
+    own_location        = Boolean() # flag if the barcamp address is used or not 
+    timetable           = TimeTableSchema(default = {
+                            'rooms' : [],
+                            'timeslots': [],
+                            'sessions' : {},
+                        })
 
 class Event(Record):
     """wraps event data with a class to provider more properties etc."""
 
     schema = EventSchema()
-    _protected = ['barcamp']
+    _protected = ['_barcamp']
 
     def __init__(self, *args, **kwargs):
         """initialize the event"""
         super(Event, self).__init__(*args, **kwargs)
-        self.barcamp = None
+        self._barcamp = kwargs.get('_barcamp', None)
 
     @property
     def state(self):
@@ -131,7 +190,7 @@ class Event(Record):
         if uid in self.participants:
             return
 
-        if len(self.participants) >= self.barcamp.size:
+        if len(self.participants) >= self.size:
             if uid not in self.waiting_list:
                 self.waiting_list.append(uid)
             raise ParticipantListFull()
@@ -140,6 +199,108 @@ class Event(Record):
         self.participants.append(uid)
 
         # any mail will be sent by the application logic
+
+    @property
+    def full(self):
+        """return whether event is full or not"""
+        return len(self.participants) >= self.size
+
+    def set_status(self, uid, status="going", force=False):
+        """set the status of the user for this event, read: register the user
+
+        :param uid: the user id of the user (unicode)
+        :param status: can be "going", "maybe", "notgoing" 
+        :param force: if ``True`` then a user can be added to the participants regardless if barcamp is full
+        :returns: the final status (going, waitinglist, maybe, notgoing)
+        """
+
+        if status=="going":
+            if not force and (len(self.participants) >= self.size or self._barcamp.preregistration):
+                # user induced action
+                if uid not in self.waiting_list:
+                    self.waiting_list.append(uid)
+                    if uid in self.maybe:
+                        self.maybe.remove(uid)
+                    status = 'waitinglist'
+            else:
+                # force is only done by admins and can overpop an event. 
+                if uid not in self.participants:
+                    self.participants.append(uid)
+                    if uid in self.maybe:
+                        self.maybe.remove(uid)
+                    if uid in self.waiting_list:
+                        self.waiting_list.remove(uid)
+                    status = 'going'
+            return status
+
+        elif status=="maybe" or status=="notgoing":
+            if uid in self.participants:
+                self.participants.remove(uid)
+            if uid in self.waiting_list:
+                self.waiting_list.remove(uid)
+            if status=="maybe" and uid not in self.maybe:
+                self.maybe.append(uid)
+            if status=="notgoing" and uid in self.maybe:
+                self.maybe.remove(uid)
+            return status
+
+        elif status=="waiting":
+            # this is something only the admin can do
+            if uid in self.participants:
+                self.participants.remove(uid)
+            if uid in self.maybe:
+                self.maybe.remove(uid)
+            if uid not in self.waiting_list:
+                self.waiting_list.append(uid)
+            return status
+
+        elif status=="deleted":
+            # remove a user from the barcamp            
+            if uid in self.participants:
+                self.participants.remove(uid)
+            if uid in self.maybe:
+                self.maybe.remove(uid)
+            if uid in self.waiting_list:
+                self.waiting_list.remove(uid)
+            return status
+
+    
+    def fill_participants(self):
+        """try to fill up the participant list from the waiting list in case
+        there is space. This should be called after somebody was removed from the
+        participants list or the size was increased.
+        It returns a list of user ids so you can send out mails.
+
+        """
+        # only fill participation list if we are in preregistration mode
+        if self._barcamp.preregistration:
+            return []
+        uids = []
+        while len(self.participants) < self.size and len(self.waiting_list)>0:
+            nuid = self.waiting_list.pop(0)
+            self.participants.append(nuid)
+            uids.append(nuid)
+        return uids
+
+
+    @property
+    def rooms(self):
+        """return the rooms"""
+        return self.timetable.get('rooms', [])
+
+    @property
+    def timeslots(self):
+        """return the timeslots"""
+        return self.timetable.get('timeslots', [])
+
+    @property
+    def event_location(self):
+        """return the event location or the barcamp location depending on settings"""
+        if self.own_location:
+            return self.location
+        else:
+            return self._barcamp.location
+
 
 
 class BarcampSchema(Schema):
@@ -150,6 +311,9 @@ class BarcampSchema(Schema):
     created_by          = String() # TODO: should be ref to user
     workflow            = String(required = True, default = "created")
 
+    # location
+    location            = LocationSchema(kls = Location)
+
     # base data
     name                = String(required = True)
     description         = String(required = True)
@@ -157,14 +321,21 @@ class BarcampSchema(Schema):
     registration_date   = Date() # date when the registration starts
     start_date          = Date()
     end_date            = Date()
-    location            = Location()
-    size                = Integer(default = 0) # amount of people allowed
+
+    seo_description     = String() # description for meta tags
+    seo_keywords        = String() # keywords for meta tags
+    
     twitter             = String() # only the username
     hashtag             = String()
     gplus               = String()
+    facebook            = String() # facebook page
     homepage            = String() # URL
     twitterwall         = String() # URL
-    fbAdminId           = String() # optional admin id for facebook use
+
+    
+    hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
+    preregistration     = Boolean(default=False) # if ppl need to be put manually on the participation list
+
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
@@ -172,16 +343,42 @@ class BarcampSchema(Schema):
     planning_pad_public = Boolean(default = False)
     blogposts           = List(BlogLinkSchema())
 
+    # design
+    logo                = String() # asset id
+    link_color          = String()
+    text_color          = String()
+    background_image    = String()
+    background_color    = String()
+    font                = String()
+    fb_image            = String()
+    header_color        = String()
+    text_color          = String()
+
+    # logo
+    logo_color_logo     = String()
+    logo_color1         = String()
+    logo_color2         = String()
+    logo_text1          = String()
+    logo_text2          = String()
+
+    navbar_link_color   = String() # text color of all navbar links
+    navbar_active_color = String() # text color of active navbar item 
+    navbar_border_color = String() # border color of all navbar items
+    navbar_active_bg    = String() # bg color of active item
+    navbar_hover_bg     = String() # bg color when hovering
+    hide_tabs           = List(String(), default=[]) # list of tab ids to hide
+
+    gallery             = String() # gallery to show on homepage
+
     # user related
     admins              = List(String()) # TODO: ref
     invited_admins      = List(String()) # list of invited admins who have not yet accepted TODO: ref
     subscribers         = List(String()) # TODO: ref
 
     # events
-    events              = List(EventSchema(kls=Event))
+    events              = Dict(EventSchema(kls=Event))
 
     # image stuff
-    logo                = String() # asset id
     sponsors            = List(Sponsor())
 
     # registration_form
@@ -189,7 +386,7 @@ class BarcampSchema(Schema):
     registration_data   = Dict() # user => data
 
     # default mail templates
-    mail_templates      = MailsSchema()
+    mail_templates      = MailsSchema(default = {})
 
 
 class Barcamp(Record):
@@ -202,10 +399,24 @@ class Barcamp(Record):
         'updated'       : datetime.datetime.utcnow,
         'location'      : {},
         'workflow'      : "created",
-        'events'        : [],
+        'events'        : {},
         'registration_form'        : [],
         'registration_data'        : {},
         'planning_pad_public'        : False,
+        'background_color'      : '#fcfcfa',
+        'link_color'            : '#337CBB',
+        'text_color'            : '#333',
+
+        'header_color'          : '#fff',
+        'navbar_link_color'     : '#888',
+        'navbar_active_bg'      : '#555',
+        'navbar_active_color'   : '#eee',
+        'navbar_border_color'   : '#f0f0f0',
+        'navbar_hover_bg'       : '#f8f8f8',
+        'hide_tabs'             : [],
+        'hide_barcamp'          : False,
+        'seo_description'       : '', 
+        'seo_keywords'          : '',
     }
 
     workflow_states = {
@@ -236,6 +447,40 @@ class Barcamp(Record):
             m = getattr(self, "on_wf_"+new_state)
             m(old_state = old_state)
         self.workflow = new_state
+
+    def get_event(self, eid):
+        """return the event for the given id or None"""
+        e = self.events[eid]
+        return Event(e, _barcamp = self)
+
+    @property
+    def eventlist(self):
+        """return the events as a list sorted by date"""
+        events = self.events.values()
+        def s(a,b):
+            return cmp(a['date'], b['date'])
+        events.sort(s)
+        events = [Event(e, _barcamp = self) for e in events]
+        return events
+
+    def is_registered(self, user, states=['going', 'maybe', 'waiting']):
+        """check if the given user is registered in any event of this barcamp
+
+        :param user: the user object to test
+        :param states: give the list of states which count as registered (defaults to all)
+        :returns: ``True`` or ``False``
+        """
+        if user is None: 
+            return False
+        uid = user.user_id
+        for event in self.eventlist:
+            if uid in event.participants and 'going' in states:
+                return True
+            elif uid in event.maybe and 'maybe' in states:
+                return True
+            elif uid in event.waiting_list and 'waiting' in states:
+                return True
+        return False
 
     @property
     def public(self):
@@ -278,37 +523,29 @@ class Barcamp(Record):
         return users
 
     @property
-    def participant_users(self):
-        """return a list of user objects of the participants"""
-        ub = self._collection.md.app.module_map.userbase
-        users = []
-        for uid in self.event.participants:
-            users.append(ub.get_user_by_id(uid))
-        return users
-
-    registered_users = participant_users
-
-    @property
-    def waitinglist_users(self):
-        """return a list of user objects of the people on the waitinglist"""
-        ub = self._collection.md.app.module_map.userbase
-        users = []
-        for uid in self.event.waiting_list:
-            users.append(ub.get_user_by_id(uid))
-        return users
-
-    @property
     def event(self):
         """returns the main event object or None in case there is no event"""
+        return {}
+        raise NotImplemented
         if self.events == []:
             return None
         event = self.events[0]
-        event.barcamp = self
+        event._barcamp = self
         return event
 
     def get_events(self):
         """return the events wrapped in the ``Event`` class"""
-        return [Event(e) for e in self.events]
+        return [Event(e, _barcamp = self) for e in self.events]
+
+    def add_event(self, event):
+        """add an event"""
+
+        if event.get("_id", None) is None:
+            eid = event['_id'] = unicode(uuid.uuid4())
+        else:
+            eid = event['_id']
+        self.events[eid] = event
+        return event
 
     @property
     def state(self):
@@ -336,44 +573,7 @@ class Barcamp(Record):
             self.subscribers.remove(uid)
         self.put()
 
-    def register(self, user, force=False):
-        """register a user to the main event of the barcamp as participant"""
-        uid = unicode(user._id)
-        status = None
-        if not force and len(self.event.participants) >= self.size:
-            if uid not in self.event.waiting_list:
-                self.event.waiting_list.append(uid)
-                if uid in self.subscribers:
-                    self.subscribers.remove(uid)
-                self.put()
-                status = 'waiting'
-        else:
-            if uid not in self.event.participants:
-                self.event.participants.append(uid)
-                if uid in self.subscribers:
-                    self.subscribers.remove(uid)
-                self.put()
-                status = 'participating'
-        return status
-
-    def unregister(self, user):
-        """remove registered user from participants list and/or waiting list"""
-        uid = unicode(user._id)
-        if uid in self.event.participants:
-            self.event.participants.remove(uid)
-        if uid in self.event.waiting_list:
-            self.event.waiting_list.remove(uid)
-
-        if len(self.event.participants) < self.size and len(self.event.waiting_list)>0:
-            # somebody from the waiting list can move up
-            nuid = self.event.waiting_list[0]
-            self.event.waiting_list = self.event.waiting_list[1:]
-            self.event.participants.append(nuid)
-
-        # you are now still a subscriber
-        self.subscribe(user)
-
-        self.put()
+    
 
 class Barcamps(Collection):
 
@@ -383,26 +583,61 @@ class Barcamps(Collection):
         """find a barcamp by slug"""
         return self.find_one({'slug' : slug})
 
-    def before_serialize(self, obj):
-        """update or create our event information before it's saved"""
-        if obj.events == []:
-            event = Event()
-        else:
-            event = obj.events[0]
-        event.update({
-            'name' : obj.name,
-            'description' : obj.description,
-            'start_date' : obj.start_date,
-            'end_date' : obj.end_date,
-            'location' : obj.location,
-        })
-        if obj.events == []:
-            obj.events.append(event)
-        else:
-            obj.events[0] = event
-        return obj
-
     def get_by_user_id(self, user_id):
         """return all the barcamps the user is either participant, interested or an admin"""
 
+    def before_serialize(self, obj):
+        """make sure we have all required data for serializing"""
 
+        ###
+        ### remove all sessions which have no room or timeslot anymore
+        ###
+
+        for event in obj.eventlist:
+            tt = event.get('timetable', {})
+            rooms = tt.get('rooms', [])
+            timeslots = tt.get('timeslots', [])
+
+            all_idxs = [] # list of all possible indexes of room/time
+
+            for room in rooms:
+                for timeslot in timeslots:
+                    all_idxs.append("%s@%s" %(room['id'], timeslot['time']))
+
+            if 'sessions' in tt:
+                sessions = {}
+                for idx, session in tt['sessions'].items():
+                    if idx in all_idxs:
+                        sessions[idx] = session
+                event['timetable']['sessions'] = sessions
+
+        ###
+        ### fix all the sids and slugs in the session plan
+        ###
+        for event in obj.eventlist:
+            sessions = event.get('timetable', {}).get('sessions', {})
+
+            # dict with all session slugs and their id except the new ones
+            all_slugs = dict([(s['slug'], s['sid']) for s in sessions.values() if s['slug'] is not None])
+            
+            for session_idx, session in sessions.items():
+
+                # compute sid if missing
+                if session.get("sid", None) is None:
+                    session['sid'] = unicode(uuid.uuid4())
+
+                # compute slug if missing
+                slugify = UniqueSlugify(separator='_', uids = all_slugs.keys(), max_length = 50, to_lower = True)
+                orig_slug = session.get("slug", None)
+
+                # we need a new slug if a) the slug is None (new) or 
+                # b) another session with this slug exists already
+                # we can solve all this with .get() as the default is None anyway
+                my_sid = all_slugs.get(orig_slug, None) 
+                if my_sid != session['sid']: # for new ones it's None != xyz
+                    new_slug = slugify(session['title'])
+                    session['slug'] = new_slug
+                    all_slugs[new_slug] = session['sid'] 
+                event['timetable']['sessions'][session_idx] = session
+
+        return obj

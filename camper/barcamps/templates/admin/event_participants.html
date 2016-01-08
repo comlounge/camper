@@ -1,0 +1,102 @@
+{% extends "admin_master.html" %}
+{% set menu="events" %}
+
+
+{% macro userlist(users, typ="participants") %}
+    <ul class="admin-participants">
+    {% for myuser in users %}
+        <li class="participant">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
+                <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
+            </a>
+            <a class="participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
+                {{myuser.fullname}}
+            </a>
+            <div class="btn-group actions">
+				<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    				<i class="fa fa-gear"></i>
+  				</button>
+  				<ul class="dropdown-menu" role="menu">
+  					{% if typ=="participants" %}
+				    	<li><a href="#" data-status="waiting" data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-right"></i> {{_('Move to waiting list')}}</a></li>
+				    {% elif typ=="waitinglist" %}
+				    	<li><a href="#" data-status="going" data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Move to participants')}}</a></li>
+                    {% elif typ=="maybe" %}
+                    {% endif %}
+			        <li><a href="#" data-status="deleted" data-uid="{{myuser._id}}" class="listaction"><span class="text-danger"><i class="fa fa-trash"></i> {{_('remove from event')}}</span></a></li>
+  				</ul>
+			</div>
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import eventnav, locationpicker, eventform with context %}
+{% block content %}
+
+    {{ eventnav(active="participants", title=_('Manage Participants'))}}
+
+    <table class="table table-bordered">
+    	<thead>
+    		<tr>
+    			<th>{{_('Participants')}} ({{participants|length}}/{{event.size}})</th>
+    			<th>{{_('Waitinglist')}} ({{waitinglist|length}})</th>
+    			<th>{{_('Maybe coming')}} ({{maybe|length}})</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    		<tr>
+    			<td>
+    				{{userlist(participants)}}
+    			</td>
+    			<td>
+    				{{userlist(waitinglist, typ="waitinglist")}}
+    			</td>
+				<td>
+					{{userlist(maybe, typ="maybe")}}
+				</td>
+    		</tr>
+    		
+    	</tbody>
+    </table>
+    
+
+{% endblock %}
+{% block bcjs %}
+<script type="text/javascript">
+$(document).ready( function () {
+	$(".listaction").click( function () {
+		var uid = $(this).data("uid");
+		var status = $(this).data("status");
+		var url = document.location.href;
+        console.log($(this));
+        if (status == "deleted") {
+            var msg = $("body").data("i18n-areyousure");
+            if (!confirm(msg)) {
+                return true;
+            }
+        }
+
+		$.ajax({
+			url: url,
+			type: "POST",
+			data: {
+				status: status,
+				uid: uid
+			},
+			success: function(data) {
+				if (data.reload) {
+					window.location.reload();
+				}
+			}
+		})
+	})
+
+})
+	
+
+</script>
+{% endblock %}

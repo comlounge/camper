@@ -1,52 +1,64 @@
+{% set body_id="startpage" %}
 {% extends "master.html" %}
 
 
-{% macro listing(barcamps) %}
+{% macro listing(barcamps, small=False) %}
     {% for view in barcamps %}
-        <article class="barcamp content-area">
-            <header>
+        <article class="barcamp content-area {{'barcamp-small' if small else 'barcamp-full'}}" 
+                 data-href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">
+            <div class="inner">
                 {% if view.logo %}
-                    <h4>{{view.logo}}</h4>
-                {% else %}
-                    <h4><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h4>
+                <div class="logo">
+                    {{view.logo}}
+                </div>
                 {% endif %}
-            </header>
-            <div class="pull-right">
-                {% if not view.barcamp.public %}
-                    <span class="label label-warning">{{_('private')}}</span>
-                {% endif %}
-                {% if view.is_admin %}
-                    <span class="label label-success">{{_('ADMIN')}}</span>
-                {% endif %}
+                <div class="description clearfix">
+                    <div class="pull-right">
+                        {% if not view.barcamp.public %}
+                            <span class="label label-warning">{{_('private')}}</span>
+                        {% endif %}
+                        {#
+                        {% if view.is_admin %}
+                            <a href="{{url_for('barcamps.dashboard', slug = view.barcamp.slug)}}" class="btn btn-warning btn-xs">{{_('ADMIN')}}</a>
+                        {% endif %}
+                        #}
+                    </div>
+                    <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h3>
+                    <div class="byline">
+                        <span>{{view.date}}</span>, 
+                        <span>{{view.short_location}}</span>
+                    </div>
+                </div>
             </div>
-            <div class="byline">
-                {{view.date}}, {{view.short_location}}
-            </div>
-            <footer>
-            </footer>
         </article>
     {% endfor %}
 {% endmacro %}
 
-{% block content %} 
-    <div class="row">   
-        <div class="span6">
-            <h1 id="logo pull-left">
-                <img src="{{url_for("static", filename="/img/camperfull.png")}}" alt="Camper - logo">
-            </h1>
-        </div>
-        <div class="span6">
-            <div class="widget hide">
-                <a href="{{url_for("sponsoring")}}" title="{{_('Receive sponsorship for a youthbarcamp')}}"><img src="{{url_for("static", filename="/img/sponsoring.png")}}" alt="Sponsor-Logo"></a>
+{% block topcontainer %}
+    <div class="frontpage-bg">
+        <div class="container">
+            <div class="row frontpage-header">   
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center logo-container">
+                        <h1 class="logo">
+                            <span>camper</span>
+                            <small>{{_('the barcamp tool')}}</small>
+                        </h1>
+                        {% if logged_in %}
+                            <a href="{{url_for("barcamps.add")}}" class="btn btn-primary btn-lg">{{_('Organize your own Barcamp')}}</a>
+                        {% endif %}
+                        <a target="reader" href="https://www.ijab.de/publikationen/detail/?tt_products[cat]=5&tt_products[product]=110&cHash=e81b2be227d784c67ae8d0ecacb54e54" class="btn btn-info btn-lg">{{_('How do I do it?')}}</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="span6">
+{% endblock %}
+
+{% block content %} 
+    <div class="row barcamp-listing">
+        <div class="col-md-10 col-md-offset-1">
             <h2>
-            {% if logged_in %}
-                <a href="{{url_for("barcamps.add")}}" style="margin-top:10px" class="btn btn-primary pull-right">{{_('new barcamp')}}</a>
-            {% endif %}
             {{_("Recent Barcamps")}}
             </h2>
             {% if soon_barcamps %}
@@ -57,31 +69,33 @@
                 </div>
             {% endif %}
         </div>
-        <div class="span6">
+    </div>
+    <div class="row barcamp-listing">
+        <div class="col-md-5 col-md-offset-1">
             {% if my_barcamps %}
-                <h2>{{_("my Barcamps")}}</h2>
-                {{listing(my_barcamps) }}
+                <h2>{{_("My Events")}}</h2>
+                {{listing(my_barcamps, small=True) }}
             {% endif %}
+        </div>
+        <div class="col-md-5">
             {% if new_barcamps %}
-                <h2>{{_("Newly created Barcamps")}}</h2>
-                {{listing(new_barcamps) }}
+                <h2>{{_("New Events")}}</h2>
+                {{listing(new_barcamps, small=True) }}
             {% endif %}
         </div>
     </div>
 
     <hr class="thick">
 
-    <div class="footer row">
-        <div class="span12 logo-footer">
-            <div class="pull-right">
-                <h5>gefördert vom</h5>
-                    <a target="sponsor" href="http://www.bmfsfj.de/"><img alt="Bundesministerium für Familie, Senioren, Frauen und Jugend" src="{{url_for('static', filename="img/bmfsfj.jpg")}}"></a>
-            </div>
-            <div class="">
-                <h5>in Kooperation mit</h5>
-                    <a target="sponsor" href="http://ijab.de"><img alt="IJAB" src="{{url_for('static', filename="img/ijab-web.gif")}}"></a>
-                    <a target="sponsor" href="http://www.ijab.de/aktivitaeten/internationale-zusammenarbeit/epartizipation-youthpart/"><img alt="YouthPart" src="{{url_for('static', filename="img/youthpart2.jpg")}}"></a>
-            </div>
+    <div class="footer row" role="contentinfo">
+        <div class="col-lg-6 logo-footer">
+            <h5>{{_('supported by')}}</h5>
+            <a target="sponsor" href="http://www.bmfsfj.de/"><img alt="Bundesministerium für Familie, Senioren, Frauen und Jugend" src="{{url_for('static', filename="img/bmfsfj.jpg")}}"></a>
+        </div>
+        <div class="col-lg-6">
+            <h5>{{_('in cooperation with')}}</h5>
+                <a target="sponsor" href="http://ijab.de"><img alt="IJAB" src="{{url_for('static', filename="img/ijab-web.gif")}}"></a>
+                <a target="sponsor" href="https://www.ijab.de/was-wir-tun/internationale-zusammenarbeit/youthpart/epartizipation-youthpart/"><img alt="YouthPart" src="{{url_for('static', filename="img/youthpart2.jpg")}}"></a>
         </div>
     </div>
 

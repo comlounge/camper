@@ -1,18 +1,33 @@
 #encoding=utf8
 import json
 import decimal
+import datetime
 
 from camper import BaseForm
 
-from wtforms import TextField, PasswordField, FieldList, BooleanField, IntegerField, DecimalField
-from wtforms import SelectField, DateField, TextAreaField, HiddenField, FloatField, Field, FormField, Form
+from wtforms import *
 from wtforms import validators as v
-from wtforms.widgets import html_params, HTMLString
+from wtforms.widgets import html_params, HTMLString, HiddenInput, TextInput
+from wtforms.compat import text_type, iteritems
+from cgi import escape
+
 from jinja2 import Template
+import bleach
 
 ###
 ### CUSTOM WIDGETS etc.
 ###
+
+
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
 
 
 def checkbox_button(field, **kwargs):
@@ -127,26 +142,35 @@ class UploadWidget(object):
 
     tmpl = Template("""
         <div class="upload-widget"
+                id="uploadwidget-{{name}}"
                 data-id="{{name}}"
                 data-original-id="{{asset_id}}"
                 data-preview-url="{{preview_url}}"
                 data-delete-url="{{delete_url}}"
                 data-upload-url="{{upload_url}}"
+                data-autosubmit="{{autosubmit}}"
                 data-postproc="{{postproc}}">
             {{hidden}}
-            <div class="preview-area {{'show' if preview_url else 'hide'}}">
-                <img src="{{preview_url}}">
+            <div class="preview-area" style="display: {{'block' if preview_url else 'none'}}">
+                    <img src="{{preview_url}}">                
             </div>
-            <div class="upload-area show">
-                <div class="">
-                    <span class="uploadbutton btn-inline btn btn-primary">{{label}}</span>
-                    <span class="deletebutton {{'hide' if not preview_url}} btn-inline btn btn-danger">{{delete_label}}</span>
-                    <span class="revertbutton hide btn-inline btn btn-danger">{{revert_label}}</span>
+            <div class="missing-area" style="display: {{'block' if not preview_url and missing_tag else 'none'}}">
+                {{missing_tag}}
+            </div>
+            <div class="upload-area">
+                <div class="uploader-buttons">
+                    <div class="uploadbutton {{btn_class}}"><i class="fa fa-upload"></i> {{label}}</div>
+                    {% if logo_generator %}
+                        <div data-target="#logoeditor-modal" data-toggle="modal" class="logogeneratorbutton btn btn-info"><i class="fa fa-magic"></i> {{logo_generator}}</div>
+                    {% endif %}
+                    <div class="deletebutton btn btn-danger" style="display: {{'none' if not preview_url}} "><i class="fa fa-trash"></i> {{delete_label}}</div>
+                    <div class="revertbutton btn btn-warning" style="display: none"><i class="fa fa-undo"></i> {{revert_label}}</div>
                 </div>
-                <div class="progressbar progress progress-striped active hide">
-                    <div class="bar" style="width: 0%%;"></div>
+                <div class="progress" style="display: none;">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    </div>
                 </div>
-                <div class="filenamebox hide">
+                <div class="filenamebox" style="display: none">
                     File: <span class="upload-label-filename"></span>
                 </div>
             </div>
@@ -166,6 +190,7 @@ class UploadWidget(object):
             asset_id = kwargs['value']
 
         hidden = HTMLString('<input %s>' % self.html_params(name=field.name, type="hidden", id = field.id, value=asset_id))
+
         value = field.data
         kwargs.setdefault("label", "Upload")
         field_id = kwargs.pop('id', field.id)
@@ -175,68 +200,33 @@ class UploadWidget(object):
             'delete_url'    : kwargs.get('delete_url',''),
             'label'         : kwargs['label'],
             'delete_label'  : kwargs['delete_label'],
+            'logo_generator'  : kwargs.get('logo_generator', None),
             'revert_label'  : kwargs['revert_label'],
+            'btn_class'     : kwargs.get('btn_class', 'btn btn-primary'),
+            'missing_tag'   : kwargs.get('missing_tag', ''),
             'value-filename' : '',
             'value-id'      : '',
             'name'          : field.name,
             'postproc'      : kwargs.get("postproc",""),
             'hidden'        : hidden,
+            'autosubmit'    : str(field.autosubmit)
         }
         return self.tmpl.render(**payload)
 
-
-class UploadFieldOld(FormField):
-    """an upload field for using the valums uploader"""
-
-    widget = UploadWidget()
-
-    def __init__(self, label=None, validators=None, separator='-', url=u'', **kwargs):
-
-        class UploadForm(Form):
-            """the hidden fields"""
-            id = HiddenField()
-
-            def process(self, formdata=None, obj=None, **kwargs):
-                class D(object):
-                    pass
-
-                d = D()
-                d.id = obj
-                super(UploadForm, self).process(formdata, d, **kwargs)
-
-
-            @property
-            def data(self):
-                """just return the value of the id field as the form data of this form instead of the full dict"""
-                return self['id'].data
-
-        super(UploadField, self).__init__(UploadForm, label, validators, separator, **kwargs)
-        self.url = url
-
-    def process_data(self, value):
-        """process data into the form"""
-        self.data = value
-        return self.data
-
-    def process_formdata(self, valuelist):
-        """check the form data"""
-        return None
-
-    def _value(self):
-        if self.data:
-            return self.data
-        else:
-            return u''
 
 class UploadField(Field):
     """an upload field for using the valums uploader."""
 
     widget = UploadWidget()
 
-    def __init__(self, label=None, validators=None, uploader = None, app = None, **kwargs):
+    def __init__(self, label=None, validators=None, autosubmit = False, **kwargs):
+        """initialize the upload widget
+
+        :param autosubmit: if ``True`` the form will automatically be submitted on successful image upload.
+                    Mostly useful for forms only consisting of the image upload
+        """
         super(UploadField, self).__init__(label, validators, **kwargs)
-        self.uploader = uploader
-        self.app = app
+        self.autosubmit = autosubmit
 
     def _value(self):
         """return the value necessary for the widget"""
@@ -245,3 +235,171 @@ class UploadField(Field):
         else:
             return u''
 
+class DateTimePickerWidget(object):
+    """date time widget using datepair and timepicker"""
+
+    tmpl = Template("""
+        <div class="datetime-widget">
+            <div class="immediate-button" nostyle="{{'display: none' if not immediate else ''}}">
+                {{immediate_label}}
+                <a href="#" class="edit-published">{{edit_label}}</a>
+            </div>
+            <div class="date-edit" nostyle="{{'display: none' if immediate else ''}}">
+                {{subform.date(class="date")}}
+                {{subform.time(class="time")}}
+                <a href="#" class="set-now">{{now_label}}</a>
+            </div>
+        </div>
+        """)
+
+    html_params = staticmethod(html_params)
+
+    def __call__(self, field, **kwargs):
+        """render the widget"""
+        data = field.data
+
+        if data is None:
+            data = datetime.datetime.now()
+        
+        data = {
+            'date' : data.strftime("%d.%m.%Y"),
+            'time' : data.strftime("%H:%M"),
+        }
+
+        field.form.process(**data)
+
+        payload = {
+            'subform' : field.form,
+            'immediate_label': kwargs['immediate_label'],
+            'edit_label' : kwargs['edit_label'],
+            'now_label' : kwargs['now_label'],
+        }
+        return self.tmpl.render(**payload)
+
+class DateTimeForm(Form):
+    """Helper form"""
+    date = TextField("")
+    time = TextField("")
+
+_unset_value = object()
+
+class DateTimePickerField(Field):
+    """date time field using datepair and timepicker"""
+
+    widget = DateTimePickerWidget()
+
+    def __init__(self, label = None, validators = None, **kwargs):
+        """initialize the field"""
+        super(DateTimePickerField, self).__init__(label, validators, **kwargs)
+
+    def process(self, formdata, data=_unset_value):
+        """process and incoming input, if formdata is set it's coming from a form"""
+        if data is _unset_value:
+            try:
+                data = self.default()
+            except TypeError:
+                data = self.default
+            self._obj = data
+
+        self.object_data = data
+        self.data = data
+
+        prefix = self.name
+
+        if isinstance(data, dict):
+            self.form = DateTimeForm(formdata=formdata, prefix=prefix, **data)
+        else:
+            self.form = DateTimeForm(formdata=formdata, obj=data, prefix=prefix)
+
+        if formdata:
+            # we have a form submit
+            d = self.form.data
+            self.data = datetime.datetime.strptime(d['date']+" "+d['time'], "%d.%m.%Y %H:%M")
+
+
+    @property
+    def errors(self):
+        return self.form.errors
+
+    def validate(self, form, extra_validators=tuple()):
+        """validate the subform"""
+        return self.form.validate()
+
+
+class ColorWidget(TextInput):
+    """color picker widget with preview"""
+
+    def __init__(self):
+        """initialize color widget"""
+        super(ColorWidget, self).__init__()
+
+    def __call__(self, field, **kwargs):
+        """render the widget"""
+        html = super(ColorWidget, self).__call__(field, size=8, **kwargs)
+        more = """<span class="input-group-addon"><i></i></span>"""
+        return """<div class="colorpicker-container">%s</div>""" %(html+more)
+
+
+class ColorField(HiddenField):
+    """implements a color field with colorpicker"""
+
+    widget = ColorWidget()
+
+
+
+class WYSIWYGWidget(object):
+    """
+    Renders a multi-line text area with tinymce support
+    `rows` and `cols` ought to be passed as keyword args when rendering.
+    """
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault('id', field.id)
+        kwargs['class'] = 'wysiwyg'
+        return HTMLString('<textarea %s>%s</textarea>' % (
+            html_params(name=field.name, **kwargs),
+            escape(text_type(field._value()), quote=False)
+        ))
+
+class WYSIWYGField(TextAreaField):
+    """text area with tinymce attached and html sanitizing"""
+
+    widget = WYSIWYGWidget()
+
+    attributes = {
+        'a': ['href', 'title'],
+        'abbr': ['title'],
+        'acronym': ['title'],   
+        'img' : ['src', 'alt'],
+    }
+
+
+    def __init__(self, 
+            label='',
+            validators=None,
+            linkify = True,
+            allowed_tags = "h1 h2 h3 h4 h5 h6 a img a li ol ul pre quote blockquote b i u p strong em",
+            **kwargs):
+        """initialize the WYSIWYGField. 
+
+        :param label: the label of the field (wtforms)
+        :param validators: the validators as list (wtforms)
+        :param linkify: whether linkify should run over the input (converting links to tags)
+        :param allowed_tags: space separated list of allowed tags in the html input. 
+        """
+        super(WYSIWYGField, self).__init__(label, validators, **kwargs)
+        self.allowed_tags = allowed_tags.split(" ")
+        self.linkify = linkify
+
+
+    def process_formdata(self, valuelist):
+        """cleanup incoming formdata"""
+        if valuelist:
+            html = bleach.clean(valuelist[0], 
+                    attributes = self.attributes,
+                    tags = self.allowed_tags)
+            if self.linkify:
+                    html = bleach.linkify(html)
+            self.data = html
+
+
+    

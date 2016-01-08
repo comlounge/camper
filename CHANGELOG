@@ -17,3 +17,15 @@
 - users can now be deleted by barcamp and main admin from within user list (closes #19)
 - profile images are now linked
 
+
+2.0 (2016-01-01)
+================
+
+- lots of new features/refactoring/cleanups, new design etc. 
+
+In order to migrate::
+
+    bin/migrate_barcamps -f etc/scripts.ini
+    bin/migrate_users -f etc/scripts.ini
+    bin/reprocess -f etc/scripts.ini
+

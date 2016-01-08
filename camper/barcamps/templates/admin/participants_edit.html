@@ -1,0 +1,15 @@
+{% set menu="participant_count" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Increase number of participants')}}</h1>
+    {% endblock %}
+    <form class="form-validate validate" method="POST" action="{{url}}">  
+        {{ formmacros.form_field(form.size, input_class="required number", min=barcamp.size) }}
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('update')}}">
+        {% endblock %}
+    </form>
+{% endblock %}

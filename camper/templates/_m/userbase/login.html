@@ -9,31 +9,31 @@
             </div>
         {% endfor %}
     </div>
-<div class="login-container">
-    <div class="content clearfix">
-        <h1>{{_('Real camper log in!')}}</h1>
-        <form class="horizontal-form validate" method="POST" action="{{url}}">  
-            {{ formmacros.form_field(form.username, placeholder=_("username")) }}
-            {{ formmacros.form_field(form.password, placeholder=_("password")) }}
-            <div class="pull-right">
-                <p>
-                <input type="submit" class="pull-right btn-signin" value="{{_('login')}}"><br>
-                </p>
-            </div>
-            {% if M.userbase.config.use_remember %}
-                <div class="controls" id="{{form.remember.id}}-div">
-                    <label class="checkbox" for="{{ form.remember.id }}" id="field-{{form.remember.id}}">
-                        {{form.remember()}}
-                        {{_('remember me')}}
-                    </label>
+    <div class="login-container container">
+        <div class="content clearfix">
+            <h1>{{_('Real camper log in!')}}</h1>
+            <form class="horizontal-form" data-parsley-validate method="POST" action="{{url}}">  
+                {{ formmacros.form_field(form.email, label_class="sr-only", required=True, placeholder=_("your e-mail")) }}
+                {{ formmacros.form_field(form.password, required = True, placeholder=_("password")) }}
+                <div class="pull-right">
+                    <p>
+                    <input type="submit" class="pull-right btn-signin" value="{{_('login')}}"><br>
+                    </p>
                 </div>
-            {% endif %}
-            <a href="{{url_for("userbase.pw_forgot")}}">{{_('password forgotten?')}}</a>
-        </form>
-        <hr>
-        <a class="btn btn-block btn-info" href="{{url_for("userbase.register")}}">{{_('register a new user')}}</a>
+                {% if M.userbase.config.use_remember %}
+                    <div class="controls pull-left" id="{{form.remember.id}}-div">
+                        <label class="checkbox" for="{{ form.remember.id }}" id="field-{{form.remember.id}}">
+                            {{form.remember()}}
+                            {{_('remember me')}}
+                        </label>
+                    </div>
+                {% endif %}
+                <a href="{{url_for("userbase.pw_forgot")}}">{{_('password forgotten?')}}</a>
+            </form>
+            <hr>
+            <a class="btn btn-block btn-info" href="{{url_for("userbase.register")}}">{{_('register a new user')}}</a>
+        </div>
     </div>
-</div>
 {% endblock %}
 {% block js %}
         <script>

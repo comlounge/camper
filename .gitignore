@@ -19,3 +19,6 @@ docs/_build
 .settings
 tmp
 .eggs
+node_modules
+.DS_Store
+camper/templates/M

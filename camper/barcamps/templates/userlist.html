@@ -4,36 +4,36 @@
     <ul class="participants">
     {% for myuser in users %}
         <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}">
-                <img class="profile-image-mini" src="{{userview(myuser).image_thumb}}">
-            </a>
-            <div class="participant-info">
+            <div class="participant-actions">
                 {% if user == myuser and remove_url %}
                     <form method="post" class="pull-right" action="{{remove_url}}">
-                    <input type="hidden" name="u" value="{{myuser.username}}">
-                        <button class="btn btn-danger"><i class="icon-white icon-trash"></i></button>
+                        <input type="hidden" name="u" value="{{myuser.username}}">
+                        <button class="btn btn-danger btn-xs"><i class="fa-white fa fa-trash"></i></button>
                     </form>
                 {% elif is_admin and remove_url %}
                     <form method="post" class="pull-right" action="">
-                    <input type="hidden" name="u" value="{{myuser.username}}">
-                    <div class="btn-group">
-                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-cog"></i></a>
-                        <ul class="dropdown-menu">
-                            {% if to_participant_url %}
-                            <li>
-                                <a class="form-submit" href="{{to_participant_url}}"><i class="icon-plus"></i> {{_("register user as participant")}}</a>
-                            </li>
-                            {% endif %}
-                            {% if remove_url %}
-                            <li>
-                                <a class="form-submit" href="{{remove_url}}"><i class="icon-trash"></i> {{_('remove user from list')}}</a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
+                        <input type="hidden" name="u" value="{{myuser.username}}">
+                        {% if to_participant_url %}
+                            <a class="btn btn-xs btn-plus btn-primary form-submit" title="{{_("register user as participant")}}" href="{{to_participant_url}}"><i class="fa fa-plus"></i></a>
+                        {% endif %}
+                        {% if remove_url %}
+                            <a class="form-submit btn btn-xs btn-danger" title="{{_('remove user from list')}}" href="{{remove_url}}"><i class="fa fa-trash"></i></a>
+                        {% endif %}
                     </form>
                 {% endif %}
-                <h5 class="media-heading"><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
+            </div>
+            {% set img = userview(myuser).image_thumb %}
+            {% if img %}
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}">
+                <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
+            </a>
+            {% else %}
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}">
+                <i class="fa fa-user anon"></i>
+            </a>
+            {% endif %}
+            <div class="participant-info">
+                <h5><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
                     {% if myuser.has_organisation %}
                     <br><small>{{myuser.organisation}}</small>
                     {% endif %}
@@ -45,18 +45,18 @@
 {%- endmacro %}
 
 {% block main_content %}
-    <div class="row">
-        <div class="span3">
-            <h2>{{_('Participants')}} ({{barcamp.event.participants|length}})</h2>
-            {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
-        </div>
-        <div class="span3">
-            <h2>{{_('Interested')}} ({{barcamp.subscribers|length}})</h2>
-            {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
-        </div>
-        <div class="span3">
-            <h2>{{_('Waiting list')}} ({{barcamp.event.waiting_list|length}})</h2>
-            {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
-        </div>
-    </div>
+<div id="userlist">
+    <section>
+        <h2>{{_('Participants')}}</h2>
+        {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
+    </section>
+    <section>
+        <h2>{{_('Interested')}}</h2>
+        {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
+    </section>
+    <section>
+        <h2>{{_('Waiting list')}}</h2>
+        {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
+    </section>
+</div>
 {% endblock %}

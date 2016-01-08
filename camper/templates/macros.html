@@ -1,108 +1,72 @@
 
-{% macro wf_button(transaction, came_from = None, css="") -%}
-    {% set client = transaction.client %}
-    {% set client_id = transaction.d.client_id %}
-    {% set tparams = {'client_id' : client_id, 'transaction_id' : transaction.d._id} %}
-    {% set state = transaction.d.wf_state %}
-    {% if state not in ['shipped', 'canceled'] %}
-        <form action="{{url_for('transaction_wf', **tparams)}}" method="POST" class="{{css}}">
-            {% if came_from %}
-            <input type="hidden" name="came_from" value="{{came_from}}">
-            {% endif %}
-            {% if state=='offered' %}
-                <button name="wf_state" 
-                        value="ordered" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        in Bestellung geben
-                </button>
-            {% elif state=='ordered' %}
-                <button name="wf_state" 
-                        value="checked" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        kontrolliert
-                </button>
-            {% elif state=='checked' %}
-                <button name="wf_state" 
-                        value="printed" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        gedruckt
-                </button>
-            {% elif state=='printed' %}
-                <button name="wf_state" 
-                        value="shipped" 
-                        class="btn btn-info">
-                        <i class="icon icon-white icon-arrow-right"></i>
-                        versandt
-                </button>
-            {% endif %}
-        </form>
+
+{% macro f(field, classes="") -%}
+    {{ field(class="form-control "+classes, **kwargs) }}
+    {% if field.description %}
+        <p class="help-block">{{ _(field.description) }}</p>
     {% endif %}
 {%- endmacro %}
 
-{% macro my_field(field, prepend=None, append=None) -%}
-            <div class="input {{'input-prepend' if prepend}} {{'input-append' if append}}">
-                {% if prepend %}
-                    <span class="add-on">{{prepend}}</span>
-                {% endif %}
-
-                {{ field(**kwargs) }}
-
-                {% if append %}
-                    <span class="add-on">{{append}}</span>
-                {% endif %}
-                
-          </div>
+{% macro my_field(field, prepend=None, append=None, input_class="", no_size=False, required=False, size="") -%}
+    {% if no_size %}
+        {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required = required == True, **kwargs)}}
+        {% if field.description %}
+            <p class="help-block">{{ _(field.description) }}</p>
+        {% endif %}
+    {% else %}
+        <div class="{{size}}">
+            {{ field(class="form-control"+(' required ' if required else ' ')+input_class, required = required == True, **kwargs) }}
+            {% if field.description %}
+                <p class="help-block">{{ _(field.description) }}</p>
+            {% endif %}
+        </div>    
+    {% endif %}
 {%- endmacro %}
 
-{%- macro form_field_label(field) -%}
-    <label class="control-label" for="{{ field.id }}">{{ _(field.label.text) }}
+{%- macro form_field_label(field, label_class="") -%}
+    <label class="control-label {{label_class}}" for="{{ field.id }}">{{ _(field.label.text) }}
     {%- if field.flags.required -%}
         <abbr title="{{_('This field is required')}}">*</abbr>
     {%- endif %}</label>
 {% endmacro %}
 
-{%- macro form_field_description(field) -%}
-    {% if field.description %}
-        <p class="help-block">{{ _(field.description) }}</p>
-    {% endif %}
-{%- endmacro -%}
-
 {%- macro form_field_errors(field) -%}
     {% if field.errors %}
         {%- for error in field.errors -%}
-        <span class="label label-important">{{ error }}</span>
+        <span class="label label-danger">{{ error }}</span>
         {%- endfor -%}
     {% endif %}
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field) -%}
-<div class="controls" id="{{field.id}}-div">
-    <label class="checkbox" for="{{ field.id }}" id="field-{{field.id}}">
+<div class="checkbox" id="{{field.id}}-div">
+    <label>
         {{field(**kwargs)}}
         {{ _(field.label.text) }}
         <p class="help-block">{{ _(field.description) }}</p>
     </label>
 </div>
 {%- endmacro -%}
+
 {%- macro form_field_radio(field) -%}
-<div class="controls" id="{{field.id}}-div">
-    {% for subfield in field %}
-    <label class="radio">
-        {{ subfield() }}
-        {{ _(subfield.label.text) }}
-    </label>
-    {% endfor %}
-</div>
-{%- endmacro -%}
-{%- macro form_field_multicheckbox(field) -%}
-    {% for subfield in field %}
-        <label class="checkbox">
+{% for subfield in field %}
+    <div class="radio" id="{{field.id}}-div">
+        <label>
             {{ subfield() }}
-            {{ subfield.label.text }}
+            {{ _(subfield.label.text) }}
         </label>
+    </div>
+{% endfor %}
+{%- endmacro -%}
+
+{%- macro form_field_multicheckbox(field, input_class) -%}
+    {% for subfield in field %}
+        <div class="checkbox">
+            <label>
+                {{ subfield(class=input_class) }}
+                {{ _(subfield.label.text) }}
+            </label>
+        </div>
     {% endfor %}
 {%- endmacro -%}
 
@@ -114,26 +78,23 @@
 </div>
 {%- endmacro -%}
 
-{%- macro form_field(field) -%}
-    <div class="control-group {{'error' if field.errors}}" id="field-{{field.id}}">
+{%- macro form_field(field, label_class="", input_class="", size="") -%}
+    <div class="form-group {{'error' if field.errors}}" id="field-{{field.id}}">
     {% if field.type == 'HiddenField' %}
         {{ field() }}
     {% else %}
         {% if field.type == 'BooleanField' %}
             {{ form_field_boolean(field, **kwargs) }}
         {% else%}
-            {{ form_field_label(field) }}
-            <div class="controls" id="{{field.id}}-div">
-                {% if field.type == 'MultiCheckboxField' %}
-                    {{ form_field_multicheckbox(field) }}
-                {% elif field.type == 'RadioField' %}
-                    {{ form_field_radio(field) }}
-                {% else %}
-                    {{ my_field(field, **kwargs) }}
-                {% endif %}
-                {{ form_field_errors(field) }}
-                {{ form_field_description(field) }}
-            </div>
+            {{ form_field_label(field, label_class) }}
+            {% if field.type == 'MultiCheckboxField' %}
+                {{ form_field_multicheckbox(field, input_class) }}
+            {% elif field.type == 'RadioField' %}
+                {{ form_field_radio(field) }}
+            {% else %}
+                {{ my_field(field, input_class=input_class, size=size, **kwargs) }}
+            {% endif %}
+            {{ form_field_errors(field) }}
         {% endif %}
     {% endif %}
     </div>
@@ -154,31 +115,24 @@
   </fieldset>
 {%- endmacro -%}
 
+{% macro delbutton(entry, classes="", show_label = False) -%}
+    <a href="#" class="confirmdelete btn btn-danger {{classes}}" 
+                data-entry="{{entry._id}}" 
+                data-url="{{url}}"
+                data-title="{{_('Really Delete?')}}" 
+                data-toggle="confirmation" 
+                data-btn-ok-label="{{_('Yes')}}" 
+                data-btn-ok-icon="fa fa-ok" 
+                data-btn-ok-class="btn btn-success btn-xs" 
+                data-btn-cancel-label="{{_('No')}}" 
+                data-btn-cancel-icon="fa fa-ban" 
+                data-btn-cancel-class="btn btn-danger btn-xs">
+        <i class="fa fa-trash"></i> 
+            {% if show_label %}
+                {{_('Delete')}}
+            {% endif %}
+    </a>
 
+{% endmacro %}
 
-{#
-## CLIENT WIDGETS
-#}
-
-
-{%- macro address(client, full=True) -%}
-    <address>
-        <strong>{{client.fullname}}</strong> <br>
-        {% if client.d.company %}{{client.d.company}}<br>{%endif %}
-        {{client.d.address}} <br>
-        {% if client.d.address_comment %}Kommentar: {{client.d.address_comment}}<br>{%endif %}
-        {{client.d.zip}} {{client.d.city}}<br>
-        {{client.country}}<br>
-        {% if full %}
-            {% if client.d.phone %}Telefon: {{client.d.phone}}<br>{%endif %}
-            {% if client.d.mobile %}Mobil: {{client.d.mobile}}<br>{%endif %}
-            {% if client.d.fax %}Fax: {{client.d.fax}}<br>{%endif %}
-            {% if client.d.email %}E-Mail: <a href="mailto:{{client.d.email}}">{{client.d.email}}</a><br>{%endif %}
-            Steuernummer: {{client.d.taxnr}}<br>
-            Mehrwertsteuer: {{client.d.mwst}} %<br>
-        {% endif %}
-    </address>
-{%- endmacro -%}
-{%- macro shipping_address(client) -%}
-{%- endmacro -%}
 

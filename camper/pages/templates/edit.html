@@ -1,0 +1,27 @@
+{% extends "_m/pages/add.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_("Edit Page")}}</h1>
+    {% endblock %}
+    <form class="parsley-validate" id="pageform" method="POST" action="{{url}}">
+        {{ formmacros.form_field(form.title, input_class="required input-lg", maxlength=80, placeholder=_('Page title')) }}
+        {{ formmacros.form_field(form.slug, input_class="input-sm", size="xs", placeholder=_('short name for URL'), pattern="^[a-zA-Z0-9_\-]+$",
+                        **{'data-parsley-remote-validator' : 'pageslug',
+                           'data-parsley-remote': '1',
+                           'data-parsley-remote-message' : _('This shortname is already taken.')})
+        }}
+        {{ formmacros.form_field(form.menu_title, input_class="required", maxlength=30, placeholder=_('short title for menu')) }}
+        {{ formmacros.form_field(form.image, input_class="",
+            label=_("Upload new image"), delete_label=_("Delete"), revert_label=_("Revert to original image"),
+            preview_url = view.image_url.small,
+            upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+        {{ formmacros.form_field(form.content, rows=10) }}
+        {{ formmacros.form_field(form.layout) }}
+    {% block action %}
+        <input type="submit" class="btn btn-large btn-primary" value="{{_('Save changes')}}">
+    {% endblock %}
+    </form>
+{% endblock %}
+

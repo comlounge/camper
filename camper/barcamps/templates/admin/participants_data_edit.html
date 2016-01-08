@@ -1,0 +1,65 @@
+{% set menu="registration" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    {% block title %}
+        <h1>{{_('Edit the participant registration form')}}</h1>
+        <div class="description">
+            {{_('If you want a user to enter additional data like t-shirt size, food preferences etc. you can define that here. Just add a custom
+            fields for all the informatin you want to gather. You can choose between single-line and multi-line text fields. Also you can define if the
+            field is required to be filled in. The user will then have to enter that data when clicking on the participate button. You can download that data
+            along with the name of the participants under the "download participants" menu item in the admin box.')}}
+        </div>
+    {% endblock %}
+    {% if fields %}
+    <div id="participant_datafields">
+        <table id="participant_datafields" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{{_('title')}}</th>
+                    <th>{{_('description')}}</th>
+                    <th>{{_('field type')}}</th>
+                    <th width="5%">{{_('required?')}}</th>
+                    <th></th>
+                </tr>
+            <thead>
+            <tbody>
+                {% for f in fields%}
+                <tr data-title="{{f.title}}"
+                    data-description="{{f.description}}"
+                    data-fieldtype="{{f.fieldtype}}"
+                    data-required="{{f.required}}">
+                    <td>{{f.title}}</td>
+                    <td>{{f.fieldtype}}</td>
+                    <td>{{f.description}}</td>
+                    <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
+                    <td>
+                        <a href="{{url_for('.registration_form_editor', method='delete', idx = loop.index0, slug = slug, _append=True)}}" 
+                           class="btn btn-xs btn-danger action-confirm"
+                           data-confirm="{{_('Are you sure?')}}" 
+                           type="button"><i class="fa fa-white fa-trash"></button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+    <div id="new-participant-datafield">
+        <h3>{{_("Add a new field")}}</h3>
+        <form class="form" method="POST" action="{{url}}">
+                <fieldset>
+                    {{ formmacros.form_field(form.title, input_class="required span6") }}
+                    {{ formmacros.form_field(form.description, input_class="required span6", rows=4) }}
+                    {{ formmacros.form_field(form.fieldtype, input_class="span4 url") }}
+                    {{ formmacros.form_field(form.required, input_class="span4 url") }}
+                </fieldset>
+                <input type="submit" class="btn btn-primary" value="{{_('Add')}}">
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+{% endblock %}

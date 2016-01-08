@@ -1,0 +1,65 @@
+{% extends "admin_master.html" %}
+
+{% block content %}
+    {% block title %}
+    <div class="page-header">
+        <h1>{{barcamp.name}} {{_('Dashboard')}}</h1>
+    </div>
+    {% endblock %}
+
+    <div id="dashboard">
+
+        <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+            {% for event in barcamp.eventlist %}
+            <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
+                <div class="panel-heading">
+
+                    <h4 class="panel-title">
+                        <div class="date">
+                            <span class="day">{{event.date.strftime("%d") }}</span>
+                            <span class="month">{{event.date.strftime("%m") }}</span>
+                            <span class="year">{{event.date.strftime("%Y") }}</span>
+                        </div>
+                        <a href="{{url_for('.event', slug = slug, eid = event._id)}}">
+                            {{event.name}}
+                        </a>
+                    </h4>
+
+                    <address>
+                        {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
+                    </address>
+
+                    <div class="progress-info">
+                        <span class="filled">{{event.participants|length}}</span>
+                        /
+                        <span class="size">{{event.size}}</span> 
+                        {{_('participants')}}
+                        <br>
+                        <span class="amount">{{event.waiting_list|length}}</span>
+                        {{_('on waiting list')}}
+
+                    </div>
+
+
+                    <div class="progress progress-events">
+                        {% set percent = event.participants|length / event.size * 100 %}
+                        <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
+                            role="progressbar" 
+                            aria-valuenow="{{event.participants|length}}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <a href="{{url_for('.event', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{_('Edit event details')}}</a>
+                    <a href="{{url_for('.sessionboard', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Edit Timetable / Sessions')}}</a>
+                    <a href="{{url_for('.event_participants', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Manage Participants')}}</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,25 @@
+
+{{data}}
+<div class="table-responsive">
+    <table class="table table-bordered sessiontable">
+        <colgroup>
+            <col width="10%">
+            <col ng-repeat="room in rooms | slice:1:10000" width="{[{90/rooms.length}]}%">
+        </colgroup>
+        <thead>
+            <tr id="roomcontainment" ui-sortable="sortableOptions" ng-model="rooms">
+                <td></td>
+                <td class="sorted room-slot" ng-repeat="room in rooms | slice:1:10000" data-id="{[{room.id}]}">
+                    <h5 class="room-name">{[{room.name}]}</h5>
+                    <div class="room-actions">
+                    </div>
+                    <small>{[{room.description}]}</small><br>
+                    <small>{[{room.capacity}]} persons</small>
+                </td>
+                <td class="not-sortable">
+                    
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>

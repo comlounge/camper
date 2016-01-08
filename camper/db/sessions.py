@@ -104,7 +104,7 @@ class Session(Record):
             self.save()
         return self.vote_count
 
-    def get_comments(self, sort_by="created", sort_order=-1):
+    def get_comments(self, sort_by="created", sort_order=1):
         """return the list of comments for this session"""
         coll = self._collection.md.config.dbs.session_comments
         return list(coll.find({'session_id' : unicode(self._id)}).sort(sort_by, sort_order))

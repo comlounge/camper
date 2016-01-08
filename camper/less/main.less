@@ -1,110 +1,686 @@
-/*!
- * Bootstrap v2.1.1
- *
- * Copyright 2012 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- */
-
-// CSS Reset
-@import "reset.less";
-
 // Core variables and mixins
-@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "variables.less";
 @import "mixins.less";
 
-// Grid system and page structure
-@import "scaffolding.less";
-@import "grid.less";
-@import "layouts.less";
+// Reset and dependencies
+@import "normalize.less";
+@import "print.less";
+@import "glyphicons.less";
 
-// Base CSS
+// Core CSS
+@import "scaffolding.less";
 @import "type.less";
 @import "code.less";
-@import "forms.less";
+@import "grid.less";
 @import "tables.less";
-
-// Components: common
-@import "sprites.less";
-@import "dropdowns.less";
-@import "wells.less";
-@import "component-animations.less";
-@import "close.less";
-
-// Components: Buttons & Alerts
+@import "forms.less";
 @import "buttons.less";
-@import "button-groups.less";
-@import "alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
-// Components: Nav
+// Components
+@import "component-animations.less";
+@import "dropdowns.less";
+@import "button-groups.less";
+@import "input-groups.less";
 @import "navs.less";
 @import "navbar.less";
 @import "breadcrumbs.less";
 @import "pagination.less";
 @import "pager.less";
+@import "labels.less";
+@import "badges.less";
+@import "jumbotron.less";
+@import "thumbnails.less";
+@import "alerts.less";
+@import "progress-bars.less";
+@import "media.less";
+@import "list-group.less";
+@import "panels.less";
+@import "responsive-embed.less";
+@import "wells.less";
+@import "close.less";
 
-// Components: Popovers
+// Components w/ JavaScript
 @import "modals.less";
 @import "tooltip.less";
 @import "popovers.less";
-
-// Components: Misc
-@import "thumbnails.less";
-@import "media.less";
-@import "labels-badges.less";
-@import "progress-bars.less";
-@import "accordion.less";
 @import "carousel.less";
-@import "hero-unit.less";
 
 // Utility classes
-@import "utilities.less"; // Has to be last to override when necessary
+@import "utilities.less";
+@import "responsive-utilities.less";
 
-//
-// main content area and widget
-//
+@import "admin.less";
+@import "gallery.less";
+
+
+/*
+** general rules
+*/
 
 html, body {
-    background: #f0f0f0;
+    //background: #f8f8f8 url("/static/img/bg.png") repeat repeat;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Roboto Condensed", "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
+
 }
 
-.content-area, #content-area {
+.btn-inverse {
+    background: black;
+    color: white;
+}
+
+//
+// profile page
+//
+
+#user-profile {
+    h2 { margin-top: 0; }
+}
+
+.profile-image {
+    border: 1px solid #ccc;
+    padding: 1px;
+}
+.profile-image-dummy {
+    height: 200px;
+    font-size: 100px;
+}
+
+.profile-image-mini {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #333;
+}
+
+.profile-image-userlist {
+    width: 80px;
+    height: 80px;
+    &.missing {
+        text-align: center;
+        color: #ccc;
+        font-size: 50px;
+    }
+}
+
+#profile-edit-form {
+    .preview-area {
+        img {
+            padding: 1px;
+            border: 1px solid #a0a0a8;
+            margin-bottom: 5px;
+
+        }
+    }
+}
+
+
+/*
+** navbar
+*/
+
+.navbar-inverse {
+    text-transform: uppercase;
+    font-family: "Roboto", sans-serif;
+}
+
+/* 
+** homepage barcamp listing
+*/
+
+body#startpage {
+    background: #f7f7f2;
+
+    .frontpage-bg {
+        background: #e7e7e0;
+        margin-top: -20px;
+        margin-bottom: 30px;
+    }
+    .footer {
+        background: white;
+        @media (max-width: @screen-md-max) {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+    }
+
+    h2 { 
+        color: #333;
+        font-family: 'Roboto', sans-serif;
+        text-transform: uppercase;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        @media (max-width: @screen-md-max) {
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+    }
+    .logo-container {
+        margin-bottom: 50px;
+        @media (max-width: @screen-md-max) {
+            .btn {
+                .btn-block;
+                margin-bottom: 10px;
+            }
+        }
+    }
+    h1.logo {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        span {
+            color: #333;
+            text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
+        };
+        color: white;
+        font-size: 100px;
+        font-family: 'Syncopate', sans-serif;
+        font-weight: bold;
+        small { 
+            display: block; 
+            font-size: 40px;
+            text-transform: lowercase;
+        }
+        @media (max-width: @screen-md-max) {
+            font-size: 50px;
+            span {
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+            }
+            small {
+                font-size: 20px;
+            }
+        }
+    }
+
+    article.barcamp {
+        background: #f8f8f5;
+        border: 1px solid #d8d8d8;
+        border-bottom-width: 2px;
+        border-top-width: 1px;
+        border-top-color: #e2e2e0;
+        border-radius: 3px;
+        padding: 0px;
+        img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #d8d8d8;
+        }
+        margin-bottom: 30px;
+        h3 {
+            text-transform: uppercase;
+            padding: 10px;
+            margin-bottom: 0px;
+            margin-top: 2px;
+            a {
+                color: #333;
+            }
+            line-height: 1;
+        }
+        .byline {
+            color: #777;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-bottom: 5px;
+            padding: 5px;
+            line-height: 1.4;
+        }    
+        &.barcamp-full {
+            .logo, .description {
+                img { background: white; }
+            }
+            .description {
+                background: #f0f0ed;
+            }
+            h3 { .pull-left; }
+            .byline {
+                .pull-right;
+            }
+            margin-bottom: 30px;
+        }
+        &.barcamp-small {
+            img { background: white; }
+            .description {
+            }
+            h3 {
+                padding-left: 5px;
+            }
+            
+        }
+        @media (max-width: @screen-md-max) {
+            h3 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-top: 10px;
+                margin-left: 10px;
+            }
+            .byline {
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
+/*
+** barcamp detail seite
+*/
+
+#bc-header {
+    .byline {
+        @media (min-width: @screen-md-min) {
+            .location {
+                .pull-left;
+            }
+            .date {
+                .pull-right;
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            .location, .date { 
+                text-align: center; 
+                line-height: 2;
+                font-size: 13px;
+            }
+        }
+    }
+}
+
+.bcdetail-bg {
     background: white;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    height: 100%;
-    padding: 20px;
-    margin-bottom: 30px;
+    margin-top: -20px;
+    padding-bottom: 20px;
+    border-bottom: 7px solid #f0f0e8;
+}
+#barcamppage {
+    background: #fcfcfa;
+    background-size: cover;
+}
+#barcamppage {
+    h1.logo {
+        img { width: 100%; }
+    }
+    .header {
+        border-bottom: none;
+    }
+    .sponsors {                                                                                                                                  
+        margin-top: 20px;
+    }
+
+    .sponsor {
+        float: left;
+        width: 220px;
+        margin-right: 15px;
+        margin-bottom: 20px;
+    }
+    .byline {
+        margin-top: 5px;
+        color: #888;
+        font-size: 12px;
+        a {
+            color: lighten(@link-color, 10%);
+        }
+    }
+    .attending {
+        font-size: 30px;
+        color: @brand-success;
+        line-height: 30px;
+        .text-center;
+        a { 
+            .btn;
+            .btn-xs;
+            .btn-default;
+        }
+        margin-bottom: 30px;
+    }
 }
 
-.widgets {
-    display: block;
-    float: left;
-    width: 210px;
-    margin-left: 20px;
+h1.logo {
+    font-size: 80px;
+    text-transform: uppercase;
 }
 
-.navbar {
-    .border-radius(0);
+
+.event-location-map {
+    width: 100%;
+    height: 800px;
+    margin-top: 20px; 
+    border: 1px solid #e0e0e0;
 }
 
-footer {
+.navbar-barcamp {
+    
+    margin: 0;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: "Roboto", sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    
+    
+    .navbar-brand {
+        color: @navbar-default-brand-color;
+        &:hover,
+        &:focus {
+            color: @navbar-default-brand-hover-color;
+            background-color: @navbar-default-brand-hover-bg;
+        }
+    }
+
+    .navbar-text {
+        color: @navbar-default-color;
+    }
+    .navbar-collapse { padding-left: 0;}
+    .container-fluid { padding-left: 0;}
+
+    .navbar-toggle {
+        width: 40%;
+        float: none;
+        margin: 0 auto;
+        display: none;
+        text-transform: uppercase;
+
+        border-color: @navbar-default-toggle-border-color;
+        &:hover,
+        &:focus {
+            background-color: @navbar-default-toggle-hover-bg;
+        }
+        .icon-bar {
+            background-color: @navbar-default-toggle-icon-bar-bg;
+        }
+        @media (max-width: @grid-float-breakpoint-max) {
+            display: block;
+        }
+
+    }
+
+    .navbar-nav {
+        > li > a {
+            -webkit-transition: color 0.3s;
+            transition: color 0.3s;
+            color: #888;
+            margin-left: 0;
+            margin-right: 10px;
+            border-bottom: 4px solid #b0b0b0;
+
+            &:hover,
+            &:focus {
+                color: #68a;
+                background-color: #e0e0e0;
+                -webkit-transition: background-color 0.3s;
+                transition: background-color 0.3s;
+            }
+        }
+        > li.manage > a {
+            color: @brand-warning;
+            font-weight: bold;
+            border-bottom: 4px solid @brand-warning;
+        }
+        > .active > a {
+            &,
+            &:hover,
+            &:focus {
+                color: #f8f8f8;
+                background-color: #333;
+                border-bottom: 4px solid #666;
+                -webkit-transition: background-color 0.3s;
+                transition: background-color 0.3s;
+
+
+            }
+        }
+
+        > .disabled > a {
+            &,
+            &:hover,
+            &:focus {
+                color: @navbar-default-link-disabled-color;
+                background-color: @navbar-default-link-disabled-bg;
+            }
+        }
+        @media (max-width: @grid-float-breakpoint-max) {
+            li a { text-align: center;
+            }
+        }
+    }
+    @media (max-width: @grid-float-breakpoint-max) {
+        padding-left: 15px;
+    }
+}
+
+#barcamp-details {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.4;
+    p {
+        margin-bottom: 20px;
+    }
+}
+
+
+.widget-join {
+    margin-bottom: 20px;
+    form, div {
+        margin-bottom: 5px;
+    }
+
+}
+//
+// social stuff                                                                                                                                  
+//
+
+.socialmedia {
+    overflow: auto;
     margin-top: 20px;
-    border-top: 1px solid #e0e0e0;
-    padding-top: 20px;
+}
+.twitter-button, .fb-button, .gplus-button {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    width: 60px;
+    height: 30px;
+    overflow: hidden;
+}
+.fb-button {
+    margin-top: 1px;
+}
+
+
+/*
+ * session proposals
+ */
+
+
+.votecontainer {
+    //.border-radius(10px);
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-left: 7px;
+    background: white                                                                                                                                                                    ;
+    float: left;
+    width: 50px;
+    text-align: center;
+    margin-right: 10px;
+    .vote-login {
+        font-size: 80%;
+        color: #888;
+    }
+    .vote {
+        margin: 0 auto;
+        cursor: pointer;
+        font-size: 30px;
+        text-decoration: none;
+    }
+    .vote.active {
+        color: #fa0;
+    }
+    .vote.inactive {
+        color: #333;
+    }
+    @media (min-width: @screen-md-min) {
+        width: 50px;
+        .vote {
+            width: 24px;
+            height: 38px;
+            display: block;            
+        }
+    }
+    @media (max-width: @screen-md-max) {
+        width: 100%;
+        margin-left: 0;
+        background: #f8f8fa;
+        .vote {
+            .btn-block;
+        }
+    }
+}
+
+#sort-buttons {
+    margin-bottom: 20px;
+    .clearfix;
+    display: block;
+    @media (min-width: @screen-md-min) {
+        .pull-right;
+    }
+    @media (max-width: @screen-md-max) {
+        text-align: center;
+        margin: 0 auto;
+        .btn {
+            .btn-lg;
+        }
+        .title {
+            display: none;
+            .hide;
+        }
+    }
+}
+
+.votes {
+    font-size: 130%;
+    font-weight: bold;
+}
+
+
+
+
+#sessionproposals {
+    article {
+        overflow: auto;
+        margin-bottom: 50px;
+    }
+    .byline {
+        font-size: 90%;
+        color: #888;
+        margin: -5px 0 10px 0;
+    }
+    .comment-area {
+        margin-top: 30px;
+    }
+    .description {
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+    .buttons {
+        margin-top: 5px;
+    }
+    footer {
+        border: 0;
+        color: #aaa;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        margin-top: 5px;
+        padding-top: 2px;
+    }
+    .session-actions {
+        margin-bottom: 10px;
+    }
+    
+    @media (max-width: @screen-md-max) {
+        .media-left {
+            display: none;
+        }
+    }
 }
 
 //
-// special elements
+// participants list
 //
+
+#userlist {
+    .media-list.participants {
+        h5 {
+            margin: 0;
+            padding: 0;
+            line-height: 1.3;
+        }
+        
+    }
+    section {
+        .clearfix;
+    }
+    .participant-actions {
+        position: absolute;
+        top: 5px;
+        z-index: 100;
+    }
+
+    .anon {
+        font-size: 120px;
+        color: #d0d0d0;
+    }
+
+    .profile-image-userlist {
+    }
+
+
+    section {
+        margin-bottom: 30px;
+    }
+    section#participants {
+        margin-top: 30px;
+    }
+
+    ul.participants {
+        .list-unstyled;
+        clear: both;
+        li {
+            .pull-left;
+            width: 90px;
+        }
+        margin-left: 0;
+        padding: 0;
+        .participant {
+            margin-bottom: 5px;
+            position: relative;
+            font-size: 16px;
+            .participant-avatar {
+                .pull-left;
+                img {
+                    width: 80px !important;
+                    height: 80px !important;
+                    margin-right: 10px;
+                }
+            }
+            .participant-name {
+                display: block;
+                margin-top: 3px;
+            }
+            .participant-me {
+                font-weight: bold;
+            }
+        }
+    }
+    .tooltip-inner {
+        white-space: nowrap;
+        padding: 5px 15px;
+    }
+}
 
 .login-container {
     width: 400px;
     background: #f8f8f8;
     border: 1px solid #d8d8d8;
     margin: 50px auto 0 auto;
-    .border-radius(3px);
     .content {
         padding: 16px 28px 23px;
     }
@@ -130,412 +706,277 @@ footer {
 
     .btn-signin {
         .btn();
-        .btn-large();
+        .btn-lg();
+        .btn-warning();
         width: 130px;
-        .buttonBackground(@btnWarningBackground, @btnWarningBackgroundHighlight);
     }
 }
 
 .btn-inline { display: inline-block; }
 .btn-inline.hide { display: none; }
 
-.actions {
-    display: none;
-    z-inder: 10;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
 
-.action-container { position: relative; }
-.action-container:hover .actions {
-    display: block;
-    .btn { margin: 10px; }
+footer {
+    margin-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+    padding-top: 20px;
 }
 
 
 //
-// form validation
+// registration screen
 //
-
-.popover.error {
-  border: 1px solid #f20;
-  border-bottom: 1px solid #a10;
-  background: #c10;
-  font-weight: 600;
-  color: #f8f8f8;
-  &.right .arrow {
-    top: 50%;
-    left: -@popoverArrowWidth;
-    margin-top: -@popoverArrowWidth;
-    border-width: @popoverArrowWidth @popoverArrowWidth @popoverArrowWidth 0;
-    border-right-color: #c10;
-    &:after {
-      border-width: @popoverArrowOuterWidth @popoverArrowOuterWidth @popoverArrowOuterWidth 0;
-      border-right-color: @popoverArrowOuterColor;
-      bottom: -@popoverArrowOuterWidth;
-      left: -1px;
+#eventlist {
+    .list-unstyled;
+    h4 {
+        margin: 0;
+        padding: 0;
     }
-  }
-}
-
-//
-// barcamp index page
-//
-
-#logo {
-    margin-bottom: 40px;
-}
-#barcamp {
-    .header {
-        position: relative;
-
-        h1.logo {
-            font-size: 80px;
-            text-transform: uppercase;
-            line-height: 80px;
-            small {
-                display: block;
-                text-transform: none;
-            }
+    address {
+        margin-bottom: 0;
+    }
+    & > li {
+        //border-bottom: 1px solid #e0e0e0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+    .error {
+        overflow: auto;
+        display: block;
+        color: #a00;
+        padding: 3px;
+        margin-top: 3px;
+    }
+    button, .pselect {
+        display: none;
+    }
+    .registration-eventlist {
+        .actions {
+            min-height: 70px;
         }
     }
-
-    .address {
-        border-top: 1px solid #d8d8d8;
-        padding-top: 10px;
+    .date {
+        height: 100%;
+        float: left;
+        .clearfix;
+        border-right: 1px solid #e0e0e0;
+        padding-right: 5px;
+        margin-right: 15px;
+        span {
+            font-size: 30px;
+            display: block;
+            line-height: 1;
+        }
+        .day {
+            font-weight: bold;
+        }
+        .year {
+            line-height: 1.5;
+            font-size: 15px;
+        }
     }
-
-    .info {
-        display: block;
+    .progress {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    .participants-progress {
+        background: #f0f0f0;
+    }
+    .progress-info {
+        .pull-right;
+        margin-left: 10px;
         padding-top: 4px;
-        line-height: 1;
+        font-size: 12px;
     }
 
-    .subline {
-        float: right;
-        margin-top: -20px;
+    .panel-title {
+        text-transform: uppercase;
+        font-size: 20px;
+        line-height: 1.3;
+    }
+    address {
+        font-size: 14px;
+        color: #666;
+    }
+}
+
+.nodescription {
+    margin-bottom: 30px;
+}
+
+section {
+    margin-bottom: 50px;
+}
+
+//
+// eventlisting
+//
+
+#user-events-content {
+    #my-actions {
+        margin-top: 40px;
+    }
+    .participation-details {
+        .alert;
+        .alert-warning;
+        display: block;
+        .clearfix;
+        min-height: 75px;
     }
 
-    .description {
-        font-size: 16px;
+    .infolabel {
+        display: none;
+        .pull-left;
+        padding-top: 15px;
+    }
+
+    .participation-status {
         margin-bottom: 20px;
     }
-
-    .sponsors {
-        margin-top: 20px;
+    .event-name, .event-date {
+        display: block;
+        font-weight: bold;
     }
-
-    .sponsor {
-        float: left;
-        width: 220px;
-        margin-right: 15px;
+    .event-date {
+        display: block;
+        font-weight: normal;
+        font-size: 13px;
+    }
+    .datelist .plabel {
+        .label;
+        display: none;
+        font-size: 9px;
+        &.plabel-going { .label-success; }
+        &.plabel-maybe { .label-info; }
+        &.plabel-waiting { .label-warning; }
+        &.plabel-not { .label-default; }
+    }
+    
+    .sessiontable {
+        .slot {
+            padding: 10px;
+            position: relative;
+            padding-bottom: 10px;
+            &.active {
+                cursor: pointer;
+                &:hover {
+                    background: #e0e0e0;
+                }
+            }
+        }
+        h5 {
+            margin: 0 0 4px 0;
+        }
+        .moderators {
+            color: #606060;
+            font-size: 12px;
+        }
+        thead th {
+            background: #202020;
+            color: #f0f0f0;
+        }
+        tbody th {
+            .btn-success;
+            font-size: 20px;
+            text-align: center;
+            font-weight: normal;
+        }
+        margin-top: 30px;
+        .description { display: none;}
     }
 }
 
-#main-content {
-    margin-top: 40px;
+#sessionpad {
+    h1 .authors {
+        font-size: 60%;
+        line-height: 1.5;
+        color: #555;
+    }
 }
 
-#barcamp-buttons {
+#blogentry {
+    header {
+        overflow: auto;
+    }
+}
+article.blogentry {
     overflow: auto;
-    margin-top: 20px;
-    border-top: 1px dashed #e0e0e0;
-    padding-top: 10px;
+    margin-bottom: 20px;
+    .blog-image.pull-left {
+        margin-right: 20px;
+    }
+    .blog-image.pull-right {
+        margin-left: 20px;
+    }
+    header {
+        margin-bottom: 10px;
+    }
+    .gallery {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        img { border: 3px solid #606070;}
+    }
+}
+
+#bloglisting {
+    article {
+        margin-bottom: 50px;
+        img {
+            margin-right: 10px;
+        }
+        h2 {
+            margin: 0;
+        }
+        .byline {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+    }
 }
 
 .barcamp-page {
+    .image-container {
+        margin-bottom: 20px;
+    }
     &.layout-left, &.layout-right {
         .image-container { 
-            max-width: 200px; 
+            max-width: 200px;
             display: block;
             border: 1px solid #bbb;
             padding: 3px;
+            img {
+                .img-responsive;
+                max-width: 192px;
+            }
         }
     }
-    &.layout-left .image-container { 
-        float: left; 
+    &.layout-left .image-container {
+        float: left;
         margin: 0 10px 10px 0;
     }
-    &.layout-right .image-container { 
-        float: right; 
+    &.layout-right .image-container {
+        float: right;
         margin: 0 0 10px 10px;
     }
 }
 
-
-// form related
-form label.error { color: red; margin-top: -10px;}
-
-label.valid {
-    width: 24px;
-    height: 24px;
-    background: url('/static/img/valid.png') center center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-}
-label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px 8px;
-    margin-top: 2px;
-}
-
-.preview-area {
-    float: left;
-    margin-right: 10px;
-}
-
-/*
- * session proposals
- */
-
-.votecontainer {
-    .border-radius(10px);
-    border: 1px solid #ddd;
-    padding: 5px;
-    background: white                                                                                                                                                                    ;
-    float: left;
-    width: 50px;
-    text-align: center;
-    margin: 3px;
-    margin-right: 10px;
-    .vote-login {
-        font-size: 80%;
-        color: #888;
-    }
-}
-
-.votes {
-    font-size: 130%;
-    font-weight: bold;
-}
-.vote {
-    width: 24px;
-    height: 24px;
-    display: block;
-    margin: 0 auto;
-    cursor: pointer;
-}
-.vote.active {
-    background: url(../img/star.png) no-repeat;
-}
-.vote.inactive {
-    background: url(../img/star_empty.png) no-repeat;
-}
-
-#sessionproposals {
-    article {
-        border-bottom: 1px solid #f0f0f0;
-        overflow: auto;
-        margin-bottom: 20px;
-    }
+// registration form
+#participant-data {
     .description {
-        font-size: 16px;
-        margin-bottom: 0;
-    }
-    footer {
-        color: #aaa;
-        font-size: 12px;
-    }
-    .comments {
-        
+        margin: 20px 0;
+        font-size: 17px;
+        color: #333;
     }
 }
 
-.upload-widget {
-    display: block;
-    overflow: auto;
-
-    img {
-        width: 100px;
-        height: 100px;
-        border: 1px solid #ccc;
-        margin: 3px;
-        padding: 2px;
-    }
-}
-
-
-//
-// ADMIN AREA
-//
-
-#admin-menu {
-    margin-top: 100px;
-}
-
-//
-// homepage
-//
-
-.logo-footer {
-    img { margin-right: 30px; }
-    background: #fdfdfd;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    padding: 0px;
-    padding-top: 4px;
-    div {
-        padding: 20px;
-    }
-}
-
-hr.thick {
-    border: 2px dashed #c0c0c0;
-}
-
-// 
-// docu pad
-//
-
-ul#blog-reports {
-    margin: 0;
-    padding: 0;
-    li {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        border-bottom: 1px dashed #e0e0e0;
-        padding-bottom: 5px;
-        margin-bottom: 5px;
-        .headline {
-            display: block;
-            font-weight: bold;
-        }
-        .author {
-            font-size: 12px;
-        }
-    }
-}
-
-#blog-add-button-container {
-    margin-top: 30px;
-}
-
-//
-// misc
-//
-
-.olTileImage {
-    max-width: inherit;
-}
-
-
-//
-// social stuff
-//
-
-.twitter-button, .fb-button, .gplus-button {
-    float: left;
-    display: block;
-    margin-right: 10px;
-    width: 60px;
-    height: 30px;
-    overflow: hidden;
-}
-.fb-button {
-    margin-top: 1px;
-}
-
-//
-// profile page
-//
-
-.profile-image {
-    border: 1px solid #ccc;
-    padding: 1px;
-}
-
-.profile-image-mini {
-    width: 32px;
-    height: 32px;
-    border: 1px solid #333;
-}
-
-//
-// participants list
-//
-
-.media-list.participants {
-    h5 {
-        margin: 0;
-        padding: 0;
-        line-height: 1.3;
-    }
-    
-}
-
-ul.participants {
-    margin-left: 0;
-    list-style: none;
-    .participant {
-        .clearfix();
-    }
-    .participant-avatar {
-        .pull-left;
-        margin-right: 5px;
-    }
-}
-
-
-//
-// widget stuff (for barcamps and potentially somewhere else)
-//
-
-.widget {
-    min-height: 20px;
-    padding: 20px;
-    padding-top: 4px;
+#share-area {
     margin-bottom: 20px;
-    background-color: #fff;
-    .box-shadow(0px 1px 5px rgba(0,0,0,.2));
-    blockquote {
-        border-color: #ddd;
-        border-color: rgba(0,0,0,.15);
-    }
-    h4 {
-        border-bottom: 1px solid #aaa;
-    }
-    &.widget-admin { 
-        background-color: #fc0; 
-    }
-    .nav-list {
-        padding-left: 0px;
-        padding-right: 0px;
-        margin-bottom: 0;
-    }
-    .nav-list > li > a,
-    .nav-list .nav-header {
-        margin-left:  -20px;
-        margin-right: -20px;
-        text-shadow: 0 1px 0 rgba(255,255,255,.5);
-    }
-    .nav > li > a:hover {
-        text-decoration: none;
-        background-color: @grayLighter;
-        .box-shadow(0px 0px 1px rgba(0,0,0,.1));
-    }
-    a { color: #003; }
 }
 
-.socialmedia {
-    height: 30px;
-    overflow: hidden;
+.progress-bar {
+    color: #000;
 }
 
-a.osm-copyright {
-    font-size: 10px;
-    color: #888;
-    .pull-right;
-}
 
-.help-block {
-    font-size: 80%;
-    font-style: italic;
-    line-height: 1;
-}
-
-#minimap {
-    height: 200px;
-    width: 170px;
-}

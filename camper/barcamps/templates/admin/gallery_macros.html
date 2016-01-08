@@ -1,0 +1,58 @@
+{% import "macros.html" as formmacros with context %}
+
+{% macro imageblock(image) %}
+        <div class="row imagedetailblock" id="block-{{image._id}}">
+            <div class="col-md-4">
+                {{image.tag}}
+            </div>
+            <div class="col-md-8">
+                <form id="imageform-{{image._id}}" method="POST"
+                        data-image-id = "{{image._id}}"
+                        class="imagedetailform" style="display: none;" 
+                        action="{{url_for('.gallery_image_edit', slug = slug, gid = gallery._id)}}">
+                    <input type="hidden" name="_id" value="{{image._id}}">
+                    <input type="hidden" name="gallery_id" value="{{gallery._id}}">
+                    
+                    {% set image_form = detail_form(obj = image, prefix="image-"+image._id) %}
+
+                    {{formmacros.form_field(image_form.title, input_class="input-lg", placeholder = _('Title of image'))}}
+                    {{formmacros.form_field(image_form.alt, input_class="input-sm", placeholder = _('The alt tag'))}}
+                    {{formmacros.form_field(image_form.description, placeholder = _('The secret behind this picture'))}}
+                    {{formmacros.form_field(image_form.license, placeholder = _('e.g. CC-BY'))}}
+                    {{formmacros.form_field(image_form.copyright, placeholder = _('who should be credited?'))}}
+                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Update')}}">
+                    <a href="#" data-image-id="{{image._id}}" class="canceltoggle btn pull-right btn-default">{{_('Cancel')}}</a>
+
+
+                </form>
+                <div class="imagedetails" id="details-{{image._id}}">
+                    <div class="detailblock">
+                        <h5>{{_('Title')}}</h5>
+                        <p class="image-title">{{image.title or 'n/a'}}</p>
+                    </div>
+                    <div class="detailblock">
+                        <h5>{{_('Alt Tag')}}</h5>
+                        <p class="image-alt">{{image.alt or 'n/a'}}</p>
+                    </div>
+                    <div class="detailblock">
+                        <h5>{{_('Description')}}</h5>
+                        <p class="image-description">{{image.description or 'n/a'}}</p>
+                    </div>
+                    <div class="license">
+                        <h5>{{_('License')}}</h5>
+                        <p class="image-license">{{image.license or 'n/a'}}</p>
+                    </div>
+                    <div class="detailblock">
+                        <h5>{{_('Copyright Owner')}}</h5>
+                        <p class="image-copyright">{{image.copyright or 'n/a'}}</p>
+                    </div>
+                    <a href="#" data-image-id="{{image._id}}" class="edittoggle btn btn-info btn-lg"><i class="fa fa-pencil"></i> {{_('Edit')}}</a>
+                    <a href="#" data-image-id="{{image._id}}" data-url="{{url}}" class="deletebtn btn btn-danger btn-lg"><i class="fa fa-trash"></i> {{_('Delete')}}</a>
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+
+{% if render %}
+    {{imageblock(image)}}
+{% endif %}

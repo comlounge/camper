@@ -6,15 +6,15 @@ $.fn.uploader = function(opts) {
   }
   file_completed = false;
   myfilename = null;
-  init = function() {
-    var delete_url, field_id, original_id, postproc, preview_url, upload_url, uploader, widget;
+  init = function(opts) {
+    var autosubmit, delete_url, field_id, original_id, preview_url, upload_url, uploader, widget;
     widget = this;
-    postproc = $(this).data("postproc");
     preview_url = $(this).data("preview-url");
     upload_url = $(this).data("upload-url");
     delete_url = $(this).data("delete-url");
     field_id = $(this).data("id");
     original_id = $("#" + field_id).val();
+    autosubmit = $(this).data("autosubmit") === "True";
     uploader = new qq.FileUploaderBasic({
       button: $(widget).find(".uploadbutton")[0],
       action: upload_url,
@@ -24,28 +24,30 @@ $.fn.uploader = function(opts) {
       onProgress: function(id, filename, loaded, total) {
         var perc;
         perc = parseInt(Math.floor(loaded / total * 100)) + "%";
-        return $(widget).find(".progressbar .progress").css("width", perc);
+        return $(widget).find(".progress-bar").css("width", perc);
       },
       onSubmit: function(id, filename) {
-        $(widget).find(".progressbar").show();
-        return $(widget).find(".preview-area").hide();
+        $(widget).find(".progress-bar").css("width", "0%");
+        $(widget).find(".progress").show();
+        $(widget).find(".preview-area").hide();
+        $(widget).find(".missing-area").hide();
+        return $(widget).find(".uploader-buttons").hide();
       },
       onComplete: function(id, filename, json) {
-        console.log(json);
         if (json.status === "error") {
           file_completed = false;
           myfilename = null;
           $(widget).find(".upload-area").show();
-          $(widget).find(".progressbar").hide();
+          $(widget).find(".progress").hide();
+          $(widget).find(".uploader-buttons").show();
           return false;
         }
         if (json.status === "success") {
           file_completed = true;
-          $(widget).find(".revertbutton").show();
           $("#" + field_id).val(json.asset_id);
-          if (json.url) {
+          if (json.url && !autosubmit) {
             $(widget).find(".preview-area img").attr("src", json.url);
-            $(widget).find(".progressbar").hide();
+            $(widget).find(".progress").hide();
             $(widget).find(".preview-area").show();
           }
           if (json.redirect) {
@@ -57,29 +59,27 @@ $.fn.uploader = function(opts) {
             window.close();
             return;
           }
+          if (autosubmit) {
+            $(widget).closest("form").submit();
+            return void 0;
+          }
+          $(widget).find(".revertbutton").show();
+          $(widget).find(".deletebutton").hide();
           $(widget).find(".upload-area").show();
-          return $(widget).find(".progressbar").hide();
+          $(widget).find(".progress").hide();
+          return $(widget).find(".uploader-buttons").show();
         }
       }
     });
     $(this).find(".deletebutton").click(function() {
-      if (confirm("Sind Sie sicher?")) {
-        $.ajax({
-          url: delete_url,
-          type: "POST",
-          data: {
-            method: "delete"
-          },
-          success: function() {
-            $(widget).find(".preview-area img").attr("src", "");
-            $(widget).find(".preview-area").hide();
-            $(widget).find(".deletebutton").hide();
-            $("#" + field_id).val("");
-            return false;
-          }
-        });
-        false;
+      $(widget).find(".preview-area img").attr("src", "");
+      $(widget).find(".preview-area").hide();
+      if (!original_id) {
+        $(widget).find(".missing-area").show();
       }
+      $(widget).find(".deletebutton").hide();
+      $(widget).find(".revertbutton").show();
+      $("#" + field_id).val("");
       return false;
     });
     return $(this).find(".revertbutton").click(function() {
@@ -90,6 +90,10 @@ $.fn.uploader = function(opts) {
         $(widget).find(".preview-area img").attr("src", "");
         $(widget).find(".preview-area").hide();
         $(widget).find(".deletebutton").hide();
+        $(widget).find(".missing-area").show();
+      } else {
+        $(widget).find(".preview-area").show();
+        $(widget).find(".deletebutton").show();
       }
       return false;
     });

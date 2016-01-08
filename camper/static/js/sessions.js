@@ -48,7 +48,7 @@ $(document).ready(function() {
     $(this).closest(".edit-box").hide();
     return $(this).closest(".edit-box").parent().find(".show-box").show();
   });
-  return $(".session-delete-button").click(function() {
+  $(".session-delete-button").click(function() {
     var confirm_msg, that, url;
     confirm_msg = $(this).data("confirm");
     that = this;
@@ -67,6 +67,32 @@ $(document).ready(function() {
           }
         }
       });
+    }
+    return false;
+  });
+  return $(".comment .deletebutton").click(function() {
+    var cid, confirm_message, elem, url;
+    confirm_message = $(this).data("confirm");
+    url = $(this).data("url");
+    cid = $(this).data("cid");
+    elem = $(this).closest(".comment");
+    if (confirm(confirm_message)) {
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {
+          method: "delete",
+          cid: cid
+        },
+        success: function(data) {
+          if (data.status === "success") {
+            elem.css("background", "red");
+            return elem.slideUp();
+          }
+        }
+      });
+    } else {
+      return false;
     }
     return false;
   });

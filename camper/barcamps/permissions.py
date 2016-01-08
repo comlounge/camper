@@ -7,7 +7,7 @@ from starflyer import redirect
 class Permissions(BarcampBaseHandler):
     """screen for private/public and admin management"""
 
-    template = "permissions.html"
+    template = "admin/permissions.html"
 
     @ensure_barcamp()
     @logged_in()
@@ -23,7 +23,6 @@ class Permissions(BarcampBaseHandler):
     @is_admin()
     def post(self, slug = None):
         """set the workflow state for the barcamp"""
-        print "what"
         try:
             self.barcamp.set_workflow(self.request.form.get("wf",""))
             self.barcamp.save()
@@ -71,7 +70,7 @@ class Admin(BarcampBaseHandler):
     """add a new administrator.
     """
 
-    template = "permissions.html"
+    template = "admin/permissions.html"
 
     @ensure_barcamp()
     @logged_in()

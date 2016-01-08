@@ -20,6 +20,8 @@ setup(name='camper',
       install_requires=[
         "starflyer",
         "PasteScript",
+        "PasteDeploy",
+        "Paste",
         "userbase",
         "sf-mail",
         "sf-uploader",
@@ -34,9 +36,17 @@ setup(name='camper',
         "requests",
         "xlwt",
         "bleach",
+        "isodate",
+        "pycountry",
+        "wtforms",
+        "awesome-slugify"
       ],
       entry_points="""
-      [paste.app_factory]
-      main = camper.app:app
+          [paste.app_factory]
+          main = camper.app:app
+          [console_scripts]
+          change_path = camper.scripts.change_path:change_path
+          migrate_barcamps = camper.scripts.migrate_barcamps:migrate_barcamps
+          migrate_users = camper.scripts.migrate_users:migrate_users
       """,
       )

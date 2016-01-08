@@ -113,7 +113,7 @@ class Pages(Collection):
         if barcamp is None:
             return self.find({'slot' : slot, 'barcamp' : "___"}).sort("index", 1)
         else:
-            return self.find({'slot' : slot, 'barcamp' : unicode(barcamp._id)}).sort("index", 1)
+            return self.find({'slot' : slot, 'barcamp' : unicode(barcamp['_id'])}).sort("index", 1)
 
 
 

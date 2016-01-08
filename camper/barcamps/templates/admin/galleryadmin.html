@@ -1,0 +1,44 @@
+{% set menu="galleries" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/gallery_macros.html" import imageblock with context %}
+
+{% block content %}
+    <div id="backbutton">
+        <a href="{{url_for('.admin_galleries', slug=slug)}}" class="btn btn-sm btn-warning"><i class="fa fa-arrow-left"></i> {{_('back to gallery listing')}}</a>
+    </div>  
+
+    {% block title %}
+        <h1>
+            <div id="titleview">
+                {{_('Gallery')}}: <span>{{view.gallery.title}}</span>
+                <button id="edittitle" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></button>
+            </div>
+            <form id="titleform" class="form-inline" action="{{url_for('.gallery_title_edit', slug = slug, gid = gallery._id)}}" style="display: none;">
+                <div class="form-group">    
+                    <label class="sr-only" for="title">{{_('Title')}}</label>
+                    <input size="60" type="text" id="gallerytitle" maxlength="80" required name="title" class="form-control" value="{{gallery.title|e}}" placeholder="{{_('Title of gallery')}}">
+                </div>
+                <button type="submit" class="btn btn-primary">{{_('Save')}}</button>
+                <button id="canceltitle" class="btn btn-default">{{_('Cancel')}}</button>
+            </form>
+        </h1>
+    {% endblock %}
+
+    <div id="imagelisting" class="container listing">
+        {% for image in view.get_images('medium_user', class="gallery-image") %}
+            {{imageblock(image)}}
+        {% endfor %}
+    </div>
+        
+    <form class="" method="POST" action="{{url}}" data-parsley-validate>  
+            {{ formmacros.form_field(form.image, input_class="",
+                label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
+                btn_class="btn btn-primary btn-lg",
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
+    </form>
+{% endblock %}
+{% block js2 %}
+        <script src="{{url_for("static", filename="js/galleries.js")}}"></script>
+{% endblock %}

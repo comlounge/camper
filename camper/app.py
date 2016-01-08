@@ -3,8 +3,9 @@
 import pymongo
 import yaml
 import pkg_resources
+import werkzeug.exceptions
 
-from starflyer import Application, URL, AttributeMapper
+from starflyer import Application, URL, AttributeMapper, Handler
 from sfext.uploader import upload_module, Assets, ImageSizeProcessor
 from sfext.uploader.stores import FilesystemStore
 from sfext.babel import babel_module, T
@@ -21,9 +22,10 @@ from etherpad_lite import EtherpadLiteClient
 import userbase
 import handlers
 import barcamps
-import pages
 import db
 import login
+import blog
+import pages
 
 #
 # custom jinja filters
@@ -61,6 +63,10 @@ else:
 def markdownify(text, level=1):
     return bleach.linkify(markdown.markdown(text, safe_mode="remove", extensions=['nl2br', 'headerid(level=%s)' %level]))
 
+def textify(text):
+    """return a plain text copy of a possible html text"""
+    return bleach.clean(text, strip = True, tags = [])
+
 ###
 ### i18n
 ###
@@ -69,21 +75,21 @@ def markdownify(text, level=1):
 ACCEPTED_LANGUAGES = ['de', 'en']
 
 def parseAcceptLanguage(acceptLanguage):
-  if acceptLanguage is None:
-    return [("en", 1)]
-  languages = acceptLanguage.split(",")
-  locale_q_pairs = []
+    """parse the accept language header"""
+    if acceptLanguage is None:
+        return [("en", 1)]
+    languages = acceptLanguage.split(",")
+    locale_q_pairs = []
 
-  for language in languages:
-    if language.split(";")[0] == language:
-      # no q => q = 1
-      locale_q_pairs.append((language.strip(), "1"))
-    else:
-      locale = language.split(";")[0].strip()
-      q = language.split(";")[1].split("=")[1]
-      locale_q_pairs.append((locale, q))
-
-  return locale_q_pairs
+    for language in languages:
+        if language.split(";")[0] == language:
+            # no q => q = 1
+            locale_q_pairs.append((language.strip(), "1"))
+        else:
+            locale = language.split(";")[0].strip()
+            q = language.split(";")[1].split("=")[1]
+            locale_q_pairs.append((locale, q))
+    return locale_q_pairs
 
 def get_locale(handler):
     al = handler.request.headers.get('Accept-Language')
@@ -113,6 +119,22 @@ def get_locale(handler):
     return l
 
 ###
+### robots.txt
+### 
+
+class RobotsTXT(Handler):
+    """serve robots.txt"""
+
+    template = "robots.txt"
+
+    def get(self):
+        """serve the file"""
+        if self.config.hide_from_crawlers:
+            return self.render()
+        raise werkzeug.exceptions.NotFound()
+
+
+###
 ### APP
 ###
 
@@ -120,6 +142,7 @@ class CamperApp(Application):
     """application"""
 
     defaults = {
+        'hide_from_crawlers'    : False,
         'log_name'              : "camper",
         'script_virtual_host'   : "http://localhost:8222",
         'virtual_host'          : "http://localhost:8222",
@@ -131,7 +154,9 @@ class CamperApp(Application):
         'mongodb_name'          : "camper",
         'mongodb_port'          : 27017,
         'mongodb_host'          : "localhost",
-        'cloudmade_key'         : "",
+        'mongodb_url'           : "mongodb://localhost/camper",
+        'mapbox_access_token'   : "",
+        'mapbox_map_id'         : "",
         'secret_key'            : "7cs687cds6c786cd89&%$%&hhhs8c7zcbs87ct d7stc 8c7cs8 78 7dts 8cs97tugjgjzGUZGUzgcdcg&%%$",
         'session_cookie_domain' : "dev.localhost",
         'smtp_host'             : 'localhost',
@@ -151,7 +176,7 @@ class CamperApp(Application):
         babel_module(
             locale_selector_func = get_locale,
         ),
-        userbase.username_userbase(
+        userbase.email_userbase(
             url_prefix                  = "/users",
             mongodb_name                = "camper",
             master_template             = "master.html",
@@ -161,7 +186,7 @@ class CamperApp(Application):
             enable_usereditor           = True,
             user_class                  = db.CamperUser,
             use_remember                = True,
-            login_form                  = login.UsernameLoginForm,
+            login_form                  = login.EMailLoginForm,
             urls                        = {
                 'activation'            : {'endpoint' : 'userbase.activate'},
                 'activation_success'    : {'endpoint' : 'index'},
@@ -202,6 +227,8 @@ class CamperApp(Application):
         ),
         mail_module(debug=True),
         barcamps.barcamp_module(url_prefix="/"),
+        blog.blog_module(url_prefix="/"),
+        pages.pages_module(url_prefix="/"),
     ]
 
     jinja_filters = {
@@ -209,10 +236,12 @@ class CamperApp(Application):
         'currency' : do_currency,
         'tojson' : _tojson_filter,
         'md' : markdownify,
+        'textify' : textify,
     }
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
@@ -222,39 +251,25 @@ class CamperApp(Application):
         # sponsoring
         URL('/sponsoring', 'sponsoring', handlers.sponsor.SponsorContactView),
 
-        # admin area
-        URL('/admin/', "admin_index", handlers.admin.index.IndexView),
-        URL('/admin/pages', "admin_pages", handlers.admin.pages.PagesView),
-        URL('/admin/pages/<slot>/add', 'admin_pages_add', pages.add.AddView),
-        URL('/s/<page_slug>', 'page', pages.view.View),
-
         # user stuff
         URL('/u/<username>', 'profile', handlers.users.profile.ProfileView),
+        URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
 
-        # pages for barcamps
-        URL('/<slug>/page_add/<slot>', 'barcamp_page_add', pages.add.AddView),
-        URL('/<slug>/<page_slug>', 'barcamp_page', pages.view.View),
-        URL('/<slug>/<page_slug>/upload', 'page_image_upload', pages.images.ImageUpload),
-        URL('/<slug>/<page_slug>/layout', 'page_layout', pages.edit.LayoutView),
-        URL('/<slug>/<page_slug>/edit', 'page_edit', pages.edit.EditView),
-        URL('/<slug>/<page_slug>/partial_edit', 'page_edit_partial', pages.edit.PartialEditView),
-        URL('/<slug>/<page_slug>/delete', 'page_image_delete', pages.images.ImageDelete),
-        URL('/<slug>/<page_slug>/image', 'page_image', pages.images.Image),
-
+        # admin area
+        URL('/admin/', "admin_index", handlers.admin.index.IndexView),
     ]
 
     def finalize_setup(self):
         """do our own configuration stuff"""
         self.config.dbs = AttributeMapper()
-        mydb = self.config.dbs.db = pymongo.Connection(
-            self.config.mongodb_host,
-            self.config.mongodb_port
-        )[self.config.mongodb_name]
+        mydb = self.config.dbs.db = pymongo.MongoClient(self.config.mongodb_url)[self.config.mongodb_name]
         self.config.dbs.barcamps = db.Barcamps(mydb.barcamps, app=self, config=self.config)
         self.config.dbs.sessions = db.Sessions(mydb.sessions, app=self, config=self.config)
         self.config.dbs.pages = db.Pages(mydb.pages, app=self, config=self.config)
+        self.config.dbs.blog = db.BlogEntries(mydb.blog, app=self, config=self.config)
+        self.config.dbs.galleries = db.ImageGalleries(mydb.galleries, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
@@ -273,9 +288,12 @@ class CamperApp(Application):
                 ImageSizeProcessor({
                     'thumb' : "50x50!",
                     'small' : "100x",
-                    'logo_full' : "940x",
+                    'logo_full' : "1140x",
                     'medium_user' : "296x",
-                    'large' : "1200x",
+                    'userlist': '80x80!',
+                    'fullwidth' : "850x",
+                    'gallery' : "700x300!",
+                    'facebook' : "1200x630",
                 })
             ],
         ))

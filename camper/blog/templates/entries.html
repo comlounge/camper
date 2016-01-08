@@ -1,0 +1,60 @@
+{% set menu="blog" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+{% block title %}
+<h1>{{_('Blog Entries')}}</h1>
+{% endblock %}
+<table class="bloglisting table table-bordered table-hover">
+<colgroup>
+    <col width="70%"></col>
+    <col width="20%"></col>
+    <col width="10%"></col>
+</colgroup>
+<thead>
+    <tr>
+        <th>{{_("Title")}}</th>
+        <th>{{_("Published")}}</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    {% for entry in entries %}
+    <tr>
+        <td class="title"><a href="{{url_for('blog.edit', slug=slug, eid = entry._id)}}">{{entry.title}}</a>
+            <span class="workflow">
+                {% if entry.workflow == "draft" %}
+                    <span class="label label-warning">{{_('draft')}}</span>
+                {% endif %}
+            </span>
+        </td>
+        <td class="date">{{dateformat(entry.published)}}, {{entry.published.strftime('%H:%M')}}</td>
+        <td class="actions">
+            <a  class="delete-entry btn btn-danger" 
+                title="{{_('Delete Blog Entry')}}" 
+                href="#" 
+                data-entry="{{entry._id}}" 
+                data-url="{{url_for("blog.entries", slug=slug)}}" 
+                data-title="{{_('Delete Entry?')}}" 
+                data-toggle="confirmation" 
+                data-btn-ok-label="{{_('Yes')}}" 
+                data-btn-ok-icon="fa fa-ok" 
+                data-btn-ok-class="btn btn-success btn-xs" 
+                data-btn-cancel-label="{{_('No')}}" 
+                data-btn-cancel-icon="fa fa-ban" 
+                data-btn-cancel-class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash"></i>
+            </a>            
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{url_for('blog.add', slug = slug)}}" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add new blog entry')}}</a>
+{% endblock %}
+
+{% block bcjs %}
+<script src="{{url_for("static", filename='js/blog.js')}}"></script>
+{% endblock %}
+

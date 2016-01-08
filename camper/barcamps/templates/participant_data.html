@@ -1,22 +1,29 @@
+{% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
 
-{% block main_content %}
-    {% block title %}
-        <h1>{{_('Register for %s') %barcamp.name}}</h1>
+{% block headline %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
+        <li class="active">{{_('Registration Form')}}</li>
+    </ol>
+    <h1>{{_('My participant data for %s') %barcamp.name}}</h1>
 
+{% endblock %}
+{% block main_content %}
+    <div id="participant-data">
         <div class="description">
-        {{_("Please fill out this form in order to register your participation in this barcamp")}}
+            {{_("Please enter your data for participating in this event")}}
         </div>
 
-        <form class="form form-horizontal well validate" method="POST" action="{{url}}">
+        <form class="validate form-horizontal" method="POST" action="{{url}}">
             <fieldset>
             {% for field in form %}
-                {{ formmacros.form_field(field, class="required span6" if field.required else "span6") }}
+                {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", input_class="required" if field.required else "") }}
             {% endfor %}
             </fieldset>
-            <input type="submit" value="{{_("Register")}}" class="btn btn-primary">
+            <input type="submit" value="{{_("Save")}}" class="btn btn-primary">
             
         </form>
-    {% endblock %}
-
+    </div>
 {% endblock %}

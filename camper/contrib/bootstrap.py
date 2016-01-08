@@ -18,12 +18,7 @@ The script accepts buildout command-line options, so you can
 use the -c option to specify an alternate configuration file.
 """
 
-import os, shutil, sys, tempfile, textwrap
-try:
-    import urllib.request as urllib2
-except ImportError:
-    import urllib2
-import subprocess
+import os, shutil, sys, tempfile, textwrap, urllib, urllib2, subprocess
 from optparse import OptionParser
 
 if sys.platform == 'win32':
@@ -37,13 +32,13 @@ else:
 
 # See zc.buildout.easy_install._has_broken_dash_S for motivation and comments.
 stdout, stderr = subprocess.Popen(
-    [sys.executable, '-S', '-c',
+    [sys.executable, '-Sc',
      'try:\n'
-     '    import pickle\n'
+     '    import ConfigParser\n'
      'except ImportError:\n'
-     '    print(1)\n'
+     '    print 1\n'
      'else:\n'
-     '    print(0)\n'],
+     '    print 0\n'],
     stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
 has_broken_dash_S = bool(int(stdout.strip()))
 
@@ -55,9 +50,8 @@ if not has_broken_dash_S and 'site' in sys.modules:
     # We will restart with python -S.
     args = sys.argv[:]
     args[0:0] = [sys.executable, '-S']
-    args = list(map(quote, args))
+    args = map(quote, args)
     os.execv(sys.executable, args)
-
 # Now we are running with -S.  We'll get the clean sys.path, import site
 # because distutils will do it later, and then reset the path and clean
 # out any namespace packages from site-packages that might have been
@@ -65,7 +59,7 @@ if not has_broken_dash_S and 'site' in sys.modules:
 clean_path = sys.path[:]
 import site
 sys.path[:] = clean_path
-for k, v in list(sys.modules.items()):
+for k, v in sys.modules.items():
     if k in ('setuptools', 'pkg_resources') or (
         hasattr(v, '__path__') and
         len(v.__path__)==1 and
@@ -75,14 +69,15 @@ for k, v in list(sys.modules.items()):
 
 is_jython = sys.platform.startswith('java')
 
-setup_source = 'http://python-distribute.org/distribute_setup.py'
+setuptools_source = 'http://peak.telecommunity.com/dist/ez_setup.py'
+distribute_source = 'http://python-distribute.org/distribute_setup.py'
 
 # parsing arguments
 def normalize_to_url(option, opt_str, value, parser):
     if value:
         if '://' not in value: # It doesn't smell like a URL.
             value = 'file://%s' % (
-                urllib2.pathname2url(
+                urllib.pathname2url(
                     os.path.abspath(os.path.expanduser(value))),)
         if opt_str == '--download-base' and not value.endswith('/'):
             # Download base needs a trailing slash to make the world happy.
@@ -107,12 +102,19 @@ local resources, you can keep this script from going over the network.
 parser = OptionParser(usage=usage)
 parser.add_option("-v", "--version", dest="version",
                           help="use a specific zc.buildout version")
-parser.add_option("--setup-version", dest="setup_version",
-                  help="The version of distribute to use.")
+parser.add_option("-d", "--distribute",
+                   action="store_true", dest="use_distribute", default=False,
+                   help="Use Distribute rather than Setuptools.")
+parser.add_option("--setup-source", action="callback", dest="setup_source",
+                  callback=normalize_to_url, nargs=1, type="string",
+                  help=("Specify a URL or file location for the setup file. "
+                        "If you use Setuptools, this will default to " +
+                        setuptools_source + "; if you use Distribute, this "
+                        "will default to " + distribute_source +"."))
 parser.add_option("--download-base", action="callback", dest="download_base",
                   callback=normalize_to_url, nargs=1, type="string",
                   help=("Specify a URL or directory for downloading "
-                        "zc.buildout and Distribute. "
+                        "zc.buildout and either Setuptools or Distribute. "
                         "Defaults to PyPI."))
 parser.add_option("--eggs",
                   help=("Specify a directory for storing eggs.  Defaults to "
@@ -120,8 +122,7 @@ parser.add_option("--eggs",
                         "bootstrap script completes."))
 parser.add_option("-t", "--accept-buildout-test-releases",
                   dest='accept_buildout_test_releases',
-                  action="store_true",
-                  default=sys.version_info[0] > 2,
+                  action="store_true", default=False,
                   help=("Normally, if you do not specify a --version, the "
                         "bootstrap script and buildout gets the newest "
                         "*final* versions of zc.buildout and its recipes and "
@@ -143,6 +144,12 @@ if options.eggs:
 else:
     eggs_dir = tempfile.mkdtemp()
 
+if options.setup_source is None:
+    if options.use_distribute:
+        options.setup_source = distribute_source
+    else:
+        options.setup_source = setuptools_source
+
 if options.accept_buildout_test_releases:
     args.append('buildout:accept-buildout-test-releases=true')
 args.append('bootstrap')
@@ -154,24 +161,17 @@ try:
         raise ImportError
 except ImportError:
     ez_code = urllib2.urlopen(
-        setup_source).read().replace('\r\n'.encode(), '\n'.encode())
+        options.setup_source).read().replace('\r\n', '\n')
     ez = {}
-    exec(ez_code, ez)
+    exec ez_code in ez
     setup_args = dict(to_dir=eggs_dir, download_delay=0)
     if options.download_base:
         setup_args['download_base'] = options.download_base
-    if options.setup_version:
-        setup_args['version'] = options.setup_version
-    setup_args['no_fake'] = True
+    if options.use_distribute:
+        setup_args['no_fake'] = True
     ez['use_setuptools'](**setup_args)
     if 'pkg_resources' in sys.modules:
-        if sys.version_info[0] >= 3:
-            import imp
-            reload_ = imp.reload
-        else:
-            reload_ = reload
-
-        reload_(sys.modules['pkg_resources'])
+        reload(sys.modules['pkg_resources'])
     import pkg_resources
     # This does not (always?) update the default working set.  We will
     # do it.
@@ -194,7 +194,10 @@ if not find_links:
 if find_links:
     cmd.extend(['-f', quote(find_links)])
 
-setup_requirement = 'distribute'
+if options.use_distribute:
+    setup_requirement = 'distribute'
+else:
+    setup_requirement = 'setuptools'
 ws = pkg_resources.working_set
 setup_requirement_path = ws.find(
     pkg_resources.Requirement.parse(setup_requirement)).location
@@ -244,9 +247,9 @@ else: # Windows prefers this, apparently; otherwise we would prefer subprocess
 if exitcode != 0:
     sys.stdout.flush()
     sys.stderr.flush()
-    print("An error occurred when trying to install zc.buildout. "
-          "Look above this message for any errors that "
-          "were output by easy_install.")
+    print ("An error occurred when trying to install zc.buildout. "
+           "Look above this message for any errors that "
+           "were output by easy_install.")
     sys.exit(exitcode)
 
 ws.add_entry(eggs_dir)

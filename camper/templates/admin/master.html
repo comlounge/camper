@@ -3,10 +3,8 @@
 
 {% block content %}
     <div id="admin" class="row">
-        <div class="span3">
+        <div class="col-md-3">
             <ul class="nav nav-list">
-              <li class="nav-header">Seiten</li>
-              <li><a href="{{url_for("admin_pages")}}">Seitenverwaltung</a></li>
               <li class="nav-header">Barcamps</li>
               <li><a href="#">Liste der aktiven Barcamps</a></li>
               <li><a href="#">Liste aller Barcamps</a></li>
@@ -14,7 +12,7 @@
               <li><a href="{{url_for('userbase.userlist')}}">Benutzer bearbeiten</a></li>
             </ul>
         </div>
-        <div class="span9">
+        <div class="col-md-9">
             {% block main_content %}
             {% endblock %}
         </div>

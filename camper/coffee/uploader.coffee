@@ -1,15 +1,15 @@
 $.fn.uploader = (opts = {}) ->
     file_completed = false     
-    myfilename = null          
+    myfilename = null   
 
-    init = () ->
+    init = (opts) ->
         widget = this
-        postproc = $(this).data("postproc")
         preview_url = $(this).data("preview-url")
         upload_url = $(this).data("upload-url")
         delete_url = $(this).data("delete-url")
         field_id = $(this).data("id")
         original_id = $("#"+field_id).val()
+        autosubmit = $(this).data("autosubmit") == "True"
         uploader = new qq.FileUploaderBasic(
             button: $(widget).find(".uploadbutton")[0]
             action: upload_url
@@ -18,25 +18,27 @@ $.fn.uploader = (opts = {}) ->
             allowedExtensions: ['jpg', 'jpeg', 'png', 'gif']
             onProgress: (id, filename, loaded, total) ->
                 perc = parseInt(Math.floor(loaded/total*100))+"%"
-                $(widget).find(".progressbar .progress").css("width", perc)
+                $(widget).find(".progress-bar").css("width", perc)
             onSubmit: (id, filename) ->
-                $(widget).find(".progressbar").show()
+                $(widget).find(".progress-bar").css("width", "0%")
+                $(widget).find(".progress").show()
                 $(widget).find(".preview-area").hide()
+                $(widget).find(".missing-area").hide()
+                $(widget).find(".uploader-buttons").hide()
             onComplete: (id, filename, json) ->
-                console.log json
                 if json.status == "error" 
                     file_completed = false
                     myfilename = null
                     $(widget).find(".upload-area").show()
-                    $(widget).find(".progressbar").hide()
+                    $(widget).find(".progress").hide()
+                    $(widget).find(".uploader-buttons").show()
                     return false
                 if json.status == "success"
                     file_completed = true
-                    $(widget).find(".revertbutton").show()
                     $("#"+field_id).val(json.asset_id)
-                    if json.url
+                    if json.url and not autosubmit
                         $(widget).find(".preview-area img").attr("src", json.url)
-                        $(widget).find(".progressbar").hide()
+                        $(widget).find(".progress").hide()
                         $(widget).find(".preview-area").show()
                     if json.redirect
                         window.location = json.redirect
@@ -45,24 +47,23 @@ $.fn.uploader = (opts = {}) ->
                         window.parent.window.location = json.parent_redirect
                         window.close()
                         return
+                    if autosubmit
+                        $(widget).closest("form").submit()
+                        return undefined
+                    $(widget).find(".revertbutton").show()
+                    $(widget).find(".deletebutton").hide()
                     $(widget).find(".upload-area").show()
-                    $(widget).find(".progressbar").hide()
+                    $(widget).find(".progress").hide()
+                    $(widget).find(".uploader-buttons").show()
         )
         $(this).find(".deletebutton").click () ->
-            if confirm("Sind Sie sicher?")
-                $.ajax(
-                    url: delete_url
-                    type: "POST"
-                    data:
-                        method: "delete"
-                    success: () ->
-                        $(widget).find(".preview-area img").attr("src", "")
-                        $(widget).find(".preview-area").hide()
-                        $(widget).find(".deletebutton").hide()
-                        $("#"+field_id).val("")
-                        false
-                )
-                false
+            $(widget).find(".preview-area img").attr("src", "")
+            $(widget).find(".preview-area").hide()
+            if not original_id
+                $(widget).find(".missing-area").show()
+            $(widget).find(".deletebutton").hide()
+            $(widget).find(".revertbutton").show()
+            $("#"+field_id).val("")
             false
         $(this).find(".revertbutton").click () ->
             $(widget).find(".revertbutton").hide()
@@ -72,12 +73,16 @@ $.fn.uploader = (opts = {}) ->
                 $(widget).find(".preview-area img").attr("src", "")
                 $(widget).find(".preview-area").hide()
                 $(widget).find(".deletebutton").hide()
+                $(widget).find(".missing-area").show()
+            else
+                $(widget).find(".preview-area").show()
+                $(widget).find(".deletebutton").show()
             false
     $(this).each(init)
     this
 
-$(document).ready( () ->
+$ ->
     $(".upload-widget").uploader()
-)
+
 
 

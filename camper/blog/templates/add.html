@@ -1,0 +1,28 @@
+{% set menu="blog" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Create a new Blog entry')}}</h1>
+    {% endblock %}
+    <form class="" method="POST" action="{{url}}" class="parsley-validate">  
+        <fieldset>
+            {{ formmacros.form_field(form.title, input_class="input-lg", required=True, placeholder="Title of blog post") }}
+            {{ formmacros.form_field(form.image, input_class="",
+                label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
+                upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
+            {{ formmacros.form_field(form.content, rows=10) }}
+            {{ formmacros.form_field(
+                form.published, 
+                immediate_label = _('Published immediately'), 
+                edit_label = _('Edit'),
+                now_label = _('Now'),
+            )}}
+
+        {% block action %}
+            <input type="submit" class="btn btn-lg btn-default" value="{{_('Save as draft')}}">
+            <input type="submit" id="publish-button" name="publish" class="btn btn-lg btn-primary" value="{{_('Publish and Save')}}">
+        {% endblock %}
+    </form>
+{% endblock %}

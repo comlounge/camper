@@ -1,0 +1,63 @@
+{% set menu="pages" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+{% block title %}
+<h1>{{_('Custom Pages')}}
+<small>Define your own additional content here. Each page is a new menu item</small>
+</h1>
+
+{% endblock %}
+<table class="pageslisting table table-bordered table-hover">
+<colgroup>
+    <col width="70%"></col>
+    <col width="20%"></col>
+    <col width="10%"></col>
+</colgroup>
+<thead>
+    <tr>
+        <th>{{_("Title")}}</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    {% for entry in entries %}
+    <tr>
+        <td class="title"><a href="{{url_for('pages.page_edit', slug=slug, page_slug=entry.slug)}}">{{entry.title}}</a>
+        </td>
+        <td class="actions">
+            <a href="{{url_for('pages.page_edit', slug=slug, page_slug=entry.slug)}}" class="btn btn-info">
+            <i class="fa fa-pencil"></i></a>
+            <a  class="delete-entry btn btn-danger" 
+                title="{{_('Delete Page?')}}" 
+                href="#" 
+                data-entry="{{entry._id}}" 
+                data-url="{{url_for("pages.barcamp_pages", slug = slug, page_slug = entry.slug, _append = True)}}" 
+                data-title="{{_('Delete Page?')}}" 
+                data-toggle="confirmation" 
+                data-btn-ok-label="{{_('Yes')}}" 
+                data-btn-ok-icon="fa fa-ok" 
+                data-btn-ok-class="btn btn-success btn-xs" 
+                data-btn-cancel-label="{{_('No')}}" 
+                data-btn-cancel-icon="fa fa-ban" 
+                data-btn-cancel-class="btn btn-danger btn-xs">
+                    <i class="fa fa-trash"></i>
+            </a>
+            <a target="preview" href="{{url_for('pages.barcamp_page', slug=slug, page_slug=entry.slug)}}" class="btn btn-info">
+                <i class="fa fa-eye"></i>
+            </a>
+
+
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="{{url_for('pages.barcamp_page_add', slug = slug, slot="menu")}}" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add new page')}}</a>
+{% endblock %}
+
+{% block bcjs %}
+<script src="{{url_for("static", filename='js/blog.js')}}"></script>
+{% endblock %}
+

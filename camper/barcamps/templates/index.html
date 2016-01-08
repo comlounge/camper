@@ -1,42 +1,48 @@
+{% set active_action = "home" %}
 {% extends "_m/barcamps/master.html" %}
+
+{% block inbetween %}
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="filters hidden">
+            <defs>
+              <filter id="blur">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="0,0" />
+              </filter>
+            </defs>
+        </svg>
+
+        {% if view.has_gallery %}
+            <div class="gallerycontainer">
+                <div class="gallery">
+                    <ul class="gallery-pictures">
+                        {% for image in view.gallery.images %}
+                        {{image}}
+                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image", alt=image.alt, title=image.title)  }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="gallery-pagination">
+                    {% for image in view.gallery.images -%}
+                        <button class="gallery-pagination-dot"></button>
+                    {% endfor %} 
+                </div>
+            </div>
+        {% endif %}
+
+{% endblock %}
 
 {% block main_content %}
     {# ************************************ Main Module **************************************** #}
-        <div class="row">
-            <div class="span8">
+        <div class="row" id="barcamp-details">
+            <div class="col-lg-12">
                 <div class="widget-show">
                     <div class="description">
-                        {{description|md}}
+                        <h2 class="sr-only">{{_('Description')}}</h2>
+                        {{description}}
                     </div>
                 </div>
-                <div class="widget-edit hide">
-                    not showing
-                </div>
-            </div>
-            <div class="span4">
             </div>
         </div>
 
-        <!-- sponsoren -->
-        <div class="row sponsors">
-            <div class="span9">
-            {% for sponsor in view.sponsors %}
-                <div class="sponsor action-container" style="margin: 10px;">
-                    <a href="{{sponsor.url}}">{{sponsor.image}}</a>
-                    {% if is_admin %}
-                    <div class="sponsor-edit actions">
-                        <a 
-                            data-confirm="Sind Sie sicher?" 
-                            data-url="{{url_for('barcamps.sponsors', slug = slug)}}" 
-                            data-idx="{{sponsor.idx}}"
-                            role="button" 
-                            class="asset-delete btn btn-mini btn-danger">
-                            <i class="icon icon-trash icon-white"></i></a>
-                    </div>
-                    {% endif %}
-                </div>
-            {% endfor %}
-            </div>
-        </div>
 {% endblock %}
+
 

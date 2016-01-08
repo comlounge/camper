@@ -1,0 +1,84 @@
+{% extends "_m/barcamps/master.html" %}
+
+{% block main_content %}
+    {% block title %}
+        <h1>{{_('Register for %s') %barcamp.name}}</h1>
+
+        <section>
+            {% if has_form_data %}
+                <h3>Your registration data
+                <a href="{{url_for(".registration_form", slug = slug)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i> {{_('Edit')}}</a>
+                </h3>
+                <table class="table table-bordered">
+                    {% for k,v in form_data.iteritems() %}
+                        <tr>
+                            <td><strong>{{k}}</strong></td>
+                            <td>{{v}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </section>
+
+        <section>
+        <h2>{{_('Please register for the events you want to participate in')}}</h2>
+        <ul id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+        {% for event in barcamp.eventlist %}
+            <li data-id="{{event._id}}" id="e-{{event._id}}" class="event">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h4>
+                            <a href="{{url_for('.user_events', slug = slug, eid = event._id)}}">
+                                {{dateformat(event.date)}}: {{event.name}}
+                            </a>
+                        </h4>
+                        <address>
+                        <strong>{{event.location.name}}</strong>, {{event.location.street}}, {{event.location.city}}
+                        </address>
+                        <div class="participants">
+                            <span class="filled">{{event.participants|length}}</span>
+                            /
+                            <span class="size">{{event.size}}</span> 
+                            {{_('participants')}}
+                        </div>
+                    </div>
+
+                    <div class="actions col-lg-7">
+                        <button data-status="going" 
+                                title="{{_('Register')}}" class="btn btn-lg btn-primary btn-join">{{_('Register')}}</button>
+                        <button data-status="going"
+                                title="{{_('Join')}}" class="btn btn-lg btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                        <button data-status="maybe"
+                                title="{{_('Join')}}" class="btn btn-lg btn-info btn-maybe">{{_('Maybe')}}</button>
+                        <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+
+                        <div class="btn-group pselect">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                                <span class="plabel label-going">{{_('Going')}}</span>
+                                <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                                <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                                <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+        </section>
+
+        
+    {% endblock %}
+
+{% endblock %}
+
+{% block bcjs %}
+    <script src="{{url_for("static", filename='js/registration.js')}}"></script>
+{% endblock %}
+

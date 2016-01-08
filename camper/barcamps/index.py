@@ -5,7 +5,7 @@ from camper import logged_in, is_admin
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
-from .base import BarcampBaseHandler, SponsorForm
+from .base import BarcampBaseHandler
 
 class View(BarcampBaseHandler):
     """shows the main page of a barcamp"""

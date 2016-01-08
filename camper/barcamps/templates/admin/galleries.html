@@ -1,0 +1,51 @@
+{% set menu="galleries" %}
+{% extends "admin_master.html" %}
+{% import "macros.html" as formmacros with context %}
+{% block content %}
+
+
+    {% block title %}
+        <h1>{{_('Image Galleries')}}</h1>
+        <div class="help-block">{{_('Create image galleries here which you can then use on barcamp pages and blog posts')}}</div>
+    {% endblock %}
+    <hr>
+
+    <div id="gallery-admin">
+        <table class="table gallerylist listing ">
+            <colgroup>
+                <col width="80%"></col>
+                <col></col>
+                <col width="100"></col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>{{_('Title')}}</th>
+                    <th><span class="sr-only">{{_('Actions')}}</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in galleries %}
+                    <tr>
+                        <td><a href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}" title="{{_('edit gallery %s' %view.gallery.title)}}">{{view.gallery.title}}</a></td>
+                        <td class="actions">
+                            <a class="btn btn-xs btn-primary edit-button" href="{{url_for(".admin_gallery", slug = slug, gid = view.gallery._id)}}"><i class="fa fa-pencil"></i></a>
+                            {{formmacros.delbutton(view.gallery, classes="btn-xs")}}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    
+        <form class="form-inline" id="add-gallery-form" method="POST" action="{{url}}">
+                {{ formmacros.form_field(form.title, label_class="sr-only", no_size=True, maxlength="80", input_class="input-lg", required=True, placeholder=_("Title of new gallery")) }}
+            <button type="submit" class="btn btn-lg btn-primary"><i class="fa fa-plus"></i> {{_('Add Gallery')}}</button>
+        </form>
+
+
+
+    </div>
+{% endblock %}
+{% block bcjs %}
+<script src="{{url_for("static", filename='js/event-controller.js')}}"></script>
+{% endblock %}

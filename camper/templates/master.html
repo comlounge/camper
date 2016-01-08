@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>{{title}}</title>
+        <title>{{title|d('Barcamptools')}}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
         <meta name="author" content="">
@@ -14,60 +14,60 @@
         <![endif]-->
     
         <!-- Le styles -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
-        
-        {% block css %}
-        <link href="{{url_for("static", filename="css/main.css")}}" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,500,700,300' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Syncopate:400,700' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="{{url_for("static", filename="/css/public_components.css")}}" />
+        <link href="{{url_for("static", filename="css/font-awesome.css")}}" rel="stylesheet">
+        <link href="{{url_for("static", filename="css/bootstrap.css")}}" rel="stylesheet">
         <link href="{{url_for("static", filename="css/colorbox.css")}}" rel="stylesheet">
-        <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
         <link href="{{url_for("uploader.static", filename="css/fileuploader.css")}}" rel="stylesheet">
-        <link type="text/css" href="{{url_for("static", filename="css/smoothness/jquery-ui-1.8.20.custom.css")}}" rel="stylesheet" /> 
-        <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
-        <link rel="icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
-        
-        {#
-        <link href="{{vpath}}/static/css/custom.css" rel="stylesheet">
-        #}
-        {% endblock %}
+
+        <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
+
+
         <style>
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
         </style>
+
+        {% block css %}
+        {# for additional css #}
+        {% endblock %}
+
+        <link rel="shortcut icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
+        <link rel="icon" href="{{url_for("static", filename="img/favicon.ico")}}" type="image/x-icon">
+ 
+        <script src="{{url_for("static", filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/TweenMax.min.js')}}"></script>
+
         {% block head %}
         {% endblock %}
     
     </head>
 
-    <body data-i18n-areyousure="{{_("Are you sure?")}}">
-    <div id="fb-root"></div>
-<script>
-  window.fbAsyncInit = function() {
-    // init the FB JS SDK
-    FB.init({
-      appId      : '{{config.fb_app_id}}',               // App ID from the app dashboard
-      status     : true,                                 // Check Facebook Login status
-      xfbml      : true                                  // Look for social plugins on the page
-    });
-
-    // Additional initialization code such as adding Event Listeners goes here
-  };
-
-  // Load the SDK asynchronously
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="{{url_for("index")}}">Camper</a>
-                    <ul class="nav">
-                        <li class="active"><a href="/">{{_('Home')}}</a></li>
+    <body data-i18n-areyousure="{{_("Are you sure?")}}" 
+        id="{{body_id|d('')}}"
+        data-lang="{{LANGUAGE}}" class="{{body_class}}">
+        {% block navbar %}
+        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+            <div class="{{'container' if not container=="full" else "container-fluid"}}">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{url_for("index")}}">Camper</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                            <li class="active"><a href="/">{{_('Home')}}</a></li>
                         {% for page in menu_pages %}
                             <li>
                                 <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
@@ -81,31 +81,21 @@
                         <li><a target="blog" href="http://blog.barcamptools.eu">{{_('Blog')}}</a></li>
                         <li><a target="feedback" href="http://yourpart.eu/p/camper">{{_('Ideas / Feedback')}}</a></li>
                     </ul>
-                    <div class="pull-right">
-                    <ul class="nav"> 
+                    <ul class="nav navbar-nav navbar-right"> 
                             <li class="divider-vertical"></li>
                         {% if LANGUAGE=="de" %}
-                            <li><a href="{{url_for("index", __l='en', _append=True)}}">english</a></li>
+                            <li><a href="{{en_url}}">english</a></li>
                         {% else %}
-                            <li><a href="{{url_for("index", __l='de', _append=True)}}">deutsch</a></li>
+                            <li><a href="{{de_url}}">deutsch</a></li>
                         {% endif %}
-                    </ul>
-                    </div>
-                    {% if is_main_admin %}
-                        <ul class="nav pull-right"> 
+                        {% if is_main_admin %}
                             <li><a href="{{url_for("admin_index")}}"><b>{{_('ADMINISTRATION')}}</b></a></li>
-                        </ul>
-                    {% endif %}
-                    {% if not logged_in %}
-                        <div class="pull-right">
-                            <ul class="nav">
+                        {% endif %}
+                        {% if not logged_in %}
                             <li class="divider-vertical"></li>
                             <li><a href="{{url_for("userbase.login")}}">{{_('Login')}}</a></li>
                             <li><a href="{{url_for("userbase.register")}}">{{_('Register')}}</a></li>
-                            </ul>
-                        </div>
-                    {% else %}
-                        <ul class="nav pull-right"> 
+                        {% else %}
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{user.fullname}}<strong class="caret"></strong></a>
                                 <ul class="dropdown-menu">
@@ -121,12 +111,22 @@
                                     #}
                                 </ul>
                             </li>
-                        </ul>
-                    {% endif %}
+                        {% endif %}
+                    </ul>
                 </div>
-            </div>
-        </div>
-      
+            </div><!-- container fluid -->
+        </nav><!-- navbar -->
+
+{#
+        <div style="position: fixed; z-index: 100; bottom: 0; background: #a32; color: white; text-align: center; padding: 10px; width: 100%; border-top: 1px solid #921; font-size: 20px; margin-top: 5px; font-weight: bold;">Dies ist eine Preview von Camper 2.0, bitte nicht benutzen! <a target="bugs" style="color: #aef;" href="http://yourpart.eu/p/camperbugs">Fehler bitte hier eintragen</a></div>
+#}
+        {% endblock %}
+
+
+        {% block topcontainer %}
+        {% endblock %}
+
+        
         {% block container %}
         <div class="container" id="content">
             {% block flashes %}
@@ -137,37 +137,31 @@
             {% endfor %}
             {% endblock %}
 
-    
             {% block content %}
             {% block main_content %}
+
             {% endblock %}
             {% endblock %}
         </div> <!-- /container -->
-        <footer>
+
+        {% block footer %}
+        <footer role="contentinfo">
             <div class="container">
                 <a href="/impressum.html">Impressum</a>
             </div>
         </footer>
         {% endblock %}
 
-        <!-- Le javascript
-        ================================================== -->
-        <!-- Placed at the end of the document so the pages load faster -->
-        <script src="{{url_for("static", filename="js/jquery.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/underscore.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.form.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.metadata.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/autonumeric.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.numeric.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.colorbox-min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.validate.min.js")}}"></script>
-        <script src="{{url_for("static", filename="js/jquery.ui.min.js")}}"></script>
-        <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
-        {% if LANGUAGE != "en" %}
-            <script src="{{url_for("static", filename="js/messages_"+LANGUAGE+".js")}}"></script>
-            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-"+LANGUAGE+".js")}}"></script>
-        {% else %}
-            <script src="{{url_for("static", filename="js/jquery.ui.datepicker-en.js")}}"></script>
+        {% endblock %} 
+
+        <script type="text/javascript" src="{{url_for('static', filename='js/fileuploader.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/public_components.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static', filename='js/public.js')}}"></script>
+
+        {% if locale == "de" %}
+            <script src="{{url_for('static', filename='js/parsley-de.js')}}"></script>
+        {% elif locale == "en" %}
+            <script src="{{url_for('static', filename='js/parsley-en.js')}}"></script>
         {% endif %}
         
         <script>
@@ -188,28 +182,15 @@
                     $(this).parents("form.live").submit();
                     return false;
                 });
-
-                $(".iframebox").colorbox({'iframe' : true, width: "60%", height: "500px"});
-                $('input.currency').autoNumeric({aSep: '', aDec: ',', aSign: '', wEmpty: 'zero'});
-                $(".numeric").numeric(false, function() { alert("Bitte nur Zahlen"); this.value = ""; this.focus(); });
-                $( ".datepicker" ).datepicker();                                                                                   
             });
         </script>
+
         {% block js %}
         {% endblock %}
         {% block js2 %}
         {% endblock %}
 
-        <script src="{{url_for("static", filename="js/bootstrap-dropdown.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-transition.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-modal.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-button.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-tab.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-tooltip.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-alert.js")}}"></script>
-        <script src="{{url_for("static", filename="js/bootstrap-popover.js")}}"></script>
-        <script src="{{url_for("static", filename="js/forms.js")}}"></script>
-        <script src="{{url_for("uploader.static", filename="js/fileuploader.js")}}"></script>
+
                 
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
         <script>
@@ -217,30 +198,8 @@
                 $(".confirm").click( function() {
                     return confirm($("body").data("i18n-areyousure"));
                 });
+                $('[data-toggle="tooltip"]').tooltip()
             });
         </script>
-                
-        {# 
-        <script src="/static/js/bootstrap-alert.js"></script>
-        <script src="/static/js/bootstrap-scrollspy.js"></script>
-        <script src="/static/js/bootstrap-collapse.js"></script>
-        <script src="/static/js/bootstrap-carousel.js"></script>
-        <script src="/static/js/bootstrap-typeahead.js"></script>
-        <script type="text/javascript">
-
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', '{{ga}}']);
-          _gaq.push (['_gat._anonymizeIp']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-
-        </script>
-        #}
-
     </body>
 </html>

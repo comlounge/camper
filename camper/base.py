@@ -2,18 +2,27 @@
 import starflyer
 from starflyer import redirect, AttributeMapper
 import functools
+import urllib
 import wtforms
 import userbase
 from xhtml2pdf import pisa
 import werkzeug.exceptions
+import werkzeug.urls
 from sfext.babel import T
 from sfext.uploader import AssetNotFound
 from HTMLParser import HTMLParser
 from functools import partial
+import requests 
+import bson
+from mongogogo import ObjectNotFound
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'LocationNotFound', 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
+
+
+class LocationNotFound(Exception):
+    """raised when a location was not found"""
 
 class UserView(object):
     """adapter for a user object to provide additional data such as profile image etc."""
@@ -31,11 +40,29 @@ class UserView(object):
         uf = self.app.url_for
         if u.image is not None and u.image!="":
             try:
-                asset = self.app.module_map.uploader.get(u.image).variants['thumb']
-                return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['thumb']._id)
+                return uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['userlist']._id)
             except AssetNotFound:
                 pass
-        return uf("static", filename="img/anon50x50.png")
+            except KeyError:
+                pass
+        return None
+
+    @property
+    def image_thumb_tag(self):
+        """return the image tag"""
+        u = self.user
+        uf = self.app.url_for
+        image = None
+        if u.image is not None and u.image!="":
+            try:
+                image =  uf("asset", asset_id = self.app.module_map.uploader.get(u.image).variants['userlist']._id)
+            except AssetNotFound:
+                pass
+            except KeyError:
+                pass
+        if image is not None:
+            return """<img alt="%s" class="profile-image-userlist" src="%s">""" %(u.fullname, image)
+        return """<div class="profile-image-userlist missing"><i class="fa fa-user"></i></div>"""
 
     @property
     def barcamps(self):
@@ -64,6 +91,63 @@ class BarcampView(object):
             return u""
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id)
+        return """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
+            self.barcamp.name,
+            self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
+            'Logo '+self.barcamp.name,
+            url,
+            v.metadata['width'],
+            v.metadata['height'])
+
+    @property
+    def logo_url(self):
+        """return variants of the logo url"""
+        asset = self._get_image(self.barcamp.logo)
+        if asset is None:
+            return None
+        uf = self.app.url_for
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+
+    def _get_image(self, asset_id):
+        """try to get an image by it's asset id or return None"""
+        try:
+            return self.app.module_map.uploader.get(asset_id)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return None
+
+
+    @property
+    def og_logo(self):
+        """return the logo for the open graph tag"""
+        # first try fb logo
+        uf = self.app.url_for
+        img = self._get_image(self.barcamp.fb_image)
+        if img is None:
+            img = self._get_image(self.barcamp.logo)
+        if img is None:
+            return "" # no url
+
+        v = img.variants.get('facebook', None) # fb size
+        if v is None:
+            return ""
+        return self.app.url_for("asset", asset_id = v._id, _full=True)
+
+    @property
+    def logosmall(self):
+        """show the logo tag"""
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.logo)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['medium_user']
+        url = self.app.url_for("asset", asset_id = v._id)
         return """<a href="%s"><img src="%s" width="%s" height="%s"></a>""" %(
             self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
             url,
@@ -71,25 +155,29 @@ class BarcampView(object):
             v.metadata['height'])
 
     @property
-    def og_logo(self):
-        """return the open graph version of the logo"""
+    def has_gallery(self):
+        """return whether this barcamp features a gallery"""
+        if self.barcamp.gallery and self.barcamp.gallery == "-1":
+            return False
         try:
-            asset = self.app.module_map.uploader.get(self.barcamp.logo)
-        except AssetNotFound:
-            asset = None
-        if not asset:
-            return u""
-        v = asset.variants['logo_full']
-        url = self.app.url_for("asset", asset_id = v._id, _full=True)
-        return url
+            gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
+        except:
+            return False
+        return True
 
 
+    @property
+    def gallery(self):
+        """return the gallery"""
+        gallery = self.config.dbs.galleries.get(bson.ObjectId(self.barcamp.gallery))
+        return gallery
 
     @property
     def date(self):
         """properly format the start and end date if given"""
         bc = self.barcamp
         if bc.start_date and bc.end_date:
+            # TODO: localize it
             return "%s - %s" %(
                 bc.start_date.strftime('%d.%m.%Y'),
                 bc.end_date.strftime('%d.%m.%Y'))
@@ -174,8 +262,10 @@ class BarcampView(object):
         i = 0
         for sponsor in self.barcamp.sponsors:
             width = 220
-            tag = """<a href="%s"><img width="%s" src="%s"></a>""" %(
+            tag = """<a title="%s" href="%s"><img alt="%s" width="%s" src="%s"></a>""" %(
+                sponsor['name'],
                 sponsor['url'],
+                sponsor['name'],
                 width,
                 self.handler.url_for("asset", asset_id = sponsor['logo']))
             res.append(
@@ -186,6 +276,51 @@ class BarcampView(object):
                 })
             i=i+1
         return res
+
+    @property
+    def background_image_url(self):
+        """return variants of background image url"""
+        uf = self.app.url_for
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.background_image)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+
+    @property
+    def fb_image_url(self):
+        """return variants of facebook image url"""
+        uf = self.app.url_for
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.fb_image)
+        except AssetNotFound:
+            return None
+        except Exception, e:
+            return None
+        return dict(
+                [(vid, uf('asset', asset_id = asset._id)) for vid, asset in asset.variants.items()]
+        )
+    
+    def background_image(self, **kwargs):
+        """return the title image tag"""
+        try:
+            asset = self.app.module_map.uploader.get(self.barcamp.background_image)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['full']
+        url = self.app.url_for("asset", asset_id = v._id)
+        amap = html_params(**kwargs)
+        return """<img src="%s" width="%s" height="%s" %s>""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'],
+            amap)
 
 class MLStripper(HTMLParser):
     """html parser for stripping all tags from a string"""
@@ -295,16 +430,21 @@ class aspdf(object):
     """converts a template to PDF"""
 
     def __call__(self, method):
+        """takes a dict output of a handler method and returns it as JSON wrapped in a Response"""
 
         that = self
-
+    
         @functools.wraps(method)
         def wrapper(self, *args, **kwargs):
             html = method(self, *args, **kwargs)
             pdf = pisa.CreatePDF(html)
-            self.response.headers['Content-Type'] = "application/pdf"
-            #self.response.headers['Content-Disposition']="attachment; filename=\"test.pdf\""
-            self.response.data = pdf.dest.getvalue()
+
+            response = self.app.response_class()
+            response.content_type = "application/pdf"
+            #response.content_disposition = "attachment; filename=\"...\""
+            response.data = pdf.dest.getvalue()
+            return response
+            
         return wrapper
 
 
@@ -313,10 +453,11 @@ class BaseForm(Form):
 
     LANGUAGES = ['de', 'en']
 
-    def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, **kwargs):
+    def __init__(self, formdata=None, obj = None, prefix='', config = None, app = None, handler = None, **kwargs):
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
         self.config = config
         self.app = app
+        self.handler = handler
 
 
 class BaseHandler(starflyer.Handler):
@@ -338,6 +479,7 @@ class BaseHandler(starflyer.Handler):
         if "slug" in self.request.view_args:
             self.barcamp = self.config.dbs.barcamps.by_slug(self.request.view_args['slug'])
             self.barcamp_view = BarcampView(self.barcamp, self)
+            self.barcamp_id = self.barcamp._id
         else:
             self.barcamp = None
             self.barcamp_view = None
@@ -374,14 +516,29 @@ class BaseHandler(starflyer.Handler):
         """provide more information to the render method"""
         menu_pages = self.config.dbs.pages.for_slot("menu")
         footer_pages = self.config.dbs.pages.for_slot("footer")
-        print "preparing context"
+
+        # kinda complicated to just replace query parameter
+        url2 = werkzeug.urls.URL(*werkzeug.urls.url_parse(self.request.url))
+        query = url2.decode_query()
+
+        # now replace it or add it 
+        query['__l'] = "de"
+        de_query = werkzeug.urls.url_encode(query)
+        query['__l'] = "en"
+        en_query = werkzeug.urls.url_encode(query)
+
+        # re-encode urls
+        de_url = url2.replace(query = de_query).to_url()
+        en_url = url2.replace(query = en_query).to_url()
+    
         payload = dict(
             wf_map = self.wf_map,
             user = self.user,
             barcamp = self.barcamp,
-            #txt = self.config.i18n.de,
             title = self.config.title,
             url = self.request.url,
+            de_url = de_url,
+            en_url = en_url,
             description = self.config.description,
             vpath = self.config.virtual_path,
             vhost = self.config.virtual_host,
@@ -389,16 +546,39 @@ class BaseHandler(starflyer.Handler):
             is_main_admin = self.is_main_admin,
             menu_pages = menu_pages,
             user_id = self.user_id,
-            cloudmade_key = self.config.cloudmade_key,
+            mapbox_access_token = self.config.mapbox_access_token,
+            mapbox_map_id = self.config.mapbox_map_id,
             footer_pages = footer_pages,
             ga = self.config.ga,
-            userview = partial(UserView, self.app)
+            userview = partial(UserView, self.app),
+            image_tag = self.get_image_tag,
         )
         if self.barcamp is not None:
             payload['slug'] = self.barcamp.slug
         if self.page is not None:
             payload['page_slug'] = self.page.slug
         return payload
+
+    def get_image_tag(self, image_id, variant, **kw):
+        """return an image tag for an image
+
+        :param image_id: the asset id of the image
+        :param variant: the variant to use
+        :param **kw: any additional parameters for the image tag
+        :return: an image tag
+        """
+        asset = self.app.module_map.uploader.get(image_id)
+        v = asset.variants[variant]
+        url = self.app.url_for("asset", asset_id = v._id)
+        s=""
+        for a,d in kw.items():
+            s = s + '%s="%s" ' %(a,d)
+        tag = """<img src="%s" width="%s" height="%s" %s>""" %(
+            url,
+            v.metadata['width'],
+            v.metadata['height'],
+            s)
+        return tag
 
     def forbidden(self):
         """call this if you want to show the user a message that a permission is missing and redirect to the homepage"""
@@ -414,32 +594,53 @@ class BaseHandler(starflyer.Handler):
         s.feed(html)
         return s.get_data()
 
-    def mail_text(self, template_name, subject, send_to=None, fullname = None, **kwargs):
+    def mail_text(self, template_name, subject, send_to=None, user = None, **kwargs):
         """render and send out a mail as mormal text"""
-        if fullname is None:
-            fullname = self.user.fullname
+        if user is None:
+            user = self.user
         if send_to is None:
-            send_to = self.user.email
-        
+            send_to = user.email
         payload = self.render_lang(template_name, **kwargs)
         mailer = self.app.module_map['mail']
         mailer.mail(send_to, subject, payload)
 
-    def mail_template(self, template_name, send_to=None, fullname = None, **kwargs):
+    def mail_template(self, template_name, send_to=None, user = None, **kwargs):
         """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
-
-        # overrides
-        if fullname is None:
-            fullname = self.user.fullname
+        if user is None:
+            user = self.user
         if send_to is None:
-            send_to = self.user.email
-
-        # send it out
+            send_to = user.email
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
-            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', fullname)
+            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', user.fullname)
             mailer = self.app.module_map['mail']
             mailer.mail(send_to, subject, payload)
+
+    def retrieve_location(self, street, zip, city, country):
+        """retrieve coords for a location based on the address etc. stored in ``f``"""
+        
+        query = u"%s, %s, %s" %(street, city, country)
+        query = urllib.quote(query.encode("utf-8"))
+
+        url = "https://api.mapbox.com/v4/geocode/mapbox.places/%s.json?access_token=%s" %(query, self.config.mapbox_access_token)
+        data = requests.get(url).json()
+        data = data['features']
+
+        if len(data)==0:
+            query = u"%s, %s" %(city, country)
+            query = urllib.quote(query.encode("utf-8"))
+
+            # trying again but only with city
+            url = "https://api.mapbox.com/v4/geocode/mapbox_places/%s.json?access_token=%s" %(query, self.config.mapbox_access_token)
+            data = requests.get(url).json()
+            data = data['features']
+
+        if len(data)==0:
+            raise LocationNotFound()
+
+        # for some reason in geojson it is (long,lat). Oh yeah
+        return tuple(reversed(data[0]['center']))
+
 
 

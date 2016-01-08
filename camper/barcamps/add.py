@@ -7,27 +7,9 @@ from sfext.babel import T
 import uuid
 import datetime
 import requests
-
-class MyDateField(DateTimeField):
-    """
-    Same as DateField, but accepts None as answer
-    """
-
-    def __init__(self, label=None, validators=None, format='%Y-%m-%d', **kwargs):
-        super(MyDateField, self).__init__(label, validators, format, **kwargs)
-
-    def process_formdata(self, valuelist):
-        if valuelist:
-            date_str = ' '.join(valuelist)
-            if date_str == '':
-                self.data = None
-                return
-            try:
-                self.data = datetime.datetime.strptime(date_str, self.format).date()
-            except ValueError:
-                self.data = None
-                raise ValueError(self.gettext('Not a valid date value'))
-
+import pycountry
+import gettext
+from ..form import MyDateField
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
@@ -38,23 +20,29 @@ class BarcampAddForm(BaseForm):
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
     )
 
-    description         = TextAreaField(u"Beschreibung", [validators.Required()],
+    description         = TextAreaField(u"Beschreibung", [],
                 description = u'Bitte beschreibe Dein Barcamp hier',
     )
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
     )
+    hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
+    preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually'))
+    seo_description     = TextField(T('Meta Description'), 
+                            [validators.Length(max=160)],
+                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
+    hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
-    size                = IntegerField(u"max. Teilnehmerzahl", [validators.Required()])
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
     twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
     hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
     gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
+    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
-
+    
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city                = TextField(T("city"), [])
@@ -63,16 +51,32 @@ class BarcampAddForm(BaseForm):
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
     location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
+    location_country             = SelectField(T("Country"), default="DE")
+    location_lat                 = HiddenField()
+    location_lng                 = HiddenField()
+
 
 class AddView(BaseHandler):
     """an index handler"""
 
-    template = "add.html"
+    template = "admin/add.html"
 
     @logged_in()
     def get(self):
         """render the view"""
         form = BarcampAddForm(self.request.form, config = self.config)
+
+        # get countries and translate them
+        try:
+            trans = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
+        except IOError:
+            # en only has iso3166_2
+            trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
+                languages=[str(self.babel_locale)])
+        
+        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        form.location_country.choices = countries
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['admins'] = [self.user._id]
@@ -87,7 +91,7 @@ class AddView(BaseHandler):
                 'phone'     : f['location_phone'],
                 'url'       : f['location_url'],
                 'description' : f['location_description'],
-                'country'   : 'de',
+                'country'   : f['location_country'],
             }
 
             pid = unicode(uuid.uuid4())[:8]
@@ -140,8 +144,8 @@ class AddView(BaseHandler):
             barcamp = self.config.dbs.barcamps.put(barcamp)
 
             self.flash(self._("%s has been created") %f['name'], category="info")
-            return redirect(self.url_for("index"))
-        return self.render(form = form, slug = None)
+            return redirect(self.url_for("barcamps.edit", slug = barcamp.slug))
+        return self.render(form = form, slug = None, show_slug=True, bcid = '')
     post = get
 
 class ValidateView(BaseHandler):
@@ -149,7 +153,7 @@ class ValidateView(BaseHandler):
 
     @logged_in()
     @asjson()
-    def get(self, slug = None):
+    def get(self):
         """retrieve the data via params and validate the given fields
 
         This can be used for both the add and edit view. On edit views it will
@@ -157,14 +161,26 @@ class ValidateView(BaseHandler):
         itself.
 
         """
+        orig_slug = None
+        bcid = self.request.args.get("bcid", None) # bcid can be None on the add screen
+
         if "slug" in self.request.args:
             bc = self.config.dbs.barcamps.by_slug(self.request.args['slug'])
+
+            # check if there exists no barcamp with this slug yet
             if bc is None:
-                return True
-            if self.barcamp is not None and self.barcamp._id == bc._id:
-                return True
-            return self._("This name is already taken. Please choose a different one")
-        return True
+                return {'validated' : True}
+
+            # check if we have an existing barcamp and it's not it's own slug
+            new_slug_id = str(bc._id)
+            if new_slug_id == bcid:
+                return {'validated' : True}
+                
+            return {
+                'validated' : False,
+                'msg' : self._("This name is already taken. Please choose a different one")
+            }
+        return {'validated' : False} # slug should appear, really!
 
 
 

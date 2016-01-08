@@ -1,0 +1,10 @@
+{% extends "_m/barcamps/admin/add.html" %}
+{% set menu="edit" %}
+{% set edit = True %}
+{% block title %}
+    <h1>{{_('Edit Barcamp "%s"' %barcamp.name)}}</h1>
+{% endblock %}
+{% block action %}
+    <input type="submit" class="btn btn-large btn-primary" value="Barcamp aktualisieren">
+    <a href="{{url_for("barcamps.index", slug = barcamp.slug)}}" class="btn btn-large">Abbrechen</a>
+{% endblock %}

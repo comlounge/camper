@@ -1,11 +1,19 @@
 #encoding=utf8
-from starflyer import Handler, redirect
+from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin
 from wtforms import *
 from sfext.babel import T
 from camper.handlers.forms import *
 import werkzeug.exceptions
+import requests
+import copy
+from sfext.uploader import AssetNotFound
+from camper.base import LocationNotFound
+
+
+__all__ = ['Action', 'SponsorForm', 'BarcampBaseHandler', 'LocationNotFound',  'GalleryView']
+
 
 class Action(object):
     """an action to be display in navbars etc."""
@@ -24,12 +32,6 @@ class Action(object):
         self.url = url
         self.active = active
 
-class SponsorForm(BaseForm):
-    """form for adding a new sponsor"""
-    # base data
-    name                = TextField(u"Name des Sponsors", [validators.Length(max=300), validators.Required()])
-    url                 = TextField(u"URL des Sponsor-Website", [validators.URL(), validators.Required()])
-    image               = UploadField(u"Sponsor-Logo")
 
 class BarcampBaseHandler(BaseHandler):
     """extend the base handler for barcamp specific extensions"""
@@ -54,14 +56,18 @@ class BarcampBaseHandler(BaseHandler):
         # we need to check for barcamp as pages use this handler, too and pages can also be on the top level 
         if bc is not None:
             actions.append(Action('home', T("Home"), uf('barcamps.index', slug = self.barcamp.slug), self.action == 'home'))
-            actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
-            actions.append(Action('participants', T("participants"), uf('barcamps.userlist', slug = bc.slug), self.action == 'participants'))
+            if "sessions" not in bc.hide_tabs:
+                actions.append(Action('sessions', T("session proposals"), uf('barcamps.sessions', slug = bc.slug), self.action == 'sessions'))
+            # only show events if we actually have any defined
+            if bc.events and "events" not in bc.hide_tabs:
+                actions.append(Action('events', T("events"), uf('barcamps.user_events', slug = bc.slug), self.action == 'events'))
             if bc.planning_pad_public or self.is_admin:
                 actions.append(Action('planning', T("planning"), uf('barcamps.planning_pad', slug = bc.slug), self.action == 'planning'))
-            actions.append(Action('docs', T("documentation"), uf('barcamps.documentation_pad', slug = bc.slug), self.action == 'docs'))
+            if self.config.dbs.blog.by_barcamp(self.barcamp, only_published = True).count() > 0 and "blog" not in bc.hide_tabs:
+                actions.append(Action('blog', T("Blog"), uf('blog.view', slug = bc.slug), self.action == 'blog'))
             for page in self.barcamp_view.pages_for("menu"):
                 pid = "page_%s" %page._id
-                actions.append(Action(pid, page.menu_title, uf('barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))
+                actions.append(Action(pid, page.menu_title, uf('pages.barcamp_page', slug = bc.slug, page_slug = page.slug), self.action == pid))
             if bc.twitterwall:
                 if True:
                     actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
@@ -75,9 +81,52 @@ class BarcampBaseHandler(BaseHandler):
     @property
     def render_context(self):
         """provide more information to the render method"""
-        sponsor_form = SponsorForm(self.request.form, config = self.config)
         payload = super(BarcampBaseHandler, self).render_context
-        payload['sponsor_form'] = sponsor_form
         payload['view'] = self.barcamp_view
+        payload['barcamp_view'] = self.barcamp_view
         payload['actions'] = self.actions
         return payload
+
+
+class GalleryView(object):
+    """wrapper around an image gallery to provide additional features"""
+
+    def __init__(self, gallery, handler):
+        """initialize the wrapper with the gallery and the handler it is used with"""
+
+        self.gallery = gallery
+        self.handler = handler
+        self.app = self.handler.app
+        self.config = self.handler.app.config
+        self.user = self.handler.user
+
+    def get_images(self, variant = "userlist", **kwargs):
+        """return image tags for all the images
+
+        :param variant: variant of the image to retrieve
+        :param kwargs: additional attributes to be added to the image tag
+
+        :returns: list of html image tags
+
+        """
+
+        amap = html_params(**kwargs)
+
+        images = []
+        for i in self.gallery.get_images():
+            try:
+                asset = self.app.module_map.uploader.get(i.image)
+                v = asset.variants[variant]
+                url = self.app.url_for("asset", asset_id = v._id)
+                new_image = copy.copy(i)
+                new_image.tag = """<img src="%s" width="%s" height="%s" %s>""" %(
+                    url,
+                    v.metadata['width'],
+                    v.metadata['height'],
+                    amap)
+                images.append(new_image)
+            except AssetNotFound:
+                # shouldn't really happen but what do I know?!?
+                continue
+
+        return images
