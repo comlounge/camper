@@ -9,7 +9,7 @@ import datetime
 import requests
 import pycountry
 import gettext
-from form import MyDateField
+from ..form import MyDateField
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
