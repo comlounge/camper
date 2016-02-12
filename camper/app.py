@@ -148,7 +148,7 @@ def parse_http_accept_language(accept):
 
 
 def get_locale(handler):
-    al = handler.request.headers.get('Accept-Language')
+    al = handler.request.headers.get('Accept-Language', '')
     request_lang = parse_http_accept_language(al)
     
     # default
