@@ -21,11 +21,30 @@
 2.0 (2016-01-01)
 ================
 
-- lots of new features/refactoring/cleanups, new design etc. 
+- NEW: overhauled design
+- NEW: responsive design
+- NEW: accessibility enhancements
+- NEW: new admin area
+- NEW: logo editor
+- NEW: timetable tool
+- NEW: session planning tool
+- NEW: options to change design
+- NEW: you can define individual events per barcamp, each with individual locations and participants.
+- NEW: documentaton etherpad is now automatically created per session
+- NEW: blogging tool
+
 
 In order to migrate::
 
     bin/migrate_barcamps -f etc/scripts.ini
     bin/migrate_users -f etc/scripts.ini
     bin/reprocess -f etc/scripts.ini
+
+
+2.0.1 (unreleased)
+==================
+
+- FIXED: language detection now works properly in Safari
+- FIXED: wysiwyg fields now also accept br, div and span
+- FIXED: Join-Buttons weren't visible in all circumstances when they should
 
