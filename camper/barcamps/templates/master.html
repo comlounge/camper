@@ -72,6 +72,9 @@
             background-color: {{barcamp.background_color}};
             color: {{barcamp.text_color}};
         } 
+        {% if barcamp_view.background_image_url.logo_full %}
+            .bccontainer { background: rgba(255,255,255,0.7); }
+        {% endif %}
         #barcamppage p a, #barcamppage .byline a { color: {{barcamp.link_color}}; }
         #barcamppage p a:hover, #barcamppage .byline a:hover  { color: {{barcamp.link_color}}; }
 
@@ -152,7 +155,7 @@
     </div><!-- /.modal -->
 
 
-    <div class="container" id="barcamp">
+    <div class="container bccontainer" id="barcamp-header">
         <div id="barcamp-menu">
             <nav class="navbar navbar-barcamp">
                 <div class="container-fluid">
@@ -182,7 +185,7 @@
         
     {% endblock %}
 
-    <div class="container">
+    <div class="container bccontainer" id="barcamp-content">
 
         {% block headline %}
         {% endblock %}
