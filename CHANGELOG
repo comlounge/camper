@@ -41,10 +41,18 @@ In order to migrate::
     bin/reprocess -f etc/scripts.ini
 
 
-2.0.1 (unreleased)
-==================
+2.0.1 (2016-02-23 with 2.0.2)
+=============================
 
 - FIXED: language detection now works properly in Safari
 - FIXED: wysiwyg fields now also accept br, div and span
 - FIXED: Join-Buttons weren't visible in all circumstances when they should
 
+2.0.2 (2016-02-23 with 2.0.1)
+=============================
+
+- FIXED: Barcamps can be added again
+- FIXED: Language selector works for Safari, too
+- CHANGE: Added more text to pre-register option to inform about mail template
+- CHANGE: when using a background the content area is now more visible
+- CHANGE: tinymce does not filter out as many tags as before making copying word docs easier
