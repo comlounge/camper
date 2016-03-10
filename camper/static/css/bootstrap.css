@@ -8835,7 +8835,7 @@ article.blogentry .gallery img {
   float: right;
   margin: 0 0 10px 10px;
 }
-.barcamp-page #main-content {
+#main-content {
   padding-top: 10px;
 }
 #participant-data .description {
