@@ -56,3 +56,10 @@ In order to migrate::
 - CHANGE: Added more text to pre-register option to inform about mail template
 - CHANGE: when using a background the content area is now more visible
 - CHANGE: tinymce does not filter out as many tags as before making copying word docs easier
+
+2.0.3 (unreleased)
+==================
+
+- FIXED: waiting list had the wrong order (#112)
+- 
+
