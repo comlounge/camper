@@ -46,7 +46,9 @@ class Event(BarcampBaseHandler):
         ub = self.app.module_map.userbase
         participants = list(ub.get_users_by_ids(e.participants))
         maybe = list(ub.get_users_by_ids(e.maybe))
-        waitinglist = list(ub.get_users_by_ids(e.waiting_list))
+        # make sure we use the correct order here, so no use of get_users_by_ids
+        waitinglist = [ub.get_user_by_id(uid) for uid in e.waiting_list]
+        
         if self.logged_in:
             uid = unicode(self.user._id)
         else:
