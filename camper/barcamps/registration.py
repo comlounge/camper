@@ -127,6 +127,8 @@ class RegistrationData(BarcampBaseHandler):
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
+                event_title = event.name,
+                event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
 
         elif status=="waitinglist":
@@ -134,6 +136,8 @@ class RegistrationData(BarcampBaseHandler):
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
+                event_title = event.name,
+                event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
 
         # check if we can fill up the participants from the waiting list
@@ -146,6 +150,8 @@ class RegistrationData(BarcampBaseHandler):
                 user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
+                event_title = event.name,
+                event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
 
         ud = {
