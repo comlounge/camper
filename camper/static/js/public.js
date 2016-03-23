@@ -505,14 +505,15 @@
 
 (function() {
   $.fn.eventlist = function(opts, _arg) {
-    var change_status, dataurl, init, update_event;
+    var change_status, data, dataurl, init, update_event;
     _arg;
     dataurl = null;
+    data = null;
     update_event = function(d) {
       var elem;
       elem = $("#e-" + d.eid);
       elem.find(".plabel").hide();
-      elem.find(".dlabel").hide();
+      elem.find(".dlabel").hide().css("font-weight", "normal").find("i").remove();
       elem.find("button").hide();
       if (!d.participant && !d.waitinglist && !d.maybe) {
         if (d.full) {
@@ -530,6 +531,7 @@
           elem.find(".infolabel.plabel-going").show();
           elem.find(".infolabel.plabel-notgoing").hide();
           elem.find(".dlabel.maybe").show();
+          elem.find(".dlabel.going").show().css("font-weight", "bold").prepend('<i class="fa fa-check"></i> ').parent().addClass("disabled");
           elem.find(".dropdown-toggle").addClass("btn-success");
         } else if (d.waitinglist) {
           elem.find(".label-waitinglist").show();
@@ -537,14 +539,16 @@
           elem.find(".infolabel.plabel-notgoing").show();
           elem.find(".dlabel.maybe").show();
           elem.find(".dropdown-toggle").addClass("btn-warning");
+          elem.find(".dlabel.going").show().css("font-weight", "bold").prepend('<i class="fa fa-check"></i> ').parent().addClass("disabled");
         } else if (d.maybe) {
           elem.find(".label-maybe").show();
           elem.find(".infolabel.plabel-going").hide();
           elem.find(".infolabel.plabel-notgoing").show();
           elem.find(".dlabel.going").show();
           elem.find(".dropdown-toggle").addClass("btn-info");
+          elem.find(".dlabel.maybe").show().css("font-weight", "bold").prepend('<i class="fa fa-check"></i> ').parent().addClass("disabled");
         }
-        elem.find(".pselect").show();
+        elem.find(".pselect").css('display', 'inline-block');
         elem.find(".dropdown-toggle").show();
       }
       elem.find(".filled").text(d.filled);

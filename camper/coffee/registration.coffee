@@ -3,11 +3,13 @@
 $.fn.eventlist = (opts, {}) ->
     
     dataurl = null
+    data = null
 
     update_event = (d) ->
         elem = $("#e-"+d.eid)
         elem.find(".plabel").hide()
-        elem.find(".dlabel").hide()
+        # reset all checkmarks and bold fonts
+        elem.find(".dlabel").hide().css("font-weight", "normal").find("i").remove()
         elem.find("button").hide()
         if not d.participant and not d.waitinglist and not d.maybe
             if d.full
@@ -25,6 +27,12 @@ $.fn.eventlist = (opts, {}) ->
                 elem.find(".infolabel.plabel-going").show()
                 elem.find(".infolabel.plabel-notgoing").hide()
                 elem.find(".dlabel.maybe").show()
+                # show the active state as a non-clickable element with a checkmark in front
+                elem.find(".dlabel.going").show().css("font-weight","bold")
+                .prepend('<i class="fa fa-check"></i> ')
+                .parent()
+                .addClass("disabled")
+
                 elem.find(".dropdown-toggle").addClass("btn-success")
             else if d.waitinglist
                 elem.find(".label-waitinglist").show()
@@ -32,13 +40,21 @@ $.fn.eventlist = (opts, {}) ->
                 elem.find(".infolabel.plabel-notgoing").show()
                 elem.find(".dlabel.maybe").show()
                 elem.find(".dropdown-toggle").addClass("btn-warning")
+                elem.find(".dlabel.going").show().css("font-weight","bold")
+                .prepend('<i class="fa fa-check"></i> ')
+                .parent()
+                .addClass("disabled")
             else if d.maybe
                 elem.find(".label-maybe").show()
                 elem.find(".infolabel.plabel-going").hide()
                 elem.find(".infolabel.plabel-notgoing").show()
                 elem.find(".dlabel.going").show()
                 elem.find(".dropdown-toggle").addClass("btn-info")
-            elem.find(".pselect").show()
+                elem.find(".dlabel.maybe").show().css("font-weight","bold")
+                .prepend('<i class="fa fa-check"></i> ')
+                .parent()
+                .addClass("disabled")
+            elem.find(".pselect").css('display', 'inline-block')
             elem.find(".dropdown-toggle").show()
 
         # set the event size
@@ -79,6 +95,7 @@ $.fn.eventlist = (opts, {}) ->
         # get id
         eid = $(elem).closest(".event").data("id")
         status = $(elem).data("status")
+
         $.ajax
             url: dataurl
             method: "POST"

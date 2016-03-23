@@ -8628,7 +8628,6 @@ section {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: .25em;
-  display: none;
   font-size: 9px;
 }
 a#user-events-content .datelist .plabel:hover,
