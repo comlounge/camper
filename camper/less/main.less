@@ -886,6 +886,33 @@ section {
         }
         margin-top: 30px;
         .description { display: none;}
+        tbody tr.active {
+            th {
+                font-weight: bold;
+                background: darken(#5cb85c, 20%);
+                color: white;
+            }
+            td.slot {
+                background: #5cb85c;
+                color: white;
+                a {
+                    color: white;
+                    font-weight: bold;
+                    text-decoration: none;
+                    .moderators {
+                        color: white;
+                        font-weight: normal;
+                    }
+                    &:hover {
+                        text-decoration: none;
+                }
+                }
+                &:hover {
+                    text-decoration: none;
+                    background: darken(#5cb85c, 20%);
+                }
+            }
+        }
     }
 }
 

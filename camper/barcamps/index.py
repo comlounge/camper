@@ -5,6 +5,7 @@ from camper import logged_in, is_admin
 from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
+import datetime
 from .base import BarcampBaseHandler
 
 class View(BarcampBaseHandler):
@@ -13,15 +14,43 @@ class View(BarcampBaseHandler):
     template = "index.html"
     action = "home"
 
+
     def get(self, slug = None):
         """render the view"""
         if not self.barcamp:
             raise werkzeug.exceptions.NotFound()
-        return self.render(
-            barcamp = self.barcamp,
-            title = self.barcamp.name,
-            **self.barcamp)
 
+        event = self.barcamp.live_event # the active event or None
+        now = datetime.datetime.now().strftime("%H:%M")
+
+
+        params = {
+            'barcamp' : self.barcamp,
+            'title' : self.barcamp.name,
+            'event' : event,
+        }
+        if event:
+            params['rooms'] = event.rooms
+            params['timeslots'] = event.timeslots
+            params['sessionplan'] = event.timetable.get('sessions', {})
+
+            # compute active timeslot
+            i = 0
+            active_slot = None
+            for slot in event.timeslots:
+                if now > slot['time'] and i == len(event.timeslots)-1:
+                    active_slot = slot['time']
+                    break
+                if now > slot['time'] and now < event.timeslots[i+1]['time']:
+                    active_slot = slot['time']
+                    break
+                i = i + 1
+
+            params['active_slot'] = active_slot 
+        params.update(self.barcamp)
+
+        return self.render(**params)
+            
 
 class BarcampSponsors(BarcampBaseHandler):
     """view for adding and deleting sponsors"""

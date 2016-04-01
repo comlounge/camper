@@ -486,6 +486,17 @@ class Barcamp(Record):
         return False
 
     @property
+    def live_event(self):
+        """returns the active event or None"""
+        today = datetime.date.today()
+        today = datetime.datetime.combine(today, datetime.time.min)
+
+        for event in self.eventlist:
+            if event.date == today:
+                return event
+        return None
+
+    @property
     def public(self):
         """return whether the barcamp is public or not"""
         return self.workflow in ['public', 'registration', 'canceled']
