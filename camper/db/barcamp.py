@@ -493,7 +493,8 @@ class Barcamp(Record):
 
         for event in self.eventlist:
             if event.date == today:
-                return event
+                if len(event.rooms)>0:
+                    return event
         return None
 
     @property
