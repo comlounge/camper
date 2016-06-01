@@ -18,7 +18,7 @@ class IndexView(BaseHandler):
         td = datetime.timedelta(days = 1)
         soon_barcamps = self.config.dbs.barcamps.find({
             'end_date'  : {'$gt': n-td},
-        }).sort("start_date", pymongo.ASCENDING).limit(15)
+        }).sort("start_date", pymongo.ASCENDING).limit(115)
         new_barcamps = self.config.dbs.barcamps.find({
             'end_date'  : {'$gt': n-td},
         }).sort("created",pymongo.DESCENDING).limit(3)
