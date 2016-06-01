@@ -272,9 +272,11 @@ class RegistrationDataExport(BarcampBaseHandler):
             })
 
             # process users
-            participants = list(ub.get_users_by_ids(e.participants))
-            maybe = list(ub.get_users_by_ids(e.maybe))
-            waitinglist = list(ub.get_users_by_ids(e.waiting_list))
+            event = e
+            maybe = list(ub.get_users_by_ids(event.maybe))
+            waitinglist = [ub.get_user_by_id(uid) for uid in event.waiting_list]
+            participants = [ub.get_user_by_id(uid) for uid in event.participants]
+
             
             process_list(participants, "going")
             process_list(maybe, "maybe")

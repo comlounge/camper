@@ -278,9 +278,10 @@ class EventParticipants(BarcampBaseHandler):
 
         # get all the lists
         ub = self.app.module_map.userbase
-        participants = list(ub.get_users_by_ids(event.participants))
         maybe = list(ub.get_users_by_ids(event.maybe))
         waitinglist = [ub.get_user_by_id(uid) for uid in event.waiting_list]
+        participants = [ub.get_user_by_id(uid) for uid in event.participants]
+
 
         return self.render(
             view = self.barcamp_view,
