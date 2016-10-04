@@ -15,6 +15,7 @@ from functools import partial
 import requests 
 import bson
 from mongogogo import ObjectNotFound
+import jinja2
 
 from wtforms.ext.i18n.form import Form
 
@@ -613,7 +614,10 @@ class BaseHandler(starflyer.Handler):
             send_to = user.email
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
-            payload = barcamp.mail_templates['%s_text' %template_name].replace('((fullname))', user.fullname)
+            tmpl = jinja2.Template(barcamp.mail_templates['%s_text' %template_name])
+            kwargs['fullname'] = user.fullname
+            payload = tmpl.render(**kwargs)
+            payload = payload.replace('((fullname))', user.fullname)
             mailer = self.app.module_map['mail']
             mailer.mail(send_to, subject, payload)
 

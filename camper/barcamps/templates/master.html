@@ -72,6 +72,9 @@
             background-color: {{barcamp.background_color}};
             color: {{barcamp.text_color}};
         } 
+        {% if barcamp_view.background_image_url.logo_full %}
+            .bccontainer { background: {{barcamp.background_color}}; }
+        {% endif %}
         #barcamppage p a, #barcamppage .byline a { color: {{barcamp.link_color}}; }
         #barcamppage p a:hover, #barcamppage .byline a:hover  { color: {{barcamp.link_color}}; }
 
@@ -152,7 +155,7 @@
     </div><!-- /.modal -->
 
 
-    <div class="container" id="barcamp">
+    <div class="container bccontainer" id="barcamp-header">
         <div id="barcamp-menu">
             <nav class="navbar navbar-barcamp">
                 <div class="container-fluid">
@@ -169,7 +172,7 @@
                         </ul>
                         {% if is_admin or is_main_admin %}
                         <ul class="nav navbar-nav pull-right">
-                            <li class="manage"><a target="manage" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
+                            <li class="manage"><a target="_new" href="{{url_for('barcamps.dashboard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
                         </ul>
                         {% endif %}
                     </div>
@@ -182,7 +185,7 @@
         
     {% endblock %}
 
-    <div class="container">
+    <div class="container bccontainer" id="barcamp-content">
 
         {% block headline %}
         {% endblock %}

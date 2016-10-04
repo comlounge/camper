@@ -1,6 +1,7 @@
 # coding=utf-8
 
 import pymongo
+import locale
 import yaml
 import pkg_resources
 import werkzeug.exceptions
@@ -74,35 +75,86 @@ def textify(text):
 # TODO: retrieve available languages from the i18n module
 ACCEPTED_LANGUAGES = ['de', 'en']
 
-def parseAcceptLanguage(acceptLanguage):
-    """parse the accept language header"""
-    if acceptLanguage is None:
-        return [("en", 1)]
-    languages = acceptLanguage.split(",")
-    locale_q_pairs = []
-
-    for language in languages:
-        if language.split(";")[0] == language:
-            # no q => q = 1
-            locale_q_pairs.append((language.strip(), "1"))
+# From django.utils.translation.trans_real.to_locale
+def to_locale(language, to_lower=False):
+    """
+    Turns a language name (en-us) into a locale name (en_US). If 'to_lower' is
+    True, the last component is lower-cased (en_us).
+    """
+    p = language.find('-')
+    if p >= 0:
+        if to_lower:
+            return language[:p].lower()+'_'+language[p+1:].lower()
         else:
-            locale = language.split(";")[0].strip()
-            q = language.split(";")[1].split("=")[1]
-            locale_q_pairs.append((locale, q))
-    return locale_q_pairs
+            # Get correct locale for sr-latn
+            if len(language[p+1:]) > 2:
+                return language[:p].lower()+'_'+language[p+1].upper()+language[p+2:].lower()
+            return language[:p].lower()+'_'+language[p+1:].upper()
+    else:
+        return language.lower()
+
+
+# From django.utils.translation.trans_real.parse_accept_lang_header
+accept_language_re = re.compile(r'''
+        ([A-Za-z]{1,8}(?:-[A-Za-z]{1,8})*|\*)         # "en", "en-au", "x-y-z", "*"
+        (?:\s*;\s*q=(0(?:\.\d{,3})?|1(?:.0{,3})?))?   # Optional "q=1.00", "q=0.8"
+        (?:\s*,\s*|$)                                 # Multiple accepts per header.
+        ''', re.VERBOSE)
+
+def parse_accept_lang_header(lang_string):
+    """
+    Parses the lang_string, which is the body of an HTTP Accept-Language
+    header, and returns a list of (lang, q-value), ordered by 'q' values.
+    Any format errors in lang_string results in an empty list being returned.
+    """
+    result = []
+    pieces = accept_language_re.split(lang_string)
+    if pieces[-1]:
+        return []
+    for i in range(0, len(pieces) - 1, 3):
+        first, lang, priority = pieces[i : i + 3]
+        if first:
+            return []
+        priority = priority and float(priority) or 1.0
+        result.append((lang, priority))
+    result.sort(key=lambda k: k[1], reverse=True)
+    return result
+
+
+def parse_http_accept_language(accept):
+    for accept_lang, unused in parse_accept_lang_header(accept):
+        if accept_lang == '*':
+            break
+
+        # We have a very restricted form for our language files (no encoding
+        # specifier, since they all must be UTF-8 and only one possible
+        # language each time. So we avoid the overhead of gettext.find() and
+        # work out the MO file manually.
+
+        # 'normalized' is the root name of the locale in POSIX format (which is
+        # the format used for the directories holding the MO files).
+        normalized = locale.locale_alias.get(to_locale(accept_lang, True))
+        if not normalized:
+            continue
+        # Remove the default encoding from locale_alias.
+        normalized = normalized.split('.')[0]
+
+        for lang_code in (accept_lang, accept_lang.split('-')[0]):
+            lang_code = lang_code.lower()
+            if lang_code in ACCEPTED_LANGUAGES:
+                return lang_code
+    return None
+    
+
 
 def get_locale(handler):
-    al = handler.request.headers.get('Accept-Language')
-    languages = parseAcceptLanguage(al)
-
+    al = handler.request.headers.get('Accept-Language', '')
+    request_lang = parse_http_accept_language(al)
+    
     # default
     l = "en"
-
-    # find language from request
-    for lang,q in languages:
-        if lang in ACCEPTED_LANGUAGES:
-            l = lang
-            break
+    if request_lang is not None:
+        l = request_lang
 
     # check cookie now if it needs to override
     if handler.session.has_key("LANG"):

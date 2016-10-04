@@ -30,7 +30,7 @@ class BarcampEditForm(BaseForm):
                 description = T('this is the short name, which appears in the URL. It can only contain letters and numbers as well as the characters _ and -. Examples are "barcamp_aachen" or "bcac"'),
     )
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
-    preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually'))
+    preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually. Please make sure you also change the waiting list mail template as this will be sent when a user pre-registers.'))
     seo_description     = TextField(T('Meta Description'), 
                             [validators.Length(max=160)],
                             description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))

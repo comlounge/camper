@@ -458,7 +458,10 @@ class Barcamp(Record):
         """return the events as a list sorted by date"""
         events = self.events.values()
         def s(a,b):
-            return cmp(a['date'], b['date'])
+            d = cmp(a['date'], b['date'])
+            if d==0:
+                return cmp(a['start_time'], b['start_time'])
+            return d
         events.sort(s)
         events = [Event(e, _barcamp = self) for e in events]
         return events
@@ -481,6 +484,18 @@ class Barcamp(Record):
             elif uid in event.waiting_list and 'waiting' in states:
                 return True
         return False
+
+    @property
+    def live_event(self):
+        """returns the active event or None"""
+        today = datetime.date.today()
+        today = datetime.datetime.combine(today, datetime.time.min)
+
+        for event in self.eventlist:
+            if event.date == today:
+                if len(event.rooms)>0:
+                    return event
+        return None
 
     @property
     def public(self):

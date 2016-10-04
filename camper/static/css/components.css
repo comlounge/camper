@@ -1225,6 +1225,11 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.active {
   margin-right: -5px;
 }
 
+/*
+ * bootstrap-tagsinput v0.8.0
+ * 
+ */
+
 .bootstrap-tagsinput {
   background-color: #fff;
   border: 1px solid #ccc;

@@ -48,19 +48,17 @@ class AddView(BarcampBaseHandler):
         form = PageForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            #slug = f['slug'] = string2filename(f['title'])
-            # TODO: check if it's double
             f['menu_title'] = f['title'][:30]
-            f['content'] = ""
             page = db.Page(f)
             page = self.config.dbs.pages.add_to_slot(slot, page, barcamp = self.barcamp)
             self.flash("Seite wurde wurde angelegt", category="info")
             if self.barcamp is not None:
-                url = self.url_for("pages.page_edit", slug = self.barcamp.slug, page_slug = slug)
+                url = self.url_for("pages.page_edit", slug = self.barcamp.slug, page_slug = f['slug'])
             else:
                 url = self.url_for("page", page_slug = slug)
             return redirect(url)
-            return self.render(tmplname = "redirect.html", url = url)
+        else:
+            print form.errors
         return self.render(form = form)
 
     post = get

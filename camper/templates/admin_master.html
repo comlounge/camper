@@ -107,7 +107,7 @@
     <script>
         CONFIG = {
             slug_validation_url : "{{url_for('barcamps.validate')}}",
-            page_slug_validation_url : "{{url_for('pages.slug_validate', slug = slug, page_slug = page_slug) if page_slug else ''}}"
+            page_slug_validation_url : "{{url_for('pages.slug_validate', slug = slug or '', page_slug = page_slug) if page_slug else url_for('pages.slug_validate', slug = slug or '')}}"
         }
     </script>
     

@@ -18,6 +18,7 @@
             label=_("Upload image"), delete_label=_("Delete image"), revert_label=_("Revert"),
             upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}                                                                                            
         {{ formmacros.form_field(form.content, rows=10) }}
+        {{ formmacros.form_field(form.layout) }}
         {% block action %}
             <input type="submit" class="btn btn-lg btn-primary" value="{{_('Create page')}}">
             <a class="pull-right btn btn-default" href="{{url_for('.barcamp_pages', slug=slug)}}">{{_('Cancel')}}</a>

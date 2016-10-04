@@ -16,6 +16,38 @@
     </ul>
 {% endmacro %}
 {% macro participation(args) %}
+    {% if logged_in and not has_form %}
+
+        <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
+            <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
+            <span class="infolabel plabel plabel-going"><i class="fa fa-check"></i> {{_('I attend this event')}}</span>
+            <span class="infolabel plabel plabel-notgoing"><i class="fa fa-exclamation-triangle"></i> {{_('I am not attending this event')}}</span>
+            
+            <div class="pull-right actions">
+                <button data-status="going" 
+                        title="{{_('Register')}}" class="btn btn-lg btn-primary btn-join">{{_('Register')}}</button>
+                <button data-status="going"
+                        title="{{_('Join')}}" class="btn btn-lg btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                <button data-status="maybe"
+                        title="{{_('Join')}}" class="btn btn-lg btn-info btn-maybe">{{_('Maybe')}}</button>
+                <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+
+                <div class="btn-group pselect">
+                    <button type="button" class="btn btn-lg dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                        <span class="plabel label-going">{{_('Going')}}</span>
+                        <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                        <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                        <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% if logged_in and has_form and has_form_data %}
 
         <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
@@ -69,6 +101,7 @@
     </ol>
 
     <h2>{{active_event.name}}</h2>
+    <div class="description">{{active_event.description}}</div>
 
     <div id="user-events-content">
 

@@ -8769,6 +8769,31 @@ fieldset[disabled] #user-events-content .sessiontable tbody th.active {
 #user-events-content .sessiontable .description {
   display: none;
 }
+#user-events-content .sessiontable tbody tr.active th {
+  font-weight: bold;
+  background: #357935;
+  color: white;
+}
+#user-events-content .sessiontable tbody tr.active td.slot {
+  background: #5cb85c;
+  color: white;
+}
+#user-events-content .sessiontable tbody tr.active td.slot a {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+#user-events-content .sessiontable tbody tr.active td.slot a .moderators {
+  color: white;
+  font-weight: normal;
+}
+#user-events-content .sessiontable tbody tr.active td.slot a:hover {
+  text-decoration: none;
+}
+#user-events-content .sessiontable tbody tr.active td.slot:hover {
+  text-decoration: none;
+  background: #357935;
+}
 #sessionpad h1 .authors {
   font-size: 60%;
   line-height: 1.5;
@@ -8834,6 +8859,9 @@ article.blogentry .gallery img {
 .barcamp-page.layout-right .image-container {
   float: right;
   margin: 0 0 10px 10px;
+}
+#main-content {
+  padding-top: 10px;
 }
 #participant-data .description {
   margin: 20px 0;

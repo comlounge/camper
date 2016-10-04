@@ -2,6 +2,7 @@ from starflyer import Handler, redirect, asjson
 from camper import logged_in, is_admin, ensure_barcamp
 from .base import BarcampBaseHandler
 import werkzeug.exceptions
+import hashlib
 
 class SessionPad(BarcampBaseHandler):
     """show the documentation for a session"""
@@ -24,6 +25,11 @@ class SessionPad(BarcampBaseHandler):
 
         # create the etherpad
         pid = slug+"_"+session_slug
+
+        # check if the pad name is too long and hash it in this case
+        if len(pid) > 50:
+            pid = hashlib.sha1(pid).hexdigest()[:50]
+
         if not self.config.testing:
             try:
                 self.config.etherpad.createPad(padID=pid, text=u"Planung")
