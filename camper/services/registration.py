@@ -1,4 +1,5 @@
 import jinja2 
+from camper.base import BarcampView
 
 __all__ = ['RegistrationError', 'RegistrationService']
 
@@ -12,12 +13,15 @@ class RegistrationError(Exception):
 class RegistrationService(object):
     """service for registering users for barcamps"""
 
-    def __init__(self, handler, user):
+    def __init__(self, handler, user, barcamp = None):
         """initialize the service with the app object"""
         self.handler = handler
-        self.barcamp = handler.barcamp
+        if barcamp is None:
+            self.barcamp = handler.barcamp
+        else:
+            self.barcamp = barcamp
         self.app = handler.app
-        self.barcamp_view = handler.barcamp_view
+        self.barcamp_view = BarcampView(self.barcamp, handler)
         self.user = user
 
     def set_status(self, eid, status):

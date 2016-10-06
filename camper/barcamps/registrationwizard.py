@@ -97,9 +97,16 @@ class RegistrationWizard(BarcampBaseHandler):
         new_user = not self.logged_in
         if not self.logged_in:
 
+
             # create new user and get the UID
-            print "we still need to create that user"
-            return "no user created yet"
+            mod = self.app.module_map['userbase']
+            user = mod.register(userform.data, create_pw = False)
+
+            # double opt in should be done already, we only have to remember
+            # to tell the user after registration
+
+            uid = unicode(user._id)
+            print "created new user with uid", uid
 
         else:
             uid = unicode(self.user._id)
@@ -109,16 +116,24 @@ class RegistrationWizard(BarcampBaseHandler):
         self.barcamp.registration_data[uid] = regform.data
 
         # register for all the selected events
-        reg = RegistrationService(self, self.user)
+        if self.logged_in:
+            reg = RegistrationService(self, self.user)
 
-        for eid in eids:
-            event = self.barcamp.get_event(eid)
-            try:
-                reg.set_status(eid, "going")
-            except RegistrationError, e:
-                print "a registration error occurred", e
-                raise ProcessingError(str(e))
-                return 
+            for eid in eids:
+                event = self.barcamp.get_event(eid)
+                try:
+                    reg.set_status(eid, "going")
+                except RegistrationError, e:
+                    print "a registration error occurred", e
+                    raise ProcessingError(str(e))
+                    return 
+        else:
+            # for new users we just remember the eids
+            user.registered_for = {
+                'barcamp' : self.barcamp.slug,
+                'eids' : eids,
+            }
+            user.save()
 
         self.barcamp.save()
         
@@ -144,8 +159,8 @@ class RegistrationWizard(BarcampBaseHandler):
                     self.flash(self._("You have been successfully registered. Please check your email."), category="success")
                     return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
                 else:
-                    raise "we still need a thank you page and hint for activation"
-                
+                    self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
+                    return redirect(self.url_for(".index", slug = self.barcamp.slug))
 
         return self.render(
             view = self.barcamp_view,

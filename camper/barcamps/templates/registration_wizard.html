@@ -48,6 +48,13 @@
                         {{userform.password2(class="form-control", required=True, **{'data-parsley-equalto':"#password"})}}
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="password">{{_('Fullname')}}*</label>
+                    <div class="col-md-6">
+                        {{userform.fullname(class="form-control", type="text", required = True)}}
+                    </div>
+                </div>
+
 
 {#
                 {% for field in userform %}
