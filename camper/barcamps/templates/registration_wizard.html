@@ -1,0 +1,108 @@
+{% set active_action = "events" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% block headline %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li class="active">{{_('Registration')}}</li>
+    </ol>
+    <h1>{{_('Register for %s') %barcamp.name}}</h1>
+
+{% endblock %}
+{% block main_content %}
+    <div id="registration-wizard">
+        <div class="description">
+        </div>
+
+        <form class="validate form-horizontal parsley-validate" method="POST" id="regform" action="{{url}}">
+
+        {% if not logged_in %}
+            <fieldset>
+                <legend>{{_('Account data')}}</legend>
+                <div class="help-block">{{_('In order to register for a barcamp you need to create an account on barcamptools.eu below. The email you provide here will not be shared with the barcamp (thus you might need to provide it again below).')}}</div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="email">{{_('E-Mail')}}*</label>
+                    <div class="col-md-6">
+                        {{userform.email(class="form-control", type="email", required = True, 
+                            **{
+                                'data-parsley-remote' : url_for(".validate_email", slug=barcamp.slug),
+                                'data-parsley-remote-reverse': 'true',
+                                'data-parsley-remote-message' : _('This email is already taken. Please <a href="/users/login">login</a> to continue the registration process'),
+                            }
+
+                        )}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="password">{{_('Password')}}*</label>
+                    <div class="col-md-6">
+                        {{userform.password(class="form-control", type="password", required = True)}}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label col-md-2" for="password2">{{_('Repeat your password')}}*</label>
+                    <div class="col-md-6">
+                        {{userform.password2(class="form-control", required=True, **{'data-parsley-equalto':"#password"})}}
+                    </div>
+                </div>
+
+{#
+                {% for field in userform %}
+                    {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
+                {% endfor %}
+
+            </fieldset>
+
+#}
+        {% endif %}
+
+        {% if registration_form %}
+            <fieldset>
+                <legend>{{_('Barcamp specific data')}}</legend>
+                <div class="help-block">{{_("The barcamp administrator asks you to provide the following data. This will not be shared with other barcamps.")}}</div>
+                {% for field in form %}
+                    {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
+                {% endfor %}
+            </fieldset>
+        {% endif %}
+
+            <fieldset>
+                <legend>{{_('Events to register for')}}</legend>
+                <div class="help-block">{{_('Please select which event of the barcamp you would like to register for. You can change this later.')}}</div>
+                <div class="form-group">
+                {% for event in barcamp.eventlist %}
+                    <div class="checkbox" style="padding: 10px 0;">
+                        <label>
+                            <input type="checkbox" required name="_bcevents" value="{{event.id}}" style="font-size: 20px;"> 
+                            <div class="event-title" style="margin-top: -3px; font-size: 20px;">
+                                {{dateformat(event.date)}}, {{event.start_time}}: {{event.name}} 
+                            </div>
+                            <address style="margin-bottom: 0;">
+                                <strong>{{event.event_location.name}}</strong>, {{event.event_location.street}}, {{event.event_location.city}}
+                            </address>
+                            {% set left = event.size - event.participants|length %}
+                            {% if left <1 %}
+                                {{_('no places left. You will be added to the waiting list.')}}
+                            {% else %}
+                                ({{_('%s places left') %left}})
+                            {% endif %}
+                        </label>
+                    </div>
+                {% endfor %}
+                </div>
+            </fieldset>
+
+            <input type="submit" value="{{_("Register for this barcamp")}}" class="btn btn-primary">
+            
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#regform').parsley();
+        })
+    </script>
+
+{% endblock %}

@@ -83,10 +83,15 @@ module.exports = function(grunt) {
             public: {
                 dest: 'static/js/public_components.js',
                 cssDest: 'static/css/public_components.css',
+                mainFiles: {
+                  'parsleyjs': ['dist/parsley.js', 'dist/parsley.remote.js'],
+                },
                 include: [
                     'bootstrap',
                     "mjolnic-bootstrap-colorpicker",
-                    'bootstrap-confirmation2'
+                    'bootstrap-confirmation2',
+                    "parsleyjs",
+                    "parsleyjs-bootstrap3",
                 ]
             },
             all: {
