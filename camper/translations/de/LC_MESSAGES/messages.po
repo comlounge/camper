@@ -66,8 +66,9 @@ msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
-"href=\"%(url)s\">here</a> to get a new one."
-msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder"
+"href=\"%(url)s\">here</a> to get a new one.""
+msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder klicke"
+"<a href=\"%(usrl)s\">hier</a>, um einen neuen Code zu erhalten."
 
 #: app.py:262
 msgid "A new activation code has been sent out, please check your email"
