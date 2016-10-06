@@ -332,6 +332,7 @@ class CamperApp(Application):
             base_url=self.config.ep_endpoint
         )
 
+
     def finalize_modules(self):
         """finalize all modules"""
         fsstore = FilesystemStore(base_path = self.config.base_asset_path)
