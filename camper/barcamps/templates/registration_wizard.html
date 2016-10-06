@@ -76,7 +76,7 @@
                 {% for event in barcamp.eventlist %}
                     <div class="checkbox" style="padding: 10px 0;">
                         <label>
-                            <input type="checkbox" required name="_bcevents" value="{{event.id}}" style="font-size: 20px;"> 
+                            <input type="checkbox" required name="_bcevents" value="{{event._id}}" style="font-size: 20px;"> 
                             <div class="event-title" style="margin-top: -3px; font-size: 20px;">
                                 {{dateformat(event.date)}}, {{event.start_time}}: {{event.name}} 
                             </div>
