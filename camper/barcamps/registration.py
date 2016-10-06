@@ -9,6 +9,8 @@ import xlwt
 from cStringIO import StringIO
 import datetime
 
+from camper.services import RegistrationService, RegistrationError
+
 class BarcampSubscribe(BarcampBaseHandler):
     """adds a user to the subscription list"""
 
@@ -78,6 +80,8 @@ class BarcampRegister(BarcampBaseHandler):
             form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)
 
+
+
 class RegistrationData(BarcampBaseHandler):
     """handles registrations and cancels for events"""
 
@@ -107,52 +111,22 @@ class RegistrationData(BarcampBaseHandler):
     @logged_in()
     def post(self, slug = None):
         """add a user to the participant or maybe list"""
-        if self.barcamp.workflow != "registration":
+
+        reg = RegistrationService(self, self.user)
+
+        eid = self.request.form.get("eid")
+        uid = unicode(self.user._id)
+        event = self.barcamp.get_event(eid)
+        status = self.request.form.get("status") # can be join, maybe, not
+        
+        try:
+            reg.set_status(eid, status)
+        except RegistrationError, e:
             return {
                 'status' : 'error',
                 'message' : 'registration is not possible'
             }
 
-        eid = self.request.form.get("eid")
-        uid = unicode(self.user._id)
-        status = self.request.form.get("status") # can be join, maybe, not
-
-        event = self.barcamp.get_event(eid)
-        status = event.set_status(uid, status)
-
-        # send out the mail
-        view = self.barcamp_view
-        if status=="going":
-            self.mail_template("welcome",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                event_title = event.name,
-                event_date = event.date.strftime("%d.%m.%Y"),
-                **self.barcamp)
-
-        elif status=="waitinglist":
-            self.mail_template("onwaitinglist",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                event_title = event.name,
-                event_date = event.date.strftime("%d.%m.%Y"),
-                **self.barcamp)
-
-        # check if we can fill up the participants from the waiting list
-        uids = event.fill_participants()
-        users = self.app.module_map.userbase.get_users_by_ids(uids)
-        for user in users:
-            # send out a welcome email
-            self.mail_template("welcome",
-                view = view,
-                user = user,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                event_title = event.name,
-                event_date = event.date.strftime("%d.%m.%Y"),
-                **self.barcamp)
 
         ud = {
             'eid' : eid,
@@ -163,8 +137,6 @@ class RegistrationData(BarcampBaseHandler):
             'size' : event.size,
             'filled' : len(event.participants),
         }
-        self.barcamp.events[eid] = event
-        self.barcamp.save()
         return ud
 
 
