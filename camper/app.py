@@ -240,7 +240,7 @@ class CamperApp(Application):
             use_remember                = True,
             login_form                  = login.EMailLoginForm,
             urls                        = {
-                'activation'            : {'endpoint' : 'userbase.activate'},
+                'activation'            : {'endpoint' : 'activation'}, # we use our own activation handler 
                 'activation_success'    : {'endpoint' : 'index'},
                 'activation_code_sent'  : {'endpoint' : 'userbase.activate'},
                 'login_success'         : {'endpoint' : 'index'},
@@ -308,6 +308,7 @@ class CamperApp(Application):
         URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
+        URL('/u/activate', 'activation', handlers.users.activation.ActivationHandler),
 
         # admin area
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
