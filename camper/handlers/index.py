@@ -6,6 +6,7 @@ import pymongo
 from camper import BaseHandler
 from ..base import BarcampView
 
+from starflyer import redirect
 
 class IndexView(BaseHandler):
     """an index handler"""
@@ -14,6 +15,16 @@ class IndexView(BaseHandler):
 
     def get(self):
         """render the view"""
+
+        # do we have a came_from situation?
+        if self.session.has_key("came_from"):
+            url = self.session['came_from']
+            print "redirecting", url
+            del self.session['came_from']
+    
+            return redirect(url)
+
+
         n = datetime.datetime.now()
         td = datetime.timedelta(days = 1)
         soon_barcamps = self.config.dbs.barcamps.find({

@@ -148,6 +148,8 @@ class RegistrationWizard(BarcampBaseHandler):
         regform = self.registration_form
         userform = self.user_registration_form
                 
+        self.session['came_from'] = self.request.url
+
         if self.request.method == "POST":
             try:
                 self.process_post_data()
