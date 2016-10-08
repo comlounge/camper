@@ -39,6 +39,7 @@ setup(name='camper',
         "isodate",
         "pycountry",
         "wtforms",
+        "embeddify",
         "awesome-slugify"
       ],
       entry_points="""
