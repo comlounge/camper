@@ -243,7 +243,7 @@ class CamperApp(Application):
                 'activation'            : {'endpoint' : 'activation'}, # we use our own activation handler 
                 'activation_success'    : {'endpoint' : 'index'},
                 'activation_code_sent'  : {'endpoint' : 'userbase.activate'},
-                'login_success'         : {'endpoint' : 'index'},
+                'login_success'         : {'endpoint' : 'login_success'},
                 'logout_success'        : {'endpoint' : 'userbase.login'},
                 'registration_success'  : {'endpoint' : 'userbase.login'},
             },
@@ -293,6 +293,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/login_success', 'login_success', handlers.index.LoginSuccess),
         URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),

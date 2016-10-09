@@ -72,6 +72,7 @@ class BarcampModule(Module):
         URL('/<slug>/subscribe',            'subscribe',                        registration.BarcampSubscribe),
         URL('/<slug>/register',             'register',                         registration.BarcampRegister),
         URL('/<slug>/wizard',               'wizard',                           registrationwizard.RegistrationWizard),
+        URL('/<slug>/wizard/tologin',       'tologin',                          registrationwizard.LoginRedirect),
         URL('/<slug>/validate_email',       'validate_email',                   registrationwizard.EMailValidation),
         URL('/<slug>/registration_form',    'registration_form',                registration.RegistrationForm),
         URL('/<slug>/registrationdata',     'registrationdata',                 registration.RegistrationData),

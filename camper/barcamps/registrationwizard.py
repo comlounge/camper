@@ -148,8 +148,6 @@ class RegistrationWizard(BarcampBaseHandler):
         regform = self.registration_form
         userform = self.user_registration_form
                 
-        self.session['came_from'] = self.request.url
-
         if self.request.method == "POST":
             try:
                 self.process_post_data()
@@ -181,11 +179,20 @@ class EMailValidation(BaseHandler):
         """check if a user with this email exists"""
         email = self.request.args.get("email", "cd7cs78cd6")
         user = self.app.module_map.userbase.get_user_by_email(email)
-        print email
-        print user
         if user is None:
             raise werkzeug.exceptions.NotFound()
         return "ok"
+
+
+class LoginRedirect(BaseHandler):
+    """remember camefrom and redirect to login page"""
+
+
+    def get(self, slug = None):
+        """create the url, save it and then redirect"""
+        url = self.url_for(".wizard", slug = slug)
+        self.session['came_from'] = url
+        return redirect(self.url_for("userbase.login"))
 
 
 

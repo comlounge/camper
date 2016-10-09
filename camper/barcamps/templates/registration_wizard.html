@@ -22,7 +22,7 @@
                 <div class="help-block">{{_('In order to register for a barcamp you need to create an account on barcamptools.eu below. The email you provide here will not be shared with the barcamp (thus you might need to provide it again below).')}}</div>
 
                 <div class="help-block">{{_('If you already have a barcamptools account please login.')}}
-                    <a href="{{url_for('userbase.login')}}?came_form={{url_for('.wizard', slug=barcamp.slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
+                    <a href="{{url_for('.tologin', slug=slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
                 </div>
 
                 <div class="form-group">
@@ -60,14 +60,6 @@
                 </div>
 
 
-{#
-                {% for field in userform %}
-                    {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
-                {% endfor %}
-
-            </fieldset>
-
-#}
         {% endif %}
 
         {% if registration_form %}

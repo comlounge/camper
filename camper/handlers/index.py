@@ -16,15 +16,7 @@ class IndexView(BaseHandler):
     def get(self):
         """render the view"""
 
-        # do we have a came_from situation?
-        if self.session.has_key("came_from"):
-            url = self.session['came_from']
-            print "redirecting", url
-            del self.session['came_from']
-    
-            return redirect(url)
-
-
+        
         n = datetime.datetime.now()
         td = datetime.timedelta(days = 1)
         soon_barcamps = self.config.dbs.barcamps.find({
@@ -52,6 +44,24 @@ class IndexView(BaseHandler):
             my_barcamps = my_barcamps,
         )
     post = get
+
+class LoginSuccess(IndexView):
+    """login success screen with eventual redirect to came_from"""
+
+    def get(self):
+        """render the login success view"""
+
+        # do we have a came_from situation? only process when coming via login
+        if self.session.has_key("came_from"):
+            url = self.session['came_from']
+            del self.session['came_from']
+    
+            return redirect(url)
+
+        return super(LoginSuccess, self).get()
+
+
+
 
 class Impressum(BaseHandler):
     """show the impressum"""
