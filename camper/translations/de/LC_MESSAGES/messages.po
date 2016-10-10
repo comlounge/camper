@@ -816,7 +816,8 @@ msgstr ""
 msgid ""
 "In order to finish your registration you have to activate your account. "
 "Please check your email."
-msgstr ""
+msgstr "Um Deine Registrierung abzuschliessen, musst Du Dein Konto noch aktivieren. "
+"Bitte schaue dazu in Deine E-Mail."
 
 #: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:27
 #: static/templates/room-modal.hbs:15
@@ -1156,7 +1157,7 @@ msgid ""
 "will not be shared with other barcamps."
 msgstr ""
 "Das Barcamp braucht noch folgende Daten von Dir, um die Registrierungs "
-"abzuschliessen.Diese Daten werden nicht an andere Barcamps weitergegeben."
+"abzuschliessen. Diese Daten werden nicht an andere Barcamps weitergegeben."
 
 #: barcamps/templates/registration_wizard.html:88
 msgid "Select events you want to attend"
@@ -1176,11 +1177,11 @@ msgstr "keine Plätze mehr frei. Du wirst auf die Warteliste gesetzt."
 
 #: barcamps/templates/registration_wizard.html:142
 msgid "Register for this barcamp"
-msgstr "Registrieren für %s"
+msgstr "Für das Barcamp registrieren"
 
 #: barcamps/templates/sessionpad.html:16
 msgid "by"
-msgstr ""
+msgstr "von"
 
 #: barcamps/templates/sessionpad.html:21
 msgid "Documentation"
@@ -2286,10 +2287,9 @@ msgstr ""
 msgid ""
 "Your account has been successfully activated and you have been registered"
 " for the barcamp"
-msgstr ""
+msgstr "Dein Konto wurde erfolgreich aktiviert und damit ist Deine Barcamp-Registrierung abgeschlossen."
 
 #: handlers/users/activation.py:58
-#, fuzzy
 msgid "Your account has been successfully activated."
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
