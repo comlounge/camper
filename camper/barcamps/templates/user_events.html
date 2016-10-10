@@ -13,7 +13,7 @@
                     {% if logged_in and not has_form %}
                     <div class="actions pull-right">
                         <button data-status="going" 
-                                title="{{_('Register')}}" class="btn btn-sm btn-primary btn-join">{{_('Register')}}</button>
+                                title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
                         <button data-status="going"
                                 title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
                         <button data-status="maybe"
@@ -39,7 +39,7 @@
                     {% if logged_in and has_form and has_form_data %}
                     <div class="actions pull-right">
                         <button data-status="going" 
-                                title="{{_('Register')}}" class="btn btn-sm btn-primary btn-join">{{_('Register')}}</button>
+                                title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
                         <button data-status="going"
                                 title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
                         <button data-status="maybe"
@@ -63,10 +63,12 @@
 
                     {% endif %}
                     {% if logged_in and has_form and not has_form_data %}
-                        <div class="participation-details event" data-id="{{event._id}}" id="e-{{event._id}}">
-                            <a href="{{url_for(".registration_form", slug = slug)}}"
-                                class="btn btn-sm btn-primary pull-right"
-                                title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Register')}}</a>
+
+                        <div class="participation-details event hide" data-id="{{event._id}}" id="e-{{event._id}}">
+                            <a title="{{_('Click here to participate in the barcamp')}}" 
+                                href="{{url_for('barcamps.wizard', slug=slug)}}" class="pull-right btn btn-sm btn-primary">
+                                <i class="fa fa-check"></i>
+                                {{_('Register')}}</a>
                         </div>
                     {% endif %}
 
