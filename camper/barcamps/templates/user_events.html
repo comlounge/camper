@@ -115,7 +115,7 @@
 {% endblock %}
 
 {% block widgets %}
-    {{share_buttons()}}
+    {{ super() }}
     {% if logged_in and has_form and has_form_data %}
     <div id="my-actions" class="panel panel-default">
         <div class="panel-heading">

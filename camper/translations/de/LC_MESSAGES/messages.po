@@ -1134,8 +1134,8 @@ msgstr "Einloggen"
 msgid ""
 "This email is already taken. Please <a href=\"/users/login\">login</a> to"
 " continue the registration process"
-msgstr "Diese E-Mail ist schon vergeben. Wahrscheinlich hast Du schon einen Account"
-"auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich mit diesem ein</a>"
+msgstr "Diese E-Mail ist schon vergeben. Wahrscheinlich hast Du schon einen Account "
+"auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich mit diesem ein</a> "
 "und schliesse damit die Registrierung ab."
 
 #: barcamps/templates/registration_wizard.html:57
