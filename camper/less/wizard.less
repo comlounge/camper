@@ -1,0 +1,63 @@
+#registration-wizard {
+    fieldset {
+        background: #f2f3f0;
+        margin-bottom: 20px;
+        .fs-content {
+            padding: 10px 20px;
+        }
+        legend {
+            background: darken(#f2f3f0, 10%);
+            padding: 10px 20px;
+        }
+        .checkbox {
+            input {
+                -webkit-appearance:none;
+                -moz-appearance:none;
+                -ms-appearance:none;
+                width:30px;
+                height:30px;
+                background:white;
+                border-radius:0px;
+                border:2px solid #555;
+            }
+            input[type='checkbox']:checked {
+
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 20px;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                transform: translate(0, 0);
+                padding-left: 3px;
+                padding-top: 3px;
+                background: #303030;
+                color: #f0f0f0;
+                &:before { content: "\f00c"; }
+            }
+            label {
+                width: 80%;
+                margin-right: 30px;
+            }
+            article {
+                width: 100%;
+                margin-left: 30px;
+                .text-danger {
+                    color: white;
+                    .hidden-sm;
+                    .hidden-xs;
+                }
+                .progress {
+                    height: 10px;
+                }
+                @media (min-width: @screen-md-min) {
+                    .progress { height: 30px; }
+                    .progress-bar {
+                        padding-top: 4px;
+                    }
+                }
+            }
+        }
+        
+    }
+}

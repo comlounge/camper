@@ -180,7 +180,8 @@ module.exports = function(grunt) {
     grunt.registerTask('hbs', ['handlebars']);
     grunt.registerTask('js', ['cjsx', 'uglify:public', 'uglify:admin']);
     grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify', 'concat']);
-    grunt.registerTask('css', ['less', 'uglify']);
+    //grunt.registerTask('css', ['less', 'uglify']);
+    grunt.registerTask('css', ['less']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
 };
