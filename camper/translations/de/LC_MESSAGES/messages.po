@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2016-10-06 11:29+0200\n"
+"POT-Creation-Date: 2016-10-10 16:31+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -62,13 +62,14 @@ msgstr "Die Benutzerregistrierung war erfolgreich."
 msgid "Your account has been activated"
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: app.py:261
-#, python-format
+#: app.py:261 handlers/users/activation.py:63
+#, fuzzy, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
-"href=\"%(url)s\">here</a> to get a new one.""
-msgstr "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder klicke"
-"<a href=\"%(usrl)s\">hier</a>, um einen neuen Code zu erhalten."
+"href=\"%(url)s\">here</a> to get a new one."
+msgstr ""
+"Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder "
+"klicke<a href=\"%(url)s\">hier</a>, um einen neuen Code zu erhalten."
 
 #: app.py:262
 msgid "A new activation code has been sent out, please check your email"
@@ -130,7 +131,7 @@ msgstr "Bitte logge Dich zunächst ein!"
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:391 base.py:586
+#: base.py:391 base.py:588
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -142,11 +143,11 @@ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 msgid "Not a valid date value"
 msgstr "kein gültiger Wert"
 
-#: login.py:20 barcamps/templates/registration_wizard.html:24
+#: login.py:20 barcamps/templates/registration_wizard.html:36
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: login.py:21 barcamps/templates/registration_wizard.html:38
+#: login.py:21 barcamps/templates/registration_wizard.html:50
 msgid "Password"
 msgstr "Passwort"
 
@@ -304,27 +305,27 @@ msgstr "%s wurde angelegt."
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
-#: barcamps/base.py:58 templates/master.html:70
+#: barcamps/base.py:53 templates/master.html:69
 msgid "Home"
 msgstr "Startseite"
 
-#: barcamps/base.py:60
+#: barcamps/base.py:55
 msgid "session proposals"
 msgstr "Sessionvorschläge"
 
-#: barcamps/base.py:63
+#: barcamps/base.py:58
 msgid "events"
 msgstr "Veranstaltungen"
 
-#: barcamps/base.py:65
+#: barcamps/base.py:60
 msgid "planning"
 msgstr "Planung"
 
-#: barcamps/base.py:67 barcamps/design.py:37 templates/master.html:81
+#: barcamps/base.py:62 barcamps/design.py:37 templates/master.html:80
 msgid "Blog"
 msgstr "Blog"
 
-#: barcamps/base.py:73 barcamps/base.py:75 barcamps/base.py:77
+#: barcamps/base.py:68 barcamps/base.py:70 barcamps/base.py:72
 msgid "Twitterwall"
 msgstr "Twitterwall"
 
@@ -755,40 +756,40 @@ msgstr "Du kannst diese Aktion nicht durchführen."
 msgid "camper: new barcamp created"
 msgstr "camper: neues Barcamp angelegt"
 
-#: barcamps/permissions.py:83
+#: barcamps/permissions.py:78
 msgid "a user with this email address wasn't found in our database."
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: barcamps/permissions.py:90
+#: barcamps/permissions.py:85
 #, python-format
 msgid "%s is not an administrator for this barcamp."
 msgstr "%s is kein Administrator für dieses Barcamp"
 
-#: barcamps/permissions.py:100
+#: barcamps/permissions.py:95
 msgid "you cannot remove admin rights from the creator of this barcamp."
 msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
 
-#: barcamps/permissions.py:103
+#: barcamps/permissions.py:98
 msgid "you at least need to have one administrator."
 msgstr "Es wird mindestens ein Administrator benötigt."
 
-#: barcamps/permissions.py:108
+#: barcamps/permissions.py:103
 msgid "Administrator deleted."
 msgstr "Admin gelöscht."
 
-#: barcamps/registration.py:28
+#: barcamps/registration.py:30
 msgid "You are not allowed to change this."
 msgstr "Du hast nicht die erforderlichen Rechte, um dies zu ändern."
 
-#: barcamps/registration.py:32
+#: barcamps/registration.py:34
 msgid "You are now on the list of people interested in the barcamp"
 msgstr "Du bist nun auf der Liste der Barcamp-Interessenten."
 
-#: barcamps/registration.py:36
+#: barcamps/registration.py:38
 msgid "You have been removed from the list of people interested in this barcamp"
 msgstr "Du wurdest erfolgreich von der Liste der Barcamp-Interessenten entfernt"
 
-#: barcamps/registration.py:38
+#: barcamps/registration.py:40
 #, python-format
 msgid ""
 "%(fullname)s has been removed from the list of people interested in this "
@@ -797,9 +798,25 @@ msgstr ""
 "%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
 "entfernt."
 
-#: barcamps/registration.py:208
+#: barcamps/registration.py:180
 msgid "Your information was updated"
 msgstr "Deine Informationen wurden aktualisiert"
+
+#: barcamps/registrationwizard.py:155
+msgid ""
+"Unfortunately an error occurred when trying to register you. Please try "
+"again or contact the barcamptools administrator."
+msgstr ""
+
+#: barcamps/registrationwizard.py:159
+msgid "You have been successfully registered. Please check your email."
+msgstr ""
+
+#: barcamps/registrationwizard.py:162
+msgid ""
+"In order to finish your registration you have to activate your account. "
+"Please check your email."
+msgstr ""
 
 #: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:27
 #: static/templates/room-modal.hbs:15
@@ -843,7 +860,7 @@ msgstr "Blog-Artikel über das Barcamp"
 #: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:63
 #: barcamps/templates/sessions.html:90
 #: barcamps/templates/admin/participants_data_edit.html:39
-#: static/templates/sessiontest.hbs:19 templates/master.html:53
+#: static/templates/sessiontest.hbs:19 templates/master.html:52
 msgid "Are you sure?"
 msgstr "Bist Du sicher? (wirklich?)"
 
@@ -908,7 +925,7 @@ msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 #: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:60
 #: barcamps/templates/user_event.html:90 barcamps/templates/user_events.html:16
 #: barcamps/templates/user_events.html:42
-#: barcamps/templates/user_events.html:69 templates/master.html:97
+#: barcamps/templates/user_events.html:69 templates/master.html:96
 #: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr "Registrieren"
@@ -1005,6 +1022,7 @@ msgstr ""
 "willst"
 
 #: barcamps/templates/registration.html:42
+#: barcamps/templates/registration_wizard.html:116
 #: barcamps/templates/user_events.html:93
 #: barcamps/templates/admin/dashboard.html:36
 msgid "participants"
@@ -1071,53 +1089,92 @@ msgid "Not Going"
 msgstr "Ich gehe nicht"
 
 #: barcamps/templates/registration_wizard.html:7
-#, fuzzy
 msgid "Registration"
-msgstr "Voranmeldung"
-
-#: barcamps/templates/registration_wizard.html:20
-msgid "Account data"
-msgstr ""
+msgstr "Registrierung"
 
 #: barcamps/templates/registration_wizard.html:21
-msgid ""
-"In order to register for a barcamp you need to create an account on "
-"barcamptools.eu below. The email you provide here will not be shared with"
-" the barcamp (thus you might need to provide it again below)."
-msgstr ""
+msgid "Create barcamptools.eu Account"
+msgstr "Erstelle ein barcamptools.eu-Konto"
 
-#: barcamps/templates/registration_wizard.html:30
+#: barcamps/templates/registration_wizard.html:24
+msgid ""
+"This barcamp is hosted on barcamptools.eu. It is an online platform for "
+"managing barcamps which comes free of charge. Because of that we ask you "
+"to provide the account data below and we will create an account for you. "
+"That way you can later manage your barcamp registration or use "
+"interactive features during the barcamp."
+msgstr ""
+"Dieses Barcamp wird auf barcamptools.eu gehostet, einer Online-Plattform"
+"zur Verwaltung von Barcamps. Aus diesem Grund wird für Dich"
+"bei der Barcamp-Registrierung ein Konto angelegt. Dieses Konto kostet Dich"
+"nichts, erlaubt es Dir aber, Deine Teilnahme zu verwalten oder aber die"
+"interaktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team zu
+"erhalten."
+
+#: barcamps/templates/registration_wizard.html:27
+msgid "The email you provide here will not be shared with any barcamps."
+msgstr ""
+"Die E-Mail-Adresse, die Du hier angibst, wird niemals an Barcamps "
+"weitergegeben."
+
+
+#: barcamps/templates/registration_wizard.html:27
+msgid "The email you provide here will not be shared with any barcamps."
+msgstr "Diese E-Mail-Adresse wird niemals an Barcamps-Organisatoren weitergegeben."
+
+#: barcamps/templates/registration_wizard.html:31
+msgid "If you already have a barcamptools.eu account please login."
+msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
+
+#: barcamps/templates/registration_wizard.html:32 templates/master.html:95
+msgid "Login"
+msgstr "Einloggen"
+
+#: barcamps/templates/registration_wizard.html:42
 msgid ""
 "This email is already taken. Please <a href=\"/users/login\">login</a> to"
 " continue the registration process"
-msgstr ""
+msgstr "Diese E-Mail ist schon vergeben. Wahrscheinlich hast Du schon einen Account"
+"auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich mit diesem ein</a>"
+"und schliesse damit die Registrierung ab."
 
-#: barcamps/templates/registration_wizard.html:45
+#: barcamps/templates/registration_wizard.html:57
 msgid "Repeat your password"
+msgstr "Wiederhole Dein Passwort"
+
+#: barcamps/templates/registration_wizard.html:63 handlers/users/edit.py:29
+msgid "Fullname"
+msgstr "Voller Name"
+
+#: barcamps/templates/registration_wizard.html:76
+msgid "Provide barcamp specific data"
+msgstr "Barcamp-spezifische Angaben"
+
+#: barcamps/templates/registration_wizard.html:79
+msgid ""
+"The barcamp administrator asks you to provide the following data. This "
+"will not be shared with other barcamps."
 msgstr ""
+"Das Barcamp braucht noch folgende Daten von Dir, um die Registrierungs "
+"abzuschliessen.Diese Daten werden nicht an andere Barcamps weitergegeben."
 
-#: barcamps/templates/registration_wizard.html:68
-#, fuzzy
-msgid "Events to register for"
-msgstr "Registrierung"
+#: barcamps/templates/registration_wizard.html:88
+msgid "Select events you want to attend"
+msgstr "Veranstaltungen, die Du besuchen willst"
 
-#: barcamps/templates/registration_wizard.html:69
+#: barcamps/templates/registration_wizard.html:90
 msgid ""
 "Please select which event of the barcamp you would like to register for. "
 "You can change this later."
 msgstr ""
+"Bitte wähle die Veranstaltungen aus, die Du besuchen willst. Du "
+"kannstdies später noch ändern."
 
-#: barcamps/templates/registration_wizard.html:82
+#: barcamps/templates/registration_wizard.html:127
 msgid "no places left. You will be added to the waiting list."
-msgstr ""
+msgstr "keine Plätze mehr frei. Du wirst auf die Warteliste gesetzt."
 
-#: barcamps/templates/registration_wizard.html:84
-#, python-format
-msgid "%s places left"
-msgstr ""
-
-#: barcamps/templates/registration_wizard.html:91
-#, fuzzy, python-format
+#: barcamps/templates/registration_wizard.html:142
 msgid "Register for this barcamp"
 msgstr "Registrieren für %s"
 
@@ -2213,9 +2270,28 @@ msgstr "Deine Sponsor-Anfrage wurde an YouthPart weitergeleitet"
 msgid "file '%s' has been deleted"
 msgstr "Die Datei '%s' wurde erfolgreich gelöscht"
 
-#: handlers/users/edit.py:29
-msgid "Fullname"
-msgstr "Voller Name"
+#: handlers/users/activation.py:42
+msgid ""
+"Unfortunately we couldn't find the barcamp you tried to register for. "
+"Please search for it on the homepage and register again"
+msgstr ""
+
+#: handlers/users/activation.py:53
+msgid ""
+"We could not register you for all selected events. Please check your "
+"email and the events page"
+msgstr ""
+
+#: handlers/users/activation.py:55
+msgid ""
+"Your account has been successfully activated and you have been registered"
+" for the barcamp"
+msgstr ""
+
+#: handlers/users/activation.py:58
+#, fuzzy
+msgid "Your account has been successfully activated."
+msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
 #: handlers/users/edit.py:30
 msgid "url name (username)"
@@ -2565,27 +2641,23 @@ msgstr "Dieses Feld muss angegeben werden"
 msgid "Really Delete?"
 msgstr "Wirklich löschen?"
 
-#: templates/master.html:82
+#: templates/master.html:81
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
-#: templates/master.html:92
+#: templates/master.html:91
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
-#: templates/master.html:96
-msgid "Login"
-msgstr "Einloggen"
-
-#: templates/master.html:102
+#: templates/master.html:101
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:103 templates/users/profile.html:45
+#: templates/master.html:102 templates/users/profile.html:45
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: templates/master.html:104
+#: templates/master.html:103
 msgid "Log out"
 msgstr "Ausloggen"
 
@@ -2841,9 +2913,6 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "In order to mark your interest in this barcamp you first have to"
 #~ msgstr ""
-#~ "Um Dich als InteressentIn für dieses "
-#~ "Barcamp zu registrieren, musst Du Dich"
-#~ " zunächst im System"
 
 #~ msgid "register"
 #~ msgstr "registrieren"
@@ -2851,12 +2920,18 @@ msgstr "Profil bearbeiten"
 #~ msgid "or"
 #~ msgstr "oder"
 
-#~ msgid ""
-#~ "on the site itself and then come"
-#~ " back to this barcamp to mark "
-#~ "your interest."
+#~ msgid "Events to register for"
+#~ msgstr "Registrierung"
+
+#~ msgid "%s places left"
 #~ msgstr ""
-#~ "und dann zu diesem Barcamp zurückkommen,"
-#~ " um Dich speziell für dieses "
-#~ "anzumelden."
+
+#~ msgid "Account data"
+#~ msgstr ""
+
+#~ msgid "Barcamp specific data"
+#~ msgstr ""
+
+#~ msgid "Select events to attend"
+#~ msgstr ""
 
