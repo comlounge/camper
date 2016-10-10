@@ -18,11 +18,17 @@
 
         {% if not logged_in %}
             <fieldset>
-                <legend>{{_('Account data')}}</legend>
+                <legend>{{_('Create barcamptools.eu Account')}}</legend>
                 <div class="fs-content">
-                    <div class="help-block">{{_('In order to register for a barcamp you need to create an account on barcamptools.eu below. The email you provide here will not be shared with the barcamp (thus you might need to provide it again below).')}}</div>
+                    <div class="help-block">
+                        {{_('This barcamp is hosted on barcamptools.eu. It is an online platform for managing barcamps which comes free of charge. Because of that we ask you to provide the account data below and we will create an account for you. That way you can later manage your barcamp registration or use interactive features during the barcamp.')}}
+                    </div>
+                    <div class="help-block">
+                    {{_('The email you provide here will not be shared with any barcamps.')}}
+                    </div>
 
-                    <div class="help-block">{{_('If you already have a barcamptools account please login.')}}
+                    <div class="help-block">
+                        {{_('If you already have a barcamptools.eu account please login.')}}
                         <a href="{{url_for('.tologin', slug=slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
                     </div>
 
@@ -67,7 +73,7 @@
 
         {% if registration_form %}
             <fieldset>
-                <legend>{{_('Barcamp specific data')}}</legend>
+                <legend>{{_('Provide barcamp specific data')}}</legend>
                 <div class="fs-content">
 
                     <div class="help-block">{{_("The barcamp administrator asks you to provide the following data. This will not be shared with other barcamps.")}}</div>
@@ -79,7 +85,7 @@
         {% endif %}
 
             <fieldset>
-                <legend>{{_('Select events to attend')}}</legend>
+                <legend>{{_('Select events you want to attend')}}</legend>
                 <div class="fs-content">
                     <div class="help-block">{{_('Please select which event of the barcamp you would like to register for. You can change this later.')}}</div>
                     <div class="form-group">
@@ -120,8 +126,6 @@
                                                                 {% if left <1 %}
                                                                     <span class="text-danger">{{_('no places left. You will be added to the waiting list.')}}</span>
                                                                 {% endif %}
-
-
                                                         </div>
                                                     </div>
                                                 </div>{# panel-heading #}
