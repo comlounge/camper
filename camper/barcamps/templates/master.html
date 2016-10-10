@@ -19,7 +19,7 @@
             {% if barcamp.workflow == "registration" %}
                 <div>
                     <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                    href="{{url_for('barcamps.user_events', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
+                    href="{{url_for('barcamps.wizard', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
                     <i class="fa fa-check"></i>
                     {{_('Register')}}</a>
                 </div>
