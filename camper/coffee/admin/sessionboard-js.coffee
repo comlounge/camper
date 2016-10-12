@@ -358,6 +358,7 @@ do ( $ = jQuery, window, document ) ->
 
             event.preventDefault()
             fd = $("#edit-session-form").serializeObject()
+            console.log fd
             if not fd.session_idx
                 alert("An error occurred, please reload the page")
             session = 
@@ -366,6 +367,7 @@ do ( $ = jQuery, window, document ) ->
                 _id: fd.session_idx
                 title: fd.title
                 description: fd.description
+                interested: fd.interested
                 moderator: fd.moderator
             @data.sessions[fd.session_idx] = session
             @update()
