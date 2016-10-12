@@ -1,0 +1,12 @@
+Hi {{user.fullname}},
+
+{{new_user.fullname}} has registered for {{event.name}} of {{barcamp.name}}.
+
+Participants: {{event.participants|length}}/{{event.size}}
+Waiting List: {{event.waiting_list|length}}
+Barcamp: {{url}}
+
+--
+This email has been automatically created by barcamptools.eu, please do not reply.
+
+If you want to disable these notifications, please visit {{notification_url}}

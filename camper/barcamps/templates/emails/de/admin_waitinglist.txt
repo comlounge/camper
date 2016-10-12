@@ -1,0 +1,11 @@
+Hallo {{user.fullname}},
+
+{{new_user.fullname}} wurde bei {{event.name}} vom {{barcamp.name}} auf die Warteliste gesetzt.
+
+Teilnehmende: {{event.participants|length}}/{{event.size}}
+Warteliste: {{event.waiting_list|length}}
+Barcamp: {{url}}
+
+--
+Diese E-Mail wurde automatisch generiert, bitte antworte nicht darauf.
+Du kannst diese Benachrichtigungen hier abstellen: {{notification_url}}
