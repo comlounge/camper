@@ -1,24 +1,24 @@
 # Translations template for PROJECT.
-# Copyright (C) 2015 ORGANIZATION
+# Copyright (C) 2016 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2015.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2015-11-23 12:42+0100\n"
+"POT-Creation-Date: 2016-10-12 12:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 1.3\n"
+"Generated-By: Babel 2.1.1\n"
 
 #: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
-#: static/templates/sessiontest.hbs:73
+#: static/templates/sessiontest.hbs:76
 msgid "Add new room"
 msgstr ""
 
@@ -42,11 +42,11 @@ msgstr ""
 msgid "e.g. beamer available"
 msgstr ""
 
-#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
+#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:63
 msgid "Update"
 msgstr ""
 
-#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:49
+#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:64
 #: static/templates/timeslot-modal.hbs:35
 msgid "Close"
 msgstr ""
@@ -71,6 +71,14 @@ msgstr ""
 msgid "Speaker / Moderator"
 msgstr ""
 
+#: static/templates/session-modal.hbs:44
+msgid "Please press enter after entering a name to make it permanent"
+msgstr ""
+
+#: static/templates/session-modal.hbs:48
+msgid "How many people are interested in this session?"
+msgstr ""
+
 #: static/templates/sessiontest.hbs:19
 msgid "Are you sure?"
 msgstr ""
@@ -87,24 +95,24 @@ msgstr ""
 msgid "persons"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:38
+#: static/templates/sessiontest.hbs:37
 msgid "delete timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:54
+#: static/templates/sessiontest.hbs:57
 msgid "Edit"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:68 static/templates/timeslot-modal.hbs:7
+#: static/templates/sessiontest.hbs:71 static/templates/timeslot-modal.hbs:7
 #: static/templates/timeslot-modal.hbs:34
 msgid "Add new timeslot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:71
+#: static/templates/sessiontest.hbs:74
 msgid "Add new time slot"
 msgstr ""
 
-#: static/templates/sessiontest.hbs:74
+#: static/templates/sessiontest.hbs:77
 msgid "Add new Room"
 msgstr ""
 

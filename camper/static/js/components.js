@@ -1797,6 +1797,11 @@
 
 }(window.jQuery));
 
+/*
+ * bootstrap-tagsinput v0.8.0
+ * 
+ */
+
 (function ($) {
   "use strict";
 
@@ -1804,6 +1809,7 @@
     tagClass: function(item) {
       return 'label label-info';
     },
+    focusClass: 'focus',
     itemValue: function(item) {
       return item ? item.toString() : item;
     },
@@ -1818,17 +1824,22 @@
     maxTags: undefined,
     maxChars: undefined,
     confirmKeys: [13, 44],
+    delimiter: ',',
+    delimiterRegex: null,
+    cancelConfirmKeysOnEmpty: false,
     onTagExists: function(item, $tag) {
       $tag.hide().fadeIn();
     },
     trimValue: false,
-    allowDuplicates: false
+    allowDuplicates: false,
+    triggerChange: true
   };
 
   /**
    * Constructor function
    */
   function TagsInput(element, options) {
+    this.isInit = true;
     this.itemsArray = [];
 
     this.$element = $(element);
@@ -1846,6 +1857,7 @@
     this.$element.before(this.$container);
 
     this.build(options);
+    this.isInit = false;
   }
 
   TagsInput.prototype = {
@@ -1883,14 +1895,15 @@
         self.remove(self.itemsArray[0]);
 
       if (typeof item === "string" && this.$element[0].tagName === 'INPUT') {
-        var items = item.split(',');
+        var delimiter = (self.options.delimiterRegex) ? self.options.delimiterRegex : self.options.delimiter;
+        var items = item.split(delimiter);
         if (items.length > 1) {
           for (var i = 0; i < items.length; i++) {
             this.add(items[i], true);
           }
 
           if (!dontPushVal)
-            self.pushVal();
+            self.pushVal(self.options.triggerChange);
           return;
         }
       }
@@ -1931,8 +1944,14 @@
       self.findInputWrapper().before($tag);
       $tag.after(' ');
 
+      // Check to see if the tag exists in its raw or uri-encoded form
+      var optionExists = (
+        $('option[value="' + encodeURIComponent(itemValue) + '"]', self.$element).length ||
+        $('option[value="' + htmlEncode(itemValue) + '"]', self.$element).length
+      );
+
       // add <option /> if item represents a value not present in one of the <select />'s options
-      if (self.isSelect && !$('option[value="' + encodeURIComponent(itemValue) + '"]',self.$element)[0]) {
+      if (self.isSelect && !optionExists) {
         var $option = $('<option selected>' + htmlEncode(itemText) + '</option>');
         $option.data('item', item);
         $option.attr('value', itemValue);
@@ -1940,13 +1959,22 @@
       }
 
       if (!dontPushVal)
-        self.pushVal();
+        self.pushVal(self.options.triggerChange);
 
       // Add class when reached maxTags
       if (self.options.maxTags === self.itemsArray.length || self.items().toString().length === self.options.maxInputLength)
         self.$container.addClass('bootstrap-tagsinput-max');
 
-      self.$element.trigger($.Event('itemAdded', { item: item, options: options }));
+      // If using typeahead, once the tag has been added, clear the typeahead value so it does not stick around in the input.
+      if ($('.typeahead, .twitter-typeahead', self.$container).length) {
+        self.$input.typeahead('val', '');
+      }
+
+      if (this.isInit) {
+        self.$element.trigger($.Event('itemAddedOnInit', { item: item, options: options }));
+      } else {
+        self.$element.trigger($.Event('itemAdded', { item: item, options: options }));
+      }
     },
 
     /**
@@ -1978,7 +2006,7 @@
       }
 
       if (!dontPushVal)
-        self.pushVal();
+        self.pushVal(self.options.triggerChange);
 
       // Remove class when reached maxTags
       if (self.options.maxTags > self.itemsArray.length)
@@ -1999,7 +2027,7 @@
       while(self.itemsArray.length > 0)
         self.itemsArray.pop();
 
-      self.pushVal();
+      self.pushVal(self.options.triggerChange);
     },
 
     /**
@@ -2046,7 +2074,10 @@
             return self.options.itemValue(item).toString();
           });
 
-      self.$element.val(val, true).trigger('change');
+      self.$element.val(val, true);
+
+      if (self.options.triggerChange)
+        self.$element.trigger('change');
     },
 
     /**
@@ -2157,6 +2188,15 @@
           }, self));
         }
 
+      // Toggle the 'focus' css class on the container when it has focus
+      self.$container.on({
+        focusin: function() {
+          self.$container.addClass(self.options.focusClass);
+        },
+        focusout: function() {
+          self.$container.removeClass(self.options.focusClass);
+        },
+      });
 
       self.$container.on('keydown', 'input', $.proxy(function(event) {
         var $input = $(event.target),
@@ -2172,7 +2212,7 @@
           case 8:
             if (doGetCaretPosition($input[0]) === 0) {
               var prev = $inputWrapper.prev();
-              if (prev) {
+              if (prev.length) {
                 self.remove(prev.data('item'));
               }
             }
@@ -2182,7 +2222,7 @@
           case 46:
             if (doGetCaretPosition($input[0]) === 0) {
               var next = $inputWrapper.next();
-              if (next) {
+              if (next.length) {
                 self.remove(next.data('item'));
               }
             }
@@ -2228,9 +2268,16 @@
          var text = $input.val(),
          maxLengthReached = self.options.maxChars && text.length >= self.options.maxChars;
          if (self.options.freeInput && (keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
-            self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
-            $input.val('');
-            event.preventDefault();
+            // Only attempt to add a tag if there is data in the field
+            if (text.length !== 0) {
+               self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
+               $input.val('');
+            }
+
+            // If the field is empty, let the event triggered fire as usual
+            if (self.options.cancelConfirmKeysOnEmpty === false) {
+                event.preventDefault();
+            }
          }
 
          // Reset internal input's size
@@ -2434,7 +2481,7 @@
 })(window.jQuery);
 
 /*!
- * datepair.js v0.4.14 - A javascript plugin for intelligently selecting date and time ranges inspired by Google Calendar.
+ * datepair.js v0.4.9 - A javascript plugin for intelligently selecting date and time ranges inspired by Google Calendar.
  * Copyright (c) 2015 Jon Thornton - http://jonthornton.github.com/Datepair.js
  * License: MIT
  */
@@ -2444,14 +2491,14 @@
 	'use strict';
 
 	var _ONE_DAY = 86400000;
-	var jq = window.Zepto || window.jQuery;
+	var jq = window.Zepto || window.jQuery
 	
 	function simpleExtend(obj1, obj2) {
 		var out = obj2 || {};
 	
 		for (var i in obj1) {
 			if (!(i in out)) {
-				out[i] = obj1[i];
+				out[i] = obj1[i]
 			}
 		}
 	
@@ -2521,7 +2568,8 @@
 		this.endTimeInput = this.container.querySelector('.'+this.settings.endClass+'.'+this.settings.timeClass);
 	
 		// initialize date and time deltas
-		this.refresh();
+		this.refresh()
+		this._updateEndMintime();
 	
 		// init starts here
 		this._bindChangeHandler();
@@ -2551,7 +2599,7 @@
 			// time-only pair will always be >= 0
 			var delta = this.dateDelta + this.timeDelta;
 			if (delta < 0 && (!this.startDateInput || !this.endDateInput) ) {
-				delta += _ONE_DAY;
+				delta += _ONE_DAY
 			}
 	
 			return delta;
@@ -2571,14 +2619,13 @@
 				var endTime = this.settings.parseTime(this.endTimeInput);
 				if (startTime && endTime) {
 					this.timeDelta = endTime.getTime() - startTime.getTime();
-					this._updateEndMintime();
 				}
 			}
 		},
 	
 		remove: function()
 		{
-			this._unbindChangeHandler();
+			this._unbindChangeHandler()
 		},
 	
 		_bindChangeHandler: function(){
@@ -2609,7 +2656,6 @@
 			if (hasClass(e.target, this.settings.dateClass)) {
 				if (e.target.value != '') {
 					this._dateChanged(e.target);
-					this._timeChanged(e.target);
 				} else {
 					this.dateDelta = null;
 				}
@@ -2623,13 +2669,13 @@
 			}
 	
 			this._validateRanges();
-			this._updateEndMintime();
+			this._updateEndMintime()
 			this._bindChangeHandler();
 		},
 	
 		_dateChanged: function(target){
 			if (!this.startDateInput || !this.endDateInput) {
-				return;
+				return
 			}
 	
 			var startDate = this.settings.parseDate(this.startDateInput);
@@ -2674,7 +2720,7 @@
 	
 		_timeChanged: function(target){
 			if (!this.startTimeInput || !this.endTimeInput) {
-				return;
+				return
 			}
 	
 			var startTime = this.settings.parseTime(this.startTimeInput);
@@ -2702,44 +2748,12 @@
 				var newTime = new Date(startTime.getTime() + this.timeDelta);
 				this.settings.updateTime(this.endTimeInput, newTime);
 				endTime = this.settings.parseTime(this.endTimeInput);
-	
-				this._doMidnightRollover(startTime, endTime);
 			} else if (this.settings.anchor == 'end' && hasClass(target, this.settings.endClass)) {
 				var newTime = new Date(endTime.getTime() - this.timeDelta);
 				this.settings.updateTime(this.startTimeInput, newTime);
 				startTime = this.settings.parseTime(this.startTimeInput);
-	
-				this._doMidnightRollover(startTime, endTime);
-			} else {
-				this._doMidnightRollover(startTime, endTime);
-	
-				var startDate, endDate;
-				if (this.startDateInput && this.endDateInput) {
-					startDate = this.settings.parseDate(this.startDateInput);
-					endDate = this.settings.parseDate(this.endDateInput);
-				}
-	
-				if ((+startDate == +endDate) && (endTime < startTime)) {
-					var thisInput  = hasClass(target, this.settings.endClass) ? this.endTimeInput : this.startTimeInput;
-					var otherInput = hasClass(target, this.settings.startClass) ? this.endTimeInput : this.startTimeInput;
-					var selectedTime = this.settings.parseTime(thisInput);
-					this.timeDelta = 0;
-					this.settings.updateTime(otherInput, selectedTime);
-				} else {
-					this.timeDelta = endTime.getTime() - startTime.getTime();
-				}
 			}
 	
-	
-		},
-	
-		_doMidnightRollover: function(startTime, endTime) {
-			if (!this.startDateInput || !this.endDateInput) {
-				return;
-			}
-	
-			var endDate = this.settings.parseDate(this.endDateInput);
-			var startDate = this.settings.parseDate(this.startDateInput);
 			var newDelta = endTime.getTime() - startTime.getTime();
 			var offset = (endTime < startTime) ? _ONE_DAY : -1 * _ONE_DAY;
 	
@@ -2750,9 +2764,11 @@
 					&& ((newDelta >= 0 && this.timeDelta < 0) || (newDelta < 0 && this.timeDelta >= 0))) {
 	
 				if (this.settings.anchor == 'start') {
+					var endDate = this.settings.parseDate(this.endDateInput);
 					this.settings.updateDate(this.endDateInput, new Date(endDate.getTime() + offset));
 					this._dateChanged(this.endDateInput);
 				} else if (this.settings.anchor == 'end') {
+					var startDate = this.settings.parseDate(this.startDateInput);
 					this.settings.updateDate(this.startDateInput, new Date(startDate.getTime() - offset));
 					this._dateChanged(this.startDateInput);
 				}
@@ -2789,13 +2805,13 @@
 				triggerSimpleCustomEvent(this.container, 'rangeError');
 			}
 		}
-	};
+	}
 
 	window.Datepair = Datepair;
 
 }(window, document));
 /*!
- * datepair.js v0.4.14 - A javascript plugin for intelligently selecting date and time ranges inspired by Google Calendar.
+ * datepair.js v0.4.9 - A javascript plugin for intelligently selecting date and time ranges inspired by Google Calendar.
  * Copyright (c) 2015 Jon Thornton - http://jonthornton.github.com/Datepair.js
  * License: MIT
  */
@@ -10141,13 +10157,8 @@ return /******/ (function(modules) { // webpackBootstrap
 A gettext compatible i18n library for modern JavaScript Applications
 
 by Alex Sexton - AlexSexton [at] gmail - @SlexAxton
-
-MIT License
-
-A jQuery Foundation project - requires CLA to contribute -
-https://contribute.jquery.org/CLA/
-
-
+WTFPL license for use
+Dojo CLA for contributions
 
 Jed offers the entire applicable GNU gettext spec'd set of
 functions, but also offers some nicer wrappers around them.
@@ -11151,7 +11162,7 @@ return parser;
   }
   else {
     if (typeof define === 'function' && define.amd) {
-      define(function() {
+      define('jed', function() {
         return Jed;
       });
     }
@@ -11163,13 +11174,13 @@ return parser;
 
 /**
  * speakingurl
- * @version v9.0.0
+ * @version v7.0.0
  * @link http://pid.github.io/speakingurl/
  * @license BSD
  * @author Sascha Droste
- */!function(e,a){"use strict";var n=function(e,a){var n,t,u,l,s,r,m,c,h,d,g,k,f,y,p,A="-",b=[";","?",":","@","&","=","+","$",",","/"],z=[";","?",":","@","&","=","+","$",","],E=[".","!","~","*","'","(",")"],j="",S="",O=!0,v={},w={"À":"A","Á":"A","Â":"A","Ã":"A","Ä":"Ae","Å":"A","Æ":"AE","Ç":"C","È":"E","É":"E","Ê":"E","Ë":"E","Ì":"I","Í":"I","Î":"I","Ï":"I","Ð":"D","Ñ":"N","Ò":"O","Ó":"O","Ô":"O","Õ":"O","Ö":"Oe","Ő":"O","Ø":"O","Ù":"U","Ú":"U","Û":"U","Ü":"Ue","Ű":"U","Ý":"Y","Þ":"TH","ß":"ss","à":"a","á":"a","â":"a","ã":"a","ä":"ae","å":"a","æ":"ae","ç":"c","è":"e","é":"e","ê":"e","ë":"e","ì":"i","í":"i","î":"i","ï":"i","ð":"d","ñ":"n","ò":"o","ó":"o","ô":"o","õ":"o","ö":"oe","ő":"o","ø":"o","ù":"u","ú":"u","û":"u","ü":"ue","ű":"u","ý":"y","þ":"th","ÿ":"y","ẞ":"SS","ا":"a","أ":"a","إ":"i","آ":"aa","ؤ":"u","ئ":"e","ء":"a","ب":"b","ت":"t","ث":"th","ج":"j","ح":"h","خ":"kh","د":"d","ذ":"th","ر":"r","ز":"z","س":"s","ش":"sh","ص":"s","ض":"dh","ط":"t","ظ":"z","ع":"a","غ":"gh","ف":"f","ق":"q","ك":"k","ل":"l","م":"m","ن":"n","ه":"h","و":"w","ي":"y","ى":"a","ة":"h","ﻻ":"la","ﻷ":"laa","ﻹ":"lai","ﻵ":"laa","َ":"a","ً":"an","ِ":"e","ٍ":"en","ُ":"u","ٌ":"on","ْ":"","٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","က":"k","ခ":"kh","ဂ":"g","ဃ":"ga","င":"ng","စ":"s","ဆ":"sa","ဇ":"z","စျ":"za","ည":"ny","ဋ":"t","ဌ":"ta","ဍ":"d","ဎ":"da","ဏ":"na","တ":"t","ထ":"ta","ဒ":"d","ဓ":"da","န":"n","ပ":"p","ဖ":"pa","ဗ":"b","ဘ":"ba","မ":"m","ယ":"y","ရ":"ya","လ":"l","ဝ":"w","သ":"th","ဟ":"h","ဠ":"la","အ":"a","ြ":"y","ျ":"ya","ွ":"w","ြွ":"yw","ျွ":"ywa","ှ":"h","ဧ":"e","၏":"-e","ဣ":"i","ဤ":"-i","ဉ":"u","ဦ":"-u","ဩ":"aw","သြော":"aw","ဪ":"aw","၀":"0","၁":"1","၂":"2","၃":"3","၄":"4","၅":"5","၆":"6","၇":"7","၈":"8","၉":"9","္":"","့":"","း":"","č":"c","ď":"d","ě":"e","ň":"n","ř":"r","š":"s","ť":"t","ů":"u","ž":"z","Č":"C","Ď":"D","Ě":"E","Ň":"N","Ř":"R","Š":"S","Ť":"T","Ů":"U","Ž":"Z","ހ":"h","ށ":"sh","ނ":"n","ރ":"r","ބ":"b","ޅ":"lh","ކ":"k","އ":"a","ވ":"v","މ":"m","ފ":"f","ދ":"dh","ތ":"th","ލ":"l","ގ":"g","ޏ":"gn","ސ":"s","ޑ":"d","ޒ":"z","ޓ":"t","ޔ":"y","ޕ":"p","ޖ":"j","ޗ":"ch","ޘ":"tt","ޙ":"hh","ޚ":"kh","ޛ":"th","ޜ":"z","ޝ":"sh","ޞ":"s","ޟ":"d","ޠ":"t","ޡ":"z","ޢ":"a","ޣ":"gh","ޤ":"q","ޥ":"w","ަ":"a","ާ":"aa","ި":"i","ީ":"ee","ު":"u","ޫ":"oo","ެ":"e","ޭ":"ey","ޮ":"o","ޯ":"oa","ް":"","α":"a","β":"v","γ":"g","δ":"d","ε":"e","ζ":"z","η":"i","θ":"th","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"ks","ο":"o","π":"p","ρ":"r","σ":"s","τ":"t","υ":"y","φ":"f","χ":"x","ψ":"ps","ω":"o","ά":"a","έ":"e","ί":"i","ό":"o","ύ":"y","ή":"i","ώ":"o","ς":"s","ϊ":"i","ΰ":"y","ϋ":"y","ΐ":"i","Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"I","Θ":"TH","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"KS","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"X","Ψ":"PS","Ω":"W","Ά":"A","Έ":"E","Ί":"I","Ό":"O","Ύ":"Y","Ή":"I","Ώ":"O","Ϊ":"I","Ϋ":"Y","ā":"a","ē":"e","ģ":"g","ī":"i","ķ":"k","ļ":"l","ņ":"n","ū":"u","Ā":"A","Ē":"E","Ģ":"G","Ī":"I","Ķ":"k","Ļ":"L","Ņ":"N","Ū":"U","Ќ":"Kj","ќ":"kj","Љ":"Lj","љ":"lj","Њ":"Nj","њ":"nj","Тс":"Ts","тс":"ts","ą":"a","ć":"c","ę":"e","ł":"l","ń":"n","ś":"s","ź":"z","ż":"z","Ą":"A","Ć":"C","Ę":"E","Ł":"L","Ń":"N","Ś":"S","Ź":"Z","Ż":"Z","Є":"Ye","І":"I","Ї":"Yi","Ґ":"G","є":"ye","і":"i","ї":"yi","ґ":"g","ă":"a","Ă":"A","ș":"s","Ș":"S","ț":"t","Ț":"T","ţ":"t","Ţ":"T","а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"zh","з":"z","и":"i","й":"i","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"c","ч":"ch","ш":"sh","щ":"sh","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","А":"A","Б":"B","В":"V","Г":"G","Д":"D","Е":"E","Ё":"Yo","Ж":"Zh","З":"Z","И":"I","Й":"I","К":"K","Л":"L","М":"M","Н":"N","О":"O","П":"P","Р":"R","С":"S","Т":"T","У":"U","Ф":"F","Х":"Kh","Ц":"C","Ч":"Ch","Ш":"Sh","Щ":"Sh","Ъ":"","Ы":"Y","Ь":"","Э":"E","Ю":"Yu","Я":"Ya","ђ":"dj","ј":"j","ћ":"c","џ":"dz","Ђ":"Dj","Ј":"j","Ћ":"C","Џ":"Dz","ľ":"l","ĺ":"l","ŕ":"r","Ľ":"L","Ĺ":"L","Ŕ":"R","ş":"s","Ş":"S","ı":"i","İ":"I","ğ":"g","Ğ":"G","ả":"a","Ả":"A","ẳ":"a","Ẳ":"A","ẩ":"a","Ẩ":"A","đ":"d","Đ":"D","ẹ":"e","Ẹ":"E","ẽ":"e","Ẽ":"E","ẻ":"e","Ẻ":"E","ế":"e","Ế":"E","ề":"e","Ề":"E","ệ":"e","Ệ":"E","ễ":"e","Ễ":"E","ể":"e","Ể":"E","ọ":"o","Ọ":"o","ố":"o","Ố":"O","ồ":"o","Ồ":"O","ổ":"o","Ổ":"O","ộ":"o","Ộ":"O","ỗ":"o","Ỗ":"O","ơ":"o","Ơ":"O","ớ":"o","Ớ":"O","ờ":"o","Ờ":"O","ợ":"o","Ợ":"O","ỡ":"o","Ỡ":"O","Ở":"o","ở":"o","ị":"i","Ị":"I","ĩ":"i","Ĩ":"I","ỉ":"i","Ỉ":"i","ủ":"u","Ủ":"U","ụ":"u","Ụ":"U","ũ":"u","Ũ":"U","ư":"u","Ư":"U","ứ":"u","Ứ":"U","ừ":"u","Ừ":"U","ự":"u","Ự":"U","ữ":"u","Ữ":"U","ử":"u","Ử":"ư","ỷ":"y","Ỷ":"y","ỳ":"y","Ỳ":"Y","ỵ":"y","Ỵ":"Y","ỹ":"y","Ỹ":"Y","ạ":"a","Ạ":"A","ấ":"a","Ấ":"A","ầ":"a","Ầ":"A","ậ":"a","Ậ":"A","ẫ":"a","Ẫ":"A","ắ":"a","Ắ":"A","ằ":"a","Ằ":"A","ặ":"a","Ặ":"A","ẵ":"a","Ẵ":"A","“":'"',"”":'"',"‘":"'","’":"'","∂":"d","ƒ":"f","™":"(TM)","©":"(C)","œ":"oe","Œ":"OE","®":"(R)","†":"+","℠":"(SM)","…":"...","˚":"o","º":"o","ª":"a","•":"*","၊":",","။":".",$:"USD","€":"EUR","₢":"BRN","₣":"FRF","£":"GBP","₤":"ITL","₦":"NGN","₧":"ESP","₩":"KRW","₪":"ILS","₫":"VND","₭":"LAK","₮":"MNT","₯":"GRD","₱":"ARS","₲":"PYG","₳":"ARA","₴":"UAH","₵":"GHS","¢":"cent","¥":"CNY","元":"CNY","円":"YEN","﷼":"IRR","₠":"EWE","฿":"THB","₨":"INR","₹":"INR","₰":"PF"},U=["်","ް"],C={"ာ":"a","ါ":"a","ေ":"e","ဲ":"e","ိ":"i","ီ":"i","ို":"o","ု":"u","ူ":"u","ေါင်":"aung","ော":"aw","ော်":"aw","ေါ":"aw","ေါ်":"aw","်":"်","က်":"et","ိုက်":"aik","ောက်":"auk","င်":"in","ိုင်":"aing","ောင်":"aung","စ်":"it","ည်":"i","တ်":"at","ိတ်":"eik","ုတ်":"ok","ွတ်":"ut","ေတ်":"it","ဒ်":"d","ိုဒ်":"ok","ုဒ်":"ait","န်":"an","ာန်":"an","ိန်":"ein","ုန်":"on","ွန်":"un","ပ်":"at","ိပ်":"eik","ုပ်":"ok","ွပ်":"ut","န်ုပ်":"nub","မ်":"an","ိမ်":"ein","ုမ်":"on","ွမ်":"un","ယ်":"e","ိုလ်":"ol","ဉ်":"in","ံ":"an","ိံ":"ein","ုံ":"on","ައް":"ah","ަށް":"ah"},I={en:{},az:{"ç":"c","ə":"e","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","Ç":"C","Ə":"E","Ğ":"G","İ":"I","Ö":"O","Ş":"S","Ü":"U"},cs:{"č":"c","ď":"d","ě":"e","ň":"n","ř":"r","š":"s","ť":"t","ů":"u","ž":"z","Č":"C","Ď":"D","Ě":"E","Ň":"N","Ř":"R","Š":"S","Ť":"T","Ů":"U","Ž":"Z"},fi:{"ä":"a","Ä":"A","ö":"o","Ö":"O"},hu:{"ä":"a","Ä":"A","ö":"o","Ö":"O","ü":"u","Ü":"U","ű":"u","Ű":"U"},lt:{"ą":"a","č":"c","ę":"e","ė":"e","į":"i","š":"s","ų":"u","ū":"u","ž":"z","Ą":"A","Č":"C","Ę":"E","Ė":"E","Į":"I","Š":"S","Ų":"U","Ū":"U"},lv:{"ā":"a","č":"c","ē":"e","ģ":"g","ī":"i","ķ":"k","ļ":"l","ņ":"n","š":"s","ū":"u","ž":"z","Ā":"A","Č":"C","Ē":"E","Ģ":"G","Ī":"i","Ķ":"k","Ļ":"L","Ņ":"N","Š":"S","Ū":"u","Ž":"Z"},pl:{"ą":"a","ć":"c","ę":"e","ł":"l","ń":"n","ó":"o","ś":"s","ź":"z","ż":"z","Ą":"A","Ć":"C","Ę":"e","Ł":"L","Ń":"N","Ó":"O","Ś":"S","Ź":"Z","Ż":"Z"},sk:{"ä":"a","Ä":"A"},sr:{"љ":"lj","њ":"nj","Љ":"Lj","Њ":"Nj","đ":"dj","Đ":"Dj"},tr:{"Ü":"U","Ö":"O","ü":"u","ö":"o"}},N={ar:{"∆":"delta","∞":"la-nihaya","♥":"hob","&":"wa","|":"aw","<":"aqal-men",">":"akbar-men","∑":"majmou","¤":"omla"},az:{},ca:{"∆":"delta","∞":"infinit","♥":"amor","&":"i","|":"o","<":"menys que",">":"mes que","∑":"suma dels","¤":"moneda"},cz:{"∆":"delta","∞":"nekonecno","♥":"laska","&":"a","|":"nebo","<":"mene jako",">":"vice jako","∑":"soucet","¤":"mena"},de:{"∆":"delta","∞":"unendlich","♥":"Liebe","&":"und","|":"oder","<":"kleiner als",">":"groesser als","∑":"Summe von","¤":"Waehrung"},dv:{"∆":"delta","∞":"kolunulaa","♥":"loabi","&":"aai","|":"noonee","<":"ah vure kuda",">":"ah vure bodu","∑":"jumula","¤":"faisaa"},en:{"∆":"delta","∞":"infinity","♥":"love","&":"and","|":"or","<":"less than",">":"greater than","∑":"sum","¤":"currency"},es:{"∆":"delta","∞":"infinito","♥":"amor","&":"y","|":"u","<":"menos que",">":"mas que","∑":"suma de los","¤":"moneda"},fr:{"∆":"delta","∞":"infiniment","♥":"Amour","&":"et","|":"ou","<":"moins que",">":"superieure a","∑":"somme des","¤":"monnaie"},gr:{},hu:{"∆":"delta","∞":"vegtelen","♥":"szerelem","&":"es","|":"vagy","<":"kisebb mint",">":"nagyobb mint","∑":"szumma","¤":"penznem"},it:{"∆":"delta","∞":"infinito","♥":"amore","&":"e","|":"o","<":"minore di",">":"maggiore di","∑":"somma","¤":"moneta"},lt:{},lv:{"∆":"delta","∞":"bezgaliba","♥":"milestiba","&":"un","|":"vai","<":"mazak neka",">":"lielaks neka","∑":"summa","¤":"valuta"},my:{"∆":"kwahkhyaet","∞":"asaonasme","♥":"akhyait","&":"nhin","|":"tho","<":"ngethaw",">":"kyithaw","∑":"paungld","¤":"ngwekye"},mk:{},nl:{"∆":"delta","∞":"oneindig","♥":"liefde","&":"en","|":"of","<":"kleiner dan",">":"groter dan","∑":"som","¤":"valuta"},pl:{"∆":"delta","∞":"nieskonczonosc","♥":"milosc","&":"i","|":"lub","<":"mniejsze niz",">":"wieksze niz","∑":"suma","¤":"waluta"},pt:{"∆":"delta","∞":"infinito","♥":"amor","&":"e","|":"ou","<":"menor que",">":"maior que","∑":"soma","¤":"moeda"},ro:{"∆":"delta","∞":"infinit","♥":"dragoste","&":"si","|":"sau","<":"mai mic ca",">":"mai mare ca","∑":"suma","¤":"valuta"},ru:{"∆":"delta","∞":"beskonechno","♥":"lubov","&":"i","|":"ili","<":"menshe",">":"bolshe","∑":"summa","¤":"valjuta"},sk:{"∆":"delta","∞":"nekonecno","♥":"laska","&":"a","|":"alebo","<":"menej ako",">":"viac ako","∑":"sucet","¤":"mena"},sr:{},tr:{"∆":"delta","∞":"sonsuzluk","♥":"ask","&":"ve","|":"veya","<":"kucuktur",">":"buyuktur","∑":"toplam","¤":"para birimi"},uk:{"∆":"delta","∞":"bezkinechnist","♥":"lubov","&":"i","|":"abo","<":"menshe",">":"bilshe","∑":"suma","¤":"valjuta"},vn:{"∆":"delta","∞":"vo cuc","♥":"yeu","&":"va","|":"hoac","<":"nho hon",">":"lon hon","∑":"tong","¤":"tien te"}};if("string"!=typeof e)return"";if("string"==typeof a&&(A=a),m=N.en,c=I.en,"object"==typeof a){n=a.maintainCase||!1,v=a.custom&&"object"==typeof a.custom?a.custom:v,u=+a.truncate>1&&a.truncate||!1,l=a.uric||!1,s=a.uricNoSlash||!1,r=a.mark||!1,O=a.symbols===!1||a.lang===!1?!1:!0,A=a.separator||A,l&&(p+=b.join("")),s&&(p+=z.join("")),r&&(p+=E.join("")),m=a.lang&&N[a.lang]&&O?N[a.lang]:O?N.en:{},c=a.lang&&I[a.lang]?I[a.lang]:a.lang===!1||a.lang===!0?{}:I.en,a.titleCase&&"number"==typeof a.titleCase.length&&Array.prototype.toString.call(a.titleCase)?(a.titleCase.forEach(function(e){v[e+""]=e+""}),t=!0):t=!!a.titleCase,a.custom&&"number"==typeof a.custom.length&&Array.prototype.toString.call(a.custom)&&a.custom.forEach(function(e){v[e+""]=e+""}),Object.keys(v).forEach(function(a){var n;n=a.length>1?new RegExp("\\b"+o(a)+"\\b","gi"):new RegExp(o(a),"gi"),e=e.replace(n,v[a])});for(g in v)p+=g}for(p+=A,p=o(p),e=e.replace(/(^\s+|\s+$)/g,""),f=!1,y=!1,d=0,k=e.length;k>d;d++)g=e[d],i(g,v)?f=!1:c[g]?(g=f&&c[g].match(/[A-Za-z0-9]/)?" "+c[g]:c[g],f=!1):g in w?(k>d+1&&U.indexOf(e[d+1])>=0?(S+=g,g=""):y===!0?(g=C[S]+w[g],S=""):g=f&&w[g].match(/[A-Za-z0-9]/)?" "+w[g]:w[g],f=!1,y=!1):g in C?(S+=g,g="",d===k-1&&(g=C[S]),y=!0):!m[g]||l&&-1!==b.join("").indexOf(g)||s&&-1!==z.join("").indexOf(g)?(y===!0?(g=C[S]+g,S="",y=!1):f&&(/[A-Za-z0-9]/.test(g)||j.substr(-1).match(/A-Za-z0-9]/))&&(g=" "+g),f=!1):(g=f||j.substr(-1).match(/[A-Za-z0-9]/)?A+m[g]:m[g],g+=void 0!==e[d+1]&&e[d+1].match(/[A-Za-z0-9]/)?A:"",f=!0),j+=g.replace(new RegExp("[^\\w\\s"+p+"_-]","g"),A);return t&&(j=j.replace(/(\w)(\S*)/g,function(e,a,n){var t=a.toUpperCase()+(null!==n?n:"");return Object.keys(v).indexOf(t.toLowerCase())<0?t:t.toLowerCase()})),j=j.replace(/\s+/g,A).replace(new RegExp("\\"+A+"+","g"),A).replace(new RegExp("(^\\"+A+"+|\\"+A+"+$)","g"),""),u&&j.length>u&&(h=j.charAt(u)===A,j=j.slice(0,u),h||(j=j.slice(0,j.lastIndexOf(A)))),n||t||(j=j.toLowerCase()),j},t=function(e){return function(a){return n(a,e)}},o=function(e){return e.replace(/[-\\^$*+?.()|[\]{}\/]/g,"\\$&")},i=function(e,a){for(var n in a)if(a[n]===e)return!0};if("undefined"!=typeof module&&module.exports)module.exports=n,module.exports.createSlug=t;else if("undefined"!=typeof define&&define.amd)define([],function(){return n});else try{if(e.getSlug||e.createSlug)throw"speakingurl: globals exists /(getSlug|createSlug)/";e.getSlug=n,e.createSlug=t}catch(u){}}(this);
-/*! jquery-slugify - v1.2.4 - 2016-06-15
-* Copyright (c) 2016 madflow; Licensed  */
+ */!function(e,a){"use strict";var n=function(e,a){var n,t,u,l,s,r,m,c,h,d,g,k,f,y,p,A="-",b=[";","?",":","@","&","=","+","$",",","/"],z=[";","?",":","@","&","=","+","$",","],E=[".","!","~","*","'","(",")"],j="",S="",O=!0,v={},w={"À":"A","Á":"A","Â":"A","Ã":"A","Ä":"Ae","Å":"A","Æ":"AE","Ç":"C","È":"E","É":"E","Ê":"E","Ë":"E","Ì":"I","Í":"I","Î":"I","Ï":"I","Ð":"D","Ñ":"N","Ò":"O","Ó":"O","Ô":"O","Õ":"O","Ö":"Oe","Ő":"O","Ø":"O","Ù":"U","Ú":"U","Û":"U","Ü":"Ue","Ű":"U","Ý":"Y","Þ":"TH","ß":"ss","à":"a","á":"a","â":"a","ã":"a","ä":"ae","å":"a","æ":"ae","ç":"c","è":"e","é":"e","ê":"e","ë":"e","ì":"i","í":"i","î":"i","ï":"i","ð":"d","ñ":"n","ò":"o","ó":"o","ô":"o","õ":"o","ö":"oe","ő":"o","ø":"o","ù":"u","ú":"u","û":"u","ü":"ue","ű":"u","ý":"y","þ":"th","ÿ":"y","ẞ":"SS","ا":"a","أ":"a","إ":"i","آ":"aa","ؤ":"u","ئ":"e","ء":"a","ب":"b","ت":"t","ث":"th","ج":"j","ح":"h","خ":"kh","د":"d","ذ":"th","ر":"r","ز":"z","س":"s","ش":"sh","ص":"s","ض":"dh","ط":"t","ظ":"z","ع":"a","غ":"gh","ف":"f","ق":"q","ك":"k","ل":"l","م":"m","ن":"n","ه":"h","و":"w","ي":"y","ى":"a","ة":"h","ﻻ":"la","ﻷ":"laa","ﻹ":"lai","ﻵ":"laa","َ":"a","ً":"an","ِ":"e","ٍ":"en","ُ":"u","ٌ":"on","ْ":"","٠":"0","١":"1","٢":"2","٣":"3","٤":"4","٥":"5","٦":"6","٧":"7","٨":"8","٩":"9","က":"k","ခ":"kh","ဂ":"g","ဃ":"ga","င":"ng","စ":"s","ဆ":"sa","ဇ":"z","စျ":"za","ည":"ny","ဋ":"t","ဌ":"ta","ဍ":"d","ဎ":"da","ဏ":"na","တ":"t","ထ":"ta","ဒ":"d","ဓ":"da","န":"n","ပ":"p","ဖ":"pa","ဗ":"b","ဘ":"ba","မ":"m","ယ":"y","ရ":"ya","လ":"l","ဝ":"w","သ":"th","ဟ":"h","ဠ":"la","အ":"a","ြ":"y","ျ":"ya","ွ":"w","ြွ":"yw","ျွ":"ywa","ှ":"h","ဧ":"e","၏":"-e","ဣ":"i","ဤ":"-i","ဉ":"u","ဦ":"-u","ဩ":"aw","သြော":"aw","ဪ":"aw","၀":"0","၁":"1","၂":"2","၃":"3","၄":"4","၅":"5","၆":"6","၇":"7","၈":"8","၉":"9","္":"","့":"","း":"","č":"c","ď":"d","ě":"e","ň":"n","ř":"r","š":"s","ť":"t","ů":"u","ž":"z","Č":"C","Ď":"D","Ě":"E","Ň":"N","Ř":"R","Š":"S","Ť":"T","Ů":"U","Ž":"Z","ހ":"h","ށ":"sh","ނ":"n","ރ":"r","ބ":"b","ޅ":"lh","ކ":"k","އ":"a","ވ":"v","މ":"m","ފ":"f","ދ":"dh","ތ":"th","ލ":"l","ގ":"g","ޏ":"gn","ސ":"s","ޑ":"d","ޒ":"z","ޓ":"t","ޔ":"y","ޕ":"p","ޖ":"j","ޗ":"ch","ޘ":"tt","ޙ":"hh","ޚ":"kh","ޛ":"th","ޜ":"z","ޝ":"sh","ޞ":"s","ޟ":"d","ޠ":"t","ޡ":"z","ޢ":"a","ޣ":"gh","ޤ":"q","ޥ":"w","ަ":"a","ާ":"aa","ި":"i","ީ":"ee","ު":"u","ޫ":"oo","ެ":"e","ޭ":"ey","ޮ":"o","ޯ":"oa","ް":"","α":"a","β":"v","γ":"g","δ":"d","ε":"e","ζ":"z","η":"i","θ":"th","ι":"i","κ":"k","λ":"l","μ":"m","ν":"n","ξ":"ks","ο":"o","π":"p","ρ":"r","σ":"s","τ":"t","υ":"y","φ":"f","χ":"x","ψ":"ps","ω":"o","ά":"a","έ":"e","ί":"i","ό":"o","ύ":"y","ή":"i","ώ":"o","ς":"s","ϊ":"i","ΰ":"y","ϋ":"y","ΐ":"i","Α":"A","Β":"B","Γ":"G","Δ":"D","Ε":"E","Ζ":"Z","Η":"I","Θ":"TH","Ι":"I","Κ":"K","Λ":"L","Μ":"M","Ν":"N","Ξ":"KS","Ο":"O","Π":"P","Ρ":"R","Σ":"S","Τ":"T","Υ":"Y","Φ":"F","Χ":"X","Ψ":"PS","Ω":"W","Ά":"A","Έ":"E","Ί":"I","Ό":"O","Ύ":"Y","Ή":"I","Ώ":"O","Ϊ":"I","Ϋ":"Y","ā":"a","ē":"e","ģ":"g","ī":"i","ķ":"k","ļ":"l","ņ":"n","ū":"u","Ā":"A","Ē":"E","Ģ":"G","Ī":"I","Ķ":"k","Ļ":"L","Ņ":"N","Ū":"U","Ќ":"Kj","ќ":"kj","Љ":"Lj","љ":"lj","Њ":"Nj","њ":"nj","Тс":"Ts","тс":"ts","ą":"a","ć":"c","ę":"e","ł":"l","ń":"n","ś":"s","ź":"z","ż":"z","Ą":"A","Ć":"C","Ę":"E","Ł":"L","Ń":"N","Ś":"S","Ź":"Z","Ż":"Z","Є":"Ye","І":"I","Ї":"Yi","Ґ":"G","є":"ye","і":"i","ї":"yi","ґ":"g","ă":"a","Ă":"A","ș":"s","Ș":"S","ț":"t","Ț":"T","ţ":"t","Ţ":"T","а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"zh","з":"z","и":"i","й":"j","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"c","ч":"ch","ш":"sh","щ":"sh","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","А":"A","Б":"B","В":"V","Г":"G","Д":"D","Е":"E","Ё":"Yo","Ж":"Zh","З":"Z","И":"I","Й":"J","К":"K","Л":"L","М":"M","Н":"N","О":"O","П":"P","Р":"R","С":"S","Т":"T","У":"U","Ф":"F","Х":"H","Ц":"C","Ч":"Ch","Ш":"Sh","Щ":"Sh","Ъ":"","Ы":"Y","Ь":"","Э":"E","Ю":"Yu","Я":"Ya","ђ":"dj","ј":"j","ћ":"c","џ":"dz","Ђ":"Dj","Ј":"j","Ћ":"C","Џ":"Dz","ľ":"l","ĺ":"l","ŕ":"r","Ľ":"L","Ĺ":"L","Ŕ":"R","ş":"s","Ş":"S","ı":"i","İ":"I","ğ":"g","Ğ":"G","ả":"a","Ả":"A","ẳ":"a","Ẳ":"A","ẩ":"a","Ẩ":"A","đ":"d","Đ":"D","ẹ":"e","Ẹ":"E","ẽ":"e","Ẽ":"E","ẻ":"e","Ẻ":"E","ế":"e","Ế":"E","ề":"e","Ề":"E","ệ":"e","Ệ":"E","ễ":"e","Ễ":"E","ể":"e","Ể":"E","ọ":"o","Ọ":"o","ố":"o","Ố":"O","ồ":"o","Ồ":"O","ổ":"o","Ổ":"O","ộ":"o","Ộ":"O","ỗ":"o","Ỗ":"O","ơ":"o","Ơ":"O","ớ":"o","Ớ":"O","ờ":"o","Ờ":"O","ợ":"o","Ợ":"O","ỡ":"o","Ỡ":"O","Ở":"o","ở":"o","ị":"i","Ị":"I","ĩ":"i","Ĩ":"I","ỉ":"i","Ỉ":"i","ủ":"u","Ủ":"U","ụ":"u","Ụ":"U","ũ":"u","Ũ":"U","ư":"u","Ư":"U","ứ":"u","Ứ":"U","ừ":"u","Ừ":"U","ự":"u","Ự":"U","ữ":"u","Ữ":"U","ử":"u","Ử":"ư","ỷ":"y","Ỷ":"y","ỳ":"y","Ỳ":"Y","ỵ":"y","Ỵ":"Y","ỹ":"y","Ỹ":"Y","ạ":"a","Ạ":"A","ấ":"a","Ấ":"A","ầ":"a","Ầ":"A","ậ":"a","Ậ":"A","ẫ":"a","Ẫ":"A","ắ":"a","Ắ":"A","ằ":"a","Ằ":"A","ặ":"a","Ặ":"A","ẵ":"a","Ẵ":"A","“":'"',"”":'"',"‘":"'","’":"'","∂":"d","ƒ":"f","™":"(TM)","©":"(C)","œ":"oe","Œ":"OE","®":"(R)","†":"+","℠":"(SM)","…":"...","˚":"o","º":"o","ª":"a","•":"*","၊":",","။":".",$:"USD","€":"EUR","₢":"BRN","₣":"FRF","£":"GBP","₤":"ITL","₦":"NGN","₧":"ESP","₩":"KRW","₪":"ILS","₫":"VND","₭":"LAK","₮":"MNT","₯":"GRD","₱":"ARS","₲":"PYG","₳":"ARA","₴":"UAH","₵":"GHS","¢":"cent","¥":"CNY","元":"CNY","円":"YEN","﷼":"IRR","₠":"EWE","฿":"THB","₨":"INR","₹":"INR","₰":"PF"},U=["်","ް"],C={"ာ":"a","ါ":"a","ေ":"e","ဲ":"e","ိ":"i","ီ":"i","ို":"o","ု":"u","ူ":"u","ေါင်":"aung","ော":"aw","ော်":"aw","ေါ":"aw","ေါ်":"aw","်":"်","က်":"et","ိုက်":"aik","ောက်":"auk","င်":"in","ိုင်":"aing","ောင်":"aung","စ်":"it","ည်":"i","တ်":"at","ိတ်":"eik","ုတ်":"ok","ွတ်":"ut","ေတ်":"it","ဒ်":"d","ိုဒ်":"ok","ုဒ်":"ait","န်":"an","ာန်":"an","ိန်":"ein","ုန်":"on","ွန်":"un","ပ်":"at","ိပ်":"eik","ုပ်":"ok","ွပ်":"ut","န်ုပ်":"nub","မ်":"an","ိမ်":"ein","ုမ်":"on","ွမ်":"un","ယ်":"e","ိုလ်":"ol","ဉ်":"in","ံ":"an","ိံ":"ein","ုံ":"on","ައް":"ah","ަށް":"ah"},I={en:{},az:{"ç":"c","ə":"e","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","Ç":"C","Ə":"E","Ğ":"G","İ":"I","Ö":"O","Ş":"S","Ü":"U"},cs:{"č":"c","ď":"d","ě":"e","ň":"n","ř":"r","š":"s","ť":"t","ů":"u","ž":"z","Č":"C","Ď":"D","Ě":"E","Ň":"N","Ř":"R","Š":"S","Ť":"T","Ů":"U","Ž":"Z"},fi:{"ä":"a","Ä":"A","ö":"o","Ö":"O"},hu:{"ä":"a","Ä":"A","ö":"o","Ö":"O","ü":"u","Ü":"U","ű":"u","Ű":"U"},lt:{"ą":"a","č":"c","ę":"e","ė":"e","į":"i","š":"s","ų":"u","ū":"u","ž":"z","Ą":"A","Č":"C","Ę":"E","Ė":"E","Į":"I","Š":"S","Ų":"U","Ū":"U"},lv:{"ā":"a","č":"c","ē":"e","ģ":"g","ī":"i","ķ":"k","ļ":"l","ņ":"n","š":"s","ū":"u","ž":"z","Ā":"A","Č":"C","Ē":"E","Ģ":"G","Ī":"i","Ķ":"k","Ļ":"L","Ņ":"N","Š":"S","Ū":"u","Ž":"Z"},pl:{"ą":"a","ć":"c","ę":"e","ł":"l","ń":"n","ó":"o","ś":"s","ź":"z","ż":"z","Ą":"A","Ć":"C","Ę":"e","Ł":"L","Ń":"N","Ó":"O","Ś":"S","Ź":"Z","Ż":"Z"},sk:{"ä":"a","Ä":"A"},sr:{"љ":"lj","њ":"nj","Љ":"Lj","Њ":"Nj","đ":"dj","Đ":"Dj"},tr:{"Ü":"U","Ö":"O","ü":"u","ö":"o"}},N={ar:{"∆":"delta","∞":"la-nihaya","♥":"hob","&":"wa","|":"aw","<":"aqal-men",">":"akbar-men","∑":"majmou","¤":"omla"},az:{},ca:{"∆":"delta","∞":"infinit","♥":"amor","&":"i","|":"o","<":"menys que",">":"mes que","∑":"suma dels","¤":"moneda"},cz:{"∆":"delta","∞":"nekonecno","♥":"laska","&":"a","|":"nebo","<":"mene jako",">":"vice jako","∑":"soucet","¤":"mena"},de:{"∆":"delta","∞":"unendlich","♥":"Liebe","&":"und","|":"oder","<":"kleiner als",">":"groesser als","∑":"Summe von","¤":"Waehrung"},dv:{"∆":"delta","∞":"kolunulaa","♥":"loabi","&":"aai","|":"noonee","<":"ah vure kuda",">":"ah vure bodu","∑":"jumula","¤":"faisaa"},en:{"∆":"delta","∞":"infinity","♥":"love","&":"and","|":"or","<":"less than",">":"greater than","∑":"sum","¤":"currency"},es:{"∆":"delta","∞":"infinito","♥":"amor","&":"y","|":"u","<":"menos que",">":"mas que","∑":"suma de los","¤":"moneda"},fr:{"∆":"delta","∞":"infiniment","♥":"Amour","&":"et","|":"ou","<":"moins que",">":"superieure a","∑":"somme des","¤":"monnaie"},gr:{},hu:{"∆":"delta","∞":"vegtelen","♥":"szerelem","&":"es","|":"vagy","<":"kisebb mint",">":"nagyobb mint","∑":"szumma","¤":"penznem"},it:{"∆":"delta","∞":"infinito","♥":"amore","&":"e","|":"o","<":"minore di",">":"maggiore di","∑":"somma","¤":"moneta"},lt:{},lv:{"∆":"delta","∞":"bezgaliba","♥":"milestiba","&":"un","|":"vai","<":"mazak neka",">":"lielaks neka","∑":"summa","¤":"valuta"},my:{"∆":"kwahkhyaet","∞":"asaonasme","♥":"akhyait","&":"nhin","|":"tho","<":"ngethaw",">":"kyithaw","∑":"paungld","¤":"ngwekye"},mk:{},nl:{"∆":"delta","∞":"oneindig","♥":"liefde","&":"en","|":"of","<":"kleiner dan",">":"groter dan","∑":"som","¤":"valuta"},pl:{"∆":"delta","∞":"nieskonczonosc","♥":"milosc","&":"i","|":"lub","<":"mniejsze niz",">":"wieksze niz","∑":"suma","¤":"waluta"},pt:{"∆":"delta","∞":"infinito","♥":"amor","&":"e","|":"ou","<":"menor que",">":"maior que","∑":"soma","¤":"moeda"},ro:{"∆":"delta","∞":"infinit","♥":"dragoste","&":"si","|":"sau","<":"mai mic ca",">":"mai mare ca","∑":"suma","¤":"valuta"},ru:{"∆":"delta","∞":"beskonechno","♥":"lubov","&":"i","|":"ili","<":"menshe",">":"bolshe","∑":"summa","¤":"valjuta"},sk:{"∆":"delta","∞":"nekonecno","♥":"laska","&":"a","|":"alebo","<":"menej ako",">":"viac ako","∑":"sucet","¤":"mena"},sr:{},tr:{"∆":"delta","∞":"sonsuzluk","♥":"ask","&":"ve","|":"veya","<":"kucuktur",">":"buyuktur","∑":"toplam","¤":"para birimi"},uk:{"∆":"delta","∞":"bezkinechnist","♥":"lubov","&":"i","|":"abo","<":"menshe",">":"bilshe","∑":"suma","¤":"valjuta"},vn:{"∆":"delta","∞":"vo cuc","♥":"yeu","&":"va","|":"hoac","<":"nho hon",">":"lon hon","∑":"tong","¤":"tien te"}};if("string"!=typeof e)return"";if("string"==typeof a&&(A=a),m=N.en,c=I.en,"object"==typeof a){n=a.maintainCase||!1,v=a.custom&&"object"==typeof a.custom?a.custom:v,u=+a.truncate>1&&a.truncate||!1,l=a.uric||!1,s=a.uricNoSlash||!1,r=a.mark||!1,O=a.symbols===!1||a.lang===!1?!1:!0,A=a.separator||A,l&&(p+=b.join("")),s&&(p+=z.join("")),r&&(p+=E.join("")),m=a.lang&&N[a.lang]&&O?N[a.lang]:O?N.en:{},c=a.lang&&I[a.lang]?I[a.lang]:a.lang===!1||a.lang===!0?{}:I.en,a.titleCase&&"number"==typeof a.titleCase.length&&Array.prototype.toString.call(a.titleCase)?(a.titleCase.forEach(function(e){v[e+""]=e+""}),t=!0):t=!!a.titleCase,a.custom&&"number"==typeof a.custom.length&&Array.prototype.toString.call(a.custom)&&a.custom.forEach(function(e){v[e+""]=e+""}),Object.keys(v).forEach(function(a){var n;n=a.length>1?new RegExp("\\b"+o(a)+"\\b","gi"):new RegExp(o(a),"gi"),e=e.replace(n,v[a])});for(g in v)p+=g}for(p+=A,t&&(e=e.replace(/(\w)(\S*)/g,function(e,a,n){var t=a.toUpperCase()+(null!==n?n:"");return Object.keys(v).indexOf(t.toLowerCase())<0?t:t.toLowerCase()})),p=o(p),e=e.replace(/(^\s+|\s+$)/g,""),f=!1,y=!1,d=0,k=e.length;k>d;d++)g=e[d],i(g,v)?f=!1:c[g]?(g=f&&c[g].match(/[A-Za-z0-9]/)?" "+c[g]:c[g],f=!1):g in w?(k>d+1&&U.indexOf(e[d+1])>=0?(S+=g,g=""):y===!0?(g=C[S]+w[g],S=""):g=f&&w[g].match(/[A-Za-z0-9]/)?" "+w[g]:w[g],f=!1,y=!1):g in C?(S+=g,g="",d===k-1&&(g=C[S]),y=!0):!m[g]||l&&-1!==b.join("").indexOf(g)||s&&-1!==z.join("").indexOf(g)?(y===!0?(g=C[S]+g,S="",y=!1):f&&(/[A-Za-z0-9]/.test(g)||j.substr(-1).match(/A-Za-z0-9]/))&&(g=" "+g),f=!1):(g=f||j.substr(-1).match(/[A-Za-z0-9]/)?A+m[g]:m[g],g+=void 0!==e[d+1]&&e[d+1].match(/[A-Za-z0-9]/)?A:"",f=!0),j+=g.replace(new RegExp("[^\\w\\s"+p+"_-]","g"),A);return j=j.replace(/\s+/g,A).replace(new RegExp("\\"+A+"+","g"),A).replace(new RegExp("(^\\"+A+"+|\\"+A+"+$)","g"),""),u&&j.length>u&&(h=j.charAt(u)===A,j=j.slice(0,u),h||(j=j.slice(0,j.lastIndexOf(A)))),n||t||(j=j.toLowerCase()),j},t=function(e){return function(a){return n(a,e)}},o=function(e){return e.replace(/[-\\^$*+?.()|[\]{}\/]/g,"\\$&")},i=function(e,a){for(var n in a)if(a[n]===e)return!0};if("undefined"!=typeof module&&module.exports)module.exports=n,module.exports.createSlug=t;else if("undefined"!=typeof define&&define.amd)define([],function(){return n});else try{if(e.getSlug||e.createSlug)throw"speakingurl: globals exists /(getSlug|createSlug)/";e.getSlug=n,e.createSlug=t}catch(u){}}(this);
+/*! jquery-slugify - v1.2.1 - 2015-08-02
+* Copyright (c) 2015 madflow; Licensed  */
 ;(function($) {
 
     $.fn.slugify = function(source, options) {
@@ -11235,7 +11246,7 @@ return parser;
 
 }(jQuery));
 /*!
- * jquery-timepicker v1.8.11 - A jQuery timepicker plugin inspired by Google Calendar. It supports both mouse and keyboard navigation.
+ * jquery-timepicker v1.8.1 - A jQuery timepicker plugin inspired by Google Calendar. It supports both mouse and keyboard navigation.
  * Copyright (c) 2015 Jon Thornton - http://jonthornton.github.com/jquery-timepicker/
  * License: MIT
  */
@@ -11297,7 +11308,7 @@ return parser;
 				} else {
 					self.prop('autocomplete', 'off');
 					if (settings.showOn) {
-						for (var i in settings.showOn) {
+						for (i in settings.showOn) {
 							self.on(settings.showOn[i]+'.timepicker', methods.show);
 						}
 					}
@@ -11305,7 +11316,7 @@ return parser;
 					self.on('keydown.timepicker', _keydownhandler);
 					self.on('keyup.timepicker', _keyuphandler);
 					if (settings.disableTextInput) {
-						self.on('keydown.timepicker', _disableTextInputHandler);
+						self.on('keypress.timepicker', function(e) { e.preventDefault(); });
 					}
 
 					_formatValue.call(self.get(0));
@@ -11394,9 +11405,8 @@ return parser;
 			var selected = list.find('.ui-timepicker-selected');
 
 			if (!selected.length) {
-				var timeInt = _time2int(_getTimeValue(self));
-				if (timeInt !== null) {
-					selected = _findRow(self, list, timeInt);
+				if (_getTimeValue(self)) {
+					selected = _findRow(self, list, _time2int(_getTimeValue(self)));
 				} else if (settings.scrollDefault) {
 					selected = _findRow(self, list, settings.scrollDefault());
 				}
@@ -11461,10 +11471,6 @@ return parser;
 
 		option: function(key, value)
 		{
-			if (typeof key == 'string' && typeof value == 'undefined') {
-				return $(this).data('timepicker-settings')[key];
-			}
-
 			return this.each(function(){
 				var self = $(this);
 				var settings = self.data('timepicker-settings');
@@ -11472,8 +11478,12 @@ return parser;
 
 				if (typeof key == 'object') {
 					settings = $.extend(settings, key);
-				} else if (typeof key == 'string') {
+
+				} else if (typeof key == 'string' && typeof value != 'undefined') {
 					settings[key] = value;
+
+				} else if (typeof key == 'string') {
+					return settings[key];
 				}
 
 				settings = _parseSettings(settings);
@@ -11511,10 +11521,10 @@ return parser;
 			}
 
 			if (!relative_date) {
-				relative_date = _baseDate;
+				relative_date = new Date();
 			}
 
-			// construct a Date from relative date, and offset's time
+			// construct a Date with today's date, and offset's time
 			var time = new Date(relative_date);
 			time.setHours(offset / 3600);
 			time.setMinutes(offset % 3600 / 60);
@@ -11738,7 +11748,6 @@ return parser;
 				row.text(timeString);
 			} else {
 				var row = $('<li />');
-				row.addClass(timeInt % 86400 < 43200 ? 'ui-timepicker-am' : 'ui-timepicker-pm');
 				row.data('time', (timeInt <= 86400 ? timeInt : timeInt % 86400));
 				row.text(timeString);
 			}
@@ -11801,7 +11810,7 @@ return parser;
 			appendTo.append(wrapped_list);
 			_setSelected(self, list);
 
-			list.on('mousedown touchstart', 'li', function(e) {
+			list.on('mousedown', 'li', function(e) {
 
 				// hack: temporarily disable the focus handler
 				// to deal with the fact that IE fires 'focus'
@@ -11823,8 +11832,8 @@ return parser;
 				if (_selectValue(self)) {
 					self.trigger('hideTimepicker');
 
-					list.on('mouseup.timepicker touchend.timepicker', 'li', function(e) {
-						list.off('mouseup.timepicker touchend.timepicker');
+					list.on('mouseup.timepicker', 'li', function(e) {
+						list.off('mouseup.timepicker');
 						wrapped_list.hide();
 					});
 				}
@@ -11856,7 +11865,7 @@ return parser;
 			return $('<li />', {
 					'class': className,
 					'text': label
-				}).data('time', String(value));
+				}).data('time', value);
 		}
 	}
 
@@ -11870,7 +11879,7 @@ return parser;
 
 	function _generateBaseDate()
 	{
-		return new Date(1970, 0, 1, 0, 0, 0);
+		return new Date(1970, 1, 1, 0, 0, 0);
 	}
 
 	// event handler to decide whether to close timepicker
@@ -12024,21 +12033,6 @@ return parser;
 		} else {
 			self.trigger('selectTime');
 			return false;
-		}
-	}
-
-	/*
-	*  Filter freeform input
-	*/
-	function _disableTextInputHandler(e)
-	{
-		switch (e.keyCode) {
-			case 13: // return
-			case 9: //tab
-				return;
-
-			default:
-				e.preventDefault();
 		}
 	}
 
@@ -12298,7 +12292,7 @@ return parser;
 
 				case 'H':
 					hour = time.getHours();
-					if (seconds === _ONE_DAY) hour = settings.show2400 ? 24 : 0;
+					if (seconds === _ONE_DAY) hour = 24;
 					output += (hour > 9) ? hour : '0'+hour;
 					break;
 
@@ -12349,15 +12343,14 @@ return parser;
 			_lang.PM.replace('.', '')+')?';
 
 		// try to parse time input
-		var pattern = new RegExp('^'+ampmRegex+'([0-9]?[0-9])\\W?([0-5][0-9])?\\W?([0-5][0-9])?'+ampmRegex+'$');
+		var pattern = new RegExp('^'+ampmRegex+'([0-2]?[0-9])\\W?([0-5][0-9])?\\W?([0-5][0-9])?'+ampmRegex+'$');
 
 		var time = timeString.match(pattern);
 		if (!time) {
 			return null;
 		}
 
-		var unboundedHour = parseInt(time[2]*1, 10);
-		var hour = (unboundedHour > 24) ? unboundedHour % 24 : unboundedHour;
+		var hour = parseInt(time[2]*1, 10);
 		var ampm = time[1] || time[5];
 		var hours = hour;
 
@@ -12376,7 +12369,7 @@ return parser;
 		var timeInt = hours*3600 + minutes*60 + seconds;
 
 		// if no am/pm provided, intelligently guess based on the scrollDefault
-		if (hour < 12 && !ampm && settings && settings._twelveHourTime && settings.scrollDefault) {
+		if (!ampm && settings && settings._twelveHourTime && settings.scrollDefault) {
 			var delta = timeInt - settings.scrollDefault();
 			if (delta < 0 && delta >= _ONE_DAY / -2) {
 				timeInt = (timeInt + (_ONE_DAY / 2)) % _ONE_DAY;
@@ -12406,24 +12399,23 @@ return parser;
 	};
 	// Global defaults
 	$.fn.timepicker.defaults = {
-		appendTo: 'body',
 		className: null,
-		closeOnWindowScroll: false,
-		disableTextInput: false,
-		disableTimeRanges: [],
-		disableTouchKeyboard: false,
-		durationTime: null,
-		forceRoundTime: false,
-		maxTime: null,
 		minTime: null,
-		noneOption: false,
-		orientation: 'l',
+		maxTime: null,
+		durationTime: null,
+		step: 30,
+		showDuration: false,
+		showOnFocus: true,
+		showOn: ['click', 'focus'],
+		timeFormat: 'g:ia',
+		scrollDefault: null,
+		selectOnBlur: false,
+		disableTextInput: false,
+		disableTouchKeyboard: false,
+		forceRoundTime: false,
 		roundingFunction: function(seconds, settings) {
 			if (seconds === null) {
 				return null;
-			} else if (typeof settings.step !== "number") {
-				// TODO: nearest fit irregular steps
-				return seconds;
 			} else {
 				var offset = seconds % (settings.step*60); // step is in minutes
 
@@ -12438,22 +12430,19 @@ return parser;
 				return seconds;
 			}
 		},
-		scrollDefault: null,
-		selectOnBlur: false,
-		show2400: false,
-		showDuration: false,
-		showOn: ['click', 'focus'],
-		showOnFocus: true,
-		step: 30,
-		stopScrollPropagation: false,
-		timeFormat: 'g:ia',
+		appendTo: 'body',
+		orientation: 'l',
+		disableTimeRanges: [],
+		closeOnWindowScroll: false,
 		typeaheadHighlight: true,
-		useSelect: false
+		noneOption: false,
+		show2400: false,
+		stopScrollPropagation: false
 	};
 }));
 
 //! moment-timezone.js
-//! version : 0.4.1
+//! version : 0.4.0
 //! author : Tim Wood
 //! license : MIT
 //! github.com/moment/moment-timezone
@@ -12478,7 +12467,7 @@ return parser;
 		return moment;
 	}
 
-	var VERSION = "0.4.1",
+	var VERSION = "0.4.0",
 		zones = {},
 		links = {},
 		names = {},
@@ -12674,7 +12663,7 @@ return parser;
 
 		var zone = zones[name];
 		var link;
-
+		
 		if (zone instanceof Zone) {
 			return zone;
 		}
@@ -12875,7 +12864,7 @@ return parser;
 	}
 
 	loadData({
-		"version": "2015g",
+		"version": "2015d",
 		"zones": [
 			"Africa/Abidjan|GMT|0|0|",
 			"Africa/Addis_Ababa|EAT|-30|0|",
@@ -12883,7 +12872,7 @@ return parser;
 			"Africa/Bangui|WAT|-10|0|",
 			"Africa/Blantyre|CAT|-20|0|",
 			"Africa/Cairo|EET EEST|-20 -30|010101010|1Cby0 Fb0 c10 8n0 8Nd0 gL0 e10 mn0",
-			"Africa/Casablanca|WET WEST|0 -10|01010101010101010101010101010101010101010|1Cco0 Db0 1zd0 Lz0 1Nf0 wM0 co0 go0 1o00 s00 dA0 vc0 11A0 A00 e00 y00 11A0 uM0 e00 Dc0 11A0 s00 e00 IM0 WM0 mo0 gM0 LA0 WM0 jA0 e00 Rc0 11A0 e00 e00 U00 11A0 8o0 e00 11A0",
+			"Africa/Casablanca|WET WEST|0 -10|01010101010101010101010101010101010101010|1Cco0 Db0 1zd0 Lz0 1Nf0 wM0 co0 go0 1o00 s00 dA0 vc0 11A0 A00 e00 y00 11A0 uo0 e00 DA0 11A0 rA0 e00 Jc0 WM0 m00 gM0 M00 WM0 jc0 e00 RA0 11A0 dA0 e00 Uo0 11A0 800 gM0 Xc0",
 			"Africa/Ceuta|CET CEST|-10 -20|01010101010101010101010|1BWp0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
 			"Africa/Johannesburg|SAST|-20|0|",
 			"Africa/Tripoli|EET CET CEST|-20 -10 -20|0120|1IlA0 TA0 1o00",
@@ -12906,14 +12895,12 @@ return parser;
 			"America/Cancun|CST CDT EST|60 50 50|010101010102|1C1k0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 Dd0",
 			"America/Caracas|VET|4u|0|",
 			"America/Cayenne|GFT|30|0|",
-			"America/Cayman|EST EDT|50 40|01010101010|1Qtj0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Chicago|CST CDT|60 50|01010101010101010101010|1BQU0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Chihuahua|MST MDT|70 60|01010101010101010101010|1C1l0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0",
 			"America/Creston|MST|70|0|",
 			"America/Dawson|PST PDT|80 70|01010101010101010101010|1BQW0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Detroit|EST EDT|50 40|01010101010101010101010|1BQT0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Eirunepe|AMT ACT|40 50|01|1KLE0",
-			"America/Fort_Nelson|PST PDT MST|80 70 70|010101010102|1BQW0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0",
 			"America/Glace_Bay|AST ADT|40 30|01010101010101010101010|1BQS0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Godthab|WGT WGST|30 20|01010101010101010101010|1BWp0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
 			"America/Goose_Bay|AST ADT|40 30|01010101010101010101010|1BQQ1 1zb0 Op0 1zcX Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
@@ -12926,7 +12913,7 @@ return parser;
 			"America/Merida|CST CDT|60 50|01010101010101010101010|1C1k0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0",
 			"America/Metlakatla|PST|80|0|",
 			"America/Miquelon|PMST PMDT|30 20|01010101010101010101010|1BQR0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
-			"America/Montevideo|UYST UYT|20 30|010101010101|1BQQ0 1ld0 14n0 1ld0 14n0 1o10 11z0 1o10 11z0 1o10 11z0",
+			"America/Montevideo|UYST UYT|20 30|01010101010101010101010|1BQQ0 1ld0 14n0 1ld0 14n0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 14n0 1ld0 14n0 1ld0 14n0 1o10 11z0 1o10 11z0 1o10",
 			"America/Noronha|FNT|20|0|",
 			"America/North_Dakota/Beulah|MST MDT CST CDT|70 60 60 50|01232323232323232323232|1BQV0 1zb0 Oo0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0",
 			"America/Paramaribo|SRT|30|0|",
@@ -12971,7 +12958,7 @@ return parser;
 			"Asia/Hong_Kong|HKT|-80|0|",
 			"Asia/Hovd|HOVT HOVST|-70 -80|0101010101010|1O8H0 1cJ0 1cP0 1cJ0 1cP0 1fx0 1cP0 1cJ0 1cP0 1cJ0 1cP0 1cJ0",
 			"Asia/Irkutsk|IRKT IRKST IRKT|-80 -90 -90|01020|1BWi0 1qM0 WM0 8Hz0",
-			"Asia/Istanbul|EET EEST|-20 -30|01010101010101010101010|1BWp0 1qM0 Xc0 1qo0 WM0 1qM0 11A0 1o00 1200 1nA0 11A0 1tA0 U00 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
+			"Asia/Istanbul|EET EEST|-20 -30|01010101010101010101010|1BWp0 1qM0 Xc0 1qo0 WM0 1qM0 11A0 1o00 1200 1nA0 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
 			"Asia/Jakarta|WIB|-70|0|",
 			"Asia/Jayapura|WIT|-90|0|",
 			"Asia/Jerusalem|IST IDT|-20 -30|01010101010101010101010|1BVA0 17X0 1kp0 1dz0 1c10 1aL0 1eN0 1oL0 10N0 1oL0 10N0 1oL0 10N0 1rz0 W10 1rz0 W10 1rz0 10N0 1oL0 10N0 1oL0",
@@ -12991,12 +12978,11 @@ return parser;
 			"Asia/Novosibirsk|NOVT NOVST NOVT|-60 -70 -70|01020|1BWk0 1qM0 WM0 8Hz0",
 			"Asia/Omsk|OMST OMSST OMST|-60 -70 -70|01020|1BWk0 1qM0 WM0 8Hz0",
 			"Asia/Oral|ORAT|-50|0|",
-			"Asia/Pyongyang|KST KST|-90 -8u|01|1P4D0",
+			"Asia/Pyongyang|KST|-90|0|",
 			"Asia/Qyzylorda|QYZT|-60|0|",
 			"Asia/Rangoon|MMT|-6u|0|",
 			"Asia/Sakhalin|SAKT SAKST SAKT|-a0 -b0 -b0|01020|1BWg0 1qM0 WM0 8Hz0",
 			"Asia/Samarkand|UZT|-50|0|",
-			"Asia/Seoul|KST|-90|0|",
 			"Asia/Singapore|SGT|-80|0|",
 			"Asia/Srednekolymsk|MAGT MAGST MAGT SRET|-b0 -c0 -c0 -b0|01023|1BWf0 1qM0 WM0 8Hz0",
 			"Asia/Tbilisi|GET|-40|0|",
@@ -13052,7 +13038,6 @@ return parser;
 			"Etc/UCT|UCT|0|0|",
 			"Etc/UTC|UTC|0|0|",
 			"Europe/Belfast|GMT BST|0 -10|01010101010101010101010|1BWp0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
-			"Europe/Chisinau|EET EEST|-20 -30|01010101010101010101010|1BWo0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00 11A0 1o00 11A0 1qM0 WM0 1qM0 WM0 1qM0 11A0 1o00 11A0 1o00",
 			"Europe/Kaliningrad|EET EEST FET|-20 -30 -30|01020|1BWo0 1qM0 WM0 8Hz0",
 			"Europe/Minsk|EET EEST FET MSK|-20 -30 -30 -30|01023|1BWo0 1qM0 WM0 8Hy0",
 			"Europe/Moscow|MSK MSD MSK|-30 -40 -40|01020|1BWn0 1qM0 WM0 8Hz0",
@@ -13076,7 +13061,7 @@ return parser;
 			"Pacific/Efate|VUT|-b0|0|",
 			"Pacific/Enderbury|PHOT|-d0|0|",
 			"Pacific/Fakaofo|TKT TKT|b0 -d0|01|1Gfn0",
-			"Pacific/Fiji|FJST FJT|-d0 -c0|01010101010101010101010|1BWe0 1o00 Rc0 1wo0 Ao0 1Nc0 Ao0 1Q00 xz0 1SN0 uM0 1SM0 uM0 1VA0 s00 1VA0 uM0 1SM0 uM0 1SM0 uM0 1SM0",
+			"Pacific/Fiji|FJST FJT|-d0 -c0|01010101010101010101010|1BWe0 1o00 Rc0 1wo0 Ao0 1Nc0 Ao0 1Q00 xz0 1SN0 uM0 1SM0 xA0 1SM0 uM0 1SM0 uM0 1SM0 uM0 1SM0 uM0 1SM0",
 			"Pacific/Funafuti|TVT|-c0|0|",
 			"Pacific/Galapagos|GALT|60|0|",
 			"Pacific/Gambier|GAMT|90|0|",
@@ -13088,7 +13073,7 @@ return parser;
 			"Pacific/Midway|SST|b0|0|",
 			"Pacific/Nauru|NRT|-c0|0|",
 			"Pacific/Niue|NUT|b0|0|",
-			"Pacific/Norfolk|NFT NFT|-bu -b0|01|1PoCu",
+			"Pacific/Norfolk|NFT|-bu|0|",
 			"Pacific/Noumea|NCT|-b0|0|",
 			"Pacific/Palau|PWT|-90|0|",
 			"Pacific/Pohnpei|PONT|-b0|0|",
@@ -13246,6 +13231,7 @@ return parser;
 			"America/Argentina/Buenos_Aires|America/Jujuy",
 			"America/Argentina/Buenos_Aires|America/Mendoza",
 			"America/Argentina/Buenos_Aires|America/Rosario",
+			"America/Atikokan|America/Cayman",
 			"America/Atikokan|America/Coral_Harbour",
 			"America/Atikokan|America/Jamaica",
 			"America/Atikokan|America/Panama",
@@ -13393,6 +13379,7 @@ return parser;
 			"Asia/Nicosia|EET",
 			"Asia/Nicosia|Europe/Athens",
 			"Asia/Nicosia|Europe/Bucharest",
+			"Asia/Nicosia|Europe/Chisinau",
 			"Asia/Nicosia|Europe/Helsinki",
 			"Asia/Nicosia|Europe/Kiev",
 			"Asia/Nicosia|Europe/Mariehamn",
@@ -13400,11 +13387,13 @@ return parser;
 			"Asia/Nicosia|Europe/Riga",
 			"Asia/Nicosia|Europe/Sofia",
 			"Asia/Nicosia|Europe/Tallinn",
+			"Asia/Nicosia|Europe/Tiraspol",
 			"Asia/Nicosia|Europe/Uzhgorod",
 			"Asia/Nicosia|Europe/Vilnius",
 			"Asia/Nicosia|Europe/Zaporozhye",
+			"Asia/Pyongyang|Asia/Seoul",
+			"Asia/Pyongyang|ROK",
 			"Asia/Samarkand|Asia/Tashkent",
-			"Asia/Seoul|ROK",
 			"Asia/Singapore|Singapore",
 			"Asia/Tehran|Iran",
 			"Asia/Thimbu|Asia/Thimphu",
@@ -13446,7 +13435,6 @@ return parser;
 			"Europe/Belfast|Europe/London",
 			"Europe/Belfast|GB",
 			"Europe/Belfast|GB-Eire",
-			"Europe/Chisinau|Europe/Tiraspol",
 			"Europe/Moscow|Europe/Volgograd",
 			"Europe/Moscow|W-SU",
 			"HST|Pacific/Honolulu",
