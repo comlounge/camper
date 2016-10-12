@@ -39,13 +39,14 @@ class RegistrationService(object):
  
         uid = unicode(self.user._id)
         event = self.barcamp.get_event(eid)
+        new_status = status # remember what was asked for
 
         # do the status change
         status = event.set_status(uid, status)
 
         # send out emails
         view = self.barcamp_view
-        if status=="going":
+        if status == "going":
             self.mail_template("welcome",
                 view = view,
                 barcamp = self.barcamp,
@@ -54,7 +55,12 @@ class RegistrationService(object):
                 event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
 
-        elif status=="waitinglist":
+            if self.barcamp.send_email_to_admins:
+                subject = self.handler._('New registration for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                self.send_email_to_admins("admin_new_registration", event, subject)
+                
+
+        elif status == "waitinglist":
             self.mail_template("onwaitinglist",
                 view = view,
                 barcamp = self.barcamp,
@@ -62,6 +68,16 @@ class RegistrationService(object):
                 event_title = event.name,
                 event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
+
+            if self.barcamp.send_email_to_admins:
+                subject = self.handler._('New user on waiting list for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                self.send_email_to_admins("admin_waitinglist", event, subject)
+
+        elif status == "notgoing":
+            if self.barcamp.send_email_to_admins:
+                subject = self.handler._('Cancellation for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                self.send_email_to_admins("admin_cancelled_registration", event, subject)
+
 
         # check if we can fill up the participants from the waiting list
         uids = event.fill_participants()
@@ -110,4 +126,30 @@ class RegistrationService(object):
             payload = payload.replace('((fullname))', user.fullname)
             mailer = self.app.module_map['mail']
             mailer.mail(send_to, subject, payload)
+
+    def send_email_to_admins(self, template_name, event, subject):
+        """send out notification emails on registration events"""
+        
+        mailer = self.app.module_map['mail']
+        barcamp = self.barcamp
+        new_user = self.user # user registering
+        print subject
+        for admin in self.barcamp.admin_users:
+                send_tos = [admin.email]
+                kwargs = dict(
+                    new_user = new_user,
+                    user = admin,
+                    barcamp = barcamp,
+                    event = event,
+                    url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
+                    notification_url = self.handler.url_for("barcamps.edit", slug = self.barcamp.slug, _full = True)
+                )
+                payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
+                mailer.mail(admin.email, subject, payload)
+
+
+            
+
+
+
 
