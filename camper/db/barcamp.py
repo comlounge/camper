@@ -388,6 +388,9 @@ class BarcampSchema(Schema):
     # default mail templates
     mail_templates      = MailsSchema(default = {})
 
+    # notifications
+    send_email_to_admins = Boolean(default = False)
+
 
 class Barcamp(Record):
 
