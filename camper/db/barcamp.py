@@ -94,7 +94,7 @@ class SessionSchema(Schema):
     title               = String(required = True, max_length = 255)
     description         = String(max_length = 5000)
     moderator           = String(default = "") # actually list of names separated by comma
-    interested          = Integer(default = 0) # ppl interested in a session
+    interested          = String(default = "") # ppl interested in a session
 
     # sid and slug for url referencing, will be computed in before_serialze below in Barcamps
     sid                 = String(required = True)   # the actual unique id   
