@@ -83,10 +83,15 @@ module.exports = function(grunt) {
             public: {
                 dest: 'static/js/public_components.js',
                 cssDest: 'static/css/public_components.css',
+                mainFiles: {
+                  'parsleyjs': ['dist/parsley.js', 'dist/parsley.remote.js'],
+                },
                 include: [
                     'bootstrap',
                     "mjolnic-bootstrap-colorpicker",
-                    'bootstrap-confirmation2'
+                    'bootstrap-confirmation2',
+                    "parsleyjs",
+                    "parsleyjs-bootstrap3",
                 ]
             },
             all: {
@@ -175,7 +180,8 @@ module.exports = function(grunt) {
     grunt.registerTask('hbs', ['handlebars']);
     grunt.registerTask('js', ['cjsx', 'uglify:public', 'uglify:admin']);
     grunt.registerTask('jsall', ['bower_concat', 'js', 'uglify', 'concat']);
-    grunt.registerTask('css', ['less', 'uglify']);
+    //grunt.registerTask('css', ['less', 'uglify']);
+    grunt.registerTask('css', ['less']);
     grunt.registerTask('init', ['mkdir', 'gitclone']);
 
 };

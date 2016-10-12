@@ -617,6 +617,7 @@
         excluded: "input[type=file]",
         errorsWrapper: "<span class='errors-block help-block'></span>",
         errorsContainer: function(el) {
+          console.log(el);
           return el.$element.closest("div");
         }
       }).addAsyncValidator('bcslug', function(xhr) {

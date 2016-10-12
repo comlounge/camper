@@ -57,12 +57,7 @@ class Permissions(BarcampBaseHandler):
                 for send_to in send_tos:
                     mailer.mail(send_to, subject, payload)
 
-        # redirect back to the right page
-        if self.last_url:
-            url = self.last_url
-        else:
-            url = self.url_for("barcamp", slug=slug)
-
+        url = self.url_for("barcamp", slug=slug)
         return redirect(url)
 
 

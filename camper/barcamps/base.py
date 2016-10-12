@@ -41,11 +41,6 @@ class BarcampBaseHandler(BaseHandler):
     def before(self):
         """our own before handler"""
         super(BarcampBaseHandler, self).before()
-        self.last_url = self.session.get("came_from", None)
-        if self.request.method == "GET":
-            self.session['came_from'] = self.request.url
-        elif "came_from" in self.session:
-            del self.session['came_from']
 
     @property
     def actions(self):

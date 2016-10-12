@@ -10,29 +10,31 @@
 
 {% macro barcamp_buttons() -%}
     {% if logged_in %}
-    <div class="widget-join">
         {% if barcamp.is_registered(user) %}
-            <div class="attending">
-                <i class="fa fa-check"></i> {{_('I am attending!')}}<br>
+            <div class="widget-join">
+                <div class="attending">
+                    <i class="fa fa-check"></i> {{_('I am attending!')}}<br>
+                </div>
             </div>
         {% else %}
-            {% if barcamp.workflow == "registration" %}
-                <div>
+            {% if barcamp.workflow == "registration" and has_form and not has_form_data %}
+                <div class="widget-join">
                     <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
-                    href="{{url_for('barcamps.user_events', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
+                    href="{{url_for('barcamps.wizard', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
                     <i class="fa fa-check"></i>
                     {{_('Register')}}</a>
                 </div>
             {% endif %}
         {% endif %} {# is registered_user #}
-    </div>
     {% else %}
-    <div class="alert alert-info">
-        <h4>{{_("Attention!")}}</h4>
-        {{_('In order to mark your interest in this barcamp you first have to')}}
-        <a href="{{url_for('userbase.register')}}">{{_('register')}}</a> {{_('or')}} <a href="{{url_for('userbase.login')}}">{{_('login')}}</a>
-        {{_('on the site itself and then come back to this barcamp to mark your interest.')}}
-    </div>
+        <div class="widget-join">
+            <div>
+                <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
+                href="{{url_for('barcamps.wizard', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
+                <i class="fa fa-check"></i>
+                {{_('Register')}}</a>
+            </div>
+        </div>
     {% endif %} {# logged in#}
 {%- endmacro %} {# barcamp_buttons #}
 

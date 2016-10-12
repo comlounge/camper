@@ -439,6 +439,7 @@ $ ->
             excluded: "input[type=file]"
             errorsWrapper: "<span class='errors-block help-block'></span>"
             errorsContainer: (el) ->
+                console.log(el);
                 el.$element.closest("div")
         )
         .addAsyncValidator('bcslug', (xhr) ->

@@ -240,10 +240,10 @@ class CamperApp(Application):
             use_remember                = True,
             login_form                  = login.EMailLoginForm,
             urls                        = {
-                'activation'            : {'endpoint' : 'userbase.activate'},
+                'activation'            : {'endpoint' : 'activation'}, # we use our own activation handler 
                 'activation_success'    : {'endpoint' : 'index'},
                 'activation_code_sent'  : {'endpoint' : 'userbase.activate'},
-                'login_success'         : {'endpoint' : 'index'},
+                'login_success'         : {'endpoint' : 'login_success'},
                 'logout_success'        : {'endpoint' : 'userbase.login'},
                 'registration_success'  : {'endpoint' : 'userbase.login'},
             },
@@ -293,6 +293,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/login_success', 'login_success', handlers.index.LoginSuccess),
         URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
@@ -308,6 +309,7 @@ class CamperApp(Application):
         URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
+        URL('/u/activate', 'activation', handlers.users.activation.ActivationHandler),
 
         # admin area
         URL('/admin/', "admin_index", handlers.admin.index.IndexView),
@@ -331,6 +333,7 @@ class CamperApp(Application):
             base_params={'apikey': self.config.ep_api_key},
             base_url=self.config.ep_endpoint
         )
+
 
     def finalize_modules(self):
         """finalize all modules"""

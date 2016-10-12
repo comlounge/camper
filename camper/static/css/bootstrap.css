@@ -7587,6 +7587,87 @@ form {
   position: relative;
   top: -1px;
 }
+#registration-wizard fieldset {
+  background: #f2f3f0;
+  margin-bottom: 20px;
+}
+#registration-wizard fieldset .fs-content {
+  padding: 10px 20px;
+}
+#registration-wizard fieldset legend {
+  background: #d9dcd4;
+  padding: 10px 20px;
+}
+#registration-wizard fieldset .checkbox input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 0px;
+  border: 2px solid #555;
+}
+#registration-wizard fieldset .checkbox input[type='checkbox']:checked {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 20px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translate(0, 0);
+  padding-left: 3px;
+  padding-top: 3px;
+  background: #303030;
+  color: #f0f0f0;
+}
+#registration-wizard fieldset .checkbox input[type='checkbox']:checked:before {
+  content: "\f00c";
+}
+#registration-wizard fieldset .checkbox label {
+  width: 80%;
+  margin-right: 30px;
+}
+#registration-wizard fieldset .checkbox article {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Chrome/Safari/Opera */
+  -khtml-user-select: none;
+  /* Konqueror */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently */
+  width: 100%;
+  margin-left: 30px;
+}
+#registration-wizard fieldset .checkbox article .text-danger {
+  color: white;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  #registration-wizard fieldset .checkbox article .text-danger {
+    display: none !important;
+  }
+}
+@media (max-width: 767px) {
+  #registration-wizard fieldset .checkbox article .text-danger {
+    display: none !important;
+  }
+}
+#registration-wizard fieldset .checkbox article .progress {
+  height: 10px;
+}
+@media (min-width: 992px) {
+  #registration-wizard fieldset .checkbox article .progress {
+    height: 30px;
+  }
+  #registration-wizard fieldset .checkbox article .progress-bar {
+    padding-top: 4px;
+  }
+}
 /*
 ** general rules
 */

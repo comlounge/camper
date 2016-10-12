@@ -479,6 +479,8 @@ class BaseHandler(starflyer.Handler):
         """prepare the handler"""
         if "slug" in self.request.view_args:
             self.barcamp = self.config.dbs.barcamps.by_slug(self.request.view_args['slug'])
+            if self.barcamp is None:
+                raise werkzeug.exceptions.NotFound()
             self.barcamp_view = BarcampView(self.barcamp, self)
             self.barcamp_id = self.barcamp._id
         else:

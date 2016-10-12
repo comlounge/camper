@@ -463,7 +463,11 @@ class Barcamp(Record):
         def s(a,b):
             d = cmp(a['date'], b['date'])
             if d==0:
-                return cmp(a['start_time'], b['start_time'])
+                tpa = a['start_time'].split(":") + ['00']
+                ta = int(tpa[0])*60 + int(tpa[1])
+                tpb = b['start_time'].split(":") + ['00']
+                tb = int(tpb[0])*60 + int(tpb[1])
+                return cmp(ta,tb)
             return d
         events.sort(s)
         events = [Event(e, _barcamp = self) for e in events]
