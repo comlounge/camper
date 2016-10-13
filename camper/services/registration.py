@@ -39,7 +39,7 @@ class RegistrationService(object):
  
         uid = unicode(self.user._id)
         event = self.barcamp.get_event(eid)
-        new_status = status # remember what was asked for
+        was_going = uid in event.participants # for sending out the unregister notification
 
         # do the status change
         status = event.set_status(uid, status)
@@ -56,7 +56,7 @@ class RegistrationService(object):
                 **self.barcamp)
 
             if self.barcamp.send_email_to_admins:
-                subject = self.handler._('New registration for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                subject = self.handler._('New registration for %s/%s (%s/%s)') %(event.name, self.barcamp.name, len(event.participants), event.size)
                 self.send_email_to_admins("admin_new_registration", event, subject)
                 
 
@@ -70,12 +70,12 @@ class RegistrationService(object):
                 **self.barcamp)
 
             if self.barcamp.send_email_to_admins:
-                subject = self.handler._('New user on waiting list for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                subject = self.handler._('New user on waiting list for %s/%s (%s/%s)') %(event.name, self.barcamp.name, len(event.participants), event.size)
                 self.send_email_to_admins("admin_waitinglist", event, subject)
 
-        elif status == "notgoing":
+        elif was_going and status != "going":
             if self.barcamp.send_email_to_admins:
-                subject = self.handler._('Cancellation for %s/%s (%s/%s)' %(event.name, self.barcamp.name, len(event.participants), event.size))
+                subject = self.handler._('Cancellation for %s/%s (%s/%s)') %(event.name, self.barcamp.name, len(event.participants), event.size)
                 self.send_email_to_admins("admin_cancelled_registration", event, subject)
 
 
@@ -133,7 +133,6 @@ class RegistrationService(object):
         mailer = self.app.module_map['mail']
         barcamp = self.barcamp
         new_user = self.user # user registering
-        print subject
         for admin in self.barcamp.admin_users:
                 send_tos = [admin.email]
                 kwargs = dict(
