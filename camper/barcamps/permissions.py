@@ -29,10 +29,15 @@ class Permissions(BarcampBaseHandler):
         except WorkflowError, e:
             print e
             self.flash(self._("you cannot perform this action."), category="error")
+            return redirect(self.url_for(".admin_wizard", slug=slug))
 
         # send out the notification email
         wf = self.request.form.get("wf","")
-        if wf=="public":
+        if wf=="registration":
+            self.flash(self._("The barcamp is now open for registration."), category="success")
+        elif wf=="public":
+            self.flash(self._("The barcamp is now public."), category="success")
+
             # this can be multiple addresses split by comma
             send_to = self.app.config.new_bc_notification_addr
             if send_to:
@@ -57,13 +62,7 @@ class Permissions(BarcampBaseHandler):
                 for send_to in send_tos:
                     mailer.mail(send_to, subject, payload)
 
-        # redirect back to the right page
-        if self.last_url:
-            url = self.last_url
-        else:
-            url = self.url_for("barcamp", slug=slug)
-
-        return redirect(url)
+        return redirect(self.url_for(".admin_wizard", slug=slug))
 
 
 class Admin(BarcampBaseHandler):
