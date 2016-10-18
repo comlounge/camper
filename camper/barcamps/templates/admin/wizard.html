@@ -1,0 +1,342 @@
+{% extends "admin_master.html" %}
+
+{% block content %}
+    {% block title %}
+    <div class="page-header">
+        <h1> {{_('Barcamp status (%s%% completed)') %percentage}}</h1>
+    </div>
+    {% endblock %}
+
+    <div id="dashboard">
+
+        <div class="progress" style="height: 30px;">
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="font-family: Roboto; font-weight: 700; font-size: 20px; padding: 5px; width: {{percentage}}%;">
+                {{percentage}}%
+            </div>
+        </div>
+
+        <hr>
+
+        {% if percentage == "100" %}
+            <h3>{{_('Complete the following tasks to get all out of your Barcamp!')}}</h3>
+            <div class="help-block">{{_("If you decide you don't want or need one of the TODO items, just click the corresponding button and it will not count to your progress anymore")}}</div>
+        {% else %}
+            <h3>Congratulations!</h3>
+            {{_('Your barcamp is fully functional. You can check the status of all your events below.')}}
+        {% endif %}
+
+
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+
+            <form method="POST" action="{{url}}">
+                {% if not has_logo %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-logo" aria-expanded="true" aria-controls="has-logo">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add a logo for your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-logo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-logo">
+                        <div class="panel-body">
+                            <p>
+                                {{_("A logo makes your barcamp more recognizable. If you don't have a logo, don't worry as we have a barcamp logo generator ready for you!")}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_logo" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a logo")}}</button>
+                        <a href="{{url_for('.admin_design', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-magic"></i> {{_("Add or create a logo")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not has_event %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-event" aria-expanded="true" aria-controls="has-event">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add an event to your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-event" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-event">
+                        <div class="panel-body">
+                            <p>
+                                {{_('Barcamps consists of one or more events. Events can e.g. be "Day 1,2,3" or "Community Dinner". Events are what attendees sign up for. Each event has
+                                an attendee list, a waiting list, a timetable, session documentary and a maximum amount of people who can attend. Additionally you can choose a different location for each event.')}}
+                            </p>
+                            <p>
+                                {{_('Even if you have only a one day barcamp you still need to create an event for people to signup for.')}}
+                            </p>
+
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_event" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need events")}}</button>
+                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-calendar"></i> {{_("Create an event")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not has_timetable %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-timetable" aria-expanded="true" aria-controls="has-timetable">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add timetables to your event')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-timetable" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-timetable">
+                        <div class="panel-body">
+                            <p>
+                                {{_("Timetables not only allow people to see when what happens, you can also use them to manage barcamp sessions on a session table. You can define teimetables be defining rooms and timeslots.")}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_timetable" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a timetable")}}</button>
+                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-facebook"></i> {{_("Add timetables to your events")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not has_sponsor %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-sponsor" aria-expanded="true" aria-controls="has-sponsor">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add sponsors to your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-sponsor" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-sponsor">
+                        <div class="panel-body">
+                            <p>
+                                {{_('In case you have sponsors for your barcamp you can list them on the barcamp page with a logo, link and name.')}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_sponsor" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't have sponsors")}}</button>
+                        <a href="{{url_for('.sponsors', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-dollar"></i> {{_("Manage your sponsors")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+
+                {% if not has_twitter %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-twitter" aria-expanded="true" aria-controls="has-twitter">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add a twitter account for your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-twitter" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-twitter">
+                        <div class="panel-body">
+                            <p>
+                                {{_("In case you manage a twitter account for this barcamp you can add it here so people know where to find it. It's usually a good way to quickly send out uptodate information about the event.")}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_twitter" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't use twitter")}}</button>
+                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter account")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not has_hashtag %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-hashtag" aria-expanded="true" aria-controls="has-hashtag">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add a hashtag for your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-hashtag" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-hashtag">
+                        <div class="panel-body">
+                            <p>
+                                {{_("Usually people want to tweet about events such as yours. To make it easier for people to find those tweets you should define a hashtag for your event, e.g. your url name in case it's short enough (%s). It usually makes sense to use the same shortname/hashtag for both." %barcamp.slug)}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_hashtag" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a hashtag")}}</button>
+                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter hashtag")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not has_facebook %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-facebook" aria-expanded="true" aria-controls="has-facebook">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add a facebook fan page')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-facebook" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-facebook">
+                        <div class="panel-body">
+                            <p>
+                                {{_("In case you have a facebook fan page for your event you might want to add it here so people can visit it.")}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_facebook" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't have a facebook page")}}</button>
+                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-facebook"></i> {{_("Add a facebook page")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+
+
+                {% if not has_seo %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-seo" aria-expanded="true" aria-controls="has-seo">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                {{_('Add a description for search engines (meta description)')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-seo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-seo">
+                        <div class="panel-body">
+                            <p>
+                                {{_("If you want your barcamp to show up better in search engines, you should add a Meta Description to it. It should be a max of 160 characters and is the short description search engines show below the title in search results. So you want to make sure you provide the most important information in this text.")}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <button type="submit" name="has_seo" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a meta description")}}</button>
+                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> {{_("Add a meta description")}}</a>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+
+            {% if not is_public%}
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#is-public" aria-expanded="true" aria-controls="is-public">
+                            <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                            {{_('Publish your barcamp')}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="is-public" class="panel-collapse collapse" role="tabpanel" aria-labelledby="is-public">
+                    <div class="panel-body">
+                        <p>
+                            {{_("Right now the barcamp is only visible for barcamp administrators. In order to open it up for the public you need to publish it. This also needs to be done for private barcamps. They will still not show up in search engines or the homepage.")}}
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST" style="display: inline;">
+                        <input type="hidden" name="wf" value="public">
+                        <button class="btn btn-sm btn-success"><i class="fa fa-star"></i> {{_("Publish my barcamp")}}</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if not is_active and is_public%}
+            <div class="panel panel-primary">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#is-active" aria-expanded="true" aria-controls="is-active">
+                            <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                            {{_('open registration')}}
+                        </a>
+                    </h4>
+                </div>
+                <div id="is-active" class="panel-collapse collapse" role="tabpanel" aria-labelledby="is-active">
+                    <div class="panel-body">
+                        <p>
+                            {{_("Right now your barcamp is visible but nobody can register yet. In order to change this you need to open it up for registration. This also needs to be done for private barcamps.")}}
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-footer clearfix">
+                    <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST" style="display: inline;">
+                        <input type="hidden" name="wf" value="registration">
+                        <button class="btn btn-sm btn-success"><i class="fa fa-star"></i> {{_("open registration")}}</button>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+
+        </div>
+
+        <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
+            {% for event in barcamp.eventlist %}
+            <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-wizard">
+                <div class="panel-heading">
+
+                    <h4 class="panel-title">
+                        <div class="date">
+                            <span class="day">{{event.date.strftime("%d") }}</span>
+                            <span class="month">{{event.date.strftime("%m") }}</span>
+                            <span class="year">{{event.date.strftime("%Y") }}</span>
+                        </div>
+                        <a href="{{url_for('.event', slug = slug, eid = event._id)}}">
+                            {{event.name}}
+                        </a>
+                    </h4>
+
+                    <address>
+                        {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
+                    </address>
+
+                    <div class="progress-info">
+                        <span class="filled">{{event.participants|length}}</span>
+                        /
+                        <span class="size">{{event.size}}</span> 
+                        {{_('participants')}}
+                        <br>
+                        <span class="amount">{{event.waiting_list|length}}</span>
+                        {{_('on waiting list')}}
+
+                    </div>
+
+
+                    <div class="progress progress-events">
+                        {% set percent = event.participants|length / event.size * 100 %}
+                        <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
+                            role="progressbar" 
+                            aria-valuenow="{{event.participants|length}}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-body">
+                    <a href="{{url_for('.event', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> {{_('Edit event details')}}</a>
+                    <a href="{{url_for('.sessionboard', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Edit Timetable / Sessions')}}</a>
+                    <a href="{{url_for('.event_participants', slug = slug, eid = event._id)}}" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Manage Participants')}}</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+

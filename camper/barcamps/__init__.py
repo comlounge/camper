@@ -19,6 +19,7 @@ import user_events
 import sessionpad
 import galleries
 import design
+import wizard
 
 from starflyer import Module, URL
 
@@ -82,6 +83,7 @@ class BarcampModule(Module):
         URL('/<slug>/admin/galleries/<gid>/edit', 'gallery_image_edit',         galleries.GalleryImageEdit),
         URL('/<slug>/admin/galleries/<gid>/title', 'gallery_title_edit',        galleries.GalleryTitleEdit),
 
+        URL('/<slug>/admin/wizard',         'admin_wizard',                     wizard.BarcampWizard),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>',   'event',                            events.EventView),
