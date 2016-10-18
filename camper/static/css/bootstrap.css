@@ -7539,6 +7539,28 @@ form {
   display: block;
   text-align: center;
 }
+.panel.panel-wizard {
+  border-color: #dddddd;
+  margin-bottom: 20px !important;
+}
+.panel.panel-wizard > .panel-heading {
+  color: #333333;
+  background-color: #f5f5f5;
+  border-color: #dddddd;
+}
+.panel.panel-wizard > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #dddddd;
+}
+.panel.panel-wizard > .panel-heading .badge {
+  color: #f5f5f5;
+  background-color: #333333;
+}
+.panel.panel-wizard > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #dddddd;
+}
+.panel.panel-wizard .panel-heading {
+  background: #e3e2e0;
+}
 .gallery {
   width: 100%;
   overflow: hidden;
