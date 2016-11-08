@@ -42,8 +42,6 @@ class SetDefaultMailTemplates(ScriptBase):
         return translations.ugettext(unicode(s))
 
 
-
-
 def set_templates():
     s = SetDefaultMailTemplates()
     s()

@@ -1,0 +1,13 @@
+Hallo {{user.fullname}},
+
+{{new_user.fullname}} hat sich von {{event.name}} bei {{barcamp.name}} abgemeldet.
+
+Teilnehmende: {{event.participants|length}}/{{event.size}}
+Warteliste: {{event.waiting_list|length}}
+Barcamp: {{url}}
+
+--
+Diese E-Mail wurde automatisch generiert, bitte antworte nicht darauf.
+Du kannst diese Benachrichtigungen hier abstellen: {{notification_url}}
+
+
