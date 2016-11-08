@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2016-10-10 16:31+0200\n"
+"POT-Creation-Date: 2016-11-08 11:58+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -816,8 +816,9 @@ msgstr ""
 msgid ""
 "In order to finish your registration you have to activate your account. "
 "Please check your email."
-msgstr "Um Deine Registrierung abzuschliessen, musst Du Dein Konto noch aktivieren. "
-"Bitte schaue dazu in Deine E-Mail."
+msgstr ""
+"Um Deine Registrierung abzuschliessen, musst Du Dein Konto noch "
+"aktivieren. Bitte schaue dazu in Deine E-Mail."
 
 #: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:27
 #: static/templates/room-modal.hbs:15
@@ -917,17 +918,16 @@ msgstr "Auf Google+ teilen"
 msgid "I am attending!"
 msgstr "Ich nehme teil"
 
-#: barcamps/templates/master.html:21 barcamps/templates/master.html:32
+#: barcamps/templates/master.html:22 barcamps/templates/master.html:32
+#: barcamps/templates/user_events.html:68
 msgid "Click here to participate in the barcamp"
 msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 
-#: barcamps/templates/master.html:24 barcamps/templates/master.html:35
+#: barcamps/templates/master.html:25 barcamps/templates/master.html:35
 #: barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:60
-#: barcamps/templates/user_event.html:90 barcamps/templates/user_events.html:16
-#: barcamps/templates/user_events.html:42
-#: barcamps/templates/user_events.html:69 templates/master.html:96
-#: templates/M/userbase/registration.html:15
+#: barcamps/templates/user_event.html:90 barcamps/templates/user_events.html:71
+#: templates/master.html:96 templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr "Registrieren"
 
@@ -937,7 +937,7 @@ msgstr "Karte in Fenster öffnen"
 
 #: barcamps/templates/master.html:153
 #: barcamps/templates/admin/event_macros.html:38
-#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:49
+#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:64
 #: static/templates/timeslot-modal.hbs:35
 msgid "Close"
 msgstr "Schließen"
@@ -1012,7 +1012,7 @@ msgstr "Registrieren für %s"
 #: blog/templates/edit.html:19 blog/templates/edit.html:46
 #: blog/templates/entry.html:43 blog/templates/entry.html:45
 #: blog/templates/view.html:25 blog/templates/view.html:27
-#: static/templates/sessiontest.hbs:53
+#: static/templates/sessiontest.hbs:57
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -1024,7 +1024,7 @@ msgstr ""
 
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/registration_wizard.html:116
-#: barcamps/templates/user_events.html:93
+#: barcamps/templates/user_events.html:95
 #: barcamps/templates/admin/dashboard.html:36
 msgid "participants"
 msgstr "Teilnehmer"
@@ -1067,8 +1067,10 @@ msgstr "Vielleicht"
 #: barcamps/templates/registration.html:63
 #: barcamps/templates/user_event.html:38 barcamps/templates/user_event.html:43
 #: barcamps/templates/user_event.html:70 barcamps/templates/user_event.html:75
+#: barcamps/templates/user_events.html:16
 #: barcamps/templates/user_events.html:26
 #: barcamps/templates/user_events.html:31
+#: barcamps/templates/user_events.html:42
 #: barcamps/templates/user_events.html:52
 #: barcamps/templates/user_events.html:57
 msgid "Going"
@@ -1105,23 +1107,18 @@ msgid ""
 "That way you can later manage your barcamp registration or use "
 "interactive features during the barcamp."
 msgstr ""
-"Dieses Barcamp wird auf barcamptools.eu gehostet, einer Online-Plattform"
-"zur Verwaltung von Barcamps. Aus diesem Grund wird für Dich"
-"bei der Barcamp-Registrierung ein Konto angelegt. Dieses Konto kostet Dich"
-"nichts, erlaubt es Dir aber, Deine Teilnahme zu verwalten oder aber die"
-"interaktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team zu
-"erhalten."
+"Dieses Barcamp wird auf barcamptools.eu gehostet, einer Online-"
+"Plattformzur Verwaltung von Barcamps. Aus diesem Grund wird für Dichbei "
+"der Barcamp-Registrierung ein Konto angelegt. Dieses Konto kostet "
+"Dichnichts, erlaubt es Dir aber, Deine Teilnahme zu verwalten oder aber "
+"dieinteraktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team "
+"zerhalten."
 
 #: barcamps/templates/registration_wizard.html:27
 msgid "The email you provide here will not be shared with any barcamps."
 msgstr ""
 "Die E-Mail-Adresse, die Du hier angibst, wird niemals an Barcamps "
 "weitergegeben."
-
-
-#: barcamps/templates/registration_wizard.html:27
-msgid "The email you provide here will not be shared with any barcamps."
-msgstr "Diese E-Mail-Adresse wird niemals an Barcamps-Organisatoren weitergegeben."
 
 #: barcamps/templates/registration_wizard.html:31
 msgid "If you already have a barcamptools.eu account please login."
@@ -1135,9 +1132,10 @@ msgstr "Einloggen"
 msgid ""
 "This email is already taken. Please <a href=\"/users/login\">login</a> to"
 " continue the registration process"
-msgstr "Diese E-Mail ist schon vergeben. Wahrscheinlich hast Du schon einen Account "
-"auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich mit diesem ein</a> "
-"und schliesse damit die Registrierung ab."
+msgstr ""
+"Diese E-Mail ist schon vergeben. Wahrscheinlich hast Du schon einen "
+"Account auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich "
+"mit diesem ein</a> und schliesse damit die Registrierung ab."
 
 #: barcamps/templates/registration_wizard.html:57
 msgid "Repeat your password"
@@ -1157,7 +1155,8 @@ msgid ""
 "will not be shared with other barcamps."
 msgstr ""
 "Das Barcamp braucht noch folgende Daten von Dir, um die Registrierungs "
-"abzuschliessen. Diese Daten werden nicht an andere Barcamps weitergegeben."
+"abzuschliessen. Diese Daten werden nicht an andere Barcamps "
+"weitergegeben."
 
 #: barcamps/templates/registration_wizard.html:88
 msgid "Select events you want to attend"
@@ -1310,14 +1309,13 @@ msgid "I am not attending this event"
 msgstr "Ich nehme nicht teil"
 
 #: barcamps/templates/user_event.html:90 barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:69
-#: barcamps/templates/user_events.html:136
+#: barcamps/templates/user_events.html:138
 msgid "Add my registration data"
 msgstr "Meine Registrierungsdaten angeben"
 
 #: barcamps/templates/user_event.html:113
 #: barcamps/templates/user_event.html:131
-#: barcamps/templates/user_events.html:108 barcamps/templates/userlist.html:50
+#: barcamps/templates/user_events.html:110 barcamps/templates/userlist.html:50
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
 #: barcamps/templates/admin/events.html:29
@@ -1325,14 +1323,14 @@ msgid "Participants"
 msgstr "Teilnehmer"
 
 #: barcamps/templates/user_event.html:116
-#: barcamps/templates/user_events.html:109
+#: barcamps/templates/user_events.html:111
 #: barcamps/templates/admin/event_macros.html:12
 msgid "Timetable"
 msgstr "Zeitraster"
 
 #: barcamps/templates/user_event.html:119
 #: barcamps/templates/user_event.html:204
-#: barcamps/templates/user_events.html:110
+#: barcamps/templates/user_events.html:112
 #: barcamps/templates/admin/add.html:124
 #: barcamps/templates/admin/event_macros.html:141
 msgid "Location"
@@ -1347,27 +1345,27 @@ msgid "Edit Sessions"
 msgstr "Sessions bearbeiten"
 
 #: barcamps/templates/user_event.html:225
-#: barcamps/templates/user_events.html:122
+#: barcamps/templates/user_events.html:124
 msgid "My data"
 msgstr "Meine Daten"
 
 #: barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:133
+#: barcamps/templates/user_events.html:135
 msgid "Change my registration data"
 msgstr "Meine Registrierungsdaten ändern"
 
 #: barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:133
+#: barcamps/templates/user_events.html:135
 msgid "edit"
 msgstr "Bearbeiten"
 
 #: barcamps/templates/user_event.html:238
-#: barcamps/templates/user_events.html:135
+#: barcamps/templates/user_events.html:137
 msgid "please enter your personal data in order to register for this event"
 msgstr ""
 
 #: barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:136
+#: barcamps/templates/user_events.html:138
 msgid "add"
 msgstr "Hinzufügen"
 
@@ -1877,7 +1875,7 @@ msgid "who should be credited?"
 msgstr "Wer sollte als Autor genannt werden?"
 
 #: barcamps/templates/admin/gallery_macros.html:23
-#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:48
+#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:63
 msgid "Update"
 msgstr "Aktualisieren"
 
@@ -2287,7 +2285,9 @@ msgstr ""
 msgid ""
 "Your account has been successfully activated and you have been registered"
 " for the barcamp"
-msgstr "Dein Konto wurde erfolgreich aktiviert und damit ist Deine Barcamp-Registrierung abgeschlossen."
+msgstr ""
+"Dein Konto wurde erfolgreich aktiviert und damit ist Deine Barcamp-"
+"Registrierung abgeschlossen."
 
 #: handlers/users/activation.py:58
 msgid "Your account has been successfully activated."
@@ -2462,7 +2462,7 @@ msgid "Add new page"
 msgstr "neue Seite anlegen"
 
 #: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
-#: static/templates/sessiontest.hbs:72
+#: static/templates/sessiontest.hbs:76
 msgid "Add new room"
 msgstr "Neuen Raum hinzufügen"
 
@@ -2490,6 +2490,16 @@ msgstr "Sessionbeschreibung"
 msgid "Speaker / Moderator"
 msgstr "Vortragender / Moderator"
 
+#: static/templates/session-modal.hbs:44
+msgid "Please press enter after entering a name to make it permanent"
+msgstr ""
+"Bitte drücke die Eingabetaste nach Eingabe eines Namens, um ihn richtig "
+"zu speichern."
+
+#: static/templates/session-modal.hbs:48
+msgid "How many people are interested in this session?"
+msgstr "Wie viele Personen sind an dieser Session interessiert?"
+
 #: static/templates/sessiontest.hbs:19
 msgid "delete room"
 msgstr "Raum löschen"
@@ -2502,16 +2512,16 @@ msgstr "Ziehen, um Liste zu sortieren"
 msgid "delete timeslot"
 msgstr "Zeitslot löschen"
 
-#: static/templates/sessiontest.hbs:67 static/templates/timeslot-modal.hbs:7
+#: static/templates/sessiontest.hbs:71 static/templates/timeslot-modal.hbs:7
 #: static/templates/timeslot-modal.hbs:34
 msgid "Add new timeslot"
 msgstr "Neuen Zeitslot hinzufügen"
 
-#: static/templates/sessiontest.hbs:70
+#: static/templates/sessiontest.hbs:74
 msgid "Add new time slot"
 msgstr "Neuen Zeitslot hinzufügen"
 
-#: static/templates/sessiontest.hbs:73
+#: static/templates/sessiontest.hbs:77
 msgid "Add new Room"
 msgstr "Neuen Raum hinzufügen"
 

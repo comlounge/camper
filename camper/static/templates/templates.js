@@ -69,7 +69,13 @@ this["JST"]["session-modal"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Speaker / Moderator",{"name":"_","hash":{},"data":data}))
     + "</label>\n                        <div class=\"col-sm-8\">\n                        	<input \n                        		id=\"moderator\"\n                        		name=\"moderator\"\n                        		type=\"text\"\n                        		value=\""
     + alias2(((helper = (helper = helpers.moderator || (depth0 != null ? depth0.moderator : depth0)) != null ? helper : alias1),(typeof helper === alias3 ? helper.call(depth0,{"name":"moderator","hash":{},"data":data}) : helper)))
-    + "\"\n                        		class=\"form-control\"\n                        		>\n                        </div>\n                    </div> \n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"update-session-button\" class=\"btn btn-primary\">"
+    + "\"\n                        		class=\"form-control\"\n                        		>\n                            <div class=\"help-block\">"
+    + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Please press enter after entering a name to make it permanent",{"name":"_","hash":{},"data":data}))
+    + "</div>\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"col-sm-3 control-label\">"
+    + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"How many people are interested in this session?",{"name":"_","hash":{},"data":data}))
+    + "</label>\n                        <div class=\"col-sm-3\">\n                            <input \n                                id=\"interested\"\n                                name=\"interested\"\n                                type=\"text\"\n                                size=3\n                                value=\""
+    + alias2(((helper = (helper = helpers.interested || (depth0 != null ? depth0.interested : depth0)) != null ? helper : alias1),(typeof helper === alias3 ? helper.call(depth0,{"name":"interested","hash":{},"data":data}) : helper)))
+    + "\"\n                                class=\"form-control\"\n                                >\n                        </div>\n                    </div> \n\n            </div>\n            <div class=\"modal-footer\">\n                <button id=\"update-session-button\" class=\"btn btn-primary\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Update",{"name":"_","hash":{},"data":data}))
     + "</button>\n                <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">"
     + alias2((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Close",{"name":"_","hash":{},"data":data}))
@@ -81,7 +87,7 @@ this["JST"]["sessionboard"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.
 
   return "\n"
     + this.escapeExpression(((helper = (helper = helpers.data || (depth0 != null ? depth0.data : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"data","hash":{},"data":data}) : helper)))
-    + "\n<div class=\"table-responsive\">\n    <table class=\"table table-bordered sessiontable\">\n        <colgroup>\n            <col width=\"10%\">\n            \n            \n            <col ng-repeat=\"room in rooms | slice:1:10000\" width=\"{[{90/rooms.length}]}%\">\n        </colgroup>\n        <thead>\n            <tr id=\"roomcontainment\" ui-sortable=\"sortableOptions\" ng-model=\"rooms\">\n                <td></td>\n                <td class=\"sorted room-slot\" ng-repeat=\"room in rooms | slice:1:10000\" data-id=\"{[{room.id}]}\">\n                    <h5 class=\"room-name\">{[{room.name}]}</h5>\n                    <div class=\"room-actions\">\n                    </div>\n                    <small>{[{room.description}]}</small><br>\n                    <small>{[{room.capacity}]} persons</small>\n                </td>\n                <td class=\"not-sortable\">\n                    \n                </td>\n            </tr>\n        </thead>\n    </table>\n</div>\n";
+    + "\n<div class=\"table-responsive\">\n    <table class=\"table table-bordered sessiontable\">\n        <colgroup>\n            <col width=\"10%\">\n            <col ng-repeat=\"room in rooms | slice:1:10000\" width=\"{[{90/rooms.length}]}%\">\n        </colgroup>\n        <thead>\n            <tr id=\"roomcontainment\" ui-sortable=\"sortableOptions\" ng-model=\"rooms\">\n                <td></td>\n                <td class=\"sorted room-slot\" ng-repeat=\"room in rooms | slice:1:10000\" data-id=\"{[{room.id}]}\">\n                    <h5 class=\"room-name\">{[{room.name}]}</h5>\n                    <div class=\"room-actions\">\n                    </div>\n                    <small>{[{room.description}]}</small><br>\n                    <small>{[{room.capacity}]} persons</small>\n                </td>\n                <td class=\"not-sortable\">\n                    \n                </td>\n            </tr>\n        </thead>\n    </table>\n</div>\n";
 },"useData":true});
 
 this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,partials,data,blockParams,depths) {
@@ -141,16 +147,24 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + alias3(((helper = (helper = helpers._id || (depth0 != null ? depth0._id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"_id","hash":{},"data":data}) : helper)))
     + "\">\n\n                        <h5>"
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
-    + "</h5>\n                        <div class=\"description\">"
+    + "\n"
+    + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.interested : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + "                        </h5>\n                        <div class=\"description\">"
     + alias3(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"description","hash":{},"data":data}) : helper)))
     + "</div>\n                        <div class=\"moderators\">\n                            "
     + alias3(((helper = (helper = helpers.moderator || (depth0 != null ? depth0.moderator : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"moderator","hash":{},"data":data}) : helper)))
     + "\n                        </div>\n\n"
-    + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(11, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.unless.call(depth0,(depths[1] != null ? depths[1].blocked : depths[1]),{"name":"unless","hash":{},"fn":this.program(13, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "\n                    </td>\n";
 },"9":function(depth0,helpers,partials,data) {
     return "enabled";
 },"11":function(depth0,helpers,partials,data) {
+    var helper;
+
+  return "                            ("
+    + this.escapeExpression(((helper = (helper = helpers.interested || (depth0 != null ? depth0.interested : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"interested","hash":{},"data":data}) : helper)))
+    + ")\n";
+},"13":function(depth0,helpers,partials,data) {
     return "                        <div class=\"pull-right slot-actions\">\n                            <span class=\"edit-session-button btn btn-primary btn-xs\"><i class=\"fa fa-pencil\"></i> "
     + this.escapeExpression((helpers._ || (depth0 && depth0._) || helpers.helperMissing).call(depth0,"Edit",{"name":"_","hash":{},"data":data}))
     + "</span>\n                            <span class=\"del-session-button text-danger\"><i class=\"fa fa-trash\"></i></span>\n                            <span><i class=\"move-session-handle fa fa-arrows\"></i></span>\n                        </div>\n";
@@ -165,7 +179,7 @@ this["JST"]["sessiontest"] = Handlebars.template({"1":function(depth0,helpers,pa
     + alias3(((helper = (helper = helpers.colwidth || (depth0 != null ? depth0.colwidth : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"colwidth","hash":{},"data":data}) : helper)))
     + "%\">\n        </colgroup>\n\n        <thead>\n            <tr id=\"roomcontainment\">\n                <th></th>\n"
     + ((stack1 = helpers.each.call(depth0,((stack1 = (depth0 != null ? depth0.data : depth0)) != null ? stack1.rooms : stack1),{"name":"each","hash":{},"fn":this.program(3, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "            </tr>\n        </thead>\n        <tbody>\n\n"
+    + "            </tr>\n        </thead>\n        <tbody>\n"
     + ((stack1 = helpers.each.call(depth0,(depth0 != null ? depth0.sessions : depth0),{"name":"each","hash":{},"fn":this.program(5, data, 0, blockParams, depths),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + "        </tbody>\n    </table>\n</div>\n<div id=\"table-buttons\">\n    <a  title=\""
     + alias3((helpers._ || (depth0 && depth0._) || alias1).call(depth0,"Add new timeslot",{"name":"_","hash":{},"data":data}))

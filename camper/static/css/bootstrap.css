@@ -7539,6 +7539,9 @@ form {
   display: block;
   text-align: center;
 }
+.bootstrap-tagsinput .tag {
+  color: black !important;
+}
 .gallery {
   width: 100%;
   overflow: hidden;

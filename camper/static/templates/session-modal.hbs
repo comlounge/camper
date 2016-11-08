@@ -41,8 +41,23 @@
                         		value="{{moderator}}"
                         		class="form-control"
                         		>
+                            <div class="help-block">{{_  'Please press enter after entering a name to make it permanent'}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">{{_ 'How many people are interested in this session?'}}</label>
+                        <div class="col-sm-3">
+                            <input 
+                                id="interested"
+                                name="interested"
+                                type="text"
+                                size=3
+                                value="{{interested}}"
+                                class="form-control"
+                                >
                         </div>
                     </div> 
+
             </div>
             <div class="modal-footer">
                 <button id="update-session-button" class="btn btn-primary">{{_ 'Update'}}</button>

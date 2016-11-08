@@ -1431,6 +1431,7 @@
         var fd, session;
         event.preventDefault();
         fd = $("#edit-session-form").serializeObject();
+        console.log(fd);
         if (!fd.session_idx) {
           alert("An error occurred, please reload the page");
         }
@@ -1440,6 +1441,7 @@
           _id: fd.session_idx,
           title: fd.title,
           description: fd.description,
+          interested: fd.interested,
           moderator: fd.moderator
         };
         this.data.sessions[fd.session_idx] = session;
