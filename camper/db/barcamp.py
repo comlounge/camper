@@ -392,6 +392,9 @@ class BarcampSchema(Schema):
     # notifications
     send_email_to_admins = Boolean(default = False)
 
+    # wizard checks. Elements in this list will disable asking for it again on the wizard screen
+    wizard_checked      = List(String(), default = [])
+
 
 class Barcamp(Record):
 
@@ -421,6 +424,7 @@ class Barcamp(Record):
         'hide_barcamp'          : False,
         'seo_description'       : '', 
         'seo_keywords'          : '',
+        'wizard_checked'        : [],
     }
 
     workflow_states = {

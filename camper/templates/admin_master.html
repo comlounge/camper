@@ -25,6 +25,10 @@
             <nav class="admin-nav">
                 <a class="btn btn-lg btn-block btn-success" target="preview" href="{{url_for("barcamps.index", slug=slug)}}"><i class="fa fa-files-o"></i> {{_('public view')}}</a>
 
+                <hr>
+                <ul>
+                    <li class="{{'active' if menu=='wizard'}}"><a href="{{url_for("barcamps.admin_wizard", slug=slug)}}"><i class="fa fa-tasks"></i> {{_('Complete your barcamp')}}</a></li>
+                </ul>
                 <h4>{{_('Basic Information')}}</h4>
 
                 <ul>
