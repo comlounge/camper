@@ -18,19 +18,20 @@
 
         {% if not logged_in %}
             <fieldset>
-                <legend>{{_('Create barcamptools.eu Account')}}</legend>
+                <legend>{{_('Login or register a new account')}}</legend>
                 <div class="fs-content">
                     <div class="help-block">
+                        {{_('If you already have a barcamptools.eu account please login.')}}
+                        <a href="{{url_for('.tologin', slug=slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
+                    </div>
+                    <div class="help-block">
                         {{_('This barcamp is hosted on barcamptools.eu. It is an online platform for managing barcamps which comes free of charge. Because of that we ask you to provide the account data below and we will create an account for you. That way you can later manage your barcamp registration or use interactive features during the barcamp.')}}
+                        }
                     </div>
                     <div class="help-block">
                     {{_('The email you provide here will not be shared with any barcamps.')}}
                     </div>
 
-                    <div class="help-block">
-                        {{_('If you already have a barcamptools.eu account please login.')}}
-                        <a href="{{url_for('.tologin', slug=slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
-                    </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-2" for="email">{{_('E-Mail')}}*</label>
