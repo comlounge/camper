@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2016-11-08 12:01+0100\n"
+"POT-Creation-Date: 2016-11-08 16:43+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -143,11 +143,11 @@ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 msgid "Not a valid date value"
 msgstr "kein gültiger Wert"
 
-#: login.py:20 barcamps/templates/registration_wizard.html:36
+#: login.py:20 barcamps/templates/registration_wizard.html:37
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: login.py:21 barcamps/templates/registration_wizard.html:50
+#: login.py:21 barcamps/templates/registration_wizard.html:51
 msgid "Password"
 msgstr "Passwort"
 
@@ -762,28 +762,37 @@ msgstr "Du hast nicht die erforderlichen Rechte, um dies zu löschen."
 msgid "you cannot perform this action."
 msgstr "Du kannst diese Aktion nicht durchführen."
 
-#: barcamps/permissions.py:54
+#: barcamps/permissions.py:37
+msgid "The barcamp is now open for registration."
+msgstr ""
+
+#: barcamps/permissions.py:39
+#, fuzzy
+msgid "The barcamp is now public."
+msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
+
+#: barcamps/permissions.py:59
 msgid "camper: new barcamp created"
 msgstr "camper: neues Barcamp angelegt"
 
-#: barcamps/permissions.py:78
+#: barcamps/permissions.py:82
 msgid "a user with this email address wasn't found in our database."
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: barcamps/permissions.py:85
+#: barcamps/permissions.py:89
 #, python-format
 msgid "%s is not an administrator for this barcamp."
 msgstr "%s is kein Administrator für dieses Barcamp"
 
-#: barcamps/permissions.py:95
+#: barcamps/permissions.py:99
 msgid "you cannot remove admin rights from the creator of this barcamp."
 msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
 
-#: barcamps/permissions.py:98
+#: barcamps/permissions.py:102
 msgid "you at least need to have one administrator."
 msgstr "Es wird mindestens ein Administrator benötigt."
 
-#: barcamps/permissions.py:103
+#: barcamps/permissions.py:107
 msgid "Administrator deleted."
 msgstr "Admin gelöscht."
 
@@ -960,19 +969,20 @@ msgstr "Menü"
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:214 templates/admin_master.html:61
+#: barcamps/templates/master.html:214 templates/admin_master.html:65
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:215 templates/admin_master.html:62
+#: barcamps/templates/master.html:215 templates/admin_master.html:66
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
-#: barcamps/templates/master.html:222 templates/admin_master.html:69
+#: barcamps/templates/master.html:222 barcamps/templates/admin/wizard.html:265
+#: barcamps/templates/admin/wizard.html:279 templates/admin_master.html:73
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:223 templates/admin_master.html:70
+#: barcamps/templates/master.html:223 templates/admin_master.html:74
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
@@ -1033,9 +1043,10 @@ msgstr ""
 "willst"
 
 #: barcamps/templates/registration.html:42
-#: barcamps/templates/registration_wizard.html:116
+#: barcamps/templates/registration_wizard.html:117
 #: barcamps/templates/user_events.html:95
 #: barcamps/templates/admin/dashboard.html:36
+#: barcamps/templates/admin/wizard.html:312
 msgid "participants"
 msgstr "Teilnehmer"
 
@@ -1106,10 +1117,19 @@ msgid "Registration"
 msgstr "Registrierung"
 
 #: barcamps/templates/registration_wizard.html:21
-msgid "Create barcamptools.eu Account"
-msgstr "Erstelle ein barcamptools.eu-Konto"
+#, fuzzy
+msgid "Login or register a new account"
+msgstr "neuen Benutzer registrieren"
 
 #: barcamps/templates/registration_wizard.html:24
+msgid "If you already have a barcamptools.eu account please login."
+msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
+
+#: barcamps/templates/registration_wizard.html:25 templates/master.html:95
+msgid "Login"
+msgstr "Einloggen"
+
+#: barcamps/templates/registration_wizard.html:28
 msgid ""
 "This barcamp is hosted on barcamptools.eu. It is an online platform for "
 "managing barcamps which comes free of charge. Because of that we ask you "
@@ -1124,21 +1144,13 @@ msgstr ""
 "dieinteraktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team "
 "zerhalten."
 
-#: barcamps/templates/registration_wizard.html:27
+#: barcamps/templates/registration_wizard.html:32
 msgid "The email you provide here will not be shared with any barcamps."
 msgstr ""
 "Die E-Mail-Adresse, die Du hier angibst, wird niemals an Barcamps "
 "weitergegeben."
 
-#: barcamps/templates/registration_wizard.html:31
-msgid "If you already have a barcamptools.eu account please login."
-msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
-
-#: barcamps/templates/registration_wizard.html:32 templates/master.html:95
-msgid "Login"
-msgstr "Einloggen"
-
-#: barcamps/templates/registration_wizard.html:42
+#: barcamps/templates/registration_wizard.html:43
 msgid ""
 "This email is already taken. Please <a href=\"/users/login\">login</a> to"
 " continue the registration process"
@@ -1147,19 +1159,19 @@ msgstr ""
 "Account auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich "
 "mit diesem ein</a> und schliesse damit die Registrierung ab."
 
-#: barcamps/templates/registration_wizard.html:57
+#: barcamps/templates/registration_wizard.html:58
 msgid "Repeat your password"
 msgstr "Wiederhole Dein Passwort"
 
-#: barcamps/templates/registration_wizard.html:63 handlers/users/edit.py:29
+#: barcamps/templates/registration_wizard.html:64 handlers/users/edit.py:29
 msgid "Fullname"
 msgstr "Voller Name"
 
-#: barcamps/templates/registration_wizard.html:76
+#: barcamps/templates/registration_wizard.html:77
 msgid "Provide barcamp specific data"
 msgstr "Barcamp-spezifische Angaben"
 
-#: barcamps/templates/registration_wizard.html:79
+#: barcamps/templates/registration_wizard.html:80
 msgid ""
 "The barcamp administrator asks you to provide the following data. This "
 "will not be shared with other barcamps."
@@ -1168,11 +1180,11 @@ msgstr ""
 "abzuschliessen. Diese Daten werden nicht an andere Barcamps "
 "weitergegeben."
 
-#: barcamps/templates/registration_wizard.html:88
+#: barcamps/templates/registration_wizard.html:89
 msgid "Select events you want to attend"
 msgstr "Veranstaltungen, die Du besuchen willst"
 
-#: barcamps/templates/registration_wizard.html:90
+#: barcamps/templates/registration_wizard.html:91
 msgid ""
 "Please select which event of the barcamp you would like to register for. "
 "You can change this later."
@@ -1180,11 +1192,11 @@ msgstr ""
 "Bitte wähle die Veranstaltungen aus, die Du besuchen willst. Du "
 "kannstdies später noch ändern."
 
-#: barcamps/templates/registration_wizard.html:127
+#: barcamps/templates/registration_wizard.html:128
 msgid "no places left. You will be added to the waiting list."
 msgstr "keine Plätze mehr frei. Du wirst auf die Warteliste gesetzt."
 
-#: barcamps/templates/registration_wizard.html:142
+#: barcamps/templates/registration_wizard.html:143
 msgid "Register for this barcamp"
 msgstr "Für das Barcamp registrieren"
 
@@ -1547,21 +1559,25 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: barcamps/templates/admin/dashboard.html:39
+#: barcamps/templates/admin/wizard.html:315
 msgid "on waiting list"
 msgstr "auf Warteliste"
 
 #: barcamps/templates/admin/dashboard.html:56
 #: barcamps/templates/admin/event.html:11
 #: barcamps/templates/admin/events.html:42
+#: barcamps/templates/admin/wizard.html:332
 msgid "Edit event details"
 msgstr "Veranstaltungsdetails bearbeiten"
 
 #: barcamps/templates/admin/dashboard.html:57
+#: barcamps/templates/admin/wizard.html:333
 msgid "Edit Timetable / Sessions"
 msgstr "Zeitplan / Sessions bearbeiten"
 
 #: barcamps/templates/admin/dashboard.html:58
 #: barcamps/templates/admin/event_participants.html:40
+#: barcamps/templates/admin/wizard.html:334
 msgid "Manage Participants"
 msgstr "Teilnehmer verwalten"
 
@@ -2123,6 +2139,219 @@ msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
 msgid "Add new sponsor"
 msgstr "Neuen Sponsor anlegen"
 
+#: barcamps/templates/admin/wizard.html:6
+#, python-format
+msgid "Barcamp status (%s%% completed)"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:21
+msgid "Complete the following tasks to get all out of your Barcamp!"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:22
+msgid ""
+"If you decide you don't want or need one of the TODO items, just click "
+"the corresponding button and it will not count to your progress anymore"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:25
+msgid ""
+"Your barcamp is fully functional. You can check the status of all your "
+"events below."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:39
+#, fuzzy
+msgid "Add a logo for your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/admin/wizard.html:46
+msgid ""
+"A logo makes your barcamp more recognizable. If you don't have a logo, "
+"don't worry as we have a barcamp logo generator ready for you!"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:51
+msgid "I don't need a logo"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:52
+msgid "Add or create a logo"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:63
+#, fuzzy
+msgid "Add an event to your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/admin/wizard.html:70
+msgid ""
+"Barcamps consists of one or more events. Events can e.g. be \"Day 1,2,3\""
+" or \"Community Dinner\". Events are what attendees sign up for. Each "
+"event has\n"
+"                                an attendee list, a waiting list, a "
+"timetable, session documentary and a maximum amount of people who can "
+"attend. Additionally you can choose a different location for each event."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:74
+msgid ""
+"Even if you have only a one day barcamp you still need to create an event"
+" for people to signup for."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:80
+#, fuzzy
+msgid "I don't need events"
+msgstr "Veranstaltungen"
+
+#: barcamps/templates/admin/wizard.html:81
+#, fuzzy
+msgid "Create an event"
+msgstr "Neue Veranstaltung anlegen"
+
+#: barcamps/templates/admin/wizard.html:92
+msgid "Add timetables to your event"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:99
+msgid ""
+"Timetables not only allow people to see when what happens, you can also "
+"use them to manage barcamp sessions on a session table. You can define "
+"teimetables be defining rooms and timeslots."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:104
+#, fuzzy
+msgid "I don't need a timetable"
+msgstr "Zeitraster bearbeiten"
+
+#: barcamps/templates/admin/wizard.html:105
+msgid "Add timetables to your events"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:116
+#, fuzzy
+msgid "Add sponsors to your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/admin/wizard.html:123
+msgid ""
+"In case you have sponsors for your barcamp you can list them on the "
+"barcamp page with a logo, link and name."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:128
+#, fuzzy
+msgid "I don't have sponsors"
+msgstr "Sponsoren verwalten"
+
+#: barcamps/templates/admin/wizard.html:129
+#, fuzzy
+msgid "Manage your sponsors"
+msgstr "Sponsoren verwalten"
+
+#: barcamps/templates/admin/wizard.html:141
+msgid "Add a twitter account for your barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:148
+msgid ""
+"In case you manage a twitter account for this barcamp you can add it here"
+" so people know where to find it. It's usually a good way to quickly send"
+" out uptodate information about the event."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:153
+msgid "I don't use twitter"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:154
+#, fuzzy
+msgid "Add a twitter account"
+msgstr "Twitter-Konto"
+
+#: barcamps/templates/admin/wizard.html:165
+#, fuzzy
+msgid "Add a hashtag for your barcamp"
+msgstr "für Dein Barcamp"
+
+#: barcamps/templates/admin/wizard.html:177
+msgid "I don't need a hashtag"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:178
+#, fuzzy
+msgid "Add a twitter hashtag"
+msgstr "Twitter-Hashtag"
+
+#: barcamps/templates/admin/wizard.html:189
+msgid "Add a facebook fan page"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:196
+msgid ""
+"In case you have a facebook fan page for your event you might want to add"
+" it here so people can visit it."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:201
+#, fuzzy
+msgid "I don't have a facebook page"
+msgstr "URL der Facebook-Seite"
+
+#: barcamps/templates/admin/wizard.html:202
+#, fuzzy
+msgid "Add a facebook page"
+msgstr "URL der Facebook-Seite"
+
+#: barcamps/templates/admin/wizard.html:214
+msgid "Add a description for search engines (meta description)"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:221
+msgid ""
+"If you want your barcamp to show up better in search engines, you should "
+"add a Meta Description to it. It should be a max of 160 characters and is"
+" the short description search engines show below the title in search "
+"results. So you want to make sure you provide the most important "
+"information in this text."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:226
+msgid "I don't need a meta description"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:227
+#, fuzzy
+msgid "Add a meta description"
+msgstr "Meta-Description"
+
+#: barcamps/templates/admin/wizard.html:239
+#, fuzzy
+msgid "Publish your barcamp"
+msgstr "Barcamp veröffentlichen"
+
+#: barcamps/templates/admin/wizard.html:246
+msgid ""
+"Right now the barcamp is only visible for barcamp administrators. In "
+"order to open it up for the public you need to publish it. This also "
+"needs to be done for private barcamps. They will still not show up in "
+"search engines or the homepage."
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:253
+#, fuzzy
+msgid "Publish my barcamp"
+msgstr "Barcamp veröffentlichen"
+
+#: barcamps/templates/admin/wizard.html:272
+msgid ""
+"Right now your barcamp is visible but nobody can register yet. In order "
+"to change this you need to open it up for registration. This also needs "
+"to be done for private barcamps."
+msgstr ""
+
 #: barcamps/templates/pdfs/sessionboard_rooms.html:15
 #: barcamps/templates/pdfs/sessionboard_roomtime.html:23
 msgid "people"
@@ -2463,7 +2692,7 @@ msgstr "Seite bearbeiten"
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: pages/templates/entries.html:7 templates/admin_master.html:42
+#: pages/templates/entries.html:7 templates/admin_master.html:46
 msgid "Custom Pages"
 msgstr "Eigene Seiten"
 
@@ -2574,59 +2803,64 @@ msgstr ""
 "Definiere hier, welche Slot gesperrt sind, z.B. wegen einer Pause. Dies "
 "bedeutet, dass keine Session für diesem Slot hinzugefügt werden können"
 
-#: templates/admin_master.html:28
+#: templates/admin_master.html:30
+#, fuzzy
+msgid "Complete your barcamp"
+msgstr "für Dein Barcamp"
+
+#: templates/admin_master.html:32
 msgid "Basic Information"
 msgstr "Basis-Informationen"
 
-#: templates/admin_master.html:31
+#: templates/admin_master.html:35
 msgid "edit base information"
 msgstr "Barcamp bearbeiten "
 
-#: templates/admin_master.html:32
+#: templates/admin_master.html:36
 msgid "Design and Layout"
 msgstr "Design und Layout"
 
-#: templates/admin_master.html:33
+#: templates/admin_master.html:37
 msgid "manage sponsors"
 msgstr "Sponsoren verwalten"
 
-#: templates/admin_master.html:34
+#: templates/admin_master.html:38
 msgid "edit events"
 msgstr "Veranstaltungen"
 
-#: templates/admin_master.html:35
+#: templates/admin_master.html:39
 msgid "edit registration form"
 msgstr "Registrierung"
 
-#: templates/admin_master.html:38
+#: templates/admin_master.html:42
 msgid "Information"
 msgstr "Information"
 
-#: templates/admin_master.html:40
+#: templates/admin_master.html:44
 msgid "Galleries"
 msgstr "Galerien"
 
-#: templates/admin_master.html:41
+#: templates/admin_master.html:45
 msgid "Manage Blog"
 msgstr "Blogverwaltung"
 
-#: templates/admin_master.html:43
+#: templates/admin_master.html:47
 msgid "send newsletter"
 msgstr "Newsletter versenden"
 
-#: templates/admin_master.html:47
+#: templates/admin_master.html:51
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: templates/admin_master.html:49
+#: templates/admin_master.html:53
 msgid "edit permissions"
 msgstr "Berechtigungen"
 
-#: templates/admin_master.html:50
+#: templates/admin_master.html:54
 msgid "edit mail templates"
 msgstr "Email-Vorlagen"
 
-#: templates/admin_master.html:51
+#: templates/admin_master.html:55
 msgid "download participants"
 msgstr "Teilnehmer herunterladen"
 
@@ -2973,4 +3207,7 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "Select events to attend"
 #~ msgstr ""
+
+#~ msgid "Create barcamptools.eu Account"
+#~ msgstr "Erstelle ein barcamptools.eu-Konto"
 
