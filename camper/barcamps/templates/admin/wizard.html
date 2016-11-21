@@ -3,25 +3,25 @@
 {% block content %}
     {% block title %}
     <div class="page-header">
-        <h1> {{_('Barcamp status (%s%% completed)') %percentage}}</h1>
+        <h1> {{_('Barcamp status (%s%% completed)') %complete}}</h1>
     </div>
     {% endblock %}
 
     <div id="dashboard">
 
         <div class="progress" style="height: 30px;">
-            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="font-family: Roboto; font-weight: 700; font-size: 20px; padding: 5px; width: {{percentage}}%;">
-                {{percentage}}%
+            <div class="progress-bar {{'progress-bar-success' if complete==100 else 'progress-bar-warning'}} progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="font-family: Roboto; font-weight: 700; font-size: 20px; padding: 5px; width: {{complete}}%;">
+                {{complete}}%
             </div>
         </div>
 
         <hr>
 
-        {% if percentage == "100" %}
+        {% if complete != "100" %}
             <h3>{{_('Complete the following tasks to get all out of your Barcamp!')}}</h3>
             <div class="help-block">{{_("If you decide you don't want or need one of the TODO items, just click the corresponding button and it will not count to your progress anymore")}}</div>
         {% else %}
-            <h3>Congratulations!</h3>
+            <h3>{{_('Congratulations!')}}</h3>
             {{_('Your barcamp is fully functional. You can check the status of all your events below.')}}
         {% endif %}
 
@@ -283,6 +283,10 @@
             {% endif %}
 
 
+        </div>
+
+        <div class="page-header">
+            <h3>{{_('Events')}}</h3>
         </div>
 
         <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">

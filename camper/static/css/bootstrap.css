@@ -8980,3 +8980,8 @@ article.blogentry .gallery img {
 .progress-bar {
   color: #000;
 }
+img.flickr-embed-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
