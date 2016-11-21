@@ -2136,9 +2136,8 @@ msgid ""
 msgstr ""
 
 #: barcamps/templates/admin/sponsors.html:37
-#, fuzzy
 msgid "No sponsors defined yet."
-msgstr "Es wurden bislang noch keine Veranstaltungen angelegt."
+msgstr "Es wurden bislang noch keine Sponsoren angelegt."
 
 #: barcamps/templates/admin/sponsors.html:44
 msgid "Add new sponsor"
