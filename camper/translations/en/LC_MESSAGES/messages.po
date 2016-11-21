@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2016-11-21 15:00+0100\n"
+"POT-Creation-Date: 2016-11-21 15:46+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -409,6 +409,7 @@ msgstr ""
 #: barcamps/design.py:36 barcamps/templates/participant_data.html:7
 #: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:99
 #: barcamps/templates/admin/events.html:10
+#: barcamps/templates/admin/wizard.html:289
 msgid "Events"
 msgstr ""
 
@@ -863,6 +864,10 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
+#: barcamps/templates/index.html:40
+msgid "Running now"
+msgstr ""
+
 #: barcamps/templates/index.html:57 barcamps/templates/user_event.html:164
 #: static/templates/sessiontest.hbs:24
 msgid "persons"
@@ -925,20 +930,20 @@ msgstr ""
 msgid "Manage Barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:214 templates/admin_master.html:65
+#: barcamps/templates/master.html:214 templates/admin_master.html:72
 msgid "publish barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:215 templates/admin_master.html:66
+#: barcamps/templates/master.html:215 templates/admin_master.html:73
 msgid "this barcamp is not public"
 msgstr ""
 
 #: barcamps/templates/master.html:222 barcamps/templates/admin/wizard.html:265
-#: barcamps/templates/admin/wizard.html:279 templates/admin_master.html:73
+#: barcamps/templates/admin/wizard.html:279 templates/admin_master.html:80
 msgid "open registration"
 msgstr ""
 
-#: barcamps/templates/master.html:223 templates/admin_master.html:74
+#: barcamps/templates/master.html:223 templates/admin_master.html:81
 msgid "Registration for this barcamp is not yet open."
 msgstr ""
 
@@ -1000,7 +1005,7 @@ msgstr ""
 #: barcamps/templates/registration_wizard.html:117
 #: barcamps/templates/user_events.html:95
 #: barcamps/templates/admin/dashboard.html:36
-#: barcamps/templates/admin/wizard.html:312
+#: barcamps/templates/admin/wizard.html:316
 msgid "participants"
 msgstr ""
 
@@ -1494,25 +1499,25 @@ msgid "Dashboard"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:39
-#: barcamps/templates/admin/wizard.html:315
+#: barcamps/templates/admin/wizard.html:319
 msgid "on waiting list"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:56
 #: barcamps/templates/admin/event.html:11
 #: barcamps/templates/admin/events.html:42
-#: barcamps/templates/admin/wizard.html:332
+#: barcamps/templates/admin/wizard.html:336
 msgid "Edit event details"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:57
-#: barcamps/templates/admin/wizard.html:333
+#: barcamps/templates/admin/wizard.html:337
 msgid "Edit Timetable / Sessions"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:58
 #: barcamps/templates/admin/event_participants.html:40
-#: barcamps/templates/admin/wizard.html:334
+#: barcamps/templates/admin/wizard.html:338
 msgid "Manage Participants"
 msgstr ""
 
@@ -2568,7 +2573,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: pages/templates/entries.html:7 templates/admin_master.html:46
+#: pages/templates/entries.html:7 templates/admin_master.html:53
 msgid "Custom Pages"
 msgstr ""
 
@@ -2679,59 +2684,59 @@ msgstr ""
 msgid "Complete your barcamp"
 msgstr ""
 
-#: templates/admin_master.html:32
+#: templates/admin_master.html:39
 msgid "Basic Information"
 msgstr ""
 
-#: templates/admin_master.html:35
+#: templates/admin_master.html:42
 msgid "edit base information"
 msgstr ""
 
-#: templates/admin_master.html:36
+#: templates/admin_master.html:43
 msgid "Design and Layout"
 msgstr ""
 
-#: templates/admin_master.html:37
+#: templates/admin_master.html:44
 msgid "manage sponsors"
 msgstr ""
 
-#: templates/admin_master.html:38
+#: templates/admin_master.html:45
 msgid "edit events"
 msgstr ""
 
-#: templates/admin_master.html:39
+#: templates/admin_master.html:46
 msgid "edit registration form"
 msgstr ""
 
-#: templates/admin_master.html:42
+#: templates/admin_master.html:49
 msgid "Information"
 msgstr ""
 
-#: templates/admin_master.html:44
+#: templates/admin_master.html:51
 msgid "Galleries"
 msgstr ""
 
-#: templates/admin_master.html:45
+#: templates/admin_master.html:52
 msgid "Manage Blog"
 msgstr ""
 
-#: templates/admin_master.html:47
+#: templates/admin_master.html:54
 msgid "send newsletter"
 msgstr ""
 
-#: templates/admin_master.html:51
+#: templates/admin_master.html:58
 msgid "Advanced"
 msgstr ""
 
-#: templates/admin_master.html:53
+#: templates/admin_master.html:60
 msgid "edit permissions"
 msgstr ""
 
-#: templates/admin_master.html:54
+#: templates/admin_master.html:61
 msgid "edit mail templates"
 msgstr ""
 
-#: templates/admin_master.html:55
+#: templates/admin_master.html:62
 msgid "download participants"
 msgstr ""
 
