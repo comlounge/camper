@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2016-11-08 16:43+0100\n"
+"POT-Creation-Date: 2016-11-21 15:00+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -2142,47 +2142,58 @@ msgstr "Neuen Sponsor anlegen"
 #: barcamps/templates/admin/wizard.html:6
 #, python-format
 msgid "Barcamp status (%s%% completed)"
-msgstr ""
+msgstr "Barcamp-Status (%s%% fertig)"
 
 #: barcamps/templates/admin/wizard.html:21
 msgid "Complete the following tasks to get all out of your Barcamp!"
 msgstr ""
+"Erledige die folgenden Aufgaben, um Dein Barcamp so erfolgreich wie "
+"möglich zu machen"
 
 #: barcamps/templates/admin/wizard.html:22
 msgid ""
 "If you decide you don't want or need one of the TODO items, just click "
 "the corresponding button and it will not count to your progress anymore"
 msgstr ""
+"Wenn Du für Dein Barcamp eine Aufgabe nicht willst oder brauchst, dann "
+"klicke einfach auf den entsprechenden Button und sie wird nicht mehr "
+"erscheinen. "
+
+#: barcamps/templates/admin/wizard.html:24
+msgid "Congratulations!"
+msgstr "Herzlichen Glückwunsch!"
 
 #: barcamps/templates/admin/wizard.html:25
 msgid ""
 "Your barcamp is fully functional. You can check the status of all your "
 "events below."
 msgstr ""
+"Dein Barcamp ist jetzt optimal eingerichtet. Du kannst den Status aller möglichen "
+"Aufgaben unten einsehen."
 
 #: barcamps/templates/admin/wizard.html:39
-#, fuzzy
 msgid "Add a logo for your barcamp"
-msgstr "für Dein Barcamp"
+msgstr "Füge ein Logo für Dein Barcamp hinzu"
 
 #: barcamps/templates/admin/wizard.html:46
 msgid ""
 "A logo makes your barcamp more recognizable. If you don't have a logo, "
 "don't worry as we have a barcamp logo generator ready for you!"
 msgstr ""
+"Ein Logo fördert den Wiedererkennungswert eines Barcamps. Wenn Du kein "
+"Logo hast, keine Sorge, wir stellen einen Logo-Generator bereit."
 
 #: barcamps/templates/admin/wizard.html:51
 msgid "I don't need a logo"
-msgstr ""
+msgstr "Ich brauche kein Logo"
 
 #: barcamps/templates/admin/wizard.html:52
 msgid "Add or create a logo"
-msgstr ""
+msgstr "Logo erstellen oder hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:63
-#, fuzzy
 msgid "Add an event to your barcamp"
-msgstr "für Dein Barcamp"
+msgstr "Erstelle eine Veranstaltung für Dein Barcamp"
 
 #: barcamps/templates/admin/wizard.html:70
 msgid ""
@@ -2193,26 +2204,32 @@ msgid ""
 "timetable, session documentary and a maximum amount of people who can "
 "attend. Additionally you can choose a different location for each event."
 msgstr ""
+"Barcamps bestehen aus einer oder mehreren Veranstaltungen. Diese können "
+"z.B. \"Tag 1,2,3\" oder \"Willkommensparty\" sein. Teilnehmer können sich"
+" für einzelne Veranstaltungen anmelden. Jede Veranstaltung hat eine "
+"Teilnehmer und Warteliste, einen Sessionplan und -dokumentation. "
+"Zusätzlich kann pro Veranstaltung ein separater Veranstaltungsort "
+"angegeben werden."
 
 #: barcamps/templates/admin/wizard.html:74
 msgid ""
 "Even if you have only a one day barcamp you still need to create an event"
 " for people to signup for."
 msgstr ""
+"Auch wenn Dein Barcamp nur einen Tag lang ist, brauchst Du eine "
+"Veranstaltung, bei der sich die Leute anmelden können."
 
 #: barcamps/templates/admin/wizard.html:80
-#, fuzzy
 msgid "I don't need events"
-msgstr "Veranstaltungen"
+msgstr "Ich brauche keine Veranstaltungen"
 
 #: barcamps/templates/admin/wizard.html:81
-#, fuzzy
 msgid "Create an event"
 msgstr "Neue Veranstaltung anlegen"
 
 #: barcamps/templates/admin/wizard.html:92
 msgid "Add timetables to your event"
-msgstr ""
+msgstr "Füge einen Zeitplan zu Deiner Veranstaltung hinzu."
 
 #: barcamps/templates/admin/wizard.html:99
 msgid ""
@@ -2220,40 +2237,39 @@ msgid ""
 "use them to manage barcamp sessions on a session table. You can define "
 "teimetables be defining rooms and timeslots."
 msgstr ""
+"Ein Zeitplan erlaubt es Teilnehmern nicht nur, einzusehen, was wann "
+"passiert. Zusätzlich können auf diesem die Sessions verwaltet und später "
+"die Dokumntation angelegt werden"
 
 #: barcamps/templates/admin/wizard.html:104
-#, fuzzy
 msgid "I don't need a timetable"
-msgstr "Zeitraster bearbeiten"
+msgstr "Ich brauche keinen Zeitplan bearbeiten"
 
 #: barcamps/templates/admin/wizard.html:105
 msgid "Add timetables to your events"
-msgstr ""
+msgstr "Zeitplan zu Deinen Veranstaltungen hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:116
-#, fuzzy
 msgid "Add sponsors to your barcamp"
-msgstr "für Dein Barcamp"
+msgstr "Füge Sponsoren zu Deinem Barcamp hinzu"
 
 #: barcamps/templates/admin/wizard.html:123
 msgid ""
 "In case you have sponsors for your barcamp you can list them on the "
 "barcamp page with a logo, link and name."
-msgstr ""
+msgstr "Falls Du Sponsoren hast, kannst Du sie hier auflisten und verlinken."
 
 #: barcamps/templates/admin/wizard.html:128
-#, fuzzy
 msgid "I don't have sponsors"
-msgstr "Sponsoren verwalten"
+msgstr "Ich habe keine Sponsoren"
 
 #: barcamps/templates/admin/wizard.html:129
-#, fuzzy
 msgid "Manage your sponsors"
 msgstr "Sponsoren verwalten"
 
 #: barcamps/templates/admin/wizard.html:141
 msgid "Add a twitter account for your barcamp"
-msgstr ""
+msgstr "Füge einen Twitter-Account zu Deinem Barcamp hinzu"
 
 #: barcamps/templates/admin/wizard.html:148
 msgid ""
@@ -2261,53 +2277,55 @@ msgid ""
 " so people know where to find it. It's usually a good way to quickly send"
 " out uptodate information about the event."
 msgstr ""
+"Falls Du einen Twitter-Account für dieses Barcamp betreibst, kannst Du "
+"ihn hier hinzufügen. Dies ist normalerweise der einfachste Weg, "
+"Teilnehmer zu erreichen und mit aktuellen Informationen zu versorgen."
 
 #: barcamps/templates/admin/wizard.html:153
 msgid "I don't use twitter"
-msgstr ""
+msgstr "Ich benutze Twitter nicht"
 
 #: barcamps/templates/admin/wizard.html:154
-#, fuzzy
 msgid "Add a twitter account"
-msgstr "Twitter-Konto"
+msgstr "Twitter-Konto hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:165
-#, fuzzy
 msgid "Add a hashtag for your barcamp"
-msgstr "für Dein Barcamp"
+msgstr "Füge einen Hashtag für Dein Barcamp hinzu"
 
 #: barcamps/templates/admin/wizard.html:177
 msgid "I don't need a hashtag"
-msgstr ""
+msgstr "Ich brauche keinen Hashtag"
 
 #: barcamps/templates/admin/wizard.html:178
-#, fuzzy
 msgid "Add a twitter hashtag"
-msgstr "Twitter-Hashtag"
+msgstr "Twitter-Hashtag hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:189
 msgid "Add a facebook fan page"
-msgstr ""
+msgstr "Füge eine Facebook-Seite hinzu"
 
 #: barcamps/templates/admin/wizard.html:196
 msgid ""
 "In case you have a facebook fan page for your event you might want to add"
 " it here so people can visit it."
 msgstr ""
+"Falls Du eine Facebook-Seite für Dein Barcamp betreibst, kannst Du sie "
+"hier hinzufügen."
 
 #: barcamps/templates/admin/wizard.html:201
-#, fuzzy
 msgid "I don't have a facebook page"
-msgstr "URL der Facebook-Seite"
+msgstr "Ich habe keine Facebook-Seite"
 
 #: barcamps/templates/admin/wizard.html:202
-#, fuzzy
 msgid "Add a facebook page"
-msgstr "URL der Facebook-Seite"
+msgstr "Facebook-Seite hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:214
 msgid "Add a description for search engines (meta description)"
 msgstr ""
+"Erstelle eine Kurzbeschreibung für Suchmaschinen für Dein Barcamp (Meta-"
+"Description)"
 
 #: barcamps/templates/admin/wizard.html:221
 msgid ""
@@ -2317,18 +2335,22 @@ msgid ""
 "results. So you want to make sure you provide the most important "
 "information in this text."
 msgstr ""
+"Falls DU Dein Barcamp in Suchmaschinen besser platzieren willst, solltest"
+" Du eine Kurzbeschreibung für Suchmaschinen hinzufügen. Diese sollte "
+"maximal 160 Zeichen lang sein und kurz und knackig Dein Barcamp "
+"beschreiben. Sie erscheint dann auf Suchergebnisseiten unter dem Titel. "
+"Stelle also sicher, dass das wichtigste über Dein Barcamp dort zu finden "
+"ist."
 
 #: barcamps/templates/admin/wizard.html:226
 msgid "I don't need a meta description"
-msgstr ""
+msgstr "Ich brauche keine Suchmaschinenbeschreibung"
 
 #: barcamps/templates/admin/wizard.html:227
-#, fuzzy
 msgid "Add a meta description"
-msgstr "Meta-Description"
+msgstr "Suchmachinenbeschreibung hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:239
-#, fuzzy
 msgid "Publish your barcamp"
 msgstr "Barcamp veröffentlichen"
 
@@ -2339,9 +2361,13 @@ msgid ""
 "needs to be done for private barcamps. They will still not show up in "
 "search engines or the homepage."
 msgstr ""
+"Im Moment ist Dein Barcamp nur für Barcamp-Administratoren sichtbar. Um "
+"auch der Öffentlichkeit Zugang zu gewähren, musst Du Dein Barcamp "
+"veröffentlichen. Dies musst Du auch tun, wenn es sich um ein privates "
+"Barcamp handelt. Es wird dann trotzdem nicht auf der Startseite oder "
+"Suchmaschinen erscheinen. "
 
 #: barcamps/templates/admin/wizard.html:253
-#, fuzzy
 msgid "Publish my barcamp"
 msgstr "Barcamp veröffentlichen"
 
@@ -2351,11 +2377,14 @@ msgid ""
 "to change this you need to open it up for registration. This also needs "
 "to be done for private barcamps."
 msgstr ""
+"Im Moment ist Dein Barcamp zwar sichtbar, aber noch kann sich niemand "
+"registrieren. Um dies zu ändern, musst Du die Registrierung aktivieren. "
+"Dies muss auch für private Barcamps gemacht werden."
 
 #: barcamps/templates/pdfs/sessionboard_rooms.html:15
 #: barcamps/templates/pdfs/sessionboard_roomtime.html:23
 msgid "people"
-msgstr ""
+msgstr "Personen"
 
 #: blog/add.py:17
 msgid "Content"
@@ -2804,9 +2833,8 @@ msgstr ""
 "bedeutet, dass keine Session für diesem Slot hinzugefügt werden können"
 
 #: templates/admin_master.html:30
-#, fuzzy
 msgid "Complete your barcamp"
-msgstr "für Dein Barcamp"
+msgstr "Barcamp vervollständigen"
 
 #: templates/admin_master.html:32
 msgid "Basic Information"
