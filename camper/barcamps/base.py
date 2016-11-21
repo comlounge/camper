@@ -74,12 +74,78 @@ class BarcampBaseHandler(BaseHandler):
 
 
     @property
+    def progress(self):
+        """return the progress in percent of the barcamp completeness"""
+        bc = self.barcamp
+        wc = bc.wizard_checked # stuff the admin does not want
+        events = bc.eventlist
+
+        # do we have rooms and times for at least 1 event?
+        # also gather all the events which do not have rooms or times
+
+        event_status = {}
+        has_timetable = False
+        for event in events:
+            event_status[event._id] = {
+                'rooms' : False,
+                'timeslots' : False,
+            }
+            
+            tt = event.get('timetable', {})
+            rooms = tt.get('rooms', [])
+            timeslots = tt.get('timeslots', [])
+
+            if len(rooms) > 0:
+                has_timetable = True
+                event_status[event._id]['rooms'] = True
+
+            if len(timeslots) > 0:
+                has_timetable = True
+                event_status[event._id]['timeslots'] = True
+
+        has_event = len(events) != 0 or "has_event" in wc
+        has_sponsor = len(bc.sponsors) != 0 or "has_sponsor" in wc
+        has_logo = bc.logo != "" and bc.logo != None or "has_logo" in wc
+        has_twitter = bc.twitter != "" or "has_twitter" in wc
+        has_hashtag = bc.hashtag != "" or "has_hashtag" in wc
+        has_facebook = bc.facebook != "" or "has_facebook" in wc
+        has_seo = bc.seo_description != "" or "has_seo" in wc
+
+        is_public = bc.workflow in ("public", "registration")
+        is_active = bc.workflow == "registration"
+        has_timetable = has_timetable or "has_timetable" in wc
+
+        results = dict(
+            has_event = has_event,
+            has_sponsor = has_sponsor,
+            has_logo = has_logo,
+            has_twitter = has_twitter,
+            has_hashtag = has_hashtag,
+            has_facebook = has_facebook,
+            has_seo = has_seo,
+
+            is_public = is_public,
+            is_active = is_active,
+            has_timetable = has_timetable
+        )
+
+        # compute the progress
+
+        full_points = len(results)
+        has_points = len([x for x in results.values() if x]) # len of all trues
+        percentage = int(float(has_points) / float(full_points) * 100)
+
+        return percentage
+
+
+    @property
     def render_context(self):
         """provide more information to the render method"""
         payload = super(BarcampBaseHandler, self).render_context
         payload['view'] = self.barcamp_view
         payload['barcamp_view'] = self.barcamp_view
         payload['actions'] = self.actions
+        payload['complete'] = self.progress
         return payload
 
 
