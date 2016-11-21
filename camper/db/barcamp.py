@@ -9,7 +9,13 @@ import embeddify
 import re
 
 # initialize the embed provider
-embedder = embeddify.Embedder()
+embed_config = {
+    'flickr'    : {
+        'width' : 1200,
+        'height' : 1200,
+    }
+}
+embedder = embeddify.Embedder(plugin_config = embed_config)
 
 # create the URL regexp
 
