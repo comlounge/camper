@@ -765,12 +765,11 @@ msgstr "Du kannst diese Aktion nicht durchführen."
 
 #: barcamps/permissions.py:37
 msgid "The barcamp is now open for registration."
-msgstr ""
+msgstr "Die Registrierung für das Barcamp ist eröffnet."
 
 #: barcamps/permissions.py:39
-#, fuzzy
 msgid "The barcamp is now public."
-msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
+msgstr "Das Barcamp wurde freigeschaltet"
 
 #: barcamps/permissions.py:59
 msgid "camper: new barcamp created"
