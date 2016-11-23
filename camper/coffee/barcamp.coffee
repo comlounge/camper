@@ -380,7 +380,6 @@ $ ->
             # and remove the hard coded width/height
             .removeAttr('height')
             .removeAttr('width')
-        console.log $(this).data('aspectRatio')
     )
 
     # When the window is resized
@@ -390,8 +389,6 @@ $ ->
         # Resize all videos according to their own aspect ratio
         allVideos.each( () ->
             el = $(this)
-            console.log newWidth
-            console.log newWidth * el.data('aspectRatio')
             el
                 .width(newWidth)
                 .height(newWidth * el.data('aspectRatio'))

@@ -366,8 +366,7 @@
     allVideos = $("iframe[src*='youtube.com'], iframe[src*='vimeo']");
     fluidEl = $("#sessions");
     allVideos.each(function() {
-      $(this).data('aspectRatio', this.height / this.width).removeAttr('height').removeAttr('width');
-      return console.log($(this).data('aspectRatio'));
+      return $(this).data('aspectRatio', this.height / this.width).removeAttr('height').removeAttr('width');
     });
     return $(window).resize(function() {
       var newWidth;
@@ -375,8 +374,6 @@
       return allVideos.each(function() {
         var el;
         el = $(this);
-        console.log(newWidth);
-        console.log(newWidth * el.data('aspectRatio'));
         return el.width(newWidth).height(newWidth * el.data('aspectRatio'));
       });
     }).resize();
