@@ -362,6 +362,43 @@ $ ->
         popup.focus()
         false
 
+    #
+    # resize all the videos
+    #
+    
+    # Find all YouTube videos
+    allVideos = $("iframe[src*='youtube.com'], iframe[src*='vimeo']")
+
+    # The element that is fluid width
+    fluidEl = $("#sessions")
+
+    # Figure out and save aspect ratio for each video
+    allVideos.each( () ->
+        $(this)
+            .data('aspectRatio', this.height / this.width)
+
+            # and remove the hard coded width/height
+            .removeAttr('height')
+            .removeAttr('width')
+        console.log $(this).data('aspectRatio')
+    )
+
+    # When the window is resized
+    $(window).resize( () ->
+        newWidth = fluidEl.width()
+
+        # Resize all videos according to their own aspect ratio
+        allVideos.each( () ->
+            el = $(this)
+            console.log newWidth
+            console.log newWidth * el.data('aspectRatio')
+            el
+                .width(newWidth)
+                .height(newWidth * el.data('aspectRatio'))
+        )
+    # Kick off one resize to fix all videos on page load
+    ).resize()
+
 
 #
 # twitter web intents own copy
