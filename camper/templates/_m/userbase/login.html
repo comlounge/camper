@@ -13,7 +13,7 @@
         <div class="content clearfix">
             <h1>{{_('Real camper log in!')}}</h1>
             <form class="horizontal-form" data-parsley-validate method="POST" action="{{url}}">  
-                {{ formmacros.form_field(form.email, label_class="sr-only", required=True, placeholder=_("your e-mail")) }}
+                {{ formmacros.form_field(form.email, label_class="sr-only", required=True, placeholder=_("E-Mail")) }}
                 {{ formmacros.form_field(form.password, required = True, placeholder=_("password")) }}
                 <div class="pull-right">
                     <p>
