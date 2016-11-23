@@ -8,14 +8,8 @@ from slugify import UniqueSlugify
 import embeddify                                                                                                                                                 
 import re
 
-# initialize the embed provider
-embed_config = {
-    'flickr'    : {
-        'width' : 1200,
-        'height' : 1200,
-    }
-}
-embedder = embeddify.Embedder(plugin_config = embed_config)
+# initialize the embed provider with some max values
+embedder = embeddify.Embedder(config = {'width' : 1200, 'height' : 1200 })
 
 # create the URL regexp
 
