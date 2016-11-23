@@ -829,7 +829,7 @@ msgstr ""
 
 #: barcamps/registrationwizard.py:159
 msgid "You have been successfully registered. Please check your email."
-msgstr ""
+msgstr "Du wurdest erfolgreich registriert. Bitte überprüfe Deine E-Mail."
 
 #: barcamps/registrationwizard.py:162
 msgid ""
