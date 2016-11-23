@@ -110,7 +110,7 @@
                 {% if logo %}
                     {{view.logo}}
                 {% else %}                
-                    <h1 class="logo">{{barcamp.name}}</h1>
+                    <h1 class="logo"><a href="{{url_for('barcamps.index', slug = barcamp.slug)}}">{{barcamp.name}}</a></h1>
                 {% endif %}
             </div>
             <div class="byline clearfix">
