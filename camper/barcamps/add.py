@@ -102,7 +102,9 @@ class AddView(BaseHandler):
                 try:
                     self.config.etherpad.createPad(padID=pid, text=u"Planung")
                     self.config.etherpad.createPad(padID=did, text=u"Dokumentation")
-                except:
+                except Exception, e:
+                    print "problem creating a pad"
+                    print e
                     self.flash(self._("Attention: One or both of the etherpads exist already!"), category="warning")
                     pass
             f['documentation_pad'] = did
