@@ -7,7 +7,6 @@
         <a class="share-on-googleplus btn btn-block btn-lg btn-danger" data-url="{{url|e}}"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</a>
     </div>    
 {%- endmacro %}
-
 {% macro barcamp_buttons() -%}
     {% if logged_in %}
         {% if barcamp.is_registered(user) %}
@@ -37,18 +36,15 @@
         </div>
     {% endif %} {# logged in#}
 {%- endmacro %} {# barcamp_buttons #}
-
 {% macro sponsors() %}
+    <div class="clearfix">
     {% for sponsor in view.sponsors %}
-        <div class="sponsor">
+        <div class="sponsor clearfix">
             {{sponsor.image}}
         </div>
     {% endfor %}
+    </div>
 {%- endmacro %}
-
-
-
-
 {% set body_id="barcamppage" %}
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
@@ -236,7 +232,9 @@
 
                         {{barcamp_buttons()}}
                         {{share_buttons()}}
+                        
                         {{sponsors()}}
+                        
 
                     {% endblock %} {# widgets #}
                 </aside>{# -- widget -- #}

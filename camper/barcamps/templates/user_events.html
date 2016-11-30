@@ -1,10 +1,9 @@
-{% set active_action = "events" %}
-{% extends "_m/barcamps/master.html" %}
-
-{% block headline %}
-    <h2>{{gettext('Events for %(name)s') | format(name = barcamp.name|e)}}</h2>
+{% set active_action = "events" -%}
+{% extends "_m/barcamps/master.html" -%}
+{% block headline -%}
+    <h2>2{{gettext('Events for %(name)s') | format(name = barcamp.name|e)}}</h2>
 {% endblock %}
-{% block main_content %}
+{% block main_content -%}
         <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
     {% for event in barcamp.eventlist %}
             <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
