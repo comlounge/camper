@@ -147,7 +147,7 @@ class AddView(BaseHandler):
             barcamp = self.config.dbs.barcamps.put(barcamp)
 
             self.flash(self._("%s has been created") %f['name'], category="info")
-            return redirect(self.url_for("barcamps.edit", slug = barcamp.slug))
+            return redirect(self.url_for("barcamps.admin_wizard", slug = barcamp.slug))
         return self.render(form = form, slug = None, show_slug=True, bcid = '')
     post = get
 
