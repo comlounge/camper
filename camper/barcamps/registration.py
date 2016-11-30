@@ -202,7 +202,7 @@ class RegistrationDataExport(BarcampBaseHandler):
         form = self.barcamp.registration_form
         data = self.barcamp.registration_data
 
-        participants = self.barcamp.event.participants
+        #participants = self.barcamp.event.participants
 
         filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
