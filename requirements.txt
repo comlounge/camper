@@ -3,13 +3,9 @@ Jinja2==2.7.3
 Logbook==0.12.3
 Markdown==2.6.6
 MarkupSafe==0.23
-Paste==2.0.2
-PasteDeploy==1.5.2
-PasteScript==2.0.2
 Pillow==3.1.0
 PyBabel-hbs==0.2.2
 PyPDF2==1.25.1
-PyYAML==3.11
 Unidecode==0.04.19
 WTForms==2.1
 Werkzeug==0.11.3
