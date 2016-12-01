@@ -24,36 +24,46 @@ class RegistrationService(object):
         self.barcamp_view = BarcampView(self.barcamp, handler)
         self.user = user
 
-    def set_status(self, eid, status):
+    def set_status(self, eid, status, force = False):
         """register a user for an event of a barcamp
 
         :param eid: The event id of the event to register the user for
         :param status: The status of the user ("going", "waitinglist", "")
+        :param force: if ``True`` then users can be added to the participants list even when full
 
         :returns: resulting status of the user
         """
 
         if self.barcamp.workflow != "registration":
             raise RegistrationError("The barcamp is not open for registration yet")
-
  
         uid = unicode(self.user._id)
         event = self.barcamp.get_event(eid)
         was_going = uid in event.participants # for sending out the unregister notification
+        was_on_waitinglist = uid in event.waiting_list 
 
         # do the status change
-        status = event.set_status(uid, status)
+        status = event.set_status(uid, status, force)
 
         # send out emails
         view = self.barcamp_view
         if status == "going":
-            self.mail_template("welcome",
-                view = view,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                event_title = event.name,
-                event_date = event.date.strftime("%d.%m.%Y"),
-                **self.barcamp)
+            if was_on_waitinglist:
+                self.mail_template("fromwaitinglist",
+                    view = view,
+                    barcamp = self.barcamp,
+                    title = self.barcamp.name,
+                    event_title = event.name,
+                    event_date = event.date.strftime("%d.%m.%Y"),
+                    **self.barcamp)
+            else:
+                self.mail_template("welcome",
+                    view = view,
+                    barcamp = self.barcamp,
+                    title = self.barcamp.name,
+                    event_title = event.name,
+                    event_date = event.date.strftime("%d.%m.%Y"),
+                    **self.barcamp)
 
             if self.barcamp.send_email_to_admins:
                 subject = self.handler._('New registration for %s/%s (%s/%s)') %(event.name, self.barcamp.name, len(event.participants), event.size)
@@ -84,7 +94,7 @@ class RegistrationService(object):
         users = self.app.module_map.userbase.get_users_by_ids(uids)
         for user in users:
             # send out a welcome email
-            self.mail_template("welcome",
+            self.mail_template("fromwaitinglist",
                 view = view,
                 user = user,
                 barcamp = self.barcamp,

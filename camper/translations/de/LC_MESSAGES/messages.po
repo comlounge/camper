@@ -179,20 +179,20 @@ msgid ""
 "waiting list mail template as this will be sent when a user pre-"
 "registers."
 msgstr ""
-"Wenn dies angeschaltet ist, dann können sich Besucher nur voranmelden, "
+"Wenn dies angeschaltet ist, dann können sich Besucher_innen nur voranmelden, "
 "nehmen aber nicht automatisch teil. Der Barcamp-Admin muss diese Personen"
 " manuell freischalten. Bitte ändern Sie auch das Mail-Template für die "
-"Warteliste, da dieses gesendet wird, wenn sich ein Besucher anmeldet."
+"Warteliste, da dieses gesendet wird, wenn sich ein Besucher_innen anmeldet."
 
 #: barcamps/add.py:31 barcamps/edit.py:34
 msgid "Send email notifications"
-msgstr ""
+msgstr "Sende E-Mail-Benachrichtigungen"
 
 #: barcamps/add.py:31 barcamps/edit.py:34
 msgid ""
 "If enabled barcamp administrators will receive notifications about people"
 " registering and unregistering from the barcamp"
-msgstr ""
+msgstr "Wenn dies angeschaltet ist, erhalten Barcamp-Organisator_innen eine Mail-Benachrichtigung, sobald sich Teilnehmer_innen an- oder abmelden."
 
 #: barcamps/add.py:32 barcamps/edit.py:35 barcamps/templates/admin/add.html:47
 msgid "Meta Description"
@@ -299,12 +299,12 @@ msgid ""
 "onto the waiting list and will be informed should you move on to the list"
 " of participants."
 msgstr ""
-"Leider ist die Teilnehmerliste schon voll. Du wurdest daher auf die "
+"Leider ist die Teilnehmer_innen-Liste schon voll. Du wurdest daher auf die "
 "Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
 
 #: barcamps/add.py:142 scripts/set_default_mail_templates.py:28
 msgid "You are now on the list of participants for this barcamp."
-msgstr "Du bist nun auf der Teilnehmerliste für das Barcamp"
+msgstr "Du bist nun auf der Teilnehmer_innen-Liste für das Barcamp"
 
 #: barcamps/add.py:147
 #, python-format
@@ -700,7 +700,7 @@ msgstr "Empfänger"
 
 #: barcamps/newsletter.py:27
 msgid "Participants (going)"
-msgstr "Teilnehmer"
+msgstr "Teilnehmer_innen"
 
 #: barcamps/newsletter.py:28
 msgid "People who might come (maybe)"
@@ -1052,7 +1052,7 @@ msgstr ""
 #: barcamps/templates/admin/dashboard.html:36
 #: barcamps/templates/admin/wizard.html:316
 msgid "participants"
-msgstr "Teilnehmer"
+msgstr "Teilnehmer_innen"
 
 #: barcamps/templates/registration.html:50
 #: barcamps/templates/registration.html:52
@@ -1346,7 +1346,7 @@ msgstr "Meine Registrierungsdaten angeben"
 #: barcamps/templates/admin/event_participants.html:45
 #: barcamps/templates/admin/events.html:29
 msgid "Participants"
-msgstr "Teilnehmer"
+msgstr "Teilnehmer_innen"
 
 #: barcamps/templates/user_event.html:116
 #: barcamps/templates/user_events.html:111
@@ -1402,11 +1402,11 @@ msgstr "Veranstaltungen für %(name)s"
 
 #: barcamps/templates/userlist.html:17
 msgid "register user as participant"
-msgstr "auf Teilnehmerliste setzen"
+msgstr "auf Teilnehmer_innen-Liste setzen"
 
 #: barcamps/templates/userlist.html:20
 msgid "remove user from list"
-msgstr "Benutzer von der Liste entfernen"
+msgstr "Benutzer_in von der Liste entfernen"
 
 #: barcamps/templates/userlist.html:54
 msgid "Interested"
@@ -1465,7 +1465,7 @@ msgstr "Voranmeldung"
 
 #: barcamps/templates/admin/add.html:77
 msgid "Receive notifications"
-msgstr ""
+msgstr "Sende E-Mails"
 
 #: barcamps/templates/admin/add.html:87
 msgid "Social"
@@ -1583,7 +1583,7 @@ msgstr "Zeitplan / Sessions bearbeiten"
 #: barcamps/templates/admin/event_participants.html:40
 #: barcamps/templates/admin/wizard.html:338
 msgid "Manage Participants"
-msgstr "Teilnehmer verwalten"
+msgstr "Teilnehmer_innen verwalten"
 
 #: barcamps/templates/admin/delete.html:8
 msgid ""
@@ -1603,7 +1603,7 @@ msgstr "alle Deine Seiten"
 
 #: barcamps/templates/admin/delete.html:12
 msgid "all participants lists"
-msgstr "alle Teilnehmerlisten"
+msgstr "alle Teilnehmer_innen-Listen"
 
 #: barcamps/templates/admin/delete.html:13
 msgid "all documentation if not hosted externally"
@@ -1784,7 +1784,7 @@ msgid ""
 "participants. Once you do people on the waiting list will move up to the "
 "participant list automatically and an email will be sent out to them."
 msgstr ""
-"Da das Barcamp schon öffentlich ist, kannst Du die Teilnehmerzahl nur "
+"Da das Barcamp schon öffentlich ist, kannst Du die Teilnehmer_innen-Zahl nur "
 "erhöhen. Wenn Du das tust rücken Personen von der Warteliste automatisch "
 "nach und werden per E-Mail informiert."
 
@@ -1798,7 +1798,7 @@ msgstr "Auf Warteliste verschieben"
 
 #: barcamps/templates/admin/event_participants.html:23
 msgid "Move to participants"
-msgstr "Auf Teilnehmerliste verschieben"
+msgstr "Auf Teilnehmer_innen-Liste verschieben"
 
 #: barcamps/templates/admin/event_participants.html:26
 msgid "remove from event"
@@ -1838,7 +1838,7 @@ msgstr "Zeitraster bearbeiten"
 
 #: barcamps/templates/admin/events.html:45
 msgid "Manage participants"
-msgstr "Teilnehmerzahl erhöhen"
+msgstr "Teilnehmer_innen-Zahl erhöhen"
 
 #: barcamps/templates/admin/events.html:48
 msgid "Delete Event?"
@@ -1978,9 +1978,9 @@ msgid ""
 "                not sent if the user is going to be moved to the waiting "
 "list in case the participant list is already full."
 msgstr ""
-"Die Willkommens-Mail wird an einen Benutzer gesendet, der sich "
-"erfolgreich als Teilnehmer registriert hat. Sie wird nicht gesendet, wenn"
-" der Benutzer auf der Warteliste landete. Dann gilt die Mail unten."
+"Die Willkommens-Mail wird an Benutzer_innen gesendet, sobald man "
+"erfolgreich als Teilnehmer_in registriert hat. Sie wird nicht gesendet, wenn"
+" eine Benutzer_in auf der Warteliste landete. Dann gilt die Mail unten."
 
 #: barcamps/templates/admin/mails_edit.html:29
 msgid "Waitinglist Mail"
@@ -1992,8 +1992,8 @@ msgid ""
 " and the user is being\n"
 "                moved onto the waitinglist."
 msgstr ""
-"Diese Mail wird an einen Benutzer gesendet, wenn die maximale "
-"Teilnehmerzahl erreicht wurde und er auf der Warteliste landet."
+"Diese Mail wird an einen Benutzer_innen gesendet, wenn die maximale "
+"Teilnehmer_innenzahl erreicht wurde und man auf der Warteliste landet."
 
 #: barcamps/templates/admin/mails_edit.html:38
 msgid "From Waitinglist Mail"
@@ -2008,8 +2008,8 @@ msgid ""
 "                the number of participants"
 msgstr ""
 "Diese Mail wird an einen Benutzer gesendet, der von der Warteliste auf "
-"die Teilnehmerliste nachrückt. Dies passiert entweder, wenn ein "
-"Teilnehmer absagt oder wenn der Veranstalter die Kapazität des  Barcamps "
+"die Teilnehmer_innenliste nachrückt. Dies passiert entweder, wenn eine "
+"Teilnehmer_in absagt oder wenn die Veranstalter_in die Kapazität des  Barcamps "
 "erhöht. "
 
 #: barcamps/templates/admin/participants_data_edit.html:6
@@ -2035,7 +2035,7 @@ msgstr ""
 "Feld wählen, ob es ein ein- oder mehrzeiliges Feld sein soll und ob ein "
 "Benutzer es zwingend ausfüllen muss. Ein Benutzer muss diese Daten dann "
 "beim  Registrierungsprozess angeben. Diese Daten kannst Du danach dann "
-"unter 'Teilnehmer herunterladen' inklusive Namen der Teilnehmer "
+"unter 'Teilnehmer herunterladen' inklusive Namen der Teilnehmer_innen "
 "herunterladen. "
 
 #: barcamps/templates/admin/participants_data_edit.html:19

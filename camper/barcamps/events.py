@@ -13,6 +13,7 @@ import gettext
 import pycountry
 from camper.form import MyDateField
 
+from camper.services import RegistrationService, RegistrationError
 
 
 class EventForm(BaseForm):
@@ -310,44 +311,15 @@ class EventParticipants(BarcampBaseHandler):
         
         user = self.app.module_map.userbase.get_user_by_id(uid)
 
-        status = event.set_status(uid, status, force = True)
-        
-        # send out the mail
-        view = self.barcamp_view
-        if status=="going":
-            self.mail_template("welcome",
-                view = view,
-                user = user,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
+        reg = RegistrationService(self, user)
+        try:
+            status = reg.set_status(eid, status, force=True)
+        except RegistrationError, e:
+            print "a registration error occurred", e
+            raise ProcessingError(str(e))
+            return 
 
-        elif status=="waitinglist":
-            self.mail_template("onwaitinglist",
-                view = view,
-                user = user,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
-
-        # eventually fill in new people in the participant list
-        uids = event.fill_participants()
-
-        users = self.app.module_map.userbase.get_users_by_ids(uids)
-        for user in users:
-            # send out a welcome email
-            self.mail_template("welcome",
-                view = view,
-                user = user,
-                barcamp = self.barcamp,
-                title = self.barcamp.name,
-                **self.barcamp)
-
-        self.barcamp.events[eid] = event
-        self.barcamp.save()
         return {'status' : 'success', 'reload' : True}
-
-
 
 
 
