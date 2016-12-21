@@ -639,12 +639,14 @@ class Barcamps(Collection):
         ###
 
         def do_embed(x):
+
             url, t = x.groups()
             html = embedder(url)
+            if url == html: # this means no plugin was found
+                return x.string[x.start():x.end()]
             return html
 
         obj.description2 = a_re.sub(do_embed, obj.description)
-
 
         ###
         ### remove all sessions which have no room or timeslot anymore
