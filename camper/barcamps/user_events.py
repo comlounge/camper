@@ -19,13 +19,17 @@ class Events(BarcampBaseHandler):
     def get(self, slug = None):
         """show the event list"""
         uid = unicode(self.user._id) if self.logged_in else None
+        
+        form_data = self.barcamp.registration_data.get(uid,{})
+        has_form_data = len(form_data) # we need to at least have one key
+        
         out = self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
             title = self.barcamp.name,
             has_form = len(self.barcamp.registration_form) != 0,
-            has_form_data = self.barcamp.registration_data.has_key(uid),
-            form_data = self.barcamp.registration_data.get(uid,{}),
+            has_form_data = has_form_data,
+            form_data = form_data,
             **self.barcamp)
         return out
 
