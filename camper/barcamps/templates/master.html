@@ -16,7 +16,7 @@
                 </div>
             </div>
         {% else %}
-            {% if barcamp.workflow == "registration" and has_form and not has_form_data %}
+            {% if barcamp.workflow == "registration" %}
                 <div class="widget-join">
                     <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
                     href="{{url_for('barcamps.wizard', slug=slug)}}" class="btn btn-lg btn-block btn-inverse">
@@ -25,7 +25,7 @@
                 </div>
             {% endif %}
         {% endif %} {# is registered_user #}
-    {% else %}
+    {% elif barcamp.workflow == "registration" %}
         <div class="widget-join">
             <div>
                 <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
