@@ -63,4 +63,5 @@ In order to migrate::
 - FIXED: waiting list had the wrong order (#112)
 - CHANGE: content container background now has no opacity anymore when background image is used, uses user defined background color
 - FIXED: barcamps are still shown on homepage the day they happen.
+- FIXED: normal urls in description will not be replaced anymore 
 
