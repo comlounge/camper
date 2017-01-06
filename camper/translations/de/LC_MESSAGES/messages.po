@@ -1124,9 +1124,8 @@ msgid "Registration"
 msgstr "Registrierung"
 
 #: barcamps/templates/registration_wizard.html:21
-#, fuzzy
 msgid "Login or register a new account"
-msgstr "neuen Benutzer registrieren"
+msgstr "Erstelle ein neues Konto oder logge Dich ein"
 
 #: barcamps/templates/registration_wizard.html:24
 msgid "If you already have a barcamptools.eu account please login."
