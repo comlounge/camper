@@ -65,3 +65,21 @@ In order to migrate::
 - FIXED: barcamps are still shown on homepage the day they happen.
 - FIXED: normal urls in description will not be replaced anymore 
 
+2.1 (2016-12-21)
+================
+
+- unified registration: You can now register on one page for the barcamp, the tool and events. You can also add all the form data.
+- barcamp completion progress: Added a dashboard to show overall progress in completing your barcamp including hints and links to all relevant places.
+- admin emails: Added an option to send info emails to the admin emails for registrations, cancellations etc.
+- added a new interest field to the sessionplan manager to store the amount of ppl interested in a session
+- correct sorting of events in barcamps
+- oEmbed-Support for barcamp descriptions (works for youtube, vimeo, flickr, facebook videos). Just put a URL in the description and it will be replaced by a player.
+- various bugfixes
+
+
+2.1.1 (2017-01-06)
+==================
+
+- fixed translation missing a space
+- fixed min length of usernames to be 3 again
+- fixed registration button showing up if barcamp is not yet in registration mode
