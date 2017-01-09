@@ -83,3 +83,9 @@ In order to migrate::
 - fixed translation missing a space
 - fixed min length of usernames to be 3 again
 - fixed registration button showing up if barcamp is not yet in registration mode
+
+2.1.2 (2017-01-09)
+==================
+
+- "going" button showed up although registration was not enabled yet. 
+

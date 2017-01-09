@@ -7,68 +7,70 @@
         <div id="eventlist" class="registration-eventlist" data-url="{{url_for('.registrationdata', slug=slug)}}">
     {% for event in barcamp.eventlist %}
             <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
+
                 <div class="panel-heading">
-                    <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
-                    {% if logged_in and not has_form %}
-                    <div class="actions pull-right">
-                        <button data-status="going" 
-                                title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
-                        <button data-status="going"
-                                title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
-                        <button data-status="maybe"
-                                title="{{_('Join')}}" class="btn btn-sm btn-info btn-maybe">{{_('Maybe')}}</button>
-                        <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+                    {% if barcamp.workflow == "registration" %}
+                        <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
+                        {% if logged_in and not has_form %}
+                        <div class="actions pull-right">
+                            <button data-status="going" 
+                                    title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
+                            <button data-status="going"
+                                    title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                            <button data-status="maybe"
+                                    title="{{_('Join')}}" class="btn btn-sm btn-info btn-maybe">{{_('Maybe')}}</button>
+                            <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
 
-                        <div class="btn-group pselect">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="plabel label-maybe">{{_('Maybe')}}</span>
-                                <span class="plabel label-going">{{_('Going')}}</span>
-                                <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
-                                <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
-                                <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
-                            </ul>
+                            <div class="btn-group pselect">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                                    <span class="plabel label-going">{{_('Going')}}</span>
+                                    <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                                    <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                                    <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    {% endif %}
-                    {% if logged_in and has_form and has_form_data %}
-                    <div class="actions pull-right">
-                        <button data-status="going" 
-                                title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
-                        <button data-status="going"
-                                title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
-                        <button data-status="maybe"
-                                title="{{_('Join')}}" class="btn btn-sm btn-info btn-maybe">{{_('Maybe')}}</button>
-                        <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
+                        {% endif %}
+                        {% if logged_in and has_form and has_form_data %}
+                        <div class="actions pull-right">
+                            <button data-status="going" 
+                                    title="{{_('Going')}}" class="btn btn-sm btn-primary btn-join">{{_('Going')}}</button>
+                            <button data-status="going"
+                                    title="{{_('Join')}}" class="btn btn-sm btn-primary btn-joinwl">{{_('Join Waiting list')}}</button>
+                            <button data-status="maybe"
+                                    title="{{_('Join')}}" class="btn btn-sm btn-info btn-maybe">{{_('Maybe')}}</button>
+                            <span class="error" style="display: none;"><i class="fa fa-warning"></i></span>
 
-                        <div class="btn-group pselect">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <span class="plabel label-maybe">{{_('Maybe')}}</span>
-                                <span class="plabel label-going">{{_('Going')}}</span>
-                                <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
-                                <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
-                                <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
-                            </ul>
+                            <div class="btn-group pselect">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="plabel label-maybe">{{_('Maybe')}}</span>
+                                    <span class="plabel label-going">{{_('Going')}}</span>
+                                    <span class="plabel label-waitinglist">{{_('Waiting list')}}</span>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a data-status="going" href="#" class="dlabel going">{{_('Going')}}</a></li>
+                                    <li><a data-status="maybe" href="#" class="dlabel maybe">{{_('Maybe')}}</a></li>
+                                    <li><a data-status="notgoing" href="#" class="not">{{_('Not Going')}}</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
 
-                    {% endif %}
-                    {% if logged_in and has_form and not has_form_data %}
-
-                        <div class="participation-details event hide" data-id="{{event._id}}" id="e-{{event._id}}">
-                            <a title="{{_('Click here to participate in the barcamp')}}" 
-                                href="{{url_for('barcamps.wizard', slug=slug)}}" class="pull-right btn btn-sm btn-primary">
-                                <i class="fa fa-check"></i>
-                                {{_('Register')}}</a>
-                        </div>
+                        {% endif %}
+                        {% if logged_in and has_form and not has_form_data %}
+                            <div class="participation-details event" data-id="{{event._id}}" id="e-{{event._id}}">
+                                <a title="{{_('Click here to participate in the barcamp')}}" 
+                                    href="{{url_for('barcamps.wizard', slug=slug)}}" class="pull-right btn btn-sm btn-primary">
+                                    <i class="fa fa-check"></i>
+                                    {{_('Register')}}</a>
+                            </div>
+                        {% endif %}
                     {% endif %}
 
                     <h4 class="panel-title">
