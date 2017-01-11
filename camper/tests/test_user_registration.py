@@ -71,8 +71,8 @@ def test_user_no_login_without_activation(app, client):
     resp = client.post("/users/register", data = post_data, follow_redirects=True)
 
     # try to login
-    resp = client.post("/users/login", data = {'username' : 'user1', 'password' : 'password1'})
-    assert "Dein Account wurde noch nicht aktiviert" in resp.data
+    resp = client.post("/users/login", data = {'email' : 'foobar@example.org', 'password' : 'password1'})
+    assert "Your user account has not been activated" in resp.data
 
 def test_user_login(app, client):  
 
