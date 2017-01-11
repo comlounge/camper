@@ -2,7 +2,7 @@
 
 import pytest
 import re
-from camper.app import lre_string
+from conftest import lre_string
 import urlparse
 
 # this is an integration suite
@@ -18,7 +18,7 @@ def test_user_registration_full(app, client):
         'fullname'  : 'Mr. Foo Bar',
     }
     resp = client.post("/users/register", data = post_data)
-    assert "Bitte checke Deine E-Mail" in str(app.last_handler.session['_flashes'])
+    assert "please check your email" in str(app.last_handler.session['_flashes'])
     link = re.search(lre_string, mail.last_msg_txt).groups()[0]
     assert "um Deinen Account zu aktivieren" in mail.last_msg_txt
     parts = urlparse.urlsplit(link)
