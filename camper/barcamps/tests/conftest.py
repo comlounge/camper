@@ -52,7 +52,7 @@ def pytest_funcarg__logged_in_client(request):
 
     client = app.test_client()
     r = client.post("/users/login", data = dict(
-        username = "foo",
+        email = "foo.bar@example.org",
         password = "bar"
     ), follow_redirects = True, base_url="http://dev.localhost")
     return client
