@@ -27,7 +27,7 @@ def test_barcamp_add(logged_in_client):
         location = "Aachen",
     ))
     lh = logged_in_client.application.last_handler
-    assert lh.get_flashes() == [u'Barcamp 1 wurde angelegt.']
+    assert lh.get_flashes() == [u'Barcamp 1 has been created']
     
 def test_barcamp_initialadmin(logged_in_client):
     """test adding a barcamp"""
