@@ -95,8 +95,8 @@ def test_user_login(app, client):
     resp = client.get(url)
 
     # login
-    resp = client.post("/users/login", data = {'username' : 'user1', 'password' : 'password1'})
-    assert "Du bist jetzt eingeloggt" in str(app.last_handler.session['_flashes'])
+    resp = client.post("/users/login", data = {'email' : 'foobar@example.org', 'password' : 'password1'})
+    assert "you are now logged in" in str(app.last_handler.session['_flashes'])
 
 
 def test_no_same_email(app, client):
