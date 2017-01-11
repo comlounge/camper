@@ -320,6 +320,32 @@ class Event(Record):
 
 
 
+class TicketClassSchema(Schema):
+    """ticket class in case ticket mode is enabled for a barcamp"""
+    
+    _id                 = String()  # UUID identifying the ticket class internally
+    created             = DateTime()
+    updated             = DateTime()
+    created_by          = String()  # TODO: should be ref to user
+    
+    name                = String()  # name of the ticket class
+    description         = String()  # description (maybe html) about what this ticket class offers you
+    price               = String()  # price in EUR in case 
+    events              = List(String())    # list of event ids you are allowed to enter
+    size                = Integer() # max amount of people allowed for this ticket
+
+
+class TicketSchema(Schema):
+    """models a ticket acquired by a user"""
+
+    ticketclass_id      = String()  # the id of the ticket class this ticket belongs to
+    user_id             = String()  # owner of the ticket
+    has_paid            = Boolean(default = False) # marks if the ticket was paid in paid mode
+    confirmed           = Boolean(default = False) # in preregistration mode an admin has to confirm a ticket first
+
+    # TODO: has_paid and confirmed might acually be the same thing
+
+
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
 
@@ -353,6 +379,13 @@ class BarcampSchema(Schema):
     
     hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
     preregistration     = Boolean(default=False) # if ppl need to be put manually on the participation list
+
+    # ticketmode
+    ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
+    paid_tickets        = Boolean(default = False)  # if false no prices will be shown
+    ticket_classes      = List(TicketClassSchema()) # list of ticket classes 
+
+    tickets             = Dict() # a dict of ticketclass_id -> [ticket, ...]
 
 
     # documentation
