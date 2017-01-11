@@ -14,7 +14,7 @@ import datetime
 def config(request):
     """read the test config"""
     return {
-        'mongodb_name'  : 'camper_test_database_do_not_use',
+        'mongodb_url'  : 'mongodb://127.0.0.1:27017/camper_test_database_do_not_use',
         'modules.userbase.mongodb_name'  : 'camper_test_database_do_not_use',
         'testing'       : True,
         'debug'         : True,
