@@ -14,17 +14,17 @@ def test_user_registration_full(app, client):
         'username'  : 'user1',
         'password'  : 'password1',
         'password2' : 'password1',
-        'email'     : 'foobar@example.org',
+        'email'     : 'foobar99@example.org',
         'fullname'  : 'Mr. Foo Bar',
     }
     resp = client.post("/users/register", data = post_data)
     assert "please check your email" in str(app.last_handler.session['_flashes'])
     link = re.search(lre_string, mail.last_msg_txt).groups()[0]
-    assert "um Deinen Account zu aktivieren" in mail.last_msg_txt
+    assert u'Deinen Account zu aktivieren' in mail.last_msg_txt
     parts = urlparse.urlsplit(link)
     url = "%s?%s" %(parts.path, parts.query)
     resp = client.get(url)
-    assert "Dein Account wurde erfolgreich aktiviert" in str(app.last_handler.session['_flashes'])
+    assert "Your account has been successfully activated" in str(app.last_handler.session['_flashes'])
 
 
 def test_user_send_activation_code_again(app, client):  
@@ -43,10 +43,10 @@ def test_user_send_activation_code_again(app, client):
 
     # ask for a new activation code
     resp = client.get("/users/activation_code")
-    assert "damit wir Dir einen neuen Code zusenden können" in resp.data
+    assert "Please enter the email address you registered with to receive a new activation code" in resp.data
 
     resp = client.post("/users/activation_code", data = {'email' : 'foobar@example.org'})
-    assert "neuen Aktivierungscode an Deine E-Mail gesendet" in str(app.last_handler.session['_flashes'])
+    assert "A new activation code has been sent out, please check your email" in str(app.last_handler.session['_flashes'])
 
     link = re.search(lre_string, mail.last_msg_txt).groups()[0]
     assert "um Deinen Account zu aktivieren" in mail.last_msg_txt
