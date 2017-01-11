@@ -40,7 +40,7 @@ def pytest_funcarg__client(request):
 def pytest_funcarg__logged_in_client(request):
     app = request.getfuncargvalue('app')
     userbase = app.module_map['userbase']
-    user = userbase.users()
+    user = userbase.users({})
     user.update(dict(
         username = 'foo',
         password = 'bar',
