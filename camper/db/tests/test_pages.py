@@ -35,7 +35,7 @@ def test_add_multiple_pages_for_one_slot_on_homepage(pages):
     pages.add_to_slot("slot1", page1)
     pages.add_to_slot("slot1", page2)
 
-    p = list(pages.for_slot("slot1"))
+    p = list(pages.for_slot("slot1"))    
     assert len(p) == 2
     assert p[0].title == u"Test Page 1"
     assert p[0].index == 0
