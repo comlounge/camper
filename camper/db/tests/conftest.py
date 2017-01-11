@@ -9,7 +9,7 @@ def pytest_addoption(parser):
     parser.addoption("--mongo-name", action="store", default="camper_testing_78827628762")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def db(request):
     url = request.config.getoption("--mongo-url")
     name = request.config.getoption("--mongo-name")
