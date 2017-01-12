@@ -16,6 +16,7 @@ import requests
 import bson
 from mongogogo import ObjectNotFound
 import jinja2
+import logbook
 
 from wtforms.ext.i18n.form import Form
 
@@ -474,6 +475,13 @@ class BaseHandler(starflyer.Handler):
         u'running'      : u"findet statt",
         u'closed'       : u"abgeschlossen",
     }
+
+    LOGGER = "general"  # default log channel
+
+    def __init__(self, *args, **kwargs):
+        """initialize handler with a logger"""
+        super(BaseHandler, self).__init__(*args, **kwargs)
+        self.log = logbook.Logger(self.LOGGER)
 
     def before(self):
         """prepare the handler"""

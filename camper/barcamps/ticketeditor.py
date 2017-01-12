@@ -41,6 +41,8 @@ class TicketEditor(BarcampBaseHandler):
 
     template = "admin/ticketeditor.html"
 
+    LOGGER = "ticketeditor"
+
     @logged_in()
     @is_admin()
     @ensure_barcamp()
@@ -76,6 +78,7 @@ class TicketEditor(BarcampBaseHandler):
             f['_id'] = unicode(uuid.uuid4())
             self.barcamp.ticket_classes.append(f)
             self.barcamp.put()
+            self.log.trace("created new ticket class", cls = f)
             self.flash(self._('new ticket created'), category="info")
         else:
             print add_form.errors
