@@ -1,0 +1,74 @@
+{% set menu="tickets" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Manage Tickets')}}</h1>
+        <div class="help-block">
+            <br>{{_('Tickets are an alternative way to manage registrations. Tickets are one or more events bundled together.')}}</br>
+            <br>{{_('This can be useful if you e.g. want people to signup for the whole barcamp in case it also includes lodging for the night')}}</br>
+            <br>{{_('Another use is if you want to sell tickets. You would still need to organize payment yourself though. Tickets only help to manage registrations')}}</br>
+        </div>
+    </div>
+
+    <div id="config">
+        <form id="ticketconfigform" method="POST" data-url="{{url_for('.admin_ticketenabler', slug = slug)}}">
+            {{ formmacros.form_field(config_form.ticketmode_enabled)}}
+        </form>
+    </div>
+
+    <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
+
+        <h2>{{_('Ticketeditor')}}</h2>
+        {% if not ticket_classes|length %}
+            <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
+        {% else %}
+            <h3>{{'tickets'}}</h3>
+            <ul>
+            {% for tc in ticket_classes %}
+                <li><a href="">{{tc.name}}</a> ({{tc.size}} {{_('tickets')}})</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        <hr>
+
+        <h3>{{_('Add new ticket')}}</h3>
+        <form id="ticketconfigform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
+            {{ formmacros.form_field(add_form.name, required = True)}}
+            {{ formmacros.form_field(add_form.description, required = True)}}
+            {{ formmacros.form_field(add_form.size, required = True)}}
+            {{ formmacros.form_field(add_form.events, required = True)}}
+            {{ formmacros.form_field(add_form.price)}}
+            <div class="form-actions">
+                <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add new ticket')}}">
+            </div>
+
+        </form>
+
+    </section>
+    
+{% endblock %}
+
+{% block js %}
+    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
+    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
+    {% block bcjs %}
+        <script>
+            $(document).ready(function () {
+                $("#ticketmode_enabled").on("change", function () {
+                    var enabled = $("#ticketmode_enabled").prop("checked");
+                    var url = $("#ticketconfigform").data("url");
+                    $.post(url, {'ticketmode_enabled' : enabled}, function (data){
+                        if (enabled) {
+                            $("#ticketeditor").slideDown();
+                        } else {
+                            $("#ticketeditor").slideUp();
+                        }
+                    });
+                })
+            });
+        </script>
+        
+    {% endblock %}
+{% endblock %}
