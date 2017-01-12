@@ -75,10 +75,7 @@ class TicketEditor(BarcampBaseHandler):
             f = add_form.data
             f['_id'] = unicode(uuid.uuid4())
             self.barcamp.ticket_classes.append(f)
-            print "ok"
-            print self.barcamp.ticket_classes
             self.barcamp.put()
-            print "ok2"
             self.flash(self._('new ticket created'), category="info")
         else:
             print add_form.errors
