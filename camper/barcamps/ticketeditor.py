@@ -19,7 +19,7 @@ class MultiCheckboxField(SelectMultipleField):
 
 class TicketConfigurationForm(BaseForm):
     """form for configuring the tickets"""
-    ticketmode_enabled  = BooleanField(T('Enable Ticketing'))
+    ticketmode_enabled  = BooleanField(T('Enable Ticketing'), description=T(u"if you enable ticketing the normal registration process per event is replaced by acquiring tickets you define here"))
     paid_tickets        = BooleanField(T('Paid Tickets'))
     preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled an administrator needs to confirm the ticket transaction. If you use paid tickets this is always active because you have to check the payments yourself.'))            
 
