@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-01-12 12:03+0100\n"
+"POT-Creation-Date: 2017-01-12 16:46+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: en <LL@li.org>\n"
@@ -162,7 +162,7 @@ msgid ""
 "and in search engines"
 msgstr ""
 
-#: barcamps/add.py:30 barcamps/edit.py:33 barcamps/ticketeditor.py:16
+#: barcamps/add.py:30 barcamps/edit.py:33 barcamps/ticketeditor.py:24
 msgid "Enable Pre-Registration"
 msgstr ""
 
@@ -406,7 +406,7 @@ msgstr ""
 msgid "Session Proposals"
 msgstr ""
 
-#: barcamps/design.py:36 barcamps/ticketeditor.py:27
+#: barcamps/design.py:36 barcamps/ticketeditor.py:35
 #: barcamps/templates/participant_data.html:7
 #: barcamps/templates/sessionpad.html:9 barcamps/templates/user_event.html:99
 #: barcamps/templates/admin/events.html:10
@@ -451,7 +451,7 @@ msgstr ""
 
 #: barcamps/edit.py:26 barcamps/edit.py:260 barcamps/events.py:25
 #: barcamps/galleries.py:31 barcamps/sessionboard.py:18
-#: barcamps/ticketeditor.py:22 barcamps/templates/index.html:95
+#: barcamps/ticketeditor.py:30 barcamps/templates/index.html:95
 #: barcamps/templates/sessions.html:138 barcamps/templates/admin/add.html:41
 #: barcamps/templates/admin/event_macros.html:88
 #: barcamps/templates/admin/gallery_macros.html:38
@@ -824,47 +824,51 @@ msgstr ""
 msgid "Sponsor Logo"
 msgstr ""
 
-#: barcamps/sponsors.py:51 barcamps/ticketeditor.py:71
+#: barcamps/sponsors.py:51
 msgid "created new sponsor"
 msgstr ""
 
-#: barcamps/sponsors.py:53 barcamps/ticketeditor.py:73
+#: barcamps/sponsors.py:53 barcamps/ticketeditor.py:85
 msgid "The form contains errors. Please correct them and try again."
 msgstr ""
 
-#: barcamps/ticketeditor.py:14
+#: barcamps/ticketeditor.py:22
 msgid "Enable Ticketing"
 msgstr ""
 
-#: barcamps/ticketeditor.py:15
+#: barcamps/ticketeditor.py:23
 msgid "Paid Tickets"
 msgstr ""
 
-#: barcamps/ticketeditor.py:16
+#: barcamps/ticketeditor.py:24
 msgid ""
 "If enabled an administrator needs to confirm the ticket transaction. If "
 "you use paid tickets this is always active because you have to check the "
 "payments yourself."
 msgstr ""
 
-#: barcamps/ticketeditor.py:21
-msgid "Name of the ticket class"
+#: barcamps/ticketeditor.py:29
+msgid "Name of the ticket"
 msgstr ""
 
-#: barcamps/ticketeditor.py:23
+#: barcamps/ticketeditor.py:31
 msgid "Please describe here what you get for obtaining one of these tickets"
 msgstr ""
 
-#: barcamps/ticketeditor.py:25
-msgid "max. number of tickets in this class"
+#: barcamps/ticketeditor.py:33
+msgid "maximum tickets available"
 msgstr ""
 
-#: barcamps/ticketeditor.py:27
+#: barcamps/ticketeditor.py:35
 msgid "Please select the events you can attend with this ticket"
 msgstr ""
 
-#: barcamps/ticketeditor.py:28
+#: barcamps/ticketeditor.py:36
 msgid "Price"
+msgstr ""
+
+#: barcamps/ticketeditor.py:82
+msgid "new ticket created"
 msgstr ""
 
 #: barcamps/templates/docs.html:11
@@ -966,20 +970,20 @@ msgstr ""
 msgid "Manage Barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:210 templates/admin_master.html:72
+#: barcamps/templates/master.html:210 templates/admin_master.html:73
 msgid "publish barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:211 templates/admin_master.html:73
+#: barcamps/templates/master.html:211 templates/admin_master.html:74
 msgid "this barcamp is not public"
 msgstr ""
 
 #: barcamps/templates/master.html:218 barcamps/templates/admin/wizard.html:265
-#: barcamps/templates/admin/wizard.html:279 templates/admin_master.html:80
+#: barcamps/templates/admin/wizard.html:279 templates/admin_master.html:81
 msgid "open registration"
 msgstr ""
 
-#: barcamps/templates/master.html:219 templates/admin_master.html:81
+#: barcamps/templates/master.html:219 templates/admin_master.html:82
 msgid "Registration for this barcamp is not yet open."
 msgstr ""
 
@@ -2101,8 +2105,21 @@ msgid ""
 "registrations"
 msgstr ""
 
-#: barcamps/templates/admin/ticketeditor.html:21
+#: barcamps/templates/admin/ticketeditor.html:22
 msgid "Ticketeditor"
+msgstr ""
+
+#: barcamps/templates/admin/ticketeditor.html:24
+msgid "No tickets defined yet"
+msgstr ""
+
+#: barcamps/templates/admin/ticketeditor.html:29
+msgid "tickets"
+msgstr ""
+
+#: barcamps/templates/admin/ticketeditor.html:36
+#: barcamps/templates/admin/ticketeditor.html:44
+msgid "Add new ticket"
 msgstr ""
 
 #: barcamps/templates/admin/wizard.html:6
@@ -2636,7 +2653,7 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: pages/templates/entries.html:7 templates/admin_master.html:53
+#: pages/templates/entries.html:7 templates/admin_master.html:54
 msgid "Custom Pages"
 msgstr ""
 
@@ -2768,38 +2785,42 @@ msgid "edit events"
 msgstr ""
 
 #: templates/admin_master.html:46
+msgid "manage tickets"
+msgstr ""
+
+#: templates/admin_master.html:47
 msgid "edit registration form"
 msgstr ""
 
-#: templates/admin_master.html:49
+#: templates/admin_master.html:50
 msgid "Information"
 msgstr ""
 
-#: templates/admin_master.html:51
+#: templates/admin_master.html:52
 msgid "Galleries"
 msgstr ""
 
-#: templates/admin_master.html:52
+#: templates/admin_master.html:53
 msgid "Manage Blog"
 msgstr ""
 
-#: templates/admin_master.html:54
+#: templates/admin_master.html:55
 msgid "send newsletter"
 msgstr ""
 
-#: templates/admin_master.html:58
+#: templates/admin_master.html:59
 msgid "Advanced"
 msgstr ""
 
-#: templates/admin_master.html:60
+#: templates/admin_master.html:61
 msgid "edit permissions"
 msgstr ""
 
-#: templates/admin_master.html:61
+#: templates/admin_master.html:62
 msgid "edit mail templates"
 msgstr ""
 
-#: templates/admin_master.html:62
+#: templates/admin_master.html:63
 msgid "download participants"
 msgstr ""
 
@@ -4647,5 +4668,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Create barcamptools.eu Account"
+#~ msgstr ""
+
+#~ msgid "Name of the ticket class"
+#~ msgstr ""
+
+#~ msgid "max. number of tickets in this class"
 #~ msgstr ""
 
