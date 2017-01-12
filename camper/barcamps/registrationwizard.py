@@ -33,6 +33,8 @@ class RegistrationWizard(BarcampBaseHandler):
     """
     template = 'registration_wizard.html'
 
+    LOGGER = "registration"
+
     @property
     def registration_form(self):
         """create and return the registration form"""
@@ -97,7 +99,6 @@ class RegistrationWizard(BarcampBaseHandler):
         new_user = not self.logged_in
         if not self.logged_in:
 
-
             # create new user and get the UID
             mod = self.app.module_map['userbase']
             user = mod.register(userform.data, create_pw = False)
@@ -105,7 +106,7 @@ class RegistrationWizard(BarcampBaseHandler):
             # double opt in should be done already, we only have to remember
             # to tell the user after registration
             uid = unicode(user._id)
-            print "created new user with uid", uid
+            self.log.debug("created new user", uid=uid)
 
         else:
             uid = unicode(self.user._id)
@@ -123,7 +124,7 @@ class RegistrationWizard(BarcampBaseHandler):
                 try:
                     reg.set_status(eid, "going")
                 except RegistrationError, e:
-                    print "a registration error occurred", e
+                    self.log.exception("a registration error occurred")
                     raise ProcessingError(str(e))
                     return 
         else:
@@ -133,9 +134,9 @@ class RegistrationWizard(BarcampBaseHandler):
                 'eids' : eids,
             }
             user.save()
+            self.log.debug("saving user information on new user", info = user.registered_for)
 
         self.barcamp.save()
-        
         
 
 
@@ -172,7 +173,7 @@ class RegistrationWizard(BarcampBaseHandler):
     post = get
 
 class EMailValidation(BaseHandler):
-    """utility handler for checking it an email exists already"""
+    """utility handler for checking if an email exists already"""
 
     def get(self, slug=None):
         """check if a user with this email exists"""
