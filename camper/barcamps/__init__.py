@@ -21,6 +21,7 @@ import sessionpad
 import galleries
 import design
 import wizard
+import ticketeditor
 
 from starflyer import Module, URL
 
@@ -88,6 +89,9 @@ class BarcampModule(Module):
         URL('/<slug>/admin/galleries/<gid>/title', 'gallery_title_edit',        galleries.GalleryTitleEdit),
 
         URL('/<slug>/admin/wizard',         'admin_wizard',                     wizard.BarcampWizard),
+
+        URL('/<slug>/admin/tickets',        'admin_ticketeditor',               ticketeditor.TicketEditor),
+        URL('/<slug>/admin/tickets/enabled','admin_ticketenabler',              ticketeditor.TicketEnabler),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>',   'event',                            events.EventView),
