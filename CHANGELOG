@@ -89,3 +89,9 @@ In order to migrate::
 
 - "going" button showed up although registration was not enabled yet. 
 
+2.2 (???)
+=========
+
+- added logging support via logbook
+- added a very basic 404 page
+- implemented ticketing mode replacing normal registration
