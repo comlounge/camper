@@ -383,10 +383,8 @@ class BarcampSchema(Schema):
     # ticketmode
     ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
     paid_tickets        = Boolean(default = False)  # if false no prices will be shown
-    ticket_classes      = List(TicketClassSchema()) # list of ticket classes 
-
+    ticket_classes      = List(TicketClassSchema()) # list of ticket classes
     tickets             = Dict() # a dict of ticketclass_id -> [ticket, ...]
-
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
