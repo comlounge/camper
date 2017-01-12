@@ -104,7 +104,6 @@ class RegistrationWizard(BarcampBaseHandler):
 
             # double opt in should be done already, we only have to remember
             # to tell the user after registration
-
             uid = unicode(user._id)
             print "created new user with uid", uid
 
