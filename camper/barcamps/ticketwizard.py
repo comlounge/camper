@@ -83,20 +83,15 @@ class TicketWizard(BarcampBaseHandler):
         # unfortunately it's doubled here. 
         regform = self.registration_form
         userform = self.user_registration_form
-        print regform
-        print userform
 
         if not self.logged_in and not userform.validate():
-            print 1
             raise ProcessingError("user is not logged in and userform does not validate")
 
         if not regform.validate():
-            print 2
             raise ProcessingError("registration form does not validate")
         
         # do we have events? If not then this is not valid
         tc_ids = self.request.form.getlist("_tc")
-        print tc_ids
         if not tc_ids:
             self.log.warn("found no ticket class ids")
             raise ProcessingError("no tickets selected")
@@ -130,7 +125,7 @@ class TicketWizard(BarcampBaseHandler):
                 try:
                     status = ticketservice.register(tc_id)
                 except TicketError, e:
-                    self.log.exception("an exception when registering a ticket occurred")
+                    self.log.error("an exception when registering a ticket occurred", error_msg = e.msg)
                     raise ProcessingError(str(e))
                     return 
         else:
