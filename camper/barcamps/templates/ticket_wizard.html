@@ -1,6 +1,66 @@
 {% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
 
+{% macro ticketblock(ticket_classes, 
+        active = True, 
+        headline='Select tickets', 
+        description='Please select which tickets you want to register for',
+        css_id = "tickets") %}
+    <fieldset id="{{css_id}}">
+        <legend>{{headline}}</legend>
+        <div class="fs-content">
+            <div class="help-block">{{description}}</div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div id="ticketlist" class="registration-eventlist">
+                        {% for tc in ticket_classes %}
+                            {% set confirmed = tc.get_tickets('confirmed')|length %}
+                            <div class="checkbox">
+                                <label>
+                                    {% if active %}
+                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}"> 
+                                    {% endif %}
+
+                                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                {{tc.name}} 
+                                            </h4>
+                                            <small>{{tc.description}}</small>
+                                            <hr>    
+                                            <div class="progress-info">
+                                                <span class="filled">{{confirmed}}</span>
+                                                /
+                                                <span class="size">{{tc.size}}</span> 
+                                                {{_('participants')}}
+                                            </div>
+                                            <div class="progress participants-progress">
+                                                {% set percent = confirmed / tc.size * 100 %}
+                                                <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
+                                                    role="progressbar" 
+                                                    aria-valuenow="{{confirmed}}" 
+                                                    aria-valuemin="0" 
+                                                    aria-valuemax="{{tc.size}}" style="width: {{percent|int}}%;">
+                                                        {% set left = tc.size - confirmed %}
+                                                        {% if left <1 %}
+                                                            <span class="text-danger">{{_('no places left.')}}</span>
+                                                        {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>{# panel-heading #}
+                                    </article>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endmacro %}
+
+
+
 {% block headline %}
     <ol class="breadcrumb">
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
@@ -84,57 +144,25 @@
                 </div>
             </fieldset>
         {% endif %}
+        {% if pending %}
+            {{ticketblock(pending, active = False, headline = _('Your pending tickets'))}}
+        {% endif %}
+        
+        {% if confirmed %}
+            {{ticketblock(confirmed, 
+                active = False, 
+                headline = _('Your tickets'), 
+                description = _('You own the following tickets. If you want to cancel them you have to contact a barcamp administrator.'))}}
+        {% endif %}
+        {% if remaining_tickets %}
+            {{ticketblock(remaining_tickets, active = True, headline = _('Reserve your tickets'))}}
+            {% if barcamp.paid_tickets %}
+                <input type="submit" value="{{_("Buy tickets")}}" class="btn btn-lg btn-primary pull-right">
+            {% else %}
+                <input type="submit" value="{{_("Reserve tickets")}}" class="btn btn-lg btn-primary pull-right">
+            {% endif %}
+        {% endif %}
 
-            <fieldset>
-                <legend>{{_('Select tickets')}}</legend>
-                <div class="fs-content">
-                    <div class="help-block">{{_('Please select which tickets you want to acquire.')}}</div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <div id="ticketlist" class="registration-eventlist">
-                                {% for tc in barcamp.ticketlist %}
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}"> 
-
-                                            <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
-                                                <div class="panel-heading">
-                                                    <h4 class="panel-title">
-                                                        {{tc.name}} 
-                                                    </h4>
-                                                    <small>{{tc.description}}</small>
-                                                    <hr>    
-                                                    <div class="progress-info">
-                                                        <span class="filled">{{tc.size}}</span>
-                                                        /
-                                                        <span class="size">{{tc.size}}</span> 
-                                                        {{_('participants')}}
-                                                    </div>
-                                                    <div class="progress participants-progress">
-                                                        {% set percent = []|length / tc.size * 100 %}
-                                                        <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
-                                                            role="progressbar" 
-                                                            aria-valuenow="{{[]|length}}" 
-                                                            aria-valuemin="0" 
-                                                            aria-valuemax="{{tc.size}}" style="width: {{percent|int}}%;">
-                                                                {% set left = tc.size - []|length %}
-                                                                {% if left <1 %}
-                                                                    <span class="text-danger">{{_('no places left.')}}</span>
-                                                                {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>{# panel-heading #}
-                                            </article>
-                                        </label>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-
-            <input type="submit" value="{{_("Register for this barcamp")}}" class="btn btn-lg btn-primary pull-right">
             
         </form>
     </div>

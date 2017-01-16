@@ -148,6 +148,9 @@ class TicketWizard(BarcampBaseHandler):
         
         regform = self.registration_form
         userform = self.user_registration_form
+
+        # a list of all ticket class objects
+        ticketlist = self.barcamp.ticketlist
                 
         if self.request.method == "POST":
             try:
@@ -163,12 +166,34 @@ class TicketWizard(BarcampBaseHandler):
                     self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
                     return redirect(self.url_for(".index", slug = self.barcamp.slug))
 
+        if self.logged_in:
+            pending = self.barcamp.get_tickets_for_user(self.user_id, "pending")
+            confirmed = self.barcamp.get_tickets_for_user(self.user_id, "confirmed")
+            reserved_tickets = pending + confirmed
+        else:
+            pending = confirmed = reserved_tickets = []
+
+        all_tickets = [tc._id for tc in ticketlist]
+        reserved_ticket_ids = [tc._id for tc in reserved_tickets]
+
+        # compute the remaining tickets for a user
+        remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))
+        remaining_tickets = []
+        for tc in ticketlist:
+            if tc._id in remaining_ticket_ids:
+                remaining_tickets.append(tc)
+
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
             title = self.barcamp.name,
             form = regform,
             userform = userform,
+            pending = pending,
+            confirmed = confirmed,
+            reserved_tickets = reserved_tickets,
+            remaining_tickets = remaining_tickets,
+            ticketlist = ticketlist,
             **self.barcamp)
 
     post = get

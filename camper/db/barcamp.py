@@ -338,7 +338,7 @@ class TicketClassSchema(Schema):
 class TicketClass(Record):
     """this extends the ticket class by some useful methods"""
     schema = TicketClassSchema()
-    _protected = ['_barcamp']
+    _protected = ['_barcamp', '_size']
 
     def __init__(self, *args, **kwargs):
         """initialize the event"""
@@ -347,9 +347,21 @@ class TicketClass(Record):
 
     @property
     def full(self):
-        """check if the ticket class is already sold out"""
-        return len(self._barcamps.tickets[self._id]) >= self.size
+        """check if the ticket class is already sold out in terms if confirmed tickets"""
+        confirmed = self.get_tickets("confirmed")
+        return len(confirmed) >= self.size
 
+    def get_tickets(self, status = "confirmed"):
+        """the amount of sold tickets meaning confirmed tickets only
+
+        :param status: a list or string of statuses we want to return
+        :return: a list of ticket dicts
+        """
+        if type(status) != type([]):
+            status = [status]
+        my_tickets = self._barcamp.tickets.get(self._id, {})
+        return [t for t in my_tickets.values() if t['status'] in status]
+        
 
 
 class TicketSchema(Schema):
@@ -576,6 +588,25 @@ class Barcamp(Record):
             if tc['_id'] == tc_id:
                 return TicketClass(tc)
         return None
+
+    def get_tickets_for_user(self, user_id, status=["confirmed", "pending"]):
+        """return all the ticket class ids which a users owns
+
+        :param user_id: the user id of the user
+        :param status: the status which is either a string or a list of strings
+        :return: a list of ticket classes
+        """
+
+        # always a list
+        if type(status) != type([]):
+            status = [status]
+        
+        result = []
+        for tc in self.ticketlist:
+            for uid, ticket in self.tickets.get(tc._id, {}).items():
+                if uid == user_id and ticket['status'] in status:
+                    result.append(tc)
+        return result
 
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp
