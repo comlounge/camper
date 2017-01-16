@@ -335,6 +335,23 @@ class TicketClassSchema(Schema):
     size                = Integer() # max amount of people allowed for this ticket
 
 
+class TicketClass(Record):
+    """this extends the ticket class by some useful methods"""
+    schema = TicketClassSchema()
+    _protected = ['_barcamp']
+
+    def __init__(self, *args, **kwargs):
+        """initialize the event"""
+        super(TicketClass, self).__init__(*args, **kwargs)
+        self._barcamp = kwargs.get('_barcamp', None)
+
+    @property
+    def full(self):
+        """check if the ticket class is already sold out"""
+        return len(self._barcamps.tickets[self._id]) >= self.size
+
+
+
 class TicketSchema(Schema):
     """models a ticket acquired by a user"""
 
@@ -344,6 +361,26 @@ class TicketSchema(Schema):
     confirmed           = Boolean(default = False) # in preregistration mode an admin has to confirm a ticket first
 
     # TODO: has_paid and confirmed might acually be the same thing
+
+
+class TicketOwnership(Schema):
+    """a more documentary class to describe what is stored per acquired ticket
+
+    This is stored in ``tickets`` in the barcamp schema inside a dict for a ticket class
+
+    the following status strings are defined:
+
+    confirmed   -- user owns the ticket, all ok
+    pending     -- admin still has to confirm the ticket (e.g. when being paid)
+    registering -- user is still in the double optin process (can go into pending or confirmed after that)
+
+
+
+    """
+
+    status              = String() # see above for definitions
+    user_id             = String() # user id again for safety 
+
 
 
 class BarcampSchema(Schema):
@@ -384,7 +421,7 @@ class BarcampSchema(Schema):
     ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
     paid_tickets        = Boolean(default = False)  # if false no prices will be shown
     ticket_classes      = List(TicketClassSchema()) # list of ticket classes
-    tickets             = Dict() # a dict of ticketclass_id -> [ticket, ...]
+    tickets             = Dict() # a dict of ticketclass_id -> {uid: TicketOwnership
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
@@ -526,6 +563,19 @@ class Barcamp(Record):
         events.sort(s)
         events = [Event(e, _barcamp = self) for e in events]
         return events
+
+    @property
+    def ticketlist(self):
+        """return a list of all ticket classes and whether they are full or not"""
+        tickets = [TicketClass(tc, _barcamp = self) for tc in self.ticket_classes]
+        return tickets
+
+    def get_ticket_class(self, tc_id):
+        """return a ticket class by it's id or None if it does not exist"""
+        for tc in self.ticket_classes:
+            if tc['_id'] == tc_id:
+                return TicketClass(tc)
+        return None
 
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp

@@ -10,6 +10,7 @@ import permissions
 import location
 import registration
 import registrationwizard
+import ticketwizard
 import dashboard
 import delete
 import tweetwally
@@ -78,6 +79,8 @@ class BarcampModule(Module):
         URL('/<slug>/validate_email',       'validate_email',                   registrationwizard.EMailValidation),
         URL('/<slug>/registration_form',    'registration_form',                registration.RegistrationForm),
         URL('/<slug>/registrationdata',     'registrationdata',                 registration.RegistrationData),
+
+        URL('/<slug>/tickets',              'tickets',                          ticketwizard.TicketWizard),
 
         URL('/<slug>/events',               'user_events',                      user_events.Events),
         URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),

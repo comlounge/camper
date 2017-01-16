@@ -9,7 +9,8 @@ import xlwt
 from cStringIO import StringIO
 import datetime
 
-from camper.services import RegistrationService, RegistrationError
+from camper.services import * 
+
 
 class ProcessingError(Exception):
     """marker expception for the process post method"""
@@ -21,7 +22,7 @@ class ProcessingError(Exception):
         return "<ProcessingError: %s>" %self.msg
 
 
-class RegistrationWizard(BarcampBaseHandler):
+class TicketWizard(BarcampBaseHandler):
     """one screen for all of the registration
 
     Handles:
@@ -31,9 +32,9 @@ class RegistrationWizard(BarcampBaseHandler):
     - the 
 
     """
-    template = 'registration_wizard.html'
+    template = 'ticket_wizard.html'
 
-    LOGGER = "registration"
+    LOGGER = "ticketing"
 
     @property
     def registration_form(self):
@@ -82,17 +83,24 @@ class RegistrationWizard(BarcampBaseHandler):
         # unfortunately it's doubled here. 
         regform = self.registration_form
         userform = self.user_registration_form
+        print regform
+        print userform
 
         if not self.logged_in and not userform.validate():
+            print 1
             raise ProcessingError("user is not logged in and userform does not validate")
 
         if not regform.validate():
+            print 2
             raise ProcessingError("registration form does not validate")
         
         # do we have events? If not then this is not valid
-        eids = self.request.form.getlist("_bcevents")
-        if not eids:
-            raise ProcessingError("no events selected")
+        tc_ids = self.request.form.getlist("_tc")
+        print tc_ids
+        if not tc_ids:
+            self.log.warn("found no ticket class ids")
+            raise ProcessingError("no tickets selected")
+        self.log.debug("found ticket class ids", tc_ids = tc_ids)
 
 
         # do we have a new user?
@@ -117,21 +125,19 @@ class RegistrationWizard(BarcampBaseHandler):
 
         # register for all the selected events
         if self.logged_in:
-            reg = RegistrationService(self, self.user)
-
-            for eid in eids:
-                event = self.barcamp.get_event(eid)
+            ticketservice = TicketService(self, self.user)
+            for tc_id in tc_ids:
                 try:
-                    reg.set_status(eid, "going")
-                except RegistrationError, e:
-                    self.log.exception("a registration error occurred")
+                    status = ticketservice.register(tc_id)
+                except TicketError, e:
+                    self.log.exception("an exception when registering a ticket occurred")
                     raise ProcessingError(str(e))
                     return 
         else:
-            # for new users we just remember the eids
+            # for new users we just remember the ticket class ids (compared to eids when no ticketing is enabled)
             user.registered_for = {
                 'barcamp' : self.barcamp.slug,
-                'eids' : eids,
+                'tickets' : tc_ids,
             }
             user.save()
             self.log.debug("saving user information on new user", info = user.registered_for)
@@ -144,9 +150,6 @@ class RegistrationWizard(BarcampBaseHandler):
     def get(self, slug = None):
         """show the complete registration form with registration data, user registration and more"""
 
-        # show tickets instead if ticketmode is enabled
-        if self.barcamp.ticketmode_enabled:
-            return redirect(self.url_for(".tickets", slug=slug))
         
         regform = self.registration_form
         userform = self.user_registration_form
@@ -155,8 +158,8 @@ class RegistrationWizard(BarcampBaseHandler):
             try:
                 self.process_post_data()
             except ProcessingError, e:
+                self.log.exception()
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
-                print "error on processing post data", e
             else:
                 if self.logged_in:
                     self.flash(self._("You have been successfully registered. Please check your email."), category="success")
