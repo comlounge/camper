@@ -247,7 +247,7 @@
                         {{share_buttons()}}
                         
                         {{sponsors()}}
-                        {% if barcamp.contact_email or barcamp.imprint|trim|length > 10 %}
+                        {% if barcamp.contact_email or barcamp.has_imprint %}
                             <h3>{{_('Imprint')}}</h3>
                             {{barcamp.imprint|safe}}
                             <p> 

@@ -614,6 +614,15 @@ class Barcamp(Record):
                     result.append(tc)
         return result
 
+    @property
+    def has_imprint(self):
+        """return whether the barcamp has a proper imprint or not
+
+        basically it needs to be bigger than 20 chars
+
+        """
+        return len(self.imprint.strip())>20
+
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp
 
