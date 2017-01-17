@@ -493,8 +493,8 @@ class BarcampSchema(Schema):
     wizard_checked      = List(String(), default = [])
 
     # imprint and barcamp contact email, important for paid tickets
-    contact_email       = String()
-    imprint             = String()
+    contact_email       = String(default="")
+    imprint             = String(default="")
 
 
 class Barcamp(Record):
@@ -526,6 +526,8 @@ class Barcamp(Record):
         'seo_description'       : '', 
         'seo_keywords'          : '',
         'wizard_checked'        : [],
+        'contact_email'         : '', 
+        'imprint'               : '', 
     }
 
     workflow_states = {
