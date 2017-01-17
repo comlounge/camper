@@ -104,8 +104,18 @@ class EditView(BarcampBaseHandler):
         if self.barcamp.public:
             del form['slug']
 
+
         if self.request.method == 'POST' and form.validate():
+            
             f = form.data
+
+            # ignore preregistration changes if paid tickets is enabled
+            # actually make sure it's enabled
+            if self.barcamp.paid_tickets:
+                if "preregistration" in f:
+                    del f['preregistration']
+                self.barcamp.preregistration = True
+
             f['location'] = {
                 'name'      : f['location_name'],
                 'street'    : f['location_street'],
