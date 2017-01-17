@@ -3,6 +3,7 @@
 
 {% macro ticketblock(ticket_classes, 
         active = True, 
+        cancel = False,
         headline='Select tickets', 
         description='Please select which tickets you want to register for',
         css_id = "tickets") %}
@@ -27,27 +28,36 @@
                                                 {{tc.name}} 
                                             </h4>
                                             <small>{{tc.description}}</small>
-                                            <hr>    
-                                            <div class="progress-info">
-                                                <span class="filled">{{confirmed}}</span>
-                                                /
-                                                <span class="size">{{tc.size}}</span> 
-                                                {{_('participants')}}
-                                            </div>
-                                            <div class="progress participants-progress">
-                                                {% set percent = confirmed / tc.size * 100 %}
-                                                <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
-                                                    role="progressbar" 
-                                                    aria-valuenow="{{confirmed}}" 
-                                                    aria-valuemin="0" 
-                                                    aria-valuemax="{{tc.size}}" style="width: {{percent|int}}%;">
-                                                        {% set left = tc.size - confirmed %}
-                                                        {% if left <1 %}
-                                                            <span class="text-danger">{{_('no places left.')}}</span>
-                                                        {% endif %}
+                                            {% if not cancel %}
+                                                <hr>  
+                                                <div class="progress-info">
+                                                    <span class="filled">{{confirmed}}</span>
+                                                    /
+                                                    <span class="size">{{tc.size}}</span> 
+                                                    {{_('participants')}}
                                                 </div>
-                                            </div>
+                                                <div class="progress participants-progress">
+                                                    {% set percent = confirmed / tc.size * 100 %}
+                                                    <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-warning'}}" 
+                                                        role="progressbar" 
+                                                        aria-valuenow="{{confirmed}}" 
+                                                        aria-valuemin="0" 
+                                                        aria-valuemax="{{tc.size}}" style="width: {{percent|int}}%;">
+                                                            {% set left = tc.size - confirmed %}
+                                                            {% if left <1 %}
+                                                                <span class="text-danger">{{_('no places left.')}}</span>
+                                                            {% endif %}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
                                         </div>{# panel-heading #}
+                                        {% if cancel %}
+                                            <div class="panel-footer clearfix">
+                                                <a href="" 
+                                                    data-confirm="{{_('Are you sure?')}}" 
+                                                    class="action-confirm text-danger pull-right">{{_('Cancel ticket')}}</a>
+                                            </div>
+                                        {% endif %}
                                     </article>
                                 </label>
                             </div>
@@ -66,14 +76,39 @@
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li class="active">{{_('Registration')}}</li>
     </ol>
-    <h1>{{_('Register for %s') %barcamp.name}}</h1>
+    <h1>{{_('Tickets for %s') %barcamp.name}}</h1>
 
 {% endblock %}
 {% block main_content %}
     <div id="registration-wizard">
-        <div class="description">
-        </div>
+        
+        {% if confirmed or pending %}
+            <h2>{{_('My Tickets for %s') %barcamp.name}}</h2>
+        {% endif %}
 
+        {% if confirmed %}
+            {{ticketblock(confirmed, 
+                active = False, 
+                cancel = True,
+                headline = _('Your tickets'), 
+                description = _('You own the following tickets. If you want to cancel them you have to contact a barcamp administrator.'))}}
+        {% endif %}
+
+        {% if pending %}
+            <form class="validate form-horizontal parsley-validate" method="POST" id="cancelform" action="{{cancel_url}}">
+                {{ticketblock(pending, 
+                    active = False, 
+                    cancel = True,
+                    headline = _('Your pending tickets'))}}
+            </form>
+        {% endif %}
+
+        {% if remaining_tickets %}
+            <hr>
+            <h2>{{_('Reserve Tickets for %s') %barcamp.name}}</h2>
+        {% endif %}
+
+        
         <form class="validate form-horizontal parsley-validate" method="POST" id="regform" action="{{url}}">
 
         {% if not logged_in %}
@@ -143,16 +178,6 @@
                     {% endfor %}
                 </div>
             </fieldset>
-        {% endif %}
-        {% if pending %}
-            {{ticketblock(pending, active = False, headline = _('Your pending tickets'))}}
-        {% endif %}
-        
-        {% if confirmed %}
-            {{ticketblock(confirmed, 
-                active = False, 
-                headline = _('Your tickets'), 
-                description = _('You own the following tickets. If you want to cancel them you have to contact a barcamp administrator.'))}}
         {% endif %}
         {% if remaining_tickets %}
             {{ticketblock(remaining_tickets, active = True, headline = _('Reserve your tickets'))}}

@@ -253,6 +253,14 @@ $ ->
         form.submit()
         false
 
+    # generic confirm button
+    $(".action-confirm").click( () ->
+        confirm_msg = $(this).data("confirm")
+        if confirm(confirm_msg) 
+            return true
+        return false
+    )
+
 
     # event selector on events pages
     $("#select-event").change ->
