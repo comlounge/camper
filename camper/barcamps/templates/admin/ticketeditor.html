@@ -12,14 +12,26 @@
     </div>
 
     <div id="config">
-        <form id="ticketconfigform" method="POST" data-url="{{url_for('.admin_ticketenabler', slug = slug)}}">
+        <form id="ticketconfigform1" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
             {{ formmacros.form_field(config_form.ticketmode_enabled)}}
         </form>
     </div>
 
     <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
 
-        <h2>{{_('Ticketeditor')}}</h2>
+        <h2>{{_('Configure Ticket Mode')}}</h2>
+        <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
+            {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
+            {% if not barcamp.has_imprint and not barcamp.contact_email %}
+                <div class="help-block alert alert-warning">
+                    {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
+                </div>
+                
+            {% endif %}
+            {{ formmacros.form_field(config_form.preregistration)}}
+        </form>
+
+        <h2>{{_('Manage Tickets')}}</h2>
         {% if not ticket_classes|length %}
             <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
         {% else %}
@@ -34,7 +46,7 @@
         <hr>
 
         <h3>{{_('Add new ticket')}}</h3>
-        <form id="ticketconfigform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
+        <form id="ticketclassform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
             {{ formmacros.form_field(add_form.name, required = True)}}
             {{ formmacros.form_field(add_form.description, required = True)}}
             {{ formmacros.form_field(add_form.size, required = True)}}
@@ -56,14 +68,28 @@
     {% block bcjs %}
         <script>
             $(document).ready(function () {
-                $("#ticketmode_enabled").on("change", function () {
-                    var enabled = $("#ticketmode_enabled").prop("checked");
-                    var url = $("#ticketconfigform").data("url");
-                    $.post(url, {'ticketmode_enabled' : enabled}, function (data){
-                        if (enabled) {
+                $(".ticketconfig").on("change", function () {
+
+                    var data = {
+                        ticketmode_enabled : $("#ticketmode_enabled").prop("checked"),
+                        paid_tickets : $("#paid_tickets").prop("checked"),
+                        preregistration : $("#preregistration").prop("checked"),
+                    }
+
+                    var url = $(this).data("url");
+                    $.post(url, data , function (result){
+                        if (result.ticketmode_enabled) {
                             $("#ticketeditor").slideDown();
                         } else {
                             $("#ticketeditor").slideUp();
+                        }
+                        if (result.preregistration) {
+                            $("#preregistration").prop("checked", true)
+                        }
+                        if (result.paid_tickets) {
+                            $("#preregistration").prop("disabled", true)
+                        } else {
+                            $("#preregistration").prop("disabled", false)
                         }
                     });
                 })

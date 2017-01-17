@@ -19,9 +19,12 @@ class MultiCheckboxField(SelectMultipleField):
 
 class TicketConfigurationForm(BaseForm):
     """form for configuring the tickets"""
-    ticketmode_enabled  = BooleanField(T('Enable Ticketing'), description=T(u"if you enable ticketing the normal registration process per event is replaced by acquiring tickets you define here"))
-    paid_tickets        = BooleanField(T('Paid Tickets'))
-    preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled an administrator needs to confirm the ticket transaction. If you use paid tickets this is always active because you have to check the payments yourself.'))            
+    ticketmode_enabled  = BooleanField(T('Enable Ticketing'), 
+            description=T(u"if you enable ticketing the normal registration process per event is replaced by acquiring tickets you define here"))
+    paid_tickets        = BooleanField(T('Paid Tickets'), 
+            description=T(u"Enable this option if you want to charge money for tickets. Please be aware though that barcamptools will not perform any payment processing. You have to do this yourself. You also need a proper imprint and contact email before you can enable this option."))
+    preregistration     = BooleanField(T('Enable Pre-Registration'), 
+            description=T(u'If enabled an administrator needs to confirm the ticket transaction. If you use paid tickets this is always active because you have to check the payments yourself.'))            
 
 
 class TicketClassForm(BaseForm):
@@ -97,7 +100,7 @@ class TicketEditor(BarcampBaseHandler):
 
 
 
-class TicketEnabler(BarcampBaseHandler):
+class TicketingConfig(BarcampBaseHandler):
     """handler for toggling the ticketmode"""
 
     @logged_in()
@@ -106,6 +109,18 @@ class TicketEnabler(BarcampBaseHandler):
     @asjson()
     def post(self, slug = None):
         """toggele the ticketmode"""
-        self.barcamp.ticketmode_enabled = self.request.form.get('ticketmode_enabled') == u"true"
-        self.barcamp.put()
-        return {'ticketmode_enabled' : self.barcamp.ticketmode_enabled}
+        bc = self.barcamp
+        bc.ticketmode_enabled = self.request.form.get('ticketmode_enabled') == u"true"
+        bc.preregistration = self.request.form.get('preregistration') == u"true"
+        if self.request.form.get("paid_tickets", "") == "true" and bc.has_imprint and bc.contact_email:
+                bc.paid_tickets = True
+                bc.preregistration = True
+        else:
+            bc.paid_tickets = False
+
+        bc.put()
+        return {
+            'ticketmode_enabled' : bc.ticketmode_enabled,
+            'paid_tickets' : bc.paid_tickets,
+            'preregistration' : bc.preregistration,
+        }
