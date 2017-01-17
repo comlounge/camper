@@ -47,7 +47,7 @@ class BarcampEditForm(BaseForm):
     homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
     fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
 
-    contact_email       = TextField(T("Contact E-Mail"), [validators.Length(max=200), validators.Email()], description=T("an email address under which a barcamp admin can be contacted. This address will be publically displayed."))
+    contact_email       = TextField(T("Contact E-Mail"), [validators.Length(max=200), validators.Optional(), validators.Email()], description=T("an email address under which a barcamp admin can be contacted. This address will be publically displayed."))
     imprint             = WYSIWYGField(T("Imprint"), [validators.Length(max=2000)], description=T("Please describe in detail who is responsible for this barcamp. This is mandatory for paid barcamps."))
 
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
@@ -100,7 +100,6 @@ class EditView(BarcampBaseHandler):
         countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
 
-        
         # remove the slug field if we are public already
         if self.barcamp.public:
             del form['slug']
