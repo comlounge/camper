@@ -492,6 +492,10 @@ class BarcampSchema(Schema):
     # wizard checks. Elements in this list will disable asking for it again on the wizard screen
     wizard_checked      = List(String(), default = [])
 
+    # imprint and barcamp contact email, important for paid tickets
+    contact_email       = String()
+    imprint             = String()
+
 
 class Barcamp(Record):
 
