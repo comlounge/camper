@@ -1,0 +1,73 @@
+{% set active_action = "events" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% macro ticketblock(ticket_classes, 
+        cancel = False,
+        headline='Select tickets', 
+        description='Please select which tickets you want to register for',
+        css_id = "tickets") %}
+    <section id="{{css_id}}">
+        <h3>{{headline}}</h3>
+        <div class="fs-content">
+            <div class="help-block">{{description}}</div>
+            <div id="ticketlist2" class="registration-eventlist2">
+                {% for tc in ticket_classes %}
+                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-success panel-ticket">
+                        <div class="panel-heading">
+                            <h2 class="panel-title"> {{tc.name}} </h2>
+                        </div>
+                        <div class="panel-body">
+                            {{tc.description}}
+                        </div>{# panel-body #}
+                        {% if cancel %}
+                            <div class="panel-footer clearfix">
+                                <a href="" 
+                                    data-confirm="{{_('Are you sure?')}}" 
+                                    class="action-confirm text-danger pull-right">{{_('Cancel ticket')}}</a>
+                            </div>
+                        {% endif %}
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </fieldset>
+{% endmacro %}
+
+
+
+{% block headline %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li class="active">{{_('Registration')}}</li>
+    </ol>
+    <h1>{{_('My Tickets for %s') %barcamp.name}}</h1>
+
+{% endblock %}
+{% block main_content %}
+    <div id="mytickets-list">
+        {% if confirmed %}
+            {{ticketblock(confirmed, 
+                cancel = True,
+                headline = '',
+                description = '')}}
+        {% endif %}
+        <hr>
+
+        {% if pending %}
+            {{ticketblock(pending, 
+                cancel = True,
+                headline = _('Your pending tickets'))}}
+        {% endif %}
+    </div>
+
+    {% if remaining %}
+        <a href="{{url_for('.tickets', slug = slug)}}" class="btn btn-primary">{{_('Buy more tickets')}}</a>
+        
+    {% endif %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#regform').parsley();
+        })
+    </script>
+
+{% endblock %}
