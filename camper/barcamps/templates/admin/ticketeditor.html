@@ -28,7 +28,7 @@
                 </div>
                 
             {% endif %}
-            {{ formmacros.form_field(config_form.preregistration)}}
+            {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
         </form>
 
         <h2>{{_('Manage Tickets')}}</h2>
