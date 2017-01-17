@@ -247,6 +247,13 @@
                         {{share_buttons()}}
                         
                         {{sponsors()}}
+                        {% if barcamp.contact_email or barcamp.imprint|trim|length > 10 %}
+                            <h3>{{_('Imprint')}}</h3>
+                            {{barcamp.imprint|safe}}
+                            <p> 
+                            {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
+                            </p>
+                        {% endif %}
                         
 
                     {% endblock %} {# widgets #}
