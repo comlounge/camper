@@ -10,6 +10,8 @@ import requests
 import pycountry
 import gettext
 from ..form import MyDateField
+from camper.handlers.forms import WYSIWYGField
+
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
@@ -20,8 +22,8 @@ class BarcampAddForm(BaseForm):
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
     )
 
-    description         = TextAreaField(u"Beschreibung", [],
-                description = u'Bitte beschreibe Dein Barcamp hier',
+    description         = WYSIWYGField(T("Description"), [validators.Required()],
+                description = T('please describe your barcamp here'),
     )
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
@@ -44,6 +46,9 @@ class BarcampAddForm(BaseForm):
     homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
     
+    contact_email       = TextField(T("Contact E-Mail"), [validators.Length(max=200), validators.Email()], description=T("an email address under which a barcamp admin can be contacted. This address will be publically displayed."))
+    imprint             = WYSIWYGField(T("Imprint"), [validators.Length(max=15)], description=T("Please describe in detail who is responsible for this barcamp. This is mandatory for paid barcamps."))
+
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city                = TextField(T("city"), [])
