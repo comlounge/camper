@@ -344,6 +344,7 @@ class TicketClass(Record):
         """initialize the event"""
         super(TicketClass, self).__init__(*args, **kwargs)
         self._barcamp = kwargs.get('_barcamp', None)
+        self._userbase = kwargs.get('_userbase', None)
 
     @property
     def full(self):
@@ -360,9 +361,24 @@ class TicketClass(Record):
         if type(status) != type([]):
             status = [status]
         my_tickets = self._barcamp.tickets.get(self._id, {})
-        return [t for t in my_tickets.values() if t['status'] in status]
-        
+        tickets = [t for t in my_tickets.values() if t['status'] in status]
 
+        # fill in the users
+        uids = [t['user_id'] for t in tickets]
+        users = self._userbase.get_users_by_ids(uids)
+        userdict = {}
+        for user in users:
+            userdict[str(user._id)] = user
+        new_tickets = []
+        for t in tickets:
+            t['user'] = userdict.get(t['user_id'], None)
+            new_tickets.append(t)
+        return new_tickets
+
+
+    def get_ticket_users(self, status = "confirmed"):
+        """return just the users for this ticket class"""
+        return [t['user'] for t in self.get_tickets(status)]
 
 class TicketSchema(Schema):
     """models a ticket acquired by a user"""
@@ -585,7 +601,8 @@ class Barcamp(Record):
     @property
     def ticketlist(self):
         """return a list of all ticket classes and whether they are full or not"""
-        tickets = [TicketClass(tc, _barcamp = self) for tc in self.ticket_classes]
+        ub = self._collection.md.app.module_map.userbase
+        tickets = [TicketClass(tc, _barcamp = self, _userbase = ub) for tc in self.ticket_classes]
         return tickets
 
     def get_ticket_class(self, tc_id):
