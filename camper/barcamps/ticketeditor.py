@@ -124,3 +124,4 @@ class TicketingConfig(BarcampBaseHandler):
             'paid_tickets' : bc.paid_tickets,
             'preregistration' : bc.preregistration,
         }
+
