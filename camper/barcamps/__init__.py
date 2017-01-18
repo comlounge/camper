@@ -24,6 +24,7 @@ import design
 import wizard
 import ticketeditor
 import mytickets
+import ticketlist
 
 from starflyer import Module, URL
 
@@ -97,6 +98,7 @@ class BarcampModule(Module):
 
         URL('/<slug>/admin/tickets',        'admin_ticketeditor',               ticketeditor.TicketEditor),
         URL('/<slug>/admin/tickets/config', 'admin_ticketconfig',               ticketeditor.TicketingConfig),
+        URL('/<slug>/admin/tickets/users',  'admin_ticketlist',                 ticketlist.TicketList),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>',   'event',                            events.EventView),
