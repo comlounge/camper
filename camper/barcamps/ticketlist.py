@@ -10,6 +10,9 @@ from sfext.babel import T
 from .base import BarcampBaseHandler
 from camper.handlers.forms import *
 import uuid
+
+from camper.services import * 
+
     
 
 class TicketList(BarcampBaseHandler):
@@ -49,6 +52,11 @@ class TicketList(BarcampBaseHandler):
         uid = self.request.form.get("uid")
         status = self.request.form.get("status") # can be join, maybe, notgoubg
         tc_id = self.request.form.get("tc_id") # ticket class
+        ticket_id = self.request.form.get("tid")
+
+        self.log.debug("processing ticket action", form = self.request.form.to_dict())
+
+        ticketservice = TicketService(self, self.user)
 
         if tc_id not in self.barcamp.tickets:
             self.log.error("ticket class not found", tc_id = tc_id, status = status, uid = uid)
@@ -58,13 +66,23 @@ class TicketList(BarcampBaseHandler):
             self.log.error("uid not found in ticket class", tc_id = tc_id, status = status, uid = uid)
             return {'status': 'error', 'msg': 'uid not known for ticket class'}
 
-        # TODO move to ticket service and send email in both cases. 
+        
         if status == "approve":
-            self.barcamp.tickets[tc_id][uid]['status'] = "confirmed"
+            self.log.debug("approving ticket")
+            ticketservice.approve_ticket(tc_id, ticket_id)
         elif status == "cancel":
-            del self.barcamp.tickets[tc_id][uid]
+            self.log.debug("canceling ticket")
+            try:
+                ticketservice.cancel_ticket(tc_id, ticket_id)
+            except TicketError, e:
+                print "oops", e
+                self.log.exception("an error occurred during canceling the ticket")
+                return {'status' : 'error', 'reload' : False, 'msg' : self._('An error occurred while canceling the ticket')}
+            except Exception, e:
+                print "oops again", e
 
-        self.barcamp.save()
+
+
 
         return {'status' : 'success', 'reload' : True}
 

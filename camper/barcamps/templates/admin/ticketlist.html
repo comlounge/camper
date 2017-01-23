@@ -2,16 +2,18 @@
 {% extends "admin_master.html" %}
 
 
-{% macro userlist(users, tc_id, typ="participants") %}
+{% macro userlist(tickets, tc_id, typ="participants") %}
     <ul class="admin-participants">
-    {% for myuser in users %}
+    {% for ticket in tickets %}
         <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
-                <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
+            <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
+                <img class="profile-image-userlist" src="{{userview(ticket.user).image_thumb}}">
             </a>
-            <a class="participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
-                {{myuser.fullname}}
+            <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
+                {{ticket.user.fullname}}
             </a>
+            
+            {% if typ!="canceled" %}
             <div class="btn-group actions">
                 <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-gear"></i>
@@ -21,20 +23,24 @@
                         <li><a href="#" 
                             data-status="approve" 
                             data-tcid="{{tc_id}}" 
-                            data-uid="{{myuser._id}}" 
+                            data-tid="{{ticket._id}}" 
+                            data-uid="{{ticket.user._id}}" 
                             class="listaction"><i class="fa fa-arrow-right"></i> {{_('Approve ticket')}}</a></li>
                         <li><a href="#" 
                             data-status="cancel" 
-                            data-tcid="{{tc_id}}" 
-                            data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
+                            data-tcid="{{ticket._id}}" 
+                            data-tid="{{ticket._id}}" 
+                            data-uid="{{ticket.user._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
                     {% elif typ=="confirmed" %}
                         <li><a href="#" 
                             data-status="cancel" 
+                            data-tid="{{ticket._id}}" 
                             data-tcid="{{tc_id}}" 
-                            data-uid="{{myuser._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
+                            data-uid="{{ticket.user._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
                     {% endif %}
                 </ul>
             </div>
+            {% endif %}
         </li>
     {% endfor %}
     </ul>
@@ -46,8 +52,9 @@
     </div>
     {% for tc in ticketlist %}
         <section class="panel panel-info ticket-user-list">
-            {% set pending = tc.get_ticket_users('pending') %}
-            {% set confirmed = tc.get_ticket_users('confirmed') %}
+            {% set pending = tc.get_tickets('pending') %}
+            {% set confirmed = tc.get_tickets('confirmed') %}
+            {% set canceled = tc.get_tickets('canceled') %}
             <div class="panel-heading">
                 <h2 class="panel-title">{{tc.name}}</h2>
             </div>
@@ -67,6 +74,15 @@
                 </div>
             {% endif %}
 
+            {% if canceled %}
+                <div class="panel-body">
+
+                    <h5>{{'Canceled Ticket Reservations'}}</h5>
+                    {{userlist(canceled, tc._id, typ="canceled")}}
+                </div>
+            {% endif %}
+
+
 
         </section>
             
@@ -81,8 +97,8 @@ $(document).ready( function () {
         var uid = $(this).data("uid");
         var status = $(this).data("status");
         var tc_id = $(this).data("tcid");
+        var tid = $(this).data("tid");
         var url = document.location.href;
-        console.log("ok")
         
         $.ajax({
             url: url,
@@ -90,6 +106,7 @@ $(document).ready( function () {
             data: {
                 status: status,
                 tc_id: tc_id,
+                tid: tid,
                 uid: uid
             },
             success: function(data) {
