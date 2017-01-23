@@ -338,7 +338,7 @@ class TicketClassSchema(Schema):
 class TicketClass(Record):
     """this extends the ticket class by some useful methods"""
     schema = TicketClassSchema()
-    _protected = ['_barcamp', '_size']
+    _protected = ['_barcamp', '_size', 'fullfull']
 
     def __init__(self, *args, **kwargs):
         """initialize the event"""
@@ -348,9 +348,9 @@ class TicketClass(Record):
 
     @property
     def full(self):
-        """check if the ticket class is already sold out in terms if confirmed tickets"""
-        confirmed = self.get_tickets("confirmed")
-        return len(confirmed) >= self.size
+        """check if the ticket class is already sold out in terms if confirmed or pending tickets"""
+        all_tickets = self.get_tickets(['confirmed', 'pending'])
+        return len(all_tickets) >= self.size
 
     def get_tickets(self, status = "confirmed"):
         """the amount of sold tickets meaning confirmed tickets only
@@ -361,7 +361,12 @@ class TicketClass(Record):
         if type(status) != type([]):
             status = [status]
         my_tickets = self._barcamp.tickets.get(self._id, {})
-        tickets = [t for t in my_tickets.values() if t['status'] in status]
+        tickets = []
+        for tid, ticket in my_tickets.items():
+            if ticket['status'] not in status:
+                continue
+            ticket['_id'] = tid
+            tickets.append(ticket)
 
         # fill in the users
         uids = [t['user_id'] for t in tickets]
@@ -370,15 +375,31 @@ class TicketClass(Record):
         for user in users:
             userdict[str(user._id)] = user
         new_tickets = []
+
         for t in tickets:
             t['user'] = userdict.get(t['user_id'], None)
             new_tickets.append(t)
-        return new_tickets
 
+        return new_tickets
 
     def get_ticket_users(self, status = "confirmed"):
         """return just the users for this ticket class"""
         return [t['user'] for t in self.get_tickets(status)]
+
+    def get_tickets_by_userid(self, user_id, status = "confirmed"):
+        """return the tickets for a specific user ids"""
+        if type(status) != type([]):
+            status = [status]
+
+        my_tickets = self._barcamp.tickets.get(self._id, {})
+        result = []
+        for tid, ticket in my_tickets.items():
+            if ticket['user_id'] != user_id:
+                continue
+            if ticket['status'] not in status:
+                continue
+        return result
+
 
 class TicketSchema(Schema):
     """models a ticket acquired by a user"""
@@ -609,7 +630,7 @@ class Barcamp(Record):
         """return a ticket class by it's id or None if it does not exist"""
         for tc in self.ticket_classes:
             if tc['_id'] == tc_id:
-                return TicketClass(tc)
+                return TicketClass(tc, _barcamp = self, _userbase = self._collection.md.app.module_map.userbase)
         return None
 
     def get_tickets_for_user(self, user_id, status=["confirmed", "pending"]):
