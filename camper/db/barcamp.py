@@ -532,6 +532,8 @@ class BarcampSchema(Schema):
     # imprint and barcamp contact email, important for paid tickets
     contact_email       = String(default="")
     imprint             = String(default="")
+    tos                 = String(default="")
+    cancel_policy       = String(default="")
 
 
 class Barcamp(Record):
@@ -565,6 +567,8 @@ class Barcamp(Record):
         'wizard_checked'        : [],
         'contact_email'         : '', 
         'imprint'               : '', 
+        'tos'                   : '', 
+        'cancel_policy'         : '', 
     }
 
     workflow_states = {
