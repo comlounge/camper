@@ -1,6 +1,7 @@
 import jinja2 
 from camper.base import BarcampView
 import logbook
+import uuid 
 
 __all__ = ['TicketError', 'TicketService', 'TicketClassFull', 'TicketClassDoesNotExist', 'UserAlreadyRegistered']
 
@@ -19,6 +20,9 @@ class TicketError(Exception):
 
 class TicketClassDoesNotExist(TicketError):
     """subclass for marking a class does not exist"""
+
+class TicketDoesNotExist(TicketError):
+    """a ticket to be processed does not exist"""
 
 class UserAlreadyRegistered(TicketError):
     """a user already owns a ticket of that class"""
@@ -42,8 +46,10 @@ class TicketService(object):
             self.barcamp = barcamp
         self.app = handler.app
         self.barcamp_view = BarcampView(self.barcamp, handler)
+        self.userbase = self.app.module_map['userbase']
         self.user = user
         self.log = logbook.Logger(self.LOGGER)
+
 
     def register(self, tc_id):
         """register a ticket for a user
@@ -66,20 +72,18 @@ class TicketService(object):
             raise TicketClassDoesNotExist("The ticket class does not exist", tc_id = tc_id)
 
         # does the user own a ticket already?
-        tickets_for_class = self.barcamp.tickets.get(tc_id, {})
-        if uid in tickets_for_class:
+        if len(ticket_class.get_tickets_by_userid(uid, ['confirmed', 'pending'])) > 0:
             raise UserAlreadyRegistered("User owns a ticket already", tc_id = tc_id)
 
-
         # is the ticket class full
-        tc_size = len(tickets_for_class)
-        if tc_size >= ticket_class.size:
+        if ticket_class.full:
             raise TicketClassFull("the ticket class is full", tc_id = tc_id)
 
         # everything seems to be ok, register the user depending on the barcamp settings
         view = self.barcamp_view
+        ticket_id = unicode(uuid.uuid4()) # unique ticket id
         if preregistration:
-            self.barcamp.tickets.setdefault(tc_id, {})[uid] = {'user_id' : uid, 'status' : 'pending'}
+            self.barcamp.tickets.setdefault(tc_id, {})[ticket_id] = {'user_id' : uid, 'status' : 'pending'}
             self.log.info("ticket preregistered", uid = uid, tc_id = tc_id, status="pending")
             status = "pending"
             self.mail_template("onwaitinglist",
@@ -89,7 +93,7 @@ class TicketService(object):
                 ticket_title = ticket_class.name,
                 **self.barcamp)
         else:
-            self.barcamp.tickets.setdefault(tc_id, {})[uid] = {'user_id' : uid, 'status' : 'confirmed'}
+            self.barcamp.tickets.setdefault(tc_id, {})[ticket_id] = {'user_id' : uid, 'status' : 'confirmed'}
             self.log.info("ticket registered", uid = uid, tc_id = tc_id, status="confirmed")
             status = "confirmed"
             self.mail_template("welcome",
@@ -106,6 +110,79 @@ class TicketService(object):
 
         self.barcamp.save()
         return status
+
+
+    def _check_ticket(self, tc_id, ticket_id):
+        """check if a ticket is valid"""
+
+        ticket_class= self.barcamp.get_ticket_class(tc_id)
+        if ticket_class is None:
+            self.log.error("unknown ticket class", tc_id = tc_id)
+            raise TicketClassDoesNotExist()
+
+        if ticket_id not in self.barcamp.tickets[tc_id]:
+            self.log.error("unknown ticket id", tc_id = tc_id, ticket_id = ticket_id)
+            raise TicketDoesNotExist()
+
+        ticket = self.barcamp.tickets[tc_id][ticket_id]
+
+        return ticket_class, ticket
+
+
+    def approve_ticket(self, tc_id, ticket_id):
+        """approve a ticket finished the reservation process and will send the welcome mail"""
+
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+        if ticket['status'] != "pending":
+            self.log.error("ticket is not in pending state", ticket = ticket)
+            raise TicketError("ticket not in pending state")
+
+        # now confirm the ticket
+        self.barcamp.tickets[tc_id][ticket_id]['status'] = "confirmed"
+        self.barcamp.save()
+
+        self.log.info("ticket approved", ticket = ticket)
+
+        uid = ticket['user_id']
+        user = self.userbase.get_user_by_id(uid)
+        self.log.debug("found user", uid = uid, email = user.email)
+
+        # send welcome mail
+        self.mail_template("welcome",
+            user = user,
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            title = self.barcamp.name,
+            ticket_title = ticket_class.name,
+            **self.barcamp)
+        return "confirmed"
+
+
+    def cancel_ticket(self, tc_id, ticket_id):
+        """cancel a ticket which means deleting it"""
+
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+        self.log.debug("canceling ticket", ticket = ticket)
+        self.barcamp.tickets[tc_id][ticket_id]['status'] ="canceled"
+        self.barcamp.save()
+        self.log.info("ticket canceled / deleted", ticket = ticket)
+
+        # do we have to send an email?
+        return
+
+
+    def submit_cancel(self, tc_id, ticket_id, reason = "", email = ""):
+        """remember a cancel request for the ticket"""
+
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+        ticket['reason'] = "reason"
+        ticket['email'] = "email"
+        ticket['status'] = "cancel-request"
+
+        self.barcamp.tickets[tc_id][ticket_id] = ticket
+        self.barcamp.save()
+        self.log.info("ticket cancel request recorded", ticket = ticket)
+
 
     def mail_text(self, template_name, subject, send_to=None, user = None, **kwargs):
         """render and send out a mail as mormal text"""
