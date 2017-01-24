@@ -45,24 +45,19 @@ class TicketClass(Record):
         all_tickets = self.get_tickets(['confirmed', 'pending'])
         return len(all_tickets) >= self.size
 
-    def get_tickets(self, status = "confirmed"):
+    def get_tickets2(self, status = "confirmed"):
         """the amount of sold tickets meaning confirmed tickets only
 
         :param status: a list or string of statuses we want to return
         :return: a list of ticket dicts
         """
+        tickets = self._barcamp.md.app.config.dbs.tickets
         if type(status) != type([]):
             status = [status]
-        my_tickets = self._barcamp.tickets.get(self._id, {})
-        tickets = []
-        for tid, ticket in my_tickets.items():
-            if ticket['status'] not in status:
-                continue
-            ticket['_id'] = tid
-            tickets.append(ticket)
-
+        my_tickets = tickets.get_tickets(barcamp_id = self._barcamp._id, ticketclass_id = self._id, status = status)
+        
         # fill in the users
-        uids = [t['user_id'] for t in tickets]
+        uids = [t.user_id for t in tickets]
         users = self._userbase.get_users_by_ids(uids)
         userdict = {}
         for user in users:

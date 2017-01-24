@@ -28,6 +28,26 @@ class TicketList(BarcampBaseHandler):
     def get(self, slug = None):
         """render the view"""
 
+        tickets = self.config.dbs.tickets
+        userbase = self.app.module_map.userbase
+
+        ticket_classes = self.barcamp.ticketlist
+        for tc in ticket_classes:
+            for status in ['pending', 'confirmed', 'canceled']:
+                tc[status] = tickets.get_tickets(
+                    barcamp_id = self.barcamp._id,
+                    user_id = self.user_id, 
+                    ticketclass_id = tc._id,
+                    status = status)
+                # compute users
+                uids = [t.user_id for t in tc[status]]
+                users = userbase.get_users_by_ids(uids)
+                userdict = {}
+                for user in users:
+                    userdict[str(user._id)] = user
+                for ticket in tc[status]:
+                    ticket['user'] = userdict[ticket.user_id]
+
         # make sure we are supposed to be shown
         if not self.barcamp.ticketmode_enabled:
             self.flash(self._('Ticketing Mode not enabled.'), category="danger")
@@ -36,9 +56,8 @@ class TicketList(BarcampBaseHandler):
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
-            ticketlist = self.barcamp.ticketlist,
-            title = self.barcamp.name,
-            **self.barcamp)
+            ticket_classes = ticket_classes,
+            title = self.barcamp.name)
 
 
     @ensure_barcamp()

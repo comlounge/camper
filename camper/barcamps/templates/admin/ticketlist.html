@@ -50,35 +50,32 @@
     <div class="page-header">
         <h1>{{_('Manage ticket reservations')}}</h1>
     </div>
-    {% for tc in ticketlist %}
+    {% for tc in ticket_classes %}
         <section class="panel panel-info ticket-user-list">
-            {% set pending = tc.get_tickets('pending') %}
-            {% set confirmed = tc.get_tickets('confirmed') %}
-            {% set canceled = tc.get_tickets('canceled') %}
             <div class="panel-heading">
                 <h2 class="panel-title">{{tc.name}}</h2>
             </div>
 
-            {% if pending %}
+            {% if tc.pending %}
                 <div class="panel-body">
                     <h4>{{'Pending Ticket Reservations'}}</h4>
-                    {{userlist(pending, tc._id, typ="pending")}}
+                    {{userlist(tc.pending, tc._id, typ="pending")}}
                 </div>
             {% endif %}
 
-            {% if confirmed %}
+            {% if tc.confirmed %}
                 <div class="panel-body">
 
                     <h4>{{'Confirmed Ticket Reservations'}}</h4>
-                    {{userlist(confirmed, tc._id, typ="confirmed")}}
+                    {{userlist(tc.confirmed, tc._id, typ="confirmed")}}
                 </div>
             {% endif %}
 
-            {% if canceled %}
+            {% if tc.canceled %}
                 <div class="panel-body">
 
                     <h5>{{'Canceled Ticket Reservations'}}</h5>
-                    {{userlist(canceled, tc._id, typ="canceled")}}
+                    {{userlist(tc.canceled, tc._id, typ="canceled")}}
                 </div>
             {% endif %}
 
