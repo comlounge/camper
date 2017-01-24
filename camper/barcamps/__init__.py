@@ -25,6 +25,7 @@ import wizard
 import ticketeditor
 import mytickets
 import ticketlist
+import legal
 
 from starflyer import Module, URL
 
@@ -56,6 +57,9 @@ class BarcampModule(Module):
         URL('/<slug>/tweetwally',           'tweetwally',                       tweetwally.TweetWallyView),
         URL('/<slug>/permissions',          'permissions',                      permissions.Permissions),
         URL('/<slug>/permissions/admin',    'admin',                            permissions.Admin),
+        
+        URL('/<slug>/tos',                  'tos',                              legal.TOSView),
+        URL('/<slug>/cancellation',         'cancellation',                     legal.CancelView),
 
         URL('/<slug>/sessions',             'sessions',                         sessions.SessionList),
         URL('/<slug>/sessions.xls',         'session_export',                   sessions.SessionExport),
