@@ -539,16 +539,9 @@ class Barcamp(Record):
         :return: a list of ticket classes
         """
 
-        # always a list
-        if type(status) != type([]):
-            status = [status]
-        
-        result = []
-        for tc in self.ticketlist:
-            for uid, ticket in self.tickets.get(tc._id, {}).items():
-                if uid == user_id and ticket['status'] in status:
-                    result.append(tc)
-        return result
+        tickets = self._collection.md.app.config.dbs.tickets
+        return tickets.get_tickets(user_id = user_id, barcamp_id = self._id, status = status)
+
 
     @property
     def has_imprint(self):

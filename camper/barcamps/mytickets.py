@@ -33,14 +33,14 @@ class MyTickets(BarcampBaseHandler):
         
         # a list of all ticket class objects
         ticketlist = self.barcamp.ticketlist
-                
+        ticketservice = TicketService(self, self.user)                
         
-        pending = self.barcamp.get_tickets_for_user(self.user_id, "pending")
-        confirmed = self.barcamp.get_tickets_for_user(self.user_id, "confirmed")
+        pending = ticketservice.get_tickets_for_user(self.user_id, "pending")
+        confirmed = ticketservice.get_tickets_for_user(self.user_id, "confirmed")
         reserved_tickets = pending + confirmed
         
         all_tickets = [tc._id for tc in ticketlist]
-        reserved_ticket_ids = [tc._id for tc in reserved_tickets]
+        reserved_ticket_ids = [t.ticketclass_id for t in reserved_tickets]
 
         # compute the remaining tickets for a user
         remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))

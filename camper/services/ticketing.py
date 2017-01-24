@@ -2,6 +2,8 @@ import jinja2
 from camper.base import BarcampView
 import logbook
 import uuid 
+from camper import db
+
 
 __all__ = ['TicketError', 'TicketService', 'TicketClassFull', 'TicketClassDoesNotExist', 'UserAlreadyRegistered']
 
@@ -51,12 +53,21 @@ class TicketService(object):
         self.log = logbook.Logger(self.LOGGER)
 
 
-    def register(self, tc_id):
+    def get_tickets_for_user(self, user_id, status="confirmed"):
+        """retrieve a list of tickets based on user id and a status"""
+        tickets = self.app.config.dbs.tickets
+        return tickets.get_tickets(barcamp_id = self.barcamp._id, user_id = user_id, status = status)
+
+    def register(self, tc_id, new_user = False):
         """register a ticket for a user
 
-        :param tcid:    the ticket class id the user wants to register for
+        :param tcid:        the ticket class id the user wants to register for
+        :param new_user:    ``True`` if we have a new user
 
         """
+
+        tickets = self.app.config.dbs.tickets
+        bid = self.barcamp._id
 
         if self.barcamp.workflow != "registration":
             raise RegistrationError("The barcamp is not open for registration yet")
@@ -72,35 +83,58 @@ class TicketService(object):
             raise TicketClassDoesNotExist("The ticket class does not exist", tc_id = tc_id)
 
         # does the user own a ticket already?
-        if len(ticket_class.get_tickets_by_userid(uid, ['confirmed', 'pending'])) > 0:
+        user_tickets = tickets.get_tickets(
+            barcamp_id = bid,
+            user_id = uid, 
+            ticketclass_id = tc_id, 
+            status = ['confirmed', 'pending'])
+
+        if len(user_tickets):
             raise UserAlreadyRegistered("User owns a ticket already", tc_id = tc_id)
 
         # is the ticket class full
-        if ticket_class.full:
+        all_tickets = tickets.get_tickets(
+            barcamp_id = bid,
+            user_id = uid, 
+            ticketclass_id = tc_id, 
+            status = ['confirmed', 'pending'])
+
+        if len(all_tickets) >= ticket_class.size:
             raise TicketClassFull("the ticket class is full", tc_id = tc_id)
 
         # everything seems to be ok, register the user depending on the barcamp settings
         view = self.barcamp_view
-        ticket_id = unicode(uuid.uuid4()) # unique ticket id
         if preregistration:
-            self.barcamp.tickets.setdefault(tc_id, {})[ticket_id] = {'user_id' : uid, 'status' : 'pending'}
-            self.log.info("ticket preregistered", uid = uid, tc_id = tc_id, status="pending")
+            ticket = db.Ticket(
+                status="pending", 
+                ticketclass_id = tc_id,
+                user_id = uid, 
+                barcamp_id = bid)
+            ticket = tickets.put(ticket)
+            self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
             self.mail_template("onwaitinglist",
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
-                ticket_title = ticket_class.name,
+                ticket_class = ticket_class,
+                ticket = ticket,
                 **self.barcamp)
         else:
-            self.barcamp.tickets.setdefault(tc_id, {})[ticket_id] = {'user_id' : uid, 'status' : 'confirmed'}
-            self.log.info("ticket registered", uid = uid, tc_id = tc_id, status="confirmed")
+            ticket = db.Ticket(
+                status="pending", 
+                ticketclass_id = tc_id,
+                user_id = uid, 
+                barcamp_id = bid)
+            ticket = tickets.put(ticket)
+            self.log.info("ticket registered", ticket = ticket)
             status = "confirmed"
             self.mail_template("welcome",
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
-                ticket_title = ticket_class.name,
+                ticket_class = ticket_class,
+                ticket = ticket,
                 **self.barcamp)
 
         # send email to admins            

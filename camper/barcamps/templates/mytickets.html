@@ -1,7 +1,7 @@
 {% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
 
-{% macro ticketblock(ticket_classes, 
+{% macro ticketblock(tickets, 
         cancel = False,
         headline='Select tickets', 
         description='Please select which tickets you want to register for',
@@ -11,7 +11,8 @@
         <div class="fs-content">
             <div class="help-block">{{description}}</div>
             <div id="ticketlist2" class="registration-eventlist2">
-                {% for tc in ticket_classes %}
+                {% for t in tickets %}
+                    {% set tc = t.ticketclass %}
                     <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-success panel-ticket">
                         <div class="panel-heading">
                             <h2 class="panel-title"> {{tc.name}} </h2>

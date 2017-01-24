@@ -3,6 +3,7 @@ from mongogogo import *
 import datetime
 from camper.exceptions import *
 import isodate
+from bson import ObjectId
 
 __all__ = ['TicketClassSchema', 'TicketClass', 'TicketSchema', 'Ticket', 'Tickets']
 
@@ -109,6 +110,9 @@ class TicketSchema(Schema):
 
 class Ticket(Record):
     """a single ticket reserved for a barcamp"""
+
+    schema = TicketSchema()
+
     _protected = ['schema', 'collection', '_protected', '_schemaless', 'default_values', 'workflow_states', 'initial_workflow_state']
     initial_workflow_state = "created"
     default_values = {
@@ -124,32 +128,50 @@ class Ticket(Record):
         'cancelled'         : [], # ticket was cancelled by user 
         'deleted'           : [], # ticket was cancelled by admin
     }
+
+    @property
+    def ticketclass(self):
+        """return the ticket class object from the barcamp"""
+        barcamps = self._collection.md.app.config.dbs.barcamps
+        barcamp = barcamps.get(ObjectId(self.barcamp_id))
+        for tc in barcamp.ticket_classes:
+            if tc['_id'] == self.ticketclass_id:
+                return tc
+        return None
+    
+
     
 class Tickets(Collection):
 
     data_class = Ticket
 
-
-    def get_tickets_for_user(self, user_id, status="confirmed"):
+    def get_tickets(self, 
+            barcamp_id, 
+            user_id = None, 
+            ticketclass_id = None,
+            status="confirmed"):
         """return the tickets for a specific user id.
 
-        :param user_id: the user id of the user to retrieve the tickets for 
+        :param barcamp_id: the barcamp id to retrieve the tickets for 
+        :param user_id: optional user id of a user to retrieve the tickets for 
         :param status: a string or list of strings defining which tickets to retrieve
+        :param ticketclass_id: if given limit the search to this ticket class id
         :return: list of ticket objects
         """
 
         # always a list
         if type(status) != type([]):
             status = [status]
-        
-        result = []
-        for tc in self.ticketlist:
-            for uid, ticket in self.tickets.get(tc._id, {}).items():
-                if uid == user_id and ticket['status'] in status:
-                    result.append(tc)
-        return result
 
+        q = {
+            'barcamp_id' : str(barcamp_id),
+            'workflow' : {'$in' : status}
+        }
 
+        if ticketclass_id:
+            q['ticketclass_id'] = ticketclass_id
 
+        if user_id:
+            q['user_id'] = user_id
 
-
+        return list(self.find(q))

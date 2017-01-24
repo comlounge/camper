@@ -123,7 +123,7 @@ class TicketWizard(BarcampBaseHandler):
             ticketservice = TicketService(self, self.user)
             for tc_id in tc_ids:
                 try:
-                    status = ticketservice.register(tc_id)
+                    status = ticketservice.register(tc_id, new_user = new_user)
                 except TicketError, e:
                     self.log.error("an exception when registering a ticket occurred", error_msg = e.msg)
                     raise ProcessingError(str(e))
@@ -166,15 +166,16 @@ class TicketWizard(BarcampBaseHandler):
                     self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
                     return redirect(self.url_for(".index", slug = self.barcamp.slug))
 
+        ticketservice = TicketService(self, self.user)
         if self.logged_in:
-            pending = self.barcamp.get_tickets_for_user(self.user_id, "pending")
-            confirmed = self.barcamp.get_tickets_for_user(self.user_id, "confirmed")
+            pending = ticketservice.get_tickets_for_user(self.user_id, "pending")
+            confirmed = ticketservice.get_tickets_for_user(self.user_id, "confirmed")
             reserved_tickets = pending + confirmed
         else:
             pending = confirmed = reserved_tickets = []
 
         all_tickets = [tc._id for tc in ticketlist]
-        reserved_ticket_ids = [tc._id for tc in reserved_tickets]
+        reserved_ticket_ids = [t.ticketclass_id for t in reserved_tickets]
 
         # compute the remaining tickets for a user
         remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))
