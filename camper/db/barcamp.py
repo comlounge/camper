@@ -142,7 +142,7 @@ class EventSchema(Schema):
     """a sub schema describing one event"""
     _id                 = String(required=True)
     name                = String(required=True, max_length = 255)
-    description         = String(required=True, max_length = 5000)
+    description         = String(required=True, max_length = 15000)
     date                = DateTime()
     start_time          = String(max_length = 5)
     end_time            = String(max_length = 5)
