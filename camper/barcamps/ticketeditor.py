@@ -38,6 +38,9 @@ class TicketClassForm(BaseForm):
     events              = MultiCheckboxField(T(u'Events'), description=T(u'Please select the events you can attend with this ticket'))
     price               = TextField(T(u"Price"), [validators.Length(max=10)])
     
+    start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
+    end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
+    
 
 class TicketEditor(BarcampBaseHandler):
     """shows the ticket editor and configuration screen"""

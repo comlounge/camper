@@ -334,6 +334,11 @@ class TicketClassSchema(Schema):
     events              = List(String())    # list of event ids you are allowed to enter
     size                = Integer() # max amount of people allowed for this ticket
 
+    # time when this ticket is allowed to be sold
+    start_date          = Date()
+    end_date            = Date()
+
+
 
 class TicketClass(Record):
     """this extends the ticket class by some useful methods"""

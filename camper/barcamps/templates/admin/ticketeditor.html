@@ -52,7 +52,25 @@
             {{ formmacros.form_field(add_form.size, required = True)}}
             {{ formmacros.form_field(add_form.events, required = True)}}
             {{ formmacros.form_field(add_form.price)}}
-            <div class="form-actions">
+            <h4>{{_('Ticket Availability')}}</h4>
+            <div class="row clearfix">
+                <div class="form-group">
+                    <div class="col-sm-1">
+                        <label for="date" class="col-sm-2 control-label">{{_('From')}}*</label>
+                    </div>
+                    <div class="col-sm-4">
+                        {{formmacros.f(add_form.start_date, required=True, classes="datepicker", placeholder=_('Start date'))}}
+                    </div>
+                    <div class="col-sm-1">
+                    {{_('to')}}*
+                    </div>
+                    <div class="col-sm-4">
+                        {{formmacros.f(add_form.end_date, required=True, classes="datepicker", placeholder=_('End date'))}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 30px;">
                 <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add new ticket')}}">
             </div>
 
@@ -62,10 +80,7 @@
     
 {% endblock %}
 
-{% block js %}
-    <script src="{{url_for("static", filename="js/uploader.js")}}"></script>
-    <script src="{{url_for("static", filename="js/barcamp.js")}}"></script>
-    {% block bcjs %}
+{% block bcjs %}
         <script>
             $(document).ready(function () {
                 $(".ticketconfig").on("change", function () {
@@ -96,5 +111,4 @@
             });
         </script>
         
-    {% endblock %}
 {% endblock %}
