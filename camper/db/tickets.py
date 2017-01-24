@@ -33,60 +33,7 @@ class TicketClass(Record):
     schema = TicketClassSchema()
     _protected = ['_barcamp', '_size', 'fullfull']
 
-    def __init__(self, *args, **kwargs):
-        """initialize the event"""
-        super(TicketClass, self).__init__(*args, **kwargs)
-        self._barcamp = kwargs.get('_barcamp', None)
-        self._userbase = kwargs.get('_userbase', None)
 
-    @property
-    def full(self):
-        """check if the ticket class is already sold out in terms if confirmed or pending tickets"""
-        all_tickets = self.get_tickets(['confirmed', 'pending'])
-        return len(all_tickets) >= self.size
-
-    def get_tickets2(self, status = "confirmed"):
-        """the amount of sold tickets meaning confirmed tickets only
-
-        :param status: a list or string of statuses we want to return
-        :return: a list of ticket dicts
-        """
-        tickets = self._barcamp.md.app.config.dbs.tickets
-        if type(status) != type([]):
-            status = [status]
-        my_tickets = tickets.get_tickets(barcamp_id = self._barcamp._id, ticketclass_id = self._id, status = status)
-        
-        # fill in the users
-        uids = [t.user_id for t in tickets]
-        users = self._userbase.get_users_by_ids(uids)
-        userdict = {}
-        for user in users:
-            userdict[str(user._id)] = user
-        new_tickets = []
-
-        for t in tickets:
-            t['user'] = userdict.get(t['user_id'], None)
-            new_tickets.append(t)
-
-        return new_tickets
-
-    def get_ticket_users(self, status = "confirmed"):
-        """return just the users for this ticket class"""
-        return [t['user'] for t in self.get_tickets(status)]
-
-    def get_tickets_by_userid(self, user_id, status = "confirmed"):
-        """return the tickets for a specific user ids"""
-        if type(status) != type([]):
-            status = [status]
-
-        my_tickets = self._barcamp.tickets.get(self._id, {})
-        result = []
-        for tid, ticket in my_tickets.items():
-            if ticket['user_id'] != user_id:
-                continue
-            if ticket['status'] not in status:
-                continue
-        return result
 
 
 class TicketSchema(Schema):
