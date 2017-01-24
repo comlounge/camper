@@ -337,6 +337,7 @@ class CamperApp(Application):
         self.config.dbs.galleries = db.ImageGalleries(mydb.galleries, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
+        self.config.dbs.tickets = db.Tickets(mydb.tickets, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
 
         # etherpad connection
