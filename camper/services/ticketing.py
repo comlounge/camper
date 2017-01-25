@@ -2,6 +2,7 @@ import jinja2
 from camper.base import BarcampView
 import logbook
 import uuid 
+import datetime
 from camper import db
 from bson import ObjectId
 from mongogogo import ObjectNotFound
@@ -165,6 +166,12 @@ class TicketService(object):
 
         ticket_classes = []
         for tc in self.barcamp.ticketlist:
+
+            # compute date (we assume out timezone for now as we don't have tz info on the barcamp)
+            now = datetime.date.today()
+            if not (tc.start_date <= now <= tc.end_date):
+                continue
+
             tickets_for_class = self.get_tickets(ticketclass_id = tc._id, status=['confirmed', 'pending'])
             tc['full'] = len(tickets_for_class) >= tc.size
             tc['has_ticket'] = False
