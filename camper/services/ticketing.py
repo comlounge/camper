@@ -3,6 +3,8 @@ from camper.base import BarcampView
 import logbook
 import uuid 
 from camper import db
+from bson import ObjectId
+from mongogogo import ObjectNotFound
 
 
 __all__ = ['TicketError', 'TicketService', 'TicketClassFull', 'TicketClassDoesNotExist', 'UserAlreadyRegistered']
@@ -51,6 +53,12 @@ class TicketService(object):
         self.userbase = self.app.module_map['userbase']
         self.user = user
         self.log = logbook.Logger(self.LOGGER)
+
+
+    def get_tickets(self, **kwargs):
+        """return tickets defined by the query params given"""
+        tickets = self.app.config.dbs.tickets
+        return ticket.get_tickets(barcamp_id = self._barcamp._id, **kwargs)
 
 
     def get_tickets_for_user(self, user_id, status="confirmed"):
@@ -154,11 +162,12 @@ class TicketService(object):
             self.log.error("unknown ticket class", tc_id = tc_id)
             raise TicketClassDoesNotExist()
 
-        if ticket_id not in self.barcamp.tickets[tc_id]:
+        ticket_db = self.app.config.dbs.tickets
+        try:
+            ticket = ticket_db.get(ObjectId(ticket_id))
+        except ObjectNotFound:
             self.log.error("unknown ticket id", tc_id = tc_id, ticket_id = ticket_id)
             raise TicketDoesNotExist()
-
-        ticket = self.barcamp.tickets[tc_id][ticket_id]
 
         return ticket_class, ticket
 
@@ -167,14 +176,12 @@ class TicketService(object):
         """approve a ticket finished the reservation process and will send the welcome mail"""
 
         ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
-        if ticket['status'] != "pending":
+        if ticket['workflow'] != "pending":
             self.log.error("ticket is not in pending state", ticket = ticket)
             raise TicketError("ticket not in pending state")
 
-        # now confirm the ticket
-        self.barcamp.tickets[tc_id][ticket_id]['status'] = "confirmed"
-        self.barcamp.save()
-
+        ticket['workflow'] = "confirmed"
+        ticket.save()
         self.log.info("ticket approved", ticket = ticket)
 
         uid = ticket['user_id']
@@ -197,11 +204,11 @@ class TicketService(object):
 
         ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
         self.log.debug("canceling ticket", ticket = ticket)
-        self.barcamp.tickets[tc_id][ticket_id]['status'] ="canceled"
-        self.barcamp.save()
+        ticket['workflow'] = "canceled"
+        ticket.save()
         self.log.info("ticket canceled / deleted", ticket = ticket)
 
-        # do we have to send an email?
+        # TODO: send email to user, maybe with an exaplanation
         return
 
 

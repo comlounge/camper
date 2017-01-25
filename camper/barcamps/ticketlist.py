@@ -12,6 +12,7 @@ from camper.handlers.forms import *
 import uuid
 
 from camper.services import * 
+from bson import ObjectId
 
     
 
@@ -74,17 +75,7 @@ class TicketList(BarcampBaseHandler):
         ticket_id = self.request.form.get("tid")
 
         self.log.debug("processing ticket action", form = self.request.form.to_dict())
-
         ticketservice = TicketService(self, self.user)
-
-        if tc_id not in self.barcamp.tickets:
-            self.log.error("ticket class not found", tc_id = tc_id, status = status, uid = uid)
-            return {'status': 'error', 'msg': 'ticket class not known'}
-
-        if uid not in self.barcamp.tickets[tc_id]:
-            self.log.error("uid not found in ticket class", tc_id = tc_id, status = status, uid = uid)
-            return {'status': 'error', 'msg': 'uid not known for ticket class'}
-
         
         if status == "approve":
             self.log.debug("approving ticket")
