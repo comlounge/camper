@@ -58,7 +58,7 @@ class TicketService(object):
     def get_tickets(self, **kwargs):
         """return tickets defined by the query params given"""
         tickets = self.app.config.dbs.tickets
-        return ticket.get_tickets(barcamp_id = self._barcamp._id, **kwargs)
+        return tickets.get_tickets(barcamp_id = self.barcamp._id, **kwargs)
 
 
     def get_tickets_for_user(self, user_id, status="confirmed"):
@@ -153,6 +153,35 @@ class TicketService(object):
         self.barcamp.save()
         return status
 
+    @property
+    def available_ticket_classes(self):
+        """return all the ticket classes right now available.
+
+        This includes only those which are active by date.
+        If a ticket class is full or a user has a ticket for it already
+        they will be listed but marked as ``full``
+
+        """
+
+        ticket_classes = []
+        for tc in self.barcamp.ticketlist:
+            tickets_for_class = self.get_tickets(ticketclass_id = tc._id, status=['confirmed', 'pending'])
+            tc['full'] = len(tickets_for_class) >= tc.size
+            tc['has_ticket'] = False
+
+            # compute "fullness"
+            tc['progress'] = len(tickets_for_class) / float(tc.size) * 100
+            tc['reserved'] = len(tickets_for_class)
+            if self.user:
+                uid = self.user._id
+                userids = [t.user_id for t in tickets_for_class]
+                if self.user._id in userids:
+                    tc['has_ticket'] = True
+
+            tc['available'] = not tc['full'] and not tc['has_ticket']
+            ticket_classes.append(tc)
+        return ticket_classes
+            
 
     def _check_ticket(self, tc_id, ticket_id):
         """check if a ticket is valid"""

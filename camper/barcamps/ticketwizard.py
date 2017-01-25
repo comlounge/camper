@@ -6,6 +6,7 @@ from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
 import xlwt
+import pprint
 from cStringIO import StringIO
 import datetime
 
@@ -167,22 +168,10 @@ class TicketWizard(BarcampBaseHandler):
                     return redirect(self.url_for(".index", slug = self.barcamp.slug))
 
         ticketservice = TicketService(self, self.user)
-        if self.logged_in:
-            pending = ticketservice.get_tickets_for_user(self.user_id, "pending")
-            confirmed = ticketservice.get_tickets_for_user(self.user_id, "confirmed")
-            reserved_tickets = pending + confirmed
-        else:
-            pending = confirmed = reserved_tickets = []
 
-        all_tickets = [tc._id for tc in ticketlist]
-        reserved_ticket_ids = [t.ticketclass_id for t in reserved_tickets]
-
-        # compute the remaining tickets for a user
-        remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))
-        remaining_tickets = []
-        for tc in ticketlist:
-            if tc._id in remaining_ticket_ids:
-                remaining_tickets.append(tc)
+        # this will get all the ticket classes with a flag if they are obtainable or not
+        # classes not yet active will not be returned.
+        available_ticket_classes = ticketservice.available_ticket_classes
 
         return self.render(
             view = self.barcamp_view,
@@ -190,11 +179,7 @@ class TicketWizard(BarcampBaseHandler):
             title = self.barcamp.name,
             form = regform,
             userform = userform,
-            pending = pending,
-            confirmed = confirmed,
-            reserved_tickets = reserved_tickets,
-            remaining_tickets = remaining_tickets,
-            ticketlist = ticketlist,
+            available = available_ticket_classes,
             **self.barcamp)
 
     post = get

@@ -14,11 +14,10 @@
                 <div class="col-md-12">
                     <div id="ticketlist" class="registration-eventlist">
                         {% for tc in ticket_classes %}
-                            {% set confirmed = tc.get_tickets('confirmed')|length %}
                             <div class="checkbox">
                                 <label>
                                     {% if active %}
-                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}"> 
+                                        <input type="checkbox" required name="_tc" {{'disabled' if not tc.available}} value="{{tc._id}}"> 
                                     {% endif %}
 
                                     <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
@@ -29,20 +28,18 @@
                                             <small>{{tc.description}}</small>
                                                 <hr>  
                                                 <div class="progress-info">
-                                                    <span class="filled">{{confirmed}}</span>
+                                                    <span class="filled">{{tc.reserved}}</span>
                                                     /
                                                     <span class="size">{{tc.size}}</span> 
                                                     {{_('participants')}}
                                                 </div>
                                                 <div class="progress participants-progress">
-                                                    {% set percent = confirmed / tc.size * 100 %}
-                                                    <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-warning'}}" 
+                                                    <div class="progress-bar {{'progress-bar-info' if tc.progress < 80 else 'progress-bar-warning'}}" 
                                                         role="progressbar" 
                                                         aria-valuenow="{{confirmed}}" 
                                                         aria-valuemin="0" 
-                                                        aria-valuemax="{{tc.size}}" style="width: {{percent|int}}%;">
-                                                            {% set left = tc.size - confirmed %}
-                                                            {% if left <1 %}
+                                                        aria-valuemax="{{tc.size}}" style="width: {{tc.progress|int}}%;">
+                                                            {% if tc.full %}
                                                                 <span class="text-danger">{{_('no places left.')}}</span>
                                                             {% endif %}
                                                     </div>
@@ -142,8 +139,8 @@
                 </div>
             </fieldset>
         {% endif %}
-        {% if remaining_tickets %}
-            {{ticketblock(remaining_tickets, active = True, headline = _('Reserve your tickets'))}}
+        {% if available %}
+            {{ticketblock(available, active = True, headline = _('Reserve your tickets'))}}
             {% if barcamp.paid_tickets %}
                 <input type="submit" value="{{_("Buy tickets")}}" class="btn btn-lg btn-primary pull-right">
             {% else %}
