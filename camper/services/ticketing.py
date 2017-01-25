@@ -131,7 +131,7 @@ class TicketService(object):
                 **self.barcamp)
         else:
             ticket = db.Ticket(
-                status="pending", 
+                status="confirmed", 
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
@@ -193,7 +193,7 @@ class TicketService(object):
     def _check_ticket(self, tc_id, ticket_id):
         """check if a ticket is valid"""
 
-        ticket_class= self.barcamp.get_ticket_class(tc_id)
+        ticket_class = self.barcamp.get_ticket_class(tc_id)
         if ticket_class is None:
             self.log.error("unknown ticket class", tc_id = tc_id)
             raise TicketClassDoesNotExist()

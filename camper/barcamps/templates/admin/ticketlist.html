@@ -28,7 +28,7 @@
                             class="listaction"><i class="fa fa-arrow-right"></i> {{_('Approve ticket')}}</a></li>
                         <li><a href="#" 
                             data-status="cancel" 
-                            data-tcid="{{ticket._id}}" 
+                            data-tcid="{{ticket.ticketclass_id}}" 
                             data-tid="{{ticket._id}}" 
                             data-uid="{{ticket.user._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
                     {% elif typ=="confirmed" %}
