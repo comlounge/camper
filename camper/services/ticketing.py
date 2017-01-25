@@ -158,10 +158,15 @@ class TicketService(object):
     def available_ticket_classes(self):
         """return all the ticket classes right now available.
 
-        This includes only those which are active by date.
-        If a ticket class is full or a user has a ticket for it already
-        they will be listed but marked as ``full``
+        A class will only be included if:
 
+        - the user does not have a pending or confirmed ticket already
+        - the ticket class start and end date match today
+
+        In case a class is full (counting confirmed and pending tickets) we return it
+        but set mark it as full so we can disable the checkbox in the view. 
+
+        
         """
 
         ticket_classes = []
@@ -182,11 +187,11 @@ class TicketService(object):
             if self.user:
                 uid = self.user._id
                 userids = [t.user_id for t in tickets_for_class]
-                if self.user._id in userids:
+                if unicode(self.user._id) in userids:
                     tc['has_ticket'] = True
-
-            tc['available'] = not tc['full'] and not tc['has_ticket']
-            ticket_classes.append(tc)
+                        
+            if not tc['has_ticket']:
+                ticket_classes.append(tc)
         return ticket_classes
             
 
