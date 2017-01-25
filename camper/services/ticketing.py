@@ -115,7 +115,7 @@ class TicketService(object):
         view = self.barcamp_view
         if preregistration:
             ticket = db.Ticket(
-                status="pending", 
+                workflow = "pending", 
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
@@ -131,7 +131,7 @@ class TicketService(object):
                 **self.barcamp)
         else:
             ticket = db.Ticket(
-                status="confirmed", 
+                workflow = "confirmed", 
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
