@@ -130,10 +130,11 @@ class TicketService(object):
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
-            ticket = tickets.put(ticket)
+            #ticket = tickets.put(ticket)
             self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
             self.mail_template("onwaitinglist",
+                ticket_pdf = None,
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
@@ -146,10 +147,12 @@ class TicketService(object):
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
-            ticket = tickets.put(ticket)
+            #ticket = tickets.put(ticket)
             self.log.info("ticket registered", ticket = ticket)
             status = "confirmed"
+            ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, self.user)
             self.mail_template("welcome",
+                ticket_pdf = ticket_pdf,
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
@@ -243,7 +246,7 @@ class TicketService(object):
         ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
 
         self.mail_template("welcome",
-            ticket_pdf,
+            ticket_pdf = ticket_pdf,
             user = user,
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -295,7 +298,7 @@ class TicketService(object):
         return pdf.dest.getvalue()
 
 
-    def mail_template(self, template_name, ticket, send_to=None, user = None, **kwargs):
+    def mail_template(self, template_name, ticket_pdf = None, send_to=None, user = None, **kwargs):
         """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
         if user is None:
@@ -309,10 +312,10 @@ class TicketService(object):
             payload = tmpl.render(**kwargs)
             payload = payload.replace('((fullname))', user.fullname)
 
-            self.send(send_to, subject, payload, ticket)
+            self.send(send_to, subject, payload, ticket_pdf)
 
 
-    def send(self, send_to, subject, payload, ticket):
+    def send(self, send_to, subject, payload, ticket_pdf = None):
         """send a text message with a ticket"""
 
         msg = MIMEMultipart()
@@ -325,17 +328,18 @@ class TicketService(object):
 
         # create text part
         txt = MIMEText(payload.encode("utf-8"), 'plain', "utf-8")
-
-        # create pdf part
-        pdfpart = MIMEBase("application", "pdf")
-        pdfpart.set_payload(ticket)
-        encoders.encode_base64(pdfpart)
-        pdfpart.add_header('Content-Disposition', 'attachment', filename="%s_ticket.pdf" %self.barcamp.slug)
-
-
-        # make it one message
         msg.attach(txt)
-        msg.attach(pdfpart)
+
+        # only attach ticket if we have one
+        if ticket_pdf:
+
+            # create pdf part
+            pdfpart = MIMEBase("application", "pdf")
+            pdfpart.set_payload(ticket_pdf)
+            encoders.encode_base64(pdfpart)
+            pdfpart.add_header('Content-Disposition', 'attachment', filename="%s_ticket.pdf" %self.barcamp.slug)
+
+            msg.attach(pdfpart)
  
 
             
