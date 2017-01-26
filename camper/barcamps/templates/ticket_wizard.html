@@ -17,7 +17,7 @@
                             <div class="checkbox">
                                 <label>
                                     {% if active %}
-                                        <input type="checkbox" required name="_tc" {{'disabled' if not tc.available}} value="{{tc._id}}"> 
+                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}"> 
                                     {% endif %}
 
                                     <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
