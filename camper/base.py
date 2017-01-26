@@ -17,10 +17,14 @@ import bson
 from mongogogo import ObjectNotFound
 import jinja2
 import logbook
+import weasyprint
+import cStringIO
 
 from wtforms.ext.i18n.form import Form
 
-__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'LocationNotFound', 'ensure_barcamp', 'is_admin', 'ensure_page', 'is_main_admin', 'is_participant', 'BarcampView']
+__all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'aspdf2', 
+            'LocationNotFound', 'ensure_barcamp', 'is_admin', 'ensure_page', 
+            'is_main_admin', 'is_participant', 'BarcampView']
 
 
 class LocationNotFound(Exception):
@@ -92,10 +96,18 @@ class BarcampView(object):
         if not asset:
             return u""
         v = asset.variants['logo_full']
-        url = self.app.url_for("asset", asset_id = v._id)
+        url = self.app.url_for("asset", asset_id = v._id, _full = True)
+        print """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
+            self.barcamp.name,
+            self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
+            'Logo '+self.barcamp.name,
+            url,
+            v.metadata['width'],
+            v.metadata['height'])
+
         return """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
             self.barcamp.name,
-            self.handler.url_for("barcamps.index", slug = self.barcamp.slug),
+            self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
             'Logo '+self.barcamp.name,
             url,
             v.metadata['width'],
@@ -445,6 +457,29 @@ class aspdf(object):
             response.content_type = "application/pdf"
             #response.content_disposition = "attachment; filename=\"...\""
             response.data = pdf.dest.getvalue()
+            return response
+            
+        return wrapper
+
+class aspdf2(object):
+    """converts a template to PDF using weasyprint"""
+
+    def __call__(self, method):
+        """takes a dict output of a handler method and returns it as JSON wrapped in a Response"""
+
+        that = self
+    
+        @functools.wraps(method)
+        def wrapper(self, *args, **kwargs):
+            html = method(self, *args, **kwargs)
+
+            out = cStringIO.StringIO()
+            pdf = weasyprint.HTML(string = html).write_pdf(target = out)
+
+            response = self.app.response_class()
+            response.content_type = "application/pdf"
+            #response.content_disposition = "attachment; filename=\"...\""
+            response.data = out.getvalue()
             return response
             
         return wrapper

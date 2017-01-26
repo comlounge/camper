@@ -22,6 +22,7 @@
                         </div>{# panel-body #}
                         {% if cancel %}
                             <div class="panel-footer clearfix">
+                                <a href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">Download Ticket</a>
                                 <a href="" 
                                     data-confirm="{{_('Are you sure?')}}" 
                                     class="action-confirm text-danger pull-right">{{_('Cancel ticket')}}</a>

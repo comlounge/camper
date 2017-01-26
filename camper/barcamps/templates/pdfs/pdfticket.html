@@ -1,3 +1,79 @@
-Hello!
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"                                                                                                                                              
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-{{ticket_class.name}}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link href="{{url_for("static", filename="css/font-awesome.css", _full = True)}}" rel="stylesheet">
+
+    <style>
+        body, html, h1, p, h2, h3, h4 {
+            font-family: "Roboto Slab", sans-serif;
+            line-height: 1.5;
+        }
+        section {
+            padding: 20px;
+        }
+        header {
+            padding: 5px 20px;
+            border-bottom: 5px solid #a0a0a0;
+        }
+        #ticket {
+            background: #faf9f8;
+            border: 5px solid #a0a0a0;
+            padding: 0;
+        }
+        #ticket h3 {
+            padding: 0;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        img {
+            width: 100%;
+        }
+        #meta {
+            font-size: 12px;
+            border-bottom: 1px solid #aaa;
+        }
+
+        .pull-right {
+            float: right;
+        }
+    </style>
+    
+</head>
+
+<body>
+    {% if barcamp.logo %}
+        {{view.logo}}
+    {% else %}
+        <h1 class="logo">{{barcamp.name}}</h1>
+    {% endif %}
+    <div id="meta">
+        <div class="pull-right">
+            <strong>{{barcamp.location.name|e}}</strong>
+            {{barcamp.location.street|e}}, 
+            {{barcamp.location.zip|e}} {{barcamp.location.city|e}}
+        </div>
+        {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
+    </div>
+
+    <h1>Ihr Ticket für {{barcamp.name}}</h1>
+
+    <article id="ticket">
+        <header>
+            <h3>Ticket für {{barcamp.name}}</h3>
+        </header>
+        <section>
+            <p>
+            <strong>{{ticket_class.name}}</strong><br>
+            {{ticket_class.description}}
+            </p>
+            Teilnehmer: {{user.fullname}}<br>
+            Preis: {{ticket_class.price}}
+        </section>
+    </article>
+
+</body>

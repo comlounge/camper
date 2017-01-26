@@ -1,6 +1,7 @@
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
+from camper import aspdf2
 from .base import BarcampBaseHandler
 from wtforms import *
 from camper.handlers.forms import *
@@ -8,6 +9,7 @@ import werkzeug.exceptions
 import xlwt
 from cStringIO import StringIO
 import datetime
+from bson import ObjectId
 
 from camper.services import * 
 
@@ -54,4 +56,37 @@ class MyTickets(BarcampBaseHandler):
             remaining = len(remaining_ticket_ids),
             ticketlist = ticketlist,
             **self.barcamp)
+
+
+class TicketPDF(BarcampBaseHandler):
+    """render a ticket pdf"""
+
+    @ensure_barcamp()
+    @aspdf2()
+    def get(self, slug = None, ticket_id = None):
+        """print out a ticket as PDF"""
+
+        tmplname = "pdfs/pdfticket.html"
+        tickets = self.config.dbs.tickets
+        ticket = tickets.find_one({'_id' : ObjectId(ticket_id)})
+
+        if not ticket:
+            raise werkzeug.exceptions.NotFound()
+        if str(self.user._id) != ticket.user_id:
+            self.log.error("trying to obtain ticket for wrong user", logged_in = self.user._id, ticket = ticket)
+            raise werkzeug.exceptions.NotFound()
+
+        ticket_class = self.barcamp.get_ticket_class(ticket.ticketclass_id)
+
+        print self.barcamp_view.logo
+        out = self.render(tmplname = tmplname,
+            ticket = ticket,
+            ticket_class = ticket_class,
+            user = self.user,
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            **self.barcamp
+        )
+        return out
+
 
