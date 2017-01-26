@@ -3,9 +3,20 @@ from camper.base import BarcampView
 import logbook
 import uuid 
 import datetime
+import os
+from xhtml2pdf import pisa
 from camper import db
 from bson import ObjectId
 from mongogogo import ObjectNotFound
+
+from email import encoders
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+from email.mime.base import MIMEBase
+from email.header import Header
+
+
+
 
 
 __all__ = ['TicketError', 'TicketService', 'TicketClassFull', 'TicketClassDoesNotExist', 'UserAlreadyRegistered']
@@ -212,7 +223,6 @@ class TicketService(object):
 
         return ticket_class, ticket
 
-
     def approve_ticket(self, tc_id, ticket_id):
         """approve a ticket finished the reservation process and will send the welcome mail"""
 
@@ -222,7 +232,7 @@ class TicketService(object):
             raise TicketError("ticket not in pending state")
 
         ticket['workflow'] = "confirmed"
-        ticket.save()
+        #ticket.save()
         self.log.info("ticket approved", ticket = ticket)
 
         uid = ticket['user_id']
@@ -230,7 +240,10 @@ class TicketService(object):
         self.log.debug("found user", uid = uid, email = user.email)
 
         # send welcome mail
+        ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
+
         self.mail_template("welcome",
+            ticket_pdf,
             user = user,
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -265,19 +278,24 @@ class TicketService(object):
         self.barcamp.save()
         self.log.info("ticket cancel request recorded", ticket = ticket)
 
+    def create_pdf_ticket(self, ticket, ticket_class, user):
+        """create a PDF ticket from the ticket data, ticket class and the user object
 
-    def mail_text(self, template_name, subject, send_to=None, user = None, **kwargs):
-        """render and send out a mail as mormal text"""
-        if user is None:
-            user = self.user
-        if send_to is None:
-            send_to = user.email
-        payload = self.render_lang(template_name, **kwargs)
-        mailer = self.app.module_map['mail']
-        mailer.mail(send_to, subject, payload)
+        returns a PDF string
+
+        """
+        mpath = os.path.join("barcamps", "pdfs", "pdfticket.html")
+        tmpl = self.app.jinja_env.get_or_select_template("_m/barcamps/pdfs/pdfticket.html")
+        html = tmpl.render(
+            ticket = ticket,
+            user = user,
+            ticket_class = ticket_class
+            )
+        pdf = pisa.CreatePDF(html)
+        return pdf.dest.getvalue()
 
 
-    def mail_template(self, template_name, send_to=None, user = None, **kwargs):
+    def mail_template(self, template_name, ticket, send_to=None, user = None, **kwargs):
         """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
         if user is None:
@@ -290,8 +308,41 @@ class TicketService(object):
             kwargs['fullname'] = user.fullname
             payload = tmpl.render(**kwargs)
             payload = payload.replace('((fullname))', user.fullname)
-            mailer = self.app.module_map['mail']
-            mailer.mail(send_to, subject, payload)
+
+            self.send(send_to, subject, payload, ticket)
+
+
+    def send(self, send_to, subject, payload, ticket):
+        """send a text message with a ticket"""
+
+        msg = MIMEMultipart()
+
+        # compute header
+        msg['Subject'] = Header(subject, "utf-8")
+        
+        from_ = msg['From'] = "%s <%s>" %(self.barcamp.name, self.barcamp.contact_email)
+        msg['To'] = send_to
+
+        # create text part
+        txt = MIMEText(payload.encode("utf-8"), 'plain', "utf-8")
+
+        # create pdf part
+        pdfpart = MIMEBase("application", "pdf")
+        pdfpart.set_payload(ticket)
+        encoders.encode_base64(pdfpart)
+        pdfpart.add_header('Content-Disposition', 'attachment', filename="%s_ticket.pdf" %self.barcamp.slug)
+
+
+        # make it one message
+        msg.attach(txt)
+        msg.attach(pdfpart)
+ 
+
+            
+        mailer = self.app.module_map['mail']
+        server = mailer.server_factory()
+        server.sendmail(from_, [send_to], msg.as_string())
+        server.quit()
 
     def send_email_to_admins(self, template_name, event, subject):
         """send out notification emails on registration events"""
