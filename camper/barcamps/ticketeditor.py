@@ -11,7 +11,6 @@ from .base import BarcampBaseHandler
 from camper.handlers.forms import *
 import uuid
 
-
 class MultiCheckboxField(SelectMultipleField):
     widget = wtforms.widgets.ListWidget(prefix_label=False)
     option_widget = wtforms.widgets.CheckboxInput()
@@ -87,7 +86,6 @@ class TicketEditor(BarcampBaseHandler):
             self.log.trace("created new ticket class", cls = f)
             self.flash(self._('new ticket created'), category="info")
         else:
-            print add_form.errors
             self.flash(self._('The form contains errors. Please correct them and try again.'), category="danger")
         return redirect(self.url_for("barcamps.admin_ticketeditor", slug = self.barcamp.slug))
 
@@ -128,3 +126,41 @@ class TicketingConfig(BarcampBaseHandler):
             'preregistration' : bc.preregistration,
         }
 
+
+class TicketClassEdit(BarcampBaseHandler):
+    """edit a ticket class"""
+
+    template = "admin/ticketedit.html"
+    LOGGER = "ticketedit"
+
+
+    @logged_in()
+    @is_admin()
+    @ensure_barcamp()
+    def get(self, slug = None, tc_id = None):
+        """render the view"""
+
+        ticket_class = self.barcamp.get_ticket_class(tc_id)
+
+        form = TicketClassForm(self.request.form, obj = ticket_class, config = self.config)
+        form.events.choices = [(e._id, e.name) for e in self.barcamp.eventlist]
+
+        if self.request.method == 'POST' and form.validate():
+            ticket_class.update(form.data)
+            self.barcamp.update_ticket_class(ticket_class)
+            self.barcamp.save()
+            self.flash(self._("Ticket class updated"), category="info")
+            return redirect(self.url_for(".admin_ticketeditor", slug=slug))
+
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            form = form,
+            title = self.barcamp.name,
+            tc = ticket_class,
+            **self.barcamp)
+
+
+
+
+    post = get 

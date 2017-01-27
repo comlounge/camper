@@ -35,12 +35,29 @@
         {% if not ticket_classes|length %}
             <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
         {% else %}
-            <h3>{{'tickets'}}</h3>
-            <ul>
-            {% for tc in ticket_classes %}
-                <li><a href="">{{tc.name}}</a> ({{tc.size}} {{_('tickets')}})</li>
-            {% endfor %}
-            </ul>
+            <table class="table table-big">
+                <thead>
+                    <tr>
+                        <th>{{_('Ticket Name')}}</th>
+                        <th>{{_('Amount')}}</th>
+                        <th>{{_('Date')}}</th>
+                        <th>{{_('Price')}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for tc in ticket_classes %}
+                    <tr>
+                        <td>{{tc.name}}</td>
+                        <td>{{tc.size}}</td>
+                        <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
+                        <td>{{tc.price}}</td>
+                        <td>
+                            <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         {% endif %}
 
         <hr>

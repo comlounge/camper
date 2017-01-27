@@ -531,6 +531,15 @@ class Barcamp(Record):
                 return TicketClass(tc, _barcamp = self, _userbase = self._collection.md.app.module_map.userbase)
         return None
 
+    def update_ticket_class(self, tc):
+        """update an existing ticket class by searching for it in the list and replacing it"""
+        i = 0
+        tc_data = tc.schema.serialize(tc)
+        for i in range(0,len(self.ticket_classes)):
+            if self.ticket_classes[i]['_id'] == tc._id:
+                self.ticket_classes[i] = tc_data
+                return        
+
     def get_tickets_for_user(self, user_id, status=["confirmed", "pending"]):
         """return all the ticket class ids which a users owns
 

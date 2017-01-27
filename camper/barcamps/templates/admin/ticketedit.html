@@ -1,0 +1,41 @@
+{% set menu="tickets" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Edit Ticket:')}} {{tc.name}}</h1>
+    </div>
+
+        <form id="ticketclassform" method="POST" action="{{url_for('barcamps.admin_ticketedit', slug=slug, tc_id = tc._id)}}">
+            {{ formmacros.form_field(form.name, required = True)}}
+            {{ formmacros.form_field(form.description, required = True)}}
+            {{ formmacros.form_field(form.size, required = True)}}
+            {{ formmacros.form_field(form.events, required = True)}}
+            {{ formmacros.form_field(form.price)}}
+            <h4>{{_('Ticket Availability')}}</h4>
+            <div class="row clearfix">
+                <div class="form-group">
+                    <div class="col-sm-1">
+                        <label for="date" class="col-sm-2 control-label">{{_('From')}}*</label>
+                    </div>
+                    <div class="col-sm-4">
+                        {{formmacros.f(form.start_date, required=True, classes="datepicker", placeholder=_('Start date'))}}
+                    </div>
+                    <div class="col-sm-1">
+                    {{_('to')}}*
+                    </div>
+                    <div class="col-sm-4">
+                        {{formmacros.f(form.end_date, required=True, classes="datepicker", placeholder=_('End date'))}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 30px;">
+                <input type="submit" class="btn btn-lg btn-primary" value="{{_('Update ticket')}}">
+            </div>
+
+        </form>
+
+    </section>
+    
+{% endblock %}

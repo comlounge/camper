@@ -90,10 +90,6 @@ class BarcampModule(Module):
         URL('/<slug>/mytickets',            'mytickets',                        mytickets.MyTickets),
         URL('/<slug>/mytickets/<ticket_id>','ticketpdf',                        mytickets.TicketPDF),
 
-        URL('/<slug>/events',               'user_events',                      user_events.Events),
-        URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
-        URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
-
         URL('/<slug>/admin/galleries',      'admin_galleries',                  galleries.GalleryList),
         URL('/<slug>/admin/galleries/<gid>','admin_gallery',                    galleries.GalleryAdminEdit),
         URL('/<slug>/admin/galleries/<gid>/edit', 'gallery_image_edit',         galleries.GalleryImageEdit),
@@ -102,8 +98,13 @@ class BarcampModule(Module):
         URL('/<slug>/admin/wizard',         'admin_wizard',                     wizard.BarcampWizard),
 
         URL('/<slug>/admin/tickets',        'admin_ticketeditor',               ticketeditor.TicketEditor),
+        URL('/<slug>/admin/tickets/<tc_id>','admin_ticketedit',                 ticketeditor.TicketClassEdit),
         URL('/<slug>/admin/tickets/config', 'admin_ticketconfig',               ticketeditor.TicketingConfig),
         URL('/<slug>/admin/tickets/users',  'admin_ticketlist',                 ticketlist.TicketList),
+
+        URL('/<slug>/events',               'user_events',                      user_events.Events),
+        URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
+        URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>',   'event',                            events.EventView),
