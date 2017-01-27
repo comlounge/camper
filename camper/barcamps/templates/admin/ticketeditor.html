@@ -53,7 +53,13 @@
                         <td>{{tc.price}}</td>
                         <td>
                             <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                            <a  class="delete-tc btn btn-danger" 
+                                title="{{_('Delete Ticket?')}}" 
+                                href = "#"
+                                data-url="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}">
+                                    <i class="fa fa-trash"></i>
+                            </a>
+
                         </td>
                     </tr>
                 {% endfor %}

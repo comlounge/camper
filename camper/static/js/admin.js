@@ -509,6 +509,25 @@
   bm(jQuery);
 
   $(function() {
+    $(".delete-tc").click(function(e) {
+      var msg, url;
+      e.preventDefault();
+      msg = $('body').data("i18n-areyousure");
+      if (confirm(msg)) {
+        url = $(this).data("url");
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: {
+            method: "delete"
+          },
+          success: function() {
+            return window.location.reload();
+          }
+        });
+      }
+      return false;
+    });
     $(".colorpicker-container").colorpicker();
     $(".urlscheme").limitchars();
     $(".action-confirm").click(function() {

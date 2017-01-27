@@ -160,7 +160,18 @@ class TicketClassEdit(BarcampBaseHandler):
             tc = ticket_class,
             **self.barcamp)
 
-
-
-
     post = get 
+
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    @asjson()
+    def delete(self, slug, tc_id):
+        """delete a ticket class"""
+
+        ticket_class = self.barcamp.get_ticket_class(tc_id)
+        self.barcamp.delete_ticket_class(ticket_class)
+        self.barcamp.save()
+        return {'status' : 'ok'}
+
