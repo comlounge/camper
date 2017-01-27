@@ -362,9 +362,10 @@ class BarcampSchema(Schema):
     # ticketmode
     ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
     paid_tickets        = Boolean(default = False)  # if false no prices will be shown
-    ticket_max_size     = Integer(default = None) # how many participants max for all tickets
+    ticket_max_size     = Integer(default = None)   # how many participants max for all tickets
     ticket_classes      = List(TicketClassSchema()) # list of ticket classes
-    tickets             = Dict() # a dict of ticketclass_id -> {uid: TicketOwnership
+    max_participants    = Integer(default = None)   # max number of participants over all tickets
+    
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad

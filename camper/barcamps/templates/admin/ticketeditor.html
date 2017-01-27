@@ -19,16 +19,29 @@
 
     <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
 
-        <h2>{{_('Configure Ticket Mode')}}</h2>
+        <h2>{{_('Configure Ticket Mode')}}
+        </h2>
         <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
-            {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
-            {% if not barcamp.has_imprint and not barcamp.contact_email %}
-                <div class="help-block alert alert-warning">
-                    {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
+            <div class="row">
+                <div class="col-md-8">
+                    {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
+                    {% if not barcamp.has_imprint and not barcamp.contact_email %}
+                        <div class="help-block alert alert-warning">
+                            {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
+                        </div>
+                    {% endif %}
+                    {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
                 </div>
-                
-            {% endif %}
-            {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
+                <div class="col-md-4">
+                    {{ formmacros.form_field(config_form.max_participants, size="4", maxlength=4, type="number")}}
+                    <div class="form-actions" style="margin: 10px 0;">
+                        <a href="#" id="config-submit" class="btn btn-primary btn-sm">{{_('Save')}}</a>
+                    </div>
+                    <div id="saved-container" style="height: 40px;">
+                        <div id="saved" style="display: none;" class="alert alert-info">{{_('Data Saved...')}}</div>
+                    </div>
+                </div>
+            </div>
         </form>
 
         <h2>{{_('Manage Tickets')}}</h2>
@@ -110,15 +123,17 @@
 {% block bcjs %}
         <script>
             $(document).ready(function () {
-                $(".ticketconfig").on("change", function () {
 
+                function save() {
+                    elem = $("#ticketconfigform2");
                     var data = {
                         ticketmode_enabled : $("#ticketmode_enabled").prop("checked"),
                         paid_tickets : $("#paid_tickets").prop("checked"),
                         preregistration : $("#preregistration").prop("checked"),
+                        max_participants : $("#max_participants").val(),
                     }
 
-                    var url = $(this).data("url");
+                    var url = $(elem).data("url");
                     $.post(url, data , function (result){
                         if (result.ticketmode_enabled) {
                             $("#ticketeditor").slideDown();
@@ -133,8 +148,23 @@
                         } else {
                             $("#preregistration").prop("disabled", false)
                         }
+
+                        $("#saved").fadeIn("slow", function() {
+                            setTimeout(function(){
+                                $('#saved').fadeOut('slow');
+                            },1000);
+                        } );
+
                     });
+                }
+                $(".ticketconfig").on("change", function () {
+                    save();
                 })
+                $("#config-submit").on("click", function (e) {
+                    e.preventDefault();
+                    save();
+                    return false;
+                });
             });
         </script>
         
