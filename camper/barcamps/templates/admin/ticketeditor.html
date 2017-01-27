@@ -52,6 +52,7 @@
                         <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
                         <td>{{tc.price}}</td>
                         <td>
+                        {% if barcamp.workflow != "registration" %}                            
                             <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                             <a  class="delete-tc btn btn-danger" 
                                 title="{{_('Delete Ticket?')}}" 
@@ -59,6 +60,9 @@
                                 data-url="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}">
                                     <i class="fa fa-trash"></i>
                             </a>
+                        {% else %}
+                            
+                        {% endif %}
 
                         </td>
                     </tr>
