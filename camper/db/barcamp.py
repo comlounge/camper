@@ -88,12 +88,21 @@ class RegistrationFieldSchema(Schema):
 
 class MailsSchema(Schema):
     """a sub schema describing email templates"""
-    welcome_subject         = String()
-    welcome_text            = String()
-    onwaitinglist_subject   = String()
-    onwaitinglist_text      = String()
-    fromwaitinglist_subject = String()
-    fromwaitinglist_text    = String()
+    welcome_subject             = String()
+    welcome_text                = String()
+    onwaitinglist_subject       = String()
+    onwaitinglist_text          = String()
+    fromwaitinglist_subject     = String()
+    fromwaitinglist_text        = String()
+    ticket_welcome_subject      = String()
+    ticket_welcome_text         = String()
+    ticket_pending_subject      = String()
+    ticket_pending_text         = String()
+    ticket_confirmed_subject    = String()
+    ticket_confirmed_text       = String()
+    ticket_canceled_subject     = String()
+    ticket_canceled_text        = String()
+
 
 
 class Location(Record):

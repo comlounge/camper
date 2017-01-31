@@ -228,7 +228,7 @@ class MailsEditView(BarcampBaseHandler):
             self.barcamp.mail_templates = form.data
             self.barcamp.put()
             self.flash("Barcamp E-Mails aktualisiert", category="info")
-            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+            return redirect(self.url_for("barcamps.admin_wizard", slug = self.barcamp.slug))
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,

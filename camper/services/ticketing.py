@@ -133,14 +133,15 @@ class TicketService(object):
             ticket = tickets.put(ticket)
             self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
-            self.mail_template("onwaitinglist",
+            self.mail_template("ticket_pending",
                 ticket_pdf = None,
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 ticket_class = ticket_class,
-                ticket = ticket,
-                **self.barcamp)
+                barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
+                fullname = self.user.fullname
+                )
         else:
             ticket = db.Ticket(
                 workflow = "confirmed", 
@@ -151,15 +152,16 @@ class TicketService(object):
             self.log.info("ticket registered", ticket = ticket)
             status = "confirmed"
             #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, self.user)
-            self.mail_template("welcome",
+            self.mail_template("ticket_welcome",
                 ticket_pdf = None,
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 ticket_class = ticket_class,
-                ticket = ticket,
-                ticket_url = self.handler.url_for("barcamp.ticketpdf", slug = self.barcamp.slug, ticket_id = ticket._id),
-                **self.barcamp)
+                ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+                barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
+                fullname = self.user.fullname
+                )
 
         # send email to admins            
         if self.barcamp.send_email_to_admins:
@@ -236,7 +238,7 @@ class TicketService(object):
             raise TicketError("ticket not in pending state")
 
         ticket['workflow'] = "confirmed"
-        ticket.save()
+        #ticket.save()
         self.log.info("ticket approved", ticket = ticket)
 
         uid = ticket['user_id']
@@ -246,14 +248,16 @@ class TicketService(object):
         # send welcome mail
         #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
 
-        self.mail_template("welcome",
+        self.mail_template("ticket_confirmed",
             ticket_pdf = None,
             user = user,
             view = self.barcamp_view,
-            barcamp = self.barcamp,
             title = self.barcamp.name,
             ticket_title = ticket_class.name,
-            **self.barcamp)
+            ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+            barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
+            fullname = user.fullname
+        )
         return "confirmed"
 
 
@@ -304,7 +308,8 @@ class TicketService(object):
 
     def mail_template(self, template_name, ticket_pdf = None, send_to=None, user = None, **kwargs):
         """render and send out a mail as normal text"""
-        barcamp = kwargs.get('barcamp')
+        barcamp = self.barcamp
+        #barcamp = kwargs.get('barcamp')
         if user is None:
             user = self.user
         if send_to is None:
@@ -312,10 +317,8 @@ class TicketService(object):
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
             tmpl = jinja2.Template(barcamp.mail_templates['%s_text' %template_name])
-            kwargs['fullname'] = user.fullname
             payload = tmpl.render(**kwargs)
-            payload = payload.replace('((fullname))', user.fullname)
-
+            payload = payload.replace('((fullname))', user.fullname)            
             self.send(send_to, subject, payload, ticket_pdf)
 
 
@@ -344,8 +347,6 @@ class TicketService(object):
             pdfpart.add_header('Content-Disposition', 'attachment', filename="%s_ticket.pdf" %self.barcamp.slug)
 
             msg.attach(pdfpart)
- 
-
             
         mailer = self.app.module_map['mail']
         server = mailer.server_factory()
