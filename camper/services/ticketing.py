@@ -130,7 +130,7 @@ class TicketService(object):
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
-            #ticket = tickets.put(ticket)
+            ticket = tickets.put(ticket)
             self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
             self.mail_template("onwaitinglist",
@@ -147,17 +147,18 @@ class TicketService(object):
                 ticketclass_id = tc_id,
                 user_id = uid, 
                 barcamp_id = bid)
-            #ticket = tickets.put(ticket)
+            ticket = tickets.put(ticket)
             self.log.info("ticket registered", ticket = ticket)
             status = "confirmed"
-            ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, self.user)
+            #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, self.user)
             self.mail_template("welcome",
-                ticket_pdf = ticket_pdf,
+                ticket_pdf = None,
                 view = view,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 ticket_class = ticket_class,
                 ticket = ticket,
+                ticket_url = self.handler.url_for("barcamp.ticketpdf", slug = self.barcamp.slug, ticket_id = ticket._id),
                 **self.barcamp)
 
         # send email to admins            
@@ -235,7 +236,7 @@ class TicketService(object):
             raise TicketError("ticket not in pending state")
 
         ticket['workflow'] = "confirmed"
-        #ticket.save()
+        ticket.save()
         self.log.info("ticket approved", ticket = ticket)
 
         uid = ticket['user_id']
@@ -243,10 +244,10 @@ class TicketService(object):
         self.log.debug("found user", uid = uid, email = user.email)
 
         # send welcome mail
-        ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
+        #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
 
         self.mail_template("welcome",
-            ticket_pdf = ticket_pdf,
+            ticket_pdf = None,
             user = user,
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -287,12 +288,15 @@ class TicketService(object):
         returns a PDF string
 
         """
+
         mpath = os.path.join("barcamps", "pdfs", "pdfticket.html")
         tmpl = self.app.jinja_env.get_or_select_template("_m/barcamps/pdfs/pdfticket.html")
         html = tmpl.render(
             ticket = ticket,
             user = user,
-            ticket_class = ticket_class
+            ticket_class = ticket_class,
+            url_for = self.handler.url_for,
+            barcamp = self.barcamp,
             )
         pdf = pisa.CreatePDF(html)
         return pdf.dest.getvalue()
