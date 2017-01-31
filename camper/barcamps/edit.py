@@ -197,6 +197,18 @@ class MailsEditForm(BaseForm):
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
 
+
+class TicketMailsEditForm(BaseForm):
+    """form for defining mail templates specific for tickets"""
+    ticket_welcome_subject      = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_welcome_text         = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_pending_subject      = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_pending_text         = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_confirmed_subject    = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_confirmed_text       = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_canceled_subject     = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_canceled_text        = TextAreaField(T("Body"), [validators.Required()],)
+
 class MailsEditView(BarcampBaseHandler):
     """let the user define the mail templates"""
 
@@ -208,7 +220,10 @@ class MailsEditView(BarcampBaseHandler):
     def get(self, slug = None):
         """render the view"""
         obj = AttributeMapper(self.barcamp.mail_templates)
-        form = MailsEditForm(self.request.form, obj = obj, config = self.config)
+        if self.barcamp.ticketmode_enabled:
+            form = TicketMailsEditForm(self.request.form, obj = obj, config = self.config)
+        else:
+            form = MailsEditForm(self.request.form, obj = obj, config = self.config)
         if self.request.method == 'POST' and form.validate():
             self.barcamp.mail_templates = form.data
             self.barcamp.put()

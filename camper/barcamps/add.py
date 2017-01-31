@@ -149,6 +149,16 @@ class AddView(BaseHandler):
             templates['onwaitinglist_subject'] = self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants.")
             templates['fromwaitinglist_text'] = self.render_lang("emails/default_fromwaitinglist.txt", barcamp=barcamp, url=url)
             templates['fromwaitinglist_subject'] = self._("You are now on the list of participants for this barcamp.")
+
+            # set mail templates for ticketing
+            templates['ticket_welcome_text'] = self.render_lang("emails/default_ticket_welcome.txt", barcamp=barcamp, url=url)
+            templates['ticket_welcome_subject'] = self._('Welcome to %s') %barcamp.name
+            templates['ticket_pending_text'] = self.render_lang("emails/default_ticket_pending.txt", barcamp=barcamp, url=url)
+            templates['ticket_pending_subject'] = self._("Your ticket reservation is pending.")
+            templates['ticket_confirmed_text'] = self.render_lang("emails/default_ticket_confirmed.txt", barcamp=barcamp, url=url)
+            templates['ticket_confirmed_subject'] = self._("Your ticket for %s.") %barcamp.name
+            templates['ticket_canceled_text'] = self.render_lang("emails/default_ticket_canceled.txt", barcamp=barcamp, url=url)
+            templates['ticket_canceled_subject'] = self._("Your ticket for %s.") %barcamp.name
             barcamp.update({'mail_templates':templates})
 
             barcamp = self.config.dbs.barcamps.put(barcamp)
