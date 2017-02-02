@@ -11,112 +11,118 @@
         </div>
     </div>
 
-    <div id="config">
-        <form id="ticketconfigform1" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
-            {{ formmacros.form_field(config_form.ticketmode_enabled)}}
-        </form>
-    </div>
+    <div id="ticketeditor-container">
+        <div id="disabled">
+            {{_('You can only edit tickets if the barcamp is not in registration mode')}}
+        </div>
 
-    <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
+        <div id="config">
+            <form id="ticketconfigform1" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
+                {{ formmacros.form_field(config_form.ticketmode_enabled)}}
+            </form>
+        </div>
 
-        <h2>{{_('Configure Ticket Mode')}}
-        </h2>
-        <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
-            <div class="row">
-                <div class="col-md-8">
-                    {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
-                    {% if not barcamp.has_imprint and not barcamp.contact_email %}
-                        <div class="help-block alert alert-warning">
-                            {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
-                        </div>
-                    {% endif %}
-                    {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
-                </div>
-                <div class="col-md-4">
-                    {{ formmacros.form_field(config_form.max_participants, size="4", maxlength=4, type="number")}}
-                    <div class="form-actions" style="margin: 10px 0;">
-                        <a href="#" id="config-submit" class="btn btn-primary btn-sm">{{_('Save')}}</a>
-                    </div>
-                    <div id="saved-container" style="height: 40px;">
-                        <div id="saved" style="display: none;" class="alert alert-info">{{_('Data Saved...')}}</div>
-                    </div>
-                </div>
-            </div>
-        </form>
+        <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
 
-        <h2>{{_('Manage Tickets')}}</h2>
-        {% if not ticket_classes|length %}
-            <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
-        {% else %}
-            <table class="table table-big">
-                <thead>
-                    <tr>
-                        <th>{{_('Ticket Name')}}</th>
-                        <th>{{_('Amount')}}</th>
-                        <th>{{_('Date')}}</th>
-                        <th>{{_('Price')}}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                {% for tc in ticket_classes %}
-                    <tr>
-                        <td>{{tc.name}}</td>
-                        <td>{{tc.size}}</td>
-                        <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
-                        <td>{{tc.price}}</td>
-                        <td>
-                        {% if barcamp.workflow != "registration" %}                            
-                            <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-                            <a  class="delete-tc btn btn-danger" 
-                                title="{{_('Delete Ticket?')}}" 
-                                href = "#"
-                                data-url="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}">
-                                    <i class="fa fa-trash"></i>
-                            </a>
-                        {% else %}
-                            
+            <h2>{{_('Configure Ticket Mode')}}
+            </h2>
+            <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
+                        {% if not barcamp.has_imprint and not barcamp.contact_email %}
+                            <div class="help-block alert alert-warning">
+                                {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
+                            </div>
                         {% endif %}
-
-                        </td>
-                    </tr>
-                {% endfor %}
-            </table>
-        {% endif %}
-
-        <hr>
-
-        <h3>{{_('Add new ticket')}}</h3>
-        <form id="ticketclassform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
-            {{ formmacros.form_field(add_form.name, required = True)}}
-            {{ formmacros.form_field(add_form.description, required = True)}}
-            {{ formmacros.form_field(add_form.size, required = True)}}
-            {{ formmacros.form_field(add_form.events, required = True)}}
-            {{ formmacros.form_field(add_form.price)}}
-            <h4>{{_('Ticket Availability')}}</h4>
-            <div class="row clearfix">
-                <div class="form-group">
-                    <div class="col-sm-1">
-                        <label for="date" class="col-sm-2 control-label">{{_('From')}}*</label>
+                        {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
                     </div>
-                    <div class="col-sm-4">
-                        {{formmacros.f(add_form.start_date, required=True, classes="datepicker", placeholder=_('Start date'))}}
-                    </div>
-                    <div class="col-sm-1">
-                    {{_('to')}}*
-                    </div>
-                    <div class="col-sm-4">
-                        {{formmacros.f(add_form.end_date, required=True, classes="datepicker", placeholder=_('End date'))}}
+                    <div class="col-md-4">
+                        {{ formmacros.form_field(config_form.max_participants, size="4", maxlength=4, type="number")}}
+                        <div class="form-actions" style="margin: 10px 0;">
+                            <a href="#" id="config-submit" class="btn btn-primary btn-sm">{{_('Save')}}</a>
+                        </div>
+                        <div id="saved-container" style="height: 40px;">
+                            <div id="saved" style="display: none;" class="alert alert-info">{{_('Data Saved...')}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
 
-            <div class="form-actions" style="margin-top: 30px;">
-                <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add new ticket')}}">
-            </div>
+            <h2>{{_('Manage Tickets')}}</h2>
+            {% if not ticket_classes|length %}
+                <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
+            {% else %}
+                <table class="table table-big">
+                    <thead>
+                        <tr>
+                            <th>{{_('Ticket Name')}}</th>
+                            <th>{{_('Amount')}}</th>
+                            <th>{{_('Date')}}</th>
+                            <th>{{_('Price')}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for tc in ticket_classes %}
+                        <tr>
+                            <td>{{tc.name}}</td>
+                            <td>{{tc.size}}</td>
+                            <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
+                            <td>{{tc.price}}</td>
+                            <td>
+                            {% if barcamp.workflow != "registration" %}                            
+                                <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                                <a  class="delete-tc btn btn-danger" 
+                                    title="{{_('Delete Ticket?')}}" 
+                                    href = "#"
+                                    data-url="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}">
+                                        <i class="fa fa-trash"></i>
+                                </a>
+                            {% else %}
+                                
+                            {% endif %}
 
-        </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
 
-    </section>
+            <hr>
+
+            <h3>{{_('Add new ticket')}}</h3>
+            <form id="ticketclassform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
+                {{ formmacros.form_field(add_form.name, required = True)}}
+                {{ formmacros.form_field(add_form.description, required = True)}}
+                {{ formmacros.form_field(add_form.size, required = True)}}
+                {{ formmacros.form_field(add_form.events, required = True)}}
+                {{ formmacros.form_field(add_form.price)}}
+                <h4>{{_('Ticket Availability')}}</h4>
+                <div class="row clearfix">
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label for="date" class="col-sm-2 control-label">{{_('From')}}*</label>
+                        </div>
+                        <div class="col-sm-4">
+                            {{formmacros.f(add_form.start_date, required=True, classes="datepicker", placeholder=_('Start date'))}}
+                        </div>
+                        <div class="col-sm-1">
+                        {{_('to')}}*
+                        </div>
+                        <div class="col-sm-4">
+                            {{formmacros.f(add_form.end_date, required=True, classes="datepicker", placeholder=_('End date'))}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 30px;">
+                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add new ticket')}}">
+                </div>
+
+            </form>
+
+        </section>
+    </div>
     
 {% endblock %}
 

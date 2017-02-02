@@ -509,6 +509,7 @@
   bm(jQuery);
 
   $(function() {
+    console.log("ok");
     $(".delete-tc").click(function(e) {
       var msg, url;
       e.preventDefault();
