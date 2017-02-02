@@ -90,9 +90,73 @@ class TicketList(BarcampBaseHandler):
                 return {'status' : 'error', 'reload' : False, 'msg' : self._('An error occurred while canceling the ticket')}
             except Exception, e:
                 print "oops again", e
-
-
-
-
         return {'status' : 'success', 'reload' : True}
+
+
+
+
+class CancelForm(BaseForm):
+    """form for adding a new ticket class"""
+
+    reason         = TextAreaField(T(u"Reason"), [validators.Required(), validators.Length(max=10000)],
+                description = T(u'Please give a reason for canceling here.'),
+    )
+    
+class TicketCancel(BarcampBaseHandler):
+    """handles canceling a ticket"""
+
+    template = "admin/ticketcancel.html"
+    LOGGER = "ticketcancel"
+
+
+    @logged_in()
+    @is_admin()
+    @ensure_barcamp()
+    def get(self, slug, ticket_id):
+        """show the form"""
+
+        form = CancelForm(self.request.form, config = self.config)
+
+        # retrieve ticket
+        ticket_db = self.app.config.dbs.tickets
+        try:
+            ticket = ticket_db.get(ObjectId(ticket_id))
+        except ObjectNotFound:
+            self.log.error("unknown ticket id", ticket_id = ticket_id)
+            raise werkzeug.exceptions.NotFound()
+
+        if self.request.method=="POST":
+            if form.validate():
+                ticketservice = TicketService(self, self.user)
+                ticketservice.cancel_ticket(ticket.ticketclass_id, ticket_id, reason = form.data['reason'])
+                self.flash(self._('Ticket canceled.'), category="danger")
+                return redirect(self.url_for('barcamps.admin_ticketlist', slug = slug))
+
+        # get ticket class
+        tc_id = ticket.ticketclass_id
+        ticket_class = self.barcamp.get_ticket_class(tc_id)
+        if ticket_class is None:
+            self.log.error("unknown ticket class", tc_id = tc_id)
+            raise werkzeug.exceptions.NotFound()
+
+        # retrieve user
+        uid = ticket['user_id']
+        userbase = self.app.module_map['userbase']
+        user = userbase.get_user_by_id(uid)
+
+
+
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            ticket = ticket,
+            ticket_class = ticket_class,
+            form = form,
+            user = user,
+            title = self.barcamp.name,
+            **self.barcamp)
+
+
+    post = get
+
 

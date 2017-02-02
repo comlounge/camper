@@ -261,7 +261,7 @@ class TicketService(object):
         return "confirmed"
 
 
-    def cancel_ticket(self, tc_id, ticket_id):
+    def cancel_ticket(self, tc_id, ticket_id, reason = ""):
         """cancel a ticket which means deleting it"""
 
         ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
@@ -270,7 +270,22 @@ class TicketService(object):
         ticket.save()
         self.log.info("ticket canceled / deleted", ticket = ticket)
 
-        # TODO: send email to user, maybe with an exaplanation
+        uid = ticket['user_id']
+        user = self.userbase.get_user_by_id(uid)
+        self.log.debug("found user", uid = uid, email = user.email)
+
+        self.mail_template("ticket_canceled",
+            ticket_pdf = None,
+            user = user,
+            view = self.barcamp_view,
+            title = self.barcamp.name,
+            ticket_title = ticket_class.name,
+            reason = reason,
+            ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+            barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
+            fullname = user.fullname
+        )
+
         return
 
 

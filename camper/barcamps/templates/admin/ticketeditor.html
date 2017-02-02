@@ -12,9 +12,11 @@
     </div>
 
     <div id="ticketeditor-container">
+    {#
         <div id="disabled">
             {{_('You can only edit tickets if the barcamp is not in registration mode')}}
         </div>
+    #}
 
         <div id="config">
             <form id="ticketconfigform1" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
@@ -70,8 +72,8 @@
                             <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
                             <td>{{tc.price}}</td>
                             <td>
-                            {% if barcamp.workflow != "registration" %}                            
                                 <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            {% if barcamp.workflow != "registration" %}                            
                                 <a  class="delete-tc btn btn-danger" 
                                     title="{{_('Delete Ticket?')}}" 
                                     href = "#"
