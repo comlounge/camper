@@ -142,6 +142,17 @@
         {% if available %}
             {{ticketblock(available, active = True, headline = _('Reserve your tickets'))}}
             {% if barcamp.paid_tickets %}
+                <div class="checkbox">
+                    <label>
+                        <input required name="tos_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') %{'link': url_for('.tos', slug=slug)}}}.
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input required name="cancel_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') %{'link': url_for('.cancellation', slug=slug)}}}.
+                    </label>
+                </div>
+
                 <input type="submit" value="{{_("Buy tickets")}}" class="btn btn-lg btn-primary pull-right">
             {% else %}
                 <input type="submit" value="{{_("Reserve tickets")}}" class="btn btn-lg btn-primary pull-right">
@@ -153,7 +164,7 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#regform').parsley();
+            console.log($('#regform').parsley());
         })
     </script>
 
