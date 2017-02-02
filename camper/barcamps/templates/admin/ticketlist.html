@@ -14,31 +14,28 @@
             </a>
             
             {% if typ!="canceled" %}
-            <div class="btn-group actions">
-                <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-gear"></i>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    {% if typ=="pending" %}
-                        <li><a href="#" 
-                            data-status="approve" 
-                            data-tcid="{{tc_id}}" 
-                            data-tid="{{ticket._id}}" 
-                            data-uid="{{ticket.user._id}}" 
-                            class="listaction"><i class="fa fa-arrow-right"></i> {{_('Approve ticket')}}</a></li>
-                        <li><a href="#" 
-                            data-status="cancel" 
-                            data-tcid="{{ticket.ticketclass_id}}" 
-                            data-tid="{{ticket._id}}" 
-                            data-uid="{{ticket.user._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
-                    {% elif typ=="confirmed" %}
-                        <li><a href="#" 
-                            data-status="cancel" 
-                            data-tid="{{ticket._id}}" 
-                            data-tcid="{{tc_id}}" 
-                            data-uid="{{ticket.user._id}}" class="listaction"><i class="fa fa-arrow-left"></i> {{_('Cancel Ticket')}}</a></li>
-                    {% endif %}
-                </ul>
+            <div class="actions pull-right">
+                {% if typ=="pending" %}
+                    <a href="" 
+                        data-status="approve" 
+                        data-tcid="{{tc_id}}" 
+                        data-tid="{{ticket._id}}" 
+                        data-uid="{{ticket.user._id}}" 
+                        class="btn btn-xs btn-success"><i class="fa fa-check"></i> {{_('Approve')}}</a>
+                    <a href="" 
+                        data-status="approve" 
+                        data-tcid="{{tc_id}}" 
+                        data-tid="{{ticket._id}}" 
+                        data-uid="{{ticket.user._id}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
+                {% elif typ=="confirmed" %}
+                    <a href="" 
+                        data-status="approve" 
+                        data-tcid="{{tc_id}}" 
+                        data-tid="{{ticket._id}}" 
+                        data-uid="{{ticket.user._id}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
+                {% endif %}
             </div>
             {% endif %}
         </li>
