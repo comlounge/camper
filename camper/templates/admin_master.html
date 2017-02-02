@@ -45,7 +45,7 @@
                     <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
                     <li class="{{'active' if menu=='tickets'}}"><a href="{{url_for("barcamps.admin_ticketeditor", slug=slug)}}"><i class="fa fa-gear"></i> {{_('configure tickets')}}</a></li>
                     {% if barcamp.ticketmode_enabled %}
-                        <li class="{{'active' if menu=='tickets'}}"><a href="{{url_for("barcamps.admin_ticketlist", slug=slug)}}"><i class="fa fa-ticket"></i> {{_('manage tickets')}}</a></li>
+                        <li class="{{'active' if menu=='ticketlist'}}"><a href="{{url_for("barcamps.admin_ticketlist", slug=slug)}}"><i class="fa fa-ticket"></i> {{_('manage tickets')}}</a></li>
                     {% endif %}
                     <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
                 </ul>
