@@ -97,14 +97,6 @@ class BarcampView(object):
             return u""
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id, _full = True)
-        print """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
-            self.barcamp.name,
-            self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
-            'Logo '+self.barcamp.name,
-            url,
-            v.metadata['width'],
-            v.metadata['height'])
-
         return """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
             self.barcamp.name,
             self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
