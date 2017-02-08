@@ -1,0 +1,11 @@
+Hi {{user.fullname}},
+
+you requested to cancel your ticket {{ticket.ticketclass.name}} with the id 
+{{ticket._id}} for the barcamp {{barcamp.name}}.
+
+The barcamp admin has been informed and you will receive an email if the
+request was approved. 
+
+
+--
+This email has been automatically created by barcamptools.eu, please do not reply.

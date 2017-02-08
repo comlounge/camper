@@ -1,0 +1,10 @@
+Hallo {{user.fullname}},
+
+wir haben den Rückgabewunsch für das Ticket {{ticket.ticketclass.name}} mit der ID  
+{{ticket._id}} für das Barcamp {{barcamp.name}} empfangen.
+
+Die Barcamp-Administratoren wurden informiert und werden darüber entscheiden.
+Sobald das Ticket wiederrufen wurde, erhältst Du eine E-Mail.
+
+--
+Diese E-Mail wurde automatisch generiert, bitte antworte nicht darauf.
