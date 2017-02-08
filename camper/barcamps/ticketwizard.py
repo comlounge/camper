@@ -177,7 +177,7 @@ class TicketWizard(BarcampBaseHandler):
         # compute max amount of tickets left for barcamp 
         all_tickets = ticketservice.get_tickets(status=['confirmed', 'pending'])
         tickets_left = self.barcamp.max_participants - len(all_tickets)
-
+        
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
