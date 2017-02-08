@@ -189,6 +189,7 @@ class TicketService(object):
         # retrieve amount of tickets for this barcamp and check if it's full
         all_tickets = self.get_tickets(status=['confirmed', 'pending'])
         barcamp_full = len(all_tickets) >= self.barcamp.max_participants
+        max_tickets_left = self.barcamp.max_participants - len(all_tickets) # max. number of all available tickets
 
         ticket_classes = []
         for tc in self.barcamp.ticketlist:
@@ -203,7 +204,7 @@ class TicketService(object):
             tc['has_ticket'] = False
             # this is used to prevent a user from selecting more tickets than the bc had tickets left
             # see ticket_wizard.html
-            tc['max_left'] = self.barcamp.max_participants - len(all_tickets) # max. number of all available tickets
+            tc['max_left'] = max_tickets_left
 
             # compute "fullness"
             tc['progress'] = len(tickets_for_class) / float(tc.size) * 100
@@ -212,7 +213,7 @@ class TicketService(object):
                 tc['tickets_left'] = 0
                 tc['full'] = True
             else:                
-                tc['tickets_left'] = tc.size - len(tickets_for_class)
+                tc['tickets_left'] = min(max_tickets_left, tc.size - len(tickets_for_class))
             if self.user:
                 uid = self.user._id
                 userids = [t.user_id for t in tickets_for_class]
