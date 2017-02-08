@@ -3,6 +3,7 @@
 
 {% macro ticketblock(tickets, 
         cancel = False,
+        download = False,
         headline='Select tickets', 
         description='Please select which tickets you want to register for',
         css_id = "tickets") %}
@@ -20,14 +21,16 @@
                         <div class="panel-body">
                             {{tc.description}}
                         </div>{# panel-body #}
-                        {% if cancel %}
                             <div class="panel-footer clearfix">
+                                {% if download %}
                                 <a href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">Download Ticket</a>
+                                {% endif %}
+                                {% if cancel %}
                                 <a href="" 
                                     data-confirm="{{_('Are you sure?')}}" 
                                     class="action-confirm text-danger pull-right">{{_('Cancel ticket')}}</a>
+                                {% endif %}
                             </div>
-                        {% endif %}
                     </article>
                 {% endfor %}
             </div>
@@ -50,6 +53,7 @@
         {% if confirmed %}
             {{ticketblock(confirmed, 
                 cancel = True,
+                download = True,
                 headline = '',
                 description = '')}}
         {% endif %}
