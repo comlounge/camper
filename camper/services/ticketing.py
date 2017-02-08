@@ -133,7 +133,6 @@ class TicketService(object):
             ticket = tickets.put(ticket)
             self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
-            print self.user
             self.mail_template("ticket_pending",
                 ticket_pdf = None,
                 view = view,
