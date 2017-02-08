@@ -17,7 +17,7 @@
                             <div class="checkbox">
                                 <label>
                                     {% if active %}
-                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}"> 
+                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}" data-parsley-maxcheck="{{tc.max_left}}"> 
                                     {% endif %}
 
                                     <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
@@ -25,25 +25,10 @@
                                             <h4 class="panel-title">
                                                 {{tc.name}} 
                                             </h4>
-                                            <small>{{tc.description}}</small>
-                                                <hr>  
-                                                <div class="progress-info">
-                                                    <span class="filled">{{tc.reserved}}</span>
-                                                    /
-                                                    <span class="size">{{tc.size}}</span> 
-                                                    {{_('participants')}}
-                                                </div>
-                                                <div class="progress participants-progress">
-                                                    <div class="progress-bar {{'progress-bar-info' if tc.progress < 80 else 'progress-bar-warning'}}" 
-                                                        role="progressbar" 
-                                                        aria-valuenow="{{confirmed}}" 
-                                                        aria-valuemin="0" 
-                                                        aria-valuemax="{{tc.size}}" style="width: {{tc.progress|int}}%;">
-                                                            {% if tc.full %}
-                                                                <span class="text-danger">{{_('no places left.')}}</span>
-                                                            {% endif %}
-                                                    </div>
-                                                </div>
+                                            <div class="ticket-description">{{tc.description}}</div>
+                                            <div class="tickets-left">
+                                                {{_('%(amount)s tickets left.') %{'amount' : tc.tickets_left}}}
+                                            </div>
                                         </div>{# panel-heading #}
                                     </article>
                                 </label>
@@ -131,7 +116,6 @@
             <fieldset>
                 <legend>{{_('Provide barcamp specific data')}}</legend>
                 <div class="fs-content">
-
                     <div class="help-block">{{_("The barcamp administrator asks you to provide the following data. This will not be shared with other barcamps.")}}</div>
                     {% for field in form %}
                         {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
@@ -141,6 +125,12 @@
         {% endif %}
         {% if available %}
             {{ticketblock(available, active = True, headline = _('Reserve your tickets'))}}
+            {% if show_tickets_left %}
+                <div class="alert alert-warning">
+                    {{_('<b>Please note:</b> This barcamp only has %s tickets left.') %(tickets_left)}}
+                </div>
+                
+            {% endif %}
             {% if barcamp.paid_tickets %}
                 <div class="checkbox">
                     <label>

@@ -133,6 +133,7 @@ class TicketService(object):
             ticket = tickets.put(ticket)
             self.log.info("ticket preregistered", ticket = ticket)
             status = "pending"
+            print self.user
             self.mail_template("ticket_pending",
                 ticket_pdf = None,
                 view = view,
@@ -186,6 +187,10 @@ class TicketService(object):
         
         """
 
+        # retrieve amount of tickets for this barcamp and check if it's full
+        all_tickets = self.get_tickets(status=['confirmed', 'pending'])
+        barcamp_full = len(all_tickets) >= self.barcamp.max_participants
+
         ticket_classes = []
         for tc in self.barcamp.ticketlist:
 
@@ -197,10 +202,18 @@ class TicketService(object):
             tickets_for_class = self.get_tickets(ticketclass_id = tc._id, status=['confirmed', 'pending'])
             tc['full'] = len(tickets_for_class) >= tc.size
             tc['has_ticket'] = False
+            # this is used to prevent a user from selecting more tickets than the bc had tickets left
+            # see ticket_wizard.html
+            tc['max_left'] = self.barcamp.max_participants - len(all_tickets) # max. number of all available tickets
 
             # compute "fullness"
             tc['progress'] = len(tickets_for_class) / float(tc.size) * 100
             tc['reserved'] = len(tickets_for_class)
+            if barcamp_full:
+                tc['tickets_left'] = 0
+                tc['full'] = True
+            else:                
+                tc['tickets_left'] = tc.size - len(tickets_for_class)
             if self.user:
                 uid = self.user._id
                 userids = [t.user_id for t in tickets_for_class]
@@ -238,7 +251,7 @@ class TicketService(object):
             raise TicketError("ticket not in pending state")
 
         ticket['workflow'] = "confirmed"
-        #ticket.save()
+        ticket.save()
         self.log.info("ticket approved", ticket = ticket)
 
         uid = ticket['user_id']

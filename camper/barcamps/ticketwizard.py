@@ -173,6 +173,11 @@ class TicketWizard(BarcampBaseHandler):
         # classes not yet active will not be returned.
         available_ticket_classes = ticketservice.available_ticket_classes
 
+
+        # compute max amount of tickets left for barcamp 
+        all_tickets = ticketservice.get_tickets(status=['confirmed', 'pending'])
+        tickets_left = self.barcamp.max_participants - len(all_tickets)
+
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -180,6 +185,8 @@ class TicketWizard(BarcampBaseHandler):
             form = regform,
             userform = userform,
             available = available_ticket_classes,
+            tickets_left = tickets_left,
+            show_tickets_left = tickets_left < len(available_ticket_classes),
             **self.barcamp)
 
     post = get
