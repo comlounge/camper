@@ -88,6 +88,7 @@ class BarcampModule(Module):
 
         URL('/<slug>/tickets',              'tickets',                          ticketwizard.TicketWizard),
         URL('/<slug>/mytickets',            'mytickets',                        mytickets.MyTickets),
+        URL('/<slug>/mytickets/<ticket_id>/cancel',            'ticketcancel',                     mytickets.TicketCancel),
         URL('/<slug>/mytickets/<ticket_id>','ticketpdf',                        mytickets.TicketPDF),
 
         URL('/<slug>/admin/galleries',      'admin_galleries',                  galleries.GalleryList),

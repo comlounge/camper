@@ -65,6 +65,7 @@ class TicketService(object):
         self.userbase = self.app.module_map['userbase']
         self.user = user
         self.log = logbook.Logger(self.LOGGER)
+        self._ = handler._
 
 
     def get_tickets(self, **kwargs):
@@ -274,6 +275,27 @@ class TicketService(object):
         return "confirmed"
 
 
+    def user_cancel_ticket(self, tc_id, ticket_id, reason = ""):
+        """user cancels a ticket: store reason and set workflow"""
+
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+        self.log.debug("canceling ticket", ticket = ticket)
+        ticket['workflow'] = "cancel_request"
+        ticket['cancel_reason'] = reason
+        ticket.save()
+        self.log.info("ticket canceled request stored", ticket = ticket)
+
+        uid = ticket['user_id']
+        user = self.userbase.get_user_by_id(uid)
+        self.log.debug("found user", uid = uid, email = user.email)
+
+        self.send_email_to_user(user, "ticketcancel_receipt", self._('Your Ticket Cancel Request'), ticket)
+        self.send_email_to_admins(user, "ticketcancel_request", self._('Ticket Cancel Request'), ticket)
+
+        return
+
+
+
     def cancel_ticket(self, tc_id, ticket_id, reason = ""):
         """cancel a ticket which means deleting it"""
 
@@ -381,27 +403,42 @@ class TicketService(object):
         server.sendmail(from_, [send_to], msg.as_string())
         server.quit()
 
-    def send_email_to_admins(self, template_name, event, subject):
+
+    def send_email_to_user(self, user, template_name, subject, ticket):
+        """send out notification emails on registration events"""
+        
+        mailer = self.app.module_map['mail']
+        barcamp = self.barcamp
+        send_tos = [user.email]
+        kwargs = dict(
+            user = user,
+            barcamp = barcamp,
+            ticket = ticket,
+            url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
+            mytickets_url = self.handler.url_for("barcamps.mytickets", slug = self.barcamp.slug, _full = True)
+        )
+        payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
+        mailer.mail(user.email, subject, payload)
+
+    def send_email_to_admins(self, user, template_name, subject, ticket):
         """send out notification emails on registration events"""
         
         mailer = self.app.module_map['mail']
         barcamp = self.barcamp
         new_user = self.user # user registering
         for admin in self.barcamp.admin_users:
-                send_tos = [admin.email]
-                kwargs = dict(
-                    new_user = new_user,
-                    user = admin,
-                    barcamp = barcamp,
-                    event = event,
-                    url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
-                    notification_url = self.handler.url_for("barcamps.edit", slug = self.barcamp.slug, _full = True)
-                )
-                payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
-                mailer.mail(admin.email, subject, payload)
-
-
-            
+            send_tos = [admin.email]
+            kwargs = dict(
+                new_user = new_user,
+                user = admin,
+                ticket = ticket,
+                barcamp = barcamp,
+                url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
+                notification_url = self.handler.url_for("barcamps.edit", slug = self.barcamp.slug, _full = True),
+                ticketlist_url = self.handler.url_for("barcamps.admin_ticketlist", slug = self.barcamp.slug, _full = True)
+            )
+            payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
+            mailer.mail(admin.email, subject, payload)
 
 
 

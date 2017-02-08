@@ -48,6 +48,9 @@ class TicketSchema(Schema):
     ticketclass_id      = String()  # the id of the ticket class this ticket belongs to
     user_id             = String()  # owner of the ticket
     workflow            = String()  # see status above
+    ticketclass         = Dict(default={})    # the ticket class definition when buying the ticket
+
+    cancel_reason       = String(default='')  # reason to cancel in case of user cancel request
 
 
 class Ticket(Record):
@@ -61,13 +64,16 @@ class Ticket(Record):
         'created'       : datetime.datetime.utcnow,
         'updated'       : datetime.datetime.utcnow,
         'workflow'      : 'pending',
+        'cancel_reason' : '',
+        'ticketclass'   : {},
     }
 
     workflow_states = {
         'in_registration'   : ['pending', 'confirmed'], # this state is used if user is still being registered
         'pending'           : ['confirmed'], # might be pending if prereg is on
-        'confirmed'         : ['cancelled', 'deleted'], # ticket is live
+        'confirmed'         : ['cancelled', 'deleted', 'cancel_request'], # ticket is live
         'cancelled'         : [], # ticket was cancelled by user 
+        'cancel_request'    : ['cancelled'], # user requested a cancel
         'deleted'           : [], # ticket was cancelled by admin
     }
 

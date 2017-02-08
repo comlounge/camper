@@ -26,9 +26,8 @@
                                 <a href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">Download Ticket</a>
                                 {% endif %}
                                 {% if cancel %}
-                                <a href="" 
-                                    data-confirm="{{_('Are you sure?')}}" 
-                                    class="action-confirm text-danger pull-right">{{_('Cancel ticket')}}</a>
+                                <a href="{{url_for('.ticketcancel', slug = slug, ticket_id = t._id)}}" 
+                                    class="text-danger pull-right">{{_('Cancel ticket')}}</a>
                                 {% endif %}
                             </div>
                     </article>

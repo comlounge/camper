@@ -10,8 +10,10 @@ import xlwt
 from cStringIO import StringIO
 import datetime
 from bson import ObjectId
-
+from sfext.babel import T
 from camper.services import * 
+from mongogogo import ObjectNotFound
+
 
 
 
@@ -78,7 +80,6 @@ class TicketPDF(BarcampBaseHandler):
 
         ticket_class = self.barcamp.get_ticket_class(ticket.ticketclass_id)
 
-        print self.barcamp_view.logo
         out = self.render(tmplname = tmplname,
             ticket = ticket,
             ticket_class = ticket_class,
@@ -88,5 +89,66 @@ class TicketPDF(BarcampBaseHandler):
             **self.barcamp
         )
         return out
+
+
+class CancelForm(BaseForm):
+    """form for adding a new ticket class"""
+
+    reason         = TextAreaField(T(u"Reason"), [validators.Optional(), validators.Length(max=10000)],
+                description = T(u'Please give a reason for canceling here (optional).'),
+    )
+    
+class TicketCancel(BarcampBaseHandler):
+    """handles canceling a ticket by the user"""
+
+    template = "ticketcancel.html"
+    LOGGER = "user_ticketcancel"
+
+
+    @logged_in()
+    @ensure_barcamp()
+    def get(self, slug, ticket_id):
+        """show the form"""
+
+        form = CancelForm(self.request.form, config = self.config)
+
+        # retrieve ticket
+        ticket_db = self.app.config.dbs.tickets
+        try:
+            ticket = ticket_db.get(ObjectId(ticket_id))
+        except ObjectNotFound:
+            self.log.error("unknown ticket id", ticket_id = ticket_id)
+            raise werkzeug.exceptions.NotFound()
+
+        if self.request.method=="POST":
+            if form.validate():
+                ticketservice = TicketService(self, self.user)
+                ticketservice.user_cancel_ticket(ticket.ticketclass_id, ticket_id, reason = form.data['reason'])
+                self.flash(self._('Your cancel request has been submitted.'), category="danger")
+                return redirect(self.url_for('barcamps.mytickets', slug = slug))
+
+        # get ticket class
+        tc_id = ticket.ticketclass_id
+        ticket_class = self.barcamp.get_ticket_class(tc_id)
+        if ticket_class is None:
+            self.log.error("unknown ticket class", tc_id = tc_id)
+            raise werkzeug.exceptions.NotFound()
+
+        if ticket['user_id'] != self.user_id:
+            self.log.error("user does not match ticket user", tc_id = tc_id)
+            raise werkzeug.exceptions.NotFound()
+
+        return self.render(
+            view = self.barcamp_view,
+            barcamp = self.barcamp,
+            ticket = ticket,
+            ticket_class = ticket_class,
+            form = form,
+            user = self.user,
+            title = self.barcamp.name,
+            **self.barcamp)
+
+
+    post = get
 
 

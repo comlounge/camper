@@ -5,13 +5,18 @@
 {% macro userlist(tickets, tc_id, typ="participants") %}
     <ul class="admin-participants">
     {% for ticket in tickets %}
-        <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
-                <img class="profile-image-userlist" src="{{userview(ticket.user).image_thumb}}">
-            </a>
-            <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
-                {{ticket.user.fullname}}
-            </a>
+        <li class="participant clearfix">
+            <div class="pull-left">
+                <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
+                    <img class="profile-image-userlist" src="{{userview(ticket.user).image_thumb}}">
+                </a>
+                <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
+                    {{ticket.user.fullname}}<br>
+                    {% if ticket.cancel_reason %}
+                        <span class="text-danger">{{ticket.cancel_reason}}</span>
+                    {% endif %}
+                </a>
+            </div>
             
             {% if typ!="canceled" %}
             <div class="actions pull-right">
@@ -23,18 +28,10 @@
                         data-uid="{{ticket.user._id}}" 
                         class="btn btn-xs btn-success listaction"><i class="fa fa-check"></i> {{_('Approve')}}</a>
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
-                        data-status="approve" 
-                        data-tcid="{{tc_id}}" 
-                        data-tid="{{ticket._id}}" 
-                        data-uid="{{ticket.user._id}}" 
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
                 {% elif typ=="confirmed" %}
-                    <a href="" 
-                        data-status="cancel" 
-                        data-tcid="{{tc_id}}" 
-                        data-tid="{{ticket._id}}" 
-                        data-uid="{{ticket.user._id}}" 
-                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
+                    <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Confirm Cancel')}}</a>
                 {% endif %}
             </div>
             {% endif %}
@@ -62,7 +59,6 @@
 
             {% if tc.confirmed %}
                 <div class="panel-body">
-
                     <h4>{{'Confirmed Ticket Reservations'}}</h4>
                     {{userlist(tc.confirmed, tc._id, typ="confirmed")}}
                 </div>
@@ -70,14 +66,17 @@
 
             {% if tc.canceled %}
                 <div class="panel-body">
-
                     <h5>{{'Canceled Ticket Reservations'}}</h5>
                     {{userlist(tc.canceled, tc._id, typ="canceled")}}
                 </div>
             {% endif %}
 
-
-
+            {% if tc.cancel_request %}
+                <div class="panel-body">
+                    <h3 class="text-danger">{{'Ticket Cancel Request'}}</h3>
+                    {{userlist(tc.cancel_request, tc._id, typ="confirmed")}}
+                </div>
+            {% endif %}
         </section>
             
     {% endfor %}

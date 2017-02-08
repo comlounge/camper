@@ -34,7 +34,7 @@ class TicketList(BarcampBaseHandler):
 
         ticket_classes = self.barcamp.ticketlist
         for tc in ticket_classes:
-            for status in ['pending', 'confirmed', 'canceled']:
+            for status in ['pending', 'confirmed', 'canceled', 'cancel_request']:
                 tc[status] = tickets.get_tickets(
                     barcamp_id = self.barcamp._id,
                     user_id = self.user_id, 
