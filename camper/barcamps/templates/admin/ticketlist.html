@@ -21,7 +21,7 @@
                         data-tcid="{{tc_id}}" 
                         data-tid="{{ticket._id}}" 
                         data-uid="{{ticket.user._id}}" 
-                        class="btn btn-xs btn-success"><i class="fa fa-check"></i> {{_('Approve')}}</a>
+                        class="btn btn-xs btn-success listaction"><i class="fa fa-check"></i> {{_('Approve')}}</a>
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
                         data-status="approve" 
                         data-tcid="{{tc_id}}" 
@@ -30,7 +30,7 @@
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
                 {% elif typ=="confirmed" %}
                     <a href="" 
-                        data-status="approve" 
+                        data-status="cancel" 
                         data-tcid="{{tc_id}}" 
                         data-tid="{{ticket._id}}" 
                         data-uid="{{ticket.user._id}}" 

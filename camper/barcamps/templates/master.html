@@ -24,8 +24,8 @@
                             data-toggle="tooltip" 
                             data-placement="top"
                             href="{{url_for('barcamps.mytickets' if logged_in and barcamp.get_tickets_for_user(user_id) else 'barcamps.tickets', slug=slug)}}" 
-                            class="btn btn-lg btn-block btn-inverse">
-                        <i class="fa fa-check"></i>
+                            class="btn btn-lg btn-block btn-inverse btn-sidebar">
+                        <i class="fa fa-ticket"></i>
                         {{_('Tickets')}}</a>
                     </div>
                 {% else %}
