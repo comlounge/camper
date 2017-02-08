@@ -31,10 +31,10 @@
             <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
                 <div class="row">
                     <div class="col-md-8">
-                        {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.has_imprint or not barcamp.contact_email)}}
-                        {% if not barcamp.has_imprint and not barcamp.contact_email %}
+                        {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.paid_allowed)}}
+                        {% if not barcamp.paid_allowed %}
                             <div class="help-block alert alert-warning">
-                                {{_('You can add an imprint and contact email address ')}}<a href="{{url_for('.edit', slug = slug)}}">{{_('here.')}}</a>
+                                {{_('Please add the necessary legal information for enabling a paid barcamp <a href="%s">here</a>.') %url_for('.edit', slug = slug)}}</a>
                             </div>
                         {% endif %}
                         {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}

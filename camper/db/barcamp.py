@@ -569,6 +569,13 @@ class Barcamp(Record):
         tickets = self._collection.md.app.config.dbs.tickets
         return tickets.get_tickets(user_id = user_id, barcamp_id = self._id, status = status)
 
+    @property
+    def paid_allowed(self):
+        """check if all necessary fields are present for paid mode"""
+        return self.contact_email \
+            and len(self.imprint.strip())>20 \
+            and len(self.tos.strip())>20 \
+            and len(self.cancel_policy.strip())>20
 
     @property
     def has_imprint(self):

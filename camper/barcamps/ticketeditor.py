@@ -115,9 +115,9 @@ class TicketingConfig(BarcampBaseHandler):
             bc.update(config_form.data)
 
         # some paid mode special conditions
-        if self.request.form.get("paid_tickets", "") == "true" and bc.has_imprint and bc.contact_email:
-                bc.paid_tickets = True
-                bc.preregistration = True
+        if self.request.form.get("paid_tickets", "") == "true" and bc.paid_allowd:
+            bc.paid_tickets = True
+            bc.preregistration = True
         else:
             bc.paid_tickets = False
 
