@@ -34,7 +34,7 @@
                         {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.paid_allowed)}}
                         {% if not barcamp.paid_allowed %}
                             <div class="help-block alert alert-warning">
-                                {{_('Please add the necessary legal information for enabling a paid barcamp <a href="%s">here</a>.') %url_for('.edit', slug = slug)}}</a>
+                                {{_('Please add the necessary legal information for enabling a paid barcamp <a href="%s">here</a>.') %url_for('.legaledit', slug = slug)}}</a>
                             </div>
                         {% endif %}
                         {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
