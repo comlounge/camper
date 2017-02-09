@@ -4,7 +4,7 @@
 
 {% macro userlist(tickets, tc_id, typ="participants") %}
     <ul class="admin-participants">
-    {% for ticket in tickets*2 %}
+    {% for ticket in tickets %}
         <li class="participant clearfix">
             <div class="pull-left">
                 <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
