@@ -2,10 +2,9 @@
 {% extends "admin_master.html" %}
 
 {% import "macros.html" as formmacros with context %}
-{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
 {% block content %}
     {% block title %}
-        <h1>{{_('Edit legal information')}}</h1>
+        <h1>{{_('Edit social and SEO information')}}</h1>
     {% endblock %}
 
     <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
