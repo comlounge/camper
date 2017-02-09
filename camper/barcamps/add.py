@@ -31,26 +31,13 @@ class BarcampAddForm(BaseForm):
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually. Please make sure you also change the waiting list mail template as this will be sent when a user pre-registers.'))
     send_email_to_admins= BooleanField(T('Send email notifications'), description=T(u'If enabled barcamp administrators will receive notifications about people registering and unregistering from the barcamp'))
-    seo_description     = TextField(T('Meta Description'), 
-                            [validators.Length(max=160)],
-                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
-    twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
-    hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
-    gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
-    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
-    homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
     
-    contact_email       = TextField(T("Contact E-Mail"), [validators.Length(max=200), validators.Optional(), validators.Email()], description=T("an email address under which a barcamp admin can be contacted. This address will be publically displayed."))
-    imprint             = WYSIWYGField(T("Imprint"), [validators.Length(max=2000)], description=T("Please describe in detail who is responsible for this barcamp. This is mandatory for paid barcamps."))
-    tos                 = WYSIWYGField(T("Terms of Service"), [validators.Length(max=2000)], description=T("Please enter your terms of service here."))
-    cancel_policy       = WYSIWYGField(T("Cancellation Policy"), [validators.Length(max=2000)], description=T("Please describe your cancellation policy (make sure it complies to your local law)."))
-
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city                = TextField(T("city"), [])

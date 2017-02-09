@@ -32,19 +32,11 @@ class BarcampEditForm(BaseForm):
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually. Please make sure you also change the waiting list mail template as this will be sent when a user pre-registers.'))
     send_email_to_admins= BooleanField(T('Send email notifications'), description=T(u'If enabled barcamp administrators will receive notifications about people registering and unregistering from the barcamp'))
-    seo_description     = TextField(T('Meta Description'), 
-                            [validators.Length(max=160)],
-                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
 
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
     twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
             description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
-    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=15)], description=T("only the username, max. 15 characters"))
-    hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
-    gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
-    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
-    homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
     fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
 
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)

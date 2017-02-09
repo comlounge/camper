@@ -1,0 +1,67 @@
+{% set menu="social" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Edit legal information')}}</h1>
+    {% endblock %}
+
+    <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
+        <fieldset id="social-view">
+            <legend>{{_('Social')}}</legend>
+            <div class="form-group">
+                <label for="homepage" class="col-sm-2">{{_('Website')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.homepage, placeholder=_('https://'))}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="seo_description" class="col-sm-2">{{_('Meta Description')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.seo_description, placeholder=_('barcamp description in 160 chars'), maxlength=160)}}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-2">{{_('Twitter')}}</label>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="twitter">{{_('Twitter Account')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="twitter-addon">@</span>
+                        {{form.twitter(class="form-control", maxlength=15, placeholder=_('Twitter-Account'), **{'aria-describedby': 'twitter-addon'})}}
+                    </div>
+                        <p class="help-block">{{ _(form.twitter.description) }}</p>
+                </div>
+                <div class="col-sm-5">
+                    <label class="sr-only" for="twitter">{{_('Twitter Hashtag')}}</label>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="hashtag-addon">#</span>
+                        {{form.hashtag(class="form-control", maxlength=100, placeholder=_('Twitter-Hashtag'), **{'aria-describedby': 'hashtag-addon'})}}
+                    </div>
+                        <p class="help-block">{{ _(form.hashtag.description) }}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="facebook" class="col-sm-2">{{_('Facebook')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.facebook, placeholder=_('https://facebook.com/...'))}}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="gplus" class="col-sm-2">{{_('Google Plus')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.gplus, placeholder=_('https://plus.google.com/+<name>'))}}
+                </div>
+            </div>
+        </fieldset>
+
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('Save Changes')}}">
+            <a href="{{url_for("barcamps.index", slug = barcamp.slug)}}" class="btn btn-large">{{_('Cancel')}}</a>
+        {% endblock %}
+    </form>
+{% endblock %}
