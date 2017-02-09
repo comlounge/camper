@@ -26,6 +26,7 @@ import ticketeditor
 import mytickets
 import ticketlist
 import legal
+import legaledit
 
 from starflyer import Module, URL
 
@@ -41,6 +42,7 @@ class BarcampModule(Module):
         URL('/<slug>/validate',             'validate',                         add.ValidateView),
         URL('/<slug>/delete',               'delete',                           delete.DeleteConfirmView),
         URL('/<slug>/edit',                 'edit',                             edit.EditView),
+        URL('/<slug>/legaledit',            'legaledit',                        legaledit.LegalEditView),
         URL('/<slug>/mails_edit',           'email_template_editor',            edit.MailsEditView),
         URL('/<slug>/newsletter_send',      'newsletter_send',                  newsletter.NewsletterEditView),
         URL('/<slug>/participants_edit',    'participants_edit',                edit.ParticipantsEditView),
