@@ -166,8 +166,9 @@ class TicketService(object):
 
         # send email to admins            
         if self.barcamp.send_email_to_admins:
-            subject = self.handler._('a Ticket was acquired for  %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(self.barcamp.tickets[tcid]), tc['size'])
-            self.send_email_to_admins("admin_ticketbought", tc, subject)
+            tc = ticket_class
+            subject = self.handler._('a Ticket was acquired for  %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
+            self.send_email_to_admins(self.user, "admin_ticketbought", subject, ticket)
 
         self.barcamp.save()
         return status
@@ -437,6 +438,7 @@ class TicketService(object):
                 barcamp = barcamp,
                 url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
                 notification_url = self.handler.url_for("barcamps.edit", slug = self.barcamp.slug, _full = True),
+                barcamp_url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
                 ticketlist_url = self.handler.url_for("barcamps.admin_ticketlist", slug = self.barcamp.slug, _full = True)
             )
             payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
