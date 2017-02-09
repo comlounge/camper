@@ -19,6 +19,7 @@
             {% endif %}
         </div>    
     {% endif %}
+    {{ form_field_errors(field) }}
 {%- endmacro %}
 
 {%- macro form_field_label(field, label_class="") -%}
