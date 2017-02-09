@@ -48,9 +48,10 @@ class TicketSchema(Schema):
     ticketclass_id      = String()  # the id of the ticket class this ticket belongs to
     user_id             = String()  # owner of the ticket
     workflow            = String()  # see status above
-    ticketclass         = Dict(default={})    # the ticket class definition when buying the ticket
+    orig_ticketclass    = Dict(default={})    # the ticket class definition when buying the ticket
 
     cancel_reason       = String(default='')  # reason to cancel in case of user cancel request
+    cancel_date         = DateTime()
 
 
 class Ticket(Record):
@@ -65,7 +66,8 @@ class Ticket(Record):
         'updated'       : datetime.datetime.utcnow,
         'workflow'      : 'pending',
         'cancel_reason' : '',
-        'ticketclass'   : {},
+        'orig_ticketclass'   : {},
+        'cancel_date'   : None,
     }
 
     workflow_states = {
