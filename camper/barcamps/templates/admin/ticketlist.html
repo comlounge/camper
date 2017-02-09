@@ -4,7 +4,7 @@
 
 {% macro userlist(tickets, tc_id, typ="participants") %}
     <ul class="admin-participants">
-    {% for ticket in tickets %}
+    {% for ticket in tickets*2 %}
         <li class="participant clearfix">
             <div class="pull-left">
                 <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
@@ -12,10 +12,14 @@
                 </a>
                 <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
                     {{ticket.user.fullname}}<br>
-                    {% if ticket.cancel_reason %}
-                        <span class="text-danger">{{ticket.cancel_reason}}</span>
-                    {% endif %}
                 </a>
+                {% if ticket.workflow == "cancel_request" %}
+                    <div class="ticket-cancel-info-box"">
+                        <span class="text-danger">{{ticket.cancel_reason}}</span><br>
+                        {{_('Ticket created:')}} <strong>{{dateformat(ticket.created)}}</strong>, 
+                        {{_('Ticket cancel requested:')}} <strong>{{dateformat(ticket.cancel_request_date)}}</strong>
+                    </div>
+                {% endif %}
             </div>
             
             {% if typ!="canceled" %}
@@ -30,6 +34,9 @@
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
                 {% elif typ=="confirmed" %}
+                    <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel')}}</a>
+                {% elif typ=="cancel_request" %}
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Confirm Cancel')}}</a>
                 {% endif %}
@@ -74,7 +81,7 @@
             {% if tc.cancel_request %}
                 <div class="panel-body">
                     <h3 class="text-danger">{{'Ticket Cancel Request'}}</h3>
-                    {{userlist(tc.cancel_request, tc._id, typ="confirmed")}}
+                    {{userlist(tc.cancel_request, tc._id, typ="cancel_request")}}
                 </div>
             {% endif %}
         </section>

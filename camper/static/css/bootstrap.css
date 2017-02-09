@@ -7580,6 +7580,13 @@ form {
   padding: 30% 15%;
   text-align: center;
 }
+.ticket-cancel-info-box {
+  font-size: 12px;
+}
+.ticket-cancel-info-box span {
+  font-size: 14px;
+  font-weight: bold;
+}
 .gallery {
   width: 100%;
   overflow: hidden;

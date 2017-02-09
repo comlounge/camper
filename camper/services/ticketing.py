@@ -282,6 +282,7 @@ class TicketService(object):
         self.log.debug("canceling ticket", ticket = ticket)
         ticket['workflow'] = "cancel_request"
         ticket['cancel_reason'] = reason
+        ticket['cancel_request_date'] = datetime.datetime.now()
         ticket.save()
         self.log.info("ticket canceled request stored", ticket = ticket)
 
@@ -302,6 +303,7 @@ class TicketService(object):
         ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
         self.log.debug("canceling ticket", ticket = ticket)
         ticket['workflow'] = "canceled"
+        ticket['cancel_date'] = datetime.datetime.now()
         ticket.save()
         self.log.info("ticket canceled / deleted", ticket = ticket)
 

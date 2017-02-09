@@ -51,7 +51,8 @@ class TicketSchema(Schema):
     orig_ticketclass    = Dict(default={})    # the ticket class definition when buying the ticket
 
     cancel_reason       = String(default='')  # reason to cancel in case of user cancel request
-    cancel_date         = DateTime()
+    cancel_request_date = DateTime() # date when the request came in
+    cancel_date         = DateTime() # date when the cancel actually happened
 
 
 class Ticket(Record):
@@ -68,6 +69,7 @@ class Ticket(Record):
         'cancel_reason' : '',
         'orig_ticketclass'   : {},
         'cancel_date'   : None,
+        'cancel_request_date'   : None,
     }
 
     workflow_states = {
