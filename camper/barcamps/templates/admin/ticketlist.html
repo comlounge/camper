@@ -13,11 +13,14 @@
                 <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
                     {{ticket.user.fullname}}<br>
                 </a>
+                {% if ticket.workflow == "canceled" %}
+                    {{_('Ticket created:')}} <strong>{{dateformat(ticket.created)}}</strong>, 
+                    {{_('Ticket cancel requested:')}} <strong>{{dateformat(ticket.cancel_request_date)}}</strong>,
+                    {{_('Ticket canceled:')}} <strong>{{dateformat(ticket.cancel_date)}}</strong>
+                {% endif %}
                 {% if ticket.workflow == "cancel_request" %}
                     <div class="ticket-cancel-info-box"">
                         <span class="text-danger">{{ticket.cancel_reason}}</span><br>
-                        {{_('Ticket created:')}} <strong>{{dateformat(ticket.created)}}</strong>, 
-                        {{_('Ticket cancel requested:')}} <strong>{{dateformat(ticket.cancel_request_date)}}</strong>
                     </div>
                 {% endif %}
             </div>
@@ -73,8 +76,13 @@
 
             {% if tc.canceled %}
                 <div class="panel-body">
-                    <h5>{{'Canceled Ticket Reservations'}}</h5>
+                    <h5>{{'Canceled Ticket Reservations'}}
+                        <a href="#" class="pull-right" onClick="$(this).parent().siblings('.cancel-hidden').toggle(); return false"><i class="fa fa-arrow-down"></i></a>
+                    </h5>
+
+                    <div class="cancel-hidden" style="display: none">
                     {{userlist(tc.canceled, tc._id, typ="canceled")}}
+                    </div>
                 </div>
             {% endif %}
 
