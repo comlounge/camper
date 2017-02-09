@@ -194,6 +194,11 @@ class RegistrationForm(BarcampBaseHandler):
 class RegistrationDataExport(BarcampBaseHandler):
     """exports the barcamp registration data"""
 
+
+    def export_events(self):
+        """this is used in case a normal event registration is active"""
+
+
     @ensure_barcamp()
     @logged_in()
     @is_admin()
@@ -202,14 +207,12 @@ class RegistrationDataExport(BarcampBaseHandler):
         form = self.barcamp.registration_form
         data = self.barcamp.registration_data
 
-        #participants = self.barcamp.event.participants
-
         filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
         users = {}
         ub = self.app.module_map.userbase
 
-        def process_list(userlist, state="going"):
+        def process_list(eid, userlist, state="going"):
             """process a user list"""
             for user in userlist:
                 uid = str(user._id)
@@ -252,9 +255,9 @@ class RegistrationDataExport(BarcampBaseHandler):
             participants = [ub.get_user_by_id(uid) for uid in event.participants]
 
             
-            process_list(participants, "going")
-            process_list(maybe, "maybe")
-            process_list(waitinglist, "waiting")
+            process_list(eid, participants, "going")
+            process_list(eid, maybe, "maybe")
+            process_list(eid, waitinglist, "waiting")
 
 
         # do the actual excel export
@@ -295,31 +298,6 @@ class RegistrationDataExport(BarcampBaseHandler):
 
             i = i + 1
 
-        stream = StringIO()
-        wb.save(stream)
-        response = self.app.response_class(stream.getvalue(), content_type="application/excel")
-        response.headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
-        return response
-
-
-
-        # data
-        for uid, record in data.items():
-
-            # only take those users which are participants
-            if uid not in participants:
-                continue
-                
-            # write participant name
-            user = self.app.module_map.userbase.get_user_by_id(uid)
-            ws.write(i, 0, unicode(user['fullname']))
-
-            # write rest
-            c = 1
-            for field in [f['name'] for f in form]:
-                ws.write(i, c, unicode(record.get(field, "n/a")))
-                c = c + 1
-            i = i + 1
         stream = StringIO()
         wb.save(stream)
         response = self.app.response_class(stream.getvalue(), content_type="application/excel")
