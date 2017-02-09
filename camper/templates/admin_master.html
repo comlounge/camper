@@ -42,14 +42,14 @@
                     <li class="{{'active' if menu=='edit'}}"><a href="{{url_for("barcamps.edit", slug=slug)}}"><i class="fa fa-edit"></i> {{_('edit base information')}}</a></li>
                     <li class="{{'active' if menu=='design'}}"><a href="{{url_for("barcamps.admin_design", slug=slug)}}"><i class="fa fa-magic"></i> {{_('Design and Layout')}}</a></li>
                     <li class="{{'active' if menu=='sponsors'}}"><a href="{{url_for("barcamps.sponsors", slug=slug)}}" role="button" data-toggle="modal"><i class="fa fa-dollar"></i> {{_('manage sponsors')}}</a></li>
-                    <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar"></i> {{_('edit events')}}</a></li>
+                    <li class="{{'active' if menu=='events'}}"><a href="{{url_for("barcamps.events", slug=slug)}}"><i class="fa fa-calendar-o"></i> {{_('edit events')}}</a></li>
                     <li class="{{'active' if menu=='social'}}"><a href="{{url_for("barcamps.socialedit", slug=slug)}}"><i class="fa fa-facebook-square"></i> {{_('social & SEO')}}</a></li>
                     <li class="{{'active' if menu=='legal'}}"><a href="{{url_for("barcamps.legaledit", slug=slug)}}"><i class="fa fa-shopping-cart"></i> {{_('legal information')}}</a></li>
                     <li class="{{'active' if menu=='tickets'}}"><a href="{{url_for("barcamps.admin_ticketeditor", slug=slug)}}"><i class="fa fa-gear"></i> {{_('configure tickets')}}</a></li>
                     {% if barcamp.ticketmode_enabled %}
                         <li class="{{'active' if menu=='ticketlist'}}"><a href="{{url_for("barcamps.admin_ticketlist", slug=slug)}}"><i class="fa fa-ticket"></i> {{_('manage tickets')}}</a></li>
                     {% endif %}
-                    <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-tags"></i> {{_('edit registration form')}}</a></li>
+                    <li class="{{'active' if menu=='registration'}}"><a href="{{url_for("barcamps.registration_form_editor", slug=slug)}}"><i class="fa fa-square-o"></i> {{_('custom fields')}}</a></li>
                 </ul>
 
                 <h4>{{_('Information')}}</h4>
