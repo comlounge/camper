@@ -78,7 +78,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_event" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need events")}}</button>
-                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-calendar"></i> {{_("Create an event")}}</a>
+                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-calendar-o"></i> {{_("Create an event")}}</a>
                     </div>
                 </div>
                 {% endif %}
@@ -102,7 +102,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_timetable" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a timetable")}}</button>
-                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-facebook"></i> {{_("Add timetables to your events")}}</a>
+                        <a href="{{url_for('.events', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-calendar"></i> {{_("Add timetables to your events")}}</a>
                     </div>
                 </div>
                 {% endif %}
@@ -151,7 +151,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_twitter" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't use twitter")}}</button>
-                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter account")}}</a>
+                        <a href="{{url_for('.socialedit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter account")}}</a>
                     </div>
                 </div>
                 {% endif %}
@@ -175,7 +175,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_hashtag" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a hashtag")}}</button>
-                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter hashtag")}}</a>
+                        <a href="{{url_for('.socialedit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_("Add a twitter hashtag")}}</a>
                     </div>
                 </div>
                 {% endif %}
@@ -199,7 +199,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_facebook" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't have a facebook page")}}</button>
-                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-facebook"></i> {{_("Add a facebook page")}}</a>
+                        <a href="{{url_for('.socialedit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-facebook"></i> {{_("Add a facebook page")}}</a>
                     </div>
                 </div>
                 {% endif %}
@@ -224,7 +224,7 @@
                     </div>
                     <div class="panel-footer clearfix">
                         <button type="submit" name="has_seo" class="pull-right btn btn-sm btn-warning"><i class="fa fa-ban"></i> {{_("I don't need a meta description")}}</button>
-                        <a href="{{url_for('.edit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i> {{_("Add a meta description")}}</a>
+                        <a href="{{url_for('.socialedit', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-google"></i> {{_("Add a meta description")}}</a>
                     </div>
                 </div>
                 {% endif %}
