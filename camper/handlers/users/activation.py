@@ -2,7 +2,7 @@ from starflyer import Handler, redirect
 from userbase import db
 from camper.base import BaseHandler
 
-from camper.services import RegistrationService, RegistrationError
+from camper.services import RegistrationService, RegistrationError, TicketService, TicketError
 
 __all__ = ['ActivationHandler']
 
@@ -42,13 +42,25 @@ class ActivationHandler(BaseHandler):
                         self.flash(self._("Unfortunately we couldn't find the barcamp you tried to register for. Please search for it on the homepage and register again"), category="danger")
                     else:
                         failed = False
-                        reg = RegistrationService(self, user, barcamp = barcamp)
-                        for eid in user.registered_for.get('eids', []):
-                            event = barcamp.get_event(eid)
-                            try:
-                                reg.set_status(eid, "going")
-                            except RegistrationError, e:
-                                failed = True
+
+                        # check for ticket mode
+                        if barcamp.ticketmode_enabled:
+                            ticketservice = TicketService(self, user, barcamp = barcamp)
+                            for tc_id in user.registered_for.get('tickets', []):
+                                try:
+                                    status = ticketservice.register(tc_id, new_user = user)
+                                except TicketError, e:
+                                    self.log.error("an exception when registering a ticket occurred", error_msg = e.msg)
+                                    failed = True
+
+                        else:
+                            reg = RegistrationService(self, user, barcamp = barcamp)
+                            for eid in user.registered_for.get('eids', []):
+                                event = barcamp.get_event(eid)
+                                try:
+                                    reg.set_status(eid, "going")
+                                except RegistrationError, e:
+                                    failed = True
                         if failed:
                             self.flash(self._("We could not register you for all selected events. Please check your email and the events page"), category="warning")
                         else:
