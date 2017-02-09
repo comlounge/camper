@@ -89,26 +89,44 @@ class RegistrationService(object):
                 self.send_email_to_admins("admin_cancelled_registration", event, subject)
 
 
-        # check if we can fill up the participants from the waiting list
-        uids = event.fill_participants()
+        # do we have to move people from the waitinglist?
+        self.check_waitinglist(event)
+        
+        # save the barcamp
+        self.barcamp.events[eid] = event
+        self.barcamp.save()
+
+        return status
+
+
+    def check_waitinglist(self, event):
+        """check if we need to move people from the waiting list to participants.
+
+        This can be called e.g. if you change the number of max participants for an event
+
+        The barcamp is not saved and neither is the event. You maybe want to use this code
+        to do it:
+            self.barcamp.events[eid] = event
+            self.barcamp.save()
+
+        :param event: the event object for which to check the list
+        :return uids: list of user ids moved
+        """
+        eid = event._id
+        uids = event.fill_participants() # returns the uids which have been moved
         users = self.app.module_map.userbase.get_users_by_ids(uids)
+
         for user in users:
             # send out a welcome email
             self.mail_template("fromwaitinglist",
-                view = view,
+                view = self.barcamp_view,
                 user = user,
                 barcamp = self.barcamp,
                 title = self.barcamp.name,
                 event_title = event.name,
                 event_date = event.date.strftime("%d.%m.%Y"),
                 **self.barcamp)
-
-        # save the barcamp
-        self.barcamp.events[eid] = event
-        self.barcamp.save()
-
-        return status
-        
+        return uids
 
     def mail_text(self, template_name, subject, send_to=None, user = None, **kwargs):
         """render and send out a mail as mormal text"""

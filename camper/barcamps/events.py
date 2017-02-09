@@ -1,4 +1,4 @@
-#encoding=utf8
+    #encoding=utf8
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
@@ -243,19 +243,10 @@ class EventView(BarcampBaseHandler):
                     # using user provided coordinates
                     event.update(f)
 
-            # check if we can fill up the participants from the waiting list
-            uids = event.fill_participants()
-            users = self.app.module_map.userbase.get_users_by_ids(uids)
-            for user in users:
-                # send out a welcome email
-                self.mail_template("welcome",
-                    view = self.barcamp_view,
-                    user = user,
-                    barcamp = self.barcamp,
-                    title = self.barcamp.name,
-                    **self.barcamp)
-            
-            # create and save the event object inside the barcamp
+            reg = RegistrationService(self, None)
+            reg.check_waitinglist(event)
+
+            # update event and barcamp
             self.barcamp.events[eid] = event
             self.barcamp.save()
             self.flash(self._("The event has been successfully updated"), category="info")
