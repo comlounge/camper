@@ -197,17 +197,8 @@ class RegistrationDataExport(BarcampBaseHandler):
 
     def export_events(self):
         """this is used in case a normal event registration is active"""
-
-
-    @ensure_barcamp()
-    @logged_in()
-    @is_admin()
-    def get(self, slug = None):
-        """export all the participant registration data"""
         form = self.barcamp.registration_form
         data = self.barcamp.registration_data
-
-        filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
 
         users = {}
         ub = self.app.module_map.userbase
@@ -297,7 +288,20 @@ class RegistrationDataExport(BarcampBaseHandler):
                 c = c + 1
 
             i = i + 1
+            
+        return wb
 
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """export all the participant registration data"""
+
+
+        wb = self.export_events()
+
+        # write the actual file
+        filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)    
         stream = StringIO()
         wb.save(stream)
         response = self.app.response_class(stream.getvalue(), content_type="application/excel")
