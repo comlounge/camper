@@ -9029,3 +9029,10 @@ img.flickr-embed-img {
   padding: 5px 0;
   font-size: 90%;
 }
+.ticket-description {
+  font-size: 14px;
+}
+.ticket-price {
+  margin-top: 20px;
+  font-weight: bold;
+}
