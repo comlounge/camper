@@ -8681,6 +8681,9 @@ footer {
   font-size: 14px;
   color: #666;
 }
+#eventlist .panel > .panel-heading {
+  min-height: 100px;
+}
 .nodescription {
   margin-bottom: 30px;
 }
