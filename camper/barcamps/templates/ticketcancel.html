@@ -11,14 +11,12 @@
 
         <form id="ticketclassform" method="POST" action="{{url}}">
             <input type="hidden" name="tid" value="{{ticket._id}}">
-            {{ formmacros.form_field(form.reason, required = True)}}
+            {{ formmacros.form_field(form.reason)}}
             <div class="form-actions" style="margin-top: 30px;">
                 <input type="submit" class="btn btn-lg btn-danger" value="{{_('Cancel ticket')}}">
                 <a href="{{url_for('.mytickets', slug = slug)}}" class="btn btn-default pull-right">{{_('Abort')}}</a>
             </div>
-
         </form>
-
     </section>
     
 {% endblock %}
