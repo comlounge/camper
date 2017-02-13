@@ -5,12 +5,10 @@
         cancel = False,
         download = False,
         headline='Select tickets', 
-        description='Please select which tickets you want to register for',
         css_id = "tickets") %}
     <section id="{{css_id}}">
         <h3>{{headline}}</h3>
         <div class="fs-content">
-            <div class="help-block">{{description}}</div>
             <div id="ticketlist2" class="registration-eventlist2">
                 {% for t in tickets %}
                     {% set tc = t.ticketclass %}
@@ -19,11 +17,38 @@
                             <h2 class="panel-title"> {{tc.name}} </h2>
                         </div>
                         <div class="panel-body">
-                            {{tc.description}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="ticket-description">
+                                        {{tc.description}}
+                                    </div>
+                                    {% if barcamp.paid_tickets %}
+                                        <div class="ticket-price">
+                                            {{_('Price:')}} {{tc.price}}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% if tc.events %}
+                                        <div class="ticket-events">
+                                            <h4>{{_('Events')}}</h4>
+                                            {% for eid in tc.events %}
+                                                {% set event = barcamp.get_event(eid) %}
+                                                <span class="event-date">{{dateformat(event.date)}}</span>:
+                                                <span class="event-name">{{event.name}}</span>,
+                                                <span class="event-location">{{event.event_location.name}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>{# panel-body #}
                             <div class="panel-footer clearfix">
                                 {% if download %}
-                                <a href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">Download Ticket</a>
+                                <a target="ticket" href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">
+                                    <i class="fa fa-download"></i>
+                                    {{_('Download Ticket')}}
+                                </a>
                                 {% endif %}
                                 {% if cancel %}
                                 <a href="{{url_for('.ticketcancel', slug = slug, ticket_id = t._id)}}" 
@@ -53,15 +78,14 @@
             {{ticketblock(confirmed, 
                 cancel = True,
                 download = True,
-                headline = '',
-                description = '')}}
+                headline = '')}}
         {% endif %}
         <hr>
 
         {% if pending %}
             {{ticketblock(pending, 
                 cancel = True,
-                headline = _('Your pending tickets'))}}
+                headline = _('pending tickets'))}}
         {% endif %}
     </div>
 

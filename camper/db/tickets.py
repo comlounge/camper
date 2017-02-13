@@ -30,10 +30,9 @@ class TicketClassSchema(Schema):
 
 class TicketClass(Record):
     """this extends the ticket class by some useful methods"""
+    
     schema = TicketClassSchema()
     _protected = ['_barcamp', '_size', 'fullfull']
-
-
 
 
 class TicketSchema(Schema):
