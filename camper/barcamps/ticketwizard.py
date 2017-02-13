@@ -161,8 +161,8 @@ class TicketWizard(BarcampBaseHandler):
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
             else:
                 if self.logged_in:
-                    self.flash(self._("You have been successfully registered. Please check your email."), category="success")
-                    return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
+                    self.flash(self._("Your tickets have been processed. Please check the status below."), category="success")
+                    return redirect(self.url_for(".mytickets", slug = self.barcamp.slug))
                 else:
                     self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
                     return redirect(self.url_for(".index", slug = self.barcamp.slug))
@@ -175,7 +175,7 @@ class TicketWizard(BarcampBaseHandler):
 
 
         # compute max amount of tickets left for barcamp 
-        all_tickets = ticketservice.get_tickets(status=['confirmed', 'pending'])
+        all_tickets = ticketservice.get_tickets(status=['confirmed', 'pending', 'cancel_request'])
         tickets_left = self.barcamp.max_participants - len(all_tickets)
         
         return self.render(

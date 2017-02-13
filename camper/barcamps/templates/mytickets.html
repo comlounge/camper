@@ -5,6 +5,7 @@
         cancel = False,
         download = False,
         headline='Select tickets', 
+        panel_class = "success",
         css_id = "tickets") %}
     <section id="{{css_id}}">
         <h3>{{headline}}</h3>
@@ -12,7 +13,7 @@
             <div id="ticketlist2" class="registration-eventlist2">
                 {% for t in tickets %}
                     {% set tc = t.ticketclass %}
-                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-success panel-ticket">
+                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-{{panel_class}} panel-ticket">
                         <div class="panel-heading">
                             <h2 class="panel-title"> {{tc.name}} </h2>
                         </div>
@@ -89,6 +90,7 @@
         {% if confirmed %}
             {{ticketblock(confirmed, 
                 cancel = True,
+                panel_class="success",
                 download = True,
                 headline = '')}}
         {% endif %}
@@ -97,18 +99,21 @@
         {% if pending %}
             {{ticketblock(pending, 
                 cancel = True,
+                panel_class="info",
                 headline = _('pending tickets'))}}
         {% endif %}
 
         {% if cancel_request %}
             {{ticketblock(cancel_request, 
                 cancel = False,
+                panel_class="danger",
                 headline = _('canceled tickets (requested)'))}}
         {% endif %}
 
         {% if canceled %}
             {{ticketblock(canceled, 
                 cancel = False,
+                panel_class="default",
                 headline = _('canceled tickets (confirmed)'))}}
         {% endif %}
 
