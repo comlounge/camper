@@ -558,7 +558,7 @@ class Barcamp(Record):
                 del self.ticket_classes[i]
                 return        
 
-    def get_tickets_for_user(self, user_id, status=["confirmed", "pending"]):
+    def get_tickets_for_user(self, user_id, status=["confirmed", "pending", "cancel_request"]):
         """return all the ticket class ids which a users owns
 
         :param user_id: the user id of the user

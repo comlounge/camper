@@ -27,6 +27,7 @@
                                             {{_('Price:')}} {{tc.price}}
                                         </div>
                                     {% endif %}
+
                                 </div>
                                 <div class="col-md-6">
                                     {% if tc.events %}
@@ -44,6 +45,18 @@
                             </div>
                         </div>{# panel-body #}
                             <div class="panel-footer clearfix">
+                                {% if t.cancel_request_date %}
+                                    <span class="ticket-cancel-request-date text-danger">
+                                        {{_('Cancel Requested:')}} {{dateformat(t.cancel_request_date)}}
+                                    </span>
+                                {% endif %}
+                                {% if t.cancel_reason %}
+                                    <span class="ticket-cancel-request-date text-danger">
+                                        ({{t.cancel_reason}})
+                                    </span>
+                                {% endif %}
+
+
                                 {% if download %}
                                 <a target="ticket" href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">
                                     <i class="fa fa-download"></i>
@@ -87,6 +100,20 @@
                 cancel = True,
                 headline = _('pending tickets'))}}
         {% endif %}
+
+        {% if cancel_request %}
+            {{ticketblock(cancel_request, 
+                cancel = False,
+                headline = _('canceled tickets (requested)'))}}
+        {% endif %}
+
+        {% if canceled %}
+            {{ticketblock(canceled, 
+                cancel = False,
+                headline = _('canceled tickets (confirmed)'))}}
+        {% endif %}
+
+
     </div>
 
     {% if remaining %}

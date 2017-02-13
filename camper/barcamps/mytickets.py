@@ -40,6 +40,8 @@ class MyTickets(BarcampBaseHandler):
         ticketservice = TicketService(self, self.user)                
         
         pending = ticketservice.get_tickets_for_user(self.user_id, "pending")
+        cancel_request = ticketservice.get_tickets_for_user(self.user_id, "cancel_request")
+        canceled = ticketservice.get_tickets_for_user(self.user_id, "canceled")
         confirmed = ticketservice.get_tickets_for_user(self.user_id, "confirmed")
         reserved_tickets = pending + confirmed
         
@@ -54,6 +56,8 @@ class MyTickets(BarcampBaseHandler):
             barcamp = self.barcamp,
             title = self.barcamp.name,
             pending = pending,
+            cancel_request = cancel_request,
+            canceled = canceled,
             confirmed = confirmed,
             remaining = len(remaining_ticket_ids),
             ticketlist = ticketlist,
