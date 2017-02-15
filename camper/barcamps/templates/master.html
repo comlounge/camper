@@ -21,12 +21,16 @@
                     <div class="widget-join">
                         <a 
                             title="{{_('Click here to participate in the barcamp')}}" 
-                            data-toggle="tooltip" 
-                            data-placement="top"
-                            href="{{url_for('barcamps.mytickets' if logged_in and barcamp.get_tickets_for_user(user_id) else 'barcamps.tickets', slug=slug)}}" 
+                            href="{{url_for('barcamps.tickets', slug=slug)}}" 
                             class="btn btn-lg btn-block btn-inverse btn-sidebar">
-                        <i class="fa fa-ticket"></i>
-                        {{_('Tickets')}}</a>
+                        {{_('Register')}}
+                        </a>
+                        <a 
+                            title="{{_('Click here to participate in the barcamp')}}" 
+                            href="{{url_for('barcamps.mytickets', slug=slug)}}" 
+                            class="btn btn-lg btn-block btn-default btn-sidebar">
+                        {{_('My Tickets')}}
+                        </a>
                     </div>
                 {% else %}
                     <div class="widget-join">
