@@ -164,8 +164,8 @@ class TicketService(object):
                 fullname = self.user.fullname
                 )
 
-        # send email to admins            
-        if self.barcamp.send_email_to_admins:
+        # send email to admins (we also send mails on preregistration/paid mode)
+        if self.barcamp.send_email_to_admins or preregistration:
             tc = ticket_class
             subject = self.handler._('a Ticket was acquired for  %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
             self.send_email_to_admins(self.user, "admin_ticketbought", subject, ticket)
@@ -441,7 +441,7 @@ class TicketService(object):
                 barcamp_url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
                 ticketlist_url = self.handler.url_for("barcamps.admin_ticketlist", slug = self.barcamp.slug, _full = True)
             )
-            payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
+            payload = self.handler.render_lang("_m/barcamps/emails/%s.txt" %template_name, **kwargs)
             mailer.mail(admin.email, subject, payload)
 
 
