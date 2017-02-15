@@ -161,7 +161,10 @@ class TicketWizard(BarcampBaseHandler):
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
             else:
                 if self.logged_in:
-                    self.flash(self._("Your tickets have been processed. Please check the status below."), category="success")
+                    if self.barcamp.paid_tickets:
+                        self.flash(self._("Your ticket reservations have been processed. Please check your email for information on how to pay for your ticket."), category="success")
+                    else:
+                        self.flash(self._("Your ticket reservation was successful."), category="success")
                     return redirect(self.url_for(".mytickets", slug = self.barcamp.slug))
                 else:
                     self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
