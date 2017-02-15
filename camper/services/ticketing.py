@@ -189,8 +189,12 @@ class TicketService(object):
 
         # retrieve amount of tickets for this barcamp and check if it's full
         all_tickets = self.get_tickets(status=['confirmed', 'pending'])
-        barcamp_full = len(all_tickets) >= self.barcamp.max_participants
-        max_tickets_left = self.barcamp.max_participants - len(all_tickets) # max. number of all available tickets
+        if self.barcamp.max_participants:
+            barcamp_full = len(all_tickets) >= self.barcamp.max_participants
+            max_tickets_left = self.barcamp.max_participants - len(all_tickets) # max. number of all available tickets
+        else:
+            barcamp_full = False
+            max_tickets_left = 100000
 
         ticket_classes = []
         for tc in self.barcamp.ticketlist:
@@ -367,7 +371,7 @@ class TicketService(object):
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
             tmpl = jinja2.Template(barcamp.mail_templates['%s_text' %template_name])
-            kwargs['url'] = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
+            kwargs['url'] = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),13
             payload = tmpl.render(**kwargs)
             payload = payload.replace('((fullname))', user.fullname)            
             self.send(send_to, subject, payload, ticket_pdf)
