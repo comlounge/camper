@@ -1,24 +1,20 @@
-Hallo ((fullname)),
+Hallo {{fullname}},
 
-wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.
+vielen Dank für die Reservierung des Tickets {{ticket_name}}
+für {{barcamp_name}}.
 
-Solltest Du wider Erwarten doch nicht teilnehmen können, würden wir uns
-über eine Änderung des Teilnahmestatus freuen, damit wir unsere Planungen
-darauf einstellen können und evtl. Personen von der Warteliste nachrücken
-können.
+Du kannst Dein Ticket hier herunterladen:
+{{ticket_url}}
 
-Die Website des {{barcamp.name}} mit allen Informationen findest Du unter
+Du kannst hier auf alle Deine Tickets zugreifen:
+{{mytickets_url}}
 
-{{url}}
+Weitere Informationen zur Veranstaltung findest Du hier:
+{{barcamp_url}}
 
-{% if barcamp.twitter %}
-Weiterhin gibt es einen Twitter-Channel unter http://twitter.com/{{barcamp.twitter}}
-für die alleraktuellsten Informationen.
 
-{% endif %}
-Vielen Dank für Dein Interesse,
+Dein {{barcamp.name}} team!
 
-Dein {{barcamp.name}}-Team!
 
 --
 {{url}}

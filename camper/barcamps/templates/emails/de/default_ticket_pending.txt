@@ -1,15 +1,19 @@
-Hallo ((fullname)),
+Hallo {{fullname}},
 
-leider ist die Teilnehmerliste schon voll und Du wurdest auf die Warteliste gesetzt.
+vielen Dank für die Reservierung des Tickets {{ticket_name}}
+für {{barcamp_name}}.
 
-Sollten sich Teilnehmer abmelden, so rücken Personen von der Warteliste automatisch
-nach und werden per E-Mail informiert.
+Die Reservierung ist noch in Bearbeitung und wir werden Dich per E-Mail
+informieren, sobald Dein Ticket freigeschaltet wurde.
 
-Trotzdem empfiehlt es sich, kurz vor der Veranstaltung noch einmal auf der Website
-auf {{url}} nachzuschauen, ob Du auf der 
-Teilnehmerliste bist.
+Du kannst hier auf alle Deine Tickets zugreifen:
+{{mytickets_url}}
 
-Dein {{barcamp.name}}-Team!
+Weitere Informationen zur Veranstaltung findest Du hier:
+{{barcamp_url}}
+
+
+Dein {{barcamp.name}} team!
 
 --
 {{url}}

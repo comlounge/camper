@@ -1,12 +1,17 @@
-Hallo ((fullname)),
+Hallo {{fullname}},
 
-Du bist soeben von der Warteliste auf die Teilnehmerliste nachgerückt 
-und nimmst damit am {{barcamp.name}} teil.
+Dein Ticket {{ticket_name}} wurde durch einen Administrator wiederrufen.
 
-Solltest Du inzwischen doch nicht mehr teilnehmen können, trage Dich doch bitte
-wieder aus, damit weitere Interessenten nachrücken können! Vielen Dank!
+Grund: {{reason}}
 
-Dein {{barcamp.name}}-Team!
+Du kannst hier auf alle Deine Tickets zugreifen:
+{{mytickets_url}}
+
+Weitere Informationen zur Veranstaltung findest Du hier:
+{{barcamp_url}}
+
+
+Dein {{barcamp.name}} team!
 
 
 --
