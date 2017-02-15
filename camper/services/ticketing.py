@@ -136,10 +136,10 @@ class TicketService(object):
             status = "pending"
             self.mail_template("ticket_pending",
                 ticket_pdf = None,
-                view = view,
-                barcamp = self.barcamp,
                 title = self.barcamp.name,
-                ticket_class = ticket_class,
+                barcamp_name = self.barcamp.name,
+                ticket_name = ticket_class.name,
+                mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
                 barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
                 fullname = self.user.fullname
                 )
@@ -152,14 +152,13 @@ class TicketService(object):
             ticket = tickets.put(ticket)
             self.log.info("ticket registered", ticket = ticket)
             status = "confirmed"
-            #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, self.user)
             self.mail_template("ticket_welcome",
                 ticket_pdf = None,
-                view = view,
-                barcamp = self.barcamp,
                 title = self.barcamp.name,
-                ticket_class = ticket_class,
+                barcamp_name = self.barcamp.name,
+                ticket_name = ticket_class.name,
                 ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+                mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
                 barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
                 fullname = self.user.fullname
                 )
@@ -265,13 +264,13 @@ class TicketService(object):
 
         self.mail_template("ticket_confirmed",
             ticket_pdf = None,
-            user = user,
-            view = self.barcamp_view,
             title = self.barcamp.name,
-            ticket_title = ticket_class.name,
+            barcamp_name = self.barcamp.name,
+            ticket_name = ticket_class.name,
             ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+            mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
             barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
-            fullname = user.fullname
+            fullname = self.user.fullname
         )
         return "confirmed"
 
@@ -314,14 +313,13 @@ class TicketService(object):
 
         self.mail_template("ticket_canceled",
             ticket_pdf = None,
-            user = user,
-            view = self.barcamp_view,
             title = self.barcamp.name,
-            ticket_title = ticket_class.name,
+            barcamp_name = self.barcamp.name,
+            ticket_name = ticket_class.name,
             reason = reason,
-            ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
+            mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
             barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
-            fullname = user.fullname
+            fullname = self.user.fullname
         )
 
         return
@@ -362,7 +360,6 @@ class TicketService(object):
     def mail_template(self, template_name, ticket_pdf = None, send_to=None, user = None, **kwargs):
         """render and send out a mail as normal text"""
         barcamp = self.barcamp
-        #barcamp = kwargs.get('barcamp')
         if user is None:
             user = self.user
         if send_to is None:
@@ -370,6 +367,7 @@ class TicketService(object):
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
             tmpl = jinja2.Template(barcamp.mail_templates['%s_text' %template_name])
+            kwargs['url'] = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
             payload = tmpl.render(**kwargs)
             payload = payload.replace('((fullname))', user.fullname)            
             self.send(send_to, subject, payload, ticket_pdf)
