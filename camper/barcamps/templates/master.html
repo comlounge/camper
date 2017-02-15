@@ -25,12 +25,14 @@
                             class="btn btn-lg btn-block btn-inverse btn-sidebar">
                         {{_('Register')}}
                         </a>
-                        <a 
-                            title="{{_('Click here to participate in the barcamp')}}" 
-                            href="{{url_for('barcamps.mytickets', slug=slug)}}" 
-                            class="btn btn-lg btn-block btn-default btn-sidebar">
-                        {{_('My Tickets')}}
-                        </a>
+                        {% if barcamp.get_tickets_for_user(user_id) %}
+                            <a 
+                                title="{{_('Click here to participate in the barcamp')}}" 
+                                href="{{url_for('barcamps.mytickets', slug=slug)}}" 
+                                class="btn btn-lg btn-block btn-default btn-sidebar">
+                            {{_('My Tickets')}}
+                            </a>
+                        {% endif %}
                     </div>
                 {% else %}
                     <div class="widget-join">
