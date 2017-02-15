@@ -365,7 +365,7 @@ class RegistrationDataExport(BarcampBaseHandler):
         """export all the participant registration data"""
 
 
-        if self.barcamp.paid_tickets:
+        if self.barcamp.ticketmode_enabled:
             wb = self.export_tickets()
         else:
             wb = self.export_events()
