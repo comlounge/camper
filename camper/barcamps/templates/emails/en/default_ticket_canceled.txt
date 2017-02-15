@@ -1,12 +1,15 @@
-Hello ((fullname))!
+Hello {{fullname}},
 
-Congratulations!
+your ticket {{ticket_name}} was canceled by a barcamp administrator:
 
-You just have been moved from the waiting list to the participant list and
-thus will take part in the event {{barcamp.name}}.
+Reason: {{reason}}
 
-Should you cannot make it to the event please remove yourself from the list again
-so that other people from the waiting list can move up! Thank you!
+You can access all your tickets here:
+{{mytickets_url}}
+
+More information about the barcamp can be found here:
+{{barcamp_url}}
+
 
 Your {{barcamp.name}} team!
 

@@ -1,14 +1,16 @@
-Hello ((fullname)),
+Hello {{fullname}},
 
-unfortunately the list of participants is already full. We therefor put you
-on the waiting list.
+thank you for the ticket reservation {{ticket_name}} for {{barcamp_name}}.
 
-Should participants decide to withdraw their invitation, people from the waiting list
-will automatically move up and will be informed via email.
+Your ticket reservation is pending and needs to be reviewed by a barcamp
+administrator. As soon as it's confirmed you will receive an email.
 
-Nevertheless it's a good idea to check the event website shortly before the event again
-at {{url}}, if you maybe have moved up
-on the participant list.
+You can access all your tickets here:
+{{mytickets_url}}
+
+More information about the barcamp can be found here:
+{{barcamp_url}}
+
 
 Your {{barcamp.name}} team!
 
