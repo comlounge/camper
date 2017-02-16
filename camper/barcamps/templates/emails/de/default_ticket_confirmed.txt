@@ -1,20 +1,20 @@
-Hallo {{fullname}},
+Hallo ((fullname)),
 
-vielen Dank für Deine Reservierung von {{ticket_name}}. 
+vielen Dank für Deine Reservierung von ((ticket_name)). 
 Deine Reservierung wurde hiermit bestätigt. 
 
 Du kannst Dein Ticket hier herunterladen:
-{{ticket_url}}
+((ticket_url))
 
 Du kannst hier auf alle Deine Tickets zugreifen:
-{{mytickets_url}}
+((mytickets_url))
 
 Weitere Informationen zur Veranstaltung findest Du hier:
-{{barcamp_url}}
+((barcamp_url))
 
 
-Dein {{barcamp.name}} team!
+Dein ((barcamp.name)) team!
 
 
 --
-{{url}}
+((url))

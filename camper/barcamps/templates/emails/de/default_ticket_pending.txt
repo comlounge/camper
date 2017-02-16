@@ -1,19 +1,19 @@
-Hallo {{fullname}},
+Hallo ((fullname)),
 
-vielen Dank für die Reservierung des Tickets {{ticket_name}}
-für {{barcamp_name}}.
+vielen Dank für die Reservierung des Tickets ((ticket_name))
+für ((barcamp_name)).
 
 Die Reservierung ist noch in Bearbeitung und wir werden Dich per E-Mail
 informieren, sobald Dein Ticket freigeschaltet wurde.
 
 Du kannst hier auf alle Deine Tickets zugreifen:
-{{mytickets_url}}
+((mytickets_url))
 
 Weitere Informationen zur Veranstaltung findest Du hier:
-{{barcamp_url}}
+((barcamp_url))
 
 
-Dein {{barcamp.name}} team!
+Dein ((barcamp.name)) team!
 
 --
-{{url}}
+((url))

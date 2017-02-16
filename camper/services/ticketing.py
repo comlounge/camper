@@ -371,9 +371,10 @@ class TicketService(object):
         if barcamp is not None:
             subject = barcamp.mail_templates['%s_subject' %template_name]
             tmpl = jinja2.Template(barcamp.mail_templates['%s_text' %template_name])
-            kwargs['url'] = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),13
-            payload = tmpl.render(**kwargs)
-            payload = payload.replace('((fullname))', user.fullname)            
+            kwargs['url'] = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug)
+            payload = tmpl.render()
+            for kw, value in kwargs.items():
+                payload = payload.replace(u'((%s))' %kw, value)
             self.send(send_to, subject, payload, ticket_pdf)
 
 
