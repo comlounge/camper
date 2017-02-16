@@ -108,20 +108,26 @@ class TicketService(object):
             barcamp_id = bid,
             user_id = uid, 
             ticketclass_id = tc_id, 
-            status = ['confirmed', 'pending'])
+            status = ['confirmed', 'pending', 'cancel_request'])
 
         if len(user_tickets):
             raise UserAlreadyRegistered("User owns a ticket already", tc_id = tc_id)
 
-        # is the ticket class full
+        # is the ticket class full?
         all_tickets = tickets.get_tickets(
             barcamp_id = bid,
-            user_id = uid, 
             ticketclass_id = tc_id, 
-            status = ['confirmed', 'pending'])
+            status = ['confirmed', 'pending', 'cancel_request'])
 
         if len(all_tickets) >= ticket_class.size:
+            self.log.debug("Ticket class is full", slug = self.barcamp.slug, tc_id = tc_id, uid = uid, all_tickets = len(all_tickets), size = ticket_class.size)
             raise TicketClassFull("the ticket class is full", tc_id = tc_id)
+
+        # is the barcamp full?
+        if self.barcamp.max_participants:
+            all_barcamp_tickets = tickets.get_tickets(barcamp_id = bid, status = ['confirmed', 'pending', 'cancel_request'])
+            if len(all_barcamp_tickets) >= self.barcamp.max_participants:
+                raise TicketClassFull("the barcamp is full")
 
         # everything seems to be ok, register the user depending on the barcamp settings
         view = self.barcamp_view
@@ -132,7 +138,7 @@ class TicketService(object):
                 user_id = uid, 
                 barcamp_id = bid)
             ticket = tickets.put(ticket)
-            self.log.info("ticket preregistered", ticket = ticket)
+            self.log.info("ticket preregistered", ticket = ticket, slug = self.barcamp.slug)
             status = "pending"
             self.mail_template("ticket_pending",
                 ticket_pdf = None,
@@ -150,7 +156,7 @@ class TicketService(object):
                 user_id = uid, 
                 barcamp_id = bid)
             ticket = tickets.put(ticket)
-            self.log.info("ticket registered", ticket = ticket)
+            self.log.info("ticket registered", ticket = ticket, slug = self.barcamp.slug)
             status = "confirmed"
             self.mail_template("ticket_welcome",
                 ticket_pdf = None,

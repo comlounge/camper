@@ -83,7 +83,7 @@
                 
         <form class="validate form-horizontal parsley-validate" method="POST" id="regform" action="{{url}}">
 
-        {% if available %}
+        {% if has_available %}
             {% if not logged_in %}
                 <fieldset>
                     <legend>{{_('Login or register a new account')}}</legend>

@@ -187,7 +187,8 @@ class TicketWizard(BarcampBaseHandler):
             title = self.barcamp.name,
             form = regform,
             userform = userform,
-            available = available_ticket_classes and tickets_left,
+            has_available = available_ticket_classes and tickets_left,
+            available = available_ticket_classes,
             tickets_left = tickets_left,
             show_tickets_left = tickets_left < len(available_ticket_classes),
             **self.barcamp)
