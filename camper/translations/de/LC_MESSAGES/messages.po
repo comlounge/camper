@@ -1572,7 +1572,7 @@ msgstr "Du kannst Dich hier einloggen oder registrieren"
 #: barcamps/templates/ticket_wizard.html:56
 #, python-format
 msgid "%(amount)s tickets left."
-msgstr "%(amount)s Tickets verfügbar."
+msgstr "Noch %(amount)s Tickets verfügbar."
 
 #: barcamps/templates/ticket_wizard.html:76
 #, python-format
