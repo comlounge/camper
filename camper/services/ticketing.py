@@ -386,7 +386,7 @@ class TicketService(object):
         # compute header
         msg['Subject'] = Header(subject, "utf-8")
         
-        from_ = msg['From'] = "%s <%s>" %(self.barcamp.name, self.barcamp.contact_email)
+        from_ = msg['From'] = "%s <%s>" %(self.barcamp.name, self.app.config.from_addr)
         msg['To'] = send_to
 
         # create text part
