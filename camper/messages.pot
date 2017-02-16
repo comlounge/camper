@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-15 16:50+0100\n"
+"POT-Creation-Date: 2017-02-16 15:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,12 +293,18 @@ msgid "You are now on the list of participants for this barcamp."
 msgstr ""
 
 #: barcamps/add.py:144
-msgid "Your ticket reservation is pending."
+#, python-format
+msgid "Your ticket reservation for %s is pending."
 msgstr ""
 
-#: barcamps/add.py:146 barcamps/add.py:148
+#: barcamps/add.py:146
 #, python-format
 msgid "Your ticket for %s."
+msgstr ""
+
+#: barcamps/add.py:148
+#, python-format
+msgid "Your ticket for %s was canceled."
 msgstr ""
 
 #: barcamps/add.py:153
@@ -1022,9 +1028,7 @@ msgstr ""
 #: barcamps/templates/admin/galleryadmin.html:24
 #: barcamps/templates/admin/legaledit.html:47
 #: barcamps/templates/admin/socialedit.html:63
-#: barcamps/templates/admin/ticketedit.html:35
-#: barcamps/templates/admin/ticketlist.html:38
-#: barcamps/templates/admin/ticketlist.html:41 barcamps/templates/docs.html:34
+#: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
 #: templates/users/edit.html:46
@@ -2494,8 +2498,13 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
+#: barcamps/templates/admin/ticketlist.html:38
+#: barcamps/templates/admin/ticketlist.html:41
+msgid "Cancel Ticket"
+msgstr ""
+
 #: barcamps/templates/admin/ticketlist.html:44
-msgid "Confirm Cancel"
+msgid "Confirm Ticket Cancel"
 msgstr ""
 
 #: barcamps/templates/admin/ticketlist.html:55
@@ -3065,11 +3074,11 @@ msgstr ""
 msgid "a Ticket was acquired for  %s/%s (%s/%s)"
 msgstr ""
 
-#: services/ticketing.py:293
+#: services/ticketing.py:297
 msgid "Your Ticket Cancel Request"
 msgstr ""
 
-#: services/ticketing.py:294
+#: services/ticketing.py:298
 msgid "Ticket Cancel Request"
 msgstr ""
 

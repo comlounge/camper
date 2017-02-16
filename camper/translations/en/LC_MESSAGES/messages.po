@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-15 16:50+0100\n"
+"POT-Creation-Date: 2017-02-16 15:27+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: en\n"
@@ -294,12 +294,18 @@ msgid "You are now on the list of participants for this barcamp."
 msgstr ""
 
 #: barcamps/add.py:144
-msgid "Your ticket reservation is pending."
+#, python-format
+msgid "Your ticket reservation for %s is pending."
 msgstr ""
 
-#: barcamps/add.py:146 barcamps/add.py:148
+#: barcamps/add.py:146
 #, python-format
 msgid "Your ticket for %s."
+msgstr ""
+
+#: barcamps/add.py:148
+#, python-format
+msgid "Your ticket for %s was canceled."
 msgstr ""
 
 #: barcamps/add.py:153
@@ -1023,9 +1029,7 @@ msgstr ""
 #: barcamps/templates/admin/galleryadmin.html:24
 #: barcamps/templates/admin/legaledit.html:47
 #: barcamps/templates/admin/socialedit.html:63
-#: barcamps/templates/admin/ticketedit.html:35
-#: barcamps/templates/admin/ticketlist.html:38
-#: barcamps/templates/admin/ticketlist.html:41 barcamps/templates/docs.html:34
+#: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
 #: templates/users/edit.html:46
@@ -2495,8 +2499,13 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
+#: barcamps/templates/admin/ticketlist.html:38
+#: barcamps/templates/admin/ticketlist.html:41
+msgid "Cancel Ticket"
+msgstr ""
+
 #: barcamps/templates/admin/ticketlist.html:44
-msgid "Confirm Cancel"
+msgid "Confirm Ticket Cancel"
 msgstr ""
 
 #: barcamps/templates/admin/ticketlist.html:55
@@ -3066,11 +3075,11 @@ msgstr ""
 msgid "a Ticket was acquired for  %s/%s (%s/%s)"
 msgstr ""
 
-#: services/ticketing.py:293
+#: services/ticketing.py:297
 msgid "Your Ticket Cancel Request"
 msgstr ""
 
-#: services/ticketing.py:294
+#: services/ticketing.py:298
 msgid "Ticket Cancel Request"
 msgstr ""
 
@@ -5086,47 +5095,15 @@ msgstr ""
 #~ msgid "max. number of tickets in this class"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "You can use <code>((fullname))</code> in "
-#~ "a mail body which will be replaced"
-#~ " by\n"
-#~ "        the name of the user the"
-#~ " mail is sent to, e.g. 'Hello "
-#~ "((fullname)),... '"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The Welcome Mail is sent when a"
-#~ " user has successfully registered as "
-#~ "participant. It is\n"
-#~ "                not sent if the user "
-#~ "is going to be moved to the "
-#~ "waiting list in case the participant "
-#~ "list is already full."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This Mail is sent when the maximum"
-#~ " number of participant has been "
-#~ "reached and the user is being\n"
-#~ "                moved onto the waitinglist."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This Mail is sent to a user "
-#~ "who is being moved from the "
-#~ "waiting list to the participants list."
-#~ "\n"
-#~ "                This can happen if an"
-#~ " existing participant cancels his "
-#~ "participation or if the barcamp admin"
-#~ " increases\n"
-#~ "                the number of participants"
-#~ msgstr ""
-
 #~ msgid "Ticketeditor"
 #~ msgstr ""
 
 #~ msgid "tickets"
+#~ msgstr ""
+
+#~ msgid "Your ticket reservation is pending."
+#~ msgstr ""
+
+#~ msgid "Confirm Cancel"
 #~ msgstr ""
 

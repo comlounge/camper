@@ -1,13 +1,9 @@
-# English translations for Camper, the Barcamp Tool.
-# Copyright (C) 2013 COM.lounge GmbH
-# This file is distributed under the same license as the Camper project.
-# Christian Scholz <cs@comlounge.net>, 2013.
-#
+
 msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-15 16:50+0100\n"
+"POT-Creation-Date: 2017-02-16 15:27+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -309,13 +305,19 @@ msgid "You are now on the list of participants for this barcamp."
 msgstr "Du bist nun auf der Teilnehmer_innen-Liste für das Barcamp"
 
 #: barcamps/add.py:144
-msgid "Your ticket reservation is pending."
-msgstr "Deine Ticket-Reservierung befindet sich in Bearbeitung"
+#, python-format
+msgid "Your ticket reservation for %s is pending."
+msgstr ""
 
-#: barcamps/add.py:146 barcamps/add.py:148
+#: barcamps/add.py:146
 #, python-format
 msgid "Your ticket for %s."
 msgstr "Dein Ticket für %s."
+
+#: barcamps/add.py:148
+#, python-format
+msgid "Your ticket for %s was canceled."
+msgstr ""
 
 #: barcamps/add.py:153
 #, python-format
@@ -671,7 +673,9 @@ msgstr "Kontakt-E-Mail"
 msgid ""
 "an email address under which a barcamp admin can be contacted. This "
 "address will be publically displayed."
-msgstr "eine E-Mail-Adresse, unter der der Veranstalter erreicht werden kann. Diese wird öffentlich dargestellt."
+msgstr ""
+"eine E-Mail-Adresse, unter der der Veranstalter erreicht werden kann. "
+"Diese wird öffentlich dargestellt."
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
 #: barcamps/templates/master.html:257
@@ -682,7 +686,9 @@ msgstr "Impressum"
 msgid ""
 "Please describe in detail who is responsible for this barcamp. This is "
 "mandatory for paid barcamps."
-msgstr "Bitte gebe an, wer für das Barcamp verantwortlich ist. Für bezahlte Barcamps muss dies zwingend angegeben werden."
+msgstr ""
+"Bitte gebe an, wer für das Barcamp verantwortlich ist. Für bezahlte "
+"Barcamps muss dies zwingend angegeben werden."
 
 #: barcamps/legaledit.py:21 barcamps/templates/admin/legaledit.html:31
 msgid "Terms of Service"
@@ -700,7 +706,9 @@ msgstr "Rückruf und Widerrufsbelehrung"
 msgid ""
 "Please describe your cancellation policy (make sure it complies to your "
 "local law)."
-msgstr "Bitte beschreibe hier das Widerrufsrechts (beachte dabei bitte auch die gesetzlichen Vorgaben)."
+msgstr ""
+"Bitte beschreibe hier das Widerrufsrechts (beachte dabei bitte auch die "
+"gesetzlichen Vorgaben)."
 
 #: barcamps/mytickets.py:101 barcamps/ticketlist.py:100
 msgid "Reason"
@@ -849,7 +857,9 @@ msgstr "Deine Informationen wurden aktualisiert"
 msgid ""
 "Unfortunately an error occurred when trying to register you. Please try "
 "again or contact the barcamptools administrator."
-msgstr "Leider ist bei der Registrierung ein Fehler aufgetreten. Bitte versuche es noch einmal oder kontaktiere einen Barcamp-Administrator."
+msgstr ""
+"Leider ist bei der Registrierung ein Fehler aufgetreten. Bitte versuche "
+"es noch einmal oder kontaktiere einen Barcamp-Administrator."
 
 #: barcamps/registrationwizard.py:162
 msgid "You have been successfully registered. Please check your email."
@@ -958,7 +968,9 @@ msgstr "Ticket-Modus einschalten"
 msgid ""
 "if you enable ticketing the normal registration process per event is "
 "replaced by acquiring tickets you define here"
-msgstr "Wenn Du den Ticketmodus aktivierst, dann wird die veranstaltungsbasierte Registrierung durch eine Ticket-Reservierung ersetzt"
+msgstr ""
+"Wenn Du den Ticketmodus aktivierst, dann wird die veranstaltungsbasierte "
+"Registrierung durch eine Ticket-Reservierung ersetzt"
 
 #: barcamps/ticketeditor.py:23
 msgid "Paid Tickets"
@@ -971,9 +983,12 @@ msgid ""
 "You have to do this yourself. You also need a proper imprint and contact "
 "email before you can enable this option."
 msgstr ""
-"Aktiviere diese Option, wenn Du Tickets verkaufen willst. Dies betrifft auch Überweisungen. "
-"Beachte dabei dass barcamptools.eu dabei keine Zahlungsabwicklung durchführt. Dies musst Du also selbst tun (z.B. durch Überweisungen). "
-"Du brauchst zudem ein Impressum, allgemeine Geschäftsbedingungen, eine Widerrufsbelehrung und eine Kontakt-E-Mail-Adresse."
+"Aktiviere diese Option, wenn Du Tickets verkaufen willst. Dies betrifft "
+"auch Überweisungen. Beachte dabei dass barcamptools.eu dabei keine "
+"Zahlungsabwicklung durchführt. Dies musst Du also selbst tun (z.B. durch "
+"Überweisungen). Du brauchst zudem ein Impressum, allgemeine "
+"Geschäftsbedingungen, eine Widerrufsbelehrung und eine Kontakt-E-Mail-"
+"Adresse."
 
 #: barcamps/ticketeditor.py:26
 msgid ""
@@ -981,8 +996,9 @@ msgid ""
 "you use paid tickets this is always active because you have to check the "
 "payments yourself."
 msgstr ""
-"Wenn Du dies aktivierst, dann musst Du jede Ticket-Reservierung noch bestätigen. "
-"Wenn Du Tickets verkaufst, ist diese Option standardmäßig angeschaltet, damit Du den Zahlungseingang überprüfen kannst. "
+"Wenn Du dies aktivierst, dann musst Du jede Ticket-Reservierung noch "
+"bestätigen. Wenn Du Tickets verkaufst, ist diese Option standardmäßig "
+"angeschaltet, damit Du den Zahlungseingang überprüfen kannst. "
 
 #: barcamps/ticketeditor.py:27
 msgid "Maximum number of participants"
@@ -993,7 +1009,9 @@ msgid ""
 "You can define a maximum number if participants over all tickets here. If"
 " this amount is reached, no further tickets can be obtained."
 msgstr ""
-"hier kannst Du eine maximale Teilnehmerzahl angeben, die über alle Tickets gilt. Sobald also insgesamt diese Anzahl von Tickets vergeben wurde, können keine weiteren Tickets mehr gekauft werden."
+"hier kannst Du eine maximale Teilnehmerzahl angeben, die über alle "
+"Tickets gilt. Sobald also insgesamt diese Anzahl von Tickets vergeben "
+"wurde, können keine weiteren Tickets mehr gekauft werden."
 
 #: barcamps/ticketeditor.py:34
 msgid "Name of the ticket"
@@ -1009,8 +1027,7 @@ msgstr "Maximale Anzahl von Tickets"
 
 #: barcamps/ticketeditor.py:40
 msgid "Please select the events you can attend with this ticket"
-msgstr ""
-"Bitte wähle die Veranstaltungen aus, für die dieses Ticket gilt.""
+msgstr "Bitte wähle die Veranstaltungen aus, für die dieses Ticket gilt.\""
 
 #: barcamps/templates/admin/ticketeditor.html:64 barcamps/ticketeditor.py:41
 msgid "Price"
@@ -1045,7 +1062,8 @@ msgid ""
 "Your ticket reservations have been processed. Please check your email for"
 " information on how to pay for your ticket."
 msgstr ""
-"Deine Ticket-Reservierung ist eingegangen. Bitte überprüfe Deine E-Mail für weitere Informationen zur Zahlung."
+"Deine Ticket-Reservierung ist eingegangen. Bitte überprüfe Deine E-Mail "
+"für weitere Informationen zur Zahlung."
 
 #: barcamps/ticketwizard.py:167
 msgid "Your ticket reservation was successful."
@@ -1077,9 +1095,7 @@ msgstr "Neuen Blogpost hinzufügen"
 #: barcamps/templates/admin/galleryadmin.html:24
 #: barcamps/templates/admin/legaledit.html:47
 #: barcamps/templates/admin/socialedit.html:63
-#: barcamps/templates/admin/ticketedit.html:35
-#: barcamps/templates/admin/ticketlist.html:38
-#: barcamps/templates/admin/ticketlist.html:41 barcamps/templates/docs.html:34
+#: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
 #: templates/users/edit.html:46
@@ -1593,14 +1609,16 @@ msgstr "<b>Bitte beachten:</b> Für dieses Barcamp gibt es nur noch %s Tickets."
 msgid ""
 "I have read and accept the <a target=\"legal\" href=\"%(link)s\">Terms of"
 " Service</a>"
-msgstr "Ich habe die <a target=\"legal\" href=\"%(link)s\">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere sie."
+msgstr ""
+"Ich habe die <a target=\"legal\" href=\"%(link)s\">Allgemeinen "
+"Geschäftsbedingungen</a> gelesen und akzeptiere sie."
 
 #: barcamps/templates/ticket_wizard.html:169
 #, python-format
 msgid ""
-msgstr "Ich habe die <a target=\"legal\" href=\"%(link)s\">Widerrufsbeleherung</a> gelesen und akzeptiere sie."
-
 "I have read and accept the <a target=\"legal\" "
+"href=\"%(link)s\">Cancellation and Refund policy</a>"
+msgstr ""
 
 #: barcamps/templates/ticket_wizard.html:173
 msgid "Buy tickets"
@@ -1624,8 +1642,9 @@ msgid ""
 "The admin will then decide whether to cancel your ticket or not. You will"
 " be informed by email."
 msgstr ""
-"Dieses Formular sendet eine Widerrufsanfrage an den Barcamp-Administrator."
-"Der Administrator entscheidet dann, ob dem Widerruf stattgegeben wird. Du wirst dann per E-Mail informiert."
+"Dieses Formular sendet eine Widerrufsanfrage an den Barcamp-"
+"Administrator.Der Administrator entscheidet dann, ob dem Widerruf "
+"stattgegeben wird. Du wirst dann per E-Mail informiert."
 
 #: barcamps/templates/admin/ticketcancel.html:14
 #: barcamps/templates/ticketcancel.html:17
@@ -1704,7 +1723,9 @@ msgstr "Bearbeiten"
 #: barcamps/templates/user_event.html:238
 #: barcamps/templates/user_events.html:141
 msgid "please enter your personal data in order to register for this event"
-msgstr "bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung zu registrieren."
+msgstr ""
+"bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung "
+"zu registrieren."
 
 #: barcamps/templates/user_event.html:239
 #: barcamps/templates/user_events.html:142
@@ -1905,7 +1926,9 @@ msgid ""
 "On this screen you should at least upload a logo or use the logo "
 "generator to create one. Optionally you can adjust the design to your "
 "liking."
-msgstr "Auf diesem Screen solltest Du zumindest ein Logo hochladen. Optional kannst Du das Design nach Belieben anpassen."
+msgstr ""
+"Auf diesem Screen solltest Du zumindest ein Logo hochladen. Optional "
+"kannst Du das Design nach Belieben anpassen."
 
 #: barcamps/templates/admin/design.html:40
 #: barcamps/templates/admin/design.html:127
@@ -2100,9 +2123,11 @@ msgid ""
 " specific event instead of the whole barcamp. So you have to add at least"
 " one event here."
 msgstr ""
-"Ein Barcamp besteht aus einem oder mehreren Veranstaltungen. Eine Veranstaltung repräsentiert z.B. ein Tag eines Barcamps oder eine Party. "
-"Dadurch können sich Teilnehmer separat für Veranstaltungen anmelden und nicht nur für das gesamte Barcamp. "
-"Du solltest zumindest eine Veranstaltung erstellen."
+"Ein Barcamp besteht aus einem oder mehreren Veranstaltungen. Eine "
+"Veranstaltung repräsentiert z.B. ein Tag eines Barcamps oder eine Party. "
+"Dadurch können sich Teilnehmer separat für Veranstaltungen anmelden und "
+"nicht nur für das gesamte Barcamp. Du solltest zumindest eine "
+"Veranstaltung erstellen."
 
 #: barcamps/templates/admin/events.html:16
 msgid ""
@@ -2110,8 +2135,10 @@ msgid ""
 "participanst, edit the timetable, manage participants and fill in the "
 "sessiontable."
 msgstr ""
-"Für jede Veranstaltung kannst Du einen separaten Veranstaltungsort oder eine separate Maximalanzahl von Teilnehmern definieren. "
-"Zusätzlich kannst Du zu einer Veranstaltung ein Zeitraster anlegen und den Sessionplan bearbeiten."
+"Für jede Veranstaltung kannst Du einen separaten Veranstaltungsort oder "
+"eine separate Maximalanzahl von Teilnehmern definieren. Zusätzlich kannst"
+" Du zu einer Veranstaltung ein Zeitraster anlegen und den Sessionplan "
+"bearbeiten."
 
 #: barcamps/templates/admin/events.html:30
 msgid "Waiting"
@@ -2501,7 +2528,9 @@ msgstr "Sponsoren verwalten"
 msgid ""
 "Here you can add and edit sponsors of your barcamp. They will be "
 "displayed in the right sidebar in public view."
-msgstr "Hier kannst Du Sponsoren anlegen und bearbeiten. Sie werden im Sidebar dargestellt."
+msgstr ""
+"Hier kannst Du Sponsoren anlegen und bearbeiten. Sie werden im Sidebar "
+"dargestellt."
 
 #: barcamps/templates/admin/sponsors.html:37
 msgid "No sponsors defined yet."
@@ -2533,14 +2562,18 @@ msgstr "Tickets verwalten"
 msgid ""
 "Tickets are an alternative way to manage registrations. Tickets are one "
 "or more events bundled together."
-msgstr "Tickets sind eine alternative Möglichkeit, sich zu registrieren. Ein Ticket kann dabei auch mehrere Veranstaltungen bündeln."
+msgstr ""
+"Tickets sind eine alternative Möglichkeit, sich zu registrieren. Ein "
+"Ticket kann dabei auch mehrere Veranstaltungen bündeln."
 
 #: barcamps/templates/admin/ticketeditor.html:9
 msgid ""
 "This can be useful if you e.g. want people to signup for the whole "
 "barcamp in case it also includes lodging for the night"
 msgstr ""
-"Das kann z.B. dann hilfreich sein, wenn Teilnehmer sich nur für das komplette Barcamp anmelden können sollen, z.B. weil noch eine Übernachtung inbegriffen ist."
+"Das kann z.B. dann hilfreich sein, wenn Teilnehmer sich nur für das "
+"komplette Barcamp anmelden können sollen, z.B. weil noch eine "
+"Übernachtung inbegriffen ist."
 
 #: barcamps/templates/admin/ticketeditor.html:10
 msgid ""
@@ -2548,7 +2581,9 @@ msgid ""
 "organize payment yourself though. Tickets only help to manage "
 "registrations"
 msgstr ""
-"Ein anderer Anwendungsfall ist das Verkaufen von Tickets. Du musst Dich dabei selbst um die Zahlung kümmern, das Barcamptool kann aber bei der Abwicklung helfen."
+"Ein anderer Anwendungsfall ist das Verkaufen von Tickets. Du musst Dich "
+"dabei selbst um die Zahlung kümmern, das Barcamptool kann aber bei der "
+"Abwicklung helfen."
 
 #: barcamps/templates/admin/ticketeditor.html:29
 msgid "Configure Ticket Mode"
@@ -2560,7 +2595,8 @@ msgid ""
 "Please add the necessary legal information for enabling a paid barcamp <a"
 " href=\"%s\">here</a>."
 msgstr ""
-"Bitte füge zunächst die notwendigen <a href\"%s\">rechtlichen Informatioen</a> hinzu."
+"Bitte füge zunächst die notwendigen <a href\"%s\">rechtlichen "
+"Informatioen</a> hinzu."
 
 #: barcamps/templates/admin/ticketeditor.html:48
 msgid "Data Saved..."
@@ -2603,9 +2639,14 @@ msgstr "Ticket widerrufen:"
 msgid "Approve"
 msgstr "Annehmen"
 
+#: barcamps/templates/admin/ticketlist.html:38
+#: barcamps/templates/admin/ticketlist.html:41
+msgid "Cancel Ticket"
+msgstr "Ticket widerrufen"
+
 #: barcamps/templates/admin/ticketlist.html:44
-msgid "Confirm Cancel"
-msgstr "Widerruf annehmen"
+msgid "Confirm Ticket Cancel"
+msgstr "Ticketwiderruf annehmen"
 
 #: barcamps/templates/admin/ticketlist.html:55
 msgid "Manage ticket reservations"
@@ -3024,7 +3065,8 @@ msgid ""
 "We could not register you for all selected events. Please check your "
 "email and the events page"
 msgstr ""
-"Wir konnten Dich leider nicht für alle ausgewählten Veranstaltungen registrieren. Bitte überprüfe Dein Postfach und die Veranstaltungsseite."
+"Wir konnten Dich leider nicht für alle ausgewählten Veranstaltungen "
+"registrieren. Bitte überprüfe Dein Postfach und die Veranstaltungsseite."
 
 #: handlers/users/activation.py:67
 msgid ""
@@ -3226,11 +3268,11 @@ msgstr "Abmeldung für %s/%s (%s/%s)"
 msgid "a Ticket was acquired for  %s/%s (%s/%s)"
 msgstr "ein Ticket wurde reserviert für %s/%s (%s/%s)"
 
-#: services/ticketing.py:293
+#: services/ticketing.py:297
 msgid "Your Ticket Cancel Request"
 msgstr "Deine Ticket-Widerrufsanfrage"
 
-#: services/ticketing.py:294
+#: services/ticketing.py:298
 msgid "Ticket Cancel Request"
 msgstr "Ticket-Widerrufsanfrage"
 
@@ -3748,65 +3790,6 @@ msgstr "Profil bearbeiten"
 #~ msgid "max. number of tickets in this class"
 #~ msgstr "Max. Teilnehmerzahl für das"
 
-#~ msgid ""
-#~ "You can use <code>((fullname))</code> in "
-#~ "a mail body which will be replaced"
-#~ " by\n"
-#~ "        the name of the user the"
-#~ " mail is sent to, e.g. 'Hello "
-#~ "((fullname)),... '"
-#~ msgstr ""
-#~ "Du kannst <code>((fullname))</code> in einem"
-#~ " Mailtext benutzen, um den vollen "
-#~ "Namen des Benutzer einzuseten, an den"
-#~ " die Mail geschickt wird. Beispiel: "
-#~ "'Hallo ((fullname)), ...'"
-
-#~ msgid ""
-#~ "The Welcome Mail is sent when a"
-#~ " user has successfully registered as "
-#~ "participant. It is\n"
-#~ "                not sent if the user "
-#~ "is going to be moved to the "
-#~ "waiting list in case the participant "
-#~ "list is already full."
-#~ msgstr ""
-#~ "Die Willkommens-Mail wird an "
-#~ "Benutzer_innen gesendet, sobald man "
-#~ "erfolgreich als Teilnehmer_in registriert hat."
-#~ " Sie wird nicht gesendet, wenn eine"
-#~ " Benutzer_in auf der Warteliste landete."
-#~ " Dann gilt die Mail unten."
-
-#~ msgid ""
-#~ "This Mail is sent when the maximum"
-#~ " number of participant has been "
-#~ "reached and the user is being\n"
-#~ "                moved onto the waitinglist."
-#~ msgstr ""
-#~ "Diese Mail wird an einen Benutzer_innen"
-#~ " gesendet, wenn die maximale "
-#~ "Teilnehmer_innenzahl erreicht wurde und man"
-#~ " auf der Warteliste landet."
-
-#~ msgid ""
-#~ "This Mail is sent to a user "
-#~ "who is being moved from the "
-#~ "waiting list to the participants list."
-#~ "\n"
-#~ "                This can happen if an"
-#~ " existing participant cancels his "
-#~ "participation or if the barcamp admin"
-#~ " increases\n"
-#~ "                the number of participants"
-#~ msgstr ""
-#~ "Diese Mail wird an einen Benutzer "
-#~ "gesendet, der von der Warteliste auf "
-#~ "die Teilnehmer_innenliste nachrückt. Dies "
-#~ "passiert entweder, wenn eine Teilnehmer_in "
-#~ "absagt oder wenn die Veranstalter_in die"
-#~ " Kapazität des  Barcamps erhöht. "
-
 #~ msgid "Ticketeditor"
 #~ msgstr ""
 
@@ -3815,4 +3798,10 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "edit registration form"
 #~ msgstr "Registrierung"
+
+#~ msgid "Your ticket reservation is pending."
+#~ msgstr "Deine Ticket-Reservierung befindet sich in Bearbeitung"
+
+#~ msgid "Confirm Cancel"
+#~ msgstr "Widerruf annehmen"
 
