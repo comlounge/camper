@@ -14,51 +14,53 @@
                 <div class="col-md-12">
                     <div id="ticketlist" class="registration-eventlist">
                         {% for tc in ticket_classes %}
-                            <div class="checkbox">
-                                <label>
-                                    {% if active %}
-                                        <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}" data-parsley-maxcheck="{{tc.max_left}}"> 
-                                    {% endif %}
+                            {% if tc.tickets_left %}
+                                <div class="checkbox">
+                                    <label>
+                                        {% if active %}
+                                            <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}" data-parsley-maxcheck="{{tc.max_left}}"> 
+                                        {% endif %}
 
-                                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
-                                        <div class="panel-heading">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <h4 class="panel-title">
-                                                        {{tc.name}} 
-                                                    </h4>
-                                                    <div class="ticket-description">
-                                                        {{tc.description}}
-                                                    </div>
-                                                    {% if barcamp.paid_tickets %}
-                                                        <div class="ticket-price">
-                                                            {{_('Price:')}} {{tc.price}}
+                                        <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h4 class="panel-title">
+                                                            {{tc.name}} 
+                                                        </h4>
+                                                        <div class="ticket-description">
+                                                            {{tc.description}}
                                                         </div>
-                                                    {% endif %}
-                                                </div>
-                                                <div class="col-md-6">
-                                                    {% if tc.events %}
-                                                        <div class="ticket-events ticket">
-                                                            <h4 class="panel-title">{{_('Events')}}</h4>
-                                                            <div class="ticket-description">
-                                                                {% for eid in tc.events %}
-                                                                    {% set event = barcamp.get_event(eid) %}
-                                                                    <span class="event-date">{{dateformat(event.date)}}</span>:
-                                                                    <span class="event-name">{{event.name}}</span>,
-                                                                    <span class="event-location">{{event.event_location.name}}</span>
-                                                                {% endfor %}
+                                                        {% if barcamp.paid_tickets %}
+                                                            <div class="ticket-price">
+                                                                {{_('Price:')}} {{tc.price}}
                                                             </div>
-                                                        </div>
-                                                    {% endif %}
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if tc.events %}
+                                                            <div class="ticket-events ticket">
+                                                                <h4 class="panel-title">{{_('Events')}}</h4>
+                                                                <div class="ticket-description">
+                                                                    {% for eid in tc.events %}
+                                                                        {% set event = barcamp.get_event(eid) %}
+                                                                        <span class="event-date">{{dateformat(event.date)}}</span>:
+                                                                        <span class="event-name">{{event.name}}</span>,
+                                                                        <span class="event-location">{{event.event_location.name}}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="tickets-left">
-                                                {{_('%(amount)s tickets left.') %{'amount' : tc.tickets_left}}}
-                                            </div>
-                                        </div>{# panel-heading #}
-                                    </article>
-                                </label>
-                            </div>
+                                                <div class="tickets-left">
+                                                    {{_('%(amount)s tickets left.') %{'amount' : tc.tickets_left}}}
+                                                </div>
+                                            </div>{# panel-heading #}
+                                        </article>
+                                    </label>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 </div>
