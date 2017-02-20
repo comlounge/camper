@@ -174,7 +174,7 @@ class TicketWizard(BarcampBaseHandler):
 
         # this will get all the ticket classes with a flag if they are obtainable or not
         # classes not yet active will not be returned.
-        available_ticket_classes = ticketservice.available_ticket_classes
+        available_ticket_classes = [tc for tc in ticketservice.available_ticket_classes if not tc['full']]
 
 
         # compute max amount of tickets left for barcamp 
