@@ -72,7 +72,23 @@
             {{ticket_class.description}}
             </p>
             Teilnehmer: {{user.fullname}}<br>
-            Preis: {{ticket_class.price}}
+            {% if barcamp.paid_tickets %}
+                Preis: {{ticket_class.price}}
+            {% endif %}
+            {% if ticket_class.events %}
+                <div class="ticket-events">
+                    <h4>{{_('Events')}}</h4>
+                    {% for eid in ticket_class.events %}
+                        {% set event = barcamp.get_event(eid) %}
+                        <div>
+                            <span class="event-date">{{dateformat(event.date)}}</span>:
+                            <span class="event-name">{{event.name}}</span>,
+                            <span class="event-location">{{event.event_location.name}}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
         </section>
     </article>
 
