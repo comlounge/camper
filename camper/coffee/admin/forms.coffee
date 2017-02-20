@@ -318,6 +318,25 @@ bm(jQuery)
 
 $ ->
 
+    console.log("ok")
+
+    $(".delete-tc").click (e) ->
+        e.preventDefault()
+        msg = $('body').data("i18n-areyousure")
+        if confirm(msg)
+            url = $(this).data("url")
+
+            $.ajax(
+                url: url
+                type: "POST"
+                data:
+                    method: "delete"
+                success: () ->
+                    window.location.reload()
+                )
+        return false
+
+
     $(".colorpicker-container").colorpicker();
 
     $(".urlscheme").limitchars()

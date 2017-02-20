@@ -15,6 +15,7 @@ from exceptions import *
 
 import markdown
 import bleach
+import logbook
 
 import re
 from jinja2 import evalcontextfilter, Markup, escape
@@ -186,6 +187,15 @@ class RobotsTXT(Handler):
         raise werkzeug.exceptions.NotFound()
 
 
+class NotFound(Handler):
+    """serve the not found page"""
+
+    template = "404.html"
+
+    def get(self):
+        """serve the file"""
+        return self.render()
+
 ###
 ### APP
 ###
@@ -222,6 +232,7 @@ class CamperApp(Application):
         'ga'                    : 'none', #GA key
         'base_asset_path'       : '/tmp', # where to store assets
         'fb_app_id'             : 'PLEASE FILL IN', # get this from developers.facebook.com
+        'log_filename'          : "/tmp/camper.log",
     }
 
     modules = [
@@ -326,6 +337,7 @@ class CamperApp(Application):
         self.config.dbs.galleries = db.ImageGalleries(mydb.galleries, app=self, config=self.config)
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
+        self.config.dbs.tickets = db.Tickets(mydb.tickets, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
 
         # etherpad connection
@@ -352,6 +364,33 @@ class CamperApp(Application):
                 })
             ],
         ))
+
+
+    def setup_logger(self):                                                                                                                                                                            
+        format_string = '[{record.time:%Y-%m-%d %H:%M:%S.%f%z}] {record.level_name} {record.channel} : {record.message} (in {record.filename}:{record.lineno}), args: {record.kwargs})'
+
+        handler = logbook.FileHandler(self.config.log_filename, format_string = format_string, bubble=True)
+        return logbook.NestedSetup([
+            handler,
+        ])
+
+    def handle_http_exception(self, request, e):
+        """handle http exceptions"""
+
+        logger = logbook.Logger("error")
+        logger.warn("http error", code = e.code, url = request.path)
+
+        # setup the request properly for handlers to use
+        urls = self.create_url_adapter(request)
+        request.url_adapter = urls
+
+        # we return a 404 now for every exception which probably is not good
+        handler = NotFound(self, request)
+
+        resp = handler()
+        resp.status_code = e.code # take code from exception
+        return resp
+
 
     def get_barcamp(self, slug):
         """return a barcamp by it's slug

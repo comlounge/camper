@@ -1,3 +1,4 @@
+#encoding=utf8
 import camper.app
 from starflyer import AttributeMapper
 import werkzeug
@@ -14,6 +15,7 @@ import datetime
 def config(request):
     """read the test config"""
     return {
+        'mongodb_url'  : 'mongodb://127.0.0.1:27017/camper_test_database_do_not_use',
         'mongodb_name'  : 'camper_test_database_do_not_use',
         'modules.userbase.mongodb_name'  : 'camper_test_database_do_not_use',
         'testing'       : True,
@@ -33,6 +35,7 @@ def create_user(app, username="user"):
 @pytest.fixture
 def app(request, config):
     app = camper.app.test_app({},**config)
+
     app.testdata = AttributeMapper() # for testing purposes
     app.testdata.users = AttributeMapper()
     app.testdata.users.admin = create_user(app, "admin") # TODO: actually make this user an admin
@@ -78,4 +81,30 @@ def barcamp(request, app):
 def client(request, app):
     return werkzeug.Client(app, werkzeug.BaseResponse)                                                                                                                                                                      
 
+
+
+import re
+pattern = """
+(
+  (?:
+    https?://
+    |
+    www\d{0,3}[.]
+    |
+    [a-z0-9.\-]+[.][a-z]{2,4}/
+  )
+  (?:
+    [^\s()<>]+
+    |
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
+  )+
+  (?:
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)
+    |
+    [^\s`!()\[\]{};:'".,<>?«»“”‘’]
+  )
+)
+"""
+pattern = "".join([p.strip() for p in pattern.split()])
+lre_string = re.compile(pattern, re.S|re.M|re.I)                                                                        
 

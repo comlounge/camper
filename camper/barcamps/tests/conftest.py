@@ -40,7 +40,7 @@ def pytest_funcarg__client(request):
 def pytest_funcarg__logged_in_client(request):
     app = request.getfuncargvalue('app')
     userbase = app.module_map['userbase']
-    user = userbase.users()
+    user = userbase.users({})
     user.update(dict(
         username = 'foo',
         password = 'bar',
@@ -52,7 +52,7 @@ def pytest_funcarg__logged_in_client(request):
 
     client = app.test_client()
     r = client.post("/users/login", data = dict(
-        username = "foo",
+        email = "foo.bar@example.org",
         password = "bar"
     ), follow_redirects = True, base_url="http://dev.localhost")
     return client
@@ -62,7 +62,7 @@ def pytest_funcarg__bclient(request):
     """client with user and barcamp"""
     app = request.getfuncargvalue('app')
     userbase = app.module_map['userbase']
-    user = userbase.users()
+    user = userbase.users({})
     user.update(dict(
         username = 'foo',
         password = 'bar',
@@ -74,7 +74,7 @@ def pytest_funcarg__bclient(request):
 
     client = app.test_client()
     resp = client.post("/users/login", data = dict(
-        username = "foo",
+        email = "foo.bar@example.org",
         password = "bar"
     ), follow_redirects = True, base_url="http://dev.localhost")
     resp  = client.post('/b/add', data=dict(

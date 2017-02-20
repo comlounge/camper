@@ -54,7 +54,16 @@ class SessionBoardData(BarcampBaseHandler):
         rooms = event.timetable.get('rooms', [])
         timeslots = event.timetable.get('timeslots', [])
         sessions = event.timetable.get('sessions', {})
-        participants = list(ub.get_users_by_ids(event.participants))
+
+
+
+        if self.barcamp.ticketmode_enabled:
+            tdb = self.config.dbs.tickets
+            tickets = tdb.get_tickets(barcamp_id = self.barcamp._id)
+            uids = set([t.user_id for t in tickets])
+            participants = list(ub.get_users_by_ids(uids))
+        else:
+            participants = list(ub.get_users_by_ids(event.participants))
         participants = [{'name' : p.fullname, '_id' : str(p._id)} for p in participants]
         proposals = []
         for p in self.config.dbs.sessions.find({'barcamp_id' : str(self.barcamp_id)}):

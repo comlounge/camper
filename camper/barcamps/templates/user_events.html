@@ -9,7 +9,7 @@
             <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
 
                 <div class="panel-heading">
-                    {% if barcamp.workflow == "registration" %}
+                    {% if barcamp.workflow == "registration" and not barcamp.ticketmode_enabled %}
                         <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
                         {% if logged_in and not has_form %}
                         <div class="actions pull-right">
@@ -89,26 +89,29 @@
                         {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
                         </a>
                     </address>
-                    <div class="progress-info">
-                        <span class="filled">{{event.participants|length}}</span>
-                        /
-                        <span class="size">{{event.size}}</span> 
-                        {{_('participants')}}
-                    </div>
-                    <div class="progress participants-progress">
-                        {% set percent = event.participants|length / event.size * 100 %}
-                        <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
-                            role="progressbar" 
-                            aria-valuenow="{{event.participants|length}}" 
-                            aria-valuemin="0" 
-                            aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
-
+                    {% if not barcamp.ticketmode_enabled %}
+                        <div class="progress-info">
+                            <span class="filled">{{event.participants|length}}</span>
+                            /
+                            <span class="size">{{event.size}}</span> 
+                            {{_('participants')}}
                         </div>
-                    </div>
+                        <div class="progress participants-progress">
+                            {% set percent = event.participants|length / event.size * 100 %}
+                            <div class="progress-bar {{'progress-bar-info' if percent < 80 else 'progress-bar-danger'}}" 
+                                role="progressbar" 
+                                aria-valuenow="{{event.participants|length}}" 
+                                aria-valuemin="0" 
+                                aria-valuemax="{{event.size}}" style="width: {{percent|int}}%;">
+                            </div>
+                        </div>                        
+                    {% endif %}
 
                 </div>
                 <div class="panel-body">
+                {% if not barcamp.ticketmode_enabled %}
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#userlist" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
+                {% endif %}
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>
                 </div>

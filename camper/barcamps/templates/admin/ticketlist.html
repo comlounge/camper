@@ -1,0 +1,130 @@
+{% set menu="ticketlist" %}
+{% extends "admin_master.html" %}
+
+
+{% macro userlist(tickets, tc_id, typ="participants") %}
+    <ul class="admin-participants">
+    {% for ticket in tickets %}
+        <li class="participant clearfix">
+            <div class="pull-left">
+                <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
+                    <img class="profile-image-userlist" src="{{userview(ticket.user).image_thumb}}">
+                </a>
+                <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
+                    {{ticket.user.fullname}}<br>
+                </a>
+                {% if ticket.workflow == "canceled" %}
+                    {{_('Ticket created:')}} <strong>{{dateformat(ticket.created)}}</strong>, 
+                    {{_('Ticket cancel requested:')}} <strong>{{dateformat(ticket.cancel_request_date)}}</strong>,
+                    {{_('Ticket canceled:')}} <strong>{{dateformat(ticket.cancel_date)}}</strong>
+                {% endif %}
+                {% if ticket.workflow == "cancel_request" %}
+                    <div class="ticket-cancel-info-box"">
+                        <span class="text-danger">{{ticket.cancel_reason}}</span><br>
+                    </div>
+                {% endif %}
+            </div>
+            
+            {% if typ!="canceled" %}
+            <div class="actions pull-right">
+                {% if typ=="pending" %}
+                    <a href="" 
+                        data-status="approve" 
+                        data-tcid="{{tc_id}}" 
+                        data-tid="{{ticket._id}}" 
+                        data-uid="{{ticket.user._id}}" 
+                        class="btn btn-xs btn-success listaction"><i class="fa fa-check"></i> {{_('Approve')}}</a>
+                    <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel Ticket')}}</a>
+                {% elif typ=="confirmed" %}
+                    <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel Ticket')}}</a>
+                {% elif typ=="cancel_request" %}
+                    <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
+                        class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Confirm Ticket Cancel')}}</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Manage ticket reservations')}}</h1>
+    </div>
+    {% for tc in ticket_classes %}
+        <section class="panel panel-info ticket-user-list">
+            <div class="panel-heading">
+                <h2 class="panel-title">{{tc.name}}</h2>
+            </div>
+
+            {% if tc.pending %}
+                <div class="panel-body">
+                    <h4>{{'Pending Ticket Reservations'}}</h4>
+                    {{userlist(tc.pending, tc._id, typ="pending")}}
+                </div>
+            {% endif %}
+
+            {% if tc.confirmed %}
+                <div class="panel-body">
+                    <h4>{{'Confirmed Ticket Reservations'}}</h4>
+                    {{userlist(tc.confirmed, tc._id, typ="confirmed")}}
+                </div>
+            {% endif %}
+
+            {% if tc.canceled %}
+                <div class="panel-body">
+                    <h5>{{'Canceled Ticket Reservations'}}
+                        <a href="#" class="pull-right" onClick="$(this).parent().siblings('.cancel-hidden').toggle(); return false"><i class="fa fa-arrow-down"></i></a>
+                    </h5>
+
+                    <div class="cancel-hidden" style="display: none">
+                    {{userlist(tc.canceled, tc._id, typ="canceled")}}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if tc.cancel_request %}
+                <div class="panel-body">
+                    <h3 class="text-danger">{{'Ticket Cancel Request'}}</h3>
+                    {{userlist(tc.cancel_request, tc._id, typ="cancel_request")}}
+                </div>
+            {% endif %}
+        </section>
+            
+    {% endfor %}
+{% endblock %}
+
+
+{% block bcjs %}
+<script type="text/javascript">
+$(document).ready( function () {
+    $(".listaction").click( function () {
+        var uid = $(this).data("uid");
+        var status = $(this).data("status");
+        var tc_id = $(this).data("tcid");
+        var tid = $(this).data("tid");
+        var url = document.location.href;
+        
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: {
+                status: status,
+                tc_id: tc_id,
+                tid: tid,
+                uid: uid
+            },
+            success: function(data) {
+                if (data.reload) {
+                    window.location.reload();
+                }
+            }
+        })
+    })
+
+})
+</script>
+{% endblock %}

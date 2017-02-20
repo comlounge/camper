@@ -12,7 +12,7 @@ def test_barcamp_add_without_login(client):
         location = "Aachen",
 
     ))
-    assert resp.headers['Location'] == "http://localhost/users/login"
+    assert resp.headers['Location'] == "http://example.org/users/login"
     assert resp.status_code == 302
 
 def test_barcamp_add(logged_in_client):
@@ -27,7 +27,7 @@ def test_barcamp_add(logged_in_client):
         location = "Aachen",
     ))
     lh = logged_in_client.application.last_handler
-    assert lh.get_flashes() == [u'Barcamp 1 wurde angelegt.']
+    assert lh.get_flashes() == [u'Barcamp 1 has been created']
     
 def test_barcamp_initialadmin(logged_in_client):
     """test adding a barcamp"""

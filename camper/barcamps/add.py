@@ -10,6 +10,8 @@ import requests
 import pycountry
 import gettext
 from ..form import MyDateField
+from camper.handlers.forms import WYSIWYGField
+
 
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
@@ -20,8 +22,8 @@ class BarcampAddForm(BaseForm):
                 description = u'Jedes Barcamp braucht einen Titel. Beispiel: "Barcamp Aachen 2012", "JMStVCamp"',
     )
 
-    description         = TextAreaField(u"Beschreibung", [],
-                description = u'Bitte beschreibe Dein Barcamp hier',
+    description         = WYSIWYGField(T("Description"), [validators.Required()],
+                description = T('please describe your barcamp here'),
     )
     slug                = TextField(u"URL-Name", [validators.Required()],
                 description = u'Dies ist der Kurzname, der in der URL auftaucht. Er darf nur Buchstaben und Zahlen sowie die Zeichen _ und - enthalten. Beispiele wären "barcamp_aachen" oder "bcac"',
@@ -29,19 +31,11 @@ class BarcampAddForm(BaseForm):
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually. Please make sure you also change the waiting list mail template as this will be sent when a user pre-registers.'))
     send_email_to_admins= BooleanField(T('Send email notifications'), description=T(u'If enabled barcamp administrators will receive notifications about people registering and unregistering from the barcamp'))
-    seo_description     = TextField(T('Meta Description'), 
-                            [validators.Length(max=160)],
-                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
     twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
             description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
-    twitter             = TextField(u"Twitter-Username", [validators.Length(max=100)], description="Nur der Username, max. 100 Zeichen")
-    hashtag             = TextField(u"Twitter-Hashtag", [validators.Length(max=100)], description="max. 100 Zeichen")
-    gplus               = TextField(u"Google Plus URL", [validators.Length(max=100)], description="URL des Google Plus Profils")
-    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
-    homepage            = TextField(u"Homepage URL", [validators.Length(max=500)], description="optionaler Link zu Homepage oder Blog des Barcamps, wenn vorhanden.")
     fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
     
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
@@ -142,6 +136,16 @@ class AddView(BaseHandler):
             templates['onwaitinglist_subject'] = self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants.")
             templates['fromwaitinglist_text'] = self.render_lang("emails/default_fromwaitinglist.txt", barcamp=barcamp, url=url)
             templates['fromwaitinglist_subject'] = self._("You are now on the list of participants for this barcamp.")
+
+            # set mail templates for ticketing
+            templates['ticket_welcome_text'] = self.render_lang("emails/default_ticket_welcome.txt", barcamp=barcamp, url=url)
+            templates['ticket_welcome_subject'] = self._('Welcome to %s') %barcamp.name
+            templates['ticket_pending_text'] = self.render_lang("emails/default_ticket_pending.txt", barcamp=barcamp, url=url)
+            templates['ticket_pending_subject'] = self._("Your ticket reservation for %s is pending." %barcamp.name)
+            templates['ticket_confirmed_text'] = self.render_lang("emails/default_ticket_confirmed.txt", barcamp=barcamp, url=url)
+            templates['ticket_confirmed_subject'] = self._("Your ticket for %s.") %barcamp.name
+            templates['ticket_canceled_text'] = self.render_lang("emails/default_ticket_canceled.txt", barcamp=barcamp, url=url)
+            templates['ticket_canceled_subject'] = self._("Your ticket for %s was canceled.") %barcamp.name
             barcamp.update({'mail_templates':templates})
 
             barcamp = self.config.dbs.barcamps.put(barcamp)

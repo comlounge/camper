@@ -1,0 +1,18 @@
+Hello ((fullname)),
+
+your ticket ((ticket_name)) was canceled by a barcamp administrator:
+
+Reason: ((reason))
+
+You can access all your tickets here:
+((mytickets_url))
+
+More information about the barcamp can be found here:
+((barcamp_url))
+
+
+Your ((barcamp.name)) team!
+
+
+--
+((url))

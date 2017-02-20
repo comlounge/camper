@@ -1,0 +1,18 @@
+Hello ((fullname)),
+
+thank you for the ticket reservation ((ticket_name)) for ((barcamp_name)).
+
+Your ticket reservation is pending and needs to be reviewed by a barcamp
+administrator. As soon as it's confirmed you will receive an email.
+
+You can access all your tickets here:
+((mytickets_url))
+
+More information about the barcamp can be found here:
+((barcamp_url))
+
+
+Your ((barcamp.name)) team!
+
+--
+((url))

@@ -9,7 +9,7 @@ import xlwt
 from cStringIO import StringIO
 import datetime
 
-from camper.services import RegistrationService, RegistrationError
+from camper.services import RegistrationService, RegistrationError, TicketService
 
 class BarcampSubscribe(BarcampBaseHandler):
     """adds a user to the subscription list"""
@@ -194,22 +194,83 @@ class RegistrationForm(BarcampBaseHandler):
 class RegistrationDataExport(BarcampBaseHandler):
     """exports the barcamp registration data"""
 
-    @ensure_barcamp()
-    @logged_in()
-    @is_admin()
-    def get(self, slug = None):
-        """export all the participant registration data"""
+
+    def export_tickets(self):
+        """this is used in case a ticket registration is active"""
         form = self.barcamp.registration_form
         data = self.barcamp.registration_data
+        tickets = self.config.dbs.tickets
+        userbase = self.app.module_map.userbase
+        ticket_classes = self.barcamp.ticketlist
+        ticketservice = TicketService(self, self.user)
 
-        #participants = self.barcamp.event.participants
 
-        filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)
+        all_tickets = tickets.get_tickets(barcamp_id = self.barcamp._id,
+            status = ['confirmed', 'pending', 'canceled', 'cancel_request'])
+
+        # retrieve all users
+        uids = [t.user_id for t in all_tickets]
+        users = userbase.get_users_by_ids(uids)
+        userdict = {}
+        for user in users:
+            userdict[str(user._id)] = user
+        for ticket in all_tickets:
+            ticket['fullname'] = userdict[ticket.user_id].fullname
+            ticket['ticketclass'] = ticket.ticketclass['name']
+
+            
+        # do the actual excel export
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('Registration Data')
+        i = 1
+
+        # headlines
+        ws.write(0, 0, "Name")
+        ws.write(0, 1, "Ticket")
+        ws.write(0, 2, "Status")
+        ws.write(0, 3, "Created")
+        ws.write(0, 4, "Cancelled")
+        ws.write(0, 5, "Cancel Requested")
+        ws.write(0, 6, "Cancel Reason")
+
+        
+        # registration form data titles
+        c = 7
+        for k in [f['title'] for f in form]:
+            ws.write(0, c, k)
+            c = c + 1
+
+        # now write all the users
+        for ticket in all_tickets:
+            c = 7
+            ws.write(i, 0, unicode(ticket['fullname'])) 
+            ws.write(i, 1, unicode(ticket['ticketclass'])) 
+            ws.write(i, 2, unicode(ticket['workflow'])) 
+            ws.write(i, 3, unicode(ticket['created'])) 
+            ws.write(i, 4, unicode(ticket['cancel_date'])) 
+            ws.write(i, 5, unicode(ticket['cancel_request_date'])) 
+            ws.write(i, 6, unicode(ticket['cancel_reason'])) 
+
+            # write registration data if present
+            record = data.get(ticket.user_id, {})    
+            for field in [f['name'] for f in form]:
+                ws.write(i, c, unicode(record.get(field, "n/a")))
+                c = c + 1
+
+            i = i + 1
+            
+        return wb
+
+
+    def export_events(self):
+        """this is used in case a normal event registration is active"""
+        form = self.barcamp.registration_form
+        data = self.barcamp.registration_data
 
         users = {}
         ub = self.app.module_map.userbase
 
-        def process_list(userlist, state="going"):
+        def process_list(eid, userlist, state="going"):
             """process a user list"""
             for user in userlist:
                 uid = str(user._id)
@@ -252,9 +313,9 @@ class RegistrationDataExport(BarcampBaseHandler):
             participants = [ub.get_user_by_id(uid) for uid in event.participants]
 
             
-            process_list(participants, "going")
-            process_list(maybe, "maybe")
-            process_list(waitinglist, "waiting")
+            process_list(eid, participants, "going")
+            process_list(eid, maybe, "maybe")
+            process_list(eid, waitinglist, "waiting")
 
 
         # do the actual excel export
@@ -294,32 +355,23 @@ class RegistrationDataExport(BarcampBaseHandler):
                 c = c + 1
 
             i = i + 1
+            
+        return wb
 
-        stream = StringIO()
-        wb.save(stream)
-        response = self.app.response_class(stream.getvalue(), content_type="application/excel")
-        response.headers['Content-Disposition'] = 'attachment; filename="%s"' % filename
-        return response
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """export all the participant registration data"""
 
 
+        if self.barcamp.ticketmode_enabled:
+            wb = self.export_tickets()
+        else:
+            wb = self.export_events()
 
-        # data
-        for uid, record in data.items():
-
-            # only take those users which are participants
-            if uid not in participants:
-                continue
-                
-            # write participant name
-            user = self.app.module_map.userbase.get_user_by_id(uid)
-            ws.write(i, 0, unicode(user['fullname']))
-
-            # write rest
-            c = 1
-            for field in [f['name'] for f in form]:
-                ws.write(i, c, unicode(record.get(field, "n/a")))
-                c = c + 1
-            i = i + 1
+        # write the actual file
+        filename = "%s-%s-participants.xls" %(datetime.datetime.now().strftime("%y-%m-%d"), self.barcamp.slug)    
         stream = StringIO()
         wb.save(stream)
         response = self.app.response_class(stream.getvalue(), content_type="application/excel")

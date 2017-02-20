@@ -65,10 +65,10 @@ class BarcampWizard(BarcampBaseHandler):
         has_event = len(events) != 0 or "has_event" in wc
         has_sponsor = len(bc.sponsors) != 0 or "has_sponsor" in wc
         has_logo = bc.logo != "" and bc.logo != None or "has_logo" in wc
-        has_twitter = bc.twitter != "" or "has_twitter" in wc
-        has_hashtag = bc.hashtag != "" or "has_hashtag" in wc
-        has_facebook = bc.facebook != "" or "has_facebook" in wc
-        has_seo = bc.seo_description != "" or "has_seo" in wc
+        has_twitter = bc.twitter or "has_twitter" in wc
+        has_hashtag = bc.hashtag or "has_hashtag" in wc
+        has_facebook = bc.facebook or "has_facebook" in wc
+        has_seo = bc.seo_description or "has_seo" in wc
 
         is_public = bc.workflow in ("public", "registration")
         is_active = bc.workflow == "registration"

@@ -1,0 +1,22 @@
+Hello ((fullname)),
+
+thank you for getting a ((ticket_name)) ticket for ((barcamp_name)).
+Your ticket reservation has been confirmed.
+
+You can download your ticket here:
+
+((ticket_url))
+
+You can access all your tickets here:
+((mytickets_url))
+
+More information about the barcamp can be found here:
+((barcamp_url))
+
+
+
+Your ((barcamp.name)) team!
+
+
+--
+((url))

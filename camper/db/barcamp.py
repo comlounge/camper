@@ -8,6 +8,8 @@ from slugify import UniqueSlugify
 import embeddify                                                                                                                                                 
 import re
 
+from tickets import *
+
 # initialize the embed provider with some max values
 embedder = embeddify.Embedder(config = {'width' : 1200, 'height' : 1200 })
 
@@ -86,12 +88,21 @@ class RegistrationFieldSchema(Schema):
 
 class MailsSchema(Schema):
     """a sub schema describing email templates"""
-    welcome_subject         = String()
-    welcome_text            = String()
-    onwaitinglist_subject   = String()
-    onwaitinglist_text      = String()
-    fromwaitinglist_subject = String()
-    fromwaitinglist_text    = String()
+    welcome_subject             = String()
+    welcome_text                = String()
+    onwaitinglist_subject       = String()
+    onwaitinglist_text          = String()
+    fromwaitinglist_subject     = String()
+    fromwaitinglist_text        = String()
+    ticket_welcome_subject      = String()
+    ticket_welcome_text         = String()
+    ticket_pending_subject      = String()
+    ticket_pending_text         = String()
+    ticket_confirmed_subject    = String()
+    ticket_confirmed_text       = String()
+    ticket_canceled_subject     = String()
+    ticket_canceled_text        = String()
+
 
 
 class Location(Record):
@@ -320,6 +331,9 @@ class Event(Record):
 
 
 
+
+
+
 class BarcampSchema(Schema):
     """main schema for a barcamp holding all information about core data, events etc."""
 
@@ -354,6 +368,12 @@ class BarcampSchema(Schema):
     hide_barcamp        = Boolean(default=False) # whether the whole barcamp should be visible or not
     preregistration     = Boolean(default=False) # if ppl need to be put manually on the participation list
 
+    # ticketmode
+    ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
+    paid_tickets        = Boolean(default = False)  # if false no prices will be shown
+    ticket_classes      = List(TicketClassSchema()) # list of ticket classes
+    max_participants    = Integer(default = 1000)   # max number of participants over all tickets
+    
 
     # documentation
     planning_pad        = String() # ID of the planning etherpad
@@ -412,6 +432,12 @@ class BarcampSchema(Schema):
     # wizard checks. Elements in this list will disable asking for it again on the wizard screen
     wizard_checked      = List(String(), default = [])
 
+    # imprint and barcamp contact email, important for paid tickets
+    contact_email       = String(default="")
+    imprint             = String(default="")
+    tos                 = String(default="")
+    cancel_policy       = String(default="")
+
 
 class Barcamp(Record):
 
@@ -442,6 +468,10 @@ class Barcamp(Record):
         'seo_description'       : '', 
         'seo_keywords'          : '',
         'wizard_checked'        : [],
+        'contact_email'         : '', 
+        'imprint'               : '', 
+        'tos'                   : '', 
+        'cancel_policy'         : '', 
     }
 
     workflow_states = {
@@ -495,6 +525,66 @@ class Barcamp(Record):
         events.sort(s)
         events = [Event(e, _barcamp = self) for e in events]
         return events
+
+    @property
+    def ticketlist(self):
+        """return a list of all ticket classes and whether they are full or not"""
+        ub = self._collection.md.app.module_map.userbase
+        tickets = [TicketClass(tc, _barcamp = self, _userbase = ub) for tc in self.ticket_classes]
+        return tickets
+
+    def get_ticket_class(self, tc_id):
+        """return a ticket class by it's id or None if it does not exist"""
+        for tc in self.ticket_classes:
+            if tc['_id'] == tc_id:
+                return TicketClass(tc, _barcamp = self, _userbase = self._collection.md.app.module_map.userbase)
+        return None
+
+    def update_ticket_class(self, tc):
+        """update an existing ticket class by searching for it in the list and replacing it"""
+        i = 0
+        tc_data = tc.schema.serialize(tc)
+        for i in range(0,len(self.ticket_classes)):
+            if self.ticket_classes[i]['_id'] == tc._id:
+                self.ticket_classes[i] = tc_data
+                return        
+
+    def delete_ticket_class(self, tc):
+        """delete an existing ticket class by searching for it in the list and removing it"""
+        i = 0
+        tc_data = tc.schema.serialize(tc)
+        for i in range(0,len(self.ticket_classes)):
+            if self.ticket_classes[i]['_id'] == tc._id:
+                del self.ticket_classes[i]
+                return        
+
+    def get_tickets_for_user(self, user_id, status=["confirmed", "pending", "cancel_request"]):
+        """return all the ticket class ids which a users owns
+
+        :param user_id: the user id of the user
+        :param status: the status which is either a string or a list of strings
+        :return: a list of ticket classes
+        """
+
+        tickets = self._collection.md.app.config.dbs.tickets
+        return tickets.get_tickets(user_id = user_id, barcamp_id = self._id, status = status)
+
+    @property
+    def paid_allowed(self):
+        """check if all necessary fields are present for paid mode"""
+        return self.contact_email \
+            and len(self.imprint.strip())>20 \
+            and len(self.tos.strip())>20 \
+            and len(self.cancel_policy.strip())>20
+
+    @property
+    def has_imprint(self):
+        """return whether the barcamp has a proper imprint or not
+
+        basically it needs to be bigger than 20 chars
+
+        """
+        return len(self.imprint.strip())>20
 
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp

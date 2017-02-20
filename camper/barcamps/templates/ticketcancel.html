@@ -1,0 +1,22 @@
+{% set menu="ticketlist" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Cancelation Request for Ticket %s' %(ticket_class.name))}}</h1>
+        <div class="help-block">
+            {{_('This form will send a cancelation request to the barcamp administrator. The admin will then decide whether to cancel your ticket or not. You will be informed by email.')}}
+        </div>
+    </div>
+
+        <form id="ticketclassform" method="POST" action="{{url}}">
+            <input type="hidden" name="tid" value="{{ticket._id}}">
+            {{ formmacros.form_field(form.reason)}}
+            <div class="form-actions" style="margin-top: 30px;">
+                <input type="submit" class="btn btn-lg btn-danger" value="{{_('Cancel ticket')}}">
+                <a href="{{url_for('.mytickets', slug = slug)}}" class="btn btn-default pull-right">{{_('Abort')}}</a>
+            </div>
+        </form>
+    </section>
+    
+{% endblock %}

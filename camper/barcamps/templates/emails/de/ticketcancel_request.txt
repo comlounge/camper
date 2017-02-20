@@ -1,0 +1,13 @@
+Hallo {{user.fullname}},
+
+{{new_user.fullname}} will das Ticket {{ticket.ticketclass.name}} mit der ID 
+{{ticket._id}} für das Barcamp {{barcamp.name}} zurückgeben.
+
+Grund:
+{{ticket.cancel_reason}}
+
+Du kannst das Ticket hier wiederrufen: {{ticketlist_url}}.
+
+--
+Diese E-Mail wurde automatisch generiert, bitte antworte nicht darauf.
+Du kannst diese Benachrichtigungen hier abstellen: {{notification_url}}

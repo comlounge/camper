@@ -1,0 +1,21 @@
+{% set menu="ticketlist" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Cancel Ticket %s for %s' %(ticket_class.name, user.fullname))}}</h1>
+    </div>
+
+        <form id="ticketclassform" method="POST" action="{{url}}">
+            <input type="hidden" name="tid" value="{{ticket._id}}">
+            {{ formmacros.form_field(form.reason, required = True)}}
+            <div class="form-actions" style="margin-top: 30px;">
+                <input type="submit" class="btn btn-lg btn-danger" value="{{_('Cancel ticket')}}">
+                <a href="{{url_for('.admin_ticketlist', slug = slug)}}" class="btn btn-default pull-right">{{_('Abort')}}</a>
+            </div>
+
+        </form>
+
+    </section>
+    
+{% endblock %}

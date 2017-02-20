@@ -22,3 +22,4 @@ tmp
 node_modules
 .DS_Store
 camper/templates/M
+.tox

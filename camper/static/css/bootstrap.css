@@ -7564,6 +7564,29 @@ form {
 .panel.panel-wizard .panel-heading {
   background: #e3e2e0;
 }
+#ticketeditor-container {
+  position: relative;
+}
+#ticketeditor-container #disabled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 0 auto;
+  font-size: 40px;
+  padding: 30% 15%;
+  text-align: center;
+}
+.ticket-cancel-info-box {
+  font-size: 12px;
+}
+.ticket-cancel-info-box span {
+  font-size: 14px;
+  font-weight: bold;
+}
 .gallery {
   width: 100%;
   overflow: hidden;
@@ -7669,16 +7692,16 @@ form {
   width: 100%;
   margin-left: 30px;
 }
-#registration-wizard fieldset .checkbox article .text-danger {
+#registration-wizard fieldset .checkbox article .progress-bar .text-danger {
   color: white;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  #registration-wizard fieldset .checkbox article .text-danger {
+  #registration-wizard fieldset .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
 @media (max-width: 767px) {
-  #registration-wizard fieldset .checkbox article .text-danger {
+  #registration-wizard fieldset .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
@@ -8658,6 +8681,9 @@ footer {
   font-size: 14px;
   color: #666;
 }
+#eventlist .panel > .panel-heading {
+  min-height: 100px;
+}
 .nodescription {
   margin-bottom: 30px;
 }
@@ -8993,4 +9019,20 @@ img.flickr-embed-img {
   display: block;
   max-width: 100%;
   height: auto;
+}
+.ticket-description {
+  margin-top: 10px;
+}
+.tickets-left {
+  border-top: 1px solid #e0e0e0;
+  margin: 10px 0;
+  padding: 5px 0;
+  font-size: 90%;
+}
+.ticket-description {
+  font-size: 14px;
+}
+.ticket-price {
+  margin-top: 20px;
+  font-weight: bold;
 }

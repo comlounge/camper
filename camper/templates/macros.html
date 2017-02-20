@@ -19,6 +19,7 @@
             {% endif %}
         </div>    
     {% endif %}
+    {{ form_field_errors(field) }}
 {%- endmacro %}
 
 {%- macro form_field_label(field, label_class="") -%}
@@ -92,7 +93,6 @@
             {% else %}
                 {{ my_field(field, input_class=input_class, size=size, **kwargs) }}
             {% endif %}
-            {{ form_field_errors(field) }}
         {% endif %}
     {% endif %}
     </div>

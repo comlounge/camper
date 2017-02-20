@@ -90,7 +90,7 @@ def test_broken_timeslot(barcamp_with_event, barcamps):
 
 def test_timeslot_defaults(barcamp_with_event, barcamps):
     bc = barcamp_with_event
-    ts = {'time' : datetime.datetime.now()}
+    ts = {'time' : "11:00"}
     bc.eventlist[0]['timetable']['timeslots'].append(ts)
 
     bc = barcamps.save(bc)
@@ -112,7 +112,7 @@ def create_timetable():
     timeslots = [
         {
             "reason" : "",
-            "time" : "2015-10-07T09:00:00.000Z"
+            "time" : "09:00"
         },
     ]
     sessions = {

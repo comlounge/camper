@@ -10,6 +10,7 @@ import permissions
 import location
 import registration
 import registrationwizard
+import ticketwizard
 import dashboard
 import delete
 import tweetwally
@@ -21,6 +22,12 @@ import sessionpad
 import galleries
 import design
 import wizard
+import ticketeditor
+import mytickets
+import ticketlist
+import legal
+import legaledit
+import socialedit
 
 from starflyer import Module, URL
 
@@ -36,6 +43,8 @@ class BarcampModule(Module):
         URL('/<slug>/validate',             'validate',                         add.ValidateView),
         URL('/<slug>/delete',               'delete',                           delete.DeleteConfirmView),
         URL('/<slug>/edit',                 'edit',                             edit.EditView),
+        URL('/<slug>/legaledit',            'legaledit',                        legaledit.LegalEditView),
+        URL('/<slug>/socialedit',           'socialedit',                       socialedit.SocialEditView),
         URL('/<slug>/mails_edit',           'email_template_editor',            edit.MailsEditView),
         URL('/<slug>/newsletter_send',      'newsletter_send',                  newsletter.NewsletterEditView),
         URL('/<slug>/participants_edit',    'participants_edit',                edit.ParticipantsEditView),
@@ -52,6 +61,9 @@ class BarcampModule(Module):
         URL('/<slug>/tweetwally',           'tweetwally',                       tweetwally.TweetWallyView),
         URL('/<slug>/permissions',          'permissions',                      permissions.Permissions),
         URL('/<slug>/permissions/admin',    'admin',                            permissions.Admin),
+        
+        URL('/<slug>/tos',                  'tos',                              legal.TOSView),
+        URL('/<slug>/cancellation',         'cancellation',                     legal.CancelView),
 
         URL('/<slug>/sessions',             'sessions',                         sessions.SessionList),
         URL('/<slug>/sessions.xls',         'session_export',                   sessions.SessionExport),
@@ -78,9 +90,10 @@ class BarcampModule(Module):
         URL('/<slug>/registration_form',    'registration_form',                registration.RegistrationForm),
         URL('/<slug>/registrationdata',     'registrationdata',                 registration.RegistrationData),
 
-        URL('/<slug>/events',               'user_events',                      user_events.Events),
-        URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
-        URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
+        URL('/<slug>/tickets',              'tickets',                          ticketwizard.TicketWizard),
+        URL('/<slug>/mytickets',            'mytickets',                        mytickets.MyTickets),
+        URL('/<slug>/mytickets/<ticket_id>/cancel',            'ticketcancel',                     mytickets.TicketCancel),
+        URL('/<slug>/mytickets/<ticket_id>','ticketpdf',                        mytickets.TicketPDF),
 
         URL('/<slug>/admin/galleries',      'admin_galleries',                  galleries.GalleryList),
         URL('/<slug>/admin/galleries/<gid>','admin_gallery',                    galleries.GalleryAdminEdit),
@@ -88,6 +101,16 @@ class BarcampModule(Module):
         URL('/<slug>/admin/galleries/<gid>/title', 'gallery_title_edit',        galleries.GalleryTitleEdit),
 
         URL('/<slug>/admin/wizard',         'admin_wizard',                     wizard.BarcampWizard),
+
+        URL('/<slug>/admin/tickets',        'admin_ticketeditor',               ticketeditor.TicketEditor),
+        URL('/<slug>/admin/tickets/<tc_id>','admin_ticketedit',                 ticketeditor.TicketClassEdit),
+        URL('/<slug>/admin/tickets/config', 'admin_ticketconfig',               ticketeditor.TicketingConfig),
+        URL('/<slug>/admin/tickets/users',  'admin_ticketlist',                 ticketlist.TicketList),
+        URL('/<slug>/admin/tickets/<ticket_id>/cancel','admin_ticketcancel',        ticketlist.TicketCancel),
+
+        URL('/<slug>/events',               'user_events',                      user_events.Events),
+        URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
+        URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
         URL('/<slug>/admin/events/<eid>',   'event',                            events.EventView),

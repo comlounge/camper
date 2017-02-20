@@ -269,6 +269,14 @@
       form.submit();
       return false;
     });
+    $(".action-confirm").click(function() {
+      var confirm_msg;
+      confirm_msg = $(this).data("confirm");
+      if (confirm(confirm_msg)) {
+        return true;
+      }
+      return false;
+    });
     $("#select-event").change(function() {
       return window.location = $("#select-event option:selected").attr("value");
     });

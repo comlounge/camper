@@ -32,19 +32,11 @@ class BarcampEditForm(BaseForm):
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     preregistration     = BooleanField(T('Enable Pre-Registration'), description=T(u'If enabled users can only pre-register and an admin needs to put them on the participation list manually. Please make sure you also change the waiting list mail template as this will be sent when a user pre-registers.'))
     send_email_to_admins= BooleanField(T('Send email notifications'), description=T(u'If enabled barcamp administrators will receive notifications about people registering and unregistering from the barcamp'))
-    seo_description     = TextField(T('Meta Description'), 
-                            [validators.Length(max=160)],
-                            description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
 
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
     twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
             description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
-    twitter             = TextField(T("Twitter-Username"), [validators.Length(max=15)], description=T("only the username, max. 15 characters"))
-    hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
-    gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
-    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
-    homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
     fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
 
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
@@ -97,13 +89,22 @@ class EditView(BarcampBaseHandler):
         countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
 
-        
         # remove the slug field if we are public already
         if self.barcamp.public:
             del form['slug']
 
+
         if self.request.method == 'POST' and form.validate():
+            
             f = form.data
+
+            # ignore preregistration changes if paid tickets is enabled
+            # actually make sure it's enabled
+            if self.barcamp.paid_tickets:
+                if "preregistration" in f:
+                    del f['preregistration']
+                self.barcamp.preregistration = True
+
             f['location'] = {
                 'name'      : f['location_name'],
                 'street'    : f['location_street'],
@@ -183,6 +184,18 @@ class MailsEditForm(BaseForm):
                 #description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
 
+
+class TicketMailsEditForm(BaseForm):
+    """form for defining mail templates specific for tickets"""
+    ticket_welcome_subject      = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_welcome_text         = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_pending_subject      = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_pending_text         = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_confirmed_subject    = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_confirmed_text       = TextAreaField(T("Body"), [validators.Required()],)
+    ticket_canceled_subject     = TextField(T("Subject"), [validators.Length(max=300), validators.Required()],)
+    ticket_canceled_text        = TextAreaField(T("Body"), [validators.Required()],)
+
 class MailsEditView(BarcampBaseHandler):
     """let the user define the mail templates"""
 
@@ -194,12 +207,15 @@ class MailsEditView(BarcampBaseHandler):
     def get(self, slug = None):
         """render the view"""
         obj = AttributeMapper(self.barcamp.mail_templates)
-        form = MailsEditForm(self.request.form, obj = obj, config = self.config)
+        if self.barcamp.ticketmode_enabled:
+            form = TicketMailsEditForm(self.request.form, obj = obj, config = self.config)
+        else:
+            form = MailsEditForm(self.request.form, obj = obj, config = self.config)
         if self.request.method == 'POST' and form.validate():
             self.barcamp.mail_templates = form.data
             self.barcamp.put()
             self.flash("Barcamp E-Mails aktualisiert", category="info")
-            return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug))
+            return redirect(self.url_for("barcamps.admin_wizard", slug = self.barcamp.slug))
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,

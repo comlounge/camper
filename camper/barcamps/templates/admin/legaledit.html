@@ -1,0 +1,50 @@
+{% set menu="legal" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Edit legal information')}}</h1>
+    {% endblock %}
+
+    <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
+        <fieldset id="legal-view">
+            <legend>{{_('Legal information')}}</legend>
+            <div class="help-block">{{_('You need to fill this out if you take money for attending your events')}}</div>
+
+            <div class="form-group">
+                <label for="contact_email" class="col-sm-2">{{_('Contact email address')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.f(form.contact_email, required=barcamp.paid_tickets, type="email", placeholder=_('contact@barcamp'), maxlength=160)}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="imprint" class="col-sm-2 control-label">{{_('Imprint')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.my_field(form.imprint, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="imprint", placeholder=_(''))}}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="tos" class="col-sm-2 control-label">{{_('Terms of Service')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.my_field(form.tos, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="tos", placeholder=_(''))}}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="cancel_policy" class="col-sm-2 control-label">{{_('Cancellation Policy')}}</label>
+                <div class="col-sm-10">
+                    {{formmacros.my_field(form.cancel_policy, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="cancel_policy", placeholder=_(''))}}
+                </div>
+            </div>
+        </fieldset>
+
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-primary" value="{{_('Save Changes')}}">
+            <a href="{{url_for("barcamps.index", slug = barcamp.slug)}}" class="btn btn-large">{{_('Cancel')}}</a>
+        {% endblock %}
+    </form>
+{% endblock %}

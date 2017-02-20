@@ -1,0 +1,129 @@
+{% set active_action = "events" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% macro ticketblock(tickets, 
+        cancel = False,
+        download = False,
+        headline='Select tickets', 
+        panel_class = "success",
+        css_id = "tickets") %}
+    <section id="{{css_id}}">
+        <h3>{{headline}}</h3>
+        <div class="fs-content">
+            <div id="ticketlist2" class="registration-eventlist2">
+                {% for t in tickets %}
+                    {% set tc = t.ticketclass %}
+                    <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-{{panel_class}} panel-ticket">
+                        <div class="panel-heading">
+                            <h2 class="panel-title"> {{tc.name}} </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="ticket-description">
+                                        {{tc.description}}
+                                    </div>
+                                    {% if barcamp.paid_tickets %}
+                                        <div class="ticket-price">
+                                            {{_('Price:')}} {{tc.price}}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% if tc.events %}
+                                        <div class="ticket-events">
+                                            <h4>{{_('Events')}}</h4>
+                                            {% for eid in tc.events %}
+                                                {% set event = barcamp.get_event(eid) %}
+                                                <span class="event-date">{{dateformat(event.date)}}</span>:
+                                                <span class="event-name">{{event.name}}</span>,
+                                                <span class="event-location">{{event.event_location.name}}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>{# panel-body #}
+                            <div class="panel-footer clearfix">
+                                {% if t.cancel_request_date %}
+                                    <span class="ticket-cancel-request-date text-danger">
+                                        {{_('Cancel Requested:')}} {{dateformat(t.cancel_request_date)}}
+                                    </span>
+                                {% endif %}
+                                {% if t.cancel_reason %}
+                                    <span class="ticket-cancel-request-date text-danger">
+                                        ({{t.cancel_reason}})
+                                    </span>
+                                {% endif %}
+
+
+                                {% if download %}
+                                <a target="ticket" href="{{url_for('.ticketpdf', slug = slug, ticket_id = t._id)}}">
+                                    <i class="fa fa-download"></i>
+                                    {{_('Download Ticket')}}
+                                </a>
+                                {% endif %}
+                                {% if cancel %}
+                                <a href="{{url_for('.ticketcancel', slug = slug, ticket_id = t._id)}}" 
+                                    class="text-danger pull-right">{{_('Cancel ticket')}}</a>
+                                {% endif %}
+                            </div>
+                    </article>
+                {% endfor %}
+            </div>
+        </div>
+    </fieldset>
+{% endmacro %}
+
+
+
+{% block headline %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li class="active">{{_('Registration')}}</li>
+    </ol>
+    <h1>{{_('My Tickets for %s') %barcamp.name}}</h1>
+
+{% endblock %}
+{% block main_content %}
+    <div id="mytickets-list">
+        {% if confirmed %}
+            {{ticketblock(confirmed, 
+                cancel = True,
+                panel_class="success",
+                download = True,
+                headline = '')}}
+        {% endif %}
+        <hr>
+
+        {% if pending %}
+            {{ticketblock(pending, 
+                cancel = True,
+                panel_class="info",
+                headline = _('pending tickets'))}}
+        {% endif %}
+
+        {% if cancel_request %}
+            {{ticketblock(cancel_request, 
+                cancel = False,
+                panel_class="danger",
+                headline = _('canceled tickets (requested)'))}}
+        {% endif %}
+
+        {% if canceled %}
+            {{ticketblock(canceled, 
+                cancel = False,
+                panel_class="default",
+                headline = _('canceled tickets (confirmed)'))}}
+        {% endif %}
+
+
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#regform').parsley();
+        })
+    </script>
+
+{% endblock %}

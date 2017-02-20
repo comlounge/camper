@@ -11,41 +11,92 @@
         </h1>
     </div>
     {% endblock %}
-    <div class="alert alert-info">
-        <strong>{{_("Tip!")}}</strong> {{_("You can use <code>((fullname))</code> in a mail body which will be replaced by
-        the name of the user the mail is sent to, e.g. 'Hello ((fullname)),... '")}}
-    </div>
-    <form class="form" method="POST" action="{{url}}">
-        <fieldset>  
-            <legend>{{_("Welcome Mail")}}</legend>
-            <div class="help-block">
-                {{_("The Welcome Mail is sent when a user has successfully registered as participant. It is
-                not sent if the user is going to be moved to the waiting list in case the participant list is already full.")}}
-            </div>
-            {{ formmacros.form_field(form.welcome_subject, input_class="required span6") }}
-            {{ formmacros.form_field(form.welcome_text, input_class="required span6", rows=12) }}
-        </fieldset>
-        <fieldset>  
-            <legend>{{_('Waitinglist Mail')}}</legend>
-            <div class="help-block">
-                {{_("This Mail is sent when the maximum number of participant has been reached and the user is being
-                moved onto the waitinglist.")}}
-            </div>
-            {{ formmacros.form_field(form.onwaitinglist_subject, input_class="required span6") }}
-            {{ formmacros.form_field(form.onwaitinglist_text, input_class="required span6", rows=12) }}
-        </fieldset>
-        <fieldset>  
-            <legend>{{_('From Waitinglist Mail')}}</legend>
-            <div class="help-block">
-                {{_("This Mail is sent to a user who is being moved from the waiting list to the participants list.
-                This can happen if an existing participant cancels his participation or if the barcamp admin increases
-                the number of participants")}}
-            </div>
-            {{ formmacros.form_field(form.fromwaitinglist_subject, input_class="required span6") }}
-            {{ formmacros.form_field(form.fromwaitinglist_text, input_class="required span6", rows=12) }}
-        </fieldset>
-        <input type="submit" class="btn btn-primary" value="{{_('Save')}}">
-    </form>
+    {% if not barcamp.ticketmode_enabled %}
+        <div class="alert alert-info">
+            <strong>{{_("Tip!")}}</strong> {{_("You can use <code>((fullname))</code> in a mail body which will be replaced by
+            the name of the user the mail is sent to, e.g. 'Hello ((fullname)),... '")}}
+        </div>
+        <form class="form" method="POST" action="{{url}}">
+            <fieldset>  
+                <legend>{{_("Welcome Mail")}}</legend>
+                <div class="help-block">
+                    {{_("The Welcome Mail is sent when a user has successfully registered as participant. It is
+                    not sent if the user is going to be moved to the waiting list in case the participant list is already full.")}}
+                </div>
+                {{ formmacros.form_field(form.welcome_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.welcome_text, input_class="required span6", rows=12) }}
+            </fieldset>
+            <fieldset>  
+                <legend>{{_('Waitinglist Mail')}}</legend>
+                <div class="help-block">
+                    {{_("This Mail is sent when the maximum number of participant has been reached and the user is being
+                    moved onto the waitinglist.")}}
+                </div>
+                {{ formmacros.form_field(form.onwaitinglist_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.onwaitinglist_text, input_class="required span6", rows=12) }}
+            </fieldset>
+            <fieldset>  
+                <legend>{{_('From Waitinglist Mail')}}</legend>
+                <div class="help-block">
+                    {{_("This Mail is sent to a user who is being moved from the waiting list to the participants list.
+                    This can happen if an existing participant cancels his participation or if the barcamp admin increases
+                    the number of participants")}}
+                </div>
+                {{ formmacros.form_field(form.fromwaitinglist_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.fromwaitinglist_text, input_class="required span6", rows=12) }}
+            </fieldset>
+            <input type="submit" class="btn btn-primary" value="{{_('Save')}}">
+        </form>
+
+    {% else %}
+        <div class="alert alert-info">
+            <strong>{{_("Tip!")}}</strong> {{_("You can use <code>((fullname))</code> in a mail body which will be replaced by
+            the name of the user the mail is sent to, e.g. 'Hello ((fullname)),... '")}}
+        </div>
+        <form class="form" method="POST" action="{{url}}">
+            <fieldset>  
+                <legend>{{_("Ticket Reservation Mail")}}</legend>
+                <div class="help-block">
+                    {{_("The Welcome Mail is sent when a user has successfully registered as participant. It is
+                    not sent if the user is going to be moved to the waiting list in case the participant list is already full.")}}
+                </div>
+                {{ formmacros.form_field(form.ticket_welcome_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.ticket_welcome_text, input_class="required span6", rows=12) }}
+            </fieldset>
+            <fieldset>  
+                <legend>{{_('Ticket Pending Mail')}}</legend>
+                <div class="help-block">
+                    {{_("This Mail is sent when the maximum number of participant has been reached and the user is being
+                    moved onto the waitinglist.")}}
+                </div>
+                {{ formmacros.form_field(form.ticket_pending_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.ticket_pending_text, input_class="required span6", rows=12) }}
+            </fieldset>
+            <fieldset>  
+                <legend>{{_('Ticket Confirmation Mail')}}</legend>
+                <div class="help-block">
+                    {{_("This Mail is sent to a user who is being moved from the waiting list to the participants list.
+                    This can happen if an existing participant cancels his participation or if the barcamp admin increases
+                    the number of participants")}}
+                </div>
+                {{ formmacros.form_field(form.ticket_confirmed_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.ticket_confirmed_text, input_class="required span6", rows=12) }}
+            </fieldset>            
+            <fieldset>  
+                <legend>{{_('Ticket Canceled Mail')}}</legend>
+                <div class="help-block">
+                    {{_("This Mail is sent to a user who is being moved from the waiting list to the participants list.
+                    This can happen if an existing participant cancels his participation or if the barcamp admin increases
+                    the number of participants")}}
+                </div>
+                {{ formmacros.form_field(form.ticket_canceled_subject, input_class="required span6") }}
+                {{ formmacros.form_field(form.ticket_canceled_text, input_class="required span6", rows=12) }}
+            </fieldset>
+
+            <input type="submit" class="btn btn-primary" value="{{_('Save')}}">
+        </form>
+
+    {% endif %}
 
 {% endblock %}
 

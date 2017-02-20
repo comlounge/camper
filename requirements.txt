@@ -39,3 +39,4 @@ starflyer==2.1.1
 userbase==1.1.1
 xhtml2pdf==0.0.6
 xlwt==1.0.0
+weasyprint

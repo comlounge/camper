@@ -1,0 +1,18 @@
+Hallo ((fullname)),
+
+Dein Ticket ((ticket_name)) wurde durch einen Administrator wiederrufen.
+
+Grund: ((reason))
+
+Du kannst hier auf alle Deine Tickets zugreifen:
+((mytickets_url))
+
+Weitere Informationen zur Veranstaltung findest Du hier:
+((barcamp_url))
+
+
+Dein ((barcamp.name)) team!
+
+
+--
+((url))

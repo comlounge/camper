@@ -1,0 +1,179 @@
+{% set menu="tickets" %}
+{% extends "admin_master.html" %}
+
+{% block content %}
+    <div class="page-header">
+        <h1>{{_('Manage Tickets')}}</h1>
+        <div class="help-block">
+            <br>{{_('Tickets are an alternative way to manage registrations. Tickets are one or more events bundled together.')}}</br>
+            <br>{{_('This can be useful if you e.g. want people to signup for the whole barcamp in case it also includes lodging for the night')}}</br>
+            <br>{{_('Another use is if you want to sell tickets. You would still need to organize payment yourself though. Tickets only help to manage registrations')}}</br>
+        </div>
+    </div>
+
+    <div id="ticketeditor-container">
+    {#
+        <div id="disabled">
+            {{_('You can only edit tickets if the barcamp is not in registration mode')}}
+        </div>
+    #}
+
+        <div id="config">
+            <form id="ticketconfigform1" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
+                {{ formmacros.form_field(config_form.ticketmode_enabled)}}
+            </form>
+        </div>
+
+        <section id="ticketeditor" class="clearfix" style="{{'display: none;' if not ticketmode_enabled}}">
+
+            <h2>{{_('Configure Ticket Mode')}}
+            </h2>
+            <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.paid_allowed)}}
+                        {% if not barcamp.paid_allowed %}
+                            <div class="help-block alert alert-warning">
+                                {{_('Please add the necessary legal information for enabling a paid barcamp <a href="%s">here</a>.') %url_for('.legaledit', slug = slug)}}</a>
+                            </div>
+                        {% endif %}
+                        {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}
+                    </div>
+                    <div class="col-md-4">
+                        {{ formmacros.form_field(config_form.max_participants, size="4", maxlength=4, type="number")}}
+                        <div class="form-actions" style="margin: 10px 0;">
+                            <a href="#" id="config-submit" class="btn btn-primary btn-sm">{{_('Save')}}</a>
+                        </div>
+                        <div id="saved-container" style="height: 40px;">
+                            <div id="saved" style="display: none;" class="alert alert-info">{{_('Data Saved...')}}</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <h2>{{_('Manage Tickets')}}</h2>
+            {% if not ticket_classes|length %}
+                <div class="alert alert-warning">{{_('No tickets defined yet')}}</div>
+            {% else %}
+                <table class="table table-big">
+                    <thead>
+                        <tr>
+                            <th>{{_('Ticket Name')}}</th>
+                            <th>{{_('Amount')}}</th>
+                            <th>{{_('Date')}}</th>
+                            <th>{{_('Price')}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    {% for tc in ticket_classes %}
+                        <tr>
+                            <td>{{tc.name}}</td>
+                            <td>{{tc.size}}</td>
+                            <td>{{dateformat(tc.start_date)}} - {{dateformat(tc.end_date)}}</td>
+                            <td>{{tc.price}}</td>
+                            <td>
+                                <a href="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                            {% if barcamp.workflow != "registration" %}                            
+                                <a  class="delete-tc btn btn-danger" 
+                                    title="{{_('Delete Ticket?')}}" 
+                                    href = "#"
+                                    data-url="{{url_for('.admin_ticketedit', slug = slug, tc_id = tc._id)}}">
+                                        <i class="fa fa-trash"></i>
+                                </a>
+                            {% else %}
+                                
+                            {% endif %}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            <hr>
+
+            <h3>{{_('Add new ticket')}}</h3>
+            <form id="ticketclassform" method="POST" action="{{url_for('barcamps.admin_ticketeditor', slug=slug)}}">
+                {{ formmacros.form_field(add_form.name, required = True)}}
+                {{ formmacros.form_field(add_form.description, required = True)}}
+                {{ formmacros.form_field(add_form.size, required = True)}}
+                {{ formmacros.form_field(add_form.events, required = True)}}
+                {{ formmacros.form_field(add_form.price)}}
+                <h4>{{_('Ticket Availability')}}</h4>
+                <div class="row clearfix">
+                    <div class="form-group">
+                        <div class="col-sm-1">
+                            <label for="date" class="col-sm-2 control-label">{{_('From')}}*</label>
+                        </div>
+                        <div class="col-sm-4">
+                            {{formmacros.f(add_form.start_date, required=True, classes="datepicker", placeholder=_('Start date'))}}
+                        </div>
+                        <div class="col-sm-1">
+                        {{_('to')}}*
+                        </div>
+                        <div class="col-sm-4">
+                            {{formmacros.f(add_form.end_date, required=True, classes="datepicker", placeholder=_('End date'))}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 30px;">
+                    <input type="submit" class="btn btn-lg btn-primary" value="{{_('Add new ticket')}}">
+                </div>
+
+            </form>
+
+        </section>
+    </div>
+    
+{% endblock %}
+
+{% block bcjs %}
+        <script>
+            $(document).ready(function () {
+
+                function save() {
+                    elem = $("#ticketconfigform2");
+                    var data = {
+                        ticketmode_enabled : $("#ticketmode_enabled").prop("checked"),
+                        paid_tickets : $("#paid_tickets").prop("checked"),
+                        preregistration : $("#preregistration").prop("checked"),
+                        max_participants : $("#max_participants").val(),
+                    }
+
+                    var url = $(elem).data("url");
+                    $.post(url, data , function (result){
+                        if (result.ticketmode_enabled) {
+                            $("#ticketeditor").slideDown();
+                        } else {
+                            $("#ticketeditor").slideUp();
+                        }
+                        if (result.preregistration) {
+                            $("#preregistration").prop("checked", true)
+                        }
+                        if (result.paid_tickets) {
+                            $("#preregistration").prop("disabled", true)
+                        } else {
+                            $("#preregistration").prop("disabled", false)
+                        }
+
+                        $("#saved").fadeIn("slow", function() {
+                            setTimeout(function(){
+                                $('#saved').fadeOut('slow');
+                            },1000);
+                        } );
+
+                    });
+                }
+                $(".ticketconfig").on("change", function () {
+                    save();
+                })
+                $("#config-submit").on("click", function (e) {
+                    e.preventDefault();
+                    save();
+                    return false;
+                });
+            });
+        </script>
+        
+{% endblock %}

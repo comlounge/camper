@@ -1,0 +1,195 @@
+{% set active_action = "events" %}
+{% extends "_m/barcamps/master.html" %}
+
+{% macro ticketblock(ticket_classes, 
+        active = True, 
+        headline='Select tickets', 
+        description='Please select which tickets you want to register for',
+        css_id = "tickets") %}
+    <fieldset id="{{css_id}}">
+        <legend>{{headline}}</legend>
+        <div class="fs-content">
+            <div class="help-block">{{description}}</div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div id="ticketlist" class="registration-eventlist">
+                        {% for tc in ticket_classes %}
+                            {% if tc.tickets_left %}
+                                <div class="checkbox">
+                                    <label>
+                                        {% if active %}
+                                            <input type="checkbox" required name="_tc" {{'disabled' if tc.full}} value="{{tc._id}}" data-parsley-maxcheck="{{tc.max_left}}"> 
+                                        {% endif %}
+
+                                        <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h4 class="panel-title">
+                                                            {{tc.name}} 
+                                                        </h4>
+                                                        <div class="ticket-description">
+                                                            {{tc.description}}
+                                                        </div>
+                                                        {% if barcamp.paid_tickets %}
+                                                            <div class="ticket-price">
+                                                                {{_('Price:')}} {{tc.price}}
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        {% if tc.events %}
+                                                            <div class="ticket-events ticket">
+                                                                <h4 class="panel-title">{{_('Events')}}</h4>
+                                                                <div class="ticket-description">
+                                                                    {% for eid in tc.events %}
+                                                                        {% set event = barcamp.get_event(eid) %}
+                                                                        <span class="event-date">{{dateformat(event.date)}}</span>:
+                                                                        <span class="event-name">{{event.name}}</span>,
+                                                                        <span class="event-location">{{event.event_location.name}}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="tickets-left">
+                                                    {{_('%(amount)s tickets left.') %{'amount' : tc.tickets_left}}}
+                                                </div>
+                                            </div>{# panel-heading #}
+                                        </article>
+                                    </label>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+{% endmacro %}
+
+
+{% block headline %}
+    <ol class="breadcrumb">
+        <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
+        <li class="active">{{_('Registration')}}</li>
+    </ol>
+    <h1>{{_('Reserve Tickets for %s') %barcamp.name}}</h1>
+
+{% endblock %}
+{% block main_content %}
+    <div id="registration-wizard">
+                
+        <form class="validate form-horizontal parsley-validate" method="POST" id="regform" action="{{url}}">
+
+        {% if has_available %}
+            {% if not logged_in %}
+                <fieldset>
+                    <legend>{{_('Login or register a new account')}}</legend>
+                    <div class="fs-content">
+                        <div class="help-block">
+                            {{_('If you already have a barcamptools.eu account please login.')}}
+                            <a href="{{url_for('.tologin', slug=slug)}}" class="btn btn-sm btn-default">{{_('Login')}}</a>
+                        </div>
+                        <div class="help-block">
+                            {{_('This barcamp is hosted on barcamptools.eu. It is an online platform for managing barcamps which comes free of charge. Because of that we ask you to provide the account data below and we will create an account for you. That way you can later manage your barcamp registration or use interactive features during the barcamp.')}}
+                            }
+                        </div>
+                        <div class="help-block">
+                        {{_('The email you provide here will not be shared with any barcamps.')}}
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="email">{{_('E-Mail')}}*</label>
+                            <div class="col-md-6">
+                                {{userform.email(class="form-control", type="email", required = True, 
+                                    **{
+                                        'data-parsley-remote' : url_for(".validate_email", slug=barcamp.slug),
+                                        'data-parsley-remote-reverse': 'true',
+                                        'data-parsley-remote-message' : _('This email is already taken. Please <a href="/users/login">login</a> to continue the registration process'),
+                                    }
+
+                                )}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="password">{{_('Password')}}*</label>
+                            <div class="col-md-6">
+                                {{userform.password(class="form-control", type="password", required = True)}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="password2">{{_('Repeat your password')}}*</label>
+                            <div class="col-md-6">
+                                {{userform.password2(class="form-control", required=True, **{'data-parsley-equalto':"#password"})}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-2" for="password">{{_('Fullname')}}*</label>
+                            <div class="col-md-6">
+                                {{userform.fullname(class="form-control", type="text", required = True)}}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+            {% endif %}
+
+            {% if registration_form %}
+                <fieldset>
+                    <legend>{{_('Provide barcamp specific data')}}</legend>
+                    <div class="fs-content">
+                        <div class="help-block">{{_("The barcamp administrator asks you to provide the following data. This will not be shared with other barcamps.")}}</div>
+                        {% for field in form %}
+                            {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
+                        {% endfor %}
+                    </div>
+                </fieldset>
+            {% endif %}
+
+            {{ticketblock(available, active = True, headline = _('Reserve your tickets'))}}
+
+            {% if show_tickets_left %}
+                <div class="alert alert-warning">
+                    {{_('<b>Please note:</b> This barcamp only has %s tickets left.') %(tickets_left)}}
+                </div>
+                
+            {% endif %}
+            {% if barcamp.paid_tickets %}
+                <div class="checkbox">
+                    <label>
+                        <input required name="tos_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') %{'link': url_for('.tos', slug=slug)}}}.
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input required name="cancel_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') %{'link': url_for('.cancellation', slug=slug)}}}.
+                    </label>
+                </div>
+
+                <input type="submit" value="{{_("Buy tickets")}}" class="btn btn-lg btn-primary pull-right">
+            {% else %}
+                <input type="submit" value="{{_("Reserve tickets")}}" class="btn btn-lg btn-primary pull-right">
+            {% endif %}
+        {% else %}
+            <div class="jumbotron">
+                <h3>{{_('Unfortunately no tickets are available right now.')}}</h3>
+                <p>{{_('Please check back later.')}}</p>
+            </div>
+        {% endif %}
+
+            
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log($('#regform').parsley());
+        })
+    </script>
+
+{% endblock %}
