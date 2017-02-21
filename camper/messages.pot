@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-21 12:52+0100\n"
+"POT-Creation-Date: 2017-02-21 16:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -649,7 +649,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:259
+#: barcamps/templates/master.html:262
 msgid "Imprint"
 msgstr ""
 
@@ -677,23 +677,23 @@ msgid ""
 "local law)."
 msgstr ""
 
-#: barcamps/mytickets.py:29
+#: barcamps/mytickets.py:34
 msgid "True"
 msgstr ""
 
-#: barcamps/mytickets.py:29
+#: barcamps/mytickets.py:34
 msgid "False"
 msgstr ""
 
-#: barcamps/mytickets.py:111 barcamps/ticketlist.py:100
+#: barcamps/mytickets.py:112 barcamps/ticketlist.py:100
 msgid "Reason"
 msgstr ""
 
-#: barcamps/mytickets.py:112
+#: barcamps/mytickets.py:113
 msgid "Please give a reason for canceling here (optional)."
 msgstr ""
 
-#: barcamps/mytickets.py:141
+#: barcamps/mytickets.py:142
 msgid "Your cancel request has been submitted."
 msgstr ""
 
@@ -1147,8 +1147,12 @@ msgstr ""
 msgid "Registration for this barcamp is not yet open."
 msgstr ""
 
-#: barcamps/templates/master.html:262
+#: barcamps/templates/master.html:265
 msgid "Contact: "
+msgstr ""
+
+#: barcamps/templates/master.html:289
+msgid "Add to Calendar"
 msgstr ""
 
 #: barcamps/templates/mytickets.html:28

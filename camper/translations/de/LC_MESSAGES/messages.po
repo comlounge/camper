@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-21 12:52+0100\n"
+"POT-Creation-Date: 2017-02-21 16:08+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -683,7 +683,7 @@ msgstr ""
 "Diese wird öffentlich dargestellt."
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:259
+#: barcamps/templates/master.html:262
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -715,23 +715,23 @@ msgstr ""
 "Bitte beschreibe hier das Widerrufsrechts (beachte dabei bitte auch die "
 "gesetzlichen Vorgaben)."
 
-#: barcamps/mytickets.py:29
+#: barcamps/mytickets.py:34
 msgid "True"
 msgstr "Ja"
 
-#: barcamps/mytickets.py:29
+#: barcamps/mytickets.py:34
 msgid "False"
 msgstr "Nein"
 
-#: barcamps/mytickets.py:111 barcamps/ticketlist.py:100
+#: barcamps/mytickets.py:112 barcamps/ticketlist.py:100
 msgid "Reason"
 msgstr "Grund"
 
-#: barcamps/mytickets.py:112
+#: barcamps/mytickets.py:113
 msgid "Please give a reason for canceling here (optional)."
 msgstr "Bitte gebe einen Grund für den Widerruf an (optional)"
 
-#: barcamps/mytickets.py:141
+#: barcamps/mytickets.py:142
 msgid "Your cancel request has been submitted."
 msgstr "Deine Anfrage zum Widerruf wurde übertragen"
 
@@ -1214,9 +1214,13 @@ msgstr "Eröffne die Registrierung"
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
-#: barcamps/templates/master.html:262
+#: barcamps/templates/master.html:265
 msgid "Contact: "
 msgstr "Kontakt: "
+
+#: barcamps/templates/master.html:289
+msgid "Add to Calendar"
+msgstr "zum Kalender hinzufügen"
 
 #: barcamps/templates/mytickets.html:28
 #: barcamps/templates/ticket_wizard.html:36

@@ -125,11 +125,11 @@
       (params.data.end !== undefined || params.data.duration !== undefined);
   };
 
-  var generateMarkup = function(calendars, clazz, calendarId) {
+  var generateMarkup = function(params, calendars, clazz, calendarId) {
     var result = document.createElement('div');
     result.className = "btn-group btn-block";
     result.innerHTML = '<a type="button" class="btn btn-block btn-calendar dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> \
-    <i class="fa fa-calendar"></i> Add to calendar <span class="caret"></span></a>';
+    <i class="fa fa-calendar"></i> '+params.options.title+' <span class="caret"></span></a>';
     var listElem = document.createElement("ul");
     listElem.className = "dropdown-menu";
     Object.keys(calendars).forEach(function(services) {
@@ -159,7 +159,7 @@
       return;
     }
 
-    return generateMarkup(generateCalendars(params.data),
+    return generateMarkup(params, generateCalendars(params.data),
                           getClass(params),
                           getOrGenerateCalendarId(params));
   };
