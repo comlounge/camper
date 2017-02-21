@@ -9103,3 +9103,18 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
   color: #eae8e0;
   background-color: #333333;
 }
+#add-to-calendar-container .dropdown-menu {
+  top: 35px;
+  background: #eae8e0;
+  width: 100%;
+  padding: 0;
+}
+#add-to-calendar-container .dropdown-menu i {
+  width: 30px;
+}
+#add-to-calendar-container .dropdown-menu li a {
+  padding: 8px 20px;
+}
+#add-to-calendar-container .dropdown-menu li + li {
+  border-top: 1px solid #d0d0d0;
+}
