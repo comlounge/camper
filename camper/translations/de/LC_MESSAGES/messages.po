@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-16 15:27+0100\n"
+"POT-Creation-Date: 2017-02-21 12:52+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -140,13 +140,13 @@ msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 msgid "Not a valid date value"
 msgstr "kein gültiger Wert"
 
-#: barcamps/templates/registration_wizard.html:37
-#: barcamps/templates/ticket_wizard.html:103 login.py:20
+#: barcamps/templates/registration_wizard.html:36
+#: barcamps/templates/ticket_wizard.html:105 login.py:20
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: barcamps/templates/registration_wizard.html:51
-#: barcamps/templates/ticket_wizard.html:117 login.py:21
+#: barcamps/templates/registration_wizard.html:50
+#: barcamps/templates/ticket_wizard.html:119 login.py:21
 msgid "Password"
 msgstr "Passwort"
 
@@ -261,7 +261,7 @@ msgid "email address of the venue (optional)"
 msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
 
 #: barcamps/add.py:48 barcamps/edit.py:49 barcamps/events.py:43
-#: barcamps/templates/admin/participants_data_edit.html:20
+#: barcamps/templates/admin/participants_data_edit.html:21
 msgid "description"
 msgstr "Beschreibung"
 
@@ -328,7 +328,7 @@ msgstr "%s wurde angelegt."
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
-#: barcamps/base.py:53 templates/master.html:67
+#: barcamps/base.py:53 templates/master.html:63
 msgid "Home"
 msgstr "Startseite"
 
@@ -344,7 +344,7 @@ msgstr "Veranstaltungen"
 msgid "planning"
 msgstr "Planung"
 
-#: barcamps/base.py:62 barcamps/design.py:37 templates/master.html:78
+#: barcamps/base.py:62 barcamps/design.py:37 templates/master.html:74
 msgid "Blog"
 msgstr "Blog"
 
@@ -439,13 +439,14 @@ msgstr "Sessionvorschläge"
 #: barcamps/templates/admin/wizard.html:289
 #: barcamps/templates/mytickets.html:35
 #: barcamps/templates/participant_data.html:7
+#: barcamps/templates/pdfs/pdfticket.html:80
 #: barcamps/templates/sessionpad.html:9
-#: barcamps/templates/ticket_wizard.html:42
+#: barcamps/templates/ticket_wizard.html:43
 #: barcamps/templates/user_event.html:99 barcamps/ticketeditor.py:40
 msgid "Events"
 msgstr "Veranstaltungen"
 
-#: barcamps/design.py:41 blog/add.py:22
+#: barcamps/design.py:41 blog/add.py:25
 msgid "Gallery to show on homepage"
 msgstr "Galerie für die Homepage"
 
@@ -457,7 +458,7 @@ msgstr ""
 "Die Galerie wird auf der Startseite zwischen der Hauptnavigation des "
 "Barcamps und dem restlichen Inhalt angezeigt."
 
-#: barcamps/design.py:70 blog/add.py:40 blog/edit.py:29
+#: barcamps/design.py:70 blog/add.py:43 blog/edit.py:29
 msgid "do not show a gallery"
 msgstr "keine Galerie nutzen"
 
@@ -563,29 +564,33 @@ msgstr ""
 msgid "please describe what the user should enter in this field."
 msgstr "Bitte beschreibe hier, was der Benutzer in dieses Feld eintippen soll"
 
-#: barcamps/edit.py:279 barcamps/templates/admin/participants_data_edit.html:21
+#: barcamps/edit.py:279 barcamps/templates/admin/participants_data_edit.html:20
 msgid "field type"
 msgstr "Art des Feldes"
 
-#: barcamps/edit.py:279
+#: barcamps/edit.py:281
+msgid "a yes/no field"
+msgstr ""
+
+#: barcamps/edit.py:282
 msgid "1 line of text"
 msgstr "Textfeld mit einer einzelnen Zeile"
 
-#: barcamps/edit.py:279
+#: barcamps/edit.py:283
 msgid "multiple lines of text"
 msgstr "Textfeld mit mehreren Zeilen"
 
-#: barcamps/edit.py:280
+#: barcamps/edit.py:284
 msgid "please chose between a one-line text field or multi-line text area"
 msgstr ""
 "Bitte wähle zwischen einem einzeiligen Textfeld oder einem mehrzeiligen "
 "Textbereich"
 
-#: barcamps/edit.py:282
+#: barcamps/edit.py:286
 msgid "field required?"
 msgstr "Feld erforderlich?"
 
-#: barcamps/edit.py:283
+#: barcamps/edit.py:287
 msgid ""
 "If you enable this then the user cannot register before this field has "
 "been filled in."
@@ -678,7 +683,7 @@ msgstr ""
 "Diese wird öffentlich dargestellt."
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:257
+#: barcamps/templates/master.html:259
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -710,15 +715,23 @@ msgstr ""
 "Bitte beschreibe hier das Widerrufsrechts (beachte dabei bitte auch die "
 "gesetzlichen Vorgaben)."
 
-#: barcamps/mytickets.py:101 barcamps/ticketlist.py:100
+#: barcamps/mytickets.py:29
+msgid "True"
+msgstr "Ja"
+
+#: barcamps/mytickets.py:29
+msgid "False"
+msgstr "Nein"
+
+#: barcamps/mytickets.py:111 barcamps/ticketlist.py:100
 msgid "Reason"
 msgstr "Grund"
 
-#: barcamps/mytickets.py:102
+#: barcamps/mytickets.py:112
 msgid "Please give a reason for canceling here (optional)."
 msgstr "Bitte gebe einen Grund für den Widerruf an (optional)"
 
-#: barcamps/mytickets.py:131
+#: barcamps/mytickets.py:141
 msgid "Your cancel request has been submitted."
 msgstr "Deine Anfrage zum Widerruf wurde übertragen"
 
@@ -849,11 +862,11 @@ msgstr ""
 "%(fullname)s wurde erfolgreich von der Liste der Barcamp-Interessenten "
 "entfernt."
 
-#: barcamps/registration.py:180
+#: barcamps/registration.py:183
 msgid "Your information was updated"
 msgstr "Deine Informationen wurden aktualisiert"
 
-#: barcamps/registrationwizard.py:158 barcamps/ticketwizard.py:161
+#: barcamps/registrationwizard.py:162 barcamps/ticketwizard.py:164
 msgid ""
 "Unfortunately an error occurred when trying to register you. Please try "
 "again or contact the barcamptools administrator."
@@ -861,11 +874,11 @@ msgstr ""
 "Leider ist bei der Registrierung ein Fehler aufgetreten. Bitte versuche "
 "es noch einmal oder kontaktiere einen Barcamp-Administrator."
 
-#: barcamps/registrationwizard.py:162
+#: barcamps/registrationwizard.py:166
 msgid "You have been successfully registered. Please check your email."
 msgstr "Du wurdest erfolgreich registriert. Bitte überprüfe Deine E-Mail."
 
-#: barcamps/registrationwizard.py:165 barcamps/ticketwizard.py:170
+#: barcamps/registrationwizard.py:169 barcamps/ticketwizard.py:173
 msgid ""
 "In order to finish your registration you have to activate your account. "
 "Please check your email."
@@ -927,10 +940,11 @@ msgid "link to the homepage of this barcamp in case one exists."
 msgstr "Link zur Homepage des Barcamps, soweit sie existiert"
 
 #: barcamps/socialedit.py:24 barcamps/templates/admin/socialedit.html:21
+#: blog/add.py:18
 msgid "Meta Description"
 msgstr "Meta-Description"
 
-#: barcamps/socialedit.py:26
+#: barcamps/socialedit.py:26 blog/add.py:20
 msgid ""
 "The meta description is used for for search engines and often shows up in"
 " search results. It should be no more than 160 characters long."
@@ -1057,7 +1071,7 @@ msgstr "Bitte gebe hier einen Grund für den Widerruf an."
 msgid "Ticket canceled."
 msgstr "Ticket widerrufen."
 
-#: barcamps/ticketwizard.py:165
+#: barcamps/ticketwizard.py:168
 msgid ""
 "Your ticket reservations have been processed. Please check your email for"
 " information on how to pay for your ticket."
@@ -1065,7 +1079,7 @@ msgstr ""
 "Deine Ticket-Reservierung ist eingegangen. Bitte überprüfe Deine E-Mail "
 "für weitere Informationen zur Zahlung."
 
-#: barcamps/ticketwizard.py:167
+#: barcamps/ticketwizard.py:170
 msgid "Your ticket reservation was successful."
 msgstr "Deine Ticket-Reservierung war erfolgreich."
 
@@ -1080,7 +1094,7 @@ msgstr "Blog-Artikel über das Barcamp"
 #: barcamps/templates/admin/participants_data_edit.html:39
 #: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:63
 #: barcamps/templates/sessions.html:90 static/templates/sessiontest.hbs:19
-#: templates/master.html:50
+#: templates/master.html:46
 msgid "Are you sure?"
 msgstr "Bist Du sicher? (wirklich?)"
 
@@ -1108,7 +1122,7 @@ msgstr "Abbrechen"
 #: barcamps/templates/admin/mails_edit.html:96
 #: barcamps/templates/admin/ticketeditor.html:45
 #: barcamps/templates/docs.html:35 barcamps/templates/participant_data.html:25
-#: barcamps/templates/sessions.html:142 blog/templates/edit.html:50
+#: barcamps/templates/sessions.html:142 blog/templates/edit.html:51
 msgid "Save"
 msgstr "Speichern"
 
@@ -1125,7 +1139,7 @@ msgstr "Personen"
 msgid "Documentation for"
 msgstr "Dokumentation für"
 
-#: barcamps/templates/master.html:3
+#: barcamps/templates/master.html:3 blog/templates/entry.html:60
 msgid "Share on Facebook"
 msgstr "Auf Facebook teilen"
 
@@ -1134,7 +1148,7 @@ msgstr "Auf Facebook teilen"
 msgid "Check out %(name)s"
 msgstr "Schau Dir %(name)s an!"
 
-#: barcamps/templates/master.html:6
+#: barcamps/templates/master.html:6 blog/templates/entry.html:63
 msgid "Share on Twitter"
 msgstr "Auf Twitter teilen"
 
@@ -1156,7 +1170,7 @@ msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 #: barcamps/templates/master.html:53 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:60
 #: barcamps/templates/user_event.html:90 barcamps/templates/user_events.html:71
-#: templates/M/userbase/registration.html:15 templates/master.html:94
+#: templates/M/userbase/registration.html:15 templates/master.html:90
 msgid "Register"
 msgstr "Registrieren"
 
@@ -1164,48 +1178,48 @@ msgstr "Registrieren"
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
-#: barcamps/templates/master.html:135
+#: barcamps/templates/master.html:137
 msgid "Open map in modal"
 msgstr "Karte in Fenster öffnen"
 
 #: barcamps/templates/admin/event_macros.html:38
-#: barcamps/templates/master.html:168 static/templates/room-modal.hbs:39
+#: barcamps/templates/master.html:170 static/templates/room-modal.hbs:39
 #: static/templates/session-modal.hbs:64 static/templates/timeslot-modal.hbs:35
 msgid "Close"
 msgstr "Schließen"
 
-#: barcamps/templates/master.html:181
+#: barcamps/templates/master.html:183
 msgid "Open menu"
 msgstr "Menü"
 
-#: barcamps/templates/master.html:192
+#: barcamps/templates/master.html:194
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:229 templates/admin_master.html:78
+#: barcamps/templates/master.html:231 templates/admin_master.html:78
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:230 templates/admin_master.html:79
+#: barcamps/templates/master.html:232 templates/admin_master.html:79
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
 #: barcamps/templates/admin/wizard.html:265
-#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:237
+#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:239
 #: templates/admin_master.html:86
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:238 templates/admin_master.html:87
+#: barcamps/templates/master.html:240 templates/admin_master.html:87
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
-#: barcamps/templates/master.html:260
+#: barcamps/templates/master.html:262
 msgid "Contact: "
 msgstr "Kontakt: "
 
 #: barcamps/templates/mytickets.html:28
-#: barcamps/templates/ticket_wizard.html:35
+#: barcamps/templates/ticket_wizard.html:36
 msgid "Price:"
 msgstr "Preis: "
 
@@ -1226,14 +1240,14 @@ msgstr "Ticket widerrufen"
 #: barcamps/templates/participant_data.html:6
 #: barcamps/templates/registration_wizard.html:6
 #: barcamps/templates/sessionpad.html:8
-#: barcamps/templates/ticket_wizard.html:73
+#: barcamps/templates/ticket_wizard.html:75
 #: barcamps/templates/user_event.html:98
 msgid "Homepage"
 msgstr "Homepage"
 
 #: barcamps/templates/mytickets.html:83
 #: barcamps/templates/registration_wizard.html:7
-#: barcamps/templates/ticket_wizard.html:74
+#: barcamps/templates/ticket_wizard.html:76
 msgid "Registration"
 msgstr "Registrierung"
 
@@ -1253,6 +1267,39 @@ msgstr "Zum Widerruf vorgemerkte Tickets"
 #: barcamps/templates/mytickets.html:117
 msgid "canceled tickets (confirmed)"
 msgstr "Widerrufene Tickets"
+
+#: barcamps/templates/mytickets.html:139 barcamps/templates/user_event.html:225
+#: barcamps/templates/user_events.html:128
+msgid "My data"
+msgstr "Meine Daten"
+
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:236
+#: barcamps/templates/user_events.html:139
+msgid "Change my registration data"
+msgstr "Meine Registrierungsdaten ändern"
+
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:236
+#: barcamps/templates/user_events.html:139
+msgid "edit"
+msgstr "Bearbeiten"
+
+#: barcamps/templates/mytickets.html:152 barcamps/templates/user_event.html:238
+#: barcamps/templates/user_events.html:141
+msgid "please enter your personal data in order to register for this event"
+msgstr ""
+"bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung "
+"zu registrieren."
+
+#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:90
+#: barcamps/templates/user_event.html:239
+#: barcamps/templates/user_events.html:142
+msgid "Add my registration data"
+msgstr "Meine Registrierungsdaten angeben"
+
+#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:239
+#: barcamps/templates/user_events.html:142
+msgid "add"
+msgstr "Hinzufügen"
 
 #: barcamps/templates/pad.html:9
 msgid "This planning pad is public."
@@ -1292,8 +1339,8 @@ msgstr "Registrieren für %s"
 #: barcamps/templates/admin/gallery_macros.html:49
 #: barcamps/templates/registration.html:10 barcamps/templates/sessions.html:62
 #: blog/templates/add.html:19 blog/templates/edit.html:19
-#: blog/templates/edit.html:46 blog/templates/entry.html:43
-#: blog/templates/entry.html:45 blog/templates/view.html:25
+#: blog/templates/edit.html:47 blog/templates/entry.html:53
+#: blog/templates/entry.html:55 blog/templates/view.html:25
 #: blog/templates/view.html:27 static/templates/sessiontest.hbs:57
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -1307,7 +1354,7 @@ msgstr ""
 #: barcamps/templates/admin/dashboard.html:36
 #: barcamps/templates/admin/wizard.html:316
 #: barcamps/templates/registration.html:42
-#: barcamps/templates/registration_wizard.html:117
+#: barcamps/templates/registration_wizard.html:116
 #: barcamps/templates/user_events.html:97
 msgid "participants"
 msgstr "Teilnehmer_innen"
@@ -1375,22 +1422,22 @@ msgid "Not Going"
 msgstr "Ich gehe nicht"
 
 #: barcamps/templates/registration_wizard.html:21
-#: barcamps/templates/ticket_wizard.html:87
+#: barcamps/templates/ticket_wizard.html:89
 msgid "Login or register a new account"
 msgstr "Erstelle ein neues Konto oder logge Dich ein"
 
 #: barcamps/templates/registration_wizard.html:24
-#: barcamps/templates/ticket_wizard.html:90
+#: barcamps/templates/ticket_wizard.html:92
 msgid "If you already have a barcamptools.eu account please login."
 msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
 
 #: barcamps/templates/registration_wizard.html:25
-#: barcamps/templates/ticket_wizard.html:91 templates/master.html:93
+#: barcamps/templates/ticket_wizard.html:93 templates/master.html:89
 msgid "Login"
 msgstr "Einloggen"
 
 #: barcamps/templates/registration_wizard.html:28
-#: barcamps/templates/ticket_wizard.html:94
+#: barcamps/templates/ticket_wizard.html:96
 msgid ""
 "This barcamp is hosted on barcamptools.eu. It is an online platform for "
 "managing barcamps which comes free of charge. Because of that we ask you "
@@ -1398,22 +1445,22 @@ msgid ""
 "That way you can later manage your barcamp registration or use "
 "interactive features during the barcamp."
 msgstr ""
-"Dieses Barcamp wird auf barcamptools.eu gehostet, einer Online-"
-"Plattform zur Verwaltung von Barcamps. Aus diesem Grund wird für Dich bei "
-"der Barcamp-Registrierung ein Konto angelegt. Dieses Konto kostet "
-"Dich nichts, erlaubt es Dir aber, Deine Teilnahme zu verwalten oder aber "
-"die interaktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team "
-"zu erhalten."
+"Dieses Barcamp wird auf barcamptools.eu gehostet, einer Online-Plattform "
+"zur Verwaltung von Barcamps. Aus diesem Grund wird für Dich bei der "
+"Barcamp-Registrierung ein Konto angelegt. Dieses Konto kostet Dich "
+"nichts, erlaubt es Dir aber, Deine Teilnahme zu verwalten oder aber die "
+"interaktiven Features zu nutzen, sowie Updates von Barcamp-Orga-Team zu "
+"erhalten."
 
-#: barcamps/templates/registration_wizard.html:32
-#: barcamps/templates/ticket_wizard.html:98
+#: barcamps/templates/registration_wizard.html:31
+#: barcamps/templates/ticket_wizard.html:100
 msgid "The email you provide here will not be shared with any barcamps."
 msgstr ""
 "Die E-Mail-Adresse, die Du hier angibst, wird niemals an Barcamps "
 "weitergegeben."
 
-#: barcamps/templates/registration_wizard.html:43
-#: barcamps/templates/ticket_wizard.html:109
+#: barcamps/templates/registration_wizard.html:42
+#: barcamps/templates/ticket_wizard.html:111
 msgid ""
 "This email is already taken. Please <a href=\"/users/login\">login</a> to"
 " continue the registration process"
@@ -1422,23 +1469,23 @@ msgstr ""
 "Account auf barcamptools.eu. Bitte <a href=\"/users/login\">logge Dich "
 "mit diesem ein</a> und schliesse damit die Registrierung ab."
 
-#: barcamps/templates/registration_wizard.html:58
-#: barcamps/templates/ticket_wizard.html:124
+#: barcamps/templates/registration_wizard.html:57
+#: barcamps/templates/ticket_wizard.html:126
 msgid "Repeat your password"
 msgstr "Wiederhole Dein Passwort"
 
-#: barcamps/templates/registration_wizard.html:64
-#: barcamps/templates/ticket_wizard.html:130 handlers/users/edit.py:29
+#: barcamps/templates/registration_wizard.html:63
+#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:29
 msgid "Fullname"
 msgstr "Voller Name"
 
-#: barcamps/templates/registration_wizard.html:77
-#: barcamps/templates/ticket_wizard.html:143
+#: barcamps/templates/registration_wizard.html:76
+#: barcamps/templates/ticket_wizard.html:145
 msgid "Provide barcamp specific data"
 msgstr "Barcamp-spezifische Angaben"
 
-#: barcamps/templates/registration_wizard.html:80
-#: barcamps/templates/ticket_wizard.html:145
+#: barcamps/templates/registration_wizard.html:79
+#: barcamps/templates/ticket_wizard.html:147
 msgid ""
 "The barcamp administrator asks you to provide the following data. This "
 "will not be shared with other barcamps."
@@ -1447,11 +1494,11 @@ msgstr ""
 "abzuschliessen. Diese Daten werden nicht an andere Barcamps "
 "weitergegeben."
 
-#: barcamps/templates/registration_wizard.html:89
+#: barcamps/templates/registration_wizard.html:88
 msgid "Select events you want to attend"
 msgstr "Veranstaltungen, die Du besuchen willst"
 
-#: barcamps/templates/registration_wizard.html:91
+#: barcamps/templates/registration_wizard.html:90
 msgid ""
 "Please select which event of the barcamp you would like to register for. "
 "You can change this later."
@@ -1459,11 +1506,11 @@ msgstr ""
 "Bitte wähle die Veranstaltungen aus, die Du besuchen willst. Du kannst "
 "dies später noch ändern."
 
-#: barcamps/templates/registration_wizard.html:128
+#: barcamps/templates/registration_wizard.html:127
 msgid "no places left. You will be added to the waiting list."
 msgstr "keine Plätze mehr frei. Du wirst auf die Warteliste gesetzt."
 
-#: barcamps/templates/registration_wizard.html:143
+#: barcamps/templates/registration_wizard.html:142
 msgid "Register for this barcamp"
 msgstr "Für das Barcamp registrieren"
 
@@ -1585,26 +1632,26 @@ msgstr ""
 msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
-#: barcamps/templates/ticket_wizard.html:56
+#: barcamps/templates/ticket_wizard.html:57
 #, python-format
 msgid "%(amount)s tickets left."
 msgstr "Noch %(amount)s Tickets verfügbar."
 
-#: barcamps/templates/ticket_wizard.html:76
+#: barcamps/templates/ticket_wizard.html:78
 #, python-format
 msgid "Reserve Tickets for %s"
 msgstr "Reserviere Tickets für %s"
 
-#: barcamps/templates/ticket_wizard.html:153
+#: barcamps/templates/ticket_wizard.html:155
 msgid "Reserve your tickets"
 msgstr "Reserviere Deine Tickets"
 
-#: barcamps/templates/ticket_wizard.html:157
+#: barcamps/templates/ticket_wizard.html:159
 #, python-format
 msgid "<b>Please note:</b> This barcamp only has %s tickets left."
 msgstr "<b>Bitte beachten:</b> Für dieses Barcamp gibt es nur noch %s Tickets."
 
-#: barcamps/templates/ticket_wizard.html:164
+#: barcamps/templates/ticket_wizard.html:166
 #, python-format
 msgid ""
 "I have read and accept the <a target=\"legal\" href=\"%(link)s\">Terms of"
@@ -1613,26 +1660,26 @@ msgstr ""
 "Ich habe die <a target=\"legal\" href=\"%(link)s\">Allgemeinen "
 "Geschäftsbedingungen</a> gelesen und akzeptiere sie."
 
-#: barcamps/templates/ticket_wizard.html:169
+#: barcamps/templates/ticket_wizard.html:171
 #, python-format
 msgid ""
 "I have read and accept the <a target=\"legal\" "
 "href=\"%(link)s\">Cancellation and Refund policy</a>"
 msgstr ""
 
-#: barcamps/templates/ticket_wizard.html:173
+#: barcamps/templates/ticket_wizard.html:175
 msgid "Buy tickets"
 msgstr "Tickets kostenpflichtig kaufen"
 
-#: barcamps/templates/ticket_wizard.html:175
+#: barcamps/templates/ticket_wizard.html:177
 msgid "Reserve tickets"
 msgstr "Tickets reservieren"
 
-#: barcamps/templates/ticket_wizard.html:179
+#: barcamps/templates/ticket_wizard.html:181
 msgid "Unfortunately no tickets are available right now."
 msgstr "Leider gibt es im Moment keine Tickets mehr. "
 
-#: barcamps/templates/ticket_wizard.html:180
+#: barcamps/templates/ticket_wizard.html:182
 msgid "Please check back later."
 msgstr "Bitte schaue später noch einmal vorbei."
 
@@ -1669,11 +1716,6 @@ msgstr "Ich nehme teil"
 msgid "I am not attending this event"
 msgstr "Ich nehme nicht teil"
 
-#: barcamps/templates/user_event.html:90 barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:142
-msgid "Add my registration data"
-msgstr "Meine Registrierungsdaten angeben"
-
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
 #: barcamps/templates/admin/events.html:29
@@ -1704,33 +1746,6 @@ msgstr "Zeitraster"
 #: barcamps/templates/user_event.html:199
 msgid "Edit Sessions"
 msgstr "Sessions bearbeiten"
-
-#: barcamps/templates/user_event.html:225
-#: barcamps/templates/user_events.html:128
-msgid "My data"
-msgstr "Meine Daten"
-
-#: barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:139
-msgid "Change my registration data"
-msgstr "Meine Registrierungsdaten ändern"
-
-#: barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:139
-msgid "edit"
-msgstr "Bearbeiten"
-
-#: barcamps/templates/user_event.html:238
-#: barcamps/templates/user_events.html:141
-msgid "please enter your personal data in order to register for this event"
-msgstr ""
-"bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung "
-"zu registrieren."
-
-#: barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:142
-msgid "add"
-msgstr "Hinzufügen"
 
 #: barcamps/templates/user_events.html:4
 #, python-format
@@ -2903,15 +2918,15 @@ msgstr "Personen"
 msgid "Content"
 msgstr "Inhalt"
 
-#: blog/add.py:18
+#: blog/add.py:21
 msgid "Publishing Date"
 msgstr "Veröffentlichungsdatum"
 
-#: blog/add.py:21
+#: blog/add.py:24
 msgid "Title image"
 msgstr "Titelbild"
 
-#: blog/add.py:50
+#: blog/add.py:53
 msgid "The blog entry was created"
 msgstr "Der Blog-Artikel wurde angelegt"
 
@@ -2923,11 +2938,11 @@ msgstr "Der Blog-Artikel wurde aktualisiert"
 msgid "Create a new Blog entry"
 msgstr "neuen Artikel anlegen"
 
-#: blog/templates/add.html:18 blog/templates/edit.html:45
+#: blog/templates/add.html:18 blog/templates/edit.html:46
 msgid "Published immediately"
 msgstr "Direkt veröffentlichen"
 
-#: blog/templates/add.html:20 blog/templates/edit.html:47
+#: blog/templates/add.html:20 blog/templates/edit.html:48
 msgid "Now"
 msgstr "Jetzt"
 
@@ -2971,7 +2986,7 @@ msgstr "Neues Bild hochladen"
 msgid "Revert to original image"
 msgstr "Original-Bild wiederherstellen"
 
-#: blog/templates/edit.html:51
+#: blog/templates/edit.html:52
 msgid "Save and Publish"
 msgstr "Speichern und Veröffentlichen"
 
@@ -3263,16 +3278,16 @@ msgstr "Neuer Eintrag auf Warteliste bei %s/%s (%s/%s)"
 msgid "Cancellation for %s/%s (%s/%s)"
 msgstr "Abmeldung für %s/%s (%s/%s)"
 
-#: services/ticketing.py:169
+#: services/ticketing.py:175
 #, python-format
 msgid "a Ticket was acquired for  %s/%s (%s/%s)"
 msgstr "ein Ticket wurde reserviert für %s/%s (%s/%s)"
 
-#: services/ticketing.py:297
+#: services/ticketing.py:303
 msgid "Your Ticket Cancel Request"
 msgstr "Deine Ticket-Widerrufsanfrage"
 
-#: services/ticketing.py:298
+#: services/ticketing.py:304
 msgid "Ticket Cancel Request"
 msgstr "Ticket-Widerrufsanfrage"
 
@@ -3490,23 +3505,23 @@ msgstr "Dieses Feld muss angegeben werden"
 msgid "Really Delete?"
 msgstr "Wirklich löschen?"
 
-#: templates/master.html:79
+#: templates/master.html:75
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
-#: templates/master.html:89
+#: templates/master.html:85
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
-#: templates/master.html:99
+#: templates/master.html:95
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:100 templates/users/profile.html:45
+#: templates/master.html:96 templates/users/profile.html:45
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: templates/master.html:101
+#: templates/master.html:97
 msgid "Log out"
 msgstr "Ausloggen"
 

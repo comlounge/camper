@@ -270,13 +270,17 @@ class ParticipantsEditView(BarcampBaseHandler):
 class ParticipantDataEditForm(BaseForm):
     """form for defining a pareticipant data form"""
     # base data
-    title               = TextField(T("Name of field"), [validators.Length(max=300), validators.Required()],
+    title               = TextField(T("Name of field"), [validators.Length(max=50), validators.Required()],
                 description = T('the name of the field to be shown in the form, e.g. "t-shirt size"'),
     )
     description         = TextAreaField(T("Description"),
                 description = T('please describe what the user should enter in this field.'),
     )
-    fieldtype           = RadioField(T("field type"), [validators.Required()], choices=[('textfield',T('1 line of text')),('textarea',T('multiple lines of text'))],
+    fieldtype           = RadioField(T("field type"), [validators.Required()], 
+                choices=[
+                    ('checkbox',T('a yes/no field')),
+                    ('textfield',T('1 line of text')),
+                    ('textarea',T('multiple lines of text'))],
                 description = T('please chose between a one-line text field or multi-line text area'),
     )
     required            = BooleanField(T("field required?"),

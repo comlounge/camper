@@ -43,6 +43,7 @@ class RegistrationWizard(BarcampBaseHandler):
             pass
 
         for field in self.barcamp.registration_form:
+            print field
             vs = []
             if field['required']:
                 vs.append(validators.Required())
@@ -52,6 +53,9 @@ class RegistrationWizard(BarcampBaseHandler):
             elif field['fieldtype'] == "textarea":
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description']))
+            elif field['fieldtype'] == "checkbox":
+                setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description']))
+
 
         # retrieve existing data if user is logged in
         if self.logged_in:

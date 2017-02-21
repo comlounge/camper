@@ -17,8 +17,8 @@
             <thead>
                 <tr>
                     <th>{{_('title')}}</th>
-                    <th>{{_('description')}}</th>
                     <th>{{_('field type')}}</th>
+                    <th>{{_('description')}}</th>
                     <th width="5%">{{_('required?')}}</th>
                     <th></th>
                 </tr>
@@ -49,8 +49,8 @@
         <h3>{{_("Add a new field")}}</h3>
         <form class="form" method="POST" action="{{url}}">
                 <fieldset>
-                    {{ formmacros.form_field(form.title, input_class="required span6") }}
-                    {{ formmacros.form_field(form.description, input_class="required span6", rows=4) }}
+                    {{ formmacros.form_field(form.title, maxlength="50", input_class="required span6") }}
+                    {{ formmacros.form_field(form.description, maxlength="2000", input_class="required span6", rows=4) }}
                     {{ formmacros.form_field(form.fieldtype, input_class="span4 url") }}
                     {{ formmacros.form_field(form.required, input_class="span4 url") }}
                 </fieldset>

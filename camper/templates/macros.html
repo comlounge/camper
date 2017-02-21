@@ -37,8 +37,8 @@
     {% endif %}
 {%- endmacro -%}
 
-{%- macro form_field_boolean(field) -%}
-<div class="checkbox" id="{{field.id}}-div">
+{%- macro form_field_boolean(field, checkbox_class="") -%}
+<div class="checkbox {{checkbox_class}}" id="{{field.id}}-div">
     <label>
         {{field(**kwargs)}}
         {{ _(field.label.text) }}

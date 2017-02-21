@@ -54,6 +54,9 @@ class TicketWizard(BarcampBaseHandler):
             elif field['fieldtype'] == "textarea":
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description']))
+            elif field['fieldtype'] == "checkbox":
+                setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description']))
+
 
         # retrieve existing data if user is logged in
         if self.logged_in:
