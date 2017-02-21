@@ -68,12 +68,14 @@
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
 {% block head %}
+    {% block og %}
     <meta property="og:title" content="{{barcamp.name|striptags}}" />
     <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
+    <meta property="og:url" content="{{url_for('barcamps.index', slug = slug, _full=True)}}" />
     <meta property="og:image" content="{{view.og_logo}}" />
     <meta property="og:description" content="{{barcamp.seo_description|textify}}" />
+    {% endblock %}
     {% if barcamp.hide_barcamp %}
     <meta name="robots" value="noindex, nofollow">
     {% endif %}

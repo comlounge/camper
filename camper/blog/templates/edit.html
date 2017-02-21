@@ -40,6 +40,7 @@
                 upload_url=url_for("asset_upload", slug=slug), postproc="sponsor")}}
             {{ formmacros.form_field(form.gallery)}}
             {{ formmacros.form_field(form.content, size="mce", rows=10) }}
+            {{ formmacros.form_field(form.seo_description) }}
             {{ formmacros.form_field(
                 form.published, 
                 immediate_label = _('Published immediately'), 
