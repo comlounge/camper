@@ -134,7 +134,7 @@ module.exports = function(grunt) {
                 dest: 'static/js/admin.min.js'
             },
             public: {
-                src: ['static/js/public.js'],
+                src: ['static/js/public.js', 'static/js/ouical.js'],
                 dest: 'static/js/public.min.js'
             },
             public_components: {
@@ -155,7 +155,10 @@ module.exports = function(grunt) {
             },
             // we need this to add tinymce as uglify breaks with it
             components: {
-                src: ['static/js/components.pre.min.js', 'static/js/components/tinymce/tinymce.min.js'],
+                src: [
+                        'static/js/components.pre.min.js', 
+                        'static/js/components/tinymce/tinymce.min.js'
+                    ],
                 dest: 'static/js/components.min.js'
             }
         }

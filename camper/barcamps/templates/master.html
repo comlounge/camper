@@ -252,6 +252,9 @@
                     {% block widgets %}
 
                         {{barcamp_buttons()}}
+
+                        <div id="add-to-calendar-container"></div>
+                        
                         {{share_buttons()}}
                         
                         {{sponsors()}}
@@ -280,7 +283,36 @@
 {% endblock %} {# container #}
 
 {% block js %}
+    <script>
+    var myCalendar = createCalendar({
+  options: {
+    class: 'my-class',
+
+    // You can pass an ID. If you don't, one will be generated for you
+    id: 'my-id'
+  },
+  data: {
+    // Event title
+    title: '{{barcamp.name|e}}',
+
+    // Event start date
+    start: new Date("{{barcamp.start_date.strftime('%Y-%m-%d')}}"),
+    end: new Date("{{barcamp.end_date.strftime('%Y-%m-%d')}}"),
+
+    // Event Address
+    address: '{{barcamp.location.name|e}}, {{barcamp.location.street|e}}, {{barcamp.location.zip|e}} {{barcamp.location.city|e}}',
+
+
+    // Event Description
+    description: '{{barcamp.description|striptags|e}}'
+  }
+});
+
+document.querySelector('#add-to-calendar-container').appendChild(myCalendar);
+
+    </script>
     {% block bcjs %}
     {% endblock %}
 {% endblock %}
+
 

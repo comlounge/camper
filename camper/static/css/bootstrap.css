@@ -9036,3 +9036,70 @@ img.flickr-embed-img {
   margin-top: 20px;
   font-weight: bold;
 }
+#add-to-calendar-container .btn-calendar {
+  margin-bottom: 10px;
+  color: #333333;
+  background-color: #eae8e0;
+  border-color: #c0c0c0;
+}
+#add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar.focus {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #808080;
+}
+#add-to-calendar-container .btn-calendar:hover {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #a1a1a1;
+}
+#add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.active,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #a1a1a1;
+}
+#add-to-calendar-container .btn-calendar:active:hover,
+#add-to-calendar-container .btn-calendar.active:hover,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar:hover,
+#add-to-calendar-container .btn-calendar:active:focus,
+#add-to-calendar-container .btn-calendar.active:focus,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar:active.focus,
+#add-to-calendar-container .btn-calendar.active.focus,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar.focus {
+  color: #333333;
+  background-color: #c7c2ac;
+  border-color: #808080;
+}
+#add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.active,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar {
+  background-image: none;
+}
+#add-to-calendar-container .btn-calendar.disabled,
+#add-to-calendar-container .btn-calendar[disabled],
+fieldset[disabled] #add-to-calendar-container .btn-calendar,
+#add-to-calendar-container .btn-calendar.disabled:hover,
+#add-to-calendar-container .btn-calendar[disabled]:hover,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:hover,
+#add-to-calendar-container .btn-calendar.disabled:focus,
+#add-to-calendar-container .btn-calendar[disabled]:focus,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar.disabled.focus,
+#add-to-calendar-container .btn-calendar[disabled].focus,
+fieldset[disabled] #add-to-calendar-container .btn-calendar.focus,
+#add-to-calendar-container .btn-calendar.disabled:active,
+#add-to-calendar-container .btn-calendar[disabled]:active,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.disabled.active,
+#add-to-calendar-container .btn-calendar[disabled].active,
+fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
+  background-color: #eae8e0;
+  border-color: #c0c0c0;
+}
+#add-to-calendar-container .btn-calendar .badge {
+  color: #eae8e0;
+  background-color: #333333;
+}
