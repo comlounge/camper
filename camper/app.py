@@ -378,7 +378,8 @@ class CamperApp(Application):
         """handle http exceptions"""
 
         logger = logbook.Logger("error")
-        logger.warn("http error", code = e.code, url = request.path)
+        if e.code != 404:
+            logger.warn("http error", code = e.code, url = request.path)
 
         # setup the request properly for handlers to use
         urls = self.create_url_adapter(request)
