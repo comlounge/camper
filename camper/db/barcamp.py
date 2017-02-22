@@ -249,7 +249,7 @@ class Event(Record):
                     self.waiting_list.append(uid)
                     if uid in self.maybe:
                         self.maybe.remove(uid)
-                    status = 'waitinglist'
+                status = 'waitinglist'
             else:
                 # force is only done by admins and can overpop an event. 
                 if uid not in self.participants:
