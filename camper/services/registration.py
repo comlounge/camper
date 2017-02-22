@@ -1,5 +1,6 @@
 import jinja2 
 from camper.base import BarcampView
+import logbook
 
 __all__ = ['RegistrationError', 'RegistrationService']
 
@@ -13,6 +14,8 @@ class RegistrationError(Exception):
 class RegistrationService(object):
     """service for registering users for barcamps"""
 
+    LOGGER = "registrationservice"
+
     def __init__(self, handler, user, barcamp = None):
         """initialize the service with the app object"""
         self.handler = handler
@@ -23,6 +26,8 @@ class RegistrationService(object):
         self.app = handler.app
         self.barcamp_view = BarcampView(self.barcamp, handler)
         self.user = user
+        self.log = logbook.Logger(self.LOGGER)
+
 
     def set_status(self, eid, status, force = False):
         """register a user for an event of a barcamp
@@ -42,8 +47,11 @@ class RegistrationService(object):
         was_going = uid in event.participants # for sending out the unregister notification
         was_on_waitinglist = uid in event.waiting_list 
 
+        self.log.debug("Setting status", force = force, new_status = status, slug = self.barcamp.slug, username = self.user.username, event = event.name, was_going = was_going, was_on_waitinglist = was_on_waitinglist)
+
         # do the status change
         status = event.set_status(uid, status, force)
+        self.log.debug("new status", slug = self.barcamp.slug, status = status, uid = uid, username = self.user.username)
 
         # send out emails
         view = self.barcamp_view
@@ -115,6 +123,8 @@ class RegistrationService(object):
         eid = event._id
         uids = event.fill_participants() # returns the uids which have been moved
         users = self.app.module_map.userbase.get_users_by_ids(uids)
+
+        self.log.debug("checking waitinglist", slug = self.barcamp.slug, username = self.user.username, event = event.name, uids = uids)
 
         for user in users:
             # send out a welcome email
