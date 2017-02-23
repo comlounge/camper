@@ -304,7 +304,8 @@ class Event(Record):
         if self._barcamp.preregistration:
             return []
         uids = []
-        while len(self.participants) < self.size and len(self.waiting_list)>0:
+        # we have to make sure size is an int as it will fill everybody otherwise
+        while len(self.participants) < int(self.size) and len(self.waiting_list)>0:
             nuid = self.waiting_list.pop(0)
             self.participants.append(nuid)
             uids.append(nuid)
