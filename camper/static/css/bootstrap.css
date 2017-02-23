@@ -7646,7 +7646,8 @@ form {
   background: #d9dcd4;
   padding: 10px 20px;
 }
-#registration-wizard fieldset #ticketlist .checkbox input {
+#registration-wizard fieldset #ticketlist .checkbox input,
+#registration-wizard fieldset #eventlist .checkbox input {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -7656,7 +7657,8 @@ form {
   border-radius: 0px;
   border: 2px solid #555;
 }
-#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked {
+#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked,
+#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 20px;
@@ -7669,14 +7671,17 @@ form {
   background: #303030;
   color: #f0f0f0;
 }
-#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked:before {
+#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked:before,
+#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked:before {
   content: "\f00c";
 }
-#registration-wizard fieldset #ticketlist .checkbox label {
+#registration-wizard fieldset #ticketlist .checkbox label,
+#registration-wizard fieldset #eventlist .checkbox label {
   width: 80%;
   margin-right: 30px;
 }
-#registration-wizard fieldset #ticketlist .checkbox article {
+#registration-wizard fieldset #ticketlist .checkbox article,
+#registration-wizard fieldset #eventlist .checkbox article {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -7692,27 +7697,33 @@ form {
   width: 100%;
   margin-left: 30px;
 }
-#registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger {
+#registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+#registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
   color: white;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
 @media (max-width: 767px) {
-  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
-#registration-wizard fieldset #ticketlist .checkbox article .progress {
+#registration-wizard fieldset #ticketlist .checkbox article .progress,
+#registration-wizard fieldset #eventlist .checkbox article .progress {
   height: 10px;
 }
 @media (min-width: 992px) {
-  #registration-wizard fieldset #ticketlist .checkbox article .progress {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress,
+  #registration-wizard fieldset #eventlist .checkbox article .progress {
     height: 30px;
   }
-  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar {
     padding-top: 4px;
   }
 }
