@@ -124,7 +124,7 @@ class RegistrationService(object):
         uids = event.fill_participants() # returns the uids which have been moved
         users = self.app.module_map.userbase.get_users_by_ids(uids)
 
-        self.log.debug("checking waitinglist", slug = self.barcamp.slug, username = self.user.username, event = event.name, uids = uids)
+        self.log.debug("checking waitinglist", slug = self.barcamp.slug, event = event.name, uids = uids)
 
         for user in users:
             # send out a welcome email
