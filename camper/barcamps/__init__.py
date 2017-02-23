@@ -28,6 +28,7 @@ import ticketlist
 import legal
 import legaledit
 import socialedit
+import duplicate
 
 from starflyer import Module, URL
 
@@ -101,6 +102,8 @@ class BarcampModule(Module):
         URL('/<slug>/admin/galleries/<gid>/title', 'gallery_title_edit',        galleries.GalleryTitleEdit),
 
         URL('/<slug>/admin/wizard',         'admin_wizard',                     wizard.BarcampWizard),
+        
+        URL('/<slug>/admin/duplicate',      'admin_duplicate',                  duplicate.DuplicateBarcamp),
 
         URL('/<slug>/admin/tickets',        'admin_ticketeditor',               ticketeditor.TicketEditor),
         URL('/<slug>/admin/tickets/<tc_id>','admin_ticketedit',                 ticketeditor.TicketClassEdit),
