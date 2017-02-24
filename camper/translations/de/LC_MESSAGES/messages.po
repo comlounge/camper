@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-21 16:08+0100\n"
+"POT-Creation-Date: 2017-02-24 16:11+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -344,7 +344,7 @@ msgstr "Veranstaltungen"
 msgid "planning"
 msgstr "Planung"
 
-#: barcamps/base.py:62 barcamps/design.py:37 templates/master.html:74
+#: barcamps/base.py:62 barcamps/design.py:37 templates/master.html:75
 msgid "Blog"
 msgstr "Blog"
 
@@ -466,6 +466,26 @@ msgstr "keine Galerie nutzen"
 #: barcamps/socialedit.py:48
 msgid "The barcamp has been updated."
 msgstr "Das Barcamp wurde aktualisiert"
+
+#: barcamps/duplicate.py:17
+msgid "Copy Events"
+msgstr "Veranstaltungen kopieren"
+
+#: barcamps/duplicate.py:18 barcamps/templates/admin/duplicate.html:26
+msgid "Copy Ticket Categories"
+msgstr "Ticketkategorien kopieren"
+
+#: barcamps/duplicate.py:19
+msgid "Copy Custom Pages"
+msgstr "Eigene Seiten kopieren"
+
+#: barcamps/duplicate.py:41
+msgid "Copy of "
+msgstr "Kopie von "
+
+#: barcamps/duplicate.py:82
+msgid "The barcamp has been duplicated."
+msgstr "Das Barcamp wurde dupliziert."
 
 #: barcamps/edit.py:22 barcamps/galleries.py:29
 #: barcamps/templates/admin/add.html:19
@@ -1160,21 +1180,21 @@ msgstr "Auf Google+ teilen"
 msgid "I am attending!"
 msgstr "Ich nehme teil"
 
-#: barcamps/templates/master.html:23 barcamps/templates/master.html:30
-#: barcamps/templates/master.html:39 barcamps/templates/master.html:50
+#: barcamps/templates/master.html:23 barcamps/templates/master.html:31
+#: barcamps/templates/master.html:41 barcamps/templates/master.html:50
 #: barcamps/templates/user_events.html:68
 msgid "Click here to participate in the barcamp"
 msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 
-#: barcamps/templates/master.html:26 barcamps/templates/master.html:42
+#: barcamps/templates/master.html:26 barcamps/templates/master.html:34
 #: barcamps/templates/master.html:53 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:28 barcamps/templates/user_event.html:60
 #: barcamps/templates/user_event.html:90 barcamps/templates/user_events.html:71
-#: templates/M/userbase/registration.html:15 templates/master.html:90
+#: templates/M/userbase/registration.html:15 templates/master.html:91
 msgid "Register"
 msgstr "Registrieren"
 
-#: barcamps/templates/master.html:33
+#: barcamps/templates/master.html:44
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
@@ -1196,21 +1216,21 @@ msgstr "Menü"
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:231 templates/admin_master.html:78
+#: barcamps/templates/master.html:231 templates/admin_master.html:79
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:232 templates/admin_master.html:79
+#: barcamps/templates/master.html:232 templates/admin_master.html:80
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
 #: barcamps/templates/admin/wizard.html:265
 #: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:239
-#: templates/admin_master.html:86
+#: templates/admin_master.html:87
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:240 templates/admin_master.html:87
+#: barcamps/templates/master.html:240 templates/admin_master.html:88
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
@@ -1436,7 +1456,7 @@ msgid "If you already have a barcamptools.eu account please login."
 msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
 
 #: barcamps/templates/registration_wizard.html:25
-#: barcamps/templates/ticket_wizard.html:93 templates/master.html:89
+#: barcamps/templates/ticket_wizard.html:93 templates/master.html:90
 msgid "Login"
 msgstr "Einloggen"
 
@@ -2004,6 +2024,26 @@ msgstr "Aktive Hintergrundfarbe"
 #: barcamps/templates/admin/design.html:185
 msgid "Advanced settings"
 msgstr "Erweiterte Einstellungen"
+
+#: barcamps/templates/admin/duplicate.html:8
+#: barcamps/templates/admin/duplicate.html:33
+msgid "Duplicate Barcamp"
+msgstr "Barcamp duplizieren"
+
+#: barcamps/templates/admin/duplicate.html:9
+msgid ""
+"Here you can duplicate your barcamp e.g. to create a new one for the next"
+" year. Per default we will copy everything but the participants. You can "
+"choose below which elements you want not to be copied"
+msgstr ""
+"Hier kannst Du ein Barcamp duplizieren, z.B. wenn es noch einmal stattfinden"
+" soll. Per default werden wir alles bis auf die Teilnehmer und Sessions "
+"kopieren. Du kannst unten aber noch einstellen, welche Elemente ggf. "
+"nicht kopiert werden sollen."
+
+#: barcamps/templates/admin/duplicate.html:17
+msgid "Copy events"
+msgstr "Veranstaltungsn kopieren"
 
 #: barcamps/templates/admin/edit.html:8
 #: barcamps/templates/admin/legaledit.html:46
@@ -3267,17 +3307,17 @@ msgstr "Seite löschen?"
 msgid "Add new page"
 msgstr "neue Seite anlegen"
 
-#: services/registration.py:69
+#: services/registration.py:77
 #, python-format
 msgid "New registration for %s/%s (%s/%s)"
 msgstr "Neue Anmeldung bei %s/%s (%s/%s)"
 
-#: services/registration.py:83
+#: services/registration.py:91
 #, python-format
 msgid "New user on waiting list for %s/%s (%s/%s)"
 msgstr "Neuer Eintrag auf Warteliste bei %s/%s (%s/%s)"
 
-#: services/registration.py:88
+#: services/registration.py:96
 #, python-format
 msgid "Cancellation for %s/%s (%s/%s)"
 msgstr "Abmeldung für %s/%s (%s/%s)"
@@ -3459,7 +3499,11 @@ msgstr "Email-Vorlagen"
 msgid "download participants"
 msgstr "Teilnehmer herunterladen"
 
-#: templates/index.html:18
+#: templates/admin_master.html:69
+msgid "duplicate barcamp"
+msgstr "Barcamp duplizieren"
+
+#: templates/index.html:18 templates/past_barcamps.html:18
 msgid "private"
 msgstr "privat"
 
@@ -3509,23 +3553,27 @@ msgstr "Dieses Feld muss angegeben werden"
 msgid "Really Delete?"
 msgstr "Wirklich löschen?"
 
-#: templates/master.html:75
+#: templates/master.html:74 templates/past_barcamps.html:41
+msgid "Past Barcamps"
+msgstr "Vergangene Barcamps"
+
+#: templates/master.html:76
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
-#: templates/master.html:85
+#: templates/master.html:86
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
-#: templates/master.html:95
+#: templates/master.html:96
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:96 templates/users/profile.html:45
+#: templates/master.html:97 templates/users/profile.html:45
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: templates/master.html:97
+#: templates/master.html:98
 msgid "Log out"
 msgstr "Ausloggen"
 
@@ -3823,4 +3871,7 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "Confirm Cancel"
 #~ msgstr "Widerruf annehmen"
+
+#~ msgid "Copy Ticket Categories?"
+#~ msgstr "Ticketkategorien kopieren"
 

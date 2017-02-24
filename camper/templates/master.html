@@ -60,10 +60,10 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                            <li class="active"><a href="/">{{_('Home')}}</a></li>
+                            <li><a href="/">{{_('Home')}}</a></li>
                         {% for page in menu_pages %}
                             <li>
-                                <a href="{{url_for("page", page_slug=page.slug)}}">{{page.menu_title}}</a>
+                                <a href="{{url_for('page', page_slug=page.slug)}}">{{page.menu_title}}</a>
                             </li>
                         {% endfor %}
                         {% for action in top_actions %}
