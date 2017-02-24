@@ -8599,6 +8599,9 @@ fieldset[disabled] .login-container .btn-signin.active {
 .btn-inline.hide {
   display: none;
 }
+.btn-sidebar {
+  margin-bottom: 10px;
+}
 footer {
   margin-top: 20px;
   border-top: 1px solid #e0e0e0;

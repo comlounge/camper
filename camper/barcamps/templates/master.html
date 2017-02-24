@@ -16,7 +16,7 @@
                 </div>
             </div>
         {% else %}
-            {% if barcamp.workflow == "registration" %}
+            {% if barcamp.registration_active %}
                 {% if barcamp.ticketmode_enabled %}
                     <div class="widget-join">
                         <a 
@@ -25,14 +25,6 @@
                             class="btn btn-lg btn-block btn-inverse btn-sidebar">
                         {{_('Register')}}
                         </a>
-                        {% if barcamp.get_tickets_for_user(user_id) %}
-                            <a 
-                                title="{{_('Click here to participate in the barcamp')}}" 
-                                href="{{url_for('barcamps.mytickets', slug=slug)}}" 
-                                class="btn btn-lg btn-block btn-default btn-sidebar">
-                            {{_('My Tickets')}}
-                            </a>
-                        {% endif %}
                     </div>
                 {% else %}
                     <div class="widget-join">
@@ -44,7 +36,15 @@
                 {% endif %}
             {% endif %}
         {% endif %} {# is registered_user #}
-    {% elif barcamp.workflow == "registration" %}
+        {% if barcamp.get_tickets_for_user(user_id) %}
+            <a 
+                title="{{_('Click here to participate in the barcamp')}}" 
+                href="{{url_for('barcamps.mytickets', slug=slug)}}" 
+                class="btn btn-lg btn-block btn-default btn-sidebar">
+            {{_('My Tickets')}}
+            </a>
+        {% endif %}
+    {% elif barcamp.registration_active %}
         <div class="widget-join">
             <div>
                 <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"

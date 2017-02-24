@@ -587,6 +587,19 @@ class Barcamp(Record):
         """
         return len(self.imprint.strip())>20
 
+    @property
+    def registration_active(self):
+        """check if registration is active by checking workflow state and end date"""
+        if self.workflow != "registration":
+            return False
+
+        # check date
+        today = datetime.date.today()
+        if today > self.end_date:
+            return False
+
+        return True
+
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp
 

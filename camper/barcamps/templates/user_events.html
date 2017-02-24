@@ -9,7 +9,7 @@
             <article data-id="{{event._id}}" id="e-{{event._id}}" class="event panel panel-default">
 
                 <div class="panel-heading">
-                    {% if barcamp.workflow == "registration" and not barcamp.ticketmode_enabled %}
+                    {% if barcamp.registration_active and not barcamp.ticketmode_enabled %}
                         <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
                         {% if logged_in and not has_form %}
                         <div class="actions pull-right">
