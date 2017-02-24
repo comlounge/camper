@@ -304,6 +304,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/past', 'past_barcamps', handlers.index.PastBarcampsView),
         URL('/login_success', 'login_success', handlers.index.LoginSuccess),
         URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
