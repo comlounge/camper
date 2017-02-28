@@ -55,7 +55,7 @@ class PastBarcampsView(BaseHandler):
         n = datetime.datetime.now()
         td = datetime.timedelta(days = 1)
         past_barcamps = self.config.dbs.barcamps.find({
-            'end_date'      : {'$lt': n},
+            'end_date'      : {'$lt': n-td},
             'workflow'      : {'$in' : ['public', 'registration']},
             'hide_barcamp'  : False
         }).sort("start_date", pymongo.ASCENDING)
