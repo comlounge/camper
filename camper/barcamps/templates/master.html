@@ -222,7 +222,28 @@
 
         {% block outer_content %}
             <div id="main-content" class="row" role="main">
-                <div class="col-md-9" id="content-area">
+                <aside class="col-md-3 col-md-push-9">
+                    {% block widgets %}
+
+                        {{barcamp_buttons()}}
+
+                        <div id="add-to-calendar-container"></div>
+                        
+                        {{share_buttons()}}
+                        
+                        {{sponsors()}}
+                        {% if barcamp.contact_email or barcamp.has_imprint %}
+                            <h3>{{_('Imprint')}}</h3>
+                            {{barcamp.imprint|safe}}
+                            <p> 
+                            {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
+                            </p>
+                        {% endif %}
+                        
+
+                    {% endblock %} {# widgets #}
+                </aside>{# -- widget -- #}
+                <div class="col-md-9 col-md-pull-3" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
                             <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
@@ -248,27 +269,6 @@
 
                 </div><!-- #content-area -->
 
-                <aside class="col-md-3">
-                    {% block widgets %}
-
-                        {{barcamp_buttons()}}
-
-                        <div id="add-to-calendar-container"></div>
-                        
-                        {{share_buttons()}}
-                        
-                        {{sponsors()}}
-                        {% if barcamp.contact_email or barcamp.has_imprint %}
-                            <h3>{{_('Imprint')}}</h3>
-                            {{barcamp.imprint|safe}}
-                            <p> 
-                            {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
-                            </p>
-                        {% endif %}
-                        
-
-                    {% endblock %} {# widgets #}
-                </aside>{# -- widget -- #}
             </div>{# -- #main-content --#}
         {% endblock %} {# outer_content #}
 
