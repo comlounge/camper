@@ -37,10 +37,10 @@
     {% endif %}
 {%- endmacro -%}
 
-{%- macro form_field_boolean(field, checkbox_class="") -%}
+{%- macro form_field_boolean(field, checkbox_class="", required = False) -%}
 <div class="checkbox {{checkbox_class}}" id="{{field.id}}-div">
     <label>
-        {{field(**kwargs)}}
+        {{ field(class=""+(' required ' if required else ' ')+checkbox_class, required = required == True) }}
         {{ _(field.label.text) }}
         <p class="help-block">{{ _(field.description) }}</p>
     </label>
