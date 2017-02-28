@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-24 16:11+0100\n"
+"POT-Creation-Date: 2017-02-28 10:48+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -590,7 +590,7 @@ msgstr "Art des Feldes"
 
 #: barcamps/edit.py:281
 msgid "a yes/no field"
-msgstr ""
+msgstr "ein Ja/Nein-Feld"
 
 #: barcamps/edit.py:282
 msgid "1 line of text"
@@ -2036,10 +2036,10 @@ msgid ""
 " year. Per default we will copy everything but the participants. You can "
 "choose below which elements you want not to be copied"
 msgstr ""
-"Hier kannst Du ein Barcamp duplizieren, z.B. wenn es noch einmal stattfinden"
-" soll. Per default werden wir alles bis auf die Teilnehmer und Sessions "
-"kopieren. Du kannst unten aber noch einstellen, welche Elemente ggf. "
-"nicht kopiert werden sollen."
+"Hier kannst Du ein Barcamp duplizieren, z.B. wenn es noch einmal "
+"stattfinden soll. Per default werden wir alles bis auf die Teilnehmer und"
+" Sessions kopieren. Du kannst unten aber noch einstellen, welche Elemente"
+" ggf. nicht kopiert werden sollen."
 
 #: barcamps/templates/admin/duplicate.html:17
 msgid "Copy events"
