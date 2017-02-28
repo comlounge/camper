@@ -12,7 +12,7 @@ More information about the barcamp can be found here:
 ((barcamp_url))
 
 
-Your ((barcamp.name)) team!
+Your ((barcamp_name)) team!
 
 --
 ((url))
