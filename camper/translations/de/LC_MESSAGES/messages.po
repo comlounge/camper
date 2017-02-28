@@ -48,7 +48,7 @@ msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
-"Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschliessen. "
+"Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschließen. "
 "Alle weiteren Informationen dazu findest Du in der E-Mail."
 
 #: app.py:270
@@ -903,7 +903,7 @@ msgid ""
 "In order to finish your registration you have to activate your account. "
 "Please check your email."
 msgstr ""
-"Um Deine Registrierung abzuschliessen, musst Du Dein Konto noch "
+"Um Deine Registrierung abzuschließen, musst Du Dein Konto noch "
 "aktivieren. Bitte schaue dazu in Deine E-Mail."
 
 #: barcamps/sessionboard.py:16 barcamps/templates/admin/events.html:27
@@ -1515,7 +1515,7 @@ msgid ""
 "will not be shared with other barcamps."
 msgstr ""
 "Das Barcamp braucht noch folgende Daten von Dir, um die Registrierung "
-"abzuschliessen. Diese Daten werden nicht an andere Barcamps "
+"abzuschließen. Diese Daten werden nicht an andere Barcamps "
 "weitergegeben."
 
 #: barcamps/templates/registration_wizard.html:88
