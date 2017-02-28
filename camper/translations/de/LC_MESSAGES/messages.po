@@ -1714,7 +1714,7 @@ msgid ""
 " be informed by email."
 msgstr ""
 "Dieses Formular sendet eine Widerrufsanfrage an den Barcamp-"
-"Administrator.Der Administrator entscheidet dann, ob dem Widerruf "
+"Administrator. Der Administrator entscheidet dann, ob dem Widerruf "
 "stattgegeben wird. Du wirst dann per E-Mail informiert."
 
 #: barcamps/templates/admin/ticketcancel.html:14
