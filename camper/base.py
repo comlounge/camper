@@ -99,7 +99,7 @@ class BarcampView(object):
             return u""
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id, _full = True)
-        alt = 'Logo '+self.barcamp.name + " - " + textify(self.barcamp.seo_description)
+        alt = 'Logo '+self.barcamp.name# + " - " + textify(self.barcamp.seo_description)
         alt = alt.replace('"', '&quot;')
         alt = alt.replace("'", '&quot;')
         return """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
