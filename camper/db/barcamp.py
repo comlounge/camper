@@ -372,7 +372,7 @@ class BarcampSchema(Schema):
     # ticketmode
     ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
     paid_tickets        = Boolean(default = False)  # if false no prices will be shown
-    ticket_classes      = List(TicketClassSchema()) # list of ticket classes
+    ticket_classes      = List(TicketClassSchema(), default = []) # list of ticket classes
     max_participants    = Integer(default = 1000)   # max number of participants over all tickets
     
 
