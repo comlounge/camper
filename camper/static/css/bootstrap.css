@@ -7646,7 +7646,8 @@ form {
   background: #d9dcd4;
   padding: 10px 20px;
 }
-#registration-wizard fieldset .checkbox input {
+#registration-wizard fieldset #ticketlist .checkbox input,
+#registration-wizard fieldset #eventlist .checkbox input {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -7656,7 +7657,8 @@ form {
   border-radius: 0px;
   border: 2px solid #555;
 }
-#registration-wizard fieldset .checkbox input[type='checkbox']:checked {
+#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked,
+#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 20px;
@@ -7669,14 +7671,17 @@ form {
   background: #303030;
   color: #f0f0f0;
 }
-#registration-wizard fieldset .checkbox input[type='checkbox']:checked:before {
+#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked:before,
+#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked:before {
   content: "\f00c";
 }
-#registration-wizard fieldset .checkbox label {
+#registration-wizard fieldset #ticketlist .checkbox label,
+#registration-wizard fieldset #eventlist .checkbox label {
   width: 80%;
   margin-right: 30px;
 }
-#registration-wizard fieldset .checkbox article {
+#registration-wizard fieldset #ticketlist .checkbox article,
+#registration-wizard fieldset #eventlist .checkbox article {
   -webkit-touch-callout: none;
   /* iOS Safari */
   -webkit-user-select: none;
@@ -7692,27 +7697,33 @@ form {
   width: 100%;
   margin-left: 30px;
 }
-#registration-wizard fieldset .checkbox article .progress-bar .text-danger {
+#registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+#registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
   color: white;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  #registration-wizard fieldset .checkbox article .progress-bar .text-danger {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
 @media (max-width: 767px) {
-  #registration-wizard fieldset .checkbox article .progress-bar .text-danger {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar .text-danger,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar .text-danger {
     display: none !important;
   }
 }
-#registration-wizard fieldset .checkbox article .progress {
+#registration-wizard fieldset #ticketlist .checkbox article .progress,
+#registration-wizard fieldset #eventlist .checkbox article .progress {
   height: 10px;
 }
 @media (min-width: 992px) {
-  #registration-wizard fieldset .checkbox article .progress {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress,
+  #registration-wizard fieldset #eventlist .checkbox article .progress {
     height: 30px;
   }
-  #registration-wizard fieldset .checkbox article .progress-bar {
+  #registration-wizard fieldset #ticketlist .checkbox article .progress-bar,
+  #registration-wizard fieldset #eventlist .checkbox article .progress-bar {
     padding-top: 4px;
   }
 }
@@ -8588,6 +8599,9 @@ fieldset[disabled] .login-container .btn-signin.active {
 .btn-inline.hide {
   display: none;
 }
+.btn-sidebar {
+  margin-bottom: 10px;
+}
 footer {
   margin-top: 20px;
   border-top: 1px solid #e0e0e0;
@@ -9035,4 +9049,86 @@ img.flickr-embed-img {
 .ticket-price {
   margin-top: 20px;
   font-weight: bold;
+}
+#add-to-calendar-container .btn-calendar {
+  margin-bottom: 10px;
+  color: #333333;
+  background-color: #eae8e0;
+  border-color: #c0c0c0;
+}
+#add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar.focus {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #808080;
+}
+#add-to-calendar-container .btn-calendar:hover {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #a1a1a1;
+}
+#add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.active,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar {
+  color: #333333;
+  background-color: #d5d1c2;
+  border-color: #a1a1a1;
+}
+#add-to-calendar-container .btn-calendar:active:hover,
+#add-to-calendar-container .btn-calendar.active:hover,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar:hover,
+#add-to-calendar-container .btn-calendar:active:focus,
+#add-to-calendar-container .btn-calendar.active:focus,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar:active.focus,
+#add-to-calendar-container .btn-calendar.active.focus,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar.focus {
+  color: #333333;
+  background-color: #c7c2ac;
+  border-color: #808080;
+}
+#add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.active,
+.open > .dropdown-toggle#add-to-calendar-container .btn-calendar {
+  background-image: none;
+}
+#add-to-calendar-container .btn-calendar.disabled,
+#add-to-calendar-container .btn-calendar[disabled],
+fieldset[disabled] #add-to-calendar-container .btn-calendar,
+#add-to-calendar-container .btn-calendar.disabled:hover,
+#add-to-calendar-container .btn-calendar[disabled]:hover,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:hover,
+#add-to-calendar-container .btn-calendar.disabled:focus,
+#add-to-calendar-container .btn-calendar[disabled]:focus,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:focus,
+#add-to-calendar-container .btn-calendar.disabled.focus,
+#add-to-calendar-container .btn-calendar[disabled].focus,
+fieldset[disabled] #add-to-calendar-container .btn-calendar.focus,
+#add-to-calendar-container .btn-calendar.disabled:active,
+#add-to-calendar-container .btn-calendar[disabled]:active,
+fieldset[disabled] #add-to-calendar-container .btn-calendar:active,
+#add-to-calendar-container .btn-calendar.disabled.active,
+#add-to-calendar-container .btn-calendar[disabled].active,
+fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
+  background-color: #eae8e0;
+  border-color: #c0c0c0;
+}
+#add-to-calendar-container .btn-calendar .badge {
+  color: #eae8e0;
+  background-color: #333333;
+}
+#add-to-calendar-container .dropdown-menu {
+  top: 35px;
+  background: #eae8e0;
+  width: 100%;
+  padding: 0;
+}
+#add-to-calendar-container .dropdown-menu i {
+  width: 30px;
+}
+#add-to-calendar-container .dropdown-menu li a {
+  padding: 8px 20px;
+}
+#add-to-calendar-container .dropdown-menu li + li {
+  border-top: 1px solid #d0d0d0;
 }

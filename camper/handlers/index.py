@@ -43,7 +43,27 @@ class IndexView(BaseHandler):
             new_barcamps = new_barcamps,
             my_barcamps = my_barcamps,
         )
-    post = get
+
+class PastBarcampsView(BaseHandler):
+    """an index handler"""
+
+    template = "past_barcamps.html"
+
+    def get(self):
+        """render the view"""
+
+        n = datetime.datetime.now()
+        td = datetime.timedelta(days = 1)
+        past_barcamps = self.config.dbs.barcamps.find({
+            'end_date'      : {'$lt': n-td},
+            'workflow'      : {'$in' : ['public', 'registration']},
+            'hide_barcamp'  : False
+        }).sort("start_date", pymongo.ASCENDING)
+        past_barcamps = [BarcampView(barcamp, self) for barcamp in past_barcamps]
+        return self.render( 
+            past_barcamps = past_barcamps,
+        )
+
 
 class LoginSuccess(IndexView):
     """login success screen with eventual redirect to came_from"""

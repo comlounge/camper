@@ -249,7 +249,7 @@ class Event(Record):
                     self.waiting_list.append(uid)
                     if uid in self.maybe:
                         self.maybe.remove(uid)
-                    status = 'waitinglist'
+                status = 'waitinglist'
             else:
                 # force is only done by admins and can overpop an event. 
                 if uid not in self.participants:
@@ -304,7 +304,8 @@ class Event(Record):
         if self._barcamp.preregistration:
             return []
         uids = []
-        while len(self.participants) < self.size and len(self.waiting_list)>0:
+        # we have to make sure size is an int as it will fill everybody otherwise
+        while len(self.participants) < int(self.size) and len(self.waiting_list)>0:
             nuid = self.waiting_list.pop(0)
             self.participants.append(nuid)
             uids.append(nuid)
@@ -371,7 +372,7 @@ class BarcampSchema(Schema):
     # ticketmode
     ticketmode_enabled  = Boolean(default = False)  # is the ticket mode enabled?
     paid_tickets        = Boolean(default = False)  # if false no prices will be shown
-    ticket_classes      = List(TicketClassSchema()) # list of ticket classes
+    ticket_classes      = List(TicketClassSchema(), default = []) # list of ticket classes
     max_participants    = Integer(default = 1000)   # max number of participants over all tickets
     
 
@@ -585,6 +586,19 @@ class Barcamp(Record):
 
         """
         return len(self.imprint.strip())>20
+
+    @property
+    def registration_active(self):
+        """check if registration is active by checking workflow state and end date"""
+        if self.workflow != "registration":
+            return False
+
+        # check date
+        today = datetime.date.today()
+        if today > self.end_date:
+            return False
+
+        return True
 
     def is_registered(self, user, states=['going', 'maybe', 'waiting']):
         """check if the given user is registered in any event of this barcamp

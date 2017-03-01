@@ -28,7 +28,7 @@ class EventForm(BaseForm):
     date                        = MyDateField(T(u"date"), [validators.Required()], default=None, format="%d.%m.%Y", description="")
     start_time                  = TextField(T(u"start time"), [validators.Required()], description="")
     end_time                    = TextField(T(u"end time"), [validators.Required()], description="")
-    size                        = SelectField(T(u"max. number of participants"), [validators.Required()], 
+    size                        = SelectField(T(u"max. number of participants"), [validators.Required()],
                                         choices = [(str(n),str(n)) for n in range(1, 500)])
     
     own_location                = BooleanField(T("use different location"))
@@ -251,7 +251,7 @@ class EventView(BarcampBaseHandler):
             self.barcamp.save()
             self.flash(self._("The event has been successfully updated"), category="info")
 
-            return redirect(self.url_for(".event", slug=slug, eid = event._id))
+            return redirect(self.url_for(".event", slug=slug, eid = event._id))        
         return self.render(form = form, slug = slug, events = self.barcamp.events, event=event, eid = event._id)
     post = get
 

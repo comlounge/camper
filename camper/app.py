@@ -304,6 +304,7 @@ class CamperApp(Application):
 
     routes = [
         URL('/', 'index', handlers.index.IndexView),
+        URL('/past', 'past_barcamps', handlers.index.PastBarcampsView),
         URL('/login_success', 'login_success', handlers.index.LoginSuccess),
         URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
@@ -378,7 +379,8 @@ class CamperApp(Application):
         """handle http exceptions"""
 
         logger = logbook.Logger("error")
-        logger.warn("http error", code = e.code, url = request.path)
+        if e.code != 404:
+            logger.warn("http error", code = e.code, url = request.path)
 
         # setup the request properly for handlers to use
         urls = self.create_url_adapter(request)

@@ -129,7 +129,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-2" for="password">{{_('Fullname')}}*</label>
+                            <label class="control-label col-md-2" for="fullname">{{_('Fullname')}}*</label>
                             <div class="col-md-6">
                                 {{userform.fullname(class="form-control", type="text", required = True)}}
                             </div>
@@ -146,7 +146,7 @@
                     <div class="fs-content">
                         <div class="help-block">{{_("The barcamp administrator asks you to provide the following data. This will not be shared with other barcamps.")}}</div>
                         {% for field in form %}
-                            {{ formmacros.form_field(field, size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
+                            {{ formmacros.form_field(field, checkbox_class="col-sm-offset-2 col-sm-6", size="col-sm-6", label_class="col-sm-2", required=True if field.flags.required else "") }}
                         {% endfor %}
                     </div>
                 </fieldset>

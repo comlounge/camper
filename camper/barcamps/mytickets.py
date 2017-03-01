@@ -30,10 +30,17 @@ class MyTickets(BarcampBaseHandler):
     @logged_in()
     def get(self, slug = None):
         """show tickets for a user"""
+        # for translation
+        dummy = self._("True") + self._("False")
+        
         if not self.barcamp.ticketmode_enabled:
             self.log.warn("my tickets was called although ticketing was disabled", slug = slug)
             return redirect(self.url_for(".index", slug = self.barcamp.slug))
 
+
+        uid = unicode(self.user._id) if self.logged_in else None
+        form_data = self.barcamp.registration_data.get(uid,{})
+        has_form_data = len(form_data) # we need to at least have one key
         
         # a list of all ticket class objects
         ticketlist = self.barcamp.ticketlist
@@ -50,6 +57,7 @@ class MyTickets(BarcampBaseHandler):
 
         # compute the remaining tickets for a user
         remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))
+
     
         return self.render(
             view = self.barcamp_view,
@@ -61,6 +69,9 @@ class MyTickets(BarcampBaseHandler):
             confirmed = confirmed,
             remaining = len(remaining_ticket_ids),
             ticketlist = ticketlist,
+            has_form_data = has_form_data,
+            form_data = form_data,
+            has_form = len(self.barcamp.registration_form) != 0,
             **self.barcamp)
 
 

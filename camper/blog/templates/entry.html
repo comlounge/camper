@@ -1,6 +1,16 @@
 {% set menu="blog" %}
 {% extends "_m/barcamps/master.html" %}
 
+{% block og %}
+    <meta property="og:title" content="{{view.entry.title|striptags}}" />
+    <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{url}}" />
+    <meta property="og:image" content="{{view.title_image_url()}}" />
+    <meta property="og:description" content="{{view.entry.content[:1000]|textify}}" />
+{% endblock %}
+
+
 {% block main_content %}
     <article class="blogentry">
         <header>
@@ -46,6 +56,13 @@
                 {% endif %}
             </div>
         {% endif %}
+        <div id="share-area" style="margin-top: 20px;">
+            <a class="share-on-facebook btn btn-sm btn-primary" data-url="{{url|e}}"><i class="fa fa-facebook"></i> {{_('Share on Facebook')}}</a>
+            <a 
+                href="https://twitter.com/intent/tweet?text={{view.entry.title|e}}&amp;hashtags={{barcamp.hashtag|e}}&amp;via={{barcamp.twitter|e}}&amp;related=barcamptools&amp;url={{url}}" 
+                class="btn btn-sm btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</a>
+        </div>    
+
     </article>
 {% endblock %}
 

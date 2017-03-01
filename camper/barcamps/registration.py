@@ -162,10 +162,13 @@ class RegistrationForm(BarcampBaseHandler):
                 vs.append(validators.Required())
             if field['fieldtype'] == "textfield":
                 vs.append(validators.Length(max = 400))
-                setattr(RegistrationForm, field['name'], TextField(field['title'], vs, description = field['description']))
+                setattr(RegistrationForm, field['name'], TextField(field['title'], vs, description = field['description'] or " "))
             elif field['fieldtype'] == "textarea":
                 vs.append(validators.Length(max = 2000))
-                setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description']))
+                setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description'] or " "))
+            elif field['fieldtype'] == "checkbox":
+                setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
+
 
         uid = unicode(self.user._id)
         form_data = self.barcamp.registration_data.get(uid, {})

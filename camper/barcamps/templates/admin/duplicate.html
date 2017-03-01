@@ -1,0 +1,36 @@
+{% set menu="legal" %}
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
+{% block content %}
+    {% block title %}
+        <h1>{{_('Duplicate Barcamp')}}</h1>
+        <span class="help-block">{{_('Here you can duplicate your barcamp e.g. to create a new one for the next year. Per default we will copy everything but the participants. You can choose below which elements you want not to be copied')}}</span>
+    {% endblock %}
+
+    <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input name="events" value="events" checked type="checkbox"> {{_('Copy events')}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <div class="checkbox">
+                    <label>
+                        <input name="tickets" value="tickets" checked type="checkbox"> {{_('Copy Ticket Categories')}}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        {% block action %}
+            <input type="submit" class="btn btn-large btn-danger btn-lg " value="{{_('Duplicate Barcamp')}}">
+        {% endblock %}
+    </form>
+{% endblock %}

@@ -16,7 +16,7 @@
                 </div>
             </div>
         {% else %}
-            {% if barcamp.workflow == "registration" %}
+            {% if barcamp.registration_active %}
                 {% if barcamp.ticketmode_enabled %}
                     <div class="widget-join">
                         <a 
@@ -25,14 +25,6 @@
                             class="btn btn-lg btn-block btn-inverse btn-sidebar">
                         {{_('Register')}}
                         </a>
-                        {% if barcamp.get_tickets_for_user(user_id) %}
-                            <a 
-                                title="{{_('Click here to participate in the barcamp')}}" 
-                                href="{{url_for('barcamps.mytickets', slug=slug)}}" 
-                                class="btn btn-lg btn-block btn-default btn-sidebar">
-                            {{_('My Tickets')}}
-                            </a>
-                        {% endif %}
                     </div>
                 {% else %}
                     <div class="widget-join">
@@ -44,7 +36,15 @@
                 {% endif %}
             {% endif %}
         {% endif %} {# is registered_user #}
-    {% elif barcamp.workflow == "registration" %}
+        {% if barcamp.get_tickets_for_user(user_id) %}
+            <a 
+                title="{{_('Click here to participate in the barcamp')}}" 
+                href="{{url_for('barcamps.mytickets', slug=slug)}}" 
+                class="btn btn-lg btn-block btn-default btn-sidebar">
+            {{_('My Tickets')}}
+            </a>
+        {% endif %}
+    {% elif barcamp.registration_active %}
         <div class="widget-join">
             <div>
                 <a title="{{_('Click here to participate in the barcamp')}}" data-toggle="tooltip" data-placement="top"
@@ -68,12 +68,14 @@
 {% extends "master.html" %}
 {% import "macros.html" as formmacros with context %}
 {% block head %}
+    {% block og %}
     <meta property="og:title" content="{{barcamp.name|striptags}}" />
     <meta property="og:site_name" content="{{barcamp.name|striptags}}" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
+    <meta property="og:url" content="{{url_for('barcamps.index', slug = slug, _full=True)}}" />
     <meta property="og:image" content="{{view.og_logo}}" />
     <meta property="og:description" content="{{barcamp.seo_description|textify}}" />
+    {% endblock %}
     {% if barcamp.hide_barcamp %}
     <meta name="robots" value="noindex, nofollow">
     {% endif %}
@@ -220,7 +222,28 @@
 
         {% block outer_content %}
             <div id="main-content" class="row" role="main">
-                <div class="col-md-9" id="content-area">
+                <aside class="col-md-3 col-md-push-9">
+                    {% block widgets %}
+
+                        {{barcamp_buttons()}}
+
+                        <div id="add-to-calendar-container"></div>
+                        
+                        {{share_buttons()}}
+                        
+                        {{sponsors()}}
+                        {% if barcamp.contact_email or barcamp.has_imprint %}
+                            <h3>{{_('Imprint')}}</h3>
+                            {{barcamp.imprint|safe}}
+                            <p> 
+                            {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
+                            </p>
+                        {% endif %}
+                        
+
+                    {% endblock %} {# widgets #}
+                </aside>{# -- widget -- #}
+                <div class="col-md-9 col-md-pull-3" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
                             <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
@@ -246,24 +269,6 @@
 
                 </div><!-- #content-area -->
 
-                <aside class="col-md-3">
-                    {% block widgets %}
-
-                        {{barcamp_buttons()}}
-                        {{share_buttons()}}
-                        
-                        {{sponsors()}}
-                        {% if barcamp.contact_email or barcamp.has_imprint %}
-                            <h3>{{_('Imprint')}}</h3>
-                            {{barcamp.imprint|safe}}
-                            <p> 
-                            {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
-                            </p>
-                        {% endif %}
-                        
-
-                    {% endblock %} {# widgets #}
-                </aside>{# -- widget -- #}
             </div>{# -- #main-content --#}
         {% endblock %} {# outer_content #}
 
@@ -278,7 +283,37 @@
 {% endblock %} {# container #}
 
 {% block js %}
+    <script>
+    var myCalendar = createCalendar({
+  options: {
+    title: "{{_('Add to Calendar')}}",
+    class: 'my-class',
+
+    // You can pass an ID. If you don't, one will be generated for you
+    id: 'my-id'
+  },
+  data: {
+    // Event title
+    title: '{{barcamp.name|e}}',
+
+    // Event start date
+    start: new Date("{{barcamp.start_date.strftime('%Y-%m-%d')}}"),
+    end: new Date("{{barcamp.end_date.strftime('%Y-%m-%d')}}"),
+
+    // Event Address
+    address: '{{barcamp.location.name|e}}, {{barcamp.location.street|e}}, {{barcamp.location.zip|e}} {{barcamp.location.city|e}}',
+
+
+    // Event Description
+    description: '{{barcamp.description|striptags|e}}'
+  }
+});
+
+document.querySelector('#add-to-calendar-container').appendChild(myCalendar);
+
+    </script>
     {% block bcjs %}
     {% endblock %}
 {% endblock %}
+
 

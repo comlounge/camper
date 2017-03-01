@@ -28,7 +28,7 @@
                 {% if logged_in %}
                     <span class="sr-only">{{_('You have voted for this proposal. Remove your vote.') if voted_for else _('You have not voted for this proposal')}}</span>
                 {% endif %}
-                <div class="votes" id="vote-{{session._id}}">{{session.vote_count}}</div>
+                <div class="votes" id="vote-{{session._id}}">{{session.vote_count}} <span class="sr-only">{{_('Votes')}}</span></div>
                 <div class="votebutton {{'disabled' if not logged_in}}">
                     <a  title="{{_('Vote for this proposal') if not voted_for else _('Remove vote for this proposal')}}" 
                         id="votebutton-{{session._id}}" 
@@ -68,15 +68,15 @@
                     </div>
                 {% endif %}
 
-                <div class="votecontainer hidden-lg hidden-md" data-url="{{url_for(".session_vote", slug = slug, sid = session._id)}}">
-                    <div class="votes" id="vote-{{session._id}}">{{session.vote_count}}</div>
+                <div class="votecontainer hidden-lg hidden-md" data-url="{{url_for('.session_vote', slug = slug, sid = session._id)}}">
+                    <div class="votes" id="vote-{{session._id}}">{{session.vote_count}} {{_('Votes')}}</div>
                     <div class="votebutton {{'disabled' if not logged_in}}">
                         <a  title="{{_('Vote for this proposal') if not voted_for else _('Remove vote for this proposal')}}" 
                             id="votebutton-{{session._id}}" 
                             data-id="{{session._id}}" 
                             class="vote responsive {{'active' if voted_for else 'inactive'}}"><i class="fa fa-thumbs-up"></i>
                             {% if logged_in %}
-                                <span class="">{{_('Remove your vote.') if voted_for else _('Vote for this proposal')}}</span>
+                                <span class="sr-only">{{_('Remove your vote.') if voted_for else _('Vote for this proposal')}}</span>
                             {% endif %}
                             </a>
                     </div>

@@ -21,6 +21,7 @@ class BlogEntrySchema(Schema):
     image           = String(required=False) # title image
     layout          = String() # name of layout
     content         = String()
+    seo_description         = String(default = "")
     tags 			= List(String()) # list of tags (string)
 
 
@@ -38,6 +39,7 @@ class BlogEntry(Record):
         'workflow'      : "draft",
         'title'         : "",
         'slug'          : "",
+        'seo_description'       : "",
         'content'       : "",
         'layout'        : "default",
         'image'         : None

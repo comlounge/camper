@@ -13,7 +13,7 @@ Weitere Informationen zur Veranstaltung findest Du hier:
 ((barcamp_url))
 
 
-Dein ((barcamp.name)) team!
+Dein ((barcamp_name)) team!
 
 --
 ((url))

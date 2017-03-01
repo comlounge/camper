@@ -43,7 +43,7 @@ class EntryView(object):
             asset = None
         if not asset:
             return u""
-        v = asset.variants['medium_user']
+        v = asset.variants['fullwidth']
         url = self.app.url_for("asset", asset_id = v._id)
         amap = html_params(**kwargs)
         return """<img src="%s" width="%s" height="%s" %s>""" %(
@@ -51,6 +51,18 @@ class EntryView(object):
             v.metadata['width'],
             v.metadata['height'],
             amap)
+
+    def title_image_url(self, size = "fullwidth"):
+        """return the url to the title image"""
+        try:
+            asset = self.app.module_map.uploader.get(self.entry.image)
+        except AssetNotFound:
+            asset = None
+        if not asset:
+            return u""
+        v = asset.variants['fullwidth']
+        url = self.app.url_for("asset", asset_id = v._id, _full = True)
+        return url
 
     @property
     def has_gallery(self):

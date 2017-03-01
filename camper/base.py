@@ -20,6 +20,7 @@ import logbook
 import weasyprint
 import cStringIO
 
+
 from wtforms.ext.i18n.form import Form
 
 __all__ = ["BaseForm", "BaseHandler", "logged_in", "aspdf", 'aspdf2', 
@@ -89,6 +90,7 @@ class BarcampView(object):
     @property
     def logo(self):
         """show the logo tag"""
+        from app import textify
         try:
             asset = self.app.module_map.uploader.get(self.barcamp.logo)
         except AssetNotFound:
@@ -97,10 +99,13 @@ class BarcampView(object):
             return u""
         v = asset.variants['logo_full']
         url = self.app.url_for("asset", asset_id = v._id, _full = True)
+        alt = 'Logo '+self.barcamp.name# + " - " + textify(self.barcamp.seo_description)
+        alt = alt.replace('"', '&quot;')
+        alt = alt.replace("'", '&quot;')
         return """<a title="%s" href="%s"><img alt="%s" class="img-responsive" src="%s" width="%s" height="%s"></a>""" %(
             self.barcamp.name,
             self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
-            'Logo '+self.barcamp.name,
+            alt,
             url,
             v.metadata['width'],
             v.metadata['height'])

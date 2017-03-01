@@ -15,6 +15,9 @@ class EntryForm(BaseForm):
     """form for adding an event to a barcamp"""
     title       = TextField(T(u"Title"), [validators.Length(max=300), validators.Required()])
     content     = WYSIWYGField(T(u"Content"), [])
+    seo_description     = TextField(T('Meta Description'), 
+                        [validators.Length(max=160)],
+                        description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))
     published   = DateTimePickerField(T(u"Publishing Date"),
                 default = None,
     )

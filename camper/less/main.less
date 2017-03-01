@@ -723,6 +723,8 @@ h1.logo {
 .btn-inline { display: inline-block; }
 .btn-inline.hide { display: none; }
 
+.btn-sidebar { margin-bottom: 10px; }
+
 
 footer {
     margin-top: 20px;
@@ -1044,4 +1046,27 @@ img.flickr-embed-img {
 .ticket-price {
     margin-top: 20px;
     font-weight: bold;
+}
+
+#add-to-calendar-container {
+    .btn-calendar {
+        margin-bottom: 10px;
+        .button-variant(#333; #eae8e0; #c0c0c0);
+
+    }
+    .dropdown-menu {
+        top: 35px;
+        background: #eae8e0;
+        width: 100%;
+        padding: 0;
+        i {
+            width: 30px;
+        }
+        li a {
+            padding: 8px 20px;
+        }
+        li+li {
+            border-top: 1px solid #d0d0d0;
+        }
+    }
 }
