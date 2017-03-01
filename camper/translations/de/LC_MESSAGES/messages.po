@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-28 17:37+0100\n"
+"POT-Creation-Date: 2017-03-01 13:03+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -15,35 +15,51 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: app.py:262
+msgid "Your registration is nearly finished"
+msgstr "Deine Registrierung ist fast fertig"
+
+#: app.py:263
+msgid "Welcome to our system"
+msgstr "Willkommen bei barcamptools.eu"
+
+#: app.py:264
+msgid "Password reminder"
+msgstr "Passwort vergessen?"
+
+#: app.py:265
+msgid "Your password reset code"
+msgstr "Dein Code zum Passwort-Reset"
+
+#: app.py:269
 msgid "User unknown"
 msgstr "Benutzer unbekannt."
 
-#: app.py:263
+#: app.py:270
 msgid "This email address cannot not be found in our user database"
 msgstr "Die E-Mail-Adresse wurde leider in unserer Datenbank nicht gefunden"
 
-#: app.py:264
+#: app.py:271
 msgid "Your password is not correct"
 msgstr "Das Passwort ist nicht korrekt"
 
-#: app.py:265
+#: app.py:272
 msgid "Your user has not yet been activated."
 msgstr "Der Benutzer wurde noch nicht aktiviert."
 
-#: app.py:266
+#: app.py:273
 msgid "Login failed"
 msgstr "Login fehlgeschlagen"
 
-#: app.py:267
+#: app.py:274
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr "Willkommen, %(fullname)s"
 
-#: app.py:268
+#: app.py:275
 msgid "Your are now logged out"
 msgstr "Du bist jetzt ausgeloggt"
 
-#: app.py:269
+#: app.py:276
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
@@ -51,15 +67,15 @@ msgstr ""
 "Bitte checke Deine E-Mail, um den Registrierungsprozess abzuschließen. "
 "Alle weiteren Informationen dazu findest Du in der E-Mail."
 
-#: app.py:270
+#: app.py:277
 msgid "Your user registration has been successful"
 msgstr "Die Benutzerregistrierung war erfolgreich."
 
-#: app.py:271
+#: app.py:278
 msgid "Your account has been activated"
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: app.py:272 handlers/users/activation.py:75
+#: app.py:279 handlers/users/activation.py:75
 #, fuzzy, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
@@ -68,71 +84,71 @@ msgstr ""
 "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder "
 "klicke<a href=\"%(url)s\">hier</a>, um einen neuen Code zu erhalten."
 
-#: app.py:273
+#: app.py:280
 msgid "A new activation code has been sent out, please check your email"
 msgstr "Wir haben Dir einen neuen Aktivierungscode an Deine E-Mail gesendet"
 
-#: app.py:274
+#: app.py:281
 msgid "The user is already active. Please log in."
 msgstr "Der Benutzer ist schon aktiviert - bitte logge Dich ein."
 
-#: app.py:275
+#: app.py:282
 msgid "A link to set a new password has been sent to you"
 msgstr "Ein Link, um ein neues Passwort zu setzen, wurde Dir per E-Mail zugesandt."
 
-#: app.py:276
+#: app.py:283
 msgid "Your password has been changed"
 msgstr "Dein Passwort wurde geändert."
 
-#: app.py:279
+#: app.py:286
 msgid "The user has been updated."
 msgstr "Benutzerdaten aktualisiert"
 
-#: app.py:280
+#: app.py:287
 msgid "The user has been added."
 msgstr "Der Benutzer wurde hinzugefügt."
 
-#: app.py:281
+#: app.py:288
 msgid "The user has been deleted."
 msgstr "The user has been deleted."
 
-#: app.py:282
+#: app.py:289
 msgid "The user has been activated."
 msgstr "Der Benutzer wurde aktiviert."
 
-#: app.py:283
+#: app.py:290
 msgid "The user has been deactivated."
 msgstr "Der Benutzer wurde deaktiviert."
 
-#: app.py:287
+#: app.py:294
 msgid "can manage users"
 msgstr "Kann Benutzer verwalten"
 
-#: app.py:288
+#: app.py:295
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
-#: base.py:191
+#: base.py:196
 msgid "date to be announced"
 msgstr "Termin wird noch bekannt gegeben"
 
-#: base.py:201
+#: base.py:206
 msgid "location to be announced"
 msgstr "Ort wird noch bekannt gegeben."
 
-#: base.py:353
+#: base.py:358
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
 
-#: base.py:390
+#: base.py:395
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:396 base.py:623
+#: base.py:401 base.py:628
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:408 base.py:414 base.py:426 base.py:429
+#: base.py:413 base.py:419 base.py:431 base.py:434
 msgid "you don't have the permission to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -317,7 +333,7 @@ msgstr "Dein Ticket für %s."
 #: barcamps/add.py:148
 #, python-format
 msgid "Your ticket for %s was canceled."
-msgstr ""
+msgstr "Dein Ticket für %s wurde widerrufen."
 
 #: barcamps/add.py:153
 #, python-format

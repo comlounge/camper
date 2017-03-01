@@ -258,6 +258,13 @@ class CamperApp(Application):
                 'logout_success'        : {'endpoint' : 'userbase.login'},
                 'registration_success'  : {'endpoint' : 'userbase.login'},
             },
+            subjects                    = AttributeMapper({
+                'registration'          : T('Your registration is nearly finished'),
+                'welcome'               : T('Welcome to our system'),
+                'password'              : T('Password reminder'),
+                'pw_code'               : T('Your password reset code'),
+            }),
+
             messages                    = AttributeMapper({
                 'user_unknown'          : T('User unknown'),
                 'email_unknown'         : T('This email address cannot not be found in our user database'),

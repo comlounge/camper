@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-28 17:37+0100\n"
+"POT-Creation-Date: 2017-03-01 13:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,120 +18,136 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: app.py:262
-msgid "User unknown"
+msgid "Your registration is nearly finished"
 msgstr ""
 
 #: app.py:263
-msgid "This email address cannot not be found in our user database"
+msgid "Welcome to our system"
 msgstr ""
 
 #: app.py:264
-msgid "Your password is not correct"
+msgid "Password reminder"
 msgstr ""
 
 #: app.py:265
+msgid "Your password reset code"
+msgstr ""
+
+#: app.py:269
+msgid "User unknown"
+msgstr ""
+
+#: app.py:270
+msgid "This email address cannot not be found in our user database"
+msgstr ""
+
+#: app.py:271
+msgid "Your password is not correct"
+msgstr ""
+
+#: app.py:272
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:266
+#: app.py:273
 msgid "Login failed"
 msgstr ""
 
-#: app.py:267
+#: app.py:274
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:268
+#: app.py:275
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:269
+#: app.py:276
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:270
+#: app.py:277
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:271
+#: app.py:278
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:272 handlers/users/activation.py:75
+#: app.py:279 handlers/users/activation.py:75
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:273
+#: app.py:280
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:274
+#: app.py:281
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:275
+#: app.py:282
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:276
+#: app.py:283
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:279
+#: app.py:286
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:280
+#: app.py:287
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:281
+#: app.py:288
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:282
+#: app.py:289
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:283
+#: app.py:290
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:287
+#: app.py:294
 msgid "can manage users"
 msgstr ""
 
-#: app.py:288
+#: app.py:295
 msgid "main administrator"
 msgstr ""
 
-#: base.py:191
+#: base.py:196
 msgid "date to be announced"
 msgstr ""
 
-#: base.py:201
+#: base.py:206
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:353
+#: base.py:358
 msgid "Please log in."
 msgstr ""
 
-#: base.py:390
+#: base.py:395
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:396 base.py:623
+#: base.py:401 base.py:628
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:408 base.py:414 base.py:426 base.py:429
+#: base.py:413 base.py:419 base.py:431 base.py:434
 msgid "you don't have the permission to access this page."
 msgstr ""
 
