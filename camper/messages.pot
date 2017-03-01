@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-02-28 10:48+0100\n"
+"POT-Creation-Date: 2017-02-28 17:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -669,7 +669,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:262
+#: barcamps/templates/master.html:236
 msgid "Imprint"
 msgstr ""
 
@@ -1149,26 +1149,26 @@ msgstr ""
 msgid "Manage Barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:231 templates/admin_master.html:79
+#: barcamps/templates/master.html:239
+msgid "Contact: "
+msgstr ""
+
+#: barcamps/templates/master.html:252 templates/admin_master.html:79
 msgid "publish barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:232 templates/admin_master.html:80
+#: barcamps/templates/master.html:253 templates/admin_master.html:80
 msgid "this barcamp is not public"
 msgstr ""
 
 #: barcamps/templates/admin/wizard.html:265
-#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:239
+#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:260
 #: templates/admin_master.html:87
 msgid "open registration"
 msgstr ""
 
-#: barcamps/templates/master.html:240 templates/admin_master.html:88
+#: barcamps/templates/master.html:261 templates/admin_master.html:88
 msgid "Registration for this barcamp is not yet open."
-msgstr ""
-
-#: barcamps/templates/master.html:265
-msgid "Contact: "
 msgstr ""
 
 #: barcamps/templates/master.html:289
@@ -1474,7 +1474,8 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: barcamps/templates/sessions.html:15
+#: barcamps/templates/sessions.html:15 barcamps/templates/sessions.html:31
+#: barcamps/templates/sessions.html:72
 msgid "Votes"
 msgstr ""
 

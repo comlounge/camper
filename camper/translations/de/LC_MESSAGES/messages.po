@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-02-28 10:48+0100\n"
+"POT-Creation-Date: 2017-02-28 17:37+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -703,7 +703,7 @@ msgstr ""
 "Diese wird öffentlich dargestellt."
 
 #: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:262
+#: barcamps/templates/master.html:236
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -1216,27 +1216,27 @@ msgstr "Menü"
 msgid "Manage Barcamp"
 msgstr "Barcamp verwalten"
 
-#: barcamps/templates/master.html:231 templates/admin_master.html:79
+#: barcamps/templates/master.html:239
+msgid "Contact: "
+msgstr "Kontakt: "
+
+#: barcamps/templates/master.html:252 templates/admin_master.html:79
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:232 templates/admin_master.html:80
+#: barcamps/templates/master.html:253 templates/admin_master.html:80
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
 #: barcamps/templates/admin/wizard.html:265
-#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:239
+#: barcamps/templates/admin/wizard.html:279 barcamps/templates/master.html:260
 #: templates/admin_master.html:87
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:240 templates/admin_master.html:88
+#: barcamps/templates/master.html:261 templates/admin_master.html:88
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
-
-#: barcamps/templates/master.html:265
-msgid "Contact: "
-msgstr "Kontakt: "
 
 #: barcamps/templates/master.html:289
 msgid "Add to Calendar"
@@ -1515,8 +1515,7 @@ msgid ""
 "will not be shared with other barcamps."
 msgstr ""
 "Das Barcamp braucht noch folgende Daten von Dir, um die Registrierung "
-"abzuschließen. Diese Daten werden nicht an andere Barcamps "
-"weitergegeben."
+"abzuschließen. Diese Daten werden nicht an andere Barcamps weitergegeben."
 
 #: barcamps/templates/registration_wizard.html:88
 msgid "Select events you want to attend"
@@ -1561,7 +1560,8 @@ msgstr "Sortieren nach:"
 msgid "Date"
 msgstr "Datum"
 
-#: barcamps/templates/sessions.html:15
+#: barcamps/templates/sessions.html:15 barcamps/templates/sessions.html:31
+#: barcamps/templates/sessions.html:72
 msgid "Votes"
 msgstr "Votes"
 
