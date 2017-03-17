@@ -16,13 +16,22 @@
         {{ formmacros.form_field(form.testmail, input_class="email") }}
         </fieldset>
         {% block action %}
-            <input type="submit" name="send_test_mail" id="send_test_mail" class="btn btn-large" value="{{_('Send Test Mail')}}">
+            <input type="hidden" id="sendtype" name="sendtype" value="">
+            <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-large" value="{{_('Send Test Mail')}}">
             <input type="submit"
+                   data-type="live"
                    onclick="confirm('{{_('Really send Newsletter?')}}');"
                    name="send_newsletter"
                    id="send_newsletter"
-                   class="btn btn-large btn-primary"
+                   class="subbutton btn btn-large btn-primary"
                    value="{{_('Send Newsletter')}}">
+            <script language="javascript">
+                $(document).ready(function() {
+                    $(".subbutton").click(function(e) {
+                        $("#sendtype").val(($(this).data("type")));
+                    })
+                })
+            </script>
         {% endblock %}
     </form>
 {% endblock %}
