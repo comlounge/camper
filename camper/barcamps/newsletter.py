@@ -49,10 +49,11 @@ class NewsletterEditView(BarcampBaseHandler):
         if self.request.method == 'POST' and form.validate():
             f = form.data
             mailer = self.app.module_map['mail']
-            if self.request.form.has_key('send_test_mail'):
+            st = self.request.form.get('sendtype')
+            if st=="test":
                 if f['testmail'] != u'':
                     # send newsletter to test mail address
-                    mailer.mail(f['testmail'], f['subject'], f['body'])
+                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name)
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
                     self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="waring")
@@ -63,7 +64,7 @@ class NewsletterEditView(BarcampBaseHandler):
                             form = form,
                             **self.barcamp
                         )
-            elif self.request.form.has_key('send_newsletter'):
+            elif st=="live":
                 # send newsletter to recipients
 
                 recipient_ids = []
@@ -85,7 +86,7 @@ class NewsletterEditView(BarcampBaseHandler):
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
                 for user in users:
                     send_to = user.email
-                    mailer.mail(send_to, f['subject'], f['body'])
+                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name)
                 self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.dashboard", slug = self.barcamp.slug))
 
