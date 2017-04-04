@@ -40,14 +40,14 @@
                         </a>
                 </div>
             </div>
-            <a title="{{session.user.fullname}}" class="media-left" href="{{url_for('profile', username = session.user.username)}}">
+            <a title="{{session.user.fullname|e}}" class="media-left" href="{{url_for('profile', username = session.user.username)}}">
                 {{userview(session.user).image_thumb_tag}}
             </a>
             <div class="media-body show-box">
                 <h3 class="media-heading">{{session.title|striptags}}</h3>
                 <div class="byline">
                     {{_('added by')}}
-                        <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname}}</a>
+                        <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname|e}}</a>
                     {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
                 </div>
                 <div class="description">
@@ -94,13 +94,13 @@
                                 class="deletebutton btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
                         {% endif %}
                         <div class="media-left">
-                            <a title="{{comment.user.fullname}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
+                            <a title="{{comment.user.fullname|e}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
                                 {{userview(comment.user).image_thumb_tag}}
                             </a>
                         </div>
                         <div class="media-body">
-                            <span class="comment-text">{{comment.comment}}</span>
-                            <footer>{{comment.user.fullname}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                            <span class="comment-text">{{comment.comment|e}}</span>
+                            <footer>{{comment.user.fullname|e}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
                         </div>
                     </div>
                 {% endfor %}

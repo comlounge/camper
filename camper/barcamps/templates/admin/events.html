@@ -34,7 +34,7 @@
             <tbody>
                 {% for event in events %}
                     <tr>
-                        <td><a href="{{url_for(".event",slug=slug,eid=event._id)}}" title="edit event {{event.name}}">{{event.name}}</a></td>
+                        <td><a href="{{url_for(".event",slug=slug,eid=event._id)}}" title="edit event {{event.name|e}}">{{event.name|e}}</a></td>
                         <td>{{dateformat(event.date)}}</td>
                         <td>{{event.participants|length}}/{{event.size}}</td>
                         <td>{{event.waiting_list|length}}</td> 

@@ -7,11 +7,11 @@
     {% for ticket in tickets %}
         <li class="participant clearfix">
             <div class="pull-left">
-                <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname}}">
+                <a class="participant-avatar" href="{{url_for('profile', username = ticket.user.username)}}" data-toggle="tooltip" title="{{ticket.user.fullname|e}}">
                     <img class="profile-image-userlist" src="{{userview(ticket.user).image_thumb}}">
                 </a>
-                <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname}}">
-                    {{ticket.user.fullname}}<br>
+                <a class="participant-name" href="{{url_for('profile', username = ticket.user.username)}}" title="{{ticket.user.fullname|e}}">
+                    {{ticket.user.fullname|e}}<br>
                 </a>
                 {% if ticket.workflow == "canceled" %}
                     {{_('Ticket created:')}} <strong>{{dateformat(ticket.created)}}</strong>, 

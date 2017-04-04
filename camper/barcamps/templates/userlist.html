@@ -33,7 +33,7 @@
             </a>
             {% endif %}
             <div class="participant-info">
-                <h5><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname}}</a>
+                <h5><a href="{{url_for('profile', username = myuser.username)}}">{{myuser.fullname|e}}</a>
                     {% if myuser.has_organisation %}
                     <br><small>{{myuser.organisation}}</small>
                     {% endif %}

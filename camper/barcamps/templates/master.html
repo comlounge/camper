@@ -79,7 +79,7 @@
     {% if barcamp.hide_barcamp %}
     <meta name="robots" value="noindex, nofollow">
     {% endif %}
-    <link rel="index" title="{{barcamp.name}}" href="{{url_for("barcamps.index", slug = slug)}}" />
+    <link rel="index" title="{{barcamp.name|e}}" href="{{url_for("barcamps.index", slug = slug)}}" />
     <link rel="canonical" href="{{url_for("barcamps.index", slug = slug, _full=True)}}" />
     <meta name="description" content="{{barcamp.seo_description|textify}}" />
 
@@ -127,7 +127,7 @@
                 {% if logo %}
                     {{view.logo}}
                 {% else %}                
-                    <h1 class="logo"><a href="{{url_for('barcamps.index', slug = barcamp.slug)}}">{{barcamp.name}}</a></h1>
+                    <h1 class="logo"><a href="{{url_for('barcamps.index', slug = barcamp.slug)}}">{{barcamp.name|e}}</a></h1>
                 {% endif %}
             </div>
             <div class="byline clearfix">

@@ -49,7 +49,7 @@
     {% if barcamp.logo %}
         {{view.logo}}
     {% else %}
-        <h1 class="logo">{{barcamp.name}}</h1>
+        <h1 class="logo">{{barcamp.name|e}}</h1>
     {% endif %}
     <div id="meta">
         <div class="pull-right">
@@ -60,18 +60,18 @@
         {{dateformat(barcamp.start_date)}} - {{dateformat(barcamp.end_date)}}
     </div>
 
-    <h1>Ihr Ticket für {{barcamp.name}}</h1>
+    <h1>Ihr Ticket für {{barcamp.name|e}}</h1>
 
     <article id="ticket">
         <header>
-            <h3>Ticket für {{barcamp.name}}</h3>
+            <h3>Ticket für {{barcamp.name|e}}</h3>
         </header>
         <section>
             <p>
             <strong>{{ticket_class.name}}</strong><br>
             {{ticket_class.description}}
             </p>
-            Teilnehmer: {{user.fullname}}<br>
+            Teilnehmer: {{user.fullname|e}}<br>
             {% if barcamp.paid_tickets %}
                 Preis: {{ticket_class.price}}
             {% endif %}

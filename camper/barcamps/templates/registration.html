@@ -2,7 +2,7 @@
 
 {% block main_content %}
     {% block title %}
-        <h1>{{_('Register for %s') %barcamp.name}}</h1>
+        <h1>{{_('Register for %s') %barcamp.name|e}}</h1>
 
         <section>
             {% if has_form_data %}

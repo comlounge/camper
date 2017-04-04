@@ -7,7 +7,7 @@
         <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
         <li class="active">{{_('Registration Form')}}</li>
     </ol>
-    <h1>{{_('My participant data for %s') %barcamp.name}}</h1>
+    <h1>{{_('My participant data for %s') %barcamp.name|e}}</h1>
 
 {% endblock %}
 {% block main_content %}

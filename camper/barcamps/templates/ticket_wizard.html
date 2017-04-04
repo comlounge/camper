@@ -75,7 +75,7 @@
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li class="active">{{_('Registration')}}</li>
     </ol>
-    <h1>{{_('Reserve Tickets for %s') %barcamp.name}}</h1>
+    <h1>{{_('Reserve Tickets for %s') %barcamp.name|e}}</h1>
 
 {% endblock %}
 {% block main_content %}

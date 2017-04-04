@@ -23,7 +23,7 @@
                         {% endif %}
                         #}
                     </div>
-                    <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name}}</a></h3>
+                    <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name|e}}</a></h3>
                     <div class="byline">
                         <span>{{view.date}}</span>, 
                         <span>{{view.short_location}}</span>

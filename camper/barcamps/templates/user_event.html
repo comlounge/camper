@@ -5,11 +5,11 @@
     <ul class="participants">
     {% for myuser in users %}
         <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname|e}}">
                 {{userview(myuser).image_thumb_tag}}
             </a>
-            <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
-                {{myuser.fullname}}
+            <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
+                {{myuser.fullname|e}}
             </a>
         </li>
     {% endfor %}
@@ -97,11 +97,11 @@
     <ol class="breadcrumb">
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>
-        <li class="active">{{active_event.name}}</li>
+        <li class="active">{{active_event.name|e}}</li>
     </ol>
 
-    <h2>{{active_event.name}}</h2>
-    <div class="description">{{active_event.description}}</div>
+    <h2>{{active_event.name|e}}</h2>
+    <div class="description">{{active_event.description|e}}</div>
 
     <div id="user-events-content">
 
@@ -159,9 +159,9 @@
                                     <th>&nbsp;</th>
                                     {% for room in rooms %}
                                     <th>
-                                        {{room.name}}
-                                        <small>{{room.description}}</small><br>
-                                        <small>{{room.capacity}} {{_("persons")}}</small>
+                                        {{room.name|e}}
+                                        <small>{{room.description|e}}</small><br>
+                                        <small>{{room.capacity|e}} {{_("persons")}}</small>
                                     </th>
                                     {% endfor %}
                                 </tr>

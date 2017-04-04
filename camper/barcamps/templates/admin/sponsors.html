@@ -28,8 +28,8 @@
                         <a href="{{sponsor.url}}">{{sponsor.image}}</a>
                     </div>
                     <div class="sponsor-description">
-                        <h5>{{sponsor.name}}</h5>
-                        <a href="{{sponsor.url}}">{{sponsor.url}}</a>
+                        <h5>{{sponsor.name|e}}</h5>
+                        <a href="{{sponsor.url|e}}">{{sponsor.url|e}}</a>
                     </div>
                 </li>
             {% endfor %}

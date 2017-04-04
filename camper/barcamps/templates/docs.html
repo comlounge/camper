@@ -18,7 +18,7 @@
                                         class="blog-delete-button pull-right"><i class="icon-trash"></i></a>
                         {% endif %}
                         <a href="{{post.url}}" class="headline">{{post.title}}</a>
-                        <span class="author">von <a href="{{url_for('profile', username = usermap[post.user_id].username)}}">{{usermap[post.user_id].fullname}}</a></span>
+                        <span class="author">von <a href="{{url_for('profile', username = usermap[post.user_id].username)}}">{{usermap[post.user_id].fullname|e}}</a></span>
                     </li>
                 {% endfor %}
             </ul>

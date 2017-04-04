@@ -11,30 +11,30 @@
         <div class="col-md-8">
 
             <div class="user-profile-box">
-                <h2>{{profile_user.fullname}}
+                <h2>{{profile_user.fullname|e}}
                     <small>
                         {% if profile_user.has_organisation %}
-                            {{profile_user.organisation}}
+                            {{profile_user.organisation|e}}
                         {% endif %}
                     </small>
                 </h2>
                 <h4>{{_('About me')}}</h4>
                 {% if profile_user.has_bio %}
-                    {{profile_user.bio}}
+                    {{profile_user.bio|e}}
                 {% else %}
                     <div class="text-muted">{{_('This could be a text about you')}}</div>
                 {% endif %}
 
                 <h4>Twitter</h4>
                 {% if profile_user.has_twitter %}
-                    <a href="{{profile_user.twitter_link}}">@{{profile_user.twitter}}</a>
+                    <a href="{{profile_user.twitter_link}}">@{{profile_user.twitter|e}}</a>
                 {% else %}
                     <p class="text-muted">{{_('not given')}}</p>
                 {% endif %}
 
                 <h4>Facebook</h4>
                 {% if profile_user.has_facebook %}
-                    <a href="{{profile_user.facebook}}">{{profile_user.facebook}}</a>
+                    <a href="{{profile_user.facebook}}">{{profile_user.facebook|e}}</a>
                 {% else %}
                     <p class="text-muted">{{_('not given')}}</p>
                 {% endif %}

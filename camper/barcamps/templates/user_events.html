@@ -80,13 +80,13 @@
                             <span class="year">{{event.date.strftime("%Y") }}</span>
                         </div>
                         <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}">
-                            {{event.name}}
+                            {{event.name|e}}
                         </a>
                     </h4>
 
                     <address>
                         <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location">
-                        {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
+                        {{event.event_location.name|e}}, {{event.event_location.street|e}}, {{event.event_location.city|e}}
                         </a>
                     </address>
                     {% if not barcamp.ticketmode_enabled %}

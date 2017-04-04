@@ -6,11 +6,11 @@
     <ul class="admin-participants">
     {% for myuser in users %}
         <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname}}">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname|e}}">
                 <img class="profile-image-userlist" src="{{userview(myuser).image_thumb}}">
             </a>
-            <a class="participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname}}">
-                {{myuser.fullname}}
+            <a class="participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
+                {{myuser.fullname|e}}
             </a>
             <div class="btn-group actions">
 				<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

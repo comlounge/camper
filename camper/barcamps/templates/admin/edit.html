@@ -2,7 +2,7 @@
 {% set menu="edit" %}
 {% set edit = True %}
 {% block title %}
-    <h1>{{_('Edit Barcamp "%s"' %barcamp.name)}}</h1>
+    <h1>{{_('Edit Barcamp "%s"' %barcamp.name|e)}}</h1>
 {% endblock %}
 {% block action %}
     <input type="submit" class="btn btn-large btn-primary" value="{{_('Save Changes')}}">

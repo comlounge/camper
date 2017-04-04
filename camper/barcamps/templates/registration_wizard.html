@@ -6,7 +6,7 @@
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li class="active">{{_('Registration')}}</li>
     </ol>
-    <h1>{{_('Register for %s') %barcamp.name}}</h1>
+    <h1>{{_('Register for %s') %barcamp.name|e}}</h1>
 
 {% endblock %}
 {% block main_content %}
@@ -104,7 +104,7 @@
                                                             <span class="month">{{event.date.strftime("%m") }}</span>
                                                             <span class="year">{{event.date.strftime("%Y") }}</span>
                                                         </div>
-                                                        {{event.start_time}}: {{event.name}} 
+                                                        {{event.start_time}}: {{event.name|e}}
                                                     </h4>
                                                     <address>
                                                         {{event.event_location.name}}, {{event.event_location.street}}, {{event.event_location.city}}
