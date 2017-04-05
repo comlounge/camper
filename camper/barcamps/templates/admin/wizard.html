@@ -301,7 +301,7 @@
                             <span class="year">{{event.date.strftime("%Y") }}</span>
                         </div>
                         <a href="{{url_for('.event', slug = slug, eid = event._id)}}">
-                            {{event.name}}
+                            {{event.name|e}}
                         </a>
                     </h4>
 
