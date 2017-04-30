@@ -74,6 +74,16 @@ class BarcampWizard(BarcampBaseHandler):
         is_active = bc.workflow == "registration"
         has_timetable = has_timetable or "has_timetable" in wc
 
+        # get tickets in case of ticketmode
+        ticket_classes = self.barcamp.ticketlist
+        tickets = self.config.dbs.tickets
+        for tc in ticket_classes:
+            for status in ['pending', 'confirmed', 'canceled', 'cancel_request']:
+                tc[status] = tickets.get_tickets(
+                    barcamp_id = self.barcamp._id,
+                    ticketclass_id = tc._id,
+                    status = status)
+
         results = dict(
             has_event = has_event,
             has_sponsor = has_sponsor,
@@ -85,7 +95,8 @@ class BarcampWizard(BarcampBaseHandler):
 
             is_public = is_public,
             is_active = is_active,
-            has_timetable = has_timetable
+            has_timetable = has_timetable,
+            ticket_classes = ticket_classes
         )
 
         # compute the progress
