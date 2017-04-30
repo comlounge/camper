@@ -5,14 +5,20 @@
     {% block title %}
         <h1>{{_('Send Newsletter')}}</h1>
         <div class="description">
-            {{_('With this form you can send a newsletter to either all participants, all interested members or both groups. You can also test the newsletter by sending it to an email address of your choice')}}
+            {% if barcamp.ticketmode_enabled %}
+                {{_('With this form you can send a newsletter to all participants with confirmed tickets. You can also test the newsletter by sending it to an email address of your choice')}}
+            {% else %}
+                {{_('With this form you can send a newsletter to either all participants, all interested members or both groups. You can also test the newsletter by sending it to an email address of your choice')}}
+            {% endif %}
         </div>
     {% endblock %}
     <form class="parsley-validate horizontal-form" method="POST" action="{{url}}">
         <fieldset>
         {{ formmacros.form_field(form.subject, input_class="required") }}
         {{ formmacros.form_field(form.body, input_class="required", rows=15) }}
-        {{ formmacros.form_field(form.recipients, input_class="required") }}
+        {% if not barcamp.ticketmode_enabled %}
+            {{ formmacros.form_field(form.recipients, input_class="required") }}
+        {% endif %}
         {{ formmacros.form_field(form.testmail, input_class="email") }}
         </fieldset>
         {% block action %}
