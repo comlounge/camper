@@ -36,20 +36,27 @@ class NewsletterEditView(BarcampBaseHandler):
     @is_admin()
     def get(self, slug = None):
         """render the view"""
-        form = NewsletterForm(self.request.form, config = self.config, recipients = "all")
+            
+        class MyForm(NewsletterForm):
+            """internal subclass we can add to"""
+            pass
+
         
         # only add recipients for non ticket mode
         # otherwise we send to all ticket owners
         if not self.barcamp.ticketmode_enabled: 
-            form.recipients = MultiCheckboxField(T("Recipients"), [validators.Required()],
+            MyForm.recipients = MultiCheckboxField(self._("Recipients"), [validators.Required()],
                 choices = [
-                    #("subscribers", T("People watching the barcamp")), 
-                    ("participants", T("Participants (going)")), 
-                    ("maybe", T("People who might come (maybe)")), 
-                    ("waitinglist", T("People on Waiting List"))
+                    ("participants",self._("Participants (going)")), 
+                    ("maybe",self._("People who might come (maybe)")), 
+                    ("waitinglist",self._("People on Waiting List"))
                 ],
                 default = ['participants', 'waitinglist']
             )
+
+        # now instantiate it
+        form = MyForm(self.request.form, config = self.config, recipients = "all")
+
         if self.request.method == 'POST' and form.validate():
             f = form.data
             mailer = self.app.module_map['mail']
