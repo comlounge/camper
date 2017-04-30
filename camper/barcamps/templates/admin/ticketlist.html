@@ -62,21 +62,21 @@
 
             {% if tc.pending %}
                 <div class="panel-body">
-                    <h4>{{'Pending Ticket Reservations'}}</h4>
+                    <h4>{{'Pending Ticket Reservations'}} ({{tc.pending|length}})</h4>
                     {{userlist(tc.pending, tc._id, typ="pending")}}
                 </div>
             {% endif %}
 
             {% if tc.confirmed %}
                 <div class="panel-body">
-                    <h4>{{'Confirmed Ticket Reservations'}}</h4>
+                    <h4>{{'Confirmed Ticket Reservations'}} ({{tc.confirmed|length}})</h4>
                     {{userlist(tc.confirmed, tc._id, typ="confirmed")}}
                 </div>
             {% endif %}
 
             {% if tc.canceled %}
                 <div class="panel-body">
-                    <h5>{{'Canceled Ticket Reservations'}}
+                    <h5>{{'Canceled Ticket Reservations'}} ({{tc.canceled|length}})
                         <a href="#" class="pull-right" onClick="$(this).parent().siblings('.cancel-hidden').toggle(); return false"><i class="fa fa-arrow-down"></i></a>
                     </h5>
 
