@@ -95,3 +95,10 @@ In order to migrate::
 - added logging support via logbook
 - added a very basic 404 page
 - implemented ticketing mode replacing normal registration
+
+2.2.2
+=====
+
+- newsletter now can send to ticket owners
+- admin wizard screen now shows ticket overview instaed of event overview
+- admin ticket list now shows counts for each list
