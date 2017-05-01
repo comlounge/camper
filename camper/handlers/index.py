@@ -57,8 +57,11 @@ class PastBarcampsView(BaseHandler):
         past_barcamps = self.config.dbs.barcamps.find({
             'end_date'      : {'$lt': n-td},
             'workflow'      : {'$in' : ['public', 'registration']},
-            'hide_barcamp'  : False
-        }).sort("start_date", pymongo.ASCENDING)
+            '$or'           : [
+                                { 'hide_barcamp'  : False },
+                                { 'hide_barcamp' : { '$exists' : False} }
+                              ]
+        }).sort("end_date", pymongo.DESCENDING)
         past_barcamps = [BarcampView(barcamp, self) for barcamp in past_barcamps]
         return self.render( 
             past_barcamps = past_barcamps,
