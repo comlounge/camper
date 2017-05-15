@@ -16,7 +16,7 @@
     </ul>
 {% endmacro %}
 {% macro participation(args) %}
-    {% if logged_in and not has_form %}
+    {% if logged_in and not has_form and not barcamp.ticketmode_enabled%}
 
         <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
             <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
@@ -48,7 +48,7 @@
             </div>
         </div>
     {% endif %}
-    {% if logged_in and has_form and has_form_data %}
+    {% if logged_in and has_form and has_form_data and not barcamp.ticketmode_enabled %}
 
         <div class="participation-details event" data-id="{{active_event._id}}" id="e-{{active_event._id}}">
             <h3 class="sr-only">{{_('Change Participation Status')}}</h3>
@@ -109,9 +109,11 @@
             {{participation() }}
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
+                {% if not barcamp.ticketmode_enabled %}
                 <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
                     {{_('Participants')}}</a>
                 </li>
+                {% endif %}
                 <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
                     {{_('Timetable')}}</a>
                 </li>
@@ -125,6 +127,7 @@
             <div class="tab-content">
 
                 <!-- userlist /participants -->
+                {% if not barcamp.ticketmode_enabled %}
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='participants'}}" id="userlist">
                     
                     <section id="participants">
@@ -141,6 +144,7 @@
                     </section>
                     
                 </div>
+                {% endif %}
 
                 <!-- session / timetable -->
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">

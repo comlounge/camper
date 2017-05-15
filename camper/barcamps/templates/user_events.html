@@ -79,9 +79,15 @@
                             <span class="month">{{event.date.strftime("%m") }}</span>
                             <span class="year">{{event.date.strftime("%Y") }}</span>
                         </div>
-                        <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}">
-                            {{event.name|e}}
-                        </a>
+                        {% if barcamp.ticketmode_enabled %}
+                            <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">
+                                {{event.name|e}}
+                            </a>
+                        {% else %}
+                            <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}">
+                                {{event.name|e}}
+                            </a>
+                        {% endif %}
                     </h4>
 
                     <address>

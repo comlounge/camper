@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-05-15 12:55+0200\n"
+"POT-Creation-Date: 2017-05-15 13:03+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
@@ -436,7 +436,7 @@ msgid "Session Proposals"
 msgstr "Sessionvorschläge"
 
 #: barcamps/design.py:36 barcamps/templates/admin/events.html:10
-#: barcamps/templates/admin/wizard.html:289
+#: barcamps/templates/admin/wizard.html:320
 #: barcamps/templates/mytickets.html:35
 #: barcamps/templates/participant_data.html:7
 #: barcamps/templates/pdfs/pdfticket.html:80
@@ -759,27 +759,11 @@ msgstr "Deine Anfrage zum Widerruf wurde übertragen"
 msgid "Newsletter body"
 msgstr "Inhalt des Newsletters"
 
-#: barcamps/newsletter.py:24
-msgid "Recipients"
-msgstr "Empfänger"
-
-#: barcamps/newsletter.py:27
-msgid "Participants (going)"
-msgstr "Teilnehmer_innen"
-
-#: barcamps/newsletter.py:28
-msgid "People who might come (maybe)"
-msgstr "Unentschlossene"
-
-#: barcamps/newsletter.py:29
-msgid "People on Waiting List"
-msgstr "Warteliste"
-
-#: barcamps/newsletter.py:34
+#: barcamps/newsletter.py:25
 msgid "E-Mail address for testing the newsletter"
 msgstr "E-Mail-Adresse zum Testen des Newsletters"
 
-#: barcamps/newsletter.py:35
+#: barcamps/newsletter.py:26
 msgid ""
 "put your own e-mail address here in order to send the newsletter to this "
 "address for testing purposes"
@@ -787,7 +771,23 @@ msgstr ""
 "gebe hier Deine eigene E-Mail-Adresse an, um den Newsletter testweise "
 "dorthin zu schicken "
 
-#: barcamps/newsletter.py:90
+#: barcamps/newsletter.py:48
+msgid "Recipients"
+msgstr "Empfänger"
+
+#: barcamps/newsletter.py:50
+msgid "Participants (going)"
+msgstr "Teilnehmer_innen"
+
+#: barcamps/newsletter.py:51
+msgid "People who might come (maybe)"
+msgstr "Unentschlossene"
+
+#: barcamps/newsletter.py:52
+msgid "People on Waiting List"
+msgstr "Warteliste"
+
+#: barcamps/newsletter.py:108
 msgid "newsletter sent successfully"
 msgstr "Newsletter erfolgreich versandt"
 
@@ -1150,12 +1150,12 @@ msgstr "Speichern"
 msgid "Running now"
 msgstr "Gerade läuft"
 
-#: barcamps/templates/index.html:57 barcamps/templates/user_event.html:164
+#: barcamps/templates/index.html:57 barcamps/templates/user_event.html:168
 #: static/templates/sessiontest.hbs:24
 msgid "persons"
 msgstr "Personen"
 
-#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:182
+#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:186
 msgid "Documentation for"
 msgstr "Dokumentation für"
 
@@ -1292,36 +1292,36 @@ msgstr "Zum Widerruf vorgemerkte Tickets"
 msgid "canceled tickets (confirmed)"
 msgstr "Widerrufene Tickets"
 
-#: barcamps/templates/mytickets.html:139 barcamps/templates/user_event.html:225
-#: barcamps/templates/user_events.html:128
+#: barcamps/templates/mytickets.html:139 barcamps/templates/user_event.html:229
+#: barcamps/templates/user_events.html:134
 msgid "My data"
 msgstr "Meine Daten"
 
-#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:139
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:240
+#: barcamps/templates/user_events.html:145
 msgid "Change my registration data"
 msgstr "Meine Registrierungsdaten ändern"
 
-#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:236
-#: barcamps/templates/user_events.html:139
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:240
+#: barcamps/templates/user_events.html:145
 msgid "edit"
 msgstr "Bearbeiten"
 
-#: barcamps/templates/mytickets.html:152 barcamps/templates/user_event.html:238
-#: barcamps/templates/user_events.html:141
+#: barcamps/templates/mytickets.html:152 barcamps/templates/user_event.html:242
+#: barcamps/templates/user_events.html:147
 msgid "please enter your personal data in order to register for this event"
 msgstr ""
 "bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung "
 "zu registrieren."
 
 #: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:90
-#: barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:142
+#: barcamps/templates/user_event.html:243
+#: barcamps/templates/user_events.html:148
 msgid "Add my registration data"
 msgstr "Meine Registrierungsdaten angeben"
 
-#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:239
-#: barcamps/templates/user_events.html:142
+#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:243
+#: barcamps/templates/user_events.html:148
 msgid "add"
 msgstr "Hinzufügen"
 
@@ -1376,10 +1376,11 @@ msgstr ""
 "willst"
 
 #: barcamps/templates/admin/dashboard.html:36
-#: barcamps/templates/admin/wizard.html:316
+#: barcamps/templates/admin/wizard.html:304
+#: barcamps/templates/admin/wizard.html:347
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/registration_wizard.html:116
-#: barcamps/templates/user_events.html:97
+#: barcamps/templates/user_events.html:103
 msgid "participants"
 msgstr "Teilnehmer_innen"
 
@@ -1407,7 +1408,7 @@ msgstr "Auf Warteliste setzen"
 #: barcamps/templates/user_event.html:32 barcamps/templates/user_event.html:37
 #: barcamps/templates/user_event.html:44 barcamps/templates/user_event.html:64
 #: barcamps/templates/user_event.html:69 barcamps/templates/user_event.html:76
-#: barcamps/templates/user_event.html:135
+#: barcamps/templates/user_event.html:138
 #: barcamps/templates/user_events.html:21
 #: barcamps/templates/user_events.html:26
 #: barcamps/templates/user_events.html:33
@@ -1432,7 +1433,7 @@ msgstr "Ich gehe"
 
 #: barcamps/templates/registration.html:59
 #: barcamps/templates/user_event.html:39 barcamps/templates/user_event.html:71
-#: barcamps/templates/user_event.html:139
+#: barcamps/templates/user_event.html:142
 #: barcamps/templates/user_events.html:28
 #: barcamps/templates/user_events.html:54 barcamps/templates/userlist.html:58
 msgid "Waiting list"
@@ -1743,31 +1744,31 @@ msgstr "Ich nehme nicht teil"
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
 #: barcamps/templates/admin/events.html:29
-#: barcamps/templates/user_event.html:113
-#: barcamps/templates/user_event.html:131
-#: barcamps/templates/user_events.html:113 barcamps/templates/userlist.html:50
+#: barcamps/templates/user_event.html:114
+#: barcamps/templates/user_event.html:134
+#: barcamps/templates/user_events.html:119 barcamps/templates/userlist.html:50
 msgid "Participants"
 msgstr "Teilnehmer_innen"
 
 #: barcamps/templates/admin/event_macros.html:12
-#: barcamps/templates/user_event.html:116
-#: barcamps/templates/user_events.html:115
+#: barcamps/templates/user_event.html:118
+#: barcamps/templates/user_events.html:121
 msgid "Timetable"
 msgstr "Zeitraster"
 
 #: barcamps/templates/admin/add.html:78
 #: barcamps/templates/admin/event_macros.html:141
-#: barcamps/templates/user_event.html:119
-#: barcamps/templates/user_event.html:204
-#: barcamps/templates/user_events.html:116
+#: barcamps/templates/user_event.html:121
+#: barcamps/templates/user_event.html:208
+#: barcamps/templates/user_events.html:122
 msgid "Location"
 msgstr "Veranstaltungsort"
 
-#: barcamps/templates/user_event.html:148
+#: barcamps/templates/user_event.html:152
 msgid "Time Table"
 msgstr "Zeitraster"
 
-#: barcamps/templates/user_event.html:199
+#: barcamps/templates/user_event.html:203
 msgid "Edit Sessions"
 msgstr "Sessions bearbeiten"
 
@@ -1898,25 +1899,25 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: barcamps/templates/admin/dashboard.html:39
-#: barcamps/templates/admin/wizard.html:319
+#: barcamps/templates/admin/wizard.html:350
 msgid "on waiting list"
 msgstr "auf Warteliste"
 
 #: barcamps/templates/admin/dashboard.html:56
 #: barcamps/templates/admin/event.html:11
 #: barcamps/templates/admin/events.html:42
-#: barcamps/templates/admin/wizard.html:336
+#: barcamps/templates/admin/wizard.html:367
 msgid "Edit event details"
 msgstr "Veranstaltungsdetails bearbeiten"
 
 #: barcamps/templates/admin/dashboard.html:57
-#: barcamps/templates/admin/wizard.html:337
+#: barcamps/templates/admin/wizard.html:368
 msgid "Edit Timetable / Sessions"
 msgstr "Zeitplan / Sessions bearbeiten"
 
 #: barcamps/templates/admin/dashboard.html:58
 #: barcamps/templates/admin/event_participants.html:40
-#: barcamps/templates/admin/wizard.html:338
+#: barcamps/templates/admin/wizard.html:369
 msgid "Manage Participants"
 msgstr "Teilnehmer_innen verwalten"
 
@@ -2465,11 +2466,21 @@ msgid "update"
 msgstr "Aktualisieren"
 
 #: barcamps/templates/admin/send_newsletter.html:6
-#: barcamps/templates/admin/send_newsletter.html:27
+#: barcamps/templates/admin/send_newsletter.html:33
 msgid "Send Newsletter"
 msgstr "Newsletter versenden"
 
-#: barcamps/templates/admin/send_newsletter.html:8
+#: barcamps/templates/admin/send_newsletter.html:9
+msgid ""
+"With this form you can send a newsletter to all participants with "
+"confirmed tickets. You can also test the newsletter by sending it to an "
+"email address of your choice"
+msgstr ""
+"Mit diesem Formular kannst Du einen Newsletter an alle Teilnehmer mit "
+"einem gültigen Ticket senden. Du kann Dir vorher den Newsletter als Test "
+"an eine beliebige Adresse schicken lassen."
+
+#: barcamps/templates/admin/send_newsletter.html:11
 msgid ""
 "With this form you can send a newsletter to either all participants, all "
 "interested members or both groups. You can also test the newsletter by "
@@ -2480,11 +2491,11 @@ msgstr ""
 " Du kann Dir vorher den Newsletter als Test an eine beliebige Adresse "
 "schicken lassen."
 
-#: barcamps/templates/admin/send_newsletter.html:20
+#: barcamps/templates/admin/send_newsletter.html:26
 msgid "Send Test Mail"
 msgstr "Test-Newsletter versenden"
 
-#: barcamps/templates/admin/send_newsletter.html:23
+#: barcamps/templates/admin/send_newsletter.html:29
 msgid "Really send Newsletter?"
 msgstr "Den Newsletter wirklich versenden?"
 
@@ -2952,6 +2963,10 @@ msgstr ""
 "Im Moment ist Dein Barcamp zwar sichtbar, aber noch kann sich niemand "
 "registrieren. Um dies zu ändern, musst Du die Registrierung aktivieren. "
 "Dies muss auch für private Barcamps gemacht werden."
+
+#: barcamps/templates/admin/wizard.html:290
+msgid "Tickets"
+msgstr ""
 
 #: barcamps/templates/pdfs/sessionboard_rooms.html:15
 #: barcamps/templates/pdfs/sessionboard_roomtime.html:23
@@ -3599,39 +3614,39 @@ msgstr "Anfrage absenden"
 
 #: templates/M/userbase/login.html:14
 msgid "Real camper log in!"
-msgstr "Richtige Camper loggen sich ein!"
+msgstr ""
 
 #: templates/M/userbase/login.html:16
 msgid "username"
-msgstr "Benutzername"
+msgstr ""
 
 #: templates/M/userbase/login.html:17
 msgid "password"
-msgstr "Passwort"
+msgstr ""
 
 #: templates/M/userbase/login.html:20
 msgid "login"
-msgstr "einloggen"
+msgstr ""
 
 #: templates/M/userbase/login.html:31
 msgid "password forgotten?"
-msgstr "Passwort vergessen?"
+msgstr ""
 
 #: templates/M/userbase/login.html:34
 msgid "register a new user"
-msgstr "neuen Benutzer registrieren"
+msgstr ""
 
 #: templates/M/userbase/registration.html:7
 msgid "Please register"
-msgstr "Bitte registriere Dich"
+msgstr ""
 
 #: templates/M/userbase/registration.html:24
 msgid "missing activation email?"
-msgstr "Fehlt die Aktivierungs-EMail?"
+msgstr ""
 
 #: templates/M/userbase/registration.html:25
 msgid "Please send me a new activation code"
-msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
+msgstr ""
 
 #: templates/users/edit.html:6
 msgid "Edit public profile"
@@ -3886,4 +3901,31 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "Your password reset code"
 #~ msgstr "Dein Code zum Passwort-Reset"
+
+#~ msgid "Real camper log in!"
+#~ msgstr "Richtige Camper loggen sich ein!"
+
+#~ msgid "username"
+#~ msgstr "Benutzername"
+
+#~ msgid "password"
+#~ msgstr "Passwort"
+
+#~ msgid "login"
+#~ msgstr "einloggen"
+
+#~ msgid "password forgotten?"
+#~ msgstr "Passwort vergessen?"
+
+#~ msgid "register a new user"
+#~ msgstr "neuen Benutzer registrieren"
+
+#~ msgid "Please register"
+#~ msgstr "Bitte registriere Dich"
+
+#~ msgid "missing activation email?"
+#~ msgstr "Fehlt die Aktivierungs-EMail?"
+
+#~ msgid "Please send me a new activation code"
+#~ msgstr "Bitte sende mir einen neuen Aktivierungscode zu"
 
