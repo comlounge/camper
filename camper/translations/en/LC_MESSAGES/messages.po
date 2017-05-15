@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-03-01 13:03+0100\n"
+"POT-Creation-Date: 2017-05-15 12:55+0200\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: en\n"
@@ -19,112 +19,96 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #: app.py:262
-msgid "Your registration is nearly finished"
-msgstr ""
-
-#: app.py:263
-msgid "Welcome to our system"
-msgstr ""
-
-#: app.py:264
-msgid "Password reminder"
-msgstr ""
-
-#: app.py:265
-msgid "Your password reset code"
-msgstr ""
-
-#: app.py:269
 msgid "User unknown"
 msgstr ""
 
-#: app.py:270
+#: app.py:263
 msgid "This email address cannot not be found in our user database"
 msgstr ""
 
-#: app.py:271
+#: app.py:264
 msgid "Your password is not correct"
 msgstr ""
 
-#: app.py:272
+#: app.py:265
 msgid "Your user has not yet been activated."
 msgstr ""
 
-#: app.py:273
+#: app.py:266
 msgid "Login failed"
 msgstr ""
 
-#: app.py:274
+#: app.py:267
 #, python-format
 msgid "Welcome, %(fullname)s"
 msgstr ""
 
-#: app.py:275
+#: app.py:268
 msgid "Your are now logged out"
 msgstr ""
 
-#: app.py:276
+#: app.py:269
 msgid ""
 "To finish the registration process please check your email with "
 "instructions on how to activate your account."
 msgstr ""
 
-#: app.py:277
+#: app.py:270
 msgid "Your user registration has been successful"
 msgstr ""
 
-#: app.py:278
+#: app.py:271
 msgid "Your account has been activated"
 msgstr ""
 
-#: app.py:279 handlers/users/activation.py:75
+#: app.py:272 handlers/users/activation.py:75
 #, python-format
 msgid ""
 "The activation code is not valid. Please try again or click <a "
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 
-#: app.py:280
+#: app.py:273
 msgid "A new activation code has been sent out, please check your email"
 msgstr ""
 
-#: app.py:281
+#: app.py:274
 msgid "The user is already active. Please log in."
 msgstr ""
 
-#: app.py:282
+#: app.py:275
 msgid "A link to set a new password has been sent to you"
 msgstr ""
 
-#: app.py:283
+#: app.py:276
 msgid "Your password has been changed"
 msgstr ""
 
-#: app.py:286
+#: app.py:279
 msgid "The user has been updated."
 msgstr ""
 
-#: app.py:287
+#: app.py:280
 msgid "The user has been added."
 msgstr ""
 
-#: app.py:288
+#: app.py:281
 msgid "The user has been deleted."
 msgstr ""
 
-#: app.py:289
+#: app.py:282
 msgid "The user has been activated."
 msgstr ""
 
-#: app.py:290
+#: app.py:283
 msgid "The user has been deactivated."
 msgstr ""
 
-#: app.py:294
+#: app.py:287
 msgid "can manage users"
 msgstr ""
 
-#: app.py:295
+#: app.py:288
 msgid "main administrator"
 msgstr ""
 
@@ -764,7 +748,7 @@ msgid ""
 "address for testing purposes"
 msgstr ""
 
-#: barcamps/newsletter.py:89
+#: barcamps/newsletter.py:90
 msgid "newsletter sent successfully"
 msgstr ""
 
@@ -2356,7 +2340,7 @@ msgid "update"
 msgstr ""
 
 #: barcamps/templates/admin/send_newsletter.html:6
-#: barcamps/templates/admin/send_newsletter.html:25
+#: barcamps/templates/admin/send_newsletter.html:27
 msgid "Send Newsletter"
 msgstr ""
 
@@ -2367,11 +2351,11 @@ msgid ""
 "sending it to an email address of your choice"
 msgstr ""
 
-#: barcamps/templates/admin/send_newsletter.html:19
+#: barcamps/templates/admin/send_newsletter.html:20
 msgid "Send Test Mail"
 msgstr ""
 
-#: barcamps/templates/admin/send_newsletter.html:21
+#: barcamps/templates/admin/send_newsletter.html:23
 msgid "Really send Newsletter?"
 msgstr ""
 
@@ -5191,5 +5175,17 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "Copy Ticket Categories?"
+#~ msgstr ""
+
+#~ msgid "Your registration is nearly finished"
+#~ msgstr ""
+
+#~ msgid "Welcome to our system"
+#~ msgstr ""
+
+#~ msgid "Password reminder"
+#~ msgstr ""
+
+#~ msgid "Your password reset code"
 #~ msgstr ""
 
