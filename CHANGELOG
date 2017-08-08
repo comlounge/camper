@@ -102,3 +102,8 @@ In order to migrate::
 - newsletter now can send to ticket owners
 - admin wizard screen now shows ticket overview instaed of event overview
 - admin ticket list now shows counts for each list
+
+2.2.3
+=====
+
+- translation fixes
