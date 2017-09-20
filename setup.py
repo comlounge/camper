@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '2.2'
+version = '2.2.5'
 
 setup(name='camper',
       version=version,
