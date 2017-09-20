@@ -22,6 +22,11 @@ class Events(BarcampBaseHandler):
         
         form_data = self.barcamp.registration_data.get(uid,{})
         has_form_data = len(form_data) # we need to at least have one key
+
+        # get registration form
+        data_names = {}
+        for e in self.barcamp.registration_form:
+            data_names[e['name']] = e['title']
         
         out = self.render(
             view = self.barcamp_view,
@@ -30,6 +35,7 @@ class Events(BarcampBaseHandler):
             has_form = len(self.barcamp.registration_form) != 0,
             has_form_data = has_form_data,
             form_data = form_data,
+            data_names = data_names,
             **self.barcamp)
         return out
 

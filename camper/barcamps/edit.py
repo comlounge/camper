@@ -10,6 +10,7 @@ from .base import BarcampBaseHandler, LocationNotFound
 import requests
 import gettext
 import pycountry
+import uuid
 from camper import utils
 from camper.handlers.forms import WYSIWYGField
 
@@ -301,7 +302,7 @@ class ParticipantsDataEditView(BarcampBaseHandler):
         registration_form = self.barcamp.registration_form
         if self.request.method == 'POST' and form.validate():
             f = form.data
-            f['name'] = utils.string2filename(f['title'])
+            f['name'] = unicode(uuid.uuid4())
             self.barcamp.registration_form.append(f)
             self.barcamp.save()
             return redirect(self.url_for("barcamps.registration_form_editor", slug = self.barcamp.slug))

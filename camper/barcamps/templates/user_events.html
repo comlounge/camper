@@ -136,7 +136,7 @@
         <div class="panel-body">
             <dl class="formdata">
             {% for k,v in form_data.iteritems() %}        
-                    <dt>{{k}}</dt>
+                    <dt>{{data_names[k]}}</dt>
                     <dd>{{v|striptags}}</dd>
             {% endfor %}
             </dl>
