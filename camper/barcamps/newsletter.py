@@ -64,8 +64,6 @@ class NewsletterEditView(BarcampBaseHandler):
             if st=="test":
                 if f['testmail'] != u'':
                     # send newsletter to test mail address
-                    print "sending test mail"
-                    print type(self.barcamp.name)
                     mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"))
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
@@ -102,7 +100,6 @@ class NewsletterEditView(BarcampBaseHandler):
 
                 # unduplicate the list
                 recipient_ids = set(recipient_ids)
-                print "sending to", recipient_ids
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
                 for user in users:
                     send_to = user.email
