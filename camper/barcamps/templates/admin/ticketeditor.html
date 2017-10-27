@@ -31,10 +31,10 @@
             <form id="ticketconfigform2" method="POST" class="ticketconfig" data-url="{{url_for('.admin_ticketconfig', slug = slug)}}">
                 <div class="row">
                     <div class="col-md-8">
-                        {{ formmacros.form_field(config_form.paid_tickets, disabled=not barcamp.paid_allowed)}}
+                        {{ formmacros.form_field(config_form.paid_tickets)}}
                         {% if not barcamp.paid_allowed %}
-                            <div class="help-block alert alert-warning">
-                                {{_('Please add the necessary legal information for enabling a paid barcamp <a href="%s">here</a>.') %url_for('.legaledit', slug = slug)}}</a>
+                            <div class="help-block alert alert-danger">
+                                {{_('Please add the necessary legal information for paid barcamp <a href="%s">here</a>.') %url_for('.legaledit', slug = slug)}}</a>
                             </div>
                         {% endif %}
                         {{ formmacros.form_field(config_form.preregistration, disabled = barcamp.paid_tickets)}}

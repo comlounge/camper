@@ -73,13 +73,26 @@
         {% endif %}
         <div class="{{'col-lg-10 col-md-10' if container=='full' else 'col-lg-9 col-md-8    '}}">
             {% if barcamp.workflow=="created" %}
+                {% if barcamp.publish_not_allowed %}
+                    <div class="alert alert-danger">
+                    <h4>{{_('The barcamp cannot be published at the moment. Please fix the following problems:')}}</h4>
+                    <ul>
+                        {% for reason in barcamp.publish_not_allowed %}
+                        <li><a href="{{url_for('.'+reason['url'], slug = slug)}}">{{reason.reason}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                    
+                {% else %}
+                {% endif %}
+                    <div class="alert alert-success">
                 <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
                     <input type="hidden" name="wf" value="public">
-                    <div class="well">
+
                         <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
                         <b style="color: red">{{_('this barcamp is not public')}}</b>
-                    </div>
                 </form>
+                    </div>
             {% elif barcamp.workflow == "public" %}
                 <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
                     <input type="hidden" name="wf" value="registration">

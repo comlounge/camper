@@ -38,7 +38,7 @@
         {% endif %}
 
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
+            <label for="description" class="col-sm-2 control-label">{{_('Description')}}*</label>
             <div class="col-sm-10">
                 {{formmacros.my_field(form.description, input_class="wysiwyg", size="mce", rows=10, id="description", placeholder=_('Add more info'))}}
             </div>
@@ -60,19 +60,33 @@
             <div class="col-sm-10">
                 {{formmacros.f(form.hide_barcamp)}}
             </div>
-        </div>        
+        </div>
+        {% if paid=="free" %}
         <div class="form-group">
             <label for="repregistration" class="col-sm-2 control-label">{{_('Pre-Registration')}}</label>
             <div class="col-sm-10">
                 {{formmacros.f(form.preregistration, disabled = barcamp is not none and barcamp.paid_tickets)}}
             </div>
         </div>
+        {% endif %}
         <div class="form-group">
             <label for="hide_barcamp" class="col-sm-2 control-label">{{_('Receive notifications')}}</label>
             <div class="col-sm-10">
                 {{formmacros.f(form.send_email_to_admins)}}
             </div>
-        </div>        
+        </div>     
+
+        <fieldset id="legal-view">
+            <legend>{{_('Legal Information')}}</legend>
+            <div class="form-group">
+                <label for="imprint" class="col-sm-2 control-label">{{_('Imprint')}}*</label>
+                <div class="col-sm-10">
+                    {{formmacros.my_field(form.imprint, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="imprint", placeholder=_(''))}}
+                </div>
+            </div>
+        </fieldset>
+
+
 
         <fieldset id="location-view">
             <legend>{{_('Location')}}</legend>                    
