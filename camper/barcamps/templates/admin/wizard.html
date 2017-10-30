@@ -35,7 +35,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-logo" aria-expanded="true" aria-controls="has-logo">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}}</span>
                                 {{_('Add a logo for your barcamp')}}
                             </a>
                         </h4>
@@ -54,12 +54,36 @@
                 </div>
                 {% endif %}
 
+                {% if ticketmode_enabled and not has_tickets %}
+                <div class="panel panel-wizard">
+                    <div class="panel-heading" role="tab">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-event" aria-expanded="true" aria-controls="has-event">
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}}</span>
+                                {{_('Add tickets to your barcamp')}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="has-event" class="panel-collapse collapse" role="tabpanel" aria-labelledby="has-event">
+                        <div class="panel-body">
+                            <p>
+                                {{_('You have ticketing mode enabled for your barcamp but have not yet defined any tickets to register for. In order for people to be able to register you need to do so.')}}
+                            </p>
+                            <p>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix">
+                        <a href="{{url_for('.admin_ticketeditor', slug = slug)}}" class="btn btn-sm btn-info"><i class="fa fa-ticket"></i> {{_("Create a ticket")}}</a>
+                    </div>
+                </div>
+                
+                {% endif %}
                 {% if not has_event %}
                 <div class="panel panel-wizard">
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-event" aria-expanded="true" aria-controls="has-event">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add an event to your barcamp')}}
                             </a>
                         </h4>
@@ -88,7 +112,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-timetable" aria-expanded="true" aria-controls="has-timetable">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add timetables to your event')}}
                             </a>
                         </h4>
@@ -112,7 +136,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-sponsor" aria-expanded="true" aria-controls="has-sponsor">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add sponsors to your barcamp')}}
                             </a>
                         </h4>
@@ -137,7 +161,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-twitter" aria-expanded="true" aria-controls="has-twitter">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add a twitter account for your barcamp')}}
                             </a>
                         </h4>
@@ -161,7 +185,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-hashtag" aria-expanded="true" aria-controls="has-hashtag">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add a hashtag for your barcamp')}}
                             </a>
                         </h4>
@@ -185,7 +209,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-facebook" aria-expanded="true" aria-controls="has-facebook">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add a facebook fan page')}}
                             </a>
                         </h4>
@@ -210,7 +234,7 @@
                     <div class="panel-heading" role="tab">
                         <h4 class="panel-title">
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#has-seo" aria-expanded="true" aria-controls="has-seo">
-                                <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                                <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                                 {{_('Add a description for search engines (meta description)')}}
                             </a>
                         </h4>
@@ -235,7 +259,7 @@
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#is-public" aria-expanded="true" aria-controls="is-public">
-                            <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                            <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                             {{_('Publish your barcamp')}}
                         </a>
                     </h4>
@@ -261,7 +285,7 @@
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#is-active" aria-expanded="true" aria-controls="is-active">
-                            <span class="pull-right"><i class="fa fa-info-circle"></i></span>
+                            <span class="pull-right"><i class="fa fa-info-circle"></i> {{_('more info')}} </span>
                             {{_('open registration')}}
                         </a>
                     </h4>

@@ -172,7 +172,7 @@ class TicketService(object):
         # send email to admins (we also send mails on preregistration/paid mode)
         if self.barcamp.send_email_to_admins or preregistration:
             tc = ticket_class
-            subject = self.handler._('a Ticket was acquired for  %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
+            subject = self.handler._('a Ticket was acquired for %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
             self.send_email_to_admins(self.user, "admin_ticketbought", subject, ticket)
 
         self.barcamp.save()

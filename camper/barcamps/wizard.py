@@ -84,6 +84,8 @@ class BarcampWizard(BarcampBaseHandler):
                     ticketclass_id = tc._id,
                     status = status)
 
+        has_tickets = self.barcamp.ticketmode_enabled and ticket_classes!=[]
+
         results = dict(
             has_event = has_event,
             has_sponsor = has_sponsor,
@@ -92,10 +94,12 @@ class BarcampWizard(BarcampBaseHandler):
             has_hashtag = has_hashtag,
             has_facebook = has_facebook,
             has_seo = has_seo,
+            has_tickets = has_tickets,
 
             is_public = is_public,
             is_active = is_active,
             has_timetable = has_timetable,
+            ticketmode_enabled = self.barcamp.ticketmode_enabled,
             ticket_classes = ticket_classes
         )
 
