@@ -280,7 +280,8 @@ class TicketService(object):
             ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
             mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
             barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
-            fullname = self.user.fullname
+            fullname = user.fullname,
+            user = user
         )
         return "confirmed"
 
