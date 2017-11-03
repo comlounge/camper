@@ -117,3 +117,10 @@ In order to migrate::
 =======
 
 - tickets can now also be downloaded without logging in (UUID should be enough protection)
+
+2.2.7.3
+=======
+
+- ticket cancel also was sending to wrong address, fixed now
+
+
