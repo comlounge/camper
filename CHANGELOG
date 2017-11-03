@@ -107,3 +107,9 @@ In order to migrate::
 =====
 
 - translation fixes
+
+2.2.7.1
+=======
+
+- fixed mailing the wrong person on ticket confirmation
+
