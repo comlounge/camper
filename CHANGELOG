@@ -113,3 +113,7 @@ In order to migrate::
 
 - fixed mailing the wrong person on ticket confirmation
 
+2.2.7.2
+=======
+
+- tickets can now also be downloaded without logging in (UUID should be enough protection)
