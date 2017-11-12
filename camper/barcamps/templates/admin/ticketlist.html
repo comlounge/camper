@@ -37,6 +37,8 @@
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel Ticket')}}</a>
                 {% elif typ=="confirmed" %}
+                    <a href="{{url_for('.admin_ticketresend', slug = slug, ticket_id = ticket._id, m='POST')}}" 
+                        class="btn btn-xs btn-info"><i class="fa fa-ban"></i> {{_('Send Ticket')}}</a>
                     <a href="{{url_for('.admin_ticketcancel', slug = slug, ticket_id = ticket._id)}}" 
                         class="btn btn-xs btn-danger"><i class="fa fa-ban"></i> {{_('Cancel Ticket')}}</a>
                 {% elif typ=="cancel_request" %}
