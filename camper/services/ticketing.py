@@ -264,13 +264,23 @@ class TicketService(object):
         ticket['workflow'] = "confirmed"
         ticket.save()
         self.log.info("ticket approved", ticket = ticket)
+        self.send_welcome_mail(tc_id, ticket_id)
 
+        return "confirmed"
+
+    def send_welcome_mail(self, tc_id, ticket_id):
+        """send the welcome mail with the link to the pdf ticket to the user
+
+        :param tc_id: the ticket class id
+        :param ticket_id: the id of the ticket to send
+
+        """
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+
+        # retrieve user
         uid = ticket['user_id']
         user = self.userbase.get_user_by_id(uid)
         self.log.debug("found user", uid = uid, email = user.email)
-
-        # send welcome mail
-        #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
 
         self.mail_template("ticket_confirmed",
             ticket_pdf = None,
@@ -283,7 +293,7 @@ class TicketService(object):
             fullname = user.fullname,
             user = user
         )
-        return "confirmed"
+
 
 
     def user_cancel_ticket(self, tc_id, ticket_id, reason = ""):

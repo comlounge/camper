@@ -159,3 +159,24 @@ class TicketCancel(BarcampBaseHandler):
     post = get
 
 
+
+class TicketResend(BarcampBaseHandler):
+    """send the welcome mail again"""
+
+    @logged_in()
+    @is_admin()
+    @ensure_barcamp()
+    def post(self, slug, ticket_id):
+        """show the form"""
+
+        ticket_db = self.app.config.dbs.tickets
+        try:
+            ticket = ticket_db.get(ObjectId(ticket_id))
+        except ObjectNotFound:
+            self.log.error("unknown ticket id", ticket_id = ticket_id)
+            raise werkzeug.exceptions.NotFound()
+
+        ticketservice = TicketService(self, self.user)
+        ticketservice.send_welcome_mail(ticket.ticketclass_id, ticket_id)
+        self.flash(self._('Welcome mail send to user.'), category="info")
+        return redirect(self.url_for('barcamps.admin_ticketlist', slug = slug))

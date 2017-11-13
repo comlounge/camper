@@ -110,6 +110,7 @@ class BarcampModule(Module):
         URL('/<slug>/admin/tickets/config', 'admin_ticketconfig',               ticketeditor.TicketingConfig),
         URL('/<slug>/admin/tickets/users',  'admin_ticketlist',                 ticketlist.TicketList),
         URL('/<slug>/admin/tickets/<ticket_id>/cancel','admin_ticketcancel',        ticketlist.TicketCancel),
+        URL('/<slug>/admin/tickets/<ticket_id>/resend','admin_ticketresend',        ticketlist.TicketResend),
 
         URL('/<slug>/events',               'user_events',                      user_events.Events),
         URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
