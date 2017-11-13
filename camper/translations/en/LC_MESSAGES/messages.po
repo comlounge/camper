@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-10-30 17:51+0100\n"
+"POT-Creation-Date: 2017-11-13 16:42+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: en\n"
@@ -706,15 +706,15 @@ msgstr ""
 msgid "False"
 msgstr ""
 
-#: barcamps/mytickets.py:112 barcamps/ticketlist.py:100
+#: barcamps/mytickets.py:109 barcamps/ticketlist.py:100
 msgid "Reason"
 msgstr ""
 
-#: barcamps/mytickets.py:113
+#: barcamps/mytickets.py:110
 msgid "Please give a reason for canceling here (optional)."
 msgstr ""
 
-#: barcamps/mytickets.py:142
+#: barcamps/mytickets.py:139
 msgid "Your cancel request has been submitted."
 msgstr ""
 
@@ -1025,6 +1025,10 @@ msgstr ""
 
 #: barcamps/ticketlist.py:131
 msgid "Ticket canceled."
+msgstr ""
+
+#: barcamps/ticketlist.py:181
+msgid "Welcome mail send to user."
 msgstr ""
 
 #: barcamps/ticketwizard.py:168
@@ -2564,15 +2568,19 @@ msgid "Approve"
 msgstr ""
 
 #: barcamps/templates/admin/ticketlist.html:38
-#: barcamps/templates/admin/ticketlist.html:41
+#: barcamps/templates/admin/ticketlist.html:43
 msgid "Cancel Ticket"
 msgstr ""
 
-#: barcamps/templates/admin/ticketlist.html:44
+#: barcamps/templates/admin/ticketlist.html:41
+msgid "Send Ticket"
+msgstr ""
+
+#: barcamps/templates/admin/ticketlist.html:46
 msgid "Confirm Ticket Cancel"
 msgstr ""
 
-#: barcamps/templates/admin/ticketlist.html:55
+#: barcamps/templates/admin/ticketlist.html:57
 msgid "Manage ticket reservations"
 msgstr ""
 
@@ -3172,11 +3180,11 @@ msgstr ""
 msgid "a Ticket was acquired for %s/%s (%s/%s)"
 msgstr ""
 
-#: services/ticketing.py:303
+#: services/ticketing.py:314
 msgid "Your Ticket Cancel Request"
 msgstr ""
 
-#: services/ticketing.py:304
+#: services/ticketing.py:315
 msgid "Ticket Cancel Request"
 msgstr ""
 
@@ -5236,12 +5244,6 @@ msgstr ""
 #~ msgid "Legal Information"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Please select first if you are "
-#~ "planning a paid barcamp or a free"
-#~ " barcamp"
-#~ msgstr ""
-
 #~ msgid "Create a free Barcamp"
 #~ msgstr ""
 
@@ -5254,12 +5256,6 @@ msgstr ""
 #~ msgid "This includes not having to send money via bank transfer"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "As an administrator you can choose "
-#~ "to use the new ticket mode or "
-#~ "the event based registration mode"
-#~ msgstr ""
-
 #~ msgid "Create a free barcamp"
 #~ msgstr ""
 
@@ -5269,39 +5265,7 @@ msgstr ""
 #~ msgid "The following applies to paid barcamps because of legal requirements:"
 #~ msgstr ""
 
-#~ msgid ""
-#~ "Attendees have to pay to attend. "
-#~ "This includes asking for a bank "
-#~ "transfer via welcome emails."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The payment method is up to you."
-#~ " This tool does not offer any "
-#~ "payment process. You have to implement"
-#~ " this yourself, e.g. via bank "
-#~ "transfer."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Only the ticket mode can be used"
-#~ " here and will be enabled "
-#~ "automatically."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You have to provide legal information"
-#~ " like terms of service, refund "
-#~ "policy, imprint and contact email."
-#~ msgstr ""
-
 #~ msgid "Create a paid barcamp"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Please add the necessary legal "
-#~ "information for paid barcamp <a "
-#~ "href=\"%s\">here</a>."
 #~ msgstr ""
 
 #~ msgid "The contact email is not set"

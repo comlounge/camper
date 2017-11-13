@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-10-30 17:51+0100\n"
+"POT-Creation-Date: 2017-11-13 16:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -705,15 +705,15 @@ msgstr ""
 msgid "False"
 msgstr ""
 
-#: barcamps/mytickets.py:112 barcamps/ticketlist.py:100
+#: barcamps/mytickets.py:109 barcamps/ticketlist.py:100
 msgid "Reason"
 msgstr ""
 
-#: barcamps/mytickets.py:113
+#: barcamps/mytickets.py:110
 msgid "Please give a reason for canceling here (optional)."
 msgstr ""
 
-#: barcamps/mytickets.py:142
+#: barcamps/mytickets.py:139
 msgid "Your cancel request has been submitted."
 msgstr ""
 
@@ -1024,6 +1024,10 @@ msgstr ""
 
 #: barcamps/ticketlist.py:131
 msgid "Ticket canceled."
+msgstr ""
+
+#: barcamps/ticketlist.py:181
+msgid "Welcome mail send to user."
 msgstr ""
 
 #: barcamps/ticketwizard.py:168
@@ -2563,15 +2567,19 @@ msgid "Approve"
 msgstr ""
 
 #: barcamps/templates/admin/ticketlist.html:38
-#: barcamps/templates/admin/ticketlist.html:41
+#: barcamps/templates/admin/ticketlist.html:43
 msgid "Cancel Ticket"
 msgstr ""
 
-#: barcamps/templates/admin/ticketlist.html:44
+#: barcamps/templates/admin/ticketlist.html:41
+msgid "Send Ticket"
+msgstr ""
+
+#: barcamps/templates/admin/ticketlist.html:46
 msgid "Confirm Ticket Cancel"
 msgstr ""
 
-#: barcamps/templates/admin/ticketlist.html:55
+#: barcamps/templates/admin/ticketlist.html:57
 msgid "Manage ticket reservations"
 msgstr ""
 
@@ -3171,11 +3179,11 @@ msgstr ""
 msgid "a Ticket was acquired for %s/%s (%s/%s)"
 msgstr ""
 
-#: services/ticketing.py:303
+#: services/ticketing.py:314
 msgid "Your Ticket Cancel Request"
 msgstr ""
 
-#: services/ticketing.py:304
+#: services/ticketing.py:315
 msgid "Ticket Cancel Request"
 msgstr ""
 
