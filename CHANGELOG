@@ -123,4 +123,10 @@ In order to migrate::
 
 - ticket cancel also was sending to wrong address, fixed now
 
+2.2.7.4
+=======
+
+- added a ticket resend button in case a user is missing his/her ticket
+
+
 
