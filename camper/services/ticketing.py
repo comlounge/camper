@@ -172,7 +172,7 @@ class TicketService(object):
         # send email to admins (we also send mails on preregistration/paid mode)
         if self.barcamp.send_email_to_admins or preregistration:
             tc = ticket_class
-            subject = self.handler._('a Ticket was acquired for  %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
+            subject = self.handler._('a Ticket was acquired for %s/%s (%s/%s)') %(tc.name, self.barcamp.name, len(all_tickets), tc['size'])
             self.send_email_to_admins(self.user, "admin_ticketbought", subject, ticket)
 
         self.barcamp.save()
@@ -264,13 +264,23 @@ class TicketService(object):
         ticket['workflow'] = "confirmed"
         ticket.save()
         self.log.info("ticket approved", ticket = ticket)
+        self.send_welcome_mail(tc_id, ticket_id)
 
+        return "confirmed"
+
+    def send_welcome_mail(self, tc_id, ticket_id):
+        """send the welcome mail with the link to the pdf ticket to the user
+
+        :param tc_id: the ticket class id
+        :param ticket_id: the id of the ticket to send
+
+        """
+        ticket_class, ticket = self._check_ticket(tc_id, ticket_id)
+
+        # retrieve user
         uid = ticket['user_id']
         user = self.userbase.get_user_by_id(uid)
         self.log.debug("found user", uid = uid, email = user.email)
-
-        # send welcome mail
-        #ticket_pdf = self.create_pdf_ticket(ticket, ticket_class, user)
 
         self.mail_template("ticket_confirmed",
             ticket_pdf = None,
@@ -280,9 +290,10 @@ class TicketService(object):
             ticket_url = self.handler.url_for("barcamps.ticketpdf", _full = True, slug = self.barcamp.slug, ticket_id = ticket._id),
             mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
             barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
-            fullname = self.user.fullname
+            fullname = user.fullname,
+            user = user
         )
-        return "confirmed"
+
 
 
     def user_cancel_ticket(self, tc_id, ticket_id, reason = ""):
@@ -329,7 +340,8 @@ class TicketService(object):
             reason = reason,
             mytickets_url = self.handler.url_for("barcamps.mytickets", _full = True, slug = self.barcamp.slug),
             barcamp_url = self.handler.url_for("barcamps.index", _full = True, slug = self.barcamp.slug),
-            fullname = self.user.fullname
+            fullname = user.fullname,
+            user = user
         )
 
         return

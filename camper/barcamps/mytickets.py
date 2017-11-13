@@ -89,9 +89,6 @@ class TicketPDF(BarcampBaseHandler):
 
         if not ticket:
             raise werkzeug.exceptions.NotFound()
-        if str(self.user._id) != ticket.user_id:
-            self.log.error("trying to obtain ticket for wrong user", logged_in = self.user._id, ticket = ticket)
-            raise werkzeug.exceptions.NotFound()
 
         ticket_class = self.barcamp.get_ticket_class(ticket.ticketclass_id)
 
