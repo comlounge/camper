@@ -17,11 +17,6 @@
                         {% if not view.barcamp.public %}
                             <span class="label label-warning">{{_('private')}}</span>
                         {% endif %}
-                        {#
-                        {% if view.is_admin %}
-                            <a href="{{url_for('barcamps.dashboard', slug = view.barcamp.slug)}}" class="btn btn-warning btn-xs">{{_('ADMIN')}}</a>
-                        {% endif %}
-                        #}
                     </div>
                     <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name|e}}</a></h3>
                     <div class="byline">
