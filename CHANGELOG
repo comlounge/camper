@@ -128,5 +128,10 @@ In order to migrate::
 
 - added a ticket resend button in case a user is missing his/her ticket
 
+2.2.7.5
+=======
+
+- barcamp listing now by end date instead of start date to prevent long running events to be on top all the time
+
 
 
