@@ -4,7 +4,7 @@
 {% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
 {% block content %}
     {% block title %}
-        {% if paid %}
+        {% if paid=="paid" %}
             <h1>{{_('Create a new paid Barcamp')}}</h1>
         {% else %}
             <h1>{{_('Create a new free Barcamp')}}</h1>
@@ -133,7 +133,7 @@
             {{ formmacros.form_field(form.location_url, label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="") }}
         </fieldset>
         {% block action %}
-            {% if paid %}
+            {% if paid=="paid" %}
                 <input type="submit" class="btn btn-large btn-primary" value="{{_('create paid Barcamp')}}">
                 <div class="help-block">
                     {{_('Please note: In order to publish your barcamp later you first need to add all the necessary legal information.')}}
