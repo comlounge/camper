@@ -15,6 +15,7 @@
     <form class="parsley-validate horizontal-form" method="POST" action="{{url}}">
         <fieldset>
         {{ formmacros.form_field(form.subject, input_class="required") }}
+        {{ formmacros.form_field(form.replyto, type="email") }}
         {{ formmacros.form_field(form.body, input_class="required", rows=15) }}
         {% if not barcamp.ticketmode_enabled %}
             {{ formmacros.form_field(form.recipients, input_class="required") }}

@@ -26,6 +26,10 @@ class NewsletterForm(BaseForm):
                 description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
     )
 
+    replyto = TextField(T("Reply-To Adddress"),
+                description = T('if you want recipients to be able to reply please enter a your email address here'),
+    )
+
 class NewsletterEditView(BarcampBaseHandler):
     """let the admin create and send a newsletter"""
 
@@ -55,16 +59,23 @@ class NewsletterEditView(BarcampBaseHandler):
             )
 
         # now instantiate it
-        form = MyForm(self.request.form, config = self.config, recipients = "all")
+
+        form = MyForm(self.request.form, config = self.config, recipients = "all", replyto=self.barcamp.contact_email)
 
         if self.request.method == 'POST' and form.validate():
             f = form.data
             mailer = self.app.module_map['mail']
             st = self.request.form.get('sendtype')
+
+            # do we have to set a reply to?
+            headers = {}
+            replyto = f['replyto'].strip()
+            if replyto:
+                headers['Reply-To'] = replyto.encode("utf8")
             if st=="test":
                 if f['testmail'] != u'':
                     # send newsletter to test mail address
-                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"))
+                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
                     self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="waring")
@@ -101,9 +112,10 @@ class NewsletterEditView(BarcampBaseHandler):
                 # unduplicate the list
                 recipient_ids = set(recipient_ids)
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
+
                 for user in users:
                     send_to = user.email
-                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"))
+                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
                 self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.dashboard", slug = self.barcamp.slug))
 
