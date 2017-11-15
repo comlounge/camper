@@ -189,11 +189,6 @@
                                 <li class="{{'active' if active_action == action.aid}}"><a href="{{action.url}}">{{_(action.name)}}</a></li>
                             {% endfor %}
                         </ul>
-                        {% if is_admin or is_main_admin %}
-                        <ul class="nav navbar-nav pull-right">
-                            <li class="manage"><a target="_new" href="{{url_for('barcamps.admin_wizard', slug=slug)}}">{{_('Manage Barcamp')}}</a></li>
-                        </ul>
-                        {% endif %}
                     </div>
                 </div>
             </nav>
@@ -224,20 +219,92 @@
             <div id="main-content" class="row" role="main">
                 <aside class="col-md-3 col-md-push-9">
                     {% block widgets %}
+                        {% if is_admin or is_main_admin %}
+                        
+                        <a  target="_new" 
+                            class="btn btn-danger btn-block btn-admin"
+                            href="{{url_for('barcamps.admin_wizard', slug=slug)}}">
+                            <i class="fa fa-cog"></i>
+                            {{_('Manage Barcamp')}}
+                        </a>
+                        
+                        {% endif %}
+
 
                         {{barcamp_buttons()}}
 
                         <div id="add-to-calendar-container"></div>
                         
                         {{share_buttons()}}
+
+                        {% if barcamp.twitter or barcamp.hashtag or barcamp.facebook %}
+                        <div class="sidebar-panel" id="sidebar-social">
+                            <h3>
+                                {{_('Social Media')}}
+                            </h3>
+                            <ul>
+                                <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/{{barcamp.twitter}}">{{barcamp.twitter}}</a></li>
+                                <li><i class="fa fa-hashtag"></i> <a href="https://twitter.com/{{barcamp.hashtag}}">{{barcamp.hashtag}}</a></li>
+                                <li><i class="fa fa-facebook"></i> <a href="{{barcamp.facebook|e}}">{{barcamp.facebook}}</a></li>
+                        </div>
+                        {% endif %}
+
+                        <div class="sidebar-panel" id="sidebar-location">
+                            <h3>
+                            <i class="fa fa-map-marker"></i> 
+                            {{_('Location')}}</h3>
+                            <a href="#" 
+                                class="open-location-modal"
+                                title = "{{_('Open map in modal')}}"
+                                data-accesstoken = "{{mapbox_access_token}}"
+                                data-lat = "{{barcamp.location.lat}}" 
+                                data-lng = "{{barcamp.location.lng}}"
+                                data-title = "{{barcamp.location.name|e}}">
+                                <strong>{{barcamp.location.name|e}}</strong>
+                            </a><br>
+                            {{barcamp.location.street|e}}<br>
+                            {{barcamp.location.zip|e}} {{barcamp.location.city|e}}<br>
+                            <div id="sidebar-location-description">
+                                {{barcamp.location.description|e}}
+                            </div>
+                            {% if barcamp.location.email or barcamp.location.phone or barcamp.location.url %}
+                                <h5>{{_('Contact')}}</h5>
+                                {% if barcamp.location.email %}
+                                <div id="sidebar-location-email">
+                                    <i class="fa fa-envelope"></i> <a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>
+                                </div>
+                                {% endif %}
+                                {% if barcamp.location.phone %}
+                                <div id="sidebar-location-phone">
+                                    <i class="fa fa-phone"></i> {{barcamp.location.phone}}<br>
+                                </div>
+                                {% endif %}
+                                {% if barcamp.location.url %}
+                                <div id="sidebar-location-homepage">
+                                    <i class="fa fa-home"></i> <a href="{{barcamp.location.url|e}}">{{barcamp.location.url}}</a><br>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        {% if view.sponsors %}
+                        <div class="sidebar-panel" id="sidebar-sponsors">
+                            <h3>
+                            <i class="fa fa-heart"></i>
+                            {{_('Sponsors')}}</h3>
+                            {{sponsors()}}
+                        </div>
+                        {% endif %}
                         
-                        {{sponsors()}}
                         {% if barcamp.contact_email or barcamp.has_imprint %}
-                            <h3>{{_('Imprint')}}</h3>
+                        <div class="sidebar-panel" id="sidebar-imprint">
+                            <h3>
+                            {{_('Imprint')}}</h3>
                             {{barcamp.imprint|safe}}
                             <p> 
                             {{_('Contact: ')}} <a href="mailto:{{barcamp.contact_email}}">{{barcamp.contact_email}}</a>
                             </p>
+                        </div>
                         {% endif %}
                         
 
