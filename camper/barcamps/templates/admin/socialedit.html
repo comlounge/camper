@@ -13,7 +13,7 @@
             <div class="form-group">
                 <label for="homepage" class="col-sm-2">{{_('Website')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.homepage, placeholder=_('https://'))}}
+                    {{formmacros.f(form.homepage, placeholder=_('https://'), **{'data-parsley-type' : 'url'})}}
                 </div>
             </div>
 
@@ -47,13 +47,13 @@
             <div class="form-group">
                 <label for="facebook" class="col-sm-2">{{_('Facebook')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.facebook, placeholder=_('https://facebook.com/...'))}}
+                    {{formmacros.f(form.facebook, placeholder=_('https://facebook.com/...'), **{'data-parsley-type' : 'url'})}}
                 </div>
             </div>
             <div class="form-group">
                 <label for="gplus" class="col-sm-2">{{_('Google Plus')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.gplus, placeholder=_('https://plus.google.com/+<name>'))}}
+                    {{formmacros.f(form.gplus, placeholder=_('https://plus.google.com/+<name>'), **{'data-parsley-type' : 'url'})}}
                 </div>
             </div>
         </fieldset>
