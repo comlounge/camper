@@ -9167,7 +9167,7 @@ aside .btn-admin {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-#sidebar-social i {
+#sidebar-social li i {
   display: inline-block;
   width: 16px;
   text-align: center;
@@ -9182,4 +9182,7 @@ aside .btn-admin {
   text-overflow: ellipsis;
   white-space: nowrap;
   height: 20px;
+}
+#sidebar-social i.fa-bullhorn {
+  color: #333;
 }

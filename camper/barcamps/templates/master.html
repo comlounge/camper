@@ -240,12 +240,22 @@
                         {% if barcamp.twitter or barcamp.hashtag or barcamp.facebook %}
                         <div class="sidebar-panel" id="sidebar-social">
                             <h3>
+                                <i class="fa fa-bullhorn"></i>
                                 {{_('Social Media')}}
                             </h3>
                             <ul>
+                                {% if barcamp.homepage %}
+                                <li><i class="fa fa-home"></i> <a href="{{barcamp.homepage}}">{{barcamp.homepage}}</a></li>
+                                {% endif %}
+                                {% if barcamp.twitter %}
                                 <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/{{barcamp.twitter}}">{{barcamp.twitter}}</a></li>
-                                <li><i class="fa fa-hashtag"></i> <a href="https://twitter.com/{{barcamp.hashtag}}">{{barcamp.hashtag}}</a></li>
+                                {% endif %}
+                                {% if barcamp.hashtag %}
+                                <li><i class="fa fa-hashtag"></i> <a href="https://twitter.com/search?q={{barcamp.hashtag}}&src=typd">{{barcamp.hashtag}}</a></li>
+                                {% endif %}
+                                {% if barcamp.facebook %}
                                 <li><i class="fa fa-facebook"></i> <a href="{{barcamp.facebook|e}}">{{barcamp.facebook}}</a></li>
+                                {% endif %}
                         </div>
                         {% endif %}
 
