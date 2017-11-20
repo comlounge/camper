@@ -397,35 +397,11 @@ class TicketService(object):
 
 
     def send(self, send_to, subject, payload, ticket_pdf = None):
-        """send a text message with a ticket"""
+        """send a text message to a user"""
 
-        msg = MIMEMultipart()
-
-        # compute header
-        msg['Subject'] = Header(subject, "utf-8")
-        
-        from_ = msg['From'] = "%s <%s>" %(self.barcamp.name, self.app.config.from_addr)
-        msg['To'] = send_to
-
-        # create text part
-        txt = MIMEText(payload.encode("utf-8"), 'plain', "utf-8")
-        msg.attach(txt)
-
-        # only attach ticket if we have one
-        if ticket_pdf:
-
-            # create pdf part
-            pdfpart = MIMEBase("application", "pdf")
-            pdfpart.set_payload(ticket_pdf)
-            encoders.encode_base64(pdfpart)
-            pdfpart.add_header('Content-Disposition', 'attachment', filename="%s_ticket.pdf" %self.barcamp.slug)
-
-            msg.attach(pdfpart)
-            
         mailer = self.app.module_map['mail']
-        server = mailer.server_factory()
-        server.sendmail(from_, [send_to], msg.as_string())
-        server.quit()
+        mailer.mail(send_to, subject, payload)
+        return
 
 
     def send_email_to_user(self, user, template_name, subject, ticket):
