@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-11-13 16:42+0100\n"
-"PO-Revision-Date: 2017-11-13 16:44+0100\n"
+"POT-Creation-Date: 2017-11-22 15:58+0100\n"
+"PO-Revision-Date: 2017-11-22 15:59+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -282,44 +282,42 @@ msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
 
-#: barcamps/add.py:134 barcamps/add.py:142 scripts/set_default_mail_templates.py:24
+#: barcamps/add.py:135 barcamps/add.py:143 scripts/set_default_mail_templates.py:24
 #, python-format
 msgid "Welcome to %s"
 msgstr "Willkommen zu %s"
 
-#: barcamps/add.py:136 scripts/set_default_mail_templates.py:26
-msgid ""
-"Unfortunately list of participants is already full. You have been put onto the "
-"waiting list and will be informed should you move on to the list of participants."
-msgstr ""
-"Leider ist die Teilnehmer_innen-Liste schon voll. Du wurdest daher auf die "
-"Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
+#: barcamps/add.py:137
+#, python-format
+msgid "You are on the waiting list for %s"
+msgstr "Du bist jetzt auf der Warteliste für %s"
 
-#: barcamps/add.py:138 scripts/set_default_mail_templates.py:28
-msgid "You are now on the list of participants for this barcamp."
-msgstr "Du bist nun auf der Teilnehmer_innen-Liste für das Barcamp"
+#: barcamps/add.py:139
+#, python-format
+msgid "You are now a participant at %s"
+msgstr "Du nimmst jetzt an %s teil"
 
-#: barcamps/add.py:144
+#: barcamps/add.py:145
 #, python-format
 msgid "Your ticket reservation for %s is pending."
 msgstr "Deine Ticket-Reservierung für %s wartet auf Bestätigung."
 
-#: barcamps/add.py:146
+#: barcamps/add.py:147
 #, python-format
 msgid "Your ticket for %s."
 msgstr "Dein Ticket für %s."
 
-#: barcamps/add.py:148
+#: barcamps/add.py:149
 #, python-format
 msgid "Your ticket for %s was canceled."
 msgstr "Dein Ticket für %s wurde widerrufen."
 
-#: barcamps/add.py:153
+#: barcamps/add.py:154
 #, python-format
 msgid "%s has been created"
 msgstr "%s wurde angelegt."
 
-#: barcamps/add.py:188 pages/add.py:91
+#: barcamps/add.py:189 pages/add.py:91
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
@@ -3299,6 +3297,18 @@ msgstr "Seite löschen?"
 msgid "Add new page"
 msgstr "neue Seite anlegen"
 
+#: scripts/set_default_mail_templates.py:26
+msgid ""
+"Unfortunately list of participants is already full. You have been put onto the "
+"waiting list and will be informed should you move on to the list of participants."
+msgstr ""
+"Leider ist die Teilnehmer_innen-Liste schon voll. Du wurdest daher auf die "
+"Warteliste gesetzt und wirst informiert, sobald ein Platz frei wird."
+
+#: scripts/set_default_mail_templates.py:28
+msgid "You are now on the list of participants for this barcamp."
+msgstr "Du bist nun auf der Teilnehmer_innen-Liste für das Barcamp"
+
 #: services/registration.py:77
 #, python-format
 msgid "New registration for %s/%s (%s/%s)"
@@ -3499,40 +3509,40 @@ msgstr "Barcamp duplizieren"
 msgid "private"
 msgstr "privat"
 
-#: templates/index.html:45
+#: templates/index.html:40
 msgid "the barcamp tool"
 msgstr "das Barcamp-Tool"
 
-#: templates/index.html:48
+#: templates/index.html:43
 msgid "Organize your own Barcamp"
 msgstr "Plane Dein eigenes Barcamp"
 
-#: templates/index.html:50
+#: templates/index.html:45
 msgid "How do I do it?"
 msgstr "Wie mache ich das?"
 
-#: templates/index.html:62
+#: templates/index.html:57
 msgid "Recent Barcamps"
 msgstr "Aktuelle Barcamps"
 
-#: templates/index.html:68
+#: templates/index.html:63
 msgid "There are no barcamps coming up in the near future. Maybe organize one?"
 msgstr ""
 "Es gibt keine Barcamps in der näheren Zukunft. Willst Du eines organisieren?"
 
-#: templates/index.html:76
+#: templates/index.html:71
 msgid "My Events"
 msgstr "Meine Veranstaltungen"
 
-#: templates/index.html:82
+#: templates/index.html:77
 msgid "New Events"
 msgstr "Neue Veranstaltungen"
 
-#: templates/index.html:92
+#: templates/index.html:87
 msgid "supported by"
 msgstr "gefördert durch"
 
-#: templates/index.html:96
+#: templates/index.html:91
 msgid "in cooperation with"
 msgstr "in Kooperation mit"
 

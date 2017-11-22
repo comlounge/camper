@@ -1,6 +1,10 @@
 Hallo {{user.fullname}},
 
 {% if view.is_participant and not view.is_on_waiting_list %}
+
+hiermit bestätigen wir Deine Teilnahme am ((event_title)) 
+beim {{barcamp.name}}.
+
 wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.  
 
 Solltest Du wider Erwarten doch nicht teilnehmen können, würden wir uns 
@@ -10,11 +14,11 @@ können.
 {% elif view.is_on_waiting_list %}
 wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.
 
-Leider sind aber alle Plätze schon belegt und Du bist damit auf der
-Warteliste gelandet.  Sollten Teilnehmer abspringen oder wir mehr 
-Kapazitäten zur Verfügung gestellt bekommen, so rückst Du automatisch 
-nach und erhälst eine E-Mail darüber. Trotzdem empfehlen wir, dass Du 
-zur Sicherheit auf 
+Leider sind aber alle Plätze für ((event_title)) schon belegt und 
+Du bist damit auf der Warteliste gelandet.  Sollten Teilnehmer 
+abspringen oder wir mehr Kapazitäten zur Verfügung gestellt bekommen, 
+so rückst Du automatisch nach und erhälst eine E-Mail darüber. 
+Trotzdem empfehlen wir, dass Du zur Sicherheit auf
 
 {{url_for("barcamps.index", slug = barcamp.slug, _full=True)}}
 

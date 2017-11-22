@@ -1,7 +1,7 @@
 Hello {{user.fullname}},
 
-unfortunately the list of participants is already full. We therefor put you
-on the waiting list. 
+unfortunately the list of participants for ((event_title)) is already full. 
+We therefor put you on the waiting list.
 
 Should participants decide to withdraw their invitation, people from the waiting list
 will automatically move up and will be informed via email.
