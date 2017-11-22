@@ -95,14 +95,11 @@ class Admin(BarcampBaseHandler):
     @is_admin()
     def delete(self, slug = None):
         uid = self.request.args.get("uid")
-        print self.barcamp.admins
-        print uid
         if len(self.barcamp.admins)<2:
             self.flash(self._(u"you at least need to have one administrator."), category="error")
             return redirect(self.url_for("barcamps.permissions", slug = slug))
         if uid in self.barcamp.admins:
             self.barcamp.remove_admin_by_id(uid)
             self.barcamp.save()
-            print "done"
         self.flash(self._(u"Administrator deleted."))
         return redirect(self.url_for("barcamps.permissions", slug = slug))
