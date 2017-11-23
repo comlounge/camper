@@ -7727,6 +7727,41 @@ form {
     padding-top: 4px;
   }
 }
+@media (max-width: 1199px) {
+  ol.breadcrumb {
+    font-size: 11px;
+  }
+  .participation-details {
+    text-align: center;
+  }
+  #user-events-content .participation-details .infolabel {
+    float: none !important;
+  }
+  #user-events-content .participation-details .actions {
+    margin-top: 10px;
+  }
+  .nav.nav-tabs {
+    border-bottom-color: transparent;
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+  .nav.nav-tabs > li > a {
+    padding: 5px;
+    border: 0;
+    background: #ddd;
+    margin-right: 5px;
+  }
+  .nav.nav-tabs li.active a {
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  #eventlist .panel-body .btn {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
 /*
 ** general rules
 */
@@ -8110,6 +8145,11 @@ h1.logo a:focus {
 }
 h1.logo a:hover {
   color: #333;
+}
+@media (max-width: 1199px) {
+  h1.logo {
+    font-size: 30px;
+  }
 }
 .event-location-map {
   width: 100%;
