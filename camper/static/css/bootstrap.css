@@ -7739,6 +7739,7 @@ form {
   }
   #user-events-content .participation-details .actions {
     margin-top: 10px;
+    float: none !important;
   }
   .nav.nav-tabs {
     border-bottom-color: transparent;
