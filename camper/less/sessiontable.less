@@ -4,15 +4,14 @@
         flex-wrap: wrap;
         .cell {
             position: relative; 
-            padding-bottom: 10px; 
             box-sizing: border-box;
             flex-grow: 1;
             width: 100%;  // Default to full width
             overflow: hidden; // Or flex might break
             list-style: none;
-            padding: 10px; 
             position: relative; 
-            padding-bottom: 10px; 
+            border-right: 1px solid #aaa;
+            border-bottom: 1px solid #aaa;
             .description { display: none; }
             a {
                 text-decoration: none;
@@ -21,12 +20,15 @@
                 }
             }
             &.active { 
+                padding: 10px;
+                padding-bottom: 15px;
                 cursor: pointer;
                 &:hover { 
                     background: #e0e0e0; 
                 } 
             }
             &.room {
+                padding: 10px;
                 background: #202020; 
                 color: #f0f0f0; 
             }
@@ -34,6 +36,7 @@
                 background: #fcf8e3;
             }
             &.timeslot {
+                padding: 10px;
                 .btn-success;
                 text-align: right;
             }
@@ -60,6 +63,7 @@
     @media (max-width: @screen-md-max) {
         .cell {
             width: 100% !important;
+            border: 0 !important;
             &.room {
                 display: none;
             }

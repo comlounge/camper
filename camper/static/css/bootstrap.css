@@ -7737,9 +7737,9 @@ form {
   width: 100%;
   overflow: hidden;
   list-style: none;
-  padding: 10px;
   position: relative;
-  padding-bottom: 10px;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
 }
 #user-events-content .sessiontable .cell .description {
   display: none;
@@ -7751,12 +7751,15 @@ form {
   text-decoration: none;
 }
 #user-events-content .sessiontable .cell.active {
+  padding: 10px;
+  padding-bottom: 15px;
   cursor: pointer;
 }
 #user-events-content .sessiontable .cell.active:hover {
   background: #e0e0e0;
 }
 #user-events-content .sessiontable .cell.room {
+  padding: 10px;
   background: #202020;
   color: #f0f0f0;
 }
@@ -7764,6 +7767,7 @@ form {
   background: #fcf8e3;
 }
 #user-events-content .sessiontable .cell.timeslot {
+  padding: 10px;
   color: #ffffff;
   background-color: #5cb85c;
   border-color: #4cae4c;
@@ -7852,6 +7856,7 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
 @media (max-width: 1199px) {
   #user-events-content .cell {
     width: 100% !important;
+    border: 0 !important;
   }
   #user-events-content .cell.room {
     display: none;
