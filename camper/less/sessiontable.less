@@ -1,0 +1,79 @@
+#user-events-content {
+    .sessiontable {
+        display: flex;
+        flex-wrap: wrap;
+        .cell {
+            position: relative; 
+            padding-bottom: 10px; 
+            box-sizing: border-box;
+            flex-grow: 1;
+            width: 100%;  // Default to full width
+            overflow: hidden; // Or flex might break
+            list-style: none;
+            padding: 10px; 
+            position: relative; 
+            padding-bottom: 10px; 
+            .description { display: none; }
+            a {
+                text-decoration: none;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            &.active { 
+                cursor: pointer;
+                &:hover { 
+                    background: #e0e0e0; 
+                } 
+            }
+            &.room {
+                background: #202020; 
+                color: #f0f0f0; 
+            }
+            &.blocked {
+                background: #fcf8e3;
+            }
+            &.timeslot {
+                .btn-success;
+                text-align: right;
+            }
+            .room-description { display: none; }
+         
+        }
+        &.sessiontable-cols-1 .cell {
+            width: 100% / 2;
+        }
+        &.sessiontable-cols-8 .cell {
+            width: 100% / 8;
+        }
+        &.sessiontable-cols-9 .cell {
+            width: 100% / 9;
+        }
+    } 
+    h5 { 
+        margin: 0 0 4px 0; 
+    } 
+    .moderators { 
+        color: #606060; 
+        font-size: 12px; 
+    } 
+    @media (max-width: @screen-md-max) {
+        .cell {
+            width: 100% !important;
+            &.room {
+                display: none;
+            }
+        }
+        .blocked ~ .blocked {
+            display: none;
+        }
+        .room-description {
+            display: block !important;
+        }
+
+    }
+}
+.sessiontable-actions {
+    margin-top: 20px;
+}
+

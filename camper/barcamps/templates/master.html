@@ -174,7 +174,7 @@
     </div><!-- /.modal -->
 
 
-    <div class="container bccontainer" id="barcamp-header">
+    <div class="{{'container-fluid' if container_fluid else 'container'}} bccontainer" id="barcamp-header">
         <div id="barcamp-menu">
             <nav class="navbar navbar-barcamp">
                 <div class="container-fluid">
@@ -204,7 +204,7 @@
         
     {% endblock %}
 
-    <div class="container bccontainer" id="barcamp-content">
+    <div class="{{'container-fluid' if container_fluid else 'container'}} bccontainer" id="barcamp-content">
 
         {% block headline %}
         {% endblock %}
@@ -279,7 +279,7 @@
 
         {% block footer %}
         <footer role="contentinfo">
-            <div class="container">
+            <div class="{{'container-fluid' if container_fluid else 'container'}}">
                 <a href="/impressum.html">Impressum</a>
             </div>
         </footer>
