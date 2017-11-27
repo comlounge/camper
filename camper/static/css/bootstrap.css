@@ -9068,7 +9068,13 @@ a#user-events-content .datelist .plabel:focus {
 #sessionpad h1 .authors {
   font-size: 60%;
   line-height: 1.5;
+  text-transform: none;
   color: #555;
+}
+#sessionpad small {
+  text-transform: none;
+  font-size: 22px;
+  font-weight: normal;
 }
 #blogentry header {
   overflow: auto;
