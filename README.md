@@ -39,7 +39,7 @@ cd ..
 Copy example config files into the venv root
 
 ```shell
-cp -r camper/contrib/etc .
+cp -r camper/etc .
 ```
 
 Don't forget to adjust settings, like mongodb host/port or location of image files.
