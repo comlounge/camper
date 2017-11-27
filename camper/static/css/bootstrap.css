@@ -7838,13 +7838,52 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
   display: none;
 }
 #user-events-content .sessiontable.sessiontable-cols-1 .cell {
+  width: 100%;
+}
+#user-events-content .sessiontable.sessiontable-cols-2 .cell {
   width: 50%;
+}
+#user-events-content .sessiontable.sessiontable-cols-3 .cell {
+  width: 33.33333333%;
+}
+#user-events-content .sessiontable.sessiontable-cols-4 .cell {
+  width: 25%;
+}
+#user-events-content .sessiontable.sessiontable-cols-5 .cell {
+  width: 20%;
+}
+#user-events-content .sessiontable.sessiontable-cols-6 .cell {
+  width: 16.66666667%;
+}
+#user-events-content .sessiontable.sessiontable-cols-7 .cell {
+  width: 14.28571429%;
 }
 #user-events-content .sessiontable.sessiontable-cols-8 .cell {
   width: 12.5%;
 }
 #user-events-content .sessiontable.sessiontable-cols-9 .cell {
   width: 11.11111111%;
+}
+#user-events-content .sessiontable.sessiontable-cols-10 .cell {
+  width: 10%;
+}
+#user-events-content .sessiontable.sessiontable-cols-11 .cell {
+  width: 9.09090909%;
+}
+#user-events-content .sessiontable.sessiontable-cols-12 .cell {
+  width: 8.33333333%;
+}
+#user-events-content .sessiontable.sessiontable-cols-13 .cell {
+  width: 7.69230769%;
+}
+#user-events-content .sessiontable.sessiontable-cols-14 .cell {
+  width: 7.14285714%;
+}
+#user-events-content .sessiontable.sessiontable-cols-15 .cell {
+  width: 6.66666667%;
+}
+#user-events-content .sessiontable.sessiontable-cols-16 .cell {
+  width: 6.25%;
 }
 #user-events-content h5 {
   margin: 0 0 4px 0;

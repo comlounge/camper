@@ -1,3 +1,10 @@
+.generate-col-widths(@n, @i: 1) when (@i =< @n) {
+    &.sessiontable-cols-@{i} .cell {
+        width: (100% / @i);
+    } 
+    .generate-col-widths(@n, (@i + 1));
+}
+
 #user-events-content {
     .sessiontable {
         display: flex;
@@ -43,15 +50,8 @@
             .room-description { display: none; }
          
         }
-        &.sessiontable-cols-1 .cell {
-            width: 100% / 2;
-        }
-        &.sessiontable-cols-8 .cell {
-            width: 100% / 8;
-        }
-        &.sessiontable-cols-9 .cell {
-            width: 100% / 9;
-        }
+        .generate-col-widths(16);
+
     } 
     h5 { 
         margin: 0 0 4px 0; 
