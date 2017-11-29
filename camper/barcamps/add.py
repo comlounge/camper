@@ -70,7 +70,7 @@ class AddView(BaseHandler):
             trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
                 languages=[str(self.babel_locale)])
         
-        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        countries = [(c.alpha_2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
         if self.request.method == 'POST' and form.validate():
             f = form.data
