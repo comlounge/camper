@@ -129,7 +129,6 @@ class AddView(BaseHandler):
 
             # create default mail templates
             url = self.url_for("barcamps.index", slug = barcamp.slug, _full=True)
-            print "ok"
             templates = {}
             templates['welcome_text'] = self.render_lang("emails/default_welcome.txt", barcamp=barcamp, url=url)
             templates['welcome_subject'] = self._('Welcome to %s') %barcamp.name
