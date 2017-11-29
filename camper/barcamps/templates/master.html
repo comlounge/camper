@@ -223,7 +223,7 @@
 
             <div id="main-content" class="row" role="main">
 
-                <div class="col-md-9 col-md-pull-3" id="content-area">
+                <div class="col-md-9" id="content-area">
                     {% if is_admin %}
                         {% if barcamp.workflow=="created" %}
                             <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
@@ -248,7 +248,7 @@
                     {% endblock %}
 
                 </div><!-- #content-area -->
-                <aside class="col-md-3 col-md-push-9">
+                <aside class="col-md-3">
                     {% block widgets %}
                         {% if is_admin or is_main_admin %}
                         
