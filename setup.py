@@ -40,7 +40,8 @@ setup(name='camper',
         "pycountry",
         "wtforms",
         "embeddify",
-        "awesome-slugify"
+        "awesome-slugify",
+        "weasyprint"
       ],
       entry_points="""
           [paste.app_factory]
