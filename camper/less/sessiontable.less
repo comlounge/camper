@@ -1,0 +1,83 @@
+.generate-col-widths(@n, @i: 1) when (@i =< @n) {
+    &.sessiontable-cols-@{i} .cell {
+        width: (100% / @i);
+    } 
+    .generate-col-widths(@n, (@i + 1));
+}
+
+#user-events-content {
+    .sessiontable {
+        display: flex;
+        flex-wrap: wrap;
+        .cell {
+            position: relative; 
+            box-sizing: border-box;
+            flex-grow: 1;
+            width: 100%;  // Default to full width
+            overflow: hidden; // Or flex might break
+            list-style: none;
+            position: relative; 
+            border-right: 1px solid #aaa;
+            border-bottom: 1px solid #aaa;
+            .description { display: none; }
+            a {
+                text-decoration: none;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            &.active { 
+                padding: 10px;
+                padding-bottom: 15px;
+                cursor: pointer;
+                &:hover { 
+                    background: #e0e0e0; 
+                } 
+            }
+            &.room {
+                padding: 10px;
+                background: #202020; 
+                color: #f0f0f0; 
+            }
+            &.blocked {
+                background: #fcf8e3;
+            }
+            &.timeslot {
+                padding: 10px;
+                .btn-success;
+                text-align: right;
+            }
+            .room-description { display: none; }
+         
+        }
+        .generate-col-widths(16);
+
+    } 
+    h5 { 
+        margin: 0 0 4px 0; 
+    } 
+    .moderators { 
+        color: #606060; 
+        font-size: 12px; 
+    } 
+    @media (max-width: @screen-md-max) {
+        .cell {
+            width: 100% !important;
+            border: 0 !important;
+            &.room {
+                display: none;
+            }
+        }
+        .blocked ~ .blocked {
+            display: none;
+        }
+        .room-description {
+            display: block !important;
+        }
+
+    }
+}
+.sessiontable-actions {
+    margin-top: 20px;
+}
+

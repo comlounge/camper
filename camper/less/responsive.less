@@ -1,0 +1,60 @@
+@media (max-width: @screen-md-max) {
+
+    // general breadcrumbs smaller
+    ol.breadcrumb {
+        font-size: 11px;
+    }
+
+    // user_event.html
+    .participation-details {
+        text-align: center;
+    }
+    #user-events-content .participation-details {
+        .infolabel {
+            float: none !important;
+        }
+        .actions {
+            margin-top: 10px;
+            float: none !important;
+        }
+    }
+    .nav.nav-tabs {
+        border-bottom-color: transparent;
+        font-size: 11px;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-inbetween;
+        > li {
+            flex: 1;
+            width: auto;
+            text-align: center;
+        }
+        > li + li {
+            margin-left: 4px;
+        }
+        > li > a {
+            padding: 5px;
+            width: auto;
+            border: 0;
+            background: #ddd;
+            margin: 0;
+            &:hover {
+                border: 0 !important;
+            }
+        }
+        li.active a {
+            font-weight: bold;
+        }
+    }
+
+    // general
+    h2 {
+        font-size: 20px;
+    }
+
+    // barcamp homepage
+    #eventlist .panel-body .btn {
+        display: block;
+        margin-bottom: 5px;
+    }
+}
