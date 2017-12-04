@@ -133,5 +133,17 @@ In order to migrate::
 
 - barcamp listing now by end date instead of start date to prevent long running events to be on top all the time
 
+2.3
+===
+
+- finally the sidebar shows all the information you provide, like all location details or social media links. 
+- the public session table is now fully responsive
+- the public session is not full width on desktop to give sessions more space
+- event title in events listing now directly links to session view and not participants
+- description on session pad screen now better readable
+- accessibility: content area comes again before sidebar but a hidden register button for screenreaders has been added in front
+- the mail template has a new placeholder `((event_title))` which is replaced by the event title of the event you are registered for or where you move from waiting list to participants. That way you actually know which events you are allowed to attend. Also changed the default templates accordingly so that it's all setup for new barcamps. Non-ticket registration change only (ticket names are already in those mails)
+- installation instructions have been updated as well as some packages camper depends on
+
 
 

@@ -52,6 +52,8 @@
 @import "admin.less";
 @import "gallery.less";
 @import "wizard.less";
+@import "sessiontable.less";
+@import "responsive.less";
 
 
 /*
@@ -175,7 +177,7 @@ body#startpage {
             text-shadow: 1px 4px 6px rgba(0,0,0,0.3);
         };
         color: white;
-        font-size: 100px;
+        font-size: 70px;
         font-family: 'Syncopate', sans-serif;
         font-weight: bold;
         small { 
@@ -336,7 +338,7 @@ body#startpage {
 }
 
 h1.logo {
-    font-size: 80px;
+    font-size: 60px;
     text-transform: uppercase;
     a, a:hover, a:focus {
         color: black;
@@ -345,6 +347,10 @@ h1.logo {
     a:hover {
         color: #333;
     }
+    @media (max-width: @screen-md-max) {
+        font-size: 30px;
+    }
+
 }
 
 
@@ -867,72 +873,20 @@ section {
         &.plabel-not { .label-default; }
     }
     
-    .sessiontable {
-        .slot {
-            padding: 10px;
-            position: relative;
-            padding-bottom: 10px;
-            &.active {
-                cursor: pointer;
-                &:hover {
-                    background: #e0e0e0;
-                }
-            }
-        }
-        h5 {
-            margin: 0 0 4px 0;
-        }
-        .moderators {
-            color: #606060;
-            font-size: 12px;
-        }
-        thead th {
-            background: #202020;
-            color: #f0f0f0;
-        }
-        tbody th {
-            .btn-success;
-            font-size: 20px;
-            text-align: center;
-            font-weight: normal;
-        }
-        margin-top: 30px;
-        .description { display: none;}
-        tbody tr.active {
-            th {
-                font-weight: bold;
-                background: darken(#5cb85c, 20%);
-                color: white;
-            }
-            td.slot {
-                background: #5cb85c;
-                color: white;
-                a {
-                    color: white;
-                    font-weight: bold;
-                    text-decoration: none;
-                    .moderators {
-                        color: white;
-                        font-weight: normal;
-                    }
-                    &:hover {
-                        text-decoration: none;
-                }
-                }
-                &:hover {
-                    text-decoration: none;
-                    background: darken(#5cb85c, 20%);
-                }
-            }
-        }
-    }
+
 }
 
 #sessionpad {
     h1 .authors {
         font-size: 60%;
         line-height: 1.5;
+        text-transform: none;
         color: #555;
+    }
+    small {
+        text-transform: none;
+        font-size: 22px;
+        font-weight: normal;
     }
 }
 
@@ -1068,5 +1022,62 @@ img.flickr-embed-img {
         li+li {
             border-top: 1px solid #d0d0d0;
         }
+    }
+}
+
+// sidebar styles
+
+aside .btn-admin {
+    margin-bottom: 30px;
+}
+
+.sidebar-panel {
+    padding-top: 25px;
+    h3 {
+        border-bottom: 1px solid #777;
+        padding-bottom: 10px;
+    }
+    h5 {
+        padding-top: 10px;
+        padding-bottom: 0px;
+        text-decoration: underline;
+    }
+    .fa-envelope, .fa-phone, .fa-home {
+        width: 16px;
+        color: #333;
+    }
+    .fa-heart {
+        color: #c30;
+        font-size: 20px;
+    }
+}
+#sidebar-location-description {
+    font-size: 12px;
+    color: #666;
+}
+#sidebar-location-homepage {
+    overflow: hidden;
+    height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#sidebar-social {
+    li i {
+        display: inline-block;
+        width: 16px;
+        text-align: center;
+        color: #346;
+    }
+    ul {
+        .list-unstyled;
+        li {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 20px;
+        }
+    }
+    i.fa-bullhorn {
+        color: #333;
     }
 }

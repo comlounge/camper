@@ -36,17 +36,14 @@ class BarcampEditForm(BaseForm):
 
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
-    twitterwall         = TextField(T("link to tweetwally twitterall"), [validators.Length(max=100)],
-            description=T("create your own twitterwall at <a href='http://tweetwally.com'>tweetwally.com</a> and enter the URL here, e.g. <tt>http://jmstvcamp.tweetwally.com/</tt>"))
-    fbAdminId           = TextField(T("Facebook Admin-ID"), [validators.Length(max=100)], description=T("ID of the facebook admin for the facebook page for this barcamp if one exists"))
-
+    
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city                = TextField(T("city"), [])
     location_zip                 = TextField(T("zip"), [])
-    location_url                 = TextField(T("homepage"), [], description=T('web site of the venue (optional)'))
+    location_url                 = TextField(T("homepage"), [validators.URL()], description=T('web site of the venue (optional)'))
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
-    location_email               = TextField(T("email"), [], description=T('email address of the venue (optional)'))
+    location_email               = TextField(T("email"), [validators.Email()], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
     location_country             = SelectField(T("Country"), default="DE")
     location_lat                 = HiddenField()
