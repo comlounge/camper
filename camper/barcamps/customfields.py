@@ -19,8 +19,12 @@ class ParticipantDataEditForm(BaseForm):
                 choices=[
                     ('checkbox',T('a yes/no field')),
                     ('textfield',T('1 line of text')),
-                    ('textarea',T('multiple lines of text'))],
+                    ('textarea',T('multiple lines of text')),
+                    ('select',T('select one choice out of many'))],
                 description = T('please chose between a one-line text field or multi-line text area'),
+    )
+    choices         = TextAreaField(T("Choices"),
+                description = T('please put each choice on a separate line.'),
     )
     required            = BooleanField(T("field required?"),
                 description = T('If you enable this then the user cannot register before this field has been filled in.'),
