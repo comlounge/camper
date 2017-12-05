@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '2.2.7.5'
+version = '2.3'
 
 setup(name='camper',
       version=version,
@@ -40,7 +40,8 @@ setup(name='camper',
         "pycountry",
         "wtforms",
         "embeddify",
-        "awesome-slugify"
+        "awesome-slugify",
+        "weasyprint"
       ],
       entry_points="""
           [paste.app_factory]
