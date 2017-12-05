@@ -127,7 +127,6 @@ class RegistrationData(BarcampBaseHandler):
                 'message' : 'registration is not possible'
             }
 
-
         ud = {
             'eid' : eid,
             'full' : event.full,
