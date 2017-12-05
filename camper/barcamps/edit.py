@@ -41,9 +41,9 @@ class BarcampEditForm(BaseForm):
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
     location_city                = TextField(T("city"), [])
     location_zip                 = TextField(T("zip"), [])
-    location_url                 = TextField(T("homepage"), [validators.URL()], description=T('web site of the venue (optional)'))
+    location_url                 = TextField(T("homepage"), [validators.Optional(), validators.URL()], description=T('web site of the venue (optional)'))
     location_phone               = TextField(T("phone"), [], description=T('web site of the venue (optional)'))
-    location_email               = TextField(T("email"), [validators.Email()], description=T('email address of the venue (optional)'))
+    location_email               = TextField(T("email"), [validators.Optional(), validators.Email()], description=T('email address of the venue (optional)'))
     location_description         = TextAreaField(T("description"), [], description=T('an optional description of the venue'))
     location_country             = SelectField(T("Country"), default="DE")
     location_lat                 = HiddenField()
@@ -155,7 +155,6 @@ class EditView(BarcampBaseHandler):
             self.barcamp.put()
             self.flash(self._("The barcamp has been updated."), category="info")
             return redirect(self.url_for("barcamps.edit", slug = self.barcamp.slug))
-
         return self.render(form = form, show_slug = not self.barcamp.public, bcid = str(self.barcamp._id))
     post = get
 
