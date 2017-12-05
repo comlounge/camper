@@ -145,5 +145,9 @@ In order to migrate::
 - the mail template has a new placeholder `((event_title))` which is replaced by the event title of the event you are registered for or where you move from waiting list to participants. That way you actually know which events you are allowed to attend. Also changed the default templates accordingly so that it's all setup for new barcamps. Non-ticket registration change only (ticket names are already in those mails)
 - installation instructions have been updated as well as some packages camper depends on
 
+2.3.1
+=====
+
+- location email and url can now be empty again
 
 
