@@ -167,6 +167,13 @@ class RegistrationForm(BarcampBaseHandler):
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description'] or " "))
             elif field['fieldtype'] == "checkbox":
                 setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
+            elif field['fieldtype'] == "select":
+                choices2 = field['choices'].split("\n")
+                choices = []
+                for c in choices2:
+                    choices.append((c.strip(), c.strip()))
+                setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", choices = choices))
+
 
 
         uid = unicode(self.user._id)

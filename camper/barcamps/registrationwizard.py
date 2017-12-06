@@ -43,7 +43,6 @@ class RegistrationWizard(BarcampBaseHandler):
             pass
 
         for field in self.barcamp.registration_form:
-            print field
             vs = []
             if field['required']:
                 vs.append(validators.Required())
@@ -53,6 +52,12 @@ class RegistrationWizard(BarcampBaseHandler):
             elif field['fieldtype'] == "textarea":
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description'] or " "))
+            elif field['fieldtype'] == "select":
+                choices2 = field['choices'].split("\n")
+                choices = []
+                for c in choices2:
+                    choices.append((c.strip(), c.strip()))
+                setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", choices = choices))
             elif field['fieldtype'] == "checkbox":
                 setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
 
