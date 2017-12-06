@@ -53,11 +53,8 @@ class RegistrationWizard(BarcampBaseHandler):
                 vs.append(validators.Length(max = 2000))
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description'] or " "))
             elif field['fieldtype'] == "select":
-                choices2 = field['choices'].split("\n")
-                choices = []
-                for c in choices2:
-                    choices.append((c.strip(), c.strip()))
-                setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", choices = choices))
+                setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", 
+                    choices = field['choices']))
             elif field['fieldtype'] == "checkbox":
                 setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
 

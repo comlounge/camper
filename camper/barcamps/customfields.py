@@ -45,6 +45,18 @@ class ParticipantsDataEditView(BarcampBaseHandler):
         if self.request.method == 'POST' and form.validate():
             f = form.data
             f['name'] = unicode(uuid.uuid4())
+            
+
+            # clean up choices
+            new_choices = []
+            for c in f['choices'].split("\n"):
+                choice = c.strip()
+                if choice:
+                    new_choices.append((choice, choice)) # value and name are the same
+
+            f['choices'] = new_choices
+            print f
+
             self.barcamp.registration_form.append(f)
             self.barcamp.save()
             return redirect(self.url_for("barcamps.registration_form_editor", slug = self.barcamp.slug))
