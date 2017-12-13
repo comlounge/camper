@@ -2,9 +2,11 @@
 
 import datetime
 import pymongo
+from bson.code import Code
+
 
 from camper import BaseHandler
-from ..base import BarcampView
+from ..base import BarcampView, logged_in
 
 from starflyer import redirect
 
@@ -65,6 +67,50 @@ class PastBarcampsView(BaseHandler):
         past_barcamps = [BarcampView(barcamp, self) for barcamp in past_barcamps]
         return self.render( 
             past_barcamps = past_barcamps,
+        )
+
+class OwnBarcampsView(BaseHandler):
+    """show the barcamps you attend(ed)"""
+
+    template = "own_barcamps.html"
+
+    @logged_in()
+    def get(self):
+        """render the view"""
+
+        # prepare the map reduce functions
+        uid = self.user_id
+
+        map = Code("""
+            function () {
+                for (var eid in this.events) {
+                    var event = this.events[eid];
+                    if (event.participants.indexOf('%s')>-1) {
+                        emit(this._id, 1);
+                    }
+                }
+            }
+        """ %uid )
+
+        reduce = Code("""
+            function(key, values) {
+                var total = 0;
+                for (var i=0; i < values.length; i++) {
+                    total += values[i];
+                }
+                return total;
+            }
+        """)
+
+        result = self.config.dbs.db.barcamps.inline_map_reduce(map, reduce)
+        ids = [u['_id'] for u in result]
+        query = {'_id' : {'$in' : ids}}
+
+        barcamps = self.config.dbs.barcamps.find(query)
+        own_barcamps = [BarcampView(barcamp, self) for barcamp in barcamps]
+
+        return self.render( 
+            own_barcamps = own_barcamps,
         )
 
 

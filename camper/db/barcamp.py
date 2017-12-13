@@ -732,6 +732,7 @@ class Barcamps(Collection):
 
     def get_by_user_id(self, user_id):
         """return all the barcamps the user is either participant, interested or an admin"""
+        # for now to be found in handlers/index.py
 
     def before_serialize(self, obj):
         """make sure we have all required data for serializing"""

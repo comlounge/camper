@@ -1,0 +1,48 @@
+{% set body_id="startpage" %}
+{% extends "master.html" %}
+
+
+{% macro listing(barcamps, small=False) %}
+    {% for view in barcamps %}
+        <article class="barcamp content-area {{'barcamp-small' if small else 'barcamp-full'}}" 
+                 data-href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">
+            <div class="inner">
+                {% if view.logo %}
+                <div class="logo">
+                    {{view.logo}}
+                </div>
+                {% endif %}
+                <div class="description clearfix">
+                    <div class="pull-right">
+                        {% if not view.barcamp.public %}
+                            <span class="label label-warning">{{_('private')}}</span>
+                        {% endif %}
+                        {#
+                        {% if view.is_admin %}
+                            <a href="{{url_for('barcamps.dashboard', slug = view.barcamp.slug)}}" class="btn btn-warning btn-xs">{{_('ADMIN')}}</a>
+                        {% endif %}
+                        #}
+                    </div>
+                    <h3><a href="{{url_for("barcamps.index", slug = view.barcamp.slug)}}">{{view.barcamp.name|e}}</a></h3>
+                    <div class="byline">
+                        <span>{{view.date}}</span>, 
+                        <span>{{view.short_location}}</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+{% endmacro %}
+
+{% block content %} 
+    <div class="row barcamp-listing">
+        <div class="col-md-10 col-md-offset-1">
+            <h2>
+            {{_("My Barcamps")}}
+            </h2>
+            {{listing(own_barcamps) }}
+        </div>
+    </div>
+
+{% endblock %}
+
