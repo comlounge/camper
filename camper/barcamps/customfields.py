@@ -55,7 +55,6 @@ class ParticipantsDataEditView(BarcampBaseHandler):
                     new_choices.append((choice, choice)) # value and name are the same
 
             f['choices'] = new_choices
-            print f
 
             self.barcamp.registration_form.append(f)
             self.barcamp.save()
