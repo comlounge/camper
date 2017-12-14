@@ -79,34 +79,7 @@ class OwnBarcampsView(BaseHandler):
         """render the view"""
 
         # prepare the map reduce functions
-        uid = self.user_id
-
-        map = Code("""
-            function () {
-                for (var eid in this.events) {
-                    var event = this.events[eid];
-                    if (event.participants.indexOf('%s')>-1) {
-                        emit(this._id, 1);
-                    }
-                }
-            }
-        """ %uid )
-
-        reduce = Code("""
-            function(key, values) {
-                var total = 0;
-                for (var i=0; i < values.length; i++) {
-                    total += values[i];
-                }
-                return total;
-            }
-        """)
-
-        result = self.config.dbs.db.barcamps.inline_map_reduce(map, reduce)
-        ids = [u['_id'] for u in result]
-        query = {'_id' : {'$in' : ids}}
-
-        barcamps = self.config.dbs.barcamps.find(query)
+        barcamps = self.config.dbs.barcamps.get_by_user_id(self.user_id, True, True, True)
         own_barcamps = [BarcampView(barcamp, self) for barcamp in barcamps]
 
         return self.render( 
