@@ -67,15 +67,15 @@
     </div>
     <div class="row barcamp-listing">
         <div class="col-md-5 col-md-offset-1">
-            {% if my_barcamps %}
+            {% if own_barcamps %}
                 <h2>{{_("My Events")}}</h2>
-                {{listing(my_barcamps, small=True) }}
+                {{listing(own_barcamps, small=True) }}
             {% endif %}
         </div>
         <div class="col-md-5">
-            {% if new_barcamps %}
-                <h2>{{_("New Events")}}</h2>
-                {{listing(new_barcamps, small=True) }}
+            {% if my_barcamps %}
+                <h2>{{_("I organize")}}</h2>
+                {{listing(my_barcamps, small=True) }}
             {% endif %}
         </div>
     </div>

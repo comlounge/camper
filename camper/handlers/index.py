@@ -37,13 +37,24 @@ class IndexView(BaseHandler):
         soon_barcamps = [b  for b in soon_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
         new_barcamps = [BarcampView(barcamp, self) for barcamp in new_barcamps if not barcamp.hide_barcamp]
         new_barcamps = [b  for b in new_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
+
+        # barcamps I administrate
         if my_barcamps:
             my_barcamps = [BarcampView(barcamp, self) for barcamp in my_barcamps]
             my_barcamps = [b for b in my_barcamps if b.barcamp.public or b.is_admin or self.is_main_admin]
+
+        # barcamps I participate in 
+        if self.logged_in:
+            own_barcamps = self.config.dbs.barcamps.get_by_user_id(self.user_id, True, True, True)
+            own_barcamps = [BarcampView(barcamp, self) for barcamp in own_barcamps]
+        else:
+            own_barcamps = []
+
         return self.render( 
             soon_barcamps = soon_barcamps,
             new_barcamps = new_barcamps,
             my_barcamps = my_barcamps,
+            own_barcamps = own_barcamps,
         )
 
 class PastBarcampsView(BaseHandler):
@@ -65,6 +76,7 @@ class PastBarcampsView(BaseHandler):
                               ]
         }).sort("end_date", pymongo.DESCENDING)
         past_barcamps = [BarcampView(barcamp, self) for barcamp in past_barcamps]
+
         return self.render( 
             past_barcamps = past_barcamps,
         )
