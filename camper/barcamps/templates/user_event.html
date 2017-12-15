@@ -181,18 +181,18 @@
                                     <div class="sessionslot {{'active' if sid in sessionplan}} cell">
                                     {% if sid in sessionplan %}
                                     {% if logged_in %}
-                                        <div class="actions pull-right"><a 
+                                        {% set active = sessionplan[sid].sid in fav_sessions %}
+                                        <div class="fav-actions pull-right"><a 
                                             data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
-                                            data-sid="{{sessionplan[sid].sid}}" 
-                                            class="session-fav {{'active' if sessionplan[sid].sid in fav_sessions}}" 
+                                            class="session-fav {{'active' if active}}" 
                                             title="{{_('Mark Session as favourite')}}" href="#">
-                                            <i class="fa fa-heart fav yes {{'active' if sessionplan[sid].sid in fav_sessions}}"></i>
-                                            <i class="fa fa-heart-o fav no {{'active' if sessionplan[sid].sid not in fav_sessions}}"></i>
-                                            {% if sessionplan[sid].sid in fav_sessions %}
-                                                <span class="sr-only">{{_('Favourite Session')}}
-                                            {% else %}
-                                                <span class="sr-only">{{_('This session is your favourite.')}}
-                                            {% endif %}
+                                            <span class="fav yes {{'active' if active}}">
+                                                <i class="fa fa-heart"></i>
+                                                <span class="sr-only">{{_("I like this session")}}</span>
+                                            </span>
+                                            <span class="fav no {{'active' if not active}}">
+                                                <i class="fa fa-heart-o"></i>
+                                                <span class="sr-only">{{_("I don't like this session")}}</span>
                                             </a>
                                         </div>
                                         {% endif %}

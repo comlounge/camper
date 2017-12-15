@@ -81,19 +81,18 @@ $ ->
     )
 
     # session favourite toggle for user_event.html
-    $("#user-events-content .session-fav").click ( () ->
+    $(".fav-actions .session-fav").click ( () ->
         url = $(this).data('url')
-        console.log(url)
         that = this
         $.ajax(
             url: url
             type: "POST"
             success: (data) ->
-                $(that).find("i.fav").hide()
+                $(that).find("span.fav").hide()
                 if data.fav
-                    $(that).find("i.fav.yes").show()
+                    $(that).find("span.fav.yes").show()
                 else
-                    $(that).find("i.fav.no").show()
+                    $(that).find("span.fav.no").show()
         )
         return false
     )

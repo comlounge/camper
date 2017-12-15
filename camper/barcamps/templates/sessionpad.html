@@ -10,6 +10,20 @@
             <li><a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">{{event.name}}</a></li>
             <li class="active">{{session.title}}</li>
         </ol>
+        {% let active = session.sid in fav_sessions %}
+        <div class="fav-actions pull-right big"><a 
+            data-url="{{url_for('.toggle_fav', slug = slug, eid = event._id, sid = session.sid)}}" 
+            class="session-fav {{'active' if active}}" 
+            title="{{_('Mark Session as favourite')}}" href="#">
+            <span class="fav yes {{'active' if active}}">
+                <i class="fa fa-heart"></i>
+                <span class="sr-only">{{_("I like this session")}}</span>
+            </span>
+            <span class="fav no {{'active' if not active}}">
+                <i class="fa fa-heart-o"></i>
+                <span class="sr-only">{{_("I don't like this session")}}</span>
+            </a>
+        </div>
         <h1>{{session.title}}
         <br>    
             <div class="authors">

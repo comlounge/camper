@@ -2,6 +2,7 @@ from mongogogo import *
 import datetime
 from HTMLParser import HTMLParser
 from mongogogo.schema import Filter
+import uuid
 
 __all__=["UserFav", "UserFavs"]
 
@@ -54,11 +55,14 @@ class UserFavs(Collection):
         }
         r = self.find_one(q)
         if not r:
+            q['_id'] = unicode(uuid.uuid4())
             fav = UserFav(q)
             fav = self.put(fav)
+            print "added", fav
             return True # it exists now
         else:
             # deleting
+            print r._id
             self.remove(r)
             return False
 

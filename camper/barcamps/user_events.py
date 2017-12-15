@@ -69,6 +69,8 @@ class Event(BarcampBaseHandler):
         else:
             fav_sessions = []
 
+        print fav_sessions
+
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,

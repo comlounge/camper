@@ -748,20 +748,19 @@
       }
       return false;
     });
-    return $("#user-events-content .session-fav").click((function() {
+    return $(".fav-actions .session-fav").click((function() {
       var that, url;
       url = $(this).data('url');
-      console.log(url);
       that = this;
       $.ajax({
         url: url,
         type: "POST",
         success: function(data) {
-          $(that).find("i.fav").hide();
+          $(that).find("span.fav").hide();
           if (data.fav) {
-            return $(that).find("i.fav.yes").show();
+            return $(that).find("span.fav.yes").show();
           } else {
-            return $(that).find("i.fav.no").show();
+            return $(that).find("span.fav.no").show();
           }
         }
       });
