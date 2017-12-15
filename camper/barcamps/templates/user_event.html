@@ -178,10 +178,10 @@
                             {% else %}
                                 {% for room in rooms %}
                                     {% set sid = room.id+"@"+slot.time %}
+                                    {% set active = sessionplan.get(sid, {'sid': 'foobar'}).sid in fav_sessions%}
                                     <div class="sessionslot {{'active' if sid in sessionplan}} cell">
                                     {% if sid in sessionplan %}
                                     {% if logged_in %}
-                                        {% set active = sessionplan[sid].sid in fav_sessions %}
                                         <div class="fav-actions pull-right"><a 
                                             data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
                                             class="session-fav {{'active' if active}}" 
@@ -201,9 +201,8 @@
                                            href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
                                         <h5>{{sessionplan[sid].title}}</h5>
                                         <div class="description">{{sessionplan[sid].description}}</div>
-                                        <div class="moderators">{{sessionplan[sid].moderator}}
+                                        <div class="moderators">{{sessionplan[sid].moderator}}</div>
                                         <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
-                                        </div>
                                     </a>
                                     {% endif %}
                                     </div>
