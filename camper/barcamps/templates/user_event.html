@@ -179,32 +179,34 @@
                                 {% for room in rooms %}
                                     {% set sid = room.id+"@"+slot.time %}
                                     {% set active = sessionplan.get(sid, {'sid': 'foobar'}).sid in fav_sessions%}
-                                    <div class="sessionslot {{'active' if sid in sessionplan}} cell">
-                                    {% if sid in sessionplan %}
-                                    {% if logged_in %}
-                                        <div class="fav-actions pull-right"><a 
-                                            data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
-                                            class="session-fav {{'active' if active}}" 
-                                            title="{{_('Mark Session as favourite')}}" href="#">
-                                                <span class="fav yes {{'active' if active}}">
-                                                    <i class="fa fa-heart"></i>
-                                                    <span class="sr-only">{{_("I like this session")}}</span>
-                                                </span>
-                                                <span class="fav no {{'active' if not active}}">
-                                                    <i class="fa fa-heart-o"></i>
-                                                    <span class="sr-only">{{_("I don't like this session")}}</span>
-                                                </span>
+                                    <div class="sessionslot {{'active' if sid in sessionplan}} cell {{'faved' if active}}">
+                                        <div class="session-contents">
+                                            {% if sid in sessionplan %}
+                                            {% if logged_in %}
+                                                <div class="fav-actions pull-right"><a 
+                                                    data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
+                                                    class="session-fav {{'active' if active}}" 
+                                                    title="{{_('Mark Session as favourite')}}" href="#">
+                                                        <span class="fav yes {{'active' if active}}">
+                                                            <i class="fa fa-heart"></i>
+                                                            <span class="sr-only">{{_("I like this session")}}</span>
+                                                        </span>
+                                                        <span class="fav no {{'active' if not active}}">
+                                                            <i class="fa fa-heart-o"></i>
+                                                            <span class="sr-only">{{_("I don't like this session")}}</span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                {% endif %}
+                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
+                                                   href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
+                                                <h5>{{sessionplan[sid].title}}</h5>
+                                                <div class="description">{{sessionplan[sid].description}}</div>
+                                                <div class="moderators">{{sessionplan[sid].moderator}}</div>
+                                                <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
                                             </a>
+                                            {% endif %}
                                         </div>
-                                        {% endif %}
-                                        <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
-                                           href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
-                                        <h5>{{sessionplan[sid].title}}</h5>
-                                        <div class="description">{{sessionplan[sid].description}}</div>
-                                        <div class="moderators">{{sessionplan[sid].moderator}}</div>
-                                        <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
-                                    </a>
-                                    {% endif %}
                                     </div>
                                 {% endfor %}
                             {% endif %}

@@ -96,4 +96,15 @@ $ ->
         )
         return false
     )
+
+    $(".toggle-favs").click( () ->
+        $(this).toggleClass("active")
+        state = $(this).hasClass("active")
+        if state
+            $(".sessionslot.cell .session-contents").hide()
+            $(".sessionslot.cell.faved .session-contents ").show()
+        else
+            $(".sessionslot.cell .session-contents").show()
+        return false
+    )
     

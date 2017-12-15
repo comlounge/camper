@@ -748,7 +748,7 @@
       }
       return false;
     });
-    return $(".fav-actions .session-fav").click((function() {
+    $(".fav-actions .session-fav").click((function() {
       var that, url;
       url = $(this).data('url');
       that = this;
@@ -766,6 +766,18 @@
       });
       return false;
     }));
+    return $(".toggle-favs").click(function() {
+      var state;
+      $(this).toggleClass("active");
+      state = $(this).hasClass("active");
+      if (state) {
+        $(".sessionslot.cell .session-contents").hide();
+        $(".sessionslot.cell.faved .session-contents ").show();
+      } else {
+        $(".sessionslot.cell .session-contents").show();
+      }
+      return false;
+    });
   });
 
 }).call(this);
