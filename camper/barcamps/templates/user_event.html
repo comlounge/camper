@@ -180,6 +180,22 @@
                                     {% set sid = room.id+"@"+slot.time %}
                                     <div class="sessionslot {{'active' if sid in sessionplan}} cell">
                                     {% if sid in sessionplan %}
+                                    {% if logged_in %}
+                                        <div class="actions pull-right"><a 
+                                            data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
+                                            data-sid="{{sessionplan[sid].sid}}" 
+                                            class="session-fav {{'active' if sessionplan[sid].sid in fav_sessions}}" 
+                                            title="{{_('Mark Session as favourite')}}" href="#">
+                                            <i class="fa fa-heart fav yes {{'active' if sessionplan[sid].sid in fav_sessions}}"></i>
+                                            <i class="fa fa-heart-o fav no {{'active' if sessionplan[sid].sid not in fav_sessions}}"></i>
+                                            {% if sessionplan[sid].sid in fav_sessions %}
+                                                <span class="sr-only">{{_('Favourite Session')}}
+                                            {% else %}
+                                                <span class="sr-only">{{_('This session is your favourite.')}}
+                                            {% endif %}
+                                            </a>
+                                        </div>
+                                        {% endif %}
                                         <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
                                            href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
                                         <h5>{{sessionplan[sid].title}}</h5>
@@ -245,7 +261,5 @@
         </div>
     </div>
     {% endif %}
-
-    
 {% endblock %}
 

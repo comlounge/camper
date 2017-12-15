@@ -7885,6 +7885,12 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
 #user-events-content .sessiontable.sessiontable-cols-16 .cell {
   width: 6.25%;
 }
+#user-events-content .sessiontable i.fav {
+  display: none;
+}
+#user-events-content .sessiontable i.fav.active {
+  display: block;
+}
 #user-events-content h5 {
   margin: 0 0 4px 0;
 }

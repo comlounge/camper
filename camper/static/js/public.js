@@ -722,7 +722,7 @@
       }
       return false;
     });
-    return $(".comment .deletebutton").click(function() {
+    $(".comment .deletebutton").click(function() {
       var cid, confirm_message, elem, url;
       confirm_message = $(this).data("confirm");
       url = $(this).data("url");
@@ -748,6 +748,25 @@
       }
       return false;
     });
+    return $("#user-events-content .session-fav").click((function() {
+      var that, url;
+      url = $(this).data('url');
+      console.log(url);
+      that = this;
+      $.ajax({
+        url: url,
+        type: "POST",
+        success: function(data) {
+          $(that).find("i.fav").hide();
+          if (data.fav) {
+            return $(that).find("i.fav.yes").show();
+          } else {
+            return $(that).find("i.fav.no").show();
+          }
+        }
+      });
+      return false;
+    }));
   });
 
 }).call(this);
