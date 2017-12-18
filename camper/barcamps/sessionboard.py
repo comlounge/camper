@@ -2,7 +2,7 @@
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
-from camper.base import aspdf
+from camper.base import aspdf, aspdf2
 from camper.handlers.forms import *
 from sfext.babel import T
 from wtforms import *
@@ -109,7 +109,12 @@ class SessionBoardPrint(BarcampBaseHandler):
     @ensure_barcamp()
     @aspdf()
     def get(self, slug = None, eid = None):
-        """return times, rooms or both as PDF"""
+        """return times, rooms or both as PDF
+
+        :param fmt: `times` will print sheets with time, 
+            `rooms` will print sheets with rooms
+            `both` will print both sets
+        """
 
         fmt = self.request.args.get("fmt", "times") # can be "times", "rooms", "both"
 
@@ -127,5 +132,37 @@ class SessionBoardPrint(BarcampBaseHandler):
                 barcamp = self.barcamp
             )
         return out
+
+
+class PrintSessionsPerRoom(BarcampBaseHandler):
+    """prints the sessions per room, each page being one room
+
+    so it's a timetable for each room
+    """
+
+    @is_admin()
+    @ensure_barcamp()
+    @aspdf()
+    def get(self, slug = None, eid = None):
+        """returns a PDF"""
+        
+        event = self.barcamp.get_event(eid)
+        rooms = event.rooms
+        timeslots = event.timeslots
+        sessions = event.timetable.get('sessions', {})
+
+        tmplname = "pdfs/sessionboard_sessions_per_room.html"
+        out = self.render(tmplname = tmplname,
+                event = event,
+                rooms = rooms,
+                timeslots = timeslots,
+                sessionplan = sessions,
+                barcamp = self.barcamp
+            )
+        return out
+
+
+
+
 
 

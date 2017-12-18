@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"                                                                                                                                              
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="{{url_for('static', _full=True, filename="css/pdf_portrait.css")}}?v={{r}}" type="text/css" />
+</head>
+
+<body id="session-rooms-pdf">
+    {% for room in rooms %}
+        <div class="room">
+            <h1>{{room.name|upper}}</h1>
+        </div>
+        <div class="sessions">
+            {% for slot in timeslots %}
+                <div class="timeslot cell">
+                    <h3>{{slot.time}}</h3>
+                </div>
+
+                {% if slot.blocked %}
+                    <div class="sessionslot blocked cell">
+                        {{slot.reason}}
+                    </div>
+                {% else %}
+                    {% set sid = room.id+"@"+slot.time %}
+                    <div class="sessionslot {{'active' if sid in sessionplan}} cell">
+                    {% if sid in sessionplan %}
+                        <h5>{{sessionplan[sid].title}}</h5>
+                        <div class="description">{{sessionplan[sid].description}}</div>
+                        <div class="moderators">{{sessionplan[sid].moderator}}</div>
+                    {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <pdf:nextpage />
+    {% endfor %}
+</body>
