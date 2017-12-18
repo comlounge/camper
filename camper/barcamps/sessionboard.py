@@ -142,7 +142,7 @@ class PrintSessionsPerRoom(BarcampBaseHandler):
 
     @is_admin()
     @ensure_barcamp()
-    @aspdf()
+    @aspdf2()
     def get(self, slug = None, eid = None):
         """returns a PDF"""
         

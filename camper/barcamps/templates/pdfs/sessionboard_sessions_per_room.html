@@ -5,36 +5,77 @@
 
 <head>
     <title></title>
-    <link rel="stylesheet" href="{{url_for('static', _full=True, filename="css/pdf_portrait.css")}}?v={{r}}" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+h1 {
+    font-weight: bold;
+    font-size: 30px;
+}
+h2 {
+    margin-top: 20px;
+    font-size: 16px;
+}
+h3 {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.timeslot {
+    width: 80px;
+    vertical-align: top;
+}
+tr {
+    margin-bottom: 20px;
+}
+.moderators {
+    font-size: 10px;
+    font-style: italic;
+}
+.description {
+    margin-top: 5px;
+    font-size: 14px;
+}
+.room {
+    page-break-after: always;
+}
+
+
+    </style>
 </head>
 
 <body id="session-rooms-pdf">
     {% for room in rooms %}
         <div class="room">
             <h1>{{room.name|upper}}</h1>
-        </div>
-        <div class="sessions">
-            {% for slot in timeslots %}
-                <div class="timeslot cell">
-                    <h3>{{slot.time}}</h3>
-                </div>
+            <table class="sessions">
+                {% for slot in timeslots %}
+                    <tr>
+                        <td class="timeslot cell" valign="top">
+                            <h2>{{slot.time}}</h2>
+                        </td>
 
-                {% if slot.blocked %}
-                    <div class="sessionslot blocked cell">
-                        {{slot.reason}}
-                    </div>
-                {% else %}
-                    {% set sid = room.id+"@"+slot.time %}
-                    <div class="sessionslot {{'active' if sid in sessionplan}} cell">
-                    {% if sid in sessionplan %}
-                        <h5>{{sessionplan[sid].title}}</h5>
-                        <div class="description">{{sessionplan[sid].description}}</div>
-                        <div class="moderators">{{sessionplan[sid].moderator}}</div>
+                    {% if slot.blocked %}
+                        <td class="sessionslot blocked cell" valign="top">
+                            {{slot.reason}}
+                        </td>
+                    {% else %}
+                        {% set sid = room.id+"@"+slot.time %}
+                        <td class="sessionslot {{'active' if sid in sessionplan}} cell">
+                        {% if sid in sessionplan %}
+                            <h3>{{sessionplan[sid].title}}</h3>
+                            <div class="description">{{sessionplan[sid].description}}</div>
+                            <div class="moderators">{{sessionplan[sid].moderator}}</div>
+                        {% endif %}
+                        </td>
+                    </tr>
                     {% endif %}
-                    </div>
-                {% endif %}
-            {% endfor %}
+                {% endfor %}
+            </table>
         </div>
-        <pdf:nextpage />
     {% endfor %}
 </body>
