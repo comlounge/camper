@@ -35,14 +35,12 @@
                     <ul class="dropdown-menu" role="menu">
                         <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('for use as direction signs')}}" 
                             href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=roomtime">{{_('Rooms and Times')}}</a></li>
-                        {#
-                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('the complete session plan, one sheet per session')}}" 
-                            href="#">{{_('Session plan')}}</a></li>
-                        #}
                         <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('each time on a separate sheet')}}" 
                             href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=times">{{_('Time Signs')}}</a></li>
-                        <li><a data-toggle="tooltip" target)"print" data-placement="right" title="{{_('each room on a separate sheet for directions or session plan')}}" 
+                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('each room on a separate sheet for directions or session plan')}}" 
                             href="{{url_for('.sessionboard_print', slug = slug, eid = event._id)}}?fmt=rooms">{{_('Room Signs')}}</a></li>
+                        <li><a data-toggle="tooltip" target="print" data-placement="right" title="{{_('the complete session plan by room. One page contains the sessions for one room')}}" 
+                            href="#">{{_('Sessions per Room')}}</a></li>
                     </ul>
                 </div>
             </div>
