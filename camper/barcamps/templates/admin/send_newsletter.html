@@ -16,7 +16,7 @@
     <hr>
     <h4>{{_('Reply-To address')}}</h4>
     {% if barcamp.newsletter_reply_to == "" %}
-        <p class="text-info">{{_('no reply to address set, using default <code class="text-info">noreply@barcamptools.eu</code>')}}</p>
+        <p class="text-info">{{_('No reply to address set, using default <code class="text-info">noreply@barcamptools.eu</code>')}}</p>
         <p><a href="#" id="openform" class="btn btn-warning btn-xs">{{_('Set own reply-to address')}}</a></p>
         {%if barcamp.newsletter_reply_to2 %}
             <p class="text-danger">{{_('There is a confirmation email pending. Please check your inbox to activate your custom reply-to address')}}</p>
@@ -36,8 +36,8 @@
                 <span  class="help-block">{{_('Please note that we will send you a verification code to confirm this address before it will become active.')}}</span>
                 <strong class="help-block">{{_('This screen will be reloaded so maybe save your newsletter text before!')}}</strong>
             </div>            
-            <button type="cancel" id="cancel-reply-to" class="btn btn-default btn-xs pull-right">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-sm">{{('Send verification code')}}</button>
+            <button type="cancel" id="cancel-reply-to" class="btn btn-default btn-xs pull-right">{{_('Cancel')}}</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{_('Send verification code')}}</button>
         </form>
     </div>
     <hr>
@@ -52,7 +52,7 @@
         </fieldset>
         {% block action %}
             <input type="hidden" id="sendtype" name="sendtype" value="">
-            <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-large" value="{{_('Send Test Mail')}}">
+            <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-default btn-large" value="{{_('Send Test Mail')}}">
             <input type="submit"
                    data-type="live"
                    onclick="confirm('{{_('Really send Newsletter?')}}');"
