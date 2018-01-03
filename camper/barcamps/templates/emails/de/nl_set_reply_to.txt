@@ -1,0 +1,14 @@
+Hallo!
+
+{{fullname}} will für den Newsletter für {{barcamp.name}} 
+diese E-Mail-Adresse als Reply-To-Adresse einsetzen.
+
+Um dies zu bestätigen, klicke bitte auf den folgenden Link:
+
+{{activation_url}}
+
+oder kopiere die URL in Deinen Browser.
+
+Wenn diese Mail nicht als Reply-to-Adresse für den Newsletter genutzt werden soll, braucht Du gar nichts zu tun.
+
+Dein {{barcamp.name}}-Team!

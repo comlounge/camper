@@ -26,10 +26,6 @@ class NewsletterForm(BaseForm):
                 description = T('put your own e-mail address here in order to send the newsletter to this address for testing purposes'),
     )
 
-    replyto = TextField(T("Reply-To Adddress"),
-                description = T('if you want recipients to be able to reply please enter a your email address here'),
-    )
-
 class NewsletterEditView(BarcampBaseHandler):
     """let the admin create and send a newsletter"""
 
@@ -69,8 +65,8 @@ class NewsletterEditView(BarcampBaseHandler):
 
             # do we have to set a reply to?
             headers = {}
-            replyto = f['replyto'].strip()
-            if replyto:
+            replyto = self.barcamp.newsletter_reply_to
+            if replyto != "":
                 headers['Reply-To'] = replyto.encode("utf8")
             if st=="test":
                 if f['testmail'] != u'':
@@ -129,10 +125,63 @@ class NewsletterEditView(BarcampBaseHandler):
 
     post = get
 
+class NewsletterSetReplyTo(BaseHandler):
+    """handler for setting the new reply to address and sending out a verification mail"""
+
+    template = "admin/confirm_nl_reply_to.html"
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def post(self, slug = None):
+        """set the reply to, gen a code and send it to the user via email"""
+
+        email = self.request.form.get('email', '')
+        if email:
+            code = self.barcamp.set_nl_reply_to(email)
+            self.barcamp.save()
+            activation_url = self.url_for("barcamps.nl_verify_reply_to", slug = self.barcamp.slug, _full = True, _append = True, code = code)
+            self.mail_text("emails/nl_set_reply_to.txt", self._('Confirm your Reply-To address'), send_to = email, activation_url = activation_url, barcamp = self.barcamp)
+            self.flash(self._('We sent you a confirmation email to verify this email address. Please follow the instructions in that mail.'))
+        else:
+            self.flash(self._('Please provide an email address.'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
 
 
+class NewsletterReplyToConfirm(BaseHandler):
+    """handler for setting the new reply to address and sending out a verification mail"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """verify the reply to code and inform the user"""
+
+        code = self.request.args.get("code", "")
+        print "found code", code
+        confirmed = self.barcamp.verify_nl_reply_to(code)
+        self.barcamp.save()
+        print confirmed
+        if confirmed:
+            self.flash(self._('The reply to address was successfully confirmed'))
+        else:
+            self.flash(self._('Unfortunately the code was wrong. Please try again!'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
+        
 
 
+class DeleteReplyTo(BaseHandler):
+    """remove the reply to address"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """remove the reply to address and set the default again"""
+        self.barcamp.remove_nl_reply_to()
+        self.barcamp.save()
+        self.flash(self._('The custom reply to address for this newsletter has been removed.'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
 
 
 
