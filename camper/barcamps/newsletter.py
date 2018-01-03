@@ -158,10 +158,8 @@ class NewsletterReplyToConfirm(BaseHandler):
         """verify the reply to code and inform the user"""
 
         code = self.request.args.get("code", "")
-        print "found code", code
         confirmed = self.barcamp.verify_nl_reply_to(code)
         self.barcamp.save()
-        print confirmed
         if confirmed:
             self.flash(self._('The reply to address was successfully confirmed'))
         else:
