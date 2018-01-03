@@ -18,9 +18,9 @@ class SocialEditForm(BaseForm):
 
     twitter             = TextField(T("Twitter-Username"), [validators.Length(max=15)], description=T("only the username, max. 15 characters"))
     hashtag             = TextField(T("Twitter-Hashtag"), [validators.Length(max=100)], description=T("max. 100 characters"))
-    gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100)], description=T("URL of the Google Plus Profile"))
-    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100)], description=T("URL of the Facebook Page"))
-    homepage            = TextField(T("Homepage URL"), [validators.Length(max=500)], description=T("link to the homepage of this barcamp in case one exists."))
+    gplus               = TextField(T("Google Plus URL"), [validators.Length(max=100), validators.URL()], description=T("URL of the Google Plus Profile"))
+    facebook            = TextField(T("Facebook URL"), [validators.Length(max=100), validators.URL()], description=T("URL of the Facebook Page"))
+    homepage            = TextField(T("Homepage URL"), [validators.Length(max=500), validators.URL()], description=T("link to the homepage of this barcamp in case one exists."))
     seo_description     = TextField(T('Meta Description'), 
                         [validators.Length(max=160)],
                         description=T('The meta description is used for for search engines and often shows up in search results. It should be no more than 160 characters long.'))

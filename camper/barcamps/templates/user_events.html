@@ -84,7 +84,7 @@
                                 {{event.name|e}}
                             </a>
                         {% else %}
-                            <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}">
+                            <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">
                                 {{event.name|e}}
                             </a>
                         {% endif %}

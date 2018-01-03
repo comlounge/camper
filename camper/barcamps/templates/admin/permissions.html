@@ -25,7 +25,7 @@
     <tr>    
         <td>{{admin.fullname|e}}</td>
         <td>
-            {% if admin._id|e != barcamp.created_by %}
+            {% if barcamp.admin_users|length > 1 %}
             <a onClick="return confirm('Bist Du sicher?')" href="{{url_for("barcamps.admin", slug=slug, _append=True, method="delete", uid=admin._id)}}" class="btn btn-small btn-danger"><i class="fa fa-trash"></i> Löschen</a>
             {% endif %}
         </td>

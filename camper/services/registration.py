@@ -149,7 +149,7 @@ class RegistrationService(object):
         mailer.mail(send_to, subject, payload)
 
 
-    def mail_template(self, template_name, send_to=None, user = None, **kwargs):
+    def mail_template(self, template_name, send_to=None, user = None, event_title="", **kwargs):
         """render and send out a mail as normal text"""
         barcamp = kwargs.get('barcamp')
         if user is None:
@@ -162,6 +162,7 @@ class RegistrationService(object):
             kwargs['fullname'] = user.fullname
             payload = tmpl.render(**kwargs)
             payload = payload.replace('((fullname))', user.fullname)
+            payload = payload.replace('((event_title))', event_title)
             mailer = self.app.module_map['mail']
             mailer.mail(send_to, subject, payload)
 

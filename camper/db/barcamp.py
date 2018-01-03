@@ -113,7 +113,7 @@ class Location(Record):
     @property
     def country_name(self):
         """retrieve the country name from the country db. It's not i18n"""
-        return pycountry.countries.get(alpha2 = self.country).name
+        return pycountry.countries.get(alpha_2 = self.country).name
 
 class SessionSchema(Schema):
     """a session in a timetable"""
@@ -643,8 +643,6 @@ class Barcamp(Record):
     def remove_admin_by_id(self, user_id):
         """remove an admin from the list of admins but only if the list is not empty then and the
         creator of the barcamp is still on it."""
-        if unicode(user_id) == self.created_by:
-            return
         if len(self.admins)<2:
             return
         self.admins.remove(unicode(user_id))

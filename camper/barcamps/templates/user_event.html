@@ -1,4 +1,5 @@
 {% set active_action = "events" %}
+{% set container_fluid = "fluid" %}
 {% extends "_m/barcamps/master.html" %}
 
 {% macro userlist(users) %}
@@ -149,58 +150,55 @@
                 <!-- session / timetable -->
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">
 
+
                     <h3 class="sr-only">{{_('Time Table')}}</h3>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered sessiontable">
-                            <colgroup>
-                                <col style="width: 10%">
+                    <div class="sessiontable sessiontable-cols-{{rooms|length + 1}}">
+                        
+                        <div class="room empty cell" aria-hidden="true">
+                            <!-- timeslot -->
+                        </div>
+                        {% for room in rooms %}
+                        <div class="room cell" aria-hidden="true">
+                            <h3>{{room.name|e}}</h3>
+                            <small>{{room.description|e}}</small><br>
+                            <small>{{room.capacity|e}} {{_("persons")}}</small>
+                        </div>
+                        {% endfor %}
+                        {% for slot in timeslots %}
+                            <div class="timeslot cell">
+                                <h3>{{slot.time}}</h3>
+                            </div>
+
+                            {% if slot.blocked %}
                                 {% for room in rooms %}
-                                    <col style="width: {{90/rooms|length}}%">
+                                    <div class="sessionslot blocked cell">
+                                        {{slot.reason}}
+                                    </div>
                                 {% endfor %}
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>&nbsp;</th>
-                                    {% for room in rooms %}
-                                    <th>
-                                        {{room.name|e}}
-                                        <small>{{room.description|e}}</small><br>
-                                        <small>{{room.capacity|e}} {{_("persons")}}</small>
-                                    </th>
-                                    {% endfor %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for slot in timeslots %}
-                                <tr class="{{'warning' if slot.blocked}}">
-                                    <th>{{slot.time}}</th>
-                                {% if slot.blocked %}
-                                    {% for room in rooms %}
-                                        <td>{{slot.reason}}</td>
-                                    {% endfor %}
-                                {% else %}
-                                    {% for room in rooms %}
-                                        {% set sid = room.id+"@"+slot.time %}
-                                        <td class="slot {{'active' if sid in sessionplan}}">
-                                        {% if sid in sessionplan %}
-                                            <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
-                                               href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
-                                            <h5>{{sessionplan[sid].title}}</h5>
-                                            <div class="description">{{sessionplan[sid].description}}</div>
-                                            <div class="moderators">{{sessionplan[sid].moderator}}
-                                            </div>
-                                        </a>
-                                        {% endif %}
-                                        </td>
-                                    {% endfor %}
-                                {% endif %}
-                                </tr>
+                            {% else %}
+                                {% for room in rooms %}
+                                    {% set sid = room.id+"@"+slot.time %}
+                                    <div class="sessionslot {{'active' if sid in sessionplan}} cell">
+                                    {% if sid in sessionplan %}
+                                        <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
+                                           href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
+                                        <h5>{{sessionplan[sid].title}}</h5>
+                                        <div class="description">{{sessionplan[sid].description}}</div>
+                                        <div class="moderators">{{sessionplan[sid].moderator}}
+                                        <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                    </div>
                                 {% endfor %}
-                            </tbody>
-                        </table>
+                            {% endif %}
+                        {% endfor %}
                     </div>
+
                     {% if is_admin %}
-                        <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
+                        <div class="sessiontable-actions">
+                            <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
+                        </div>
                     {% endif %}          
 
                 </div>

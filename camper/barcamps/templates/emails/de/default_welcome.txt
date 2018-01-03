@@ -1,6 +1,7 @@
 Hallo ((fullname)),
 
-wir freuen uns, dass Du am {{barcamp.name}} teilnehmen willst.
+hiermit bestätigen wir Deine Teilnahme am ((event_title)) 
+beim {{barcamp.name}}.
 
 Solltest Du wider Erwarten doch nicht teilnehmen können, würden wir uns
 über eine Änderung des Teilnahmestatus freuen, damit wir unsere Planungen

@@ -1,6 +1,7 @@
 Hello ((fullname)),
 
-we are happy that you want to participate at {{barcamp.name}}!
+we confirm your participation of ((event_title)) at 
+{{barcamp.name}}!
 
 Should you for whatever reasons might not be able to make it to
 the event it would be great if you could change your participant state

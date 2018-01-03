@@ -70,7 +70,7 @@ class AddView(BaseHandler):
             trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
                 languages=[str(self.babel_locale)])
         
-        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        countries = [(c.alpha_2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
         if self.request.method == 'POST' and form.validate():
             f = form.data
@@ -133,9 +133,9 @@ class AddView(BaseHandler):
             templates['welcome_text'] = self.render_lang("emails/default_welcome.txt", barcamp=barcamp, url=url)
             templates['welcome_subject'] = self._('Welcome to %s') %barcamp.name
             templates['onwaitinglist_text'] = self.render_lang("emails/default_onwaitinglist.txt", barcamp=barcamp, url=url)
-            templates['onwaitinglist_subject'] = self._("Unfortunately list of participants is already full. You have been put onto the waiting list and will be informed should you move on to the list of participants.")
+            templates['onwaitinglist_subject'] = self._("You are on the waiting list for %s") %barcamp.name
             templates['fromwaitinglist_text'] = self.render_lang("emails/default_fromwaitinglist.txt", barcamp=barcamp, url=url)
-            templates['fromwaitinglist_subject'] = self._("You are now on the list of participants for this barcamp.")
+            templates['fromwaitinglist_subject'] = self._("You are now a participant at %s") %barcamp.name
 
             # set mail templates for ticketing
             templates['ticket_welcome_text'] = self.render_lang("emails/default_ticket_welcome.txt", barcamp=barcamp, url=url)

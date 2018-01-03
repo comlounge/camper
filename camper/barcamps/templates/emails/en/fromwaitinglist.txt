@@ -3,7 +3,7 @@ Hello {{user.fullname}}!
 Congratulations!  
 
 You just have been moved from the waiting list to the participant list and
-thus will take part in the event {{barcamp.name}}. 
+thus will take part at ((event_title)) of {{barcamp.name}}. 
 
 Should you cannot make it to the event please remove yourself from the list again
 so that other people from the waiting list can move up! Thank you!

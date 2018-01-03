@@ -81,7 +81,7 @@ class EventsView(BarcampBaseHandler):
             trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
                 languages=[str(self.babel_locale)])
         
-        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        countries = [(c.alpha_2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
 
 
@@ -180,7 +180,7 @@ class EventView(BarcampBaseHandler):
             trans = gettext.translation('iso3166_2', pycountry.LOCALES_DIR,
                 languages=[str(self.babel_locale)])
         
-        countries = [(c.alpha2, trans.ugettext(c.name)) for c in pycountry.countries]
+        countries = [(c.alpha_2, trans.ugettext(c.name)) for c in pycountry.countries]
         form.location_country.choices = countries
 
         if self.barcamp.public:

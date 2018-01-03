@@ -7727,6 +7727,239 @@ form {
     padding-top: 4px;
   }
 }
+#user-events-content .sessiontable {
+  display: flex;
+  flex-wrap: wrap;
+}
+#user-events-content .sessiontable .cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+  list-style: none;
+  position: relative;
+  border-right: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+}
+#user-events-content .sessiontable .cell .description {
+  display: none;
+}
+#user-events-content .sessiontable .cell a {
+  text-decoration: none;
+}
+#user-events-content .sessiontable .cell a:hover {
+  text-decoration: none;
+}
+#user-events-content .sessiontable .cell.active {
+  padding: 10px;
+  padding-bottom: 15px;
+  cursor: pointer;
+}
+#user-events-content .sessiontable .cell.active:hover {
+  background: #e0e0e0;
+}
+#user-events-content .sessiontable .cell.room {
+  padding: 10px;
+  background: #202020;
+  color: #f0f0f0;
+}
+#user-events-content .sessiontable .cell.blocked {
+  background: #fcf8e3;
+}
+#user-events-content .sessiontable .cell.timeslot {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  text-align: right;
+}
+#user-events-content .sessiontable .cell.timeslot:focus,
+#user-events-content .sessiontable .cell.timeslot.focus {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #255625;
+}
+#user-events-content .sessiontable .cell.timeslot:hover {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+#user-events-content .sessiontable .cell.timeslot:active,
+#user-events-content .sessiontable .cell.timeslot.active,
+.open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot {
+  color: #ffffff;
+  background-color: #449d44;
+  border-color: #398439;
+}
+#user-events-content .sessiontable .cell.timeslot:active:hover,
+#user-events-content .sessiontable .cell.timeslot.active:hover,
+.open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot:hover,
+#user-events-content .sessiontable .cell.timeslot:active:focus,
+#user-events-content .sessiontable .cell.timeslot.active:focus,
+.open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot:focus,
+#user-events-content .sessiontable .cell.timeslot:active.focus,
+#user-events-content .sessiontable .cell.timeslot.active.focus,
+.open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot.focus {
+  color: #ffffff;
+  background-color: #398439;
+  border-color: #255625;
+}
+#user-events-content .sessiontable .cell.timeslot:active,
+#user-events-content .sessiontable .cell.timeslot.active,
+.open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot {
+  background-image: none;
+}
+#user-events-content .sessiontable .cell.timeslot.disabled,
+#user-events-content .sessiontable .cell.timeslot[disabled],
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot,
+#user-events-content .sessiontable .cell.timeslot.disabled:hover,
+#user-events-content .sessiontable .cell.timeslot[disabled]:hover,
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:hover,
+#user-events-content .sessiontable .cell.timeslot.disabled:focus,
+#user-events-content .sessiontable .cell.timeslot[disabled]:focus,
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:focus,
+#user-events-content .sessiontable .cell.timeslot.disabled.focus,
+#user-events-content .sessiontable .cell.timeslot[disabled].focus,
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.focus,
+#user-events-content .sessiontable .cell.timeslot.disabled:active,
+#user-events-content .sessiontable .cell.timeslot[disabled]:active,
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:active,
+#user-events-content .sessiontable .cell.timeslot.disabled.active,
+#user-events-content .sessiontable .cell.timeslot[disabled].active,
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+#user-events-content .sessiontable .cell.timeslot .badge {
+  color: #5cb85c;
+  background-color: #ffffff;
+}
+#user-events-content .sessiontable .cell .room-description {
+  display: none;
+}
+#user-events-content .sessiontable.sessiontable-cols-1 .cell {
+  width: 100%;
+}
+#user-events-content .sessiontable.sessiontable-cols-2 .cell {
+  width: 50%;
+}
+#user-events-content .sessiontable.sessiontable-cols-3 .cell {
+  width: 33.33333333%;
+}
+#user-events-content .sessiontable.sessiontable-cols-4 .cell {
+  width: 25%;
+}
+#user-events-content .sessiontable.sessiontable-cols-5 .cell {
+  width: 20%;
+}
+#user-events-content .sessiontable.sessiontable-cols-6 .cell {
+  width: 16.66666667%;
+}
+#user-events-content .sessiontable.sessiontable-cols-7 .cell {
+  width: 14.28571429%;
+}
+#user-events-content .sessiontable.sessiontable-cols-8 .cell {
+  width: 12.5%;
+}
+#user-events-content .sessiontable.sessiontable-cols-9 .cell {
+  width: 11.11111111%;
+}
+#user-events-content .sessiontable.sessiontable-cols-10 .cell {
+  width: 10%;
+}
+#user-events-content .sessiontable.sessiontable-cols-11 .cell {
+  width: 9.09090909%;
+}
+#user-events-content .sessiontable.sessiontable-cols-12 .cell {
+  width: 8.33333333%;
+}
+#user-events-content .sessiontable.sessiontable-cols-13 .cell {
+  width: 7.69230769%;
+}
+#user-events-content .sessiontable.sessiontable-cols-14 .cell {
+  width: 7.14285714%;
+}
+#user-events-content .sessiontable.sessiontable-cols-15 .cell {
+  width: 6.66666667%;
+}
+#user-events-content .sessiontable.sessiontable-cols-16 .cell {
+  width: 6.25%;
+}
+#user-events-content h5 {
+  margin: 0 0 4px 0;
+}
+#user-events-content .moderators {
+  color: #606060;
+  font-size: 12px;
+}
+@media (max-width: 1199px) {
+  #user-events-content .cell {
+    width: 100% !important;
+    border: 0 !important;
+  }
+  #user-events-content .cell.room {
+    display: none;
+  }
+  #user-events-content .blocked ~ .blocked {
+    display: none;
+  }
+  #user-events-content .room-description {
+    display: block !important;
+  }
+}
+.sessiontable-actions {
+  margin-top: 20px;
+}
+@media (max-width: 1199px) {
+  ol.breadcrumb {
+    font-size: 11px;
+  }
+  .participation-details {
+    text-align: center;
+  }
+  #user-events-content .participation-details .infolabel {
+    float: none !important;
+  }
+  #user-events-content .participation-details .actions {
+    margin-top: 10px;
+    float: none !important;
+  }
+  .nav.nav-tabs {
+    border-bottom-color: transparent;
+    font-size: 11px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-inbetween;
+  }
+  .nav.nav-tabs > li {
+    flex: 1;
+    width: auto;
+    text-align: center;
+  }
+  .nav.nav-tabs > li + li {
+    margin-left: 4px;
+  }
+  .nav.nav-tabs > li > a {
+    padding: 5px;
+    width: auto;
+    border: 0;
+    background: #ddd;
+    margin: 0;
+  }
+  .nav.nav-tabs > li > a:hover {
+    border: 0 !important;
+  }
+  .nav.nav-tabs li.active a {
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 20px;
+  }
+  #eventlist .panel-body .btn {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
 /*
 ** general rules
 */
@@ -7826,7 +8059,7 @@ body#startpage h1.logo {
   margin-top: 50px;
   margin-bottom: 20px;
   color: white;
-  font-size: 100px;
+  font-size: 70px;
   font-family: 'Syncopate', sans-serif;
   font-weight: bold;
 }
@@ -8099,7 +8332,7 @@ fieldset[disabled] #barcamppage .attending a.active {
   background-color: #333333;
 }
 h1.logo {
-  font-size: 80px;
+  font-size: 60px;
   text-transform: uppercase;
 }
 h1.logo a,
@@ -8110,6 +8343,11 @@ h1.logo a:focus {
 }
 h1.logo a:hover {
   color: #333;
+}
+@media (max-width: 1199px) {
+  h1.logo {
+    font-size: 30px;
+  }
 }
 .event-location-map {
   width: 100%;
@@ -8827,132 +9065,16 @@ a#user-events-content .datelist .plabel:focus {
 #user-events-content .datelist .plabel.plabel-not[href]:focus {
   background-color: #5e5e5e;
 }
-#user-events-content .sessiontable {
-  margin-top: 30px;
-}
-#user-events-content .sessiontable .slot {
-  padding: 10px;
-  position: relative;
-  padding-bottom: 10px;
-}
-#user-events-content .sessiontable .slot.active {
-  cursor: pointer;
-}
-#user-events-content .sessiontable .slot.active:hover {
-  background: #e0e0e0;
-}
-#user-events-content .sessiontable h5 {
-  margin: 0 0 4px 0;
-}
-#user-events-content .sessiontable .moderators {
-  color: #606060;
-  font-size: 12px;
-}
-#user-events-content .sessiontable thead th {
-  background: #202020;
-  color: #f0f0f0;
-}
-#user-events-content .sessiontable tbody th {
-  color: #ffffff;
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-  font-size: 20px;
-  text-align: center;
-  font-weight: normal;
-}
-#user-events-content .sessiontable tbody th:focus,
-#user-events-content .sessiontable tbody th.focus {
-  color: #ffffff;
-  background-color: #449d44;
-  border-color: #255625;
-}
-#user-events-content .sessiontable tbody th:hover {
-  color: #ffffff;
-  background-color: #449d44;
-  border-color: #398439;
-}
-#user-events-content .sessiontable tbody th:active,
-#user-events-content .sessiontable tbody th.active,
-.open > .dropdown-toggle#user-events-content .sessiontable tbody th {
-  color: #ffffff;
-  background-color: #449d44;
-  border-color: #398439;
-}
-#user-events-content .sessiontable tbody th:active:hover,
-#user-events-content .sessiontable tbody th.active:hover,
-.open > .dropdown-toggle#user-events-content .sessiontable tbody th:hover,
-#user-events-content .sessiontable tbody th:active:focus,
-#user-events-content .sessiontable tbody th.active:focus,
-.open > .dropdown-toggle#user-events-content .sessiontable tbody th:focus,
-#user-events-content .sessiontable tbody th:active.focus,
-#user-events-content .sessiontable tbody th.active.focus,
-.open > .dropdown-toggle#user-events-content .sessiontable tbody th.focus {
-  color: #ffffff;
-  background-color: #398439;
-  border-color: #255625;
-}
-#user-events-content .sessiontable tbody th:active,
-#user-events-content .sessiontable tbody th.active,
-.open > .dropdown-toggle#user-events-content .sessiontable tbody th {
-  background-image: none;
-}
-#user-events-content .sessiontable tbody th.disabled,
-#user-events-content .sessiontable tbody th[disabled],
-fieldset[disabled] #user-events-content .sessiontable tbody th,
-#user-events-content .sessiontable tbody th.disabled:hover,
-#user-events-content .sessiontable tbody th[disabled]:hover,
-fieldset[disabled] #user-events-content .sessiontable tbody th:hover,
-#user-events-content .sessiontable tbody th.disabled:focus,
-#user-events-content .sessiontable tbody th[disabled]:focus,
-fieldset[disabled] #user-events-content .sessiontable tbody th:focus,
-#user-events-content .sessiontable tbody th.disabled.focus,
-#user-events-content .sessiontable tbody th[disabled].focus,
-fieldset[disabled] #user-events-content .sessiontable tbody th.focus,
-#user-events-content .sessiontable tbody th.disabled:active,
-#user-events-content .sessiontable tbody th[disabled]:active,
-fieldset[disabled] #user-events-content .sessiontable tbody th:active,
-#user-events-content .sessiontable tbody th.disabled.active,
-#user-events-content .sessiontable tbody th[disabled].active,
-fieldset[disabled] #user-events-content .sessiontable tbody th.active {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-}
-#user-events-content .sessiontable tbody th .badge {
-  color: #5cb85c;
-  background-color: #ffffff;
-}
-#user-events-content .sessiontable .description {
-  display: none;
-}
-#user-events-content .sessiontable tbody tr.active th {
-  font-weight: bold;
-  background: #357935;
-  color: white;
-}
-#user-events-content .sessiontable tbody tr.active td.slot {
-  background: #5cb85c;
-  color: white;
-}
-#user-events-content .sessiontable tbody tr.active td.slot a {
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-}
-#user-events-content .sessiontable tbody tr.active td.slot a .moderators {
-  color: white;
-  font-weight: normal;
-}
-#user-events-content .sessiontable tbody tr.active td.slot a:hover {
-  text-decoration: none;
-}
-#user-events-content .sessiontable tbody tr.active td.slot:hover {
-  text-decoration: none;
-  background: #357935;
-}
 #sessionpad h1 .authors {
   font-size: 60%;
   line-height: 1.5;
+  text-transform: none;
   color: #555;
+}
+#sessionpad small {
+  text-transform: none;
+  font-size: 22px;
+  font-weight: normal;
 }
 #blogentry header {
   overflow: auto;
@@ -9131,4 +9253,58 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
 }
 #add-to-calendar-container .dropdown-menu li + li {
   border-top: 1px solid #d0d0d0;
+}
+aside .btn-admin {
+  margin-bottom: 30px;
+}
+.sidebar-panel {
+  padding-top: 25px;
+}
+.sidebar-panel h3 {
+  border-bottom: 1px solid #777;
+  padding-bottom: 10px;
+}
+.sidebar-panel h5 {
+  padding-top: 10px;
+  padding-bottom: 0px;
+  text-decoration: underline;
+}
+.sidebar-panel .fa-envelope,
+.sidebar-panel .fa-phone,
+.sidebar-panel .fa-home {
+  width: 16px;
+  color: #333;
+}
+.sidebar-panel .fa-heart {
+  color: #c30;
+  font-size: 20px;
+}
+#sidebar-location-description {
+  font-size: 12px;
+  color: #666;
+}
+#sidebar-location-homepage {
+  overflow: hidden;
+  height: 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#sidebar-social li i {
+  display: inline-block;
+  width: 16px;
+  text-align: center;
+  color: #346;
+}
+#sidebar-social ul {
+  padding-left: 0;
+  list-style: none;
+}
+#sidebar-social ul li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  height: 20px;
+}
+#sidebar-social i.fa-bullhorn {
+  color: #333;
 }

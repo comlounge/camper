@@ -1,6 +1,7 @@
 Hallo ((fullname)),
 
-leider ist die Teilnehmerliste schon voll und Du wurdest auf die Warteliste gesetzt.
+leider ist die Teilnehmerliste für ((event_title)) schon voll und 
+Du wurdest auf die Warteliste gesetzt.
 
 Sollten sich Teilnehmer abmelden, so rücken Personen von der Warteliste automatisch
 nach und werden per E-Mail informiert.
