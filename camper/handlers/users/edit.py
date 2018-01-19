@@ -15,14 +15,6 @@ class ProfileImageAssetUploadView(AssetUploadView):
 
     variant = "medium_user"
 
-TSHIRT_CHOICES = (
-    ('s' , 'S'),
-    ('m' , 'M'),
-    ('l' , 'L'),
-    ('xl' , 'XL'),
-    ('xxl' , 'XXL'),
-)
-
 class EditForm(BaseForm):
     """form for adding a barcamp"""
     user_id       = HiddenField()
@@ -32,7 +24,6 @@ class EditForm(BaseForm):
     organisation  = TextField(T(u"Organization"), [validators.Length(max=100)], description = T("your school, company, institution (max. 100 characters)"))
     twitter       = TextField(T(u"Twitter"), [validators.Length(max=100)], description = T("your twitter username"))
     facebook      = TextField(T(u"Facebook"), [validators.Length(max=255)], description = T("path to your facebook profile (without domain)"))
-    tshirt        = SelectField(T(u"T shirt size"), choices = TSHIRT_CHOICES)
     image         = UploadField(T(u"Profile Image (optional)"))
 
     # TODO: maybe change email, too?
