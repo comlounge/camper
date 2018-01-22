@@ -102,7 +102,7 @@ class CamperUser(User):
 
         now = datetime.datetime.now()
 
-        if self.new_email_code == code and now-timedelta(hours=24) <= self.new_email_date and self.new_email_code != "":
+        if self.new_email_code == code and now-datetime.timedelta(hours=24) <= self.new_email_date and self.new_email_code != "":
             self.email = self.new_email
             self.new_email_code = ""
             self.new_email = ""
