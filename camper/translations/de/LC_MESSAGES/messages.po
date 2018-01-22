@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-01-03 17:15+0100\n"
-"PO-Revision-Date: 2018-01-03 17:17+0100\n"
+"POT-Creation-Date: 2018-01-22 17:43+0100\n"
+"PO-Revision-Date: 2018-01-22 17:47+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: app.py:262
 msgid "User unknown"
@@ -691,7 +691,7 @@ msgstr "Warteliste"
 msgid "newsletter sent successfully"
 msgstr "Newsletter erfolgreich versandt"
 
-#: barcamps/newsletter.py:144
+#: barcamps/newsletter.py:144 handlers/users/change_email.py:45
 msgid "Confirm your Reply-To address"
 msgstr "Bestätige die Antwort-Adresse"
 
@@ -707,7 +707,7 @@ msgstr "Bitte gib eine E-Mail-Adresse an."
 msgid "The reply to address was successfully confirmed"
 msgstr "Die Antwort-Adresse wurde erfolgreich bestätigt."
 
-#: barcamps/newsletter.py:166
+#: barcamps/newsletter.py:166 handlers/users/change_email.py:70
 msgid "Unfortunately the code was wrong. Please try again!"
 msgstr "Leider war der Code falsch. Bitte versuche es noch einmal!"
 
@@ -1009,7 +1009,7 @@ msgstr "Neuen Blogpost hinzufügen"
 #: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
-#: templates/users/edit.html:46
+#: templates/users/edit.html:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1375,7 +1375,7 @@ msgid "Repeat your password"
 msgstr "Wiederhole Dein Passwort"
 
 #: barcamps/templates/registration_wizard.html:63
-#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:29
+#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:21
 msgid "Fullname"
 msgstr "Voller Name"
 
@@ -1480,7 +1480,7 @@ msgstr "Sessionvorschlag löschen"
 #: barcamps/templates/admin/gallery_macros.html:50
 #: barcamps/templates/sessions.html:67 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:130
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2361,7 +2361,7 @@ msgstr "https://"
 msgid "barcamp description in 160 chars"
 msgstr "Barcamp-Beschreibung in 160 Zeichen"
 
-#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:33
+#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:25
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -2377,7 +2377,7 @@ msgstr "Twitter-Konto"
 msgid "Twitter Hashtag"
 msgstr "Twitter-Hashtag"
 
-#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:34
+#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:26
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -2874,59 +2874,67 @@ msgstr "Dein Konto wurde erfolgreich aktiviert und damit ist Deine Barcamp-Regis
 msgid "Your account has been successfully activated."
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: handlers/users/edit.py:30
-msgid "url name (username)"
-msgstr "URL-Pfad (Benutzername)"
+#: handlers/users/change_email.py:17
+msgid "E-Mail address"
+msgstr "E-Mail-Adresse"
 
-#: handlers/users/edit.py:30
-msgid "this is the url path of your profile page, should only contain letters and numbers"
-msgstr "Dies ist der URL-Pfade zu Deinem Profil, er sollte nur Buchstaben und Zahlen enthalten."
-
-#: handlers/users/edit.py:31 templates/users/profile.html:21
-msgid "About me"
-msgstr "Über mich"
-
-#: handlers/users/edit.py:32
-msgid "Organization"
-msgstr "Organisation"
-
-#: handlers/users/edit.py:32
-msgid "your school, company, institution (max. 100 characters)"
-msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
-
-#: handlers/users/edit.py:33
-msgid "your twitter username"
-msgstr "Dein Twitter-Benutzername"
-
-#: handlers/users/edit.py:34
-msgid "path to your facebook profile (without domain)"
-msgstr "Pfad zum Facebook-Profil (ohne Domain)"
-
-#: handlers/users/edit.py:35
-msgid "T shirt size"
-msgstr "T-Shirt-Größe"
-
-#: handlers/users/edit.py:36
-msgid "Profile Image (optional)"
-msgstr "Profil-Bild (optional)"
-
-#: handlers/users/edit.py:41
+#: handlers/users/change_email.py:21 handlers/users/edit.py:32
 msgid "this email address is already taken"
 msgstr "Diese E-Mail-Adresse ist schon vergeben"
 
-#: handlers/users/edit.py:45
+#: handlers/users/change_email.py:25 handlers/users/edit.py:36
 msgid "this url path is already taken"
 msgstr "Dieser URL-Pfad ist schon vergeben"
 
-#: handlers/users/edit.py:69
-msgid "Your profile has been updated"
-msgstr "Dein Profilbild wurde aktualisiert"
+#: handlers/users/change_email.py:47
+msgid "Please check your inbox of the new email for a confirmation mail and confirm it"
+msgstr "Bitte überprüfe Dein E-Mail-Postfach der neuen E-Mail-Adresse, um diese zu bestätigen"
 
-#: handlers/users/edit.py:73
+#: handlers/users/change_email.py:51 handlers/users/edit.py:64
 msgid "There have been errors in the form"
 msgstr "Das Formular beinhaltet einen Fehler"
 
-#: handlers/users/edit.py:94
+#: handlers/users/change_email.py:67
+msgid "You have successfully changed your email address!"
+msgstr "Du hast Deine E-Mail-Adresse erfolgreich geändert"
+
+#: handlers/users/edit.py:22
+msgid "url name (username)"
+msgstr "URL-Pfad (Benutzername)"
+
+#: handlers/users/edit.py:22
+msgid "this is the url path of your profile page, should only contain letters and numbers"
+msgstr "Dies ist der URL-Pfade zu Deinem Profil, er sollte nur Buchstaben und Zahlen enthalten."
+
+#: handlers/users/edit.py:23 templates/users/profile.html:21
+msgid "About me"
+msgstr "Über mich"
+
+#: handlers/users/edit.py:24
+msgid "Organization"
+msgstr "Organisation"
+
+#: handlers/users/edit.py:24
+msgid "your school, company, institution (max. 100 characters)"
+msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
+
+#: handlers/users/edit.py:25
+msgid "your twitter username"
+msgstr "Dein Twitter-Benutzername"
+
+#: handlers/users/edit.py:26
+msgid "path to your facebook profile (without domain)"
+msgstr "Pfad zum Facebook-Profil (ohne Domain)"
+
+#: handlers/users/edit.py:27
+msgid "Profile Image (optional)"
+msgstr "Profil-Bild (optional)"
+
+#: handlers/users/edit.py:60
+msgid "Your profile has been updated"
+msgstr "Dein Profilbild wurde aktualisiert"
+
+#: handlers/users/edit.py:85
 msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
 
@@ -3296,7 +3304,7 @@ msgstr "Verwaltung"
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:97 templates/users/profile.html:45
+#: templates/master.html:97 templates/users/profile.html:49
 msgid "Change Password"
 msgstr "Passwort ändern"
 
@@ -3354,6 +3362,18 @@ msgstr "Fehlt dir die Aktivierungs-EMail?"
 msgid "Please send me a new activation code"
 msgstr "Bitte sende mir einen neuen Aktivierungscode"
 
+#: templates/users/change_email.html:9
+msgid "Change your email address"
+msgstr "E-Mail-Adresse ändern"
+
+#: templates/users/change_email.html:11
+msgid "Use the form below to set a new email address for your account. You will receive a confirmation email to your new address before the new address becomes active."
+msgstr "Nutze das untenstehende Formular, um eine neue E-Mail-Adresse für Dein Konto zu vergeben. Bevor diese aktiv wird, musst Du jedoch erst die Bestätigung-Mail bestätigen, die an die neue Adresse geht."
+
+#: templates/users/change_email.html:18
+msgid "Save new email"
+msgstr "Neue Adresse speichern"
+
 #: templates/users/edit.html:6
 msgid "Edit public profile"
 msgstr "Öffentliches Profil bearbeiten"
@@ -3366,11 +3386,11 @@ msgstr "Benutzername"
 msgid "Facebook-Account"
 msgstr "Facebook-Account"
 
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Upload Profile Image"
 msgstr "Profilbild hochladen"
 
-#: templates/users/edit.html:45
+#: templates/users/edit.html:44
 msgid "Update Profile"
 msgstr "Profil aktualisieren"
 
@@ -3382,9 +3402,13 @@ msgstr "Dies könnte ein Text über Dich sein"
 msgid "not given"
 msgstr "nicht angegeben"
 
-#: templates/users/profile.html:44
+#: templates/users/profile.html:45
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
+
+#: templates/users/profile.html:50
+msgid "Change E-Mail"
+msgstr "E-Mail-Adresse ändern"
 
 #~ msgid "link to tweetwally twitterall"
 #~ msgstr "Link zur tweetwally Twitterwall"
@@ -3394,3 +3418,6 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "you cannot remove admin rights from the creator of this barcamp."
 #~ msgstr "Du kannst dem Ersteller des Barcamps nicht die Adminrechte entziehen."
+
+#~ msgid "T shirt size"
+#~ msgstr "T-Shirt-Größe"
