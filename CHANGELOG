@@ -150,4 +150,11 @@ In order to migrate::
 
 - location email and url can now be empty again
 
+2.3.2
+=====
+
+- fixed saving of SEO page
+
+
+
 
