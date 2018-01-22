@@ -7979,6 +7979,12 @@ h6 {
 #user-profile h2 {
   margin-top: 0;
 }
+.profile-actions {
+  margin: 10px 0;
+}
+.profile-actions-danger {
+  margin: 30px 0;
+}
 .profile-image {
   border: 1px solid #ccc;
   padding: 1px;

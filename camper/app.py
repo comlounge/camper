@@ -321,6 +321,7 @@ class CamperApp(Application):
         URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
+        URL('/u/change_email', 'email_edit', handlers.users.change_email.EMailEditView),
         URL('/u/activate', 'activation', handlers.users.activation.ActivationHandler),
 
         # admin area

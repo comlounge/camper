@@ -1,6 +1,7 @@
 import datetime
 from userbase.db import User, UserSchema
 from mongogogo import *
+from uuid import uuid4
 
 
 __all__ = ['CamperUser']
@@ -16,6 +17,10 @@ class CamperUserSchema(UserSchema):
     tshirt              = String()
     organisation        = String()
     image               = String()
+
+    new_email           = String()  # used for changing your email address
+    new_email_code      = String()  # activation code for new email address
+    new_email_date      = DateTime()    # date when email was changed
 
     registered_for      = Dict(default={})    # list of events of a barcamp the user to add to after activation
 
@@ -34,6 +39,8 @@ class CamperUser(User):
         "organisation"      : "",
         "image"             : "",
         "registered_for"    : {},
+        "new_email"         : "",
+        "new_email_code"    : "",
     })
 
     @property
@@ -70,6 +77,38 @@ class CamperUser(User):
     def user_id(self):
         """return the user id as string"""
         return unicode(self._id)
+
+    def set_new_email(self, email_address):
+        """set up a new email address for the user
+
+        you need to save the user afterwards
+
+        :param email_address: the email address to be set
+        :returns: a uuid code for sending to the user to verify
+        """
+
+        self.new_email = email_address
+        self.new_email_date = datetime.datetime.now()
+        self.new_email_code = unicode(uuid.uuid4())
+        return self.new_email_code
+
+    def verify_email_code(self, code):
+        """verify the new email verification code
+
+        returns True if it's ok and will set the new email addres
+
+        you need to save the user object afterwards
+        """
+
+        now = datetime.datetime.now()
+
+        if self.new_email_code == code and now-timedelta(hours=24) <= self.new_email_date and self.new_email_code != "":
+            self.email = self.new_email
+            self.new_email_code = ""
+            self.new_email = ""
+            return True
+        else:
+            return False
 
 
     def __eq__(self, other):
