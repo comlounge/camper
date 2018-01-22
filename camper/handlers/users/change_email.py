@@ -39,9 +39,10 @@ class EMailEditView(BaseHandler):
                 email = form.data['email']
                 # now save it temporarily and send an activation email
                 code = self.user.set_new_email(email)
-                print "got email, sending activation email", email, code
-                activation_url = code
-                self.mail_text("emails/nl_set_reply_to.txt", self._('Confirm your Reply-To address'), send_to = email, activation_url = activation_url)
+
+                activation_url = self.url_for("confirm_email", _full = True, _append = True, code = code)
+
+                self.mail_text("emails/new_reply_to.txt", self._('Confirm your Reply-To address'), send_to = email, activation_url = activation_url)
                 self.user.save()
                 self.flash(self._("Please check your inbox of the new email for a confirmation mail and confirm it"), category="info")
                 url = self.url_for("profile", username = self.user.username)
@@ -51,3 +52,22 @@ class EMailEditView(BaseHandler):
         return self.render(form = form, user = self.user)
 
     post = get
+
+
+class ConfirmEMail(BaseHandler):
+    """handler for confirming the new email address"""
+
+    def get(self, slug = None):
+        """verify the reply to code and inform the user"""
+
+        code = self.request.args.get("code", "")
+        confirmed = self.user.verify_email_code(code)
+        self.user.save()
+        if confirmed:
+            self.flash(self._('You have successfully changed your email address!'), category="info")
+            return redirect(self.url_for("profile", username = self.user.username))
+        else:
+            self.flash(self._('Unfortunately the code was wrong. Please try again!'), category="danger")
+            return redirect(self.url_for("email_edit"))
+        
+
