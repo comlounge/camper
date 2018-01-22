@@ -1,0 +1,28 @@
+{% extends M.userbase.config.master_template %}
+{% import "_m/userbase/macros.html" as formmacros with context %}
+
+{% block content %}
+<div id="index">
+    <div class="row">
+        <div class="col-md-8">
+            <section class="form">
+                <h2>{{_('Change your email address')}}</h2>
+                <div class="description">
+                    {{_("Use the form below to set a new email address for your account. You will receive a confirmation email to your new address before the new address becomes active.")}}
+                </div>
+                <form class="" data-parsley-validate method="POST" action="{{url}}" id="email-edit-form"> 
+                    <input type="hidden" name="user_id" value="{{user_id}}">
+                    {{ formmacros.form_field(form.email, maxlength=40, input_class="col-md-4", class="form-control required", id="email") }}
+                    <fieldset class="form-actions">
+                        <div class="input">
+                            <input type="submit" class="btn btn-primary btn-large" value="{{_("Save new email")}}">
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
+{% endblock %}
