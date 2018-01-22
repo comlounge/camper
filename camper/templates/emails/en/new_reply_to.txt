@@ -1,0 +1,10 @@
+Hello!
+
+In order to activate your new email address you have to confirm it first
+by clicking the following link:
+
+{{activation_url}}
+
+If you haven't requested a change in your email address please simply ignore this message.
+
+Your barcamptools.eu Team
