@@ -1,0 +1,10 @@
+Hallo!
+
+Um Deine neue E-Mail-Adresse zu aktivieren, musst Du sie zunächst verifizieren,
+indem Du auf den folgenden Link klickst:
+
+{{activation_url}}
+
+Falls Du keine Änderung Deiner E-Mail-Adresse beantragt hast, ignoriere diese Nachricht einfach.
+
+Dein barcamptools.eu-Team
