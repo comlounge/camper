@@ -27,12 +27,12 @@
 
                 <hr>
                 <ul>
-                    <li class="{{'active' if menu=='wizard'}}"><a href="{{url_for("barcamps.admin_wizard", slug=slug)}}"><i class="fa fa-tasks"></i> {{_('Complete your barcamp')}}</a>
-                    <div class="progress" style="height: 20px;">
+                    <div class="progress" style="height: 20px; margin-bottom: 5px;">
                         <div class="progress-bar {{'progress-bar-success' if complete==100 else 'progress-bar-warning'}} progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="font-family: Roboto; font-weight: 700; font-size: 10px; padding: 0px; width: {{complete}}%;">
                             {{complete}}%
                         </div>
                     </div>
+                    <li class="{{'active' if menu=='wizard'}}"><a class="wizard-link" href="{{url_for("barcamps.admin_wizard", slug=slug)}}"><i class="fa fa-tasks"></i> {{_('Complete your barcamp')}}</a>
                     </li>
 
                 </ul>
@@ -73,13 +73,33 @@
         {% endif %}
         <div class="{{'col-lg-10 col-md-10' if container=='full' else 'col-lg-9 col-md-8    '}}">
             {% if barcamp.workflow=="created" %}
-                <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
-                    <input type="hidden" name="wf" value="public">
-                    <div class="well">
-                        <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
-                        <b style="color: red">{{_('this barcamp is not public')}}</b>
+                {% if barcamp.publish_not_allowed %}
+                    <div class="alert alert-danger">
+                        <a style="display: none" href="#" id="reason-up" title="{{_('hide details')}}" class="pull-right btn btn-sm btn-danger">{{_('less info')}} <i class="fa fa-arrow-up"></i></a>
+                        <a href="#" id="reason-down" title="{{_('show details')}}" class="pull-right btn btn-sm btn-danger">{{_('Why?')}} </a>
+                        <h4>{{_('The barcamp cannot be published at the moment.')}}</h4>
+                        <div id="reasons" style="display: none;">
+                            <p>
+                            {{_(' Please fix the following problems first:')}}
+                            </p>
+                            <ul>
+                                {% for reason in barcamp.publish_not_allowed %}
+                                <li><a href="{{url_for('.'+reason['url'], slug = slug)}}">{{_(reason.reason)}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
-                </form>
+                {% else %}
+                        <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
+                            <input type="hidden" name="wf" value="public">
+                                <div class="alert alert-success">
+                                    <p class="clearfix">
+                                        <button class="pull-right btn btn-small btn-success">{{_('publish barcamp')}}</button>
+                                        <b style="color: red">{{_('this barcamp is not public')}}</b>
+                                    </p>
+                                </div>
+                        </form>
+                {% endif %}
             {% elif barcamp.workflow == "public" %}
                 <form action="{{url_for('barcamps.permissions', slug=slug)}}" method="POST">
                     <input type="hidden" name="wf" value="registration">
@@ -127,6 +147,19 @@
             slug_validation_url : "{{url_for('barcamps.validate')}}",
             page_slug_validation_url : "{{url_for('pages.slug_validate', slug = slug or '', page_slug = page_slug) if page_slug else url_for('pages.slug_validate', slug = slug or '')}}"
         }
+        $(document).ready(function() {
+            $("#reason-down").on("click", function() {
+                $("#reasons").slideDown();
+                $("#reason-down").hide();
+                $("#reason-up").show();
+            })
+            $("#reason-up").on("click", function() {
+                $("#reasons").slideUp();
+                $("#reason-down").show();
+                $("#reason-up").hide();
+            })
+
+        })
     </script>
     
     {% block bcjs %}

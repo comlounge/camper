@@ -29,6 +29,7 @@ import legal
 import legaledit
 import socialedit
 import duplicate
+import customfields
 
 from starflyer import Module, URL
 
@@ -38,7 +39,8 @@ class BarcampModule(Module):
     name = "barcamps"
 
     routes = [
-        URL('/b/add',                       'add',                              add.AddView),
+        URL('/b/setup',                     'setup',                            add.SetupView),
+        URL('/b/add/<paid>',                'add',                              add.AddView),
         URL('/b/validate',                  'validate',                         add.ValidateView),
         URL('/<slug>',                      'index',                            index.View),
         URL('/<slug>/validate',             'validate',                         add.ValidateView),
@@ -49,7 +51,7 @@ class BarcampModule(Module):
         URL('/<slug>/mails_edit',           'email_template_editor',            edit.MailsEditView),
         URL('/<slug>/newsletter_send',      'newsletter_send',                  newsletter.NewsletterEditView),
         URL('/<slug>/participants_edit',    'participants_edit',                edit.ParticipantsEditView),
-        URL('/<slug>/registration_editor',  'registration_form_editor',         edit.ParticipantsDataEditView),
+        URL('/<slug>/registration_editor',  'registration_form_editor',         customfields.ParticipantsDataEditView),
         URL('/<slug>/registration.xls',     'registration_data_export',         registration.RegistrationDataExport),
 
         #URL('/<slug>/sponsors',     'sponsors',         index.BarcampSponsors),

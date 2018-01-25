@@ -11,33 +11,37 @@
     <form class="form-horizontal parsley-validate" id="bcform" method="POST" id="add-form" action="{{url}}">
         <fieldset id="legal-view">
             <legend>{{_('Legal information')}}</legend>
-            <div class="help-block">{{_('You need to fill this out if you take money for attending your events')}}</div>
+            <div class="text-danger">
+                <p>
+                    {{_('You need to fill this out if you take money for attending your events')}}
+                </p>
+            </div>
 
             <div class="form-group">
                 <label for="contact_email" class="col-sm-2">{{_('Contact email address')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.f(form.contact_email, required=barcamp.paid_tickets, type="email", placeholder=_('contact@barcamp'), maxlength=160)}}
+                    {{formmacros.f(form.contact_email, type="email", placeholder=_('contact@barcamp'), maxlength=160)}}
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="imprint" class="col-sm-2 control-label">{{_('Imprint')}}</label>
+                <label for="imprint" class="col-sm-2">{{_('Imprint')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.my_field(form.imprint, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="imprint", placeholder=_(''))}}
+                    {{formmacros.my_field(form.imprint, input_class="wysiwyg", size="mce", rows=10, id="imprint")}}
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="tos" class="col-sm-2 control-label">{{_('Terms of Service')}}</label>
+                <label for="tos" class="col-sm-2">{{_('Terms of Service')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.my_field(form.tos, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="tos", placeholder=_(''))}}
+                    {{formmacros.my_field(form.tos, input_class="wysiwyg", size="mce", rows=10, id="tos")}}
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="cancel_policy" class="col-sm-2 control-label">{{_('Cancellation Policy')}}</label>
+                <label for="cancel_policy" class="col-sm-2">{{_('Cancellation Policy')}}</label>
                 <div class="col-sm-10">
-                    {{formmacros.my_field(form.cancel_policy, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="cancel_policy", placeholder=_(''))}}
+                    {{formmacros.my_field(form.cancel_policy, input_class="wysiwyg", size="mce", rows=10, id="cancel_policy")}}
                 </div>
             </div>
         </fieldset>

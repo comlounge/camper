@@ -4,7 +4,11 @@
 {% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
 {% block content %}
     {% block title %}
-        <h1>{{_('Create a new Barcamp')}}</h1>
+        {% if paid=="paid" %}
+            <h1>{{_('Create a new paid Barcamp')}}</h1>
+        {% else %}
+            <h1>{{_('Create a new free Barcamp')}}</h1>
+        {% endif %}
     {% endblock %}
 
     {{ locationpicker() }}
@@ -38,7 +42,7 @@
         {% endif %}
 
         <div class="form-group">
-            <label for="description" class="col-sm-2 control-label">{{_('Description')}}</label>
+            <label for="description" class="col-sm-2 control-label">{{_('Description')}}*</label>
             <div class="col-sm-10">
                 {{formmacros.my_field(form.description, input_class="wysiwyg", size="mce", rows=10, id="description", placeholder=_('Add more info'))}}
             </div>
@@ -60,19 +64,33 @@
             <div class="col-sm-10">
                 {{formmacros.f(form.hide_barcamp)}}
             </div>
-        </div>        
+        </div>
+        {% if paid=="free" %}
         <div class="form-group">
             <label for="repregistration" class="col-sm-2 control-label">{{_('Pre-Registration')}}</label>
             <div class="col-sm-10">
                 {{formmacros.f(form.preregistration, disabled = barcamp is not none and barcamp.paid_tickets)}}
             </div>
         </div>
+        {% endif %}
         <div class="form-group">
             <label for="hide_barcamp" class="col-sm-2 control-label">{{_('Receive notifications')}}</label>
             <div class="col-sm-10">
                 {{formmacros.f(form.send_email_to_admins)}}
             </div>
-        </div>        
+        </div>     
+
+        <fieldset id="legal-view">
+            <legend>{{_('Legal Information')}}</legend>
+            <div class="form-group">
+                <label for="imprint" class="col-sm-2 control-label">{{_('Imprint')}}*</label>
+                <div class="col-sm-10">
+                    {{formmacros.my_field(form.imprint, required=barcamp.paid_tickets, input_class="wysiwyg", size="mce", rows=10, id="imprint", placeholder=_(''))}}
+                </div>
+            </div>
+        </fieldset>
+
+
 
         <fieldset id="location-view">
             <legend>{{_('Location')}}</legend>                    
@@ -115,7 +133,15 @@
             {{ formmacros.form_field(form.location_url, type="url", label_class="col-sm-2", input_class="url", size="col-sm-10", placeholder="", **{'data-parsley-type' : 'url'}) }}
         </fieldset>
         {% block action %}
-            <input type="submit" class="btn btn-large btn-primary" value="{{_('create Barcamp')}}">
+            {% if paid=="paid" %}
+                <input type="submit" class="btn btn-large btn-primary" value="{{_('create paid Barcamp')}}">
+                <div class="help-block">
+                    {{_('Please note: In order to publish your barcamp later you first need to add all the necessary legal information.')}}
+                </div>
+            {% else %}
+                <input type="submit" class="btn btn-large btn-primary" value="{{_('create free Barcamp')}}">
+            {% endif %}
+            
         {% endblock %}
     </form>
 {% endblock %}

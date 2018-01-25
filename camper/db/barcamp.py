@@ -7,6 +7,7 @@ import pycountry
 from slugify import UniqueSlugify
 import embeddify                                                                                                                                                 
 import re
+from sfext.babel import T
 
 from tickets import *
 
@@ -83,6 +84,7 @@ class RegistrationFieldSchema(Schema):
     title               = String(required=True)
     description         = String()
     fieldtype           = String(required=True)
+    choices             = List(List(String()), default=[])
     required            = Boolean()
 
 
@@ -578,6 +580,36 @@ class Barcamp(Record):
             and len(self.tos.strip())>20 \
             and len(self.cancel_policy.strip())>20
 
+    @property
+    def publish_not_allowed(self):
+        """check if publishing a barcamp is allowed. Reasons will be listed in the resulting array. False means
+        barcamp can be published"""
+        if not self.ticketmode_enabled:
+            return False
+        reasons = []
+        if not self.contact_email:
+            reasons.append({
+                'reason'    : T('The contact email is not set'),
+                'url'       : 'legaledit'
+            })
+        if not len(self.imprint.strip())>20:
+            reasons.append({
+                'reason'    : T('The Imprint is missing'),
+                'url'       : 'legaledit'
+            })
+        if not len(self.tos.strip())>20:
+            reasons.append({
+                'reason'    : T('The terms of service are missing'),
+                'url'       : 'legaledit'
+            })
+        if not len(self.cancel_policy.strip())>20:
+            reasons.append({
+                'reason'    : T('The cancel policy is missing'),
+                'url'       : 'legaledit'
+            })
+
+        return reasons
+        
     @property
     def has_imprint(self):
         """return whether the barcamp has a proper imprint or not

@@ -12,7 +12,6 @@ import gettext
 from ..form import MyDateField
 from camper.handlers.forms import WYSIWYGField
 
-
 class BarcampAddForm(BaseForm):
     """form for adding a barcamp"""
     #created_by          = String() # TODO: should be ref to user
@@ -34,9 +33,8 @@ class BarcampAddForm(BaseForm):
     hide_barcamp        = BooleanField(T('Hide Barcamp'), description=T(u'If enabled this will hide this barcamp from showing up in the front page and in search engines'))
     start_date          = MyDateField(u"Start-Datum", [], default=None, format="%d.%m.%Y")
     end_date            = MyDateField(u"End-Datum", [], default=None, format="%d.%m.%Y")
-    twitterwall         = TextField(u"Link zur tweetwally Twitterwall", [validators.Length(max=100)],
-            description="erstelle eine eigene Twitterwall bei <a href='http://tweetwally.com'>tweetwally.com</a> und trage hier die URL zu dieser ein, z.B. <tt>http://jmstvcamp.tweetwally.com/</tt>")
-    fbAdminId           = TextField(u"Facebook Admin-ID", [validators.Length(max=100)], description="optionale ID des Admins")
+
+    imprint             = WYSIWYGField(T("Imprint"), [validators.Required(), validators.Length(max=2000)], description=T("Please describe in detail who is responsible for this barcamp."))
     
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)
@@ -51,13 +49,24 @@ class BarcampAddForm(BaseForm):
     location_lng                 = HiddenField()
 
 
+class SetupView(BaseHandler):
+    """initial barcamp screen asking for paid vs free"""
+
+    template="admin/setup.html"
+
+    @logged_in()
+    def get(self):
+        print self.request.form
+        return self.render()
+
+
 class AddView(BaseHandler):
     """an index handler"""
 
     template = "admin/add.html"
 
     @logged_in()
-    def get(self):
+    def get(self, paid="paid"):
         """render the view"""
         form = BarcampAddForm(self.request.form, config = self.config)
 
@@ -148,11 +157,17 @@ class AddView(BaseHandler):
             templates['ticket_canceled_subject'] = self._("Your ticket for %s was canceled.") %barcamp.name
             barcamp.update({'mail_templates':templates})
 
+            # check if we need to enabled paid tickets
+            if paid=="paid":
+                barcamp.ticketmode_enabled = True
+                barcamp.paid_tickets = True
+                barcamp.preregistration = True
+
             barcamp = self.config.dbs.barcamps.put(barcamp)
 
             self.flash(self._("%s has been created") %f['name'], category="info")
             return redirect(self.url_for("barcamps.admin_wizard", slug = barcamp.slug))
-        return self.render(form = form, slug = None, show_slug=True, bcid = '')
+        return self.render(form = form, paid=paid, slug = None, show_slug=True, bcid = '')
     post = get
 
 class ValidateView(BaseHandler):

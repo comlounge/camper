@@ -6791,7 +6791,7 @@ body.admin .admin-nav ul li span {
   float: left;
 }
 body.admin .admin-nav ul li a {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: normal;
   color: #333;
   line-height: 1;
@@ -7564,6 +7564,12 @@ form {
 .panel.panel-wizard .panel-heading {
   background: #e3e2e0;
 }
+.panel.panel-danger-wizard {
+  margin-bottom: 20px !important;
+}
+.panel i {
+  margin-right: 5px;
+}
 #ticketeditor-container {
   position: relative;
 }
@@ -7971,6 +7977,9 @@ h5,
 h6 {
   font-family: "Roboto Condensed", "Helvetica Neue", sans-serif;
   text-transform: uppercase;
+}
+.alert {
+  margin-top: 25px;
 }
 .btn-inverse {
   background: black;
@@ -8950,6 +8959,7 @@ section {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 0px;
+  margin-top: 25px;
   background-color: #fcf8e3;
   border-color: #faebcc;
   color: #8a6d3b;
@@ -9253,6 +9263,20 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
 }
 #add-to-calendar-container .dropdown-menu li + li {
   border-top: 1px solid #d0d0d0;
+}
+#setup .panel-body {
+  font-size: 15px;
+}
+#setup .panel-body ul {
+  margin: 10px 0;
+}
+#setup .panel-body li {
+  padding-top: 5px;
+}
+#setup .panel-footer {
+  background: white;
+  border-top: 0;
+  padding-bottom: 20px;
 }
 aside .btn-admin {
   margin-bottom: 30px;

@@ -72,16 +72,13 @@ class BarcampBaseHandler(BaseHandler):
                     actions.append(Action('twitterwall', T("Twitterwall"), bc.twitterwall, self.action == 'twitterwall'))
         return actions
 
+    def compute_progress(self):
+        """helper method to compute how complete a barcamp is. 
+        It is used here by the global progress attribute and in the barcamp wizard"""
 
-    @property
-    def progress(self):
-        """return the progress in percent of the barcamp completeness"""
         bc = self.barcamp
         wc = bc.wizard_checked # stuff the admin does not want
         events = bc.eventlist
-
-        # do we have rooms and times for at least 1 event?
-        # also gather all the events which do not have rooms or times
 
         event_status = {}
         has_timetable = False
@@ -106,14 +103,40 @@ class BarcampBaseHandler(BaseHandler):
         has_event = len(events) != 0 or "has_event" in wc
         has_sponsor = len(bc.sponsors) != 0 or "has_sponsor" in wc
         has_logo = bc.logo != "" and bc.logo != None or "has_logo" in wc
-        has_twitter = bc.twitter != "" or "has_twitter" in wc
-        has_hashtag = bc.hashtag != "" or "has_hashtag" in wc
-        has_facebook = bc.facebook != "" or "has_facebook" in wc
-        has_seo = bc.seo_description != "" or "has_seo" in wc
+        has_twitter = bc.twitter or "has_twitter" in wc
+        has_hashtag = bc.hashtag or "has_hashtag" in wc
+        has_facebook = bc.facebook or "has_facebook" in wc
+        has_seo = bc.seo_description or "has_seo" in wc
 
         is_public = bc.workflow in ("public", "registration")
         is_active = bc.workflow == "registration"
         has_timetable = has_timetable or "has_timetable" in wc
+
+        # check legal in regards of ticket mode
+        has_legal = True
+        bc = self.barcamp
+        if bc.ticketmode_enabled:
+            if not bc.contact_email or \
+               not len(bc.imprint.strip())>20 or \
+               not len(bc.tos.strip())>20 or \
+               not len(bc.cancel_policy.strip())>20:
+                has_legal = False
+        else:
+            if not len(bc.imprint.strip())>20:
+                has_legal = False
+
+        has_timetable = has_timetable or "has_timetable" in wc
+
+        # get tickets in case of ticketmode
+        ticket_classes = self.barcamp.ticketlist
+        tickets = self.config.dbs.tickets
+        for tc in ticket_classes:
+            for status in ['pending', 'confirmed', 'canceled', 'cancel_request']:
+                tc[status] = tickets.get_tickets(
+                    barcamp_id = self.barcamp._id,
+                    ticketclass_id = tc._id,
+                    status = status)
+
 
         results = dict(
             has_event = has_event,
@@ -123,19 +146,44 @@ class BarcampBaseHandler(BaseHandler):
             has_hashtag = has_hashtag,
             has_facebook = has_facebook,
             has_seo = has_seo,
-
-            is_public = is_public,
-            is_active = is_active,
-            has_timetable = has_timetable
+            has_legal = has_legal,
+            has_timetable = has_timetable,
         )
 
-        # compute the progress
+        # only add this if ticket mode is enabled
+        
+        if self.barcamp.ticketmode_enabled:
+            results['has_tickets'] = ticket_classes != []
 
+        # now compute the completeness based on what is in results
         full_points = len(results)
         has_points = len([x for x in results.values() if x]) # len of all trues
         percentage = int(float(has_points) / float(full_points) * 100)
 
-        return percentage
+        # add the rest of the data to the results dict
+        results['full_points'] = full_points
+        results['has_points'] = has_points
+        results['percentage'] = percentage
+        results['event_status'] = event_status
+        results['ticketmode_enabled'] = self.barcamp.ticketmode_enabled
+        results['ticket_classes'] = ticket_classes
+        results['is_public'] = is_public
+        results['is_active'] = is_active
+
+        return results
+
+
+
+    @property
+    def progress(self):
+        """return the progress in percent of the barcamp completeness
+
+        This will be pushed into the global render context
+
+        """
+
+        results = self.compute_progress()
+        return results['percentage']
 
 
     @property

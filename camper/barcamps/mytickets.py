@@ -58,6 +58,10 @@ class MyTickets(BarcampBaseHandler):
         # compute the remaining tickets for a user
         remaining_ticket_ids= list(set(all_tickets) - set(reserved_ticket_ids))
 
+        # get registration form
+        data_names = {}
+        for e in self.barcamp.registration_form:
+            data_names[e['name']] = e['title']
     
         return self.render(
             view = self.barcamp_view,
@@ -71,6 +75,7 @@ class MyTickets(BarcampBaseHandler):
             ticketlist = ticketlist,
             has_form_data = has_form_data,
             form_data = form_data,
+            data_names = data_names,
             has_form = len(self.barcamp.registration_form) != 0,
             **self.barcamp)
 
