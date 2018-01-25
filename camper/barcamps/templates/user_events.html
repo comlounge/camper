@@ -64,12 +64,21 @@
 
                         {% endif %}
                         {% if logged_in and has_form and not has_form_data %}
+                            {% if barcamp.is_registered(user) %}
                             <div class="participation-details event" data-id="{{event._id}}" id="e-{{event._id}}">
-                                <a title="{{_('Click here to participate in the barcamp')}}" 
+                                <a title="{{_('Click here to update your registration data')}}" 
+                                    href="{{url_for('.registration_form', slug=slug)}}" class="pull-right btn btn-sm btn-primary">
+                                    <i class="fa fa-hand-o-right"></i>
+                                    {{_('Add Registration Data')}}</a>
+                            </div>
+                            {% else %}
+                            <div class="participation-details event" data-id="{{event._id}}" id="e-{{event._id}}">
+                                <a title="{{_('Click here to register for this event')}}" 
                                     href="{{url_for('barcamps.wizard', slug=slug)}}" class="pull-right btn btn-sm btn-primary">
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-hand-o-right"></i>
                                     {{_('Register')}}</a>
                             </div>
+                            {% endif %}
                         {% endif %}
                     {% endif %}
 
@@ -126,34 +135,32 @@
     </div>
 {% endblock %}
 
+{% macro data_block() %}
+    {% if logged_in and has_form%}
+        <div class="sidebar-panel" id="sidebar-location">
+            <h3>
+            <i class="fa fa-user"></i> 
+            {{_('My Data')}}</h3>
+
+            {% if has_form_data %}
+                <dl class="formdata">
+                {% for k,v in form_data.iteritems() %}        
+                        <dt>{{data_names[k]}}</dt>
+                        <dd>{{v|striptags}}</dd>
+                {% endfor %}
+                </dl>
+                <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('Edit registration data')}}</a>
+            {% else %}
+                <div class="alert alert-danger">{{_('Please update your registration information')}}</div>
+                <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Add registration data')}}</a>
+            {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}
 {% block widgets %}
     {{ super() }}
-    {% if logged_in and has_form and has_form_data %}
-    <div id="my-actions" class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">{{_('My data')}}</h4>
-        </div>
-        <div class="panel-body">
-            <dl class="formdata">
-            {% for k,v in form_data.iteritems() %}        
-                    <dt>{{data_names[k]}}</dt>
-                    <dd>{{v|striptags}}</dd>
-            {% endfor %}
-            </dl>
-            {% if logged_in and has_form %}
-                {% if has_form_data %}
-                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('edit')}}</a>
-                {% else %}
-                    <div class="alert alert-danger">{{_('please enter your personal data in order to register for this event')}}</div>
-                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('add')}}</a>
-                    
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
-
-    
+    {{ data_block() }}    
 {% endblock %}
 
 

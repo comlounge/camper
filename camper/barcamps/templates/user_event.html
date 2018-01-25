@@ -218,34 +218,3 @@
         </div>{# tabpanel #}
     </div>
 {% endblock %}
-
-{% block widgets %}
-    {{share_buttons()}}
-    {% if logged_in %}
-    <div id="my-actions" class="panel panel-default">
-        <div class="panel-heading">
-            <h4 class="panel-title">{{_('My data')}}</h4>
-        </div>
-        <div class="panel-body">
-            <dl class="formdata">
-            {% for k,v in form_data.iteritems() %}        
-                    <dt>{{k}}</dt>
-                    <dd>{{v|striptags}}</dd>
-            {% endfor %}
-            </dl>
-            {% if logged_in and has_form %}
-                {% if has_form_data %}
-                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('edit')}}</a>
-                {% else %}
-                    <div class="alert alert-danger">{{_('please enter your personal data in order to register for this event')}}</div>
-                    <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('add')}}</a>
-                    
-                {% endif %}
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
-
-    
-{% endblock %}
-

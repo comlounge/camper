@@ -2,6 +2,12 @@
 {% extends "admin_master.html" %}
 
 {% block content %}
+    <style>
+        #field-choices {
+            display: none;
+        }
+    </style>
+
     {% block title %}
         <h1>{{_('Edit the participant registration form')}}</h1>
         <div class="description">
@@ -52,6 +58,7 @@
                     {{ formmacros.form_field(form.title, maxlength="50", input_class="required span6") }}
                     {{ formmacros.form_field(form.description, maxlength="2000", input_class="required span6", rows=4) }}
                     {{ formmacros.form_field(form.fieldtype, input_class="span4 url") }}
+                    {{ formmacros.form_field(form.choices, rows="5", cols="40", placeholder=_('choice one\nchoice two'), input_class="span4") }}
                     {{ formmacros.form_field(form.required, input_class="span4 url") }}
                 </fieldset>
                 <input type="submit" class="btn btn-primary" value="{{_('Add')}}">
@@ -61,5 +68,16 @@
 {% endblock %}
 
 {% block bcjs %}
-    <script src="{{url_for("static", filename="js/datafields.js")}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[type=radio][name=fieldtype]').change(function() {
+                if (this.value == 'select') {
+                    $("#field-choices").slideDown(20);
+                } else {
+                    $("#field-choices").slideUp(20);
+                }
+            })
+        })
+    </script>
+    {# <script src="{{url_for("static", filename="js/datafields.js")}}"></script>#}
 {% endblock %}

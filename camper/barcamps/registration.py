@@ -127,7 +127,6 @@ class RegistrationData(BarcampBaseHandler):
                 'message' : 'registration is not possible'
             }
 
-
         ud = {
             'eid' : eid,
             'full' : event.full,
@@ -168,6 +167,10 @@ class RegistrationForm(BarcampBaseHandler):
                 setattr(RegistrationForm, field['name'], TextAreaField(field['title'], vs, description = field['description'] or " "))
             elif field['fieldtype'] == "checkbox":
                 setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
+            elif field['fieldtype'] == "select":
+                setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", 
+                    choices = field['choices']))
+
 
 
         uid = unicode(self.user._id)

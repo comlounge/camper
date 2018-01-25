@@ -84,6 +84,7 @@ class RegistrationFieldSchema(Schema):
     title               = String(required=True)
     description         = String()
     fieldtype           = String(required=True)
+    choices             = List(List(String()), default=[])
     required            = Boolean()
 
 
