@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-01-25 12:54+0100\n"
+"POT-Creation-Date: 2018-01-25 14:44+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: en\n"
@@ -433,7 +433,7 @@ msgid "Session Proposals"
 msgstr ""
 
 #: barcamps/design.py:36 barcamps/templates/admin/events.html:10
-#: barcamps/templates/admin/wizard.html:344
+#: barcamps/templates/admin/wizard.html:367
 #: barcamps/templates/mytickets.html:35
 #: barcamps/templates/participant_data.html:7
 #: barcamps/templates/pdfs/pdfticket.html:80
@@ -1144,8 +1144,8 @@ msgstr ""
 msgid "this barcamp is not public"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:289
-#: barcamps/templates/admin/wizard.html:303 barcamps/templates/master.html:240
+#: barcamps/templates/admin/wizard.html:312
+#: barcamps/templates/admin/wizard.html:326 barcamps/templates/master.html:240
 #: templates/admin_master.html:107
 msgid "open registration"
 msgstr ""
@@ -1316,8 +1316,8 @@ msgid "Please register for the events you want to participate in"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:36
-#: barcamps/templates/admin/wizard.html:328
-#: barcamps/templates/admin/wizard.html:371
+#: barcamps/templates/admin/wizard.html:351
+#: barcamps/templates/admin/wizard.html:394
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/registration_wizard.html:116
 #: barcamps/templates/user_events.html:103
@@ -1831,25 +1831,25 @@ msgid "Dashboard"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:39
-#: barcamps/templates/admin/wizard.html:374
+#: barcamps/templates/admin/wizard.html:397
 msgid "on waiting list"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:56
 #: barcamps/templates/admin/event.html:11
 #: barcamps/templates/admin/events.html:42
-#: barcamps/templates/admin/wizard.html:391
+#: barcamps/templates/admin/wizard.html:414
 msgid "Edit event details"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:57
-#: barcamps/templates/admin/wizard.html:392
+#: barcamps/templates/admin/wizard.html:415
 msgid "Edit Timetable / Sessions"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:58
 #: barcamps/templates/admin/event_participants.html:40
-#: barcamps/templates/admin/wizard.html:393
+#: barcamps/templates/admin/wizard.html:416
 msgid "Manage Participants"
 msgstr ""
 
@@ -2700,14 +2700,15 @@ msgstr ""
 #: barcamps/templates/admin/wizard.html:38
 #: barcamps/templates/admin/wizard.html:62
 #: barcamps/templates/admin/wizard.html:86
-#: barcamps/templates/admin/wizard.html:115
-#: barcamps/templates/admin/wizard.html:139
-#: barcamps/templates/admin/wizard.html:164
-#: barcamps/templates/admin/wizard.html:188
-#: barcamps/templates/admin/wizard.html:212
-#: barcamps/templates/admin/wizard.html:237
-#: barcamps/templates/admin/wizard.html:262
-#: barcamps/templates/admin/wizard.html:288
+#: barcamps/templates/admin/wizard.html:109
+#: barcamps/templates/admin/wizard.html:138
+#: barcamps/templates/admin/wizard.html:162
+#: barcamps/templates/admin/wizard.html:187
+#: barcamps/templates/admin/wizard.html:211
+#: barcamps/templates/admin/wizard.html:235
+#: barcamps/templates/admin/wizard.html:260
+#: barcamps/templates/admin/wizard.html:285
+#: barcamps/templates/admin/wizard.html:311
 msgid "more info"
 msgstr ""
 
@@ -2745,10 +2746,24 @@ msgid "Create a ticket"
 msgstr ""
 
 #: barcamps/templates/admin/wizard.html:87
-msgid "Add an event to your barcamp"
+msgid "Add legal information to your barcamp"
 msgstr ""
 
 #: barcamps/templates/admin/wizard.html:94
+msgid ""
+"In order to be able to publish your barcamp you need to enter all "
+"relevant legal information to it"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:99
+msgid "Add legal information"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:110
+msgid "Add an event to your barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:117
 msgid ""
 "Barcamps consists of one or more events. Events can e.g. be \"Day 1,2,3\""
 " or \"Community Dinner\". Events are what attendees sign up for. Each "
@@ -2758,111 +2773,111 @@ msgid ""
 "attend. Additionally you can choose a different location for each event."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:98
+#: barcamps/templates/admin/wizard.html:121
 msgid ""
 "Even if you have only a one day barcamp you still need to create an event"
 " for people to signup for."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:104
+#: barcamps/templates/admin/wizard.html:127
 msgid "I don't need events"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:105
+#: barcamps/templates/admin/wizard.html:128
 msgid "Create an event"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:116
+#: barcamps/templates/admin/wizard.html:139
 msgid "Add timetables to your event"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:123
+#: barcamps/templates/admin/wizard.html:146
 msgid ""
 "Timetables not only allow people to see when what happens, you can also "
 "use them to manage barcamp sessions on a session table. You can define "
 "teimetables be defining rooms and timeslots."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:128
+#: barcamps/templates/admin/wizard.html:151
 msgid "I don't need a timetable"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:129
+#: barcamps/templates/admin/wizard.html:152
 msgid "Add timetables to your events"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:140
+#: barcamps/templates/admin/wizard.html:163
 msgid "Add sponsors to your barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:147
+#: barcamps/templates/admin/wizard.html:170
 msgid ""
 "In case you have sponsors for your barcamp you can list them on the "
 "barcamp page with a logo, link and name."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:152
+#: barcamps/templates/admin/wizard.html:175
 msgid "I don't have sponsors"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:153
+#: barcamps/templates/admin/wizard.html:176
 msgid "Manage your sponsors"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:165
+#: barcamps/templates/admin/wizard.html:188
 msgid "Add a twitter account for your barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:172
+#: barcamps/templates/admin/wizard.html:195
 msgid ""
 "In case you manage a twitter account for this barcamp you can add it here"
 " so people know where to find it. It's usually a good way to quickly send"
 " out uptodate information about the event."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:177
+#: barcamps/templates/admin/wizard.html:200
 msgid "I don't use twitter"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:178
+#: barcamps/templates/admin/wizard.html:201
 msgid "Add a twitter account"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:189
+#: barcamps/templates/admin/wizard.html:212
 msgid "Add a hashtag for your barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:201
+#: barcamps/templates/admin/wizard.html:224
 msgid "I don't need a hashtag"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:202
+#: barcamps/templates/admin/wizard.html:225
 msgid "Add a twitter hashtag"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:213
+#: barcamps/templates/admin/wizard.html:236
 msgid "Add a facebook fan page"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:220
+#: barcamps/templates/admin/wizard.html:243
 msgid ""
 "In case you have a facebook fan page for your event you might want to add"
 " it here so people can visit it."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:225
+#: barcamps/templates/admin/wizard.html:248
 msgid "I don't have a facebook page"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:226
+#: barcamps/templates/admin/wizard.html:249
 msgid "Add a facebook page"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:238
+#: barcamps/templates/admin/wizard.html:261
 msgid "Add a description for search engines (meta description)"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:245
+#: barcamps/templates/admin/wizard.html:268
 msgid ""
 "If you want your barcamp to show up better in search engines, you should "
 "add a Meta Description to it. It should be a max of 160 characters and is"
@@ -2871,19 +2886,19 @@ msgid ""
 "information in this text."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:250
+#: barcamps/templates/admin/wizard.html:273
 msgid "I don't need a meta description"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:251
+#: barcamps/templates/admin/wizard.html:274
 msgid "Add a meta description"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:263
+#: barcamps/templates/admin/wizard.html:286
 msgid "Publish your barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:270
+#: barcamps/templates/admin/wizard.html:293
 msgid ""
 "Right now the barcamp is only visible for barcamp administrators. In "
 "order to open it up for the public you need to publish it. This also "
@@ -2891,18 +2906,18 @@ msgid ""
 "search engines or the homepage."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:277
+#: barcamps/templates/admin/wizard.html:300
 msgid "Publish my barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:296
+#: barcamps/templates/admin/wizard.html:319
 msgid ""
 "Right now your barcamp is visible but nobody can register yet. In order "
 "to change this you need to open it up for registration. This also needs "
 "to be done for private barcamps."
 msgstr ""
 
-#: barcamps/templates/admin/wizard.html:314
+#: barcamps/templates/admin/wizard.html:337
 msgid "Tickets"
 msgstr ""
 
