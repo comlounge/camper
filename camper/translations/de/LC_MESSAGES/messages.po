@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-01-22 17:43+0100\n"
-"PO-Revision-Date: 2018-01-22 17:47+0100\n"
+"POT-Creation-Date: 2018-01-25 12:05+0100\n"
+"PO-Revision-Date: 2018-01-25 12:15+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -1974,7 +1974,7 @@ msgstr "Da das Barcamp schon öffentlich ist, kannst Du die Teilnehmer_innen-Zah
 
 #: barcamps/templates/admin/event_macros.html:133
 msgid "Use different location than the main barcamp location"
-msgstr "Benutzer einen anderen Veranstaltungsort als den des Barcamps"
+msgstr "Benutze einen anderen Veranstaltungsort als den des Barcamps"
 
 #: barcamps/templates/admin/event_participants.html:21
 msgid "Move to waiting list"
