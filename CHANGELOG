@@ -155,6 +155,14 @@ In order to migrate::
 
 - fixed saving of SEO page
 
+2.4.0
+=====
 
+- when creating a new barcamp we ask now whether it's a paid or free one. Depending on the choice legal information becomes required.
+- imprint is now mandatory even for free barcamps
+- legal information has been added to the admin wizard
+- tickets have been added to the wizard progress computation
+- completeness progress for the admin is now properly computed
+- you now can add select fields to custom forms
 
 
