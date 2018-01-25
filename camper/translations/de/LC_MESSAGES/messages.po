@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-01-25 15:03+0100\n"
-"PO-Revision-Date: 2018-01-25 16:51+0100\n"
+"POT-Creation-Date: 2018-01-25 16:57+0100\n"
+"PO-Revision-Date: 2018-01-25 16:58+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -208,74 +208,75 @@ msgstr ""
 "Wenn dies angeschaltet ist, erhalten Barcamp-Organisator_innen eine Mail-"
 "Benachrichtigung, sobald sich Teilnehmer_innen an- oder abmelden."
 
-#: barcamps/add.py:37 barcamps/legaledit.py:20 barcamps/templates/admin/add.html:86
-#: barcamps/templates/admin/legaledit.html:28 barcamps/templates/master.html:343
+#: barcamps/add.py:37 barcamps/edit.py:40 barcamps/legaledit.py:20
+#: barcamps/templates/admin/add.html:86 barcamps/templates/admin/legaledit.html:28
+#: barcamps/templates/master.html:343
 msgid "Imprint"
 msgstr "Impressum"
 
-#: barcamps/add.py:37
+#: barcamps/add.py:37 barcamps/edit.py:40
 msgid "Please describe in detail who is responsible for this barcamp."
 msgstr "Bitte beschreibe im Detail, wer für das Barcamp verantwortlich ist."
 
-#: barcamps/add.py:39 barcamps/edit.py:40 barcamps/events.py:21
+#: barcamps/add.py:39 barcamps/edit.py:42 barcamps/events.py:21
 #: barcamps/events.py:35
 msgid "name of location"
 msgstr "Veranstaltungsort"
 
-#: barcamps/add.py:39 barcamps/edit.py:40 barcamps/events.py:35
+#: barcamps/add.py:39 barcamps/edit.py:42 barcamps/events.py:35
 msgid "please enter the name of the venue here"
 msgstr "Bitte gebe hier den Namen des Veranstaltungsortes ein"
 
-#: barcamps/add.py:40 barcamps/edit.py:41 barcamps/events.py:36
+#: barcamps/add.py:40 barcamps/edit.py:43 barcamps/events.py:36
 msgid "street and number "
 msgstr "Strasse und Hausnummer"
 
-#: barcamps/add.py:40 barcamps/edit.py:41 barcamps/events.py:36
+#: barcamps/add.py:40 barcamps/edit.py:43 barcamps/events.py:36
 msgid "street and number of the venue"
 msgstr "Strasse und Hausnummer des Veranstaltungsortes"
 
-#: barcamps/add.py:41 barcamps/edit.py:42 barcamps/events.py:37
+#: barcamps/add.py:41 barcamps/edit.py:44 barcamps/events.py:37
 msgid "city"
 msgstr "Stadt"
 
-#: barcamps/add.py:42 barcamps/edit.py:43 barcamps/events.py:38
+#: barcamps/add.py:42 barcamps/edit.py:45 barcamps/events.py:38
 #: barcamps/templates/admin/add.html:112 barcamps/templates/admin/add.html:113
 #: barcamps/templates/admin/event_macros.html:157
 #: barcamps/templates/admin/event_macros.html:158
 msgid "zip"
 msgstr "PLZ"
 
-#: barcamps/add.py:43 barcamps/edit.py:44 barcamps/events.py:40
+#: barcamps/add.py:43 barcamps/edit.py:46 barcamps/events.py:40
 msgid "homepage"
 msgstr "Homepage"
 
-#: barcamps/add.py:43 barcamps/add.py:44 barcamps/edit.py:44 barcamps/edit.py:45
+#: barcamps/add.py:43 barcamps/add.py:44 barcamps/edit.py:46 barcamps/edit.py:47
 #: barcamps/events.py:40 barcamps/events.py:41
 msgid "web site of the venue (optional)"
 msgstr "Homepage des Veranstaltungsortes (optional)"
 
-#: barcamps/add.py:44 barcamps/edit.py:45 barcamps/events.py:41
+#: barcamps/add.py:44 barcamps/edit.py:47 barcamps/events.py:41
 msgid "phone"
 msgstr "Telefon"
 
-#: barcamps/add.py:45 barcamps/edit.py:46 barcamps/events.py:42
+#: barcamps/add.py:45 barcamps/edit.py:48 barcamps/events.py:42
 msgid "email"
 msgstr "E-Mail"
 
-#: barcamps/add.py:45 barcamps/edit.py:46 barcamps/events.py:42
+#: barcamps/add.py:45 barcamps/edit.py:48 barcamps/events.py:42
 msgid "email address of the venue (optional)"
 msgstr "Die E-Mail-Adresse des Veranstaltungsortes (optional)"
 
-#: barcamps/add.py:46 barcamps/edit.py:47 barcamps/events.py:43
+#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:43
 #: barcamps/templates/admin/participants_data_edit.html:27
 msgid "description"
 msgstr "Beschreibung"
 
-#: barcamps/add.py:46 barcamps/edit.py:47 barcamps/events.py:43
+#: barcamps/add.py:46 barcamps/edit.py:49 barcamps/events.py:43
 msgid "an optional description of the venue"
 msgstr "Beschreibung des Veranstaltungsortes (optional)"
 
-#: barcamps/add.py:47 barcamps/edit.py:48 barcamps/events.py:39
+#: barcamps/add.py:47 barcamps/edit.py:50 barcamps/events.py:39
 #: barcamps/templates/admin/add.html:121 barcamps/templates/admin/add.html:122
 #: barcamps/templates/admin/event_macros.html:166
 #: barcamps/templates/admin/event_macros.html:167
@@ -286,7 +287,7 @@ msgstr "Land"
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr "Achtung: Eines oder beide der Etherpads existieren schon!"
 
-#: barcamps/add.py:129 barcamps/edit.py:150 barcamps/events.py:114
+#: barcamps/add.py:129 barcamps/edit.py:152 barcamps/events.py:114
 #: barcamps/events.py:241
 msgid "the city was not found in the geo database"
 msgstr "Die angegebene Stadt wurde nicht in der Datenbank gefunden"
@@ -521,7 +522,7 @@ msgstr ""
 msgid "do not show a gallery"
 msgstr "keine Galerie nutzen"
 
-#: barcamps/design.py:77 barcamps/edit.py:156 barcamps/legaledit.py:52
+#: barcamps/design.py:77 barcamps/edit.py:158 barcamps/legaledit.py:52
 #: barcamps/socialedit.py:48
 msgid "The barcamp has been updated."
 msgstr "Das Barcamp wurde aktualisiert"
@@ -585,19 +586,19 @@ msgstr "Beginn"
 msgid "end date"
 msgstr "End-Datum"
 
-#: barcamps/edit.py:165 barcamps/edit.py:171 barcamps/edit.py:177
-#: barcamps/edit.py:187 barcamps/edit.py:189 barcamps/edit.py:191
-#: barcamps/edit.py:193 barcamps/newsletter.py:18
+#: barcamps/edit.py:167 barcamps/edit.py:173 barcamps/edit.py:179
+#: barcamps/edit.py:189 barcamps/edit.py:191 barcamps/edit.py:193
+#: barcamps/edit.py:195 barcamps/newsletter.py:18
 msgid "Subject"
 msgstr "Betreff"
 
-#: barcamps/edit.py:168 barcamps/edit.py:174 barcamps/edit.py:180
-#: barcamps/edit.py:188 barcamps/edit.py:190 barcamps/edit.py:192
-#: barcamps/edit.py:194
+#: barcamps/edit.py:170 barcamps/edit.py:176 barcamps/edit.py:182
+#: barcamps/edit.py:190 barcamps/edit.py:192 barcamps/edit.py:194
+#: barcamps/edit.py:196
 msgid "Body"
 msgstr "Mailtext"
 
-#: barcamps/edit.py:237 barcamps/events.py:191
+#: barcamps/edit.py:239 barcamps/events.py:191
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr "Du kannst die Teilnehmerzahl nicht verkleinern, der Minimalwert ist %s"
@@ -2802,6 +2803,22 @@ msgstr "Ticketwiderruf annehmen"
 msgid "Manage ticket reservations"
 msgstr "Ticket-Reservierungen verwalten"
 
+#: barcamps/templates/admin/ticketlist.html:67
+msgid "Pending Ticket Reservations"
+msgstr "Offene Ticket-Reservierungen"
+
+#: barcamps/templates/admin/ticketlist.html:74
+msgid "Confirmed Ticket Reservations"
+msgstr "Bestätigte Ticket-Reservierungen"
+
+#: barcamps/templates/admin/ticketlist.html:81
+msgid "Canceled Ticket Reservations"
+msgstr "Widerrufene Ticket-Reservierungen"
+
+#: barcamps/templates/admin/ticketlist.html:93 services/ticketing.py:315
+msgid "Ticket Cancel Request"
+msgstr "Ticket-Widerrufsanfrage"
+
 #: barcamps/templates/admin/wizard.html:6
 #, python-format
 msgid "Barcamp status (%s%% completed)"
@@ -3493,10 +3510,6 @@ msgstr "Ein Ticket für %s/%s (%s/%s) wurde registriert"
 #: services/ticketing.py:314
 msgid "Your Ticket Cancel Request"
 msgstr "Deine Ticket-Widerrufsanfrage"
-
-#: services/ticketing.py:315
-msgid "Ticket Cancel Request"
-msgstr "Ticket-Widerrufsanfrage"
 
 #: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
 #: static/templates/sessiontest.hbs:76
