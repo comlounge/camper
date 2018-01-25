@@ -112,6 +112,21 @@ class BarcampBaseHandler(BaseHandler):
         is_active = bc.workflow == "registration"
         has_timetable = has_timetable or "has_timetable" in wc
 
+        # check legal in regards of ticket mode
+        has_legal = True
+        bc = self.barcamp
+        if bc.ticketmode_enabled:
+            if not bc.contact_email or \
+               not len(bc.imprint.strip())>20 or \
+               not len(bc.tos.strip())>20 or \
+               not len(bc.cancel_policy.strip())>20:
+                has_legal = False
+        else:
+            if not len(bc.imprint.strip())>20:
+                has_legal = False
+
+        has_timetable = has_timetable or "has_timetable" in wc
+
         # get tickets in case of ticketmode
         ticket_classes = self.barcamp.ticketlist
         tickets = self.config.dbs.tickets
@@ -131,6 +146,7 @@ class BarcampBaseHandler(BaseHandler):
             has_hashtag = has_hashtag,
             has_facebook = has_facebook,
             has_seo = has_seo,
+            has_legal = has_legal,
             has_timetable = has_timetable,
         )
 

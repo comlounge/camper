@@ -7564,6 +7564,12 @@ form {
 .panel.panel-wizard .panel-heading {
   background: #e3e2e0;
 }
+.panel.panel-danger-wizard {
+  margin-bottom: 20px !important;
+}
+.panel i {
+  margin-right: 5px;
+}
 #ticketeditor-container {
   position: relative;
 }
