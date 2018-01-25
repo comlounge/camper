@@ -7978,6 +7978,9 @@ h6 {
   font-family: "Roboto Condensed", "Helvetica Neue", sans-serif;
   text-transform: uppercase;
 }
+.alert {
+  margin-top: 25px;
+}
 .btn-inverse {
   background: black;
   color: white;
@@ -8956,6 +8959,7 @@ section {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 0px;
+  margin-top: 25px;
   background-color: #fcf8e3;
   border-color: #faebcc;
   color: #8a6d3b;
