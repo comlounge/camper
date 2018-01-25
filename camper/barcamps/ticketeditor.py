@@ -111,11 +111,10 @@ class TicketingConfig(BarcampBaseHandler):
         bc = self.barcamp
         config_form = TicketConfigurationForm(self.request.form, obj = bc, config = self.config)
         if config_form.validate():
-            print config_form.data
             bc.update(config_form.data)
 
         # some paid mode special conditions
-        if self.request.form.get("paid_tickets", "") == "true" and bc.paid_allowed:
+        if self.request.form.get("paid_tickets", "") == "true":
             bc.paid_tickets = True
             bc.preregistration = True
         else:
@@ -128,24 +127,7 @@ class TicketingConfig(BarcampBaseHandler):
             'preregistration' : bc.preregistration,
             'max_participants' : bc.max_participants,
         }
-
         
-        bc.ticketmode_enabled = self.request.form.get('ticketmode_enabled') == u"true"
-        bc.preregistration = self.request.form.get('preregistration') == u"true"
-        bc.max_participants = self.request.form.get('max_participants')
-        if self.request.form.get("paid_tickets", "") == "true" and bc.has_imprint and bc.contact_email:
-                bc.paid_tickets = True
-                bc.preregistration = True
-        else:
-            bc.paid_tickets = False
-
-        bc.put()
-        return {
-            'ticketmode_enabled' : bc.ticketmode_enabled,
-            'paid_tickets' : bc.paid_tickets,
-            'preregistration' : bc.preregistration,
-            'max_participants' : bc.max_participants,
-        }
 
 
 class TicketClassEdit(BarcampBaseHandler):

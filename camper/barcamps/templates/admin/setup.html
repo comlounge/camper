@@ -1,0 +1,65 @@
+{% extends "admin_master.html" %}
+
+{% import "macros.html" as formmacros with context %}
+{% from "_m/barcamps/admin/event_macros.html" import locationpicker with context %}
+{% block content %}
+    {% block title %}
+    {% endblock %}
+    <div class="jumbotron">
+        <h1>{{_('Create a new Barcamp')}}</h1>
+        <p>
+            {{_('Please select first if you are planning a paid barcamp or a free barcamp')}}
+        </p>
+    </div>
+
+    <div id="setup">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3>{{_('Create a free Barcamp')}}</h3>
+            </div>
+            <div class="panel-body">
+                {{_('The following applies to free barcamps:')}}
+                <ul>
+                    <li>
+                        {{_('Attendees do not have to pay to attend.')}}
+                    </li>
+                    <li>
+                        {{_('This includes not having to send money via bank transfer')}}
+                    </li>
+                </ul>
+                {{_('As an administrator you can choose to use the new ticket mode or the event based registration mode')}}
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-success btn-lg" href="{{url_for('.add', paid='free')}}" role="button">{{_('Create a free barcamp')}}</a>
+            </div>
+        </div>
+
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3>{{_('Create a paid Barcamp')}}</h3>
+            </div>
+            <div class="panel-body">
+                {{_('The following applies to paid barcamps because of legal requirements:')}}
+                <ul>
+                    <li>
+                        {{_('Attendees have to pay to attend. This includes asking for a bank transfer via welcome emails.')}}
+                    </li>
+                    <li>
+                        {{_('The payment method is up to you. This tool does not offer any payment process. You have to implement this yourself, e.g. via bank transfer.')}}
+                    </li>
+                    <li>
+                        {{_('Only the ticket mode can be used here and will be enabled automatically.')}}
+                    </li>
+                    <li>
+                        {{_('You have to provide legal information like terms of service, refund policy, imprint and contact email.')}}
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-danger btn-lg" href="{{url_for('.add', paid='paid')}}" role="button">{{_('Create a paid barcamp')}}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

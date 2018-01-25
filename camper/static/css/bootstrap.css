@@ -9254,6 +9254,17 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
 #add-to-calendar-container .dropdown-menu li + li {
   border-top: 1px solid #d0d0d0;
 }
+#setup .panel-body {
+  font-size: 15px;
+}
+#setup .panel-body li {
+  padding-top: 5px;
+}
+#setup .panel-footer {
+  background: white;
+  border-top: 0;
+  padding-bottom: 20px;
+}
 aside .btn-admin {
   margin-bottom: 30px;
 }

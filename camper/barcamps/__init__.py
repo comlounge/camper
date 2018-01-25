@@ -38,7 +38,8 @@ class BarcampModule(Module):
     name = "barcamps"
 
     routes = [
-        URL('/b/add',                       'add',                              add.AddView),
+        URL('/b/setup',                     'setup',                            add.SetupView),
+        URL('/b/add/<paid>',                'add',                              add.AddView),
         URL('/b/validate',                  'validate',                         add.ValidateView),
         URL('/<slug>',                      'index',                            index.View),
         URL('/<slug>/validate',             'validate',                         add.ValidateView),

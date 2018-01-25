@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2017-11-29 12:22+0100\n"
+"POT-Creation-Date: 2018-01-25 12:47+0100\n"
 "PO-Revision-Date: 2013-01-09 16:36+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: en\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.5.3\n"
 
 #: app.py:262
 msgid "User unknown"
@@ -154,9 +154,9 @@ msgstr ""
 msgid "remember me"
 msgstr ""
 
-#: barcamps/add.py:25 barcamps/edit.py:27 barcamps/edit.py:274
+#: barcamps/add.py:24 barcamps/edit.py:27 barcamps/edit.py:273
 #: barcamps/events.py:25 barcamps/galleries.py:31 barcamps/sessionboard.py:18
-#: barcamps/templates/admin/add.html:41
+#: barcamps/templates/admin/add.html:45
 #: barcamps/templates/admin/event_macros.html:88
 #: barcamps/templates/admin/gallery_macros.html:38
 #: barcamps/templates/index.html:95 barcamps/templates/sessions.html:138
@@ -165,26 +165,26 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: barcamps/add.py:26 barcamps/edit.py:28
+#: barcamps/add.py:25 barcamps/edit.py:28
 msgid "please describe your barcamp here"
 msgstr ""
 
-#: barcamps/add.py:31 barcamps/add.py:34 barcamps/edit.py:33
-#: barcamps/templates/admin/add.html:59
+#: barcamps/add.py:30 barcamps/add.py:33 barcamps/edit.py:33
+#: barcamps/templates/admin/add.html:63
 msgid "Hide Barcamp"
 msgstr ""
 
-#: barcamps/add.py:31 barcamps/add.py:34 barcamps/edit.py:33
+#: barcamps/add.py:30 barcamps/add.py:33 barcamps/edit.py:33
 msgid ""
 "If enabled this will hide this barcamp from showing up in the front page "
 "and in search engines"
 msgstr ""
 
-#: barcamps/add.py:32 barcamps/edit.py:34 barcamps/ticketeditor.py:25
+#: barcamps/add.py:31 barcamps/edit.py:34 barcamps/ticketeditor.py:25
 msgid "Enable Pre-Registration"
 msgstr ""
 
-#: barcamps/add.py:32 barcamps/edit.py:34
+#: barcamps/add.py:31 barcamps/edit.py:34
 msgid ""
 "If enabled users can only pre-register and an admin needs to put them on "
 "the participation list manually. Please make sure you also change the "
@@ -192,127 +192,138 @@ msgid ""
 "registers."
 msgstr ""
 
-#: barcamps/add.py:33 barcamps/edit.py:35
+#: barcamps/add.py:32 barcamps/edit.py:35
 msgid "Send email notifications"
 msgstr ""
 
-#: barcamps/add.py:33 barcamps/edit.py:35
+#: barcamps/add.py:32 barcamps/edit.py:35
 msgid ""
 "If enabled barcamp administrators will receive notifications about people"
 " registering and unregistering from the barcamp"
 msgstr ""
 
-#: barcamps/add.py:41 barcamps/edit.py:40 barcamps/events.py:21
+#: barcamps/add.py:37 barcamps/legaledit.py:20
+#: barcamps/templates/admin/add.html:86
+#: barcamps/templates/admin/legaledit.html:28
+#: barcamps/templates/master.html:343
+msgid "Imprint"
+msgstr ""
+
+#: barcamps/add.py:37
+msgid "Please describe in detail who is responsible for this barcamp."
+msgstr ""
+
+#: barcamps/add.py:39 barcamps/edit.py:40 barcamps/events.py:21
 #: barcamps/events.py:35
 msgid "name of location"
 msgstr ""
 
-#: barcamps/add.py:41 barcamps/edit.py:40 barcamps/events.py:35
+#: barcamps/add.py:39 barcamps/edit.py:40 barcamps/events.py:35
 msgid "please enter the name of the venue here"
 msgstr ""
 
-#: barcamps/add.py:42 barcamps/edit.py:41 barcamps/events.py:36
+#: barcamps/add.py:40 barcamps/edit.py:41 barcamps/events.py:36
 msgid "street and number "
 msgstr ""
 
-#: barcamps/add.py:42 barcamps/edit.py:41 barcamps/events.py:36
+#: barcamps/add.py:40 barcamps/edit.py:41 barcamps/events.py:36
 msgid "street and number of the venue"
 msgstr ""
 
-#: barcamps/add.py:43 barcamps/edit.py:42 barcamps/events.py:37
+#: barcamps/add.py:41 barcamps/edit.py:42 barcamps/events.py:37
 msgid "city"
 msgstr ""
 
-#: barcamps/add.py:44 barcamps/edit.py:43 barcamps/events.py:38
-#: barcamps/templates/admin/add.html:94 barcamps/templates/admin/add.html:95
+#: barcamps/add.py:42 barcamps/edit.py:43 barcamps/events.py:38
+#: barcamps/templates/admin/add.html:112 barcamps/templates/admin/add.html:113
 #: barcamps/templates/admin/event_macros.html:157
 #: barcamps/templates/admin/event_macros.html:158
 msgid "zip"
 msgstr ""
 
-#: barcamps/add.py:45 barcamps/edit.py:44 barcamps/events.py:40
+#: barcamps/add.py:43 barcamps/edit.py:44 barcamps/events.py:40
 msgid "homepage"
 msgstr ""
 
-#: barcamps/add.py:45 barcamps/add.py:46 barcamps/edit.py:44
+#: barcamps/add.py:43 barcamps/add.py:44 barcamps/edit.py:44
 #: barcamps/edit.py:45 barcamps/events.py:40 barcamps/events.py:41
 msgid "web site of the venue (optional)"
 msgstr ""
 
-#: barcamps/add.py:46 barcamps/edit.py:45 barcamps/events.py:41
+#: barcamps/add.py:44 barcamps/edit.py:45 barcamps/events.py:41
 msgid "phone"
 msgstr ""
 
-#: barcamps/add.py:47 barcamps/edit.py:46 barcamps/events.py:42
+#: barcamps/add.py:45 barcamps/edit.py:46 barcamps/events.py:42
 msgid "email"
 msgstr ""
 
-#: barcamps/add.py:47 barcamps/edit.py:46 barcamps/events.py:42
+#: barcamps/add.py:45 barcamps/edit.py:46 barcamps/events.py:42
 msgid "email address of the venue (optional)"
 msgstr ""
 
-#: barcamps/add.py:48 barcamps/edit.py:47 barcamps/events.py:43
+#: barcamps/add.py:46 barcamps/edit.py:47 barcamps/events.py:43
 #: barcamps/templates/admin/participants_data_edit.html:21
 msgid "description"
 msgstr ""
 
-#: barcamps/add.py:48 barcamps/edit.py:47 barcamps/events.py:43
+#: barcamps/add.py:46 barcamps/edit.py:47 barcamps/events.py:43
 msgid "an optional description of the venue"
 msgstr ""
 
-#: barcamps/add.py:49 barcamps/edit.py:48 barcamps/events.py:39
-#: barcamps/templates/admin/add.html:103 barcamps/templates/admin/add.html:104
+#: barcamps/add.py:47 barcamps/edit.py:48 barcamps/events.py:39
+#: barcamps/templates/admin/add.html:121 barcamps/templates/admin/add.html:122
 #: barcamps/templates/admin/event_macros.html:166
 #: barcamps/templates/admin/event_macros.html:167
 msgid "Country"
 msgstr ""
 
-#: barcamps/add.py:102
+#: barcamps/add.py:111
 msgid "Attention: One or both of the etherpads exist already!"
 msgstr ""
 
-#: barcamps/add.py:120 barcamps/edit.py:150 barcamps/events.py:114
+#: barcamps/add.py:129 barcamps/edit.py:150 barcamps/events.py:114
 #: barcamps/events.py:241
 msgid "the city was not found in the geo database"
 msgstr ""
 
-#: barcamps/add.py:135 barcamps/add.py:143
+#: barcamps/add.py:143 barcamps/add.py:151
 #: scripts/set_default_mail_templates.py:24
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: barcamps/add.py:137
+#: barcamps/add.py:145
 #, python-format
 msgid "You are on the waiting list for %s"
 msgstr ""
 
-#: barcamps/add.py:139
+#: barcamps/add.py:147
 #, python-format
 msgid "You are now a participant at %s"
 msgstr ""
 
-#: barcamps/add.py:145
+#: barcamps/add.py:153
 #, python-format
 msgid "Your ticket reservation for %s is pending."
 msgstr ""
 
-#: barcamps/add.py:147
+#: barcamps/add.py:155
 #, python-format
 msgid "Your ticket for %s."
 msgstr ""
 
-#: barcamps/add.py:149
+#: barcamps/add.py:157
 #, python-format
 msgid "Your ticket for %s was canceled."
 msgstr ""
 
-#: barcamps/add.py:154
+#: barcamps/add.py:168
 #, python-format
 msgid "%s has been created"
 msgstr ""
 
-#: barcamps/add.py:189 pages/add.py:91
+#: barcamps/add.py:203 pages/add.py:91
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
@@ -446,7 +457,7 @@ msgstr ""
 msgid "do not show a gallery"
 msgstr ""
 
-#: barcamps/design.py:77 barcamps/edit.py:156 barcamps/legaledit.py:51
+#: barcamps/design.py:77 barcamps/edit.py:156 barcamps/legaledit.py:52
 #: barcamps/socialedit.py:48
 msgid "The barcamp has been updated."
 msgstr ""
@@ -472,7 +483,7 @@ msgid "The barcamp has been duplicated."
 msgstr ""
 
 #: barcamps/edit.py:23 barcamps/galleries.py:29
-#: barcamps/templates/admin/add.html:19
+#: barcamps/templates/admin/add.html:23
 #: barcamps/templates/admin/event_macros.html:82
 #: barcamps/templates/admin/galleries.html:22
 #: barcamps/templates/admin/gallery_macros.html:30
@@ -508,60 +519,60 @@ msgstr ""
 msgid "end date"
 msgstr ""
 
-#: barcamps/edit.py:166 barcamps/edit.py:172 barcamps/edit.py:178
-#: barcamps/edit.py:188 barcamps/edit.py:190 barcamps/edit.py:192
-#: barcamps/edit.py:194 barcamps/newsletter.py:18
+#: barcamps/edit.py:165 barcamps/edit.py:171 barcamps/edit.py:177
+#: barcamps/edit.py:187 barcamps/edit.py:189 barcamps/edit.py:191
+#: barcamps/edit.py:193 barcamps/newsletter.py:18
 msgid "Subject"
 msgstr ""
 
-#: barcamps/edit.py:169 barcamps/edit.py:175 barcamps/edit.py:181
-#: barcamps/edit.py:189 barcamps/edit.py:191 barcamps/edit.py:193
-#: barcamps/edit.py:195
+#: barcamps/edit.py:168 barcamps/edit.py:174 barcamps/edit.py:180
+#: barcamps/edit.py:188 barcamps/edit.py:190 barcamps/edit.py:192
+#: barcamps/edit.py:194
 msgid "Body"
 msgstr ""
 
-#: barcamps/edit.py:238 barcamps/events.py:191
+#: barcamps/edit.py:237 barcamps/events.py:191
 #, python-format
 msgid "you cannot reduce the participant number, the minimum amount is %s"
 msgstr ""
 
-#: barcamps/edit.py:271
+#: barcamps/edit.py:270
 msgid "Name of field"
 msgstr ""
 
-#: barcamps/edit.py:272
+#: barcamps/edit.py:271
 msgid "the name of the field to be shown in the form, e.g. \"t-shirt size\""
 msgstr ""
 
-#: barcamps/edit.py:275
+#: barcamps/edit.py:274
 msgid "please describe what the user should enter in this field."
 msgstr ""
 
-#: barcamps/edit.py:277 barcamps/templates/admin/participants_data_edit.html:20
+#: barcamps/edit.py:276 barcamps/templates/admin/participants_data_edit.html:20
 msgid "field type"
 msgstr ""
 
-#: barcamps/edit.py:279
+#: barcamps/edit.py:278
 msgid "a yes/no field"
 msgstr ""
 
-#: barcamps/edit.py:280
+#: barcamps/edit.py:279
 msgid "1 line of text"
 msgstr ""
 
-#: barcamps/edit.py:281
+#: barcamps/edit.py:280
 msgid "multiple lines of text"
 msgstr ""
 
-#: barcamps/edit.py:282
+#: barcamps/edit.py:281
 msgid "please chose between a one-line text field or multi-line text area"
 msgstr ""
 
-#: barcamps/edit.py:284
+#: barcamps/edit.py:283
 msgid "field required?"
 msgstr ""
 
-#: barcamps/edit.py:285
+#: barcamps/edit.py:284
 msgid ""
 "If you enable this then the user cannot register before this field has "
 "been filled in."
@@ -647,18 +658,13 @@ msgid ""
 "address will be publically displayed."
 msgstr ""
 
-#: barcamps/legaledit.py:20 barcamps/templates/admin/legaledit.html:24
-#: barcamps/templates/master.html:317
-msgid "Imprint"
-msgstr ""
-
 #: barcamps/legaledit.py:20
 msgid ""
 "Please describe in detail who is responsible for this barcamp. This is "
 "mandatory for paid barcamps."
 msgstr ""
 
-#: barcamps/legaledit.py:21 barcamps/templates/admin/legaledit.html:31
+#: barcamps/legaledit.py:21 barcamps/templates/admin/legaledit.html:35
 msgid "Terms of Service"
 msgstr ""
 
@@ -666,7 +672,7 @@ msgstr ""
 msgid "Please enter your terms of service here."
 msgstr ""
 
-#: barcamps/legaledit.py:22 barcamps/templates/admin/legaledit.html:38
+#: barcamps/legaledit.py:22 barcamps/templates/admin/legaledit.html:42
 msgid "Cancellation Policy"
 msgstr ""
 
@@ -744,6 +750,12 @@ msgstr ""
 
 #: barcamps/pads.py:14
 msgid "URL of the blog post you want to link to"
+msgstr ""
+
+#: barcamps/pads.py:28
+msgid ""
+"You are not allowed to access this page as you are not an administrator "
+"of this barcamp."
 msgstr ""
 
 #: barcamps/pads.py:33
@@ -981,7 +993,7 @@ msgstr ""
 msgid "new ticket created"
 msgstr ""
 
-#: barcamps/ticketeditor.py:173
+#: barcamps/ticketeditor.py:155
 msgid "Ticket class updated"
 msgstr ""
 
@@ -1039,7 +1051,7 @@ msgstr ""
 #: barcamps/templates/admin/event_macros.html:181
 #: barcamps/templates/admin/gallery_macros.html:24
 #: barcamps/templates/admin/galleryadmin.html:24
-#: barcamps/templates/admin/legaledit.html:47
+#: barcamps/templates/admin/legaledit.html:51
 #: barcamps/templates/admin/socialedit.html:63
 #: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
@@ -1110,7 +1122,7 @@ msgstr ""
 msgid "My Tickets"
 msgstr ""
 
-#: barcamps/templates/master.html:137 barcamps/templates/master.html:273
+#: barcamps/templates/master.html:137 barcamps/templates/master.html:299
 msgid "Open map in modal"
 msgstr ""
 
@@ -1124,53 +1136,53 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: barcamps/templates/master.html:233
+#: barcamps/templates/master.html:232 templates/admin_master.html:97
+msgid "publish barcamp"
+msgstr ""
+
+#: barcamps/templates/master.html:233 templates/admin_master.html:98
+msgid "this barcamp is not public"
+msgstr ""
+
+#: barcamps/templates/admin/wizard.html:289
+#: barcamps/templates/admin/wizard.html:303 barcamps/templates/master.html:240
+#: templates/admin_master.html:107
+msgid "open registration"
+msgstr ""
+
+#: barcamps/templates/master.html:241 templates/admin_master.html:108
+msgid "Registration for this barcamp is not yet open."
+msgstr ""
+
+#: barcamps/templates/master.html:259
 msgid "Manage Barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:249
+#: barcamps/templates/master.html:275
 msgid "Social Media"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:78
+#: barcamps/templates/admin/add.html:96
 #: barcamps/templates/admin/event_macros.html:141
-#: barcamps/templates/master.html:270 barcamps/templates/user_event.html:122
+#: barcamps/templates/master.html:296 barcamps/templates/user_event.html:122
 #: barcamps/templates/user_event.html:206
 #: barcamps/templates/user_events.html:122
 msgid "Location"
 msgstr ""
 
-#: barcamps/templates/master.html:286
+#: barcamps/templates/master.html:312
 msgid "Contact"
 msgstr ""
 
-#: barcamps/templates/master.html:309
+#: barcamps/templates/master.html:335
 msgid "Sponsors"
 msgstr ""
 
-#: barcamps/templates/master.html:320
+#: barcamps/templates/master.html:346
 msgid "Contact: "
 msgstr ""
 
-#: barcamps/templates/master.html:334 templates/admin_master.html:79
-msgid "publish barcamp"
-msgstr ""
-
-#: barcamps/templates/master.html:335 templates/admin_master.html:80
-msgid "this barcamp is not public"
-msgstr ""
-
-#: barcamps/templates/admin/wizard.html:289
-#: barcamps/templates/admin/wizard.html:303 barcamps/templates/master.html:342
-#: templates/admin_master.html:87
-msgid "open registration"
-msgstr ""
-
-#: barcamps/templates/master.html:343 templates/admin_master.html:88
-msgid "Registration for this barcamp is not yet open."
-msgstr ""
-
-#: barcamps/templates/master.html:371
+#: barcamps/templates/master.html:372
 msgid "Add to Calendar"
 msgstr ""
 
@@ -1691,109 +1703,127 @@ msgstr ""
 msgid "Interested"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:7
-msgid "Create a new Barcamp"
+#: barcamps/templates/admin/add.html:8
+msgid "Create a new paid Barcamp"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:21
+#: barcamps/templates/admin/add.html:10
+msgid "Create a new free Barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/add.html:25
 msgid "name of barcamp, e.g. \"PythonCamp\""
 msgstr ""
 
-#: barcamps/templates/admin/add.html:26 pages/add.py:30
+#: barcamps/templates/admin/add.html:30 pages/add.py:30
 msgid "URL name"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:29
+#: barcamps/templates/admin/add.html:33
 msgid "url short name without whitespaces, e.g. pythoncamp2011"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:34 pages/templates/add.html:14
+#: barcamps/templates/admin/add.html:38 pages/templates/add.html:14
 #: pages/templates/edit.html:13
 msgid "This shortname is already taken."
 msgstr ""
 
-#: barcamps/templates/admin/add.html:43
+#: barcamps/templates/admin/add.html:47
 #: barcamps/templates/admin/event_macros.html:90
 msgid "Add more info"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:47
+#: barcamps/templates/admin/add.html:51
 #: barcamps/templates/admin/ticketedit.html:19
 #: barcamps/templates/admin/ticketeditor.html:106
 msgid "From"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:49
+#: barcamps/templates/admin/add.html:53
 #: barcamps/templates/admin/ticketedit.html:22
 #: barcamps/templates/admin/ticketeditor.html:109
 msgid "Start date"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:52
+#: barcamps/templates/admin/add.html:56
 #: barcamps/templates/admin/event_macros.html:109
 #: barcamps/templates/admin/ticketedit.html:25
 #: barcamps/templates/admin/ticketeditor.html:112
 msgid "to"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:55
+#: barcamps/templates/admin/add.html:59
 #: barcamps/templates/admin/ticketedit.html:28
 #: barcamps/templates/admin/ticketeditor.html:115
 msgid "End date"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:65
+#: barcamps/templates/admin/add.html:70
 msgid "Pre-Registration"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:71
+#: barcamps/templates/admin/add.html:77
 msgid "Receive notifications"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:81
+#: barcamps/templates/admin/add.html:84
+msgid "Legal Information"
+msgstr ""
+
+#: barcamps/templates/admin/add.html:99
 #: barcamps/templates/admin/event_macros.html:144
 msgid "Where"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:83
+#: barcamps/templates/admin/add.html:101
 #: barcamps/templates/admin/event_macros.html:146
 msgid "Name of location"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:84
+#: barcamps/templates/admin/add.html:102
 #: barcamps/templates/admin/event_macros.html:147
 msgid "Name of the location"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:86
+#: barcamps/templates/admin/add.html:104
 #: barcamps/templates/admin/event_macros.html:149
 msgid "Please enter a street"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:88 barcamps/templates/admin/add.html:89
+#: barcamps/templates/admin/add.html:106 barcamps/templates/admin/add.html:107
 #: barcamps/templates/admin/event_macros.html:151
 #: barcamps/templates/admin/event_macros.html:152
 msgid "Street"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:97
+#: barcamps/templates/admin/add.html:115
 #: barcamps/templates/admin/event_macros.html:160
 msgid "Please enter a city"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:99 barcamps/templates/admin/add.html:100
+#: barcamps/templates/admin/add.html:117 barcamps/templates/admin/add.html:118
 #: barcamps/templates/admin/event_macros.html:162
 #: barcamps/templates/admin/event_macros.html:163
 msgid "City"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:108
+#: barcamps/templates/admin/add.html:126
 #: barcamps/templates/admin/event_macros.html:171
 msgid "show the map"
 msgstr ""
 
-#: barcamps/templates/admin/add.html:118
-msgid "create Barcamp"
+#: barcamps/templates/admin/add.html:137
+msgid "create paid Barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/add.html:139
+msgid ""
+"Please note: In order to publish your barcamp later you first need to add"
+" all the necessary legal information."
+msgstr ""
+
+#: barcamps/templates/admin/add.html:142
+msgid "create free Barcamp"
 msgstr ""
 
 #: barcamps/templates/admin/dashboard.html:6
@@ -1941,7 +1971,7 @@ msgid "Copy events"
 msgstr ""
 
 #: barcamps/templates/admin/edit.html:8
-#: barcamps/templates/admin/legaledit.html:46
+#: barcamps/templates/admin/legaledit.html:50
 #: barcamps/templates/admin/socialedit.html:62
 msgid "Save Changes"
 msgstr ""
@@ -2202,15 +2232,15 @@ msgstr ""
 msgid "Legal information"
 msgstr ""
 
-#: barcamps/templates/admin/legaledit.html:14
+#: barcamps/templates/admin/legaledit.html:16
 msgid "You need to fill this out if you take money for attending your events"
 msgstr ""
 
-#: barcamps/templates/admin/legaledit.html:17
+#: barcamps/templates/admin/legaledit.html:21
 msgid "Contact email address"
 msgstr ""
 
-#: barcamps/templates/admin/legaledit.html:19
+#: barcamps/templates/admin/legaledit.html:23
 msgid "contact@barcamp"
 msgstr ""
 
@@ -2397,6 +2427,74 @@ msgstr ""
 msgid "Room Signs"
 msgstr ""
 
+#: barcamps/templates/admin/setup.html:9
+msgid "Create a new Barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:11
+msgid "Please select first if you are planning a paid barcamp or a free barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:18
+msgid "Create a free Barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:21
+msgid "The following applies to free barcamps:"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:24
+msgid "Attendees do not have to pay to attend."
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:27
+msgid "This includes not having to send money via bank transfer"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:30
+msgid ""
+"As an administrator you can choose to use the new ticket mode or the "
+"event based registration mode"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:33
+msgid "Create a free barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:39
+msgid "Create a paid Barcamp"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:42
+msgid "The following applies to paid barcamps because of legal requirements:"
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:45
+msgid ""
+"Attendees have to pay to attend. This includes asking for a bank transfer"
+" via welcome emails."
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:48
+msgid ""
+"The payment method is up to you. This tool does not offer any payment "
+"process. You have to implement this yourself, e.g. via bank transfer."
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:51
+msgid "Only the ticket mode can be used here and will be enabled automatically."
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:54
+msgid ""
+"You have to provide legal information like terms of service, refund "
+"policy, imprint and contact email."
+msgstr ""
+
+#: barcamps/templates/admin/setup.html:59
+msgid "Create a paid barcamp"
+msgstr ""
+
 #: barcamps/templates/admin/socialedit.html:7
 msgid "Edit social and SEO information"
 msgstr ""
@@ -2512,8 +2610,8 @@ msgstr ""
 #: barcamps/templates/admin/ticketeditor.html:37
 #, python-format
 msgid ""
-"Please add the necessary legal information for enabling a paid barcamp <a"
-" href=\"%s\">here</a>."
+"Please add the necessary legal information for paid barcamp <a "
+"href=\"%s\">here</a>."
 msgstr ""
 
 #: barcamps/templates/admin/ticketeditor.html:48
@@ -2917,6 +3015,22 @@ msgstr ""
 
 #: blog/templates/entries.html:54
 msgid "Add new blog entry"
+msgstr ""
+
+#: db/barcamp.py:591
+msgid "The contact email is not set"
+msgstr ""
+
+#: db/barcamp.py:596
+msgid "The Imprint is missing"
+msgstr ""
+
+#: db/barcamp.py:601
+msgid "The terms of service are missing"
+msgstr ""
+
+#: db/barcamp.py:606
+msgid "The cancel policy is missing"
 msgstr ""
 
 #: handlers/forms.py:93
@@ -3351,6 +3465,30 @@ msgstr ""
 
 #: templates/admin_master.html:69
 msgid "duplicate barcamp"
+msgstr ""
+
+#: templates/admin_master.html:78
+msgid "hide details"
+msgstr ""
+
+#: templates/admin_master.html:78
+msgid "less info"
+msgstr ""
+
+#: templates/admin_master.html:79
+msgid "show details"
+msgstr ""
+
+#: templates/admin_master.html:79
+msgid "Why?"
+msgstr ""
+
+#: templates/admin_master.html:80
+msgid "The barcamp cannot be published at the moment."
+msgstr ""
+
+#: templates/admin_master.html:83
+msgid " Please fix the following problems first:"
 msgstr ""
 
 #: templates/index.html:18 templates/past_barcamps.html:18
@@ -5300,5 +5438,11 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid " Please fix the following problems first:"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Please add the necessary legal "
+#~ "information for enabling a paid barcamp"
+#~ " <a href=\"%s\">here</a>."
 #~ msgstr ""
 
