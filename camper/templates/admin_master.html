@@ -84,7 +84,7 @@
                             </p>
                             <ul>
                                 {% for reason in barcamp.publish_not_allowed %}
-                                <li><a href="{{url_for('.'+reason['url'], slug = slug)}}">{{reason.reason}}</a></li>
+                                <li><a href="{{url_for('.'+reason['url'], slug = slug)}}">{{_(reason.reason)}}</a></li>
                                 {% endfor %}
                             </ul>
                         </div>
