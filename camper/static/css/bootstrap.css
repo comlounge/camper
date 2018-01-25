@@ -9257,6 +9257,9 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
 #setup .panel-body {
   font-size: 15px;
 }
+#setup .panel-body ul {
+  margin: 10px 0;
+}
 #setup .panel-body li {
   padding-top: 5px;
 }
