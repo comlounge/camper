@@ -254,7 +254,7 @@
                 {% endif %}
             </form>
 
-            {% if not is_public%}
+            {% if not is_public and not barcamp.publish_not_allowed %}
             <div class="panel panel-primary">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
@@ -280,7 +280,7 @@
             </div>
             {% endif %}
 
-            {% if not is_active and is_public%}
+            {% if not is_active and is_public %}
             <div class="panel panel-primary">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title">
