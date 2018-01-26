@@ -165,4 +165,8 @@ In order to migrate::
 - completeness progress for the admin is now properly computed
 - you now can add select fields to custom forms
 
+2.4.1
+=====
+
+- fixed checkbox placement in wizard for user form
 
