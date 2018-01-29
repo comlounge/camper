@@ -51,6 +51,12 @@ class View(BarcampBaseHandler):
 
         return self.render(**params)
             
+class RedirectView(BarcampBaseHandler):
+    """redirect to version with trailing /"""
+
+    def get(self, slug = None):
+        return redirect(self.url_for("barcamps.index", slug = self.barcamp.slug), code=301)
+
 
 class BarcampSponsors(BarcampBaseHandler):
     """view for adding and deleting sponsors"""
