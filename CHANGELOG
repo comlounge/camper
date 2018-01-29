@@ -170,3 +170,8 @@ In order to migrate::
 
 - fixed checkbox placement in wizard for user form
 
+2.4.2
+=====
+
+- added redirect for barcamp urls without trailing slash to URL with slash (to prevent 404s)
+- some html fixes
