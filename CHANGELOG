@@ -175,3 +175,9 @@ In order to migrate::
 
 - added redirect for barcamp urls without trailing slash to URL with slash (to prevent 404s)
 - some html fixes
+
+2.4.3
+=====
+
+- changes to the wysiwyg editor: URLs are not converted anymore. 
+- changes to the wysiwyg editor: <a target> now works
