@@ -366,7 +366,7 @@ class WYSIWYGField(TextAreaField):
     widget = WYSIWYGWidget()
 
     attributes = {
-        'a': ['href', 'title'],
+        'a': ['href', 'title', 'target'],
         'abbr': ['title'],
         'acronym': ['title'],   
         'img' : ['src', 'alt'],
