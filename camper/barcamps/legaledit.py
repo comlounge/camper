@@ -37,7 +37,8 @@ class LegalEditView(BarcampBaseHandler):
         if self.barcamp.paid_tickets:
             for field in form:
                 form[field.name].validators.append(validators.Required())
-            else:
+        else:
+            for field in form:
                 form[field.name].validators.append(validators.Optional())
                 
 
