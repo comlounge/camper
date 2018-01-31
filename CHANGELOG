@@ -181,3 +181,8 @@ In order to migrate::
 
 - changes to the wysiwyg editor: URLs are not converted anymore. 
 - changes to the wysiwyg editor: <a target> now works
+
+2.4.4
+=====
+
+- only imprint is now required for free barcamps
