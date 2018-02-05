@@ -441,6 +441,12 @@ class BarcampSchema(Schema):
     tos                 = String(default="")
     cancel_policy       = String(default="")
 
+    # newsletter related
+    newsletter_reply_to = String(default="")        # the active reply to address for the newsletter
+    newsletter_rt_code  = String(default="")        # the activation code for the newsletter reply to
+    newsletter_reply_to2= String(default="")        # the to be set reply to address for the newsletter
+
+
 
 class Barcamp(Record):
 
@@ -751,6 +757,42 @@ class Barcamp(Record):
         if uid in self.subscribers:
             self.subscribers.remove(uid)
         self.put()
+
+
+    def set_nl_reply_to(self, email_address):
+        """set up a new reply to address for the newsletter
+
+        you need to save the barcamp afterwards
+
+        :param email_address: the email address to be set
+        :returns: a uuid code for sending to the user to verify
+        """
+
+        self.newsletter_reply_to2 = email_address
+        self.newsletter_rt_code = unicode(uuid.uuid4())
+        return self.newsletter_rt_code
+
+
+    def verify_nl_reply_to(self, code):
+        """verify the reply to verification code
+
+        returns True if it's ok and will set the new reply to address then
+
+        you need to save the barcamp object afterwards
+        """
+
+        if self.newsletter_rt_code == code:
+            self.newsletter_reply_to = self.newsletter_reply_to2
+            self.newsletter_rt_code = ""
+            self.newsletter_reply_to2 = ""
+            return True
+        else:
+            return False
+
+    def remove_nl_reply_to(self):
+        """remove the reply to address"""
+        self.newsletter_reply_to = ""
+        
 
     
 

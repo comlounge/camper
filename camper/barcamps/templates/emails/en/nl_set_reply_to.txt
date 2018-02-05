@@ -1,0 +1,14 @@
+Hello!
+
+{{fullname}} wants to set a new reply to address for
+{{barcamp.name}}. 
+
+In order to use this address, please click on the link below:
+
+{{activation_url}}
+
+or copy it into your browser.
+
+If you don't know anything about the above please simply ignore this message.
+
+Your {{barcamp.name}} team!

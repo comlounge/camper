@@ -41,9 +41,15 @@
             </div>
 
             {% if is_logged_in_user %}
-                <a href="{{url_for('profile_edit')}}" class="btn btn-info"><i class="icon-pencil icon-white"></i> {{_('Edit Profile')}}</a>
-                <a href="{{url_for('userbase.pw_set')}}" class="btn btn-danger"><i class="icon-lock icon-white"></i> {{_('Change Password')}}</a>
-            {% endif %}
+                <div class="profile-actions">
+                    <a href="{{url_for('profile_edit')}}" class="btn btn-info"><i class="icon-pencil icon-white"></i> {{_('Edit Profile')}}</a>
+                </div>
+                
+                <div class="profile-actions-danger">
+                    <a href="{{url_for('userbase.pw_set')}}" class="btn btn-default"><i class="fa fa-lock"></i> {{_('Change Password')}}</a>
+                    <a href="{{url_for('email_edit')}}" class="btn btn-default"><i class="fa fa-envelope"></i> {{_('Change E-Mail')}}</a>
+                </div>
+                {% endif %}
         </div>
     </div>
 

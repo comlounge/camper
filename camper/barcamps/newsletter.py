@@ -55,16 +55,23 @@ class NewsletterEditView(BarcampBaseHandler):
             )
 
         # now instantiate it
-        form = MyForm(self.request.form, config = self.config, recipients = "all")
+
+        form = MyForm(self.request.form, config = self.config, recipients = "all", replyto=self.barcamp.contact_email)
 
         if self.request.method == 'POST' and form.validate():
             f = form.data
             mailer = self.app.module_map['mail']
             st = self.request.form.get('sendtype')
+
+            # do we have to set a reply to?
+            headers = {}
+            replyto = self.barcamp.newsletter_reply_to
+            if replyto != "":
+                headers['Reply-To'] = replyto.encode("utf8")
             if st=="test":
                 if f['testmail'] != u'':
                     # send newsletter to test mail address
-                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"))
+                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
                     self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="waring")
@@ -101,9 +108,10 @@ class NewsletterEditView(BarcampBaseHandler):
                 # unduplicate the list
                 recipient_ids = set(recipient_ids)
                 users = self.app.module_map['userbase'].get_users_by_ids(recipient_ids)
+
                 for user in users:
                     send_to = user.email
-                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"))
+                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
                 self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.dashboard", slug = self.barcamp.slug))
 
@@ -117,10 +125,61 @@ class NewsletterEditView(BarcampBaseHandler):
 
     post = get
 
+class NewsletterSetReplyTo(BaseHandler):
+    """handler for setting the new reply to address and sending out a verification mail"""
+
+    template = "admin/confirm_nl_reply_to.html"
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def post(self, slug = None):
+        """set the reply to, gen a code and send it to the user via email"""
+
+        email = self.request.form.get('email', '')
+        if email:
+            code = self.barcamp.set_nl_reply_to(email)
+            self.barcamp.save()
+            activation_url = self.url_for("barcamps.nl_verify_reply_to", slug = self.barcamp.slug, _full = True, _append = True, code = code)
+            self.mail_text("emails/nl_set_reply_to.txt", self._('Confirm your Reply-To address'), send_to = email, activation_url = activation_url, barcamp = self.barcamp)
+            self.flash(self._('We sent you a confirmation email to verify this email address. Please follow the instructions in that mail.'))
+        else:
+            self.flash(self._('Please provide an email address.'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
 
 
+class NewsletterReplyToConfirm(BaseHandler):
+    """handler for setting the new reply to address and sending out a verification mail"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """verify the reply to code and inform the user"""
+
+        code = self.request.args.get("code", "")
+        confirmed = self.barcamp.verify_nl_reply_to(code)
+        self.barcamp.save()
+        if confirmed:
+            self.flash(self._('The reply to address was successfully confirmed'))
+        else:
+            self.flash(self._('Unfortunately the code was wrong. Please try again!'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
+        
 
 
+class DeleteReplyTo(BaseHandler):
+    """remove the reply to address"""
+
+    @ensure_barcamp()
+    @logged_in()
+    @is_admin()
+    def get(self, slug = None):
+        """remove the reply to address and set the default again"""
+        self.barcamp.remove_nl_reply_to()
+        self.barcamp.save()
+        self.flash(self._('The custom reply to address for this newsletter has been removed.'))
+        return redirect(self.url_for("barcamps.newsletter_send", slug = self.barcamp.slug))
 
 
 

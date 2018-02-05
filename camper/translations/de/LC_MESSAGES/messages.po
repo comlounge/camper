@@ -2,6 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
+"POT-Creation-Date: 2018-01-25 12:05+0100\n"
+"PO-Revision-Date: 2018-01-25 12:15+0100\n"
 "POT-Creation-Date: 2018-01-25 16:57+0100\n"
 "PO-Revision-Date: 2018-01-25 16:58+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
@@ -11,6 +13,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+"X-Generator: Poedit 2.0.6\n"
 "Generated-By: Babel 2.5.3\n"
 "X-Generator: Poedit 2.0.6\n"
 
@@ -767,9 +771,33 @@ msgstr "Unentschlossene"
 msgid "People on Waiting List"
 msgstr "Warteliste"
 
-#: barcamps/newsletter.py:107
+#: barcamps/newsletter.py:115
 msgid "newsletter sent successfully"
 msgstr "Newsletter erfolgreich versandt"
+
+#: barcamps/newsletter.py:144 handlers/users/change_email.py:45
+msgid "Confirm your Reply-To address"
+msgstr "Bestätige die Antwort-Adresse"
+
+#: barcamps/newsletter.py:145
+msgid "We sent you a confirmation email to verify this email address. Please follow the instructions in that mail."
+msgstr "Wir haben Dir eine E-Mail gesendet, um die angegebene E-Mail-Adresse zu bestätigen. Bitte folge den Anweisungen in der Mail."
+
+#: barcamps/newsletter.py:147
+msgid "Please provide an email address."
+msgstr "Bitte gib eine E-Mail-Adresse an."
+
+#: barcamps/newsletter.py:164
+msgid "The reply to address was successfully confirmed"
+msgstr "Die Antwort-Adresse wurde erfolgreich bestätigt."
+
+#: barcamps/newsletter.py:166 handlers/users/change_email.py:70
+msgid "Unfortunately the code was wrong. Please try again!"
+msgstr "Leider war der Code falsch. Bitte versuche es noch einmal!"
+
+#: barcamps/newsletter.py:181
+msgid "The custom reply to address for this newsletter has been removed."
+msgstr "Die Antwortadresse für den Newsletter wurde entfernt."
 
 #: barcamps/pads.py:10
 msgid "Post Title"
@@ -1114,7 +1142,7 @@ msgstr "Neuen Blogpost hinzufügen"
 #: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
-#: templates/users/edit.html:46
+#: templates/users/edit.html:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1289,6 +1317,37 @@ msgstr "Zum Widerruf vorgemerkte Tickets"
 msgid "canceled tickets (confirmed)"
 msgstr "Widerrufene Tickets"
 
+#: barcamps/templates/mytickets.html:139 barcamps/templates/user_event.html:227
+#: barcamps/templates/user_events.html:134
+msgid "My data"
+msgstr "Meine Daten"
+
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:238
+#: barcamps/templates/user_events.html:145
+msgid "Change my registration data"
+msgstr "Meine Registrierungsdaten ändern"
+
+#: barcamps/templates/mytickets.html:150 barcamps/templates/user_event.html:238
+#: barcamps/templates/user_events.html:145
+msgid "edit"
+msgstr "Bearbeiten"
+
+#: barcamps/templates/mytickets.html:152 barcamps/templates/user_event.html:240
+#: barcamps/templates/user_events.html:147
+msgid "please enter your personal data in order to register for this event"
+msgstr "bitte gib Deine persönlichen Daten ein, um Dich bei dieser Veranstaltung zu registrieren."
+
+#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:91
+#: barcamps/templates/user_event.html:241
+#: barcamps/templates/user_events.html:148
+msgid "Add my registration data"
+msgstr "Meine Registrierungsdaten angeben"
+
+#: barcamps/templates/mytickets.html:153 barcamps/templates/user_event.html:241
+#: barcamps/templates/user_events.html:148
+msgid "add"
+msgstr "Hinzufügen"
+
 #: barcamps/templates/pad.html:9
 msgid "This planning pad is public."
 msgstr "Das Planungs-Pad ist öffentlich"
@@ -1444,7 +1503,7 @@ msgid "Repeat your password"
 msgstr "Wiederhole Dein Passwort"
 
 #: barcamps/templates/registration_wizard.html:63
-#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:29
+#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:21
 msgid "Fullname"
 msgstr "Voller Name"
 
@@ -1557,7 +1616,7 @@ msgstr "Sessionvorschlag löschen"
 #: barcamps/templates/admin/gallery_macros.html:50
 #: barcamps/templates/sessions.html:67 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:130
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2464,7 +2523,7 @@ msgid "update"
 msgstr "Aktualisieren"
 
 #: barcamps/templates/admin/send_newsletter.html:6
-#: barcamps/templates/admin/send_newsletter.html:33
+#: barcamps/templates/admin/send_newsletter.html:62
 msgid "Send Newsletter"
 msgstr "Newsletter versenden"
 
@@ -2488,11 +2547,55 @@ msgstr ""
 "Barcamps, alle Interessierten oder beide Gruppen schicken. Du kann Dir vorher "
 "den Newsletter als Test an eine beliebige Adresse schicken lassen."
 
-#: barcamps/templates/admin/send_newsletter.html:26
+#: barcamps/templates/admin/send_newsletter.html:17
+msgid "Reply-To address"
+msgstr "Antwortadresse"
+
+#: barcamps/templates/admin/send_newsletter.html:19
+msgid "No reply to address set, using default <code class=\"text-info\">noreply@barcamptools.eu</code>"
+msgstr "Es wurde keine eigene Antwortadresse gesetzt, daher wird der Default <code class=\"text-info\">noreply@barcamptools.eu</code> genutzt."
+
+#: barcamps/templates/admin/send_newsletter.html:20
+msgid "Set own reply-to address"
+msgstr "Setze eine eigene Antwort-Adresse"
+
+#: barcamps/templates/admin/send_newsletter.html:22
+msgid "There is a confirmation email pending. Please check your inbox to activate your custom reply-to address"
+msgstr "Eine Bestätigungs-Mail steht noch aus. Bitte überprüfe Dein E-Mail-Postfix, um die Antwortadresse zu aktivieren"
+
+#: barcamps/templates/admin/send_newsletter.html:25
+msgid "Reply-To address:"
+msgstr "Antwortadresse (Reply-To):"
+
+#: barcamps/templates/admin/send_newsletter.html:27
+msgid "Remove"
+msgstr "Entfernen"
+
+#: barcamps/templates/admin/send_newsletter.html:31
+msgid "set reply-to address for newsletter"
+msgstr "Setze eine Antwortadresse für den Newsletter"
+
+#: barcamps/templates/admin/send_newsletter.html:34
+msgid "Reply to address:"
+msgstr "Antwort-Adresse:"
+
+#: barcamps/templates/admin/send_newsletter.html:36
+msgid "Please note that we will send you a verification code to confirm this address before it will become active."
+msgstr "Achtung: Wir senden Dir noch eine Mail zur Bestätigung der E-Mail-Adresse, bevor sie aktiviert wird."
+
+#: barcamps/templates/admin/send_newsletter.html:37
+msgid "This screen will be reloaded so maybe save your newsletter text before!"
+msgstr "Dieser Screen wird neu geladen werden, speichere als ggf. Deinen Newsletter-Text!"
+
+#: barcamps/templates/admin/send_newsletter.html:40
+msgid "Send verification code"
+msgstr "Sende Verifizierungs-Code"
+
+#: barcamps/templates/admin/send_newsletter.html:55
 msgid "Send Test Mail"
 msgstr "Test-Newsletter versenden"
 
-#: barcamps/templates/admin/send_newsletter.html:29
+#: barcamps/templates/admin/send_newsletter.html:58
 msgid "Really send Newsletter?"
 msgstr "Den Newsletter wirklich versenden?"
 
@@ -2637,7 +2740,7 @@ msgstr "https://"
 msgid "barcamp description in 160 chars"
 msgstr "Barcamp-Beschreibung in 160 Zeichen"
 
-#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:33
+#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:25
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -2653,7 +2756,7 @@ msgstr "Twitter-Konto"
 msgid "Twitter Hashtag"
 msgstr "Twitter-Hashtag"
 
-#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:34
+#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:26
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -3046,9 +3149,7 @@ msgstr "Facebook-Seite hinzufügen"
 
 #: barcamps/templates/admin/wizard.html:261
 msgid "Add a description for search engines (meta description)"
-msgstr ""
-"Erstelle eine Kurzbeschreibung für Suchmaschinen für Dein Barcamp (Meta-"
-"Description)"
+msgstr "Erstelle eine Kurzbeschreibung für Suchmaschinen für Dein Barcamp (Meta-Description)"
 
 #: barcamps/templates/admin/wizard.html:268
 msgid ""
@@ -3261,9 +3362,7 @@ msgstr "Was genau brauchst Du an Hilfe?"
 
 #: handlers/sponsor.py:15
 msgid "please describe your barcamp here esp. in regards of youth participation"
-msgstr ""
-"Bitte beschreibe Dein Barcamp hier insbesondere im Hinblick auf "
-"Jugendpartizipation und wobei Du Hilfe brauchst"
+msgstr "Bitte beschreibe Dein Barcamp hier insbesondere im Hinblick auf Jugendpartizipation und wobei Du Hilfe brauchst"
 
 #: handlers/sponsor.py:33
 msgid "camper: new barcamp sponsorshop requested"
@@ -3308,7 +3407,31 @@ msgstr ""
 msgid "Your account has been successfully activated."
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: handlers/users/edit.py:30
+#: handlers/users/change_email.py:17
+msgid "E-Mail address"
+msgstr "E-Mail-Adresse"
+
+#: handlers/users/change_email.py:21 handlers/users/edit.py:32
+msgid "this email address is already taken"
+msgstr "Diese E-Mail-Adresse ist schon vergeben"
+
+#: handlers/users/change_email.py:25 handlers/users/edit.py:36
+msgid "this url path is already taken"
+msgstr "Dieser URL-Pfad ist schon vergeben"
+
+#: handlers/users/change_email.py:47
+msgid "Please check your inbox of the new email for a confirmation mail and confirm it"
+msgstr "Bitte überprüfe Dein E-Mail-Postfach der neuen E-Mail-Adresse, um diese zu bestätigen"
+
+#: handlers/users/change_email.py:51 handlers/users/edit.py:64
+msgid "There have been errors in the form"
+msgstr "Das Formular beinhaltet einen Fehler"
+
+#: handlers/users/change_email.py:67
+msgid "You have successfully changed your email address!"
+msgstr "Du hast Deine E-Mail-Adresse erfolgreich geändert"
+
+#: handlers/users/edit.py:22
 msgid "url name (username)"
 msgstr "URL-Pfad (Benutzername)"
 
@@ -3320,51 +3443,35 @@ msgstr ""
 "Dies ist der URL-Pfade zu Deinem Profil, er sollte nur Buchstaben und Zahlen "
 "enthalten."
 
-#: handlers/users/edit.py:31 templates/users/profile.html:21
+#: handlers/users/edit.py:23 templates/users/profile.html:21
 msgid "About me"
 msgstr "Über mich"
 
-#: handlers/users/edit.py:32
+#: handlers/users/edit.py:24
 msgid "Organization"
 msgstr "Organisation"
 
-#: handlers/users/edit.py:32
+#: handlers/users/edit.py:24
 msgid "your school, company, institution (max. 100 characters)"
 msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
 
-#: handlers/users/edit.py:33
+#: handlers/users/edit.py:25
 msgid "your twitter username"
 msgstr "Dein Twitter-Benutzername"
 
-#: handlers/users/edit.py:34
+#: handlers/users/edit.py:26
 msgid "path to your facebook profile (without domain)"
 msgstr "Pfad zum Facebook-Profil (ohne Domain)"
 
-#: handlers/users/edit.py:35
-msgid "T shirt size"
-msgstr "T-Shirt-Größe"
-
-#: handlers/users/edit.py:36
+#: handlers/users/edit.py:27
 msgid "Profile Image (optional)"
 msgstr "Profil-Bild (optional)"
 
-#: handlers/users/edit.py:41
-msgid "this email address is already taken"
-msgstr "Diese E-Mail-Adresse ist schon vergeben"
-
-#: handlers/users/edit.py:45
-msgid "this url path is already taken"
-msgstr "Dieser URL-Pfad ist schon vergeben"
-
-#: handlers/users/edit.py:69
+#: handlers/users/edit.py:60
 msgid "Your profile has been updated"
 msgstr "Dein Profilbild wurde aktualisiert"
 
-#: handlers/users/edit.py:73
-msgid "There have been errors in the form"
-msgstr "Das Formular beinhaltet einen Fehler"
-
-#: handlers/users/edit.py:94
+#: handlers/users/edit.py:85
 msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
 
@@ -3768,7 +3875,7 @@ msgstr "Verwaltung"
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:97 templates/users/profile.html:45
+#: templates/master.html:97 templates/users/profile.html:49
 msgid "Change Password"
 msgstr "Passwort ändern"
 
@@ -3830,6 +3937,18 @@ msgstr "Fehlt dir die Aktivierungs-EMail?"
 msgid "Please send me a new activation code"
 msgstr "Bitte sende mir einen neuen Aktivierungscode"
 
+#: templates/users/change_email.html:9
+msgid "Change your email address"
+msgstr "E-Mail-Adresse ändern"
+
+#: templates/users/change_email.html:11
+msgid "Use the form below to set a new email address for your account. You will receive a confirmation email to your new address before the new address becomes active."
+msgstr "Nutze das untenstehende Formular, um eine neue E-Mail-Adresse für Dein Konto zu vergeben. Bevor diese aktiv wird, musst Du jedoch erst die Bestätigung-Mail bestätigen, die an die neue Adresse geht."
+
+#: templates/users/change_email.html:18
+msgid "Save new email"
+msgstr "Neue Adresse speichern"
+
 #: templates/users/edit.html:6
 msgid "Edit public profile"
 msgstr "Öffentliches Profil bearbeiten"
@@ -3842,11 +3961,11 @@ msgstr "Benutzername"
 msgid "Facebook-Account"
 msgstr "Facebook-Account"
 
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Upload Profile Image"
 msgstr "Profilbild hochladen"
 
-#: templates/users/edit.html:45
+#: templates/users/edit.html:44
 msgid "Update Profile"
 msgstr "Profil aktualisieren"
 
@@ -3858,7 +3977,7 @@ msgstr "Dies könnte ein Text über Dich sein"
 msgid "not given"
 msgstr "nicht angegeben"
 
-#: templates/users/profile.html:44
+#: templates/users/profile.html:45
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
 
