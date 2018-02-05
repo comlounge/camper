@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-05 12:42+0100\n"
+"POT-Creation-Date: 2018-02-05 12:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -111,27 +111,27 @@ msgstr ""
 msgid "main administrator"
 msgstr ""
 
-#: base.py:196
+#: base.py:192
 msgid "date to be announced"
 msgstr ""
 
-#: base.py:206
+#: base.py:202
 msgid "location to be announced"
 msgstr ""
 
-#: base.py:358
+#: base.py:354
 msgid "Please log in."
 msgstr ""
 
-#: base.py:395
+#: base.py:391
 msgid "you don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:401 base.py:628
+#: base.py:397 base.py:624
 msgid "You don't have the correct permissions to access this page."
 msgstr ""
 
-#: base.py:413 base.py:419 base.py:431 base.py:434
+#: base.py:409 base.py:415 base.py:427 base.py:430
 msgid "you don't have the permission to access this page."
 msgstr ""
 
@@ -2511,20 +2511,30 @@ msgstr ""
 msgid "Rooms and Times"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:42
+#: barcamps/templates/admin/sessionboard.html:38
 msgid "each time on a separate sheet"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:43
+#: barcamps/templates/admin/sessionboard.html:39
 msgid "Time Signs"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:44
+#: barcamps/templates/admin/sessionboard.html:40
 msgid "each room on a separate sheet for directions or session plan"
 msgstr ""
 
-#: barcamps/templates/admin/sessionboard.html:45
+#: barcamps/templates/admin/sessionboard.html:41
 msgid "Room Signs"
+msgstr ""
+
+#: barcamps/templates/admin/sessionboard.html:42
+msgid ""
+"the complete session plan by room. One page contains the sessions for one"
+" room"
+msgstr ""
+
+#: barcamps/templates/admin/sessionboard.html:43
+msgid "Sessions per Room"
 msgstr ""
 
 #: barcamps/templates/admin/setup.html:9
@@ -3148,19 +3158,19 @@ msgstr ""
 msgid "Add new blog entry"
 msgstr ""
 
-#: db/barcamp.py:598
+#: db/barcamp.py:601
 msgid "The contact email is not set"
 msgstr ""
 
-#: db/barcamp.py:603
+#: db/barcamp.py:606
 msgid "The Imprint is missing"
 msgstr ""
 
-#: db/barcamp.py:608
+#: db/barcamp.py:611
 msgid "The terms of service are missing"
 msgstr ""
 
-#: db/barcamp.py:613
+#: db/barcamp.py:616
 msgid "The cancel policy is missing"
 msgstr ""
 
@@ -3628,7 +3638,8 @@ msgstr ""
 msgid " Please fix the following problems first:"
 msgstr ""
 
-#: templates/index.html:18 templates/past_barcamps.html:18
+#: templates/index.html:18 templates/own_barcamps.html:18
+#: templates/past_barcamps.html:18
 msgid "private"
 msgstr ""
 
@@ -3657,7 +3668,7 @@ msgid "My Events"
 msgstr ""
 
 #: templates/index.html:77
-msgid "New Events"
+msgid "I organize"
 msgstr ""
 
 #: templates/index.html:87
@@ -3698,6 +3709,10 @@ msgstr ""
 
 #: templates/master.html:98
 msgid "Log out"
+msgstr ""
+
+#: templates/own_barcamps.html:41
+msgid "My Barcamps"
 msgstr ""
 
 #: templates/sponsoring.html:6

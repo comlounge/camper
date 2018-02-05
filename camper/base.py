@@ -71,10 +71,6 @@ class UserView(object):
             return """<img alt="%s" class="profile-image-userlist" src="%s">""" %(u.fullname, image)
         return """<div class="profile-image-userlist missing"><i class="fa fa-user"></i></div>"""
 
-    @property
-    def barcamps(self):
-        """return a list of barcamps the user either is an admin for or takes parts in"""
-
 
 class BarcampView(object):
     """wrapper around the barcamp to provide view functions"""
