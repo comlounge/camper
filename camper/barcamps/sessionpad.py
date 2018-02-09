@@ -40,10 +40,17 @@ class SessionPad(BarcampBaseHandler):
         self.barcamp.events[eid] = event
         self.barcamp.save()
 
+        if self.logged_in:
+            fav_sessions = self.app.config.dbs.userfavs.get_favs_for_bc(str(self.barcamp._id), self.user_id, eid)
+        else:
+            fav_sessions = []
+
+
         return self.render(
             session = session,
             event = event,
             pad = pid,
             view = self.barcamp_view,
             barcamp = self.barcamp,
+            fav_sessions = fav_sessions,
             **self.barcamp)

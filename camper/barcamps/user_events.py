@@ -64,6 +64,13 @@ class Event(BarcampBaseHandler):
             uid = None
         active_tab = self.request.args.get("at", "participants")
 
+        if self.logged_in:
+            fav_sessions = self.app.config.dbs.userfavs.get_favs_for_bc(str(self.barcamp._id), self.user_id, eid)
+        else:
+            fav_sessions = []
+
+        print fav_sessions
+
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
@@ -77,7 +84,33 @@ class Event(BarcampBaseHandler):
             sessionplan = e.timetable.get('sessions', {}),
             rooms = e.rooms,
             timeslots = e.timeslots,
+            fav_sessions = fav_sessions,
             has_form = len(self.barcamp.registration_form) != 0,
             has_form_data = self.barcamp.registration_data.has_key(uid),
             form_data = self.barcamp.registration_data.get(uid,{}),
             **self.barcamp)
+
+class ToggleFavSession(BarcampBaseHandler):
+    """ajax handler for toggling fav sessions"""
+
+    @logged_in()
+    @asjson()
+    @ensure_barcamp()
+    def post(self, slug = None, eid = None, sid = None):
+        """toggle the fav status of a session
+
+        :param slug: slug of barcamp
+        :param eid: event id
+        :param sid: session to toggle
+        :returns: True or False depending on fav status
+        """
+        if not slug or not eid or not sid:
+            raise NotFound()
+
+        return {
+            'fav' : self.app.config.dbs.userfavs.toggle_fav(
+                str(self.barcamp._id),
+                user_id = self.user_id,
+                event_id = eid,
+                session_id = sid)
+        }

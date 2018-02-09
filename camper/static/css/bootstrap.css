@@ -7916,6 +7916,97 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
 .sessiontable-actions {
   margin-top: 20px;
 }
+.fav-actions span.fav {
+  display: none;
+}
+.fav-actions span.fav.active {
+  display: block;
+}
+.fav-actions a {
+  text-decoration: none;
+  display: inline-block;
+  background: white;
+  border-radius: 3px;
+  color: #cc0000;
+  text-align: center;
+  font-size: 14px;
+  padding: 0px;
+  width: 20px;
+  height: 20px;
+}
+.fav-actions.big a {
+  border: 1px solid #d0d0d0;
+  font-size: 12px;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+}
+.toggle-favs.active {
+  color: #ffffff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.toggle-favs.active:focus,
+.toggle-favs.active.focus {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #761c19;
+}
+.toggle-favs.active:hover {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+.toggle-favs.active:active,
+.toggle-favs.active.active,
+.open > .dropdown-toggle.toggle-favs.active {
+  color: #ffffff;
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+.toggle-favs.active:active:hover,
+.toggle-favs.active.active:hover,
+.open > .dropdown-toggle.toggle-favs.active:hover,
+.toggle-favs.active:active:focus,
+.toggle-favs.active.active:focus,
+.open > .dropdown-toggle.toggle-favs.active:focus,
+.toggle-favs.active:active.focus,
+.toggle-favs.active.active.focus,
+.open > .dropdown-toggle.toggle-favs.active.focus {
+  color: #ffffff;
+  background-color: #ac2925;
+  border-color: #761c19;
+}
+.toggle-favs.active:active,
+.toggle-favs.active.active,
+.open > .dropdown-toggle.toggle-favs.active {
+  background-image: none;
+}
+.toggle-favs.active.disabled,
+.toggle-favs.active[disabled],
+fieldset[disabled] .toggle-favs.active,
+.toggle-favs.active.disabled:hover,
+.toggle-favs.active[disabled]:hover,
+fieldset[disabled] .toggle-favs.active:hover,
+.toggle-favs.active.disabled:focus,
+.toggle-favs.active[disabled]:focus,
+fieldset[disabled] .toggle-favs.active:focus,
+.toggle-favs.active.disabled.focus,
+.toggle-favs.active[disabled].focus,
+fieldset[disabled] .toggle-favs.active.focus,
+.toggle-favs.active.disabled:active,
+.toggle-favs.active[disabled]:active,
+fieldset[disabled] .toggle-favs.active:active,
+.toggle-favs.active.disabled.active,
+.toggle-favs.active[disabled].active,
+fieldset[disabled] .toggle-favs.active.active {
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+.toggle-favs.active .badge {
+  color: #d9534f;
+  background-color: #ffffff;
+}
 @media (max-width: 1199px) {
   ol.breadcrumb {
     font-size: 11px;

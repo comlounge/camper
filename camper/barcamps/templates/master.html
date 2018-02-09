@@ -393,7 +393,9 @@
   }
 });
 
-document.querySelector('#add-to-calendar-container').appendChild(myCalendar);
+if (document.querySelector('#add-to-calendar-container')) {
+    document.querySelector('#add-to-calendar-container').appendChild(myCalendar);
+}
 
     </script>
     {% block bcjs %}
