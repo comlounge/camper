@@ -58,11 +58,9 @@ class UserFavs(Collection):
             q['_id'] = unicode(uuid.uuid4())
             fav = UserFav(q)
             fav = self.put(fav)
-            print "added", fav
             return True # it exists now
         else:
             # deleting
-            print r._id
             self.remove(r)
             return False
 
