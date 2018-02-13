@@ -186,3 +186,22 @@ In order to migrate::
 =====
 
 - only imprint is now required for free barcamps
+
+2.5
+===
+
+New Features:
+
+- A barcamp owner can now also be deleted from a barcamp as long as one admin still exists
+- users can now change the email address via the profile page
+- you can set a custom reply to address for newsletters
+- barcamp administrators can now download a timetable per room.
+- users can now mark their favourite sessions in the session view
+- the homepage now has a list of barcamps a users participates in
+
+Bugfixes:
+
+- the subject of the ticket pending mail is now properly translated
+- only imprint is required on the legal edit screen for free barcamps
+
+
