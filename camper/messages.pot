@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-02-05 12:48+0100\n"
+"POT-Creation-Date: 2018-02-13 17:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -491,7 +491,6 @@ msgstr ""
 #: barcamps/templates/mytickets.html:37
 #: barcamps/templates/participant_data.html:7
 #: barcamps/templates/pdfs/pdfticket.html:80
-#: barcamps/templates/sessionpad.html:9
 #: barcamps/templates/ticket_wizard.html:43
 #: barcamps/templates/user_event.html:100 barcamps/ticketeditor.py:40
 msgid "Events"
@@ -1118,7 +1117,7 @@ msgstr ""
 msgid "persons"
 msgstr ""
 
-#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:183
+#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:201
 msgid "Documentation for"
 msgstr ""
 
@@ -1203,7 +1202,7 @@ msgstr ""
 #: barcamps/templates/admin/add.html:96
 #: barcamps/templates/admin/event_macros.html:141
 #: barcamps/templates/master.html:297 barcamps/templates/user_event.html:122
-#: barcamps/templates/user_event.html:206
+#: barcamps/templates/user_event.html:227
 #: barcamps/templates/user_events.html:131
 msgid "Location"
 msgstr ""
@@ -1245,7 +1244,6 @@ msgstr ""
 #: barcamps/templates/mytickets.html:84
 #: barcamps/templates/participant_data.html:6
 #: barcamps/templates/registration_wizard.html:6
-#: barcamps/templates/sessionpad.html:8
 #: barcamps/templates/ticket_wizard.html:75
 #: barcamps/templates/user_event.html:99
 msgid "Homepage"
@@ -1470,18 +1468,6 @@ msgstr ""
 msgid "Register for this barcamp"
 msgstr ""
 
-#: barcamps/templates/sessionpad.html:16
-msgid "by"
-msgstr ""
-
-#: barcamps/templates/sessionpad.html:21
-msgid "Documentation"
-msgstr ""
-
-#: barcamps/templates/sessionpad.html:22
-msgid "Session Documentation"
-msgstr ""
-
 #: barcamps/templates/sessions.html:12
 msgid "Sort by:"
 msgstr ""
@@ -1690,11 +1676,27 @@ msgstr ""
 msgid "Time Table"
 msgstr ""
 
-#: barcamps/templates/user_event.html:188
+#: barcamps/templates/user_event.html:189
+msgid "Mark Session as favourite"
+msgstr ""
+
+#: barcamps/templates/user_event.html:192
+msgid "I like this session"
+msgstr ""
+
+#: barcamps/templates/user_event.html:196
+msgid "I don't like this session"
+msgstr ""
+
+#: barcamps/templates/user_event.html:206
 msgid "Room:"
 msgstr ""
 
-#: barcamps/templates/user_event.html:200
+#: barcamps/templates/user_event.html:218
+msgid "Toggle favourites"
+msgstr ""
+
+#: barcamps/templates/user_event.html:221
 msgid "Edit Sessions"
 msgstr ""
 
