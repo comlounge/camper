@@ -178,28 +178,49 @@
                             {% else %}
                                 {% for room in rooms %}
                                     {% set sid = room.id+"@"+slot.time %}
-                                    <div class="sessionslot {{'active' if sid in sessionplan}} cell">
-                                    {% if sid in sessionplan %}
-                                        <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
-                                           href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
-                                        <h5>{{sessionplan[sid].title}}</h5>
-                                        <div class="description">{{sessionplan[sid].description}}</div>
-                                        <div class="moderators">{{sessionplan[sid].moderator}}
-                                        <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
+                                    {% set active = sessionplan.get(sid, {'sid': 'foobar'}).sid in fav_sessions%}
+                                    <div class="sessionslot {{'active' if sid in sessionplan}} cell {{'faved' if active}}">
+                                        <div class="session-contents">
+                                            {% if sid in sessionplan %}
+                                            {% if logged_in %}
+                                                <div class="fav-actions pull-right"><a 
+                                                    data-url="{{url_for('.toggle_fav', slug = slug, eid = active_event._id, sid = sessionplan[sid].sid)}}" 
+                                                    class="session-fav {{'active' if active}}" 
+                                                    title="{{_('Mark Session as favourite')}}" href="#">
+                                                        <span class="fav yes {{'active' if active}}">
+                                                            <i class="fa fa-heart"></i>
+                                                            <span class="sr-only">{{_("I like this session")}}</span>
+                                                        </span>
+                                                        <span class="fav no {{'active' if not active}}">
+                                                            <i class="fa fa-heart-o"></i>
+                                                            <span class="sr-only">{{_("I don't like this session")}}</span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                                {% endif %}
+                                                <a title="{{_('Documentation for')+' '+sessionplan[sid].title}}" 
+                                                   href="{{url_for('.sessionpad', slug = slug, eid = active_event._id, session_slug = sessionplan[sid].slug)}}">
+                                                <h5>{{sessionplan[sid].title}}</h5>
+                                                <div class="description">{{sessionplan[sid].description}}</div>
+                                                <div class="moderators">{{sessionplan[sid].moderator}}</div>
+                                                <div class="room-description">{{_('Room:')}} {{room.name|e}}</div>
+                                            </a>
+                                            {% endif %}
                                         </div>
-                                    </a>
-                                    {% endif %}
                                     </div>
                                 {% endfor %}
                             {% endif %}
                         {% endfor %}
                     </div>
 
-                    {% if is_admin %}
-                        <div class="sessiontable-actions">
+                    <div class="sessiontable-actions">
+                        {% if logged_in %}
+                            <a href="#" class="btn btn-default toggle-favs"><i class="fa fa-eye"></i> {{_('Toggle favourites')}}</a>
+                        {% endif %}
+                        {% if is_admin %}
                             <a href="{{url_for('.sessionboard', slug = slug, eid = active_event._id)}}" class="btn btn-default"><i class="fa fa-pencil"></i> {{_('Edit Sessions')}}</a>
-                        </div>
-                    {% endif %}          
+                        {% endif %}          
+                    </div>
 
                 </div>
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='location'}}" id="location">

@@ -1,0 +1,33 @@
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+h1 {
+    font-weight: bold;
+    font-size: 30px;
+}
+h2 {
+    margin-top: 20px;
+    font-size: 16px;
+}
+h3 {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    margin-top: 20px;
+    font-weight: 600;
+}
+.timeslot {
+    width: 80px;
+    vertical-align: top;
+}
+tr {
+    margin-bottom: 20px;
+}
+.moderators {
+    font-size: 10px;
+    font-style: italic;
+}
+.description {
+    margin-top: 5px;
+    font-size: 14px;
+}

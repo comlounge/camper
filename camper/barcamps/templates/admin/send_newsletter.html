@@ -12,6 +12,35 @@
             {% endif %}
         </div>
     {% endblock %}
+    
+    <hr>
+    <h4>{{_('Reply-To address')}}</h4>
+    {% if barcamp.newsletter_reply_to == "" %}
+        <p class="text-info">{{_('No reply to address set, using default <code class="text-info">noreply@barcamptools.eu</code>')}}</p>
+        <p><a href="#" id="openform" class="btn btn-warning btn-xs">{{_('Set own reply-to address')}}</a></p>
+        {%if barcamp.newsletter_reply_to2 %}
+            <p class="text-danger">{{_('There is a confirmation email pending. Please check your inbox to activate your custom reply-to address')}}</p>
+        {% endif %}
+    {% else %}
+        <p class="text-info">{{_('Reply-To address:')}}
+            <code class="text-info">{{barcamp.newsletter_reply_to}}</code>
+            <a href="{{url_for('barcamps.nl_delete_reply_to', slug=barcamp.slug)}}" class="btn text-danger btn-xs"><i class="fa fa-trash"></i> {{_('Remove')}}</a>
+        </p>
+    {% endif %}
+    <div class="well" style="display: none" id="reply-form">
+        <h4>{{_('set reply-to address for newsletter')}}</h4>
+        <form method="post" action="{{url_for('.nl_set_reply_to', slug = slug)}}">       
+            <div class="form-group">
+                <label for="newsletter_reply_to">{{_('Reply to address:')}}</label>
+                <input type="email" name="email" class="form-control" id="newsletter_reply_to" placeholder="me@somewhere.com">
+                <span  class="help-block">{{_('Please note that we will send you a verification code to confirm this address before it will become active.')}}</span>
+                <strong class="help-block">{{_('This screen will be reloaded so maybe save your newsletter text before!')}}</strong>
+            </div>            
+            <button type="cancel" id="cancel-reply-to" class="btn btn-default btn-xs pull-right">{{_('Cancel')}}</button>
+            <button type="submit" class="btn btn-primary btn-sm">{{_('Send verification code')}}</button>
+        </form>
+    </div>
+    <hr>
     <form class="parsley-validate horizontal-form" method="POST" action="{{url}}">
         <fieldset>
         {{ formmacros.form_field(form.subject, input_class="required") }}
@@ -23,7 +52,7 @@
         </fieldset>
         {% block action %}
             <input type="hidden" id="sendtype" name="sendtype" value="">
-            <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-large" value="{{_('Send Test Mail')}}">
+            <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-default btn-large" value="{{_('Send Test Mail')}}">
             <input type="submit"
                    data-type="live"
                    onclick="confirm('{{_('Really send Newsletter?')}}');"
@@ -35,6 +64,14 @@
                 $(document).ready(function() {
                     $(".subbutton").click(function(e) {
                         $("#sendtype").val(($(this).data("type")));
+                    })
+                    $("#openform").click(function(e) {
+                        e.preventDefault()
+                        $('#reply-form').slideDown(100)
+                    })
+                    $("#cancel-reply-to").click(function(e) {
+                        e.preventDefault()
+                        $('#reply-form').slideUp(100)
                     })
                 })
             </script>

@@ -80,4 +80,31 @@ $ ->
         return false
     )
 
+    # session favourite toggle for user_event.html
+    $(".fav-actions .session-fav").click ( () ->
+        url = $(this).data('url')
+        that = this
+        $.ajax(
+            url: url
+            type: "POST"
+            success: (data) ->
+                $(that).find("span.fav").hide()
+                if data.fav
+                    $(that).find("span.fav.yes").show()
+                else
+                    $(that).find("span.fav.no").show()
+        )
+        return false
+    )
 
+    $(".toggle-favs").click( () ->
+        $(this).toggleClass("active")
+        state = $(this).hasClass("active")
+        if state
+            $(".sessionslot.cell .session-contents").hide()
+            $(".sessionslot.cell.faved .session-contents ").show()
+        else
+            $(".sessionslot.cell .session-contents").show()
+        return false
+    )
+    

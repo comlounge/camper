@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-01-25 16:57+0100\n"
-"PO-Revision-Date: 2018-01-25 16:58+0100\n"
+"POT-Creation-Date: 2018-02-13 17:17+0100\n"
+"PO-Revision-Date: 2018-02-13 17:20+0100\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language: de\n"
 "Language-Team: de <LL@li.org>\n"
@@ -112,27 +112,27 @@ msgstr "Kann Benutzer verwalten"
 msgid "main administrator"
 msgstr "Hauptadministrator"
 
-#: base.py:196
+#: base.py:192
 msgid "date to be announced"
 msgstr "Termin wird noch bekannt gegeben"
 
-#: base.py:206
+#: base.py:202
 msgid "location to be announced"
 msgstr "Ort wird noch bekannt gegeben"
 
-#: base.py:358
+#: base.py:354
 msgid "Please log in."
 msgstr "Bitte logge Dich zunächst ein!"
 
-#: base.py:395
+#: base.py:391
 msgid "you don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:401 base.py:628
+#: base.py:397 base.py:624
 msgid "You don't have the correct permissions to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
-#: base.py:413 base.py:419 base.py:431 base.py:434
+#: base.py:409 base.py:415 base.py:427 base.py:430
 msgid "you don't have the permission to access this page."
 msgstr "Du hast nicht die erforderliche Berechtigung, um diese Seite aufzurufen"
 
@@ -209,8 +209,8 @@ msgstr ""
 "Benachrichtigung, sobald sich Teilnehmer_innen an- oder abmelden."
 
 #: barcamps/add.py:37 barcamps/edit.py:40 barcamps/legaledit.py:20
-#: barcamps/templates/admin/add.html:86 barcamps/templates/admin/legaledit.html:28
-#: barcamps/templates/master.html:343
+#: barcamps/templates/admin/add.html:86 barcamps/templates/admin/legaledit.html:30
+#: barcamps/templates/master.html:344
 msgid "Imprint"
 msgstr "Impressum"
 
@@ -500,7 +500,7 @@ msgstr "Sessionvorschläge"
 #: barcamps/design.py:36 barcamps/templates/admin/events.html:10
 #: barcamps/templates/admin/wizard.html:367 barcamps/templates/mytickets.html:37
 #: barcamps/templates/participant_data.html:7
-#: barcamps/templates/pdfs/pdfticket.html:80 barcamps/templates/sessionpad.html:9
+#: barcamps/templates/pdfs/pdfticket.html:80
 #: barcamps/templates/ticket_wizard.html:43 barcamps/templates/user_event.html:100
 #: barcamps/ticketeditor.py:40
 msgid "Events"
@@ -522,7 +522,7 @@ msgstr ""
 msgid "do not show a gallery"
 msgstr "keine Galerie nutzen"
 
-#: barcamps/design.py:77 barcamps/edit.py:158 barcamps/legaledit.py:52
+#: barcamps/design.py:77 barcamps/edit.py:158 barcamps/legaledit.py:53
 #: barcamps/socialedit.py:48
 msgid "The barcamp has been updated."
 msgstr "Das Barcamp wurde aktualisiert"
@@ -695,7 +695,7 @@ msgstr ""
 "Bitte gebe an, wer für das Barcamp verantwortlich ist. Für bezahlte Barcamps "
 "muss dies zwingend angegeben werden."
 
-#: barcamps/legaledit.py:21 barcamps/templates/admin/legaledit.html:35
+#: barcamps/legaledit.py:21 barcamps/templates/admin/legaledit.html:37
 msgid "Terms of Service"
 msgstr "Allgemeine Geschäftsbedingungen"
 
@@ -703,7 +703,7 @@ msgstr "Allgemeine Geschäftsbedingungen"
 msgid "Please enter your terms of service here."
 msgstr "Bitte gebe Deine AGB hier ein."
 
-#: barcamps/legaledit.py:22 barcamps/templates/admin/legaledit.html:42
+#: barcamps/legaledit.py:22 barcamps/templates/admin/legaledit.html:44
 msgid "Cancellation Policy"
 msgstr "Rückruf und Widerrufsbelehrung"
 
@@ -767,9 +767,37 @@ msgstr "Unentschlossene"
 msgid "People on Waiting List"
 msgstr "Warteliste"
 
-#: barcamps/newsletter.py:107
+#: barcamps/newsletter.py:115
 msgid "newsletter sent successfully"
 msgstr "Newsletter erfolgreich versandt"
+
+#: barcamps/newsletter.py:144 handlers/users/change_email.py:45
+msgid "Confirm your Reply-To address"
+msgstr "Bestätige die Antwort-Adresse"
+
+#: barcamps/newsletter.py:145
+msgid ""
+"We sent you a confirmation email to verify this email address. Please follow the "
+"instructions in that mail."
+msgstr ""
+"Wir haben Dir eine E-Mail gesendet, um die angegebene E-Mail-Adresse zu "
+"bestätigen. Bitte folge den Anweisungen in der Mail."
+
+#: barcamps/newsletter.py:147
+msgid "Please provide an email address."
+msgstr "Bitte gib eine E-Mail-Adresse an."
+
+#: barcamps/newsletter.py:164
+msgid "The reply to address was successfully confirmed"
+msgstr "Die Antwort-Adresse wurde erfolgreich bestätigt."
+
+#: barcamps/newsletter.py:166 handlers/users/change_email.py:70
+msgid "Unfortunately the code was wrong. Please try again!"
+msgstr "Leider war der Code falsch. Bitte versuche es noch einmal!"
+
+#: barcamps/newsletter.py:181
+msgid "The custom reply to address for this newsletter has been removed."
+msgstr "Die Antwortadresse für den Newsletter wurde entfernt."
 
 #: barcamps/pads.py:10
 msgid "Post Title"
@@ -1109,12 +1137,13 @@ msgstr "Neuen Blogpost hinzufügen"
 #: barcamps/templates/admin/event_macros.html:181
 #: barcamps/templates/admin/gallery_macros.html:24
 #: barcamps/templates/admin/galleryadmin.html:24
-#: barcamps/templates/admin/legaledit.html:51
+#: barcamps/templates/admin/legaledit.html:53
+#: barcamps/templates/admin/send_newsletter.html:39
 #: barcamps/templates/admin/socialedit.html:63
 #: barcamps/templates/admin/ticketedit.html:35 barcamps/templates/docs.html:34
 #: barcamps/templates/sessions.html:143 barcamps/templates/sessions.html:158
 #: blog/templates/edit.html:28 pages/templates/add.html:24
-#: templates/users/edit.html:46
+#: templates/users/edit.html:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1137,7 +1166,7 @@ msgstr "Gerade läuft"
 msgid "persons"
 msgstr "Personen"
 
-#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:183
+#: barcamps/templates/index.html:75 barcamps/templates/user_event.html:201
 msgid "Documentation for"
 msgstr "Dokumentation für"
 
@@ -1179,7 +1208,7 @@ msgstr "Registrieren"
 msgid "My Tickets"
 msgstr "Meine Tickets"
 
-#: barcamps/templates/master.html:137 barcamps/templates/master.html:299
+#: barcamps/templates/master.html:137 barcamps/templates/master.html:300
 msgid "Open map in modal"
 msgstr "Karte in Fenster öffnen"
 
@@ -1221,24 +1250,24 @@ msgstr ""
 
 #: barcamps/templates/admin/add.html:96
 #: barcamps/templates/admin/event_macros.html:141
-#: barcamps/templates/master.html:296 barcamps/templates/user_event.html:122
-#: barcamps/templates/user_event.html:206 barcamps/templates/user_events.html:131
+#: barcamps/templates/master.html:297 barcamps/templates/user_event.html:122
+#: barcamps/templates/user_event.html:227 barcamps/templates/user_events.html:131
 msgid "Location"
 msgstr "Veranstaltungsort"
 
-#: barcamps/templates/master.html:312
+#: barcamps/templates/master.html:313
 msgid "Contact"
 msgstr "Kontakt"
 
-#: barcamps/templates/master.html:335
+#: barcamps/templates/master.html:336
 msgid "Sponsors"
 msgstr "Sponsoren"
 
-#: barcamps/templates/master.html:346
+#: barcamps/templates/master.html:347
 msgid "Contact: "
 msgstr "Kontakt: "
 
-#: barcamps/templates/master.html:372
+#: barcamps/templates/master.html:373
 msgid "Add to Calendar"
 msgstr "zum Kalender hinzufügen"
 
@@ -1261,8 +1290,7 @@ msgstr "Ticket widerrufen"
 
 #: barcamps/templates/mytickets.html:84 barcamps/templates/participant_data.html:6
 #: barcamps/templates/registration_wizard.html:6
-#: barcamps/templates/sessionpad.html:8 barcamps/templates/ticket_wizard.html:75
-#: barcamps/templates/user_event.html:99
+#: barcamps/templates/ticket_wizard.html:75 barcamps/templates/user_event.html:99
 msgid "Homepage"
 msgstr "Homepage"
 
@@ -1444,7 +1472,7 @@ msgid "Repeat your password"
 msgstr "Wiederhole Dein Passwort"
 
 #: barcamps/templates/registration_wizard.html:63
-#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:29
+#: barcamps/templates/ticket_wizard.html:132 handlers/users/edit.py:21
 msgid "Fullname"
 msgstr "Voller Name"
 
@@ -1481,18 +1509,6 @@ msgstr "keine Plätze mehr frei. Du wirst auf die Warteliste gesetzt."
 #: barcamps/templates/registration_wizard.html:142
 msgid "Register for this barcamp"
 msgstr "Für das Barcamp registrieren"
-
-#: barcamps/templates/sessionpad.html:16
-msgid "by"
-msgstr "von"
-
-#: barcamps/templates/sessionpad.html:21
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: barcamps/templates/sessionpad.html:22
-msgid "Session Documentation"
-msgstr "Session-Dokumentation"
 
 #: barcamps/templates/sessions.html:12
 msgid "Sort by:"
@@ -1557,7 +1573,7 @@ msgstr "Sessionvorschlag löschen"
 #: barcamps/templates/admin/gallery_macros.html:50
 #: barcamps/templates/sessions.html:67 blog/templates/edit.html:38
 #: pages/templates/edit.html:17 templates/macros.html:130
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1707,11 +1723,27 @@ msgstr "Zeitraster"
 msgid "Time Table"
 msgstr "Zeitraster"
 
-#: barcamps/templates/user_event.html:188
+#: barcamps/templates/user_event.html:189
+msgid "Mark Session as favourite"
+msgstr "Markiere Session als Favorit"
+
+#: barcamps/templates/user_event.html:192
+msgid "I like this session"
+msgstr "Ich liebe diese Session"
+
+#: barcamps/templates/user_event.html:196
+msgid "I don't like this session"
+msgstr "Ich mag die Session nicht"
+
+#: barcamps/templates/user_event.html:206
 msgid "Room:"
 msgstr "Raum:"
 
-#: barcamps/templates/user_event.html:200
+#: barcamps/templates/user_event.html:218
+msgid "Toggle favourites"
+msgstr "Nur Favoriten anzeigen"
+
+#: barcamps/templates/user_event.html:221
 msgid "Edit Sessions"
 msgstr "Sessions bearbeiten"
 
@@ -2034,7 +2066,7 @@ msgstr ""
 msgid "Copy events"
 msgstr "Veranstaltungen kopieren"
 
-#: barcamps/templates/admin/edit.html:8 barcamps/templates/admin/legaledit.html:50
+#: barcamps/templates/admin/edit.html:8 barcamps/templates/admin/legaledit.html:52
 #: barcamps/templates/admin/socialedit.html:62
 msgid "Save Changes"
 msgstr "Änderungen speichern"
@@ -2309,15 +2341,15 @@ msgstr "Rechtliche Informationen bearbieten"
 msgid "Legal information"
 msgstr "Rechtliches"
 
-#: barcamps/templates/admin/legaledit.html:16
+#: barcamps/templates/admin/legaledit.html:17
 msgid "You need to fill this out if you take money for attending your events"
 msgstr "Du musst dies ausfüllen, wenn Du ein bezahltes Barcamp veranstaltest"
 
-#: barcamps/templates/admin/legaledit.html:21
+#: barcamps/templates/admin/legaledit.html:23
 msgid "Contact email address"
 msgstr "Kontakt-E-Mail-Adresse"
 
-#: barcamps/templates/admin/legaledit.html:23
+#: barcamps/templates/admin/legaledit.html:25
 msgid "contact@barcamp"
 msgstr "kontakt@barcamp"
 
@@ -2464,7 +2496,7 @@ msgid "update"
 msgstr "Aktualisieren"
 
 #: barcamps/templates/admin/send_newsletter.html:6
-#: barcamps/templates/admin/send_newsletter.html:33
+#: barcamps/templates/admin/send_newsletter.html:62
 msgid "Send Newsletter"
 msgstr "Newsletter versenden"
 
@@ -2488,11 +2520,68 @@ msgstr ""
 "Barcamps, alle Interessierten oder beide Gruppen schicken. Du kann Dir vorher "
 "den Newsletter als Test an eine beliebige Adresse schicken lassen."
 
-#: barcamps/templates/admin/send_newsletter.html:26
+#: barcamps/templates/admin/send_newsletter.html:17
+msgid "Reply-To address"
+msgstr "Antwortadresse"
+
+#: barcamps/templates/admin/send_newsletter.html:19
+msgid ""
+"No reply to address set, using default <code class=\"text-info"
+"\">noreply@barcamptools.eu</code>"
+msgstr ""
+"Es wurde keine eigene Antwortadresse gesetzt, daher wird der Default <code class="
+"\"text-info\">noreply@barcamptools.eu</code> genutzt."
+
+#: barcamps/templates/admin/send_newsletter.html:20
+msgid "Set own reply-to address"
+msgstr "Setze eine eigene Antwort-Adresse"
+
+#: barcamps/templates/admin/send_newsletter.html:22
+msgid ""
+"There is a confirmation email pending. Please check your inbox to activate your "
+"custom reply-to address"
+msgstr ""
+"Eine Bestätigungs-Mail steht noch aus. Bitte überprüfe Dein E-Mail-Postfix, um "
+"die Antwortadresse zu aktivieren"
+
+#: barcamps/templates/admin/send_newsletter.html:25
+msgid "Reply-To address:"
+msgstr "Antwortadresse (Reply-To):"
+
+#: barcamps/templates/admin/send_newsletter.html:27
+msgid "Remove"
+msgstr "Entfernen"
+
+#: barcamps/templates/admin/send_newsletter.html:31
+msgid "set reply-to address for newsletter"
+msgstr "Setze eine Antwortadresse für den Newsletter"
+
+#: barcamps/templates/admin/send_newsletter.html:34
+msgid "Reply to address:"
+msgstr "Antwort-Adresse:"
+
+#: barcamps/templates/admin/send_newsletter.html:36
+msgid ""
+"Please note that we will send you a verification code to confirm this address "
+"before it will become active."
+msgstr ""
+"Achtung: Wir senden Dir noch eine Mail zur Bestätigung der E-Mail-Adresse, bevor "
+"sie aktiviert wird."
+
+#: barcamps/templates/admin/send_newsletter.html:37
+msgid "This screen will be reloaded so maybe save your newsletter text before!"
+msgstr ""
+"Dieser Screen wird neu geladen werden, speichere als ggf. Deinen Newsletter-Text!"
+
+#: barcamps/templates/admin/send_newsletter.html:40
+msgid "Send verification code"
+msgstr "Sende Verifizierungs-Code"
+
+#: barcamps/templates/admin/send_newsletter.html:55
 msgid "Send Test Mail"
 msgstr "Test-Newsletter versenden"
 
-#: barcamps/templates/admin/send_newsletter.html:29
+#: barcamps/templates/admin/send_newsletter.html:58
 msgid "Really send Newsletter?"
 msgstr "Den Newsletter wirklich versenden?"
 
@@ -2516,22 +2605,33 @@ msgstr "zur Nutzung als Wegweiser"
 msgid "Rooms and Times"
 msgstr "Räume und Zeiten"
 
-#: barcamps/templates/admin/sessionboard.html:42
+#: barcamps/templates/admin/sessionboard.html:38
 msgid "each time on a separate sheet"
 msgstr "jede Zeit auf einem separaten Blatt"
 
-#: barcamps/templates/admin/sessionboard.html:43
+#: barcamps/templates/admin/sessionboard.html:39
 msgid "Time Signs"
 msgstr "Schilder mit Zeiten"
 
-#: barcamps/templates/admin/sessionboard.html:44
+#: barcamps/templates/admin/sessionboard.html:40
 msgid "each room on a separate sheet for directions or session plan"
 msgstr ""
 "jeder Raum auf einem eigenen Blatt z.B. als Wegweiser oder für den Sessionplan"
 
-#: barcamps/templates/admin/sessionboard.html:45
+#: barcamps/templates/admin/sessionboard.html:41
 msgid "Room Signs"
 msgstr "Raumschilder"
+
+#: barcamps/templates/admin/sessionboard.html:42
+msgid ""
+"the complete session plan by room. One page contains the sessions for one room"
+msgstr ""
+"der komplette Session-Plan per Raum. Jede Seite beinhaltet die Sessions für "
+"einen Raum"
+
+#: barcamps/templates/admin/sessionboard.html:43
+msgid "Sessions per Room"
+msgstr "Sessions pro Raum"
 
 #: barcamps/templates/admin/setup.html:9
 msgid "Create a new Barcamp"
@@ -2637,7 +2737,7 @@ msgstr "https://"
 msgid "barcamp description in 160 chars"
 msgstr "Barcamp-Beschreibung in 160 Zeichen"
 
-#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:33
+#: barcamps/templates/admin/socialedit.html:29 handlers/users/edit.py:25
 msgid "Twitter"
 msgstr "Twitter"
 
@@ -2653,7 +2753,7 @@ msgstr "Twitter-Konto"
 msgid "Twitter Hashtag"
 msgstr "Twitter-Hashtag"
 
-#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:34
+#: barcamps/templates/admin/socialedit.html:48 handlers/users/edit.py:26
 msgid "Facebook"
 msgstr "Facebook"
 
@@ -3215,19 +3315,19 @@ msgstr "Nö"
 msgid "Add new blog entry"
 msgstr "Neuen Blog-Artikel hinzufügen"
 
-#: db/barcamp.py:592
+#: db/barcamp.py:601
 msgid "The contact email is not set"
 msgstr "Die Kontakt-EMail wurde nicht angegeben"
 
-#: db/barcamp.py:597
+#: db/barcamp.py:606
 msgid "The Imprint is missing"
 msgstr "Das Impressum fehlt"
 
-#: db/barcamp.py:602
+#: db/barcamp.py:611
 msgid "The terms of service are missing"
 msgstr "Die AGB fehlen"
 
-#: db/barcamp.py:607
+#: db/barcamp.py:616
 msgid "The cancel policy is missing"
 msgstr "Die Angaben zum Widerruf fehlen"
 
@@ -3308,11 +3408,38 @@ msgstr ""
 msgid "Your account has been successfully activated."
 msgstr "Dein Benutzerkonto wurde erfolgreich aktiviert."
 
-#: handlers/users/edit.py:30
+#: handlers/users/change_email.py:17
+msgid "E-Mail address"
+msgstr "E-Mail-Adresse"
+
+#: handlers/users/change_email.py:21 handlers/users/edit.py:32
+msgid "this email address is already taken"
+msgstr "Diese E-Mail-Adresse ist schon vergeben"
+
+#: handlers/users/change_email.py:25 handlers/users/edit.py:36
+msgid "this url path is already taken"
+msgstr "Dieser URL-Pfad ist schon vergeben"
+
+#: handlers/users/change_email.py:47
+msgid ""
+"Please check your inbox of the new email for a confirmation mail and confirm it"
+msgstr ""
+"Bitte überprüfe Dein E-Mail-Postfach der neuen E-Mail-Adresse, um diese zu "
+"bestätigen"
+
+#: handlers/users/change_email.py:51 handlers/users/edit.py:64
+msgid "There have been errors in the form"
+msgstr "Das Formular beinhaltet einen Fehler"
+
+#: handlers/users/change_email.py:67
+msgid "You have successfully changed your email address!"
+msgstr "Du hast Deine E-Mail-Adresse erfolgreich geändert"
+
+#: handlers/users/edit.py:22
 msgid "url name (username)"
 msgstr "URL-Pfad (Benutzername)"
 
-#: handlers/users/edit.py:30
+#: handlers/users/edit.py:22
 msgid ""
 "this is the url path of your profile page, should only contain letters and "
 "numbers"
@@ -3320,51 +3447,35 @@ msgstr ""
 "Dies ist der URL-Pfade zu Deinem Profil, er sollte nur Buchstaben und Zahlen "
 "enthalten."
 
-#: handlers/users/edit.py:31 templates/users/profile.html:21
+#: handlers/users/edit.py:23 templates/users/profile.html:21
 msgid "About me"
 msgstr "Über mich"
 
-#: handlers/users/edit.py:32
+#: handlers/users/edit.py:24
 msgid "Organization"
 msgstr "Organisation"
 
-#: handlers/users/edit.py:32
+#: handlers/users/edit.py:24
 msgid "your school, company, institution (max. 100 characters)"
 msgstr "Deine Schule, Firma, Institution (max. 100 Zeichen)"
 
-#: handlers/users/edit.py:33
+#: handlers/users/edit.py:25
 msgid "your twitter username"
 msgstr "Dein Twitter-Benutzername"
 
-#: handlers/users/edit.py:34
+#: handlers/users/edit.py:26
 msgid "path to your facebook profile (without domain)"
 msgstr "Pfad zum Facebook-Profil (ohne Domain)"
 
-#: handlers/users/edit.py:35
-msgid "T shirt size"
-msgstr "T-Shirt-Größe"
-
-#: handlers/users/edit.py:36
+#: handlers/users/edit.py:27
 msgid "Profile Image (optional)"
 msgstr "Profil-Bild (optional)"
 
-#: handlers/users/edit.py:41
-msgid "this email address is already taken"
-msgstr "Diese E-Mail-Adresse ist schon vergeben"
-
-#: handlers/users/edit.py:45
-msgid "this url path is already taken"
-msgstr "Dieser URL-Pfad ist schon vergeben"
-
-#: handlers/users/edit.py:69
+#: handlers/users/edit.py:60
 msgid "Your profile has been updated"
 msgstr "Dein Profilbild wurde aktualisiert"
 
-#: handlers/users/edit.py:73
-msgid "There have been errors in the form"
-msgstr "Das Formular beinhaltet einen Fehler"
-
-#: handlers/users/edit.py:94
+#: handlers/users/edit.py:85
 msgid "Your profile image has been deleted"
 msgstr "Dein Profilbild wurde erfolgreich gelöscht"
 
@@ -3703,7 +3814,8 @@ msgstr "Das Barcamp kann im Moment nicht veröffentlicht werden."
 msgid " Please fix the following problems first:"
 msgstr "Bitte behebe zunächst die folgenden Probleme:"
 
-#: templates/index.html:18 templates/past_barcamps.html:18
+#: templates/index.html:18 templates/own_barcamps.html:18
+#: templates/past_barcamps.html:18
 msgid "private"
 msgstr "privat"
 
@@ -3733,8 +3845,8 @@ msgid "My Events"
 msgstr "Meine Veranstaltungen"
 
 #: templates/index.html:77
-msgid "New Events"
-msgstr "Neue Veranstaltungen"
+msgid "I organize"
+msgstr "Ich organisiere"
 
 #: templates/index.html:87
 msgid "supported by"
@@ -3768,13 +3880,17 @@ msgstr "Verwaltung"
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:97 templates/users/profile.html:45
+#: templates/master.html:97 templates/users/profile.html:49
 msgid "Change Password"
 msgstr "Passwort ändern"
 
 #: templates/master.html:98
 msgid "Log out"
 msgstr "Ausloggen"
+
+#: templates/own_barcamps.html:41
+msgid "My Barcamps"
+msgstr "Meine Barcamps"
 
 #: templates/sponsoring.html:6
 msgid "Request Sponsorship"
@@ -3830,6 +3946,23 @@ msgstr "Fehlt dir die Aktivierungs-EMail?"
 msgid "Please send me a new activation code"
 msgstr "Bitte sende mir einen neuen Aktivierungscode"
 
+#: templates/users/change_email.html:9
+msgid "Change your email address"
+msgstr "E-Mail-Adresse ändern"
+
+#: templates/users/change_email.html:11
+msgid ""
+"Use the form below to set a new email address for your account. You will receive "
+"a confirmation email to your new address before the new address becomes active."
+msgstr ""
+"Nutze das untenstehende Formular, um eine neue E-Mail-Adresse für Dein Konto zu "
+"vergeben. Bevor diese aktiv wird, musst Du jedoch erst die Bestätigung-Mail "
+"bestätigen, die an die neue Adresse geht."
+
+#: templates/users/change_email.html:18
+msgid "Save new email"
+msgstr "Neue Adresse speichern"
+
 #: templates/users/edit.html:6
 msgid "Edit public profile"
 msgstr "Öffentliches Profil bearbeiten"
@@ -3842,11 +3975,11 @@ msgstr "Benutzername"
 msgid "Facebook-Account"
 msgstr "Facebook-Account"
 
-#: templates/users/edit.html:38
+#: templates/users/edit.html:37
 msgid "Upload Profile Image"
 msgstr "Profilbild hochladen"
 
-#: templates/users/edit.html:45
+#: templates/users/edit.html:44
 msgid "Update Profile"
 msgstr "Profil aktualisieren"
 
@@ -3858,9 +3991,13 @@ msgstr "Dies könnte ein Text über Dich sein"
 msgid "not given"
 msgstr "nicht angegeben"
 
-#: templates/users/profile.html:44
+#: templates/users/profile.html:45
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
+
+#: templates/users/profile.html:50
+msgid "Change E-Mail"
+msgstr "E-Mail ändern"
 
 #~ msgid "create Barcamp"
 #~ msgstr "neues Barcamp anlegen"
@@ -3885,3 +4022,12 @@ msgstr "Profil bearbeiten"
 
 #~ msgid "add"
 #~ msgstr "Hinzufügen"
+
+#~ msgid "by"
+#~ msgstr "von"
+
+#~ msgid "Documentation"
+#~ msgstr "Dokumentation"
+
+#~ msgid "Session Documentation"
+#~ msgstr "Session-Dokumentation"

@@ -50,7 +50,10 @@ class BarcampModule(Module):
         URL('/<slug>/legaledit',            'legaledit',                        legaledit.LegalEditView),
         URL('/<slug>/socialedit',           'socialedit',                       socialedit.SocialEditView),
         URL('/<slug>/mails_edit',           'email_template_editor',            edit.MailsEditView),
-        URL('/<slug>/newsletter_send',      'newsletter_send',                  newsletter.NewsletterEditView),
+        URL('/<slug>/newsletter/send',      'newsletter_send',                  newsletter.NewsletterEditView),
+        URL('/<slug>/newsletter/set_reply', 'nl_set_reply_to',                  newsletter.NewsletterSetReplyTo),
+        URL('/<slug>/newsletter/verify',    'nl_verify_reply_to',               newsletter.NewsletterReplyToConfirm),
+        URL('/<slug>/newsletter/delete',    'nl_delete_reply_to',               newsletter.DeleteReplyTo),
         URL('/<slug>/participants_edit',    'participants_edit',                edit.ParticipantsEditView),
         URL('/<slug>/registration_editor',  'registration_form_editor',         customfields.ParticipantsDataEditView),
         URL('/<slug>/registration.xls',     'registration_data_export',         registration.RegistrationDataExport),
@@ -117,6 +120,7 @@ class BarcampModule(Module):
 
         URL('/<slug>/events',               'user_events',                      user_events.Events),
         URL('/<slug>/events/<eid>',         'user_event',                       user_events.Event),
+        URL('/<slug>/events/<eid>/_toggle/<sid>',   'toggle_fav',                       user_events.ToggleFavSession),
         URL('/<slug>/events/<eid>/<session_slug>', 'sessionpad',                sessionpad.SessionPad),
 
         URL('/<slug>/admin/events',         'events',                           events.EventsView),
@@ -124,6 +128,7 @@ class BarcampModule(Module):
         URL('/<slug>/admin/events/<eid>/sessionboard', 'sessionboard',          sessionboard.SessionBoard),
         URL('/<slug>/admin/events/<eid>/sessionboard/data', 'sessionboard_data', sessionboard.SessionBoardData),
         URL('/<slug>/admin/events/<eid>/sessionboard.pdf', 'sessionboard_print', sessionboard.SessionBoardPrint),
+        URL('/<slug>/admin/events/<eid>/session_per_room.pdf', 'sessions_per_room', sessionboard.PrintSessionsPerRoom),
         URL('/<slug>/admin/events/<eid>/users', 'event_participants',           events.EventParticipants),
 
 

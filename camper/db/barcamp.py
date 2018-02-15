@@ -1,5 +1,4 @@
 #encoding=utf8    
-from mongogogo import *
 import datetime
 from camper.exceptions import *
 import isodate
@@ -8,6 +7,10 @@ from slugify import UniqueSlugify
 import embeddify                                                                                                                                                 
 import re
 from sfext.babel import T
+
+import pymongo
+from mongogogo import *
+from bson.code import Code
 
 from tickets import *
 
@@ -441,6 +444,12 @@ class BarcampSchema(Schema):
     tos                 = String(default="")
     cancel_policy       = String(default="")
 
+    # newsletter related
+    newsletter_reply_to = String(default="")        # the active reply to address for the newsletter
+    newsletter_rt_code  = String(default="")        # the activation code for the newsletter reply to
+    newsletter_reply_to2= String(default="")        # the to be set reply to address for the newsletter
+
+
 
 class Barcamp(Record):
 
@@ -752,6 +761,42 @@ class Barcamp(Record):
             self.subscribers.remove(uid)
         self.put()
 
+
+    def set_nl_reply_to(self, email_address):
+        """set up a new reply to address for the newsletter
+
+        you need to save the barcamp afterwards
+
+        :param email_address: the email address to be set
+        :returns: a uuid code for sending to the user to verify
+        """
+
+        self.newsletter_reply_to2 = email_address
+        self.newsletter_rt_code = unicode(uuid.uuid4())
+        return self.newsletter_rt_code
+
+
+    def verify_nl_reply_to(self, code):
+        """verify the reply to verification code
+
+        returns True if it's ok and will set the new reply to address then
+
+        you need to save the barcamp object afterwards
+        """
+
+        if self.newsletter_rt_code == code:
+            self.newsletter_reply_to = self.newsletter_reply_to2
+            self.newsletter_rt_code = ""
+            self.newsletter_reply_to2 = ""
+            return True
+        else:
+            return False
+
+    def remove_nl_reply_to(self):
+        """remove the reply to address"""
+        self.newsletter_reply_to = ""
+        
+
     
 
 class Barcamps(Collection):
@@ -762,8 +807,47 @@ class Barcamps(Collection):
         """find a barcamp by slug"""
         return self.find_one({'slug' : slug})
 
-    def get_by_user_id(self, user_id):
-        """return all the barcamps the user is either participant, interested or an admin"""
+    def get_by_user_id(self, user_id, participate=True, maybe=False, waiting=False):
+        """return all the barcamps the user is participating in
+
+        :param participate: returns the ones the user is in a participants list
+        :param maybe: returns the ones the user is in a maybe list
+        :param waiting: returns the ones the user is on the waiting list for
+
+        """
+        map = Code("""
+            function () {
+                var uid = '%s';
+                for (var eid in this.events) {
+                    var event = this.events[eid];
+                    if (%s && event.participants.indexOf(uid)>-1) {emit(this._id, 1); }
+                    if (%s && event.maybe.indexOf(uid)>-1) {emit(this._id, 1); }
+                    if (%s && event.waiting_list.indexOf(uid)>-1) {emit(this._id, 1); }
+                }
+            }
+        """ %(  user_id, 
+                'true' if participate else 'false',
+                'true' if maybe else 'false',
+                'true' if waiting else 'false',
+              )
+        )
+
+        reduce = Code("""
+            function(key, values) {
+                var total = 0;
+                for (var i=0; i < values.length; i++) {
+                    total += values[i];
+                }
+                return total;
+            }
+        """)
+
+        result = self.collection.inline_map_reduce(map, reduce)
+        ids = [u['_id'] for u in result]
+        query = {'_id' : {'$in' : ids}}
+
+        return self.find(query).sort("end_date", pymongo.DESCENDING)
+
 
     def before_serialize(self, obj):
         """make sure we have all required data for serializing"""

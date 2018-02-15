@@ -305,6 +305,7 @@ class CamperApp(Application):
     routes = [
         URL('/', 'index', handlers.index.IndexView),
         URL('/past', 'past_barcamps', handlers.index.PastBarcampsView),
+        URL('/own', 'own_barcamps', handlers.index.OwnBarcampsView),
         URL('/login_success', 'login_success', handlers.index.LoginSuccess),
         URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
@@ -321,6 +322,8 @@ class CamperApp(Application):
         URL('/u/image_upload', 'profile_image_upload', handlers.users.ProfileImageAssetUploadView),
         URL('/u/image_delete', 'profile_image_delete', handlers.users.edit.ProfileImageDeleteView),
         URL('/u/edit', 'profile_edit', handlers.users.edit.ProfileEditView),
+        URL('/u/change_email', 'email_edit', handlers.users.change_email.EMailEditView),
+        URL('/u/confirm_email', 'confirm_email', handlers.users.change_email.ConfirmEMail),
         URL('/u/activate', 'activation', handlers.users.activation.ActivationHandler),
 
         # admin area
@@ -339,6 +342,7 @@ class CamperApp(Application):
         self.config.dbs.session_comments = db.Comments(mydb.session_comments, app=self, config=self.config)
         self.config.dbs.participant_data = db.DataForms(mydb.participant_data, app=self, config=self.config)
         self.config.dbs.tickets = db.Tickets(mydb.tickets, app=self, config=self.config)
+        self.config.dbs.userfavs = db.UserFavs(mydb.userfavs, app=self, config=self.config)
         self.module_map.uploader.config.assets = Assets(mydb.assets, app=self, config=self.config)
 
         # etherpad connection

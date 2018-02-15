@@ -722,7 +722,7 @@
       }
       return false;
     });
-    return $(".comment .deletebutton").click(function() {
+    $(".comment .deletebutton").click(function() {
       var cid, confirm_message, elem, url;
       confirm_message = $(this).data("confirm");
       url = $(this).data("url");
@@ -745,6 +745,36 @@
         });
       } else {
         return false;
+      }
+      return false;
+    });
+    $(".fav-actions .session-fav").click((function() {
+      var that, url;
+      url = $(this).data('url');
+      that = this;
+      $.ajax({
+        url: url,
+        type: "POST",
+        success: function(data) {
+          $(that).find("span.fav").hide();
+          if (data.fav) {
+            return $(that).find("span.fav.yes").show();
+          } else {
+            return $(that).find("span.fav.no").show();
+          }
+        }
+      });
+      return false;
+    }));
+    return $(".toggle-favs").click(function() {
+      var state;
+      $(this).toggleClass("active");
+      state = $(this).hasClass("active");
+      if (state) {
+        $(".sessionslot.cell .session-contents").hide();
+        $(".sessionslot.cell.faved .session-contents ").show();
+      } else {
+        $(".sessionslot.cell .session-contents").show();
       }
       return false;
     });

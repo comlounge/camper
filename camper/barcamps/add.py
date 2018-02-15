@@ -150,7 +150,7 @@ class AddView(BaseHandler):
             templates['ticket_welcome_text'] = self.render_lang("emails/default_ticket_welcome.txt", barcamp=barcamp, url=url)
             templates['ticket_welcome_subject'] = self._('Welcome to %s') %barcamp.name
             templates['ticket_pending_text'] = self.render_lang("emails/default_ticket_pending.txt", barcamp=barcamp, url=url)
-            templates['ticket_pending_subject'] = self._("Your ticket reservation for %s is pending." %barcamp.name)
+            templates['ticket_pending_subject'] = self._('Your ticket reservation for %s is pending.') %barcamp.name
             templates['ticket_confirmed_text'] = self.render_lang("emails/default_ticket_confirmed.txt", barcamp=barcamp, url=url)
             templates['ticket_confirmed_subject'] = self._("Your ticket for %s.") %barcamp.name
             templates['ticket_canceled_text'] = self.render_lang("emails/default_ticket_canceled.txt", barcamp=barcamp, url=url)
