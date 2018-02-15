@@ -203,5 +203,5 @@ Bugfixes:
 
 - the subject of the ticket pending mail is now properly translated
 - only imprint is required on the legal edit screen for free barcamps
-
+- sessionboard now supports up to 32 rooms
 
