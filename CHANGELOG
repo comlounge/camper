@@ -209,3 +209,9 @@ Bugfixes:
 =====
 
 - delete method now also deletes blogs, galleries, tickets, userfavs and participation data
+
+
+2.5.2
+=====
+
+- bugfix: favorites were only togglable after a reload.
