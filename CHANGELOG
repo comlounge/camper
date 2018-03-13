@@ -205,3 +205,7 @@ Bugfixes:
 - only imprint is required on the legal edit screen for free barcamps
 - sessionboard now supports up to 32 rooms
 
+2.5.1
+=====
+
+- delete method now also deletes blogs, galleries, tickets, userfavs and participation data
