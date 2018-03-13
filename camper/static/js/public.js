@@ -758,9 +758,11 @@
         success: function(data) {
           $(that).find("span.fav").hide();
           if (data.fav) {
-            return $(that).find("span.fav.yes").show();
+            $(that).find("span.fav.yes").show();
+            return $(that).closest('.sessionslot').addClass("faved");
           } else {
-            return $(that).find("span.fav.no").show();
+            $(that).find("span.fav.no").show();
+            return $(that).closest('.sessionslot').removeClass("faved");
           }
         }
       });

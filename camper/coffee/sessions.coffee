@@ -91,8 +91,10 @@ $ ->
                 $(that).find("span.fav").hide()
                 if data.fav
                     $(that).find("span.fav.yes").show()
+                    $(that).closest('.sessionslot').addClass("faved")
                 else
                     $(that).find("span.fav.no").show()
+                    $(that).closest('.sessionslot').removeClass("faved")
         )
         return false
     )
