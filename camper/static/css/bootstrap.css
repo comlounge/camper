@@ -7941,6 +7941,7 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
 }
 #user-events-content h5 {
   margin: 0 0 4px 0;
+  word-break: break-all;
 }
 #user-events-content .moderators {
   color: #606060;
@@ -9226,10 +9227,16 @@ a#user-events-content .datelist .plabel:focus {
   text-transform: none;
   color: #555;
 }
+#sessionpad h1 {
+  word-break: break-all;
+}
 #sessionpad small {
   text-transform: none;
   font-size: 22px;
   font-weight: normal;
+}
+ol.breadcrumb li {
+  word-break: break-all;
 }
 #blogentry header {
   overflow: auto;
