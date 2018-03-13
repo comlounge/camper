@@ -215,3 +215,10 @@ Bugfixes:
 =====
 
 - bugfix: favorites were only togglable after a reload.
+
+2.5.3
+=====
+
+- fixed #172: long words don't break on linebreaks
+- fixed #173: deleting a session in the admin view breaks the layout
+
