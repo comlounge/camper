@@ -31,6 +31,21 @@ class DeleteConfirmView(BarcampBaseHandler):
         # delete sessions
         sessions = self.config.dbs.sessions._remove({'barcamp_id' : str(barcamp_id)})
         
+        # delete blog entries
+        blogs = self.config.dbs.blog._remove({'barcamp' : str(barcamp_id)})
+
+        # delete galleries
+        galleries = self.config.dbs.galleries._remove({'barcamp' : str(barcamp_id)})
+        
+        # delete participant data
+        data = self.config.dbs.participant_data._remove({'barcamp_id' : str(barcamp_id)})
+        
+        # delete tickets
+        data = self.config.dbs.tickets._remove({'barcamp_id' : str(barcamp_id)})
+
+        # delete user favs
+        data = self.config.dbs.userfavs._remove({'barcamp_id' : str(barcamp_id)})
+
         # delete barcamp
         self.barcamp.remove()
         self.flash(self._("The barcamp and all it's contents have been deleted!"), category="success")
