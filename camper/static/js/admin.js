@@ -1484,9 +1484,7 @@
           elem_id = $(event.currentTarget).closest(".sessionslot").attr("id");
           delete this.data.sessions[idx];
           this.saveState();
-          $("#" + elem_id).css({
-            background: "#f00"
-          }).fadeOut(400, this.render);
+          this.render();
         }
         return false;
       };

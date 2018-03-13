@@ -383,10 +383,8 @@ do ( $ = jQuery, window, document ) ->
                 elem_id = $(event.currentTarget).closest(".sessionslot").attr("id")
                 delete @data.sessions[idx]
                 @saveState()
-                $("#"+elem_id)
-                    .css
-                        background: "#f00"
-                    .fadeOut(400, @render)
+                @render()
+                
             false
 
 
