@@ -45,7 +45,17 @@ class SessionPad(BarcampBaseHandler):
         else:
             fav_sessions = []
 
-
+        try:
+            print self.render(
+                session = session,
+                event = event,
+                pad = pid,
+                view = self.barcamp_view,
+                barcamp = self.barcamp,
+                fav_sessions = fav_sessions,
+                **self.barcamp)
+        except Exception, e:
+            print e
         return self.render(
             session = session,
             event = event,
