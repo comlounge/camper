@@ -14,6 +14,7 @@
     {% endblock %}
     
     <hr>
+
     <h4>{{_('Reply-To address')}}</h4>
     {% if barcamp.newsletter_reply_to == "" %}
         <p class="text-info">{{_('No reply to address set, using default <code class="text-info">noreply@barcamptools.eu</code>')}}</p>
@@ -27,6 +28,7 @@
             <a href="{{url_for('barcamps.nl_delete_reply_to', slug=barcamp.slug)}}" class="btn text-danger btn-xs"><i class="fa fa-trash"></i> {{_('Remove')}}</a>
         </p>
     {% endif %}
+
     <div class="well" style="display: none" id="reply-form">
         <h4>{{_('set reply-to address for newsletter')}}</h4>
         <form method="post" action="{{url_for('.nl_set_reply_to', slug = slug)}}">       
@@ -40,7 +42,9 @@
             <button type="submit" class="btn btn-primary btn-sm">{{_('Send verification code')}}</button>
         </form>
     </div>
+    
     <hr>
+
     <form class="parsley-validate horizontal-form" method="POST" action="{{url}}">
         <fieldset>
         {{ formmacros.form_field(form.subject, input_class="required") }}
@@ -55,7 +59,7 @@
             <input type="submit" data-type="test" name="send_test_mail" id="send_test_mail" class="subbutton btn btn-default btn-large" value="{{_('Send Test Mail')}}">
             <input type="submit"
                    data-type="live"
-                   onclick="confirm('{{_('Really send Newsletter?')}}');"
+                   onclick="return confirm('{{_('Really send Newsletter?')}}');"
                    name="send_newsletter"
                    id="send_newsletter"
                    class="subbutton btn btn-large btn-primary"
@@ -70,7 +74,7 @@
                         $('#reply-form').slideDown(100)
                     })
                     $("#cancel-reply-to").click(function(e) {
-                        e.preventDefault()
+                        e.preventDefault();
                         $('#reply-form').slideUp(100)
                     })
                 })
