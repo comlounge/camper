@@ -222,3 +222,8 @@ Bugfixes:
 - fixed #172: long words don't break on linebreaks
 - fixed #173: deleting a session in the admin view breaks the layout
 
+2.5.4
+=====
+
+- fixed #178: newsletter is being sent on cancel
+- fixed problem with printing the name on tickets. 
