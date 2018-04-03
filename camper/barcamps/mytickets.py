@@ -97,10 +97,14 @@ class TicketPDF(BarcampBaseHandler):
 
         ticket_class = self.barcamp.get_ticket_class(ticket.ticketclass_id)
 
+        # retrieve the user
+        user_id = ticket.user_id
+        user = self.app.module_map.userbase.get_user_by_id(user_id)
+
         out = self.render(tmplname = tmplname,
             ticket = ticket,
             ticket_class = ticket_class,
-            user = self.user,
+            user = user,
             view = self.barcamp_view,
             barcamp = self.barcamp,
             **self.barcamp
