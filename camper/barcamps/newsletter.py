@@ -41,7 +41,6 @@ class NewsletterEditView(BarcampBaseHandler):
             """internal subclass we can add to"""
             pass
 
-        
         # only add recipients for non ticket mode
         # otherwise we send to all ticket owners
         if not self.barcamp.ticketmode_enabled: 
@@ -55,7 +54,6 @@ class NewsletterEditView(BarcampBaseHandler):
             )
 
         # now instantiate it
-
         form = MyForm(self.request.form, config = self.config, recipients = "all", replyto=self.barcamp.contact_email)
 
         if self.request.method == 'POST' and form.validate():
