@@ -227,3 +227,8 @@ Bugfixes:
 
 - fixed #178: newsletter is being sent on cancel
 - fixed problem with printing the name on tickets. 
+
+2.5.5
+=====
+
+- fixed #174: running now layout is broken
