@@ -232,3 +232,8 @@ Bugfixes:
 =====
 
 - fixed #174: running now layout is broken
+
+2.5.5.1
+=======
+
+- fixed layout problems of now running (show rooms)
