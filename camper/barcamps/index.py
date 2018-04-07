@@ -33,6 +33,7 @@ class View(BarcampBaseHandler):
             params['rooms'] = event.rooms
             params['timeslots'] = event.timeslots
             params['sessionplan'] = event.timetable.get('sessions', {})
+            params['active_event'] = event
 
             # compute active timeslot
             i = 0
