@@ -39,7 +39,7 @@ class RegistrationService(object):
         :returns: resulting status of the user
         """
 
-        if self.barcamp.workflow != "registration":
+        if self.barcamp.workflow != "registration" and status!="deleted":
             raise RegistrationError("The barcamp is not open for registration yet")
  
         uid = unicode(self.user._id)
