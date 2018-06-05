@@ -237,3 +237,8 @@ Bugfixes:
 =======
 
 - fixed layout problems of now running (show rooms)
+
+2.5.5.2
+=======
+
+- users can also be deleted if barcamp is in private mode 
