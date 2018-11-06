@@ -29,7 +29,6 @@ python-dateutil==2.4.2
 pytz==2015.4
 regex==2016.09.22
 reportlab==3.2.0
-requests==2.9.1
 sf-babel==1.0
 sf-mail==1.0
 sf-uploader==1.0.3
@@ -40,3 +39,4 @@ userbase==1.1.1
 xhtml2pdf==0.0.6
 xlwt==1.0.0
 weasyprint
+requests>=2.20.0
