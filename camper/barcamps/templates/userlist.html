@@ -48,15 +48,15 @@
 <div id="userlist">
     <section>
         <h2>{{_('Participants')}}</h2>
-        {{list(barcamp.participant_users, remove_url=url_for('.unregister', slug = slug))}}
+        {{list(participant_users, remove_url=url_for('.unregister', slug = slug))}}
     </section>
     <section>
         <h2>{{_('Interested')}}</h2>
-        {{list(barcamp.subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
+        {{list(subscriber_users, remove_url=url_for('.subscribe', slug = slug), to_participant_url=url_for('.admin_register', slug = slug)+'?force=True')}}
     </section>
     <section>
         <h2>{{_('Waiting list')}}</h2>
-        {{list(barcamp.waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
+        {{list(waitinglist_users, remove_url=url_for('.unregister', slug = slug))}}
     </section>
 </div>
 {% endblock %}
