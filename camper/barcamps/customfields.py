@@ -46,7 +46,6 @@ class ParticipantsDataEditView(BarcampBaseHandler):
             f = form.data
             f['name'] = unicode(uuid.uuid4())
             
-
             # clean up choices
             new_choices = []
             for c in f['choices'].split("\n"):
