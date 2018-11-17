@@ -462,7 +462,13 @@ class Barcamp(Record):
         'location'      : {},
         'workflow'      : "created",
         'events'        : {},
-        'registration_form'        : [],
+        'registration_form'        : [
+            { "title" : "Auf Teilnehmerliste anzeigen?", 
+              "required" : False, 
+              "description" : "Bitte geben Sie an, ob Sie auf der Teilnehmerliste angezeigt werden wollen", 
+              "name" : "optin_participant", 
+              "fieldtype" : "checkbox" }
+        ],
         'registration_data'        : {},
         'planning_pad_public'        : False,
         'background_color'      : '#fcfcfa',
