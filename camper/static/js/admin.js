@@ -1345,7 +1345,8 @@
         $("#modals").html(html);
         $("#timepicker").timepicker({
           timeFormat: "G:i",
-          show24: true
+          show24: true,
+          step: 15
         });
         this.set_next_time();
         $('#add-timeslot-modal').modal('show');
