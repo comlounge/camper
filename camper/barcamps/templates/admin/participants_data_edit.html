@@ -35,9 +35,9 @@
                         data-description="{{f.description}}"
                         data-fieldtype="{{f.fieldtype}}"
                         data-required="{{f.required}}">
-                        <td>{{f.title}}</td>
-                        <td>{{f.fieldtype}}</td>
-                        <td>{{f.description}}</td>
+                        <td>{{_(f.title)}}</td>
+                        <td>{{_(f.fieldtype)}}</td>
+                        <td>{{_(f.description)}}</td>
                         <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
                         <td>
                             {% if "optin_participant" != f.name %}

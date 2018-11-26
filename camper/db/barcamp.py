@@ -463,9 +463,9 @@ class Barcamp(Record):
         'workflow'      : "created",
         'events'        : {},
         'registration_form'        : [
-            { "title" : "Auf Teilnehmerliste anzeigen?", 
+            { "title" : T("Show on public participants list"),
               "required" : False, 
-              "description" : "Bitte geben Sie an, ob Sie auf der Teilnehmerliste angezeigt werden wollen", 
+              "description" : T("Decide whether you want to be displayed on the public list of participants"), 
               "name" : "optin_participant", 
               "fieldtype" : "checkbox" }
         ],
