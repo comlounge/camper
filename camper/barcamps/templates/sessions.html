@@ -52,7 +52,7 @@
                     {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
                 </div>
                 <div class="description">
-                    {{session.description|md(level=3)}}
+                    {{session.description|e|nl2br}}
                 </div>
 
                 {% if is_admin or user_id == session.user._id %}
