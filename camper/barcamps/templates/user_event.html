@@ -5,6 +5,7 @@
 {% macro userlist(users) %}
     <ul class="participants">
     {% for myuser in users %}
+        {% if not myuser.deleted %}
         <li class="participant">
             <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname|e}}">
                 {{userview(myuser).image_thumb_tag}}
@@ -13,6 +14,7 @@
                 {{myuser.fullname|e}}
             </a>
         </li>
+        {% endif %}
     {% endfor %}
     </ul>
 {% endmacro %}
