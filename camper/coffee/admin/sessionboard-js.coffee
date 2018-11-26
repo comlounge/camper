@@ -260,6 +260,7 @@ do ( $ = jQuery, window, document ) ->
             $("#timepicker").timepicker
                 timeFormat: "G:i"
                 show24: true
+                step: 15
             @set_next_time()
             $('#add-timeslot-modal').modal('show')
             $('#timepicker').focus()
