@@ -24,8 +24,20 @@ class SessionList(BarcampBaseHandler):
         """return the list of sessions"""
         barcamp_id = self.barcamp._id
         sort = self.request.args.get("sort", "date")
-        so = 'vote_count' if sort=="votes" else "created"
-        sessions = self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)}).sort(so, -1)
+
+        sessions = list(self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)}))
+
+        def s(a,b):
+            if sort=="votes":
+                return cmp(b.vote_count, a.vote_count)
+            elif sort=="title":
+                return cmp(a.title.lower(), b.title.lower())
+            elif sort=="date":
+                return cmp(b.created, a.created)
+            return 0
+
+        sessions.sort(s)
+
         form = SessionAddForm(self.request.form)
         if self.request.method == 'POST' and form.validate():
             f = form.data
