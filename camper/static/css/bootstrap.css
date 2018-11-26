@@ -8807,6 +8807,8 @@ h1.logo a:hover {
   margin-top: 30px;
 }
 #userlist ul.participants {
+  margin-top: 20px;
+  margin-bottom: 60px;
   padding-left: 0;
   list-style: none;
   clear: both;
