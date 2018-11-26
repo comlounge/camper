@@ -24,6 +24,8 @@ class CamperUserSchema(UserSchema):
 
     registered_for      = Dict(default={})    # list of events of a barcamp the user to add to after activation
 
+    deleted             = Boolean(default=False)
+
 
 class CamperUser(User):
     """custom user class for camper"""
@@ -41,6 +43,7 @@ class CamperUser(User):
         "registered_for"    : {},
         "new_email"         : "",
         "new_email_code"    : "",
+        "deleted"           : False,
     })
 
     @property
