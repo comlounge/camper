@@ -1,5 +1,23 @@
 {% set active_action = "events" -%}
 {% extends "_m/barcamps/master.html" -%}
+
+{% macro userlist(users) %}
+    <ul class="participants">
+    {% for myuser in users %}
+        <li class="participant">
+            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname|e}}">
+                {{userview(myuser).image_thumb_tag}}
+            </a>
+            <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
+                {{myuser.fullname|e}}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endmacro %}
+
+
+
 {% block headline -%}
     <h2>{{gettext('Events for %(name)s') | format(name = barcamp.name|e)}}</h2>
 {% endblock %}
@@ -132,6 +150,16 @@
                 </div>
             </article>
         {% endfor %}
+        
+        {% if barcamp.ticketmode_enabled %}
+        <hr>
+        <div id="userlist">
+            <section id="participants">
+                <h4>{{_('Participants')}}</h4>
+                {{ userlist(participants)}}
+            </section>
+        </div>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -145,8 +173,13 @@
             {% if has_form_data %}
                 <dl class="formdata">
                 {% for k,v in form_data.iteritems() %}        
+                    {% if k == "optin_participant" %}
+                        <dt>{{_(data_names[k])}}</dt>
+                        <dd>{{_(v|striptags)}}</dd>
+                    {% else %}
                         <dt>{{data_names[k]}}</dt>
                         <dd>{{v|striptags}}</dd>
+                    {% endif %}
                 {% endfor %}
                 </dl>
                 <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('Edit registration data')}}</a>
@@ -154,13 +187,12 @@
                 <div class="alert alert-danger">{{_('Please update your registration information')}}</div>
                 <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Add registration data')}}</a>
             {% endif %}
-            </div>
         </div>
     {% endif %}
 {% endmacro %}
 {% block widgets %}
     {{ super() }}
-    {{ data_block() }}    
+    {{ data_block() }}
 {% endblock %}
 
 

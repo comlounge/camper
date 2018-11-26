@@ -8,6 +8,7 @@ import werkzeug.exceptions
 import xlwt
 from cStringIO import StringIO
 import datetime
+from camper.services import TicketService
 
 
 class Events(BarcampBaseHandler):
@@ -27,6 +28,21 @@ class Events(BarcampBaseHandler):
         data_names = {}
         for e in self.barcamp.registration_form:
             data_names[e['name']] = e['title']
+
+        # get participants for tickets
+        participants = []
+        if self.barcamp.ticketmode_enabled:
+            ticketservice = TicketService(self, None, self.barcamp)
+            tickets = ticketservice.get_tickets()
+
+            # filter those with optin
+            regdata = self.barcamp.registration_data
+            optin_users = [uid for uid in regdata if regdata[uid].get('optin_participant', False)]
+
+            user_ids = set([t['user_id'] for t in tickets])
+            ub = self.app.module_map.userbase
+            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users]
+
         
         out = self.render(
             view = self.barcamp_view,
@@ -36,6 +52,7 @@ class Events(BarcampBaseHandler):
             has_form_data = has_form_data,
             form_data = form_data,
             data_names = data_names,
+            participants = participants,
             **self.barcamp)
         return out
 
