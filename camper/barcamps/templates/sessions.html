@@ -45,11 +45,13 @@
             </a>
             <div class="media-body show-box">
                 <h3 class="media-heading">{{session.title|striptags}}</h3>
+                {% if not session.user.deleted %}
                 <div class="byline">
                     {{_('added by')}}
                         <a href="{{url_for('profile', username = session.user.username)}}">{{session.user.fullname|e}}</a>
                     {{_('on')}} {{session.created.strftime("%d.%m.%Y")}}
                 </div>
+                {% endif %}
                 <div class="description">
                     {{session.description|md(level=3)}}
                 </div>
@@ -94,13 +96,19 @@
                                 class="deletebutton btn btn-danger pull-right"><i class="fa fa-trash"></i></a>
                         {% endif %}
                         <div class="media-left">
-                            <a title="{{comment.user.fullname|e}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
-                                {{userview(comment.user).image_thumb_tag}}
-                            </a>
+                            {% if not comment.user.deleted %}
+                                <a title="{{comment.user.fullname|e}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
+                                    {{userview(comment.user).image_thumb_tag}}
+                                </a>
+                            {% endif %}
                         </div>
                         <div class="media-body">
                             <span class="comment-text">{{comment.comment|e}}</span>
-                            <footer>{{comment.user.fullname|e}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                            {% if not comment.user.deleted %}
+                                <footer>{{comment.user.fullname|e}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                            {% else %}
+                                <footer>{{_('Deleted User')}}, {{comment.created.strftime('%d.%m.%Y')}}</footer>
+                            {% endif %}
                         </div>
                     </div>
                 {% endfor %}
