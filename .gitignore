@@ -23,5 +23,7 @@ node_modules
 .DS_Store
 camper/templates/M
 .tox
+yarn.lock
 
 camper/\.vscode/
+camper/yarn.lock
