@@ -2,18 +2,22 @@
 {% extends "_m/barcamps/master.html" -%}
 
 {% macro userlist(users) %}
-    <ul class="participants">
-    {% for myuser in users %}
-        <li class="participant">
-            <a class="participant-avatar" href="{{url_for('profile', username = myuser.username)}}" data-toggle="tooltip" title="{{myuser.fullname|e}}">
-                {{userview(myuser).image_thumb_tag}}
-            </a>
-            <a class="sr-only participant-name" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
-                {{myuser.fullname|e}}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+    {% if users|length %}
+        <ul class="media-userlist" style="column-count: 3; column-fill: auto;">
+        {% for myuser in users %}
+            <li>
+                <a class="{{'myuser' if myuser._id == user._id}}" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
+                    {{myuser.fullname|e}}
+                </a>
+                <span class="organisation">{{myuser.organisation|e}}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info">
+        {{_('Unfortunately no participants are registered yet or have allowed us to publish their name.')}}
+        </div>
+    {% endif %}
 {% endmacro %}
 
 
@@ -142,24 +146,19 @@
 
                 </div>
                 <div class="panel-body">
-                {% if not barcamp.ticketmode_enabled %}
-                    <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#userlist" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
-                {% endif %}
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>
                 </div>
             </article>
         {% endfor %}
         
-        {% if barcamp.ticketmode_enabled %}
-        <hr>
         <div id="userlist">
             <section id="participants">
-                <h4>{{_('Participants')}}</h4>
+                <h2>{{_('Participants')}}</h2>
                 {{ userlist(participants)}}
             </section>
         </div>
-        {% endif %}
+
     </div>
 {% endblock %}
 
@@ -172,7 +171,7 @@
 
             {% if has_form_data %}
                 <dl class="formdata">
-                {% for k,v in form_data.iteritems() %}        
+                {% for k,v in form_data.iteritems() %}
                     {% if k == "optin_participant" %}
                         <dt>{{_(data_names[k])}}</dt>
                         <dd>{{_(v|striptags)}}</dd>

@@ -42,7 +42,7 @@ class Events(BarcampBaseHandler):
             tickets = ticketservice.get_tickets()
 
             user_ids = set([t['user_id'] for t in tickets])
-            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users or True] 
+            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users] 
 
         else:
             # get all users from all events
@@ -50,7 +50,7 @@ class Events(BarcampBaseHandler):
             for e in self.barcamp.eventlist:
                 user_ids = user_ids + e.participants
 
-            participants = [ub.get_user_by_id(uid) for uid in set(user_ids) if uid in optin_users or True]
+            participants = [ub.get_user_by_id(uid) for uid in set(user_ids) if uid in optin_users]
 
         def s(a,b):
             return cmp(a['fullname'].lower(), b['fullname'].lower())

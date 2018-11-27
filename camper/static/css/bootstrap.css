@@ -8770,10 +8770,42 @@ h1.logo a:hover {
     display: none;
   }
 }
+#userlist ul.media-userlist {
+  padding-left: 0;
+  list-style: none;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  column-count: 3;
+  column-fill: auto;
+  column-gap: 20px;
+  column-rule: #eee solid 3px;
+}
+#userlist ul.media-userlist li {
+  font-size: 15px;
+  margin-top: 0;
+  margin-bottom: 10px;
+  page-break-inside: avoid;
+  break-inside: avoid-column;
+  -webkit-column-break-inside: avoid;
+}
+#userlist ul.media-userlist li .organisation {
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+  color: #777;
+  line-height: 1.5;
+}
+#userlist ul.media-userlist .myuser {
+  font-weight: bold;
+  color: black;
+}
 #userlist .media-list.participants h5 {
   margin: 0;
   padding: 0;
   line-height: 1.3;
+}
+#userlist section {
+  margin-bottom: 30px;
 }
 #userlist section:before,
 #userlist section:after {
@@ -8800,44 +8832,8 @@ h1.logo a:hover {
   font-size: 120px;
   color: #d0d0d0;
 }
-#userlist section {
-  margin-bottom: 30px;
-}
 #userlist section#participants {
   margin-top: 30px;
-}
-#userlist ul.participants {
-  margin-top: 20px;
-  margin-bottom: 60px;
-  padding-left: 0;
-  list-style: none;
-  clear: both;
-  margin-left: 0;
-  padding: 0;
-}
-#userlist ul.participants li {
-  float: left !important;
-  width: 90px;
-}
-#userlist ul.participants .participant {
-  margin-bottom: 5px;
-  position: relative;
-  font-size: 16px;
-}
-#userlist ul.participants .participant .participant-avatar {
-  float: left !important;
-}
-#userlist ul.participants .participant .participant-avatar img {
-  width: 80px !important;
-  height: 80px !important;
-  margin-right: 10px;
-}
-#userlist ul.participants .participant .participant-name {
-  display: block;
-  margin-top: 3px;
-}
-#userlist ul.participants .participant .participant-me {
-  font-weight: bold;
 }
 #userlist .tooltip-inner {
   white-space: nowrap;

@@ -633,6 +633,34 @@ h1.logo {
 //
 
 #userlist {
+    ul.media-userlist {
+        .list-unstyled;
+        margin-top: 20px;
+        margin-bottom: 40px;
+        column-count: 3;
+        column-fill: auto;
+        column-gap: 20px;
+        column-rule: #eee solid 3px;
+        li {
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            page-break-inside: avoid;
+            break-inside: avoid-column;
+            -webkit-column-break-inside: avoid;
+            .organisation {
+                display: block;
+                font-size: 12px;
+                line-height: 1;
+                color: #777;
+                line-height: 1.5;
+            }
+        }
+        .myuser {
+            font-weight: bold;
+            color: black;
+        }
+    }
     .media-list.participants {
         h5 {
             margin: 0;
@@ -643,6 +671,7 @@ h1.logo {
     }
     section {
         .clearfix;
+        margin-bottom: 30px;
     }
     .participant-actions {
         position: absolute;
@@ -655,49 +684,11 @@ h1.logo {
         color: #d0d0d0;
     }
 
-    .profile-image-userlist {
-    }
 
-
-    section {
-        margin-bottom: 30px;
-    }
     section#participants {
         margin-top: 30px;
     }
 
-    ul.participants {
-        margin-top: 20px;
-        margin-bottom: 60px;
-        .list-unstyled;
-        clear: both;
-        li {
-            .pull-left;
-            width: 90px;
-        }
-        margin-left: 0;
-        padding: 0;
-        .participant {
-            margin-bottom: 5px;
-            position: relative;
-            font-size: 16px;
-            .participant-avatar {
-                .pull-left;
-                img {
-                    width: 80px !important;
-                    height: 80px !important;
-                    margin-right: 10px;
-                }
-            }
-            .participant-name {
-                display: block;
-                margin-top: 3px;
-            }
-            .participant-me {
-                font-weight: bold;
-            }
-        }
-    }
     .tooltip-inner {
         white-space: nowrap;
         padding: 5px 15px;
