@@ -31,17 +31,31 @@ class Events(BarcampBaseHandler):
 
         # get participants for tickets
         participants = []
+
+        # filter those with optin
+        regdata = self.barcamp.registration_data
+        optin_users = [uid for uid in regdata if regdata[uid].get('optin_participant', False)]
+        ub = self.app.module_map.userbase
+
         if self.barcamp.ticketmode_enabled:
             ticketservice = TicketService(self, None, self.barcamp)
             tickets = ticketservice.get_tickets()
 
-            # filter those with optin
-            regdata = self.barcamp.registration_data
-            optin_users = [uid for uid in regdata if regdata[uid].get('optin_participant', False)]
-
             user_ids = set([t['user_id'] for t in tickets])
-            ub = self.app.module_map.userbase
-            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users]
+            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users or True] 
+
+        else:
+            # get all users from all events
+            user_ids = []
+            for e in self.barcamp.eventlist:
+                user_ids = user_ids + e.participants
+
+            participants = [ub.get_user_by_id(uid) for uid in set(user_ids) if uid in optin_users or True]
+
+        def s(a,b):
+            return cmp(a['fullname'].lower(), b['fullname'].lower())
+
+        participants.sort(s)
 
         
         out = self.render(
