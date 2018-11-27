@@ -110,11 +110,6 @@
             {{participation() }}
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                {% if not barcamp.ticketmode_enabled %}
-                <li role="presentation" class="{{'active' if active_tab=='participants'}}"><a href="#userlist" aria-controls="userlist" role="tab" data-toggle="tab">
-                    {{_('Participants')}}</a>
-                </li>
-                {% endif %}
                 <li role="presentation" class="{{'active' if active_tab=='timetable'}}"><a href="#sessions" aria-controls="sessions" role="tab" data-toggle="tab">
                     {{_('Timetable')}}</a>
                 </li>
@@ -126,26 +121,6 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-
-                <!-- userlist /participants -->
-                {% if not barcamp.ticketmode_enabled %}
-                <div role="tabpanel" class="tab-pane {{'active' if active_tab=='participants'}}" id="userlist">
-                    
-                    <section id="participants">
-                        <h4>{{_('Participants')}}</h4>
-                        {{ userlist(participants)}}
-                    </section>
-                    <section id="maybe">
-                        <h4>{{_('Maybe')}}</h4>
-                        {{ userlist(maybe)}}
-                    </section>
-                    <section id="waitinglist">
-                        <h4>{{_('Waiting list')}}</h4>
-                        {{ userlist(waitinglist)}}
-                    </section>
-                    
-                </div>
-                {% endif %}
 
                 <!-- session / timetable -->
                 <div role="tabpanel" class="tab-pane {{'active' if active_tab=='timetable'}}" id="sessions">
