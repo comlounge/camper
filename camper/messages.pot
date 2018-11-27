@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2018-11-26 15:46+0100\n"
+"POT-Creation-Date: 2018-11-27 13:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1161,8 +1161,9 @@ msgstr ""
 #: barcamps/templates/master.html:26 barcamps/templates/master.html:34
 #: barcamps/templates/master.html:53 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:29 barcamps/templates/user_event.html:61
-#: barcamps/templates/user_event.html:91 barcamps/templates/user_events.html:79
-#: templates/master.html:91 templates/M/userbase/registration.html:15
+#: barcamps/templates/user_event.html:91
+#: barcamps/templates/user_events.html:149 templates/master.html:91
+#: templates/M/userbase/registration.html:15
 msgid "Register"
 msgstr ""
 
@@ -1212,7 +1213,7 @@ msgstr ""
 
 #: barcamps/templates/master.html:297 barcamps/templates/user_event.html:122
 #: barcamps/templates/user_event.html:227
-#: barcamps/templates/user_events.html:131 barcamps/templates/admin/add.html:96
+#: barcamps/templates/user_events.html:201 barcamps/templates/admin/add.html:96
 #: barcamps/templates/admin/event_macros.html:141
 msgid "Location"
 msgstr ""
@@ -1333,7 +1334,7 @@ msgstr ""
 
 #: barcamps/templates/registration.html:42
 #: barcamps/templates/registration_wizard.html:116
-#: barcamps/templates/user_events.html:112
+#: barcamps/templates/user_events.html:182
 #: barcamps/templates/admin/dashboard.html:36
 #: barcamps/templates/admin/wizard.html:351
 #: barcamps/templates/admin/wizard.html:394
@@ -1344,17 +1345,17 @@ msgstr ""
 #: barcamps/templates/registration.html:52
 #: barcamps/templates/user_event.html:31 barcamps/templates/user_event.html:33
 #: barcamps/templates/user_event.html:63 barcamps/templates/user_event.html:65
-#: barcamps/templates/user_events.html:19
-#: barcamps/templates/user_events.html:21
-#: barcamps/templates/user_events.html:45
-#: barcamps/templates/user_events.html:47
+#: barcamps/templates/user_events.html:89
+#: barcamps/templates/user_events.html:91
+#: barcamps/templates/user_events.html:115
+#: barcamps/templates/user_events.html:117
 msgid "Join"
 msgstr ""
 
 #: barcamps/templates/registration.html:50
 #: barcamps/templates/user_event.html:31 barcamps/templates/user_event.html:63
-#: barcamps/templates/user_events.html:19
-#: barcamps/templates/user_events.html:45
+#: barcamps/templates/user_events.html:89
+#: barcamps/templates/user_events.html:115
 msgid "Join Waiting list"
 msgstr ""
 
@@ -1365,12 +1366,12 @@ msgstr ""
 #: barcamps/templates/user_event.html:45 barcamps/templates/user_event.html:65
 #: barcamps/templates/user_event.html:70 barcamps/templates/user_event.html:77
 #: barcamps/templates/user_event.html:139
-#: barcamps/templates/user_events.html:21
-#: barcamps/templates/user_events.html:26
-#: barcamps/templates/user_events.html:33
-#: barcamps/templates/user_events.html:47
-#: barcamps/templates/user_events.html:52
-#: barcamps/templates/user_events.html:59
+#: barcamps/templates/user_events.html:91
+#: barcamps/templates/user_events.html:96
+#: barcamps/templates/user_events.html:103
+#: barcamps/templates/user_events.html:117
+#: barcamps/templates/user_events.html:122
+#: barcamps/templates/user_events.html:129
 msgid "Maybe"
 msgstr ""
 
@@ -1378,27 +1379,27 @@ msgstr ""
 #: barcamps/templates/registration.html:63
 #: barcamps/templates/user_event.html:39 barcamps/templates/user_event.html:44
 #: barcamps/templates/user_event.html:71 barcamps/templates/user_event.html:76
-#: barcamps/templates/user_events.html:17
-#: barcamps/templates/user_events.html:27
-#: barcamps/templates/user_events.html:32
-#: barcamps/templates/user_events.html:43
-#: barcamps/templates/user_events.html:53
-#: barcamps/templates/user_events.html:58
+#: barcamps/templates/user_events.html:87
+#: barcamps/templates/user_events.html:97
+#: barcamps/templates/user_events.html:102
+#: barcamps/templates/user_events.html:113
+#: barcamps/templates/user_events.html:123
+#: barcamps/templates/user_events.html:128
 msgid "Going"
 msgstr ""
 
 #: barcamps/templates/registration.html:59
 #: barcamps/templates/user_event.html:40 barcamps/templates/user_event.html:72
 #: barcamps/templates/user_event.html:143
-#: barcamps/templates/user_events.html:28
-#: barcamps/templates/user_events.html:54 barcamps/templates/userlist.html:58
+#: barcamps/templates/user_events.html:98
+#: barcamps/templates/user_events.html:124 barcamps/templates/userlist.html:58
 msgid "Waiting list"
 msgstr ""
 
 #: barcamps/templates/registration.html:65
 #: barcamps/templates/user_event.html:46 barcamps/templates/user_event.html:78
-#: barcamps/templates/user_events.html:34
-#: barcamps/templates/user_events.html:60
+#: barcamps/templates/user_events.html:104
+#: barcamps/templates/user_events.html:130
 msgid "Not Going"
 msgstr ""
 
@@ -1661,7 +1662,7 @@ msgid "Terms of Sale"
 msgstr ""
 
 #: barcamps/templates/user_event.html:23 barcamps/templates/user_event.html:55
-#: barcamps/templates/user_event.html:87 barcamps/templates/user_events.html:13
+#: barcamps/templates/user_event.html:87 barcamps/templates/user_events.html:83
 msgid "Change Participation Status"
 msgstr ""
 
@@ -1675,13 +1676,14 @@ msgid "I am not attending this event"
 msgstr ""
 
 #: barcamps/templates/user_event.html:91
-#: barcamps/templates/user_events.html:155
+#: barcamps/templates/user_events.html:238
 msgid "Add my registration data"
 msgstr ""
 
 #: barcamps/templates/user_event.html:115
 #: barcamps/templates/user_event.html:135
-#: barcamps/templates/user_events.html:128 barcamps/templates/userlist.html:50
+#: barcamps/templates/user_events.html:198
+#: barcamps/templates/user_events.html:208 barcamps/templates/userlist.html:50
 #: barcamps/templates/admin/event_macros.html:13
 #: barcamps/templates/admin/event_participants.html:45
 #: barcamps/templates/admin/events.html:29
@@ -1689,7 +1691,7 @@ msgid "Participants"
 msgstr ""
 
 #: barcamps/templates/user_event.html:119
-#: barcamps/templates/user_events.html:130
+#: barcamps/templates/user_events.html:200
 #: barcamps/templates/admin/event_macros.html:12
 msgid "Timetable"
 msgstr ""
@@ -1710,40 +1712,40 @@ msgstr ""
 msgid "Edit Sessions"
 msgstr ""
 
-#: barcamps/templates/user_events.html:4
+#: barcamps/templates/user_events.html:74
 #, python-format
 msgid "Events for %(name)s"
 msgstr ""
 
-#: barcamps/templates/user_events.html:69
+#: barcamps/templates/user_events.html:139
 msgid "Click here to update your registration data"
 msgstr ""
 
-#: barcamps/templates/user_events.html:72
+#: barcamps/templates/user_events.html:142
 msgid "Add Registration Data"
 msgstr ""
 
-#: barcamps/templates/user_events.html:76
+#: barcamps/templates/user_events.html:146
 msgid "Click here to register for this event"
 msgstr ""
 
-#: barcamps/templates/user_events.html:143
+#: barcamps/templates/user_events.html:221
 msgid "My Data"
 msgstr ""
 
-#: barcamps/templates/user_events.html:152
+#: barcamps/templates/user_events.html:235
 msgid "Change my registration data"
 msgstr ""
 
-#: barcamps/templates/user_events.html:152
+#: barcamps/templates/user_events.html:235
 msgid "Edit registration data"
 msgstr ""
 
-#: barcamps/templates/user_events.html:154
+#: barcamps/templates/user_events.html:237
 msgid "Please update your registration information"
 msgstr ""
 
-#: barcamps/templates/user_events.html:155
+#: barcamps/templates/user_events.html:238
 msgid "Add registration data"
 msgstr ""
 
