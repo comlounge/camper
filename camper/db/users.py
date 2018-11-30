@@ -120,5 +120,25 @@ class CamperUser(User):
             return False
         return self.username == other.username
 
+    def delete(self):
+        """delete a user. 
+        
+        The following will happen then:
+
+        - overwrite all personal information like twitter, facebook etc.
+        - delete the email and password
+        - mark the user as deleted
+        - we keep the name because it should still be available for barcamp admins as it was rightfully recorded while registering
+        """
+
+        self.email         = unicode(uuid.uuid4())
+        self.bio           = ""
+        self.username      = unicode(uuid.uuid4())
+        self.twitter       = ""
+        self.facebook      = ""
+        self.homepage      = ""
+        self.tshirt        = ""
+        self.organisation  = ""
+        self.deleted       = True
 
 

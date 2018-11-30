@@ -32,24 +32,17 @@ class DeleteView(BaseHandler):
                 if email == self.user.email:
 
                     # delete user data
-                    self.user.email         = uuid.uuid4()
-                    self.user.bio           = ""
-                    self.user.username      = uuid.uuid4()
-                    self.user.twitter       = ""
-                    self.user.facebook      = ""
-                    self.user.homepage      = ""
-                    self.user.tshirt        = ""
-                    self.user.organisation  = ""
-
-                    # delete image
+                    self.user.delete()
+                    
+                    # delete profile image
                     image_id = self.user.image
-                    if image_id is not None:
+                    if image_id:
                         self.app.module_map.uploader.remove(image_id)
 
-                    #self.image              = None
+                    self.image              = None
 
-                    #self.user.save()
-                    self.flash(self._("Your user was successfully deleted"), category="info")
+                    self.user.save()
+                    self.flash(self._("Your account was successfully deleted and you have been logged out."), category="info")
 
                     # logout user
                     self.app.module_map.userbase.logout(self)
