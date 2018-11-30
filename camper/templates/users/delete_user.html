@@ -7,23 +7,47 @@
         <div class="col-md-8">
             <section class="form">
                 <h2>{{_('Delete your account')}}</h2>
-                <div class="description">
-                    {{_("Please confirm your email address to delete your account.")}}
-                    {{_("The following will happen if you delete your user:")}}
-                    <ul>
-                        <li>{{_('You will be removed from all public participant lists')}}</li>
-                        <li>{{_('Your session proposals will not show your name anymore')}}</li>
-                        <li>{{_('Your comments on session proposals will be shown as "Deleted user"')}}</li>
-                    </ul>
-                </div>
-                <form class="" data-parsley-validate method="POST" action="{{url}}" id="email-edit-form"> 
-                    {{ formmacros.form_field(form.email, maxlength=40, input_class="col-md-4", class="form-control required", input_type="email", id="email") }}
-                    <fieldset class="form-actions">
-                        <div class="input">
-                            <input type="submit" class="btn btn-danger btn-large" value="{{_("DELETE YOUR ACCOUNT")}}">
-                        </div>
-                    </fieldset>
-                </form>
+                {% if active_camps %}
+                    <div class="alert alert-warning">
+                        <h4>{{_('You cannot delete your account yet')}}</h4>
+                        <p>
+                        {{_('Unfortunately you cannot delete your user because you still are on participants or waiting lists for the following barcamps:')}}
+                        </p>
+                        <p>
+                        <ul>
+                        {% for camp in active_camps %}
+                            <li>
+                                <a href="{{url_for('barcamps.index', slug = camp.slug)}}">
+                                    {{camp.name}}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        </p>
+                        <p>
+                        {{_('Once you cancelled these barcamps you can then delete your account.')}}
+                        </p>
+                    </div>
+                {% else %}
+                    <div class="description">
+                        {{_("Please confirm your email address to delete your account.")}}
+                        {{_("The following will happen if you delete your account:")}}
+                        <ul>
+                            <li>{{_('You will be removed from all public participant lists')}}</li>
+                            <li>{{_('Your session proposals will not show your name anymore')}}</li>
+                            <li>{{_('Your comments on session proposals will be shown as "Deleted user"')}}</li>
+                        </ul>
+                    </div>
+                    <form class="" data-parsley-validate method="POST" action="{{url}}" id="email-edit-form"> 
+                        {{ formmacros.form_field(form.email, maxlength=40, input_class="col-md-4", class="form-control required", input_type="email", id="email") }}
+                        <fieldset class="form-actions">
+                            <div class="input">
+                                <input type="submit" class="btn btn-danger btn-large" value="{{_("DELETE YOUR ACCOUNT")}}">
+                            </div>
+                        </fieldset>
+                    </form>
+                {% endif %}
+
             </section>
         </div>
         <div class="col-md-4">

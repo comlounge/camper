@@ -8,6 +8,7 @@ from camper.handlers.forms import *
 import werkzeug.exceptions
 from bson import ObjectId
 import uuid
+import datetime
 
 __all__ = ['DeleteView']
 
@@ -24,6 +25,16 @@ class DeleteView(BaseHandler):
     @logged_in()
     def get(self):
         """render the view"""
+
+        # check if user is participant in active barcamps
+        bcs = self.app.config.dbs.barcamps
+
+        active_camps = []
+        now = datetime.date.today()
+        for camp in bcs.get_by_user_id(self.user._id, waiting = True):
+            if camp.end_date >= now:
+                active_camps.append(camp)
+
         form = EMailForm(self.request.form, config = self.config, app = self.app, handler = self)
 
         if self.request.method=="POST":
@@ -52,6 +63,10 @@ class DeleteView(BaseHandler):
                     self.flash(self._("Your email was not correct"), category="danger")
             else:
                 self.flash(self._("There have been errors in the form"), category="danger")
-        return self.render(form = form, user = self.user)
+        
+        return self.render(
+            form = form, 
+            active_camps = active_camps,
+            user = self.user)
 
     post = get
