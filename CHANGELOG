@@ -242,3 +242,14 @@ Bugfixes:
 =======
 
 - users can also be deleted if barcamp is in private mode 
+
+2.6
+===
+
+- users can now delete their account on their own if they don't have an active barcamp anymore
+- users now need to optin to be displayed on the participants list. You can do that in the personal information screen for each barcamp
+- the participants lists are now only names and consolidated on the barcamp events page instead of each event
+- barcamps with ticket registration now also have a participants list
+- :15 and :45 has been added as presets to session timeslots. You can still enter whatever number you want though.
+- markdown has been switched off for session proposals because it wasn't advertised and it prevents the gender-star to be used easily
+- session proposals can now be sorted by title
