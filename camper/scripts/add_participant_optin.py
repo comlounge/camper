@@ -36,12 +36,16 @@ class MigrateBarcamps(ScriptBase):
             self.barcamp = b
 
             f = b['registration_form']
+            has_field = False
             for field in f:
                 if field['name'] == "optin_participant":
-                    # field exists
+                    has_field = True
                     log.info("no change in %s" %b['name'])
-                    continue
-            
+                    break
+
+            if has_field:
+                continue
+                
             # add field at beginning
 
             f = [optin_field] + f
