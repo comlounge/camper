@@ -1642,7 +1642,7 @@ msgstr "Kommentar löschen"
 
 #: barcamps/templates/sessions.html:111
 msgid "Deleted User"
-msgstr "Benutzer löschen"
+msgstr "Gelöschter Benutzer"
 
 #: barcamps/templates/sessions.html:126
 msgid "Comment"
@@ -4033,46 +4033,40 @@ msgid "send request"
 msgstr "Anfrage absenden"
 
 #: templates/M/userbase/login.html:14
-#, fuzzy
 msgid "Real camper log in!"
 msgstr "Bitte logge Dich zunächst ein!"
 
 #: templates/M/userbase/login.html:16
-#, fuzzy
 msgid "username"
 msgstr "Benutzername"
 
 #: templates/M/userbase/login.html:17
-#, fuzzy
 msgid "password"
 msgstr "Passwort"
 
 #: templates/M/userbase/login.html:20
-#, fuzzy
 msgid "login"
 msgstr "Einloggen"
 
 #: templates/M/userbase/login.html:31
 msgid "password forgotten?"
-msgstr ""
+msgstr "Passwort vergessen?"
 
 #: templates/M/userbase/login.html:34
-#, fuzzy
 msgid "register a new user"
-msgstr "Erstelle ein neues Konto oder logge Dich ein"
+msgstr "Erstelle ein neues Konto"
 
 #: templates/M/userbase/registration.html:7
-#, fuzzy
 msgid "Please register"
-msgstr "Eröffne die Registrierung"
+msgstr "Registriere Dich"
 
 #: templates/M/userbase/registration.html:24
 msgid "missing activation email?"
-msgstr ""
+msgstr "Aktivierungsmail nicht gefunden?"
 
 #: templates/M/userbase/registration.html:25
 msgid "Please send me a new activation code"
-msgstr ""
+msgstr "Bitte sende mir einen neuen Aktivierungscode"
 
 #: templates/users/change_email.html:9
 msgid "Change your email address"
