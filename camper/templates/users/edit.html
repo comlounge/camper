@@ -42,7 +42,8 @@
         </div>
         {% block action %}
             <input type="submit" class="btn btn-large btn-primary" value="{{_('Update Profile')}}">
-            <a href="{{url_for("profile", username = user.username)}}" class="btn btn-large btn-default">{{_('Cancel')}}</a>
+            <a href="{{url_for('profile', username = user.username)}}" class="btn btn-large btn-default">{{_('Cancel')}}</a>
+            <a href="{{url_for('user_delete')}}" style="float: right;" class="btn btn-large btn-danger">{{_('Delete your account')}}</a>
         {% endblock %}
     </form>
 {% endblock %}
