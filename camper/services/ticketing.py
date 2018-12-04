@@ -438,7 +438,7 @@ class TicketService(object):
                 barcamp_url = self.handler.url_for("barcamps.index", slug = self.barcamp.slug, _full = True),
                 ticketlist_url = self.handler.url_for("barcamps.admin_ticketlist", slug = self.barcamp.slug, _full = True)
             )
-            payload = self.handler.render_lang("_m/barcamps/emails/%s.txt" %template_name, **kwargs)
+            payload = self.handler.render_lang("emails/%s.txt" %template_name, **kwargs)
             mailer.mail(admin.email, subject, payload)
 
 

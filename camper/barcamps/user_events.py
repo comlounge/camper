@@ -8,6 +8,7 @@ import werkzeug.exceptions
 import xlwt
 from cStringIO import StringIO
 import datetime
+from camper.services import TicketService
 
 
 class Events(BarcampBaseHandler):
@@ -27,6 +28,35 @@ class Events(BarcampBaseHandler):
         data_names = {}
         for e in self.barcamp.registration_form:
             data_names[e['name']] = e['title']
+
+        # get participants for tickets
+        participants = []
+
+        # filter those with optin
+        regdata = self.barcamp.registration_data
+        optin_users = [uid for uid in regdata if regdata[uid].get('optin_participant', False)]
+        ub = self.app.module_map.userbase
+
+        if self.barcamp.ticketmode_enabled:
+            ticketservice = TicketService(self, None, self.barcamp)
+            tickets = ticketservice.get_tickets()
+
+            user_ids = set([t['user_id'] for t in tickets])
+            participants = [ub.get_user_by_id(uid) for uid in user_ids if uid in optin_users] 
+
+        else:
+            # get all users from all events
+            user_ids = []
+            for e in self.barcamp.eventlist:
+                user_ids = user_ids + e.participants
+
+            participants = [ub.get_user_by_id(uid) for uid in set(user_ids) if uid in optin_users]
+
+        def s(a,b):
+            return cmp(a['fullname'].lower(), b['fullname'].lower())
+
+        participants.sort(s)
+
         
         out = self.render(
             view = self.barcamp_view,
@@ -36,6 +66,7 @@ class Events(BarcampBaseHandler):
             has_form_data = has_form_data,
             form_data = form_data,
             data_names = data_names,
+            participants = participants,
             **self.barcamp)
         return out
 
@@ -54,9 +85,16 @@ class Event(BarcampBaseHandler):
         else:
             e = self.barcamp.get_event(eid)
         ub = self.app.module_map.userbase
-        maybe = list(ub.get_users_by_ids(e.maybe))
-        waitinglist = [ub.get_user_by_id(uid) for uid in e.waiting_list]
-        participants = [ub.get_user_by_id(uid) for uid in e.participants]
+
+        # filter participants by list optin
+        regdata = self.barcamp.registration_data
+
+        # map to optin
+        optin_users = [uid for uid in regdata if regdata[uid].get('optin_participant', False)]
+        
+        maybe = [ub.get_user_by_id(uid) for uid in e.maybe if uid in optin_users]
+        waiting_list = [ub.get_user_by_id(uid) for uid in e.waiting_list if uid in optin_users]
+        participants = [ub.get_user_by_id(uid) for uid in e.participants if uid in optin_users]
         
         if self.logged_in:
             uid = unicode(self.user._id)
@@ -75,7 +113,7 @@ class Event(BarcampBaseHandler):
             participants = participants,
             active_event = e,
             maybe = maybe,
-            waitinglist = waitinglist,
+            waitinglist = waiting_list,
             title = self.barcamp.name,
             active_tab = active_tab,
             is_registered = self.barcamp.is_registered(self.user),

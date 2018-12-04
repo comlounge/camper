@@ -1,5 +1,27 @@
 {% set active_action = "events" -%}
 {% extends "_m/barcamps/master.html" -%}
+
+{% macro userlist(users) %}
+    {% if users|length %}
+        <ul class="media-userlist" style="column-count: 3; column-fill: auto;">
+        {% for myuser in users %}
+            <li>
+                <a class="{{'myuser' if myuser._id == user._id}}" href="{{url_for('profile', username = myuser.username)}}" title="{{myuser.fullname|e}}">
+                    {{myuser.fullname|e}}
+                </a>
+                <span class="organisation">{{myuser.organisation|e}}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-info">
+        {{_('Unfortunately no participants are registered yet or have allowed us to publish their name.')}}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+
+
 {% block headline -%}
     <h2>{{gettext('Events for %(name)s') | format(name = barcamp.name|e)}}</h2>
 {% endblock %}
@@ -124,14 +146,19 @@
 
                 </div>
                 <div class="panel-body">
-                {% if not barcamp.ticketmode_enabled %}
-                    <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#userlist" class="btn btn-default btn-sm"><i class="fa fa-user"></i> {{_('Participants')}}</a>
-                {% endif %}
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions" class="btn btn-default btn-sm"><i class="fa fa-calendar"></i> {{_('Timetable')}}</a>
                     <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#location" class="btn btn-default btn-sm"><i class="fa fa-map-marker"></i> {{_('Location')}}</a>
                 </div>
             </article>
         {% endfor %}
+        
+        <div id="userlist">
+            <section id="participants">
+                <h2>{{_('Participants')}}</h2>
+                {{ userlist(participants)}}
+            </section>
+        </div>
+
     </div>
 {% endblock %}
 
@@ -144,9 +171,14 @@
 
             {% if has_form_data %}
                 <dl class="formdata">
-                {% for k,v in form_data.iteritems() %}        
+                {% for k,v in form_data.iteritems() %}
+                    {% if k == "optin_participant" %}
+                        <dt>{{_(data_names[k])}}</dt>
+                        <dd>{{_(v|striptags)}}</dd>
+                    {% else %}
                         <dt>{{data_names[k]}}</dt>
                         <dd>{{v|striptags}}</dd>
+                    {% endif %}
                 {% endfor %}
                 </dl>
                 <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Change my registration data')}}" class="btn btn-sm btn-default"><i class="fa fa-pencil"></i> {{_('Edit registration data')}}</a>
@@ -154,13 +186,12 @@
                 <div class="alert alert-danger">{{_('Please update your registration information')}}</div>
                 <a href="{{url_for(".registration_form", slug = slug)}}" title="{{_('Add my registration data')}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> {{_('Add registration data')}}</a>
             {% endif %}
-            </div>
         </div>
     {% endif %}
 {% endmacro %}
 {% block widgets %}
     {{ super() }}
-    {{ data_block() }}    
+    {{ data_block() }}
 {% endblock %}
 
 

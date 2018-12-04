@@ -31,21 +31,23 @@
             <thead>
             <tbody>
                 {% for f in fields%}
-                <tr data-title="{{f.title}}"
-                    data-description="{{f.description}}"
-                    data-fieldtype="{{f.fieldtype}}"
-                    data-required="{{f.required}}">
-                    <td>{{f.title}}</td>
-                    <td>{{f.fieldtype}}</td>
-                    <td>{{f.description}}</td>
-                    <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
-                    <td>
-                        <a href="{{url_for('.registration_form_editor', method='delete', idx = loop.index0, slug = slug, _append=True)}}" 
-                           class="btn btn-xs btn-danger action-confirm"
-                           data-confirm="{{_('Are you sure?')}}" 
-                           type="button"><i class="fa fa-white fa-trash"></button>
-                    </td>
-                </tr>
+                    <tr data-title="{{f.title}}"
+                        data-description="{{f.description}}"
+                        data-fieldtype="{{f.fieldtype}}"
+                        data-required="{{f.required}}">
+                        <td>{{_(f.title)}}</td>
+                        <td>{{_(f.fieldtype)}}</td>
+                        <td>{{_(f.description)}}</td>
+                        <td width="5%">{% if f.required %}<i class="icon-ok">{% endif %}</td>
+                        <td>
+                            {% if "optin_participant" != f.name %}
+                            <a href="{{url_for('.registration_form_editor', method='delete', idx = loop.index0, slug = slug, _append=True)}}" 
+                            class="btn btn-xs btn-danger action-confirm"
+                            data-confirm="{{_('Are you sure?')}}" 
+                            type="button"><i class="fa fa-white fa-trash"></button>
+                            {% endif %}
+                        </td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>

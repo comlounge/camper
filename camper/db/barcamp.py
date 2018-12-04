@@ -462,7 +462,13 @@ class Barcamp(Record):
         'location'      : {},
         'workflow'      : "created",
         'events'        : {},
-        'registration_form'        : [],
+        'registration_form'        : [
+            { "title" : T("Show on public participants list"),
+              "required" : False, 
+              "description" : T("Decide whether you want to be displayed on the public list of participants"), 
+              "name" : "optin_participant", 
+              "fieldtype" : "checkbox" }
+        ],
         'registration_data'        : {},
         'planning_pad_public'        : False,
         'background_color'      : '#fcfcfa',

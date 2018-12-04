@@ -149,11 +149,9 @@ class RegistrationForm(BarcampBaseHandler):
     def get(self, slug = None):
         """show paticipants data form"""
 
-
         # create registration form programatically
         class RegistrationForm(BaseForm):
             pass
-
 
         for field in self.barcamp.registration_form:
             vs = []
@@ -171,11 +169,9 @@ class RegistrationForm(BarcampBaseHandler):
                 setattr(RegistrationForm, field['name'], SelectField(field['title'], vs, description = field['description'] or " ", 
                     choices = field['choices']))
 
-
-
         uid = unicode(self.user._id)
         form_data = self.barcamp.registration_data.get(uid, {})
-        form = RegistrationForm(self.request.form, config = self.config, **form_data)
+        form = RegistrationForm(self.request.form, config = self.config)
         if self.request.method == 'POST' and form.validate():
             f = form.data
 
@@ -186,7 +182,8 @@ class RegistrationForm(BarcampBaseHandler):
             self.flash(self._("Your information was updated"), category="success")
             return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
 
-        # show the form
+        # show the form (and create it again with existing data)
+        form = RegistrationForm(self.request.form, config = self.config, **form_data)
         return self.render(
             view = self.barcamp_view,
             barcamp = self.barcamp,
