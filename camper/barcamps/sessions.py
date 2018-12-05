@@ -10,6 +10,8 @@ import datetime
 import xlwt
 from cStringIO import StringIO
 
+from camper.services import MailService
+
 class SessionAddForm(BaseForm):
     title = TextField()
     description = TextAreaField()
@@ -34,6 +36,16 @@ class SessionList(BarcampBaseHandler):
             session = db.Session(f, collection = self.config.dbs.sessions)
             session = self.config.dbs.sessions.put(session)
             self.flash("Dein Sessionvorschlag wurde erfolgreich angelegt!")
+
+            # send email to admins
+            ms = MailService(self, self.user)
+            if self.barcamp.send_email_to_admins:
+                subject = self._('New session proposal for %s' %self.barcamp.name)
+                session_url = self.url_for(".sessions", slug = self.barcamp.slug, _full = True)
+                ms.send_email_to_admins("admin_new_session_proposal", subject, 
+                    session_url = session_url,
+                    session = session)
+
             return redirect(self.request.url)
         return self.render(sessions = sessions, sort = sort, form = form, view = self.barcamp_view, **self.barcamp)
 
