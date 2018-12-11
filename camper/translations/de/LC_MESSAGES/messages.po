@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2018-12-04 12:24+0100\n"
+"POT-Creation-Date: 2018-12-11 16:00+0100\n"
 "PO-Revision-Date: 2018-04-07 16:42+0200\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -1642,7 +1642,7 @@ msgstr "Kommentar löschen"
 
 #: barcamps/templates/sessions.html:111
 msgid "Deleted User"
-msgstr "Gelöschter Benutzer"
+msgstr "Nutzer*in gelöscht"
 
 #: barcamps/templates/sessions.html:126
 msgid "Comment"
@@ -4126,7 +4126,7 @@ msgstr "Deine Sessionvorschläge werden ohne Deinen Namen angezeigt"
 
 #: templates/users/delete_user.html:38
 msgid "Your comments on session proposals will be shown as \"Deleted user\""
-msgstr "Deien Kommentare haben also Autor 'gelöschter Benutzer' stehen."
+msgstr "Deine Kommentare werden künftig als 'Nutzer*in gelöscht' angezeigt."
 
 #: templates/users/delete_user.html:45
 msgid "DELETE YOUR ACCOUNT"
