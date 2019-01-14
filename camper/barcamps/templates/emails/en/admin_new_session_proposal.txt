@@ -1,0 +1,13 @@
+Hi {{user.fullname}},
+
+{{new_user.fullname}} has added a new session proposal for {{barcamp.name}}.
+
+Title: {{session.title}}
+URL: {{session_url}}
+
+Barcamp: {{url}}
+
+--
+This email has been automatically created by barcamptools.eu, please do not reply.
+
+If you want to disable these notifications, please visit {{notification_url}}
