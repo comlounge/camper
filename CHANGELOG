@@ -253,3 +253,10 @@ Bugfixes:
 - :15 and :45 has been added as presets to session timeslots. You can still enter whatever number you want though.
 - markdown has been switched off for session proposals because it wasn't advertised and it prevents the gender-star to be used easily
 - session proposals can now be sorted by title
+
+2.6.1
+=====
+
+- fixed logo editor
+- new session proposals are now mailed to the admin if the email option is enabled
+
