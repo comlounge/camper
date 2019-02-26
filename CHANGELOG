@@ -260,3 +260,10 @@ Bugfixes:
 - fixed logo editor
 - new session proposals are now mailed to the admin if the email option is enabled
 
+2.6.1.1
+=======
+
+- users are not able again to edit or delete their own session proposals
+
+
+
