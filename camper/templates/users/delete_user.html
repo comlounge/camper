@@ -39,7 +39,7 @@
                         </ul>
                     </div>
                     <form class="" data-parsley-validate method="POST" action="{{url}}" id="email-edit-form"> 
-                        {{ formmacros.form_field(form.email, maxlength=40, input_class="col-md-4", class="form-control required", input_type="email", id="email") }}
+                        {{ formmacros.form_field(form.email, maxlength=80, input_class="col-md-4", class="form-control required", input_type="email", id="email") }}
                         <fieldset class="form-actions">
                             <div class="input">
                                 <input type="submit" class="btn btn-danger btn-large" value="{{_("DELETE YOUR ACCOUNT")}}">

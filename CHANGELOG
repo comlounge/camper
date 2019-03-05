@@ -265,5 +265,10 @@ Bugfixes:
 
 - users are not able again to edit or delete their own session proposals
 
+2.6.1.2
+=======
+
+- email field for deleting users was too small for some email addresses
+
 
 

@@ -50,7 +50,7 @@ class DeleteView(BaseHandler):
                     if image_id:
                         self.app.module_map.uploader.remove(image_id)
 
-                    self.image              = None
+                    self.image = None
 
                     self.user.save()
                     self.flash(self._("Your account was successfully deleted and you have been logged out."), category="info")
