@@ -9489,3 +9489,7 @@ aside .btn-admin {
 #sidebar-social i.fa-bullhorn {
   color: #333;
 }
+.description img {
+  max-width: 100%;
+  height: auto;
+}
