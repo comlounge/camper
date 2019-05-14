@@ -4,7 +4,6 @@
         <a 
             href="https://twitter.com/intent/tweet?text={{_('Check out %(name)s') | format(name=barcamp.name|e)}}&amp;hashtags={{barcamp.hashtag|e}}&amp;via={{barcamp.twitter|e}}&amp;related=barcamptools&amp;url={{url_for('barcamps.index', slug = barcamp.slug, _full=True ) }}" 
             class="btn btn-block btn-lg btn-info"><i class="fa fa-twitter"></i> {{_('Share on Twitter')}}</a>
-        <a class="share-on-googleplus btn btn-block btn-lg btn-danger" data-url="{{url|e}}"><i class="fa fa-google-plus"></i> {{_('Share on Google+')}}</a>
     </div>    
 {%- endmacro %}
 {% macro barcamp_buttons() -%}
@@ -276,16 +275,16 @@
                             </h3>
                             <ul>
                                 {% if barcamp.homepage %}
-                                <li><i class="fa fa-home"></i> <a href="{{barcamp.homepage}}">{{barcamp.homepage}}</a></li>
+                                <li><i class="fa fa-home"></i> <a href="{{barcamp.homepage|e}}">{{barcamp.homepage|e}}</a></li>
                                 {% endif %}
                                 {% if barcamp.twitter %}
-                                <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/{{barcamp.twitter}}">{{barcamp.twitter}}</a></li>
+                                <li><i class="fa fa-twitter"></i> <a href="https://twitter.com/{{barcamp.twitter|e}}">{{barcamp.twitter|e}}</a></li>
                                 {% endif %}
                                 {% if barcamp.hashtag %}
-                                <li><i class="fa fa-hashtag"></i> <a href="https://twitter.com/search?q={{barcamp.hashtag}}&src=typd">{{barcamp.hashtag}}</a></li>
+                                <li><i class="fa fa-hashtag"></i> <a href="https://twitter.com/search?q={{barcamp.hashtag|e}}&src=typd">{{barcamp.hashtag|e}}</a></li>
                                 {% endif %}
                                 {% if barcamp.facebook %}
-                                <li><i class="fa fa-facebook"></i> <a href="{{barcamp.facebook|e}}">{{barcamp.facebook}}</a></li>
+                                <li><i class="fa fa-facebook"></i> <a href="{{barcamp.facebook|e}}">{{barcamp.facebook|e}}</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -313,17 +312,17 @@
                                 <h5>{{_('Contact')}}</h5>
                                 {% if barcamp.location.email %}
                                 <div id="sidebar-location-email">
-                                    <i class="fa fa-envelope"></i> <a href="mailto:{{barcamp.location.email}}">{{barcamp.location.email}}</a><br>
+                                    <i class="fa fa-envelope"></i> <a href="mailto:{{barcamp.location.email|e}}">{{barcamp.location.email|e}}</a><br>
                                 </div>
                                 {% endif %}
                                 {% if barcamp.location.phone %}
                                 <div id="sidebar-location-phone">
-                                    <i class="fa fa-phone"></i> {{barcamp.location.phone}}<br>
+                                    <i class="fa fa-phone"></i> {{barcamp.location.phone|e}}<br>
                                 </div>
                                 {% endif %}
                                 {% if barcamp.location.url %}
                                 <div id="sidebar-location-homepage">
-                                    <i class="fa fa-home"></i> <a href="{{barcamp.location.url|e}}">{{barcamp.location.url}}</a><br>
+                                    <i class="fa fa-home"></i> <a href="{{barcamp.location.url|e}}">{{barcamp.location.url|e}}</a><br>
                                 </div>
                                 {% endif %}
                             {% endif %}
