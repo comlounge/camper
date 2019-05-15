@@ -1,9 +1,10 @@
+appnope==0.1.0
 awesome-slugify==1.6.5
 Babel==1.3
+backports.shutil-get-terminal-size==1.0.0
 bleach==1.4.2
 cairocffi==0.9.0
 CairoSVG==1.0.22
--e git+git@github.com:comlounge/camper.git@45e6dea76bb128ea240738de5acde6f9a3af5e66#egg=camper
 certifi==2018.11.29
 cffi==1.12.2
 chardet==3.0.4
@@ -12,53 +13,62 @@ configparser==3.5.0b2
 cssselect2==0.2.1
 decorator==4.0.9
 docutils==0.12
-# Editable install with no version control (embeddify==0.2.0)
--e /Users/cs/prj/camper/lib/python2.7/site-packages
 enum34==1.1.6
 etherpad-lite==0.2.1
 html5lib==1.0b8
 idna==2.8
+ipython==5.8.0
+ipython-genutils==0.2.0
 iso8601==0.1.12
 isodate==0.5.4
-Jinja2==2.7.3
+Jinja2==2.10.1
 Logbook==0.12.3
+lxml==4.3.3
 Markdown==2.6.6
 MarkupSafe==0.23
-# Editable install with no version control (mongogogo==1.0)
--e /Users/cs/prj/camper/lib/python2.7/site-packages
--e git+git@github.com:mrtopf/mongoquery.git@9b8cc00984a88af766a6b983010963c9a9922121#egg=mongoquery
 passlib==1.6.5
 Paste==3.0.7
 PasteDeploy==2.0.1
 PasteScript==3.0.0
+pathlib2==2.3.3
 pdfrw==0.4
+pexpect==4.7.0
 pexpect-u==2.5.1
+pickleshare==0.7.5
 Pillow==3.1.0
+prompt-toolkit==1.0.16
+ptyprocess==0.6.0
 py==1.4.31
 PyBabel-hbs==0.2.2
 pycountry==1.20
 pycparser==2.19
+Pygments==2.4.0
 pymongo==3.2.2
 PyPDF2==1.25.1
 Pyphen==0.9.5
 pytest==2.8.5
 python-dateutil==2.4.2
 pytz==2015.4
-PyYAML==3.13
+PyYAML==5.1
 regex==2016.9.22
 reportlab==3.2.0
 requests==2.21.0
+scandir==1.10.0
 sf-babel==1.0
 sf-mail==1.0
 sf-uploader==1.0.3
+simplegeneric==0.8.1
 six==1.10.0
 speaklater==1.3
 starflyer==2.1.1
 tinycss2==0.6.1
+traitlets==4.3.2
 translationstring==1.3
 Unidecode==0.4.19
-urllib3==1.24.1
+urlclean==0.5.4
+urllib3==1.25.2
 userbase==1.1.1
+wcwidth==0.1.7
 WeasyPrint==0.42.3
 webencodings==0.5.1
 Werkzeug==0.11.3
