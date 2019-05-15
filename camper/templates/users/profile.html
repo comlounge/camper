@@ -25,18 +25,14 @@
                     <div class="text-muted">{{_('This could be a text about you')}}</div>
                 {% endif %}
 
-                <h4>Twitter</h4>
                 {% if profile_user.has_twitter %}
+                    <h4>Twitter</h4>
                     <a href="{{profile_user.twitter_link}}">@{{profile_user.twitter|e}}</a>
-                {% else %}
-                    <p class="text-muted">{{_('not given')}}</p>
                 {% endif %}
 
-                <h4>Facebook</h4>
                 {% if profile_user.has_facebook %}
+                    <h4>Facebook</h4>
                     <a href="{{profile_user.facebook}}">{{profile_user.facebook|e}}</a>
-                {% else %}
-                    <p class="text-muted">{{_('not given')}}</p>
                 {% endif %}
             </div>
 
