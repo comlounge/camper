@@ -3,7 +3,7 @@
 {% macro imageblock(image) %}
         <div class="row imagedetailblock" id="block-{{image._id}}">
             <div class="col-md-4">
-                {{image.tag}}
+                {{image.tag|safe}}
             </div>
             <div class="col-md-8">
                 <form id="imageform-{{image._id}}" method="POST"

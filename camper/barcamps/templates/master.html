@@ -124,7 +124,7 @@
         <div class="container">
             <div class="header action-container content-area">
                 {% if logo %}
-                    {{view.logo}}
+                    {{view.logo|safe}}
                 {% else %}                
                     <h1 class="logo"><a href="{{url_for('barcamps.index', slug = barcamp.slug)}}">{{barcamp.name|e}}</a></h1>
                 {% endif %}
