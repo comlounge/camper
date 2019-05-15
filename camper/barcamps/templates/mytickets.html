@@ -17,17 +17,17 @@
                     {% set tc = t.ticketclass %}
                     <article data-id="{{tc._id}}" id="e-{{tc._id}}" class="event panel panel-{{panel_class}} panel-ticket">
                         <div class="panel-heading">
-                            <h2 class="panel-title"> {{tc.name}} </h2>
+                            <h2 class="panel-title"> {{tc.name|e}}</h2>
                         </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="ticket-description">
-                                        {{tc.description}}
+                                        {{tc.description|e}}
                                     </div>
                                     {% if barcamp.paid_tickets %}
                                         <div class="ticket-price">
-                                            {{_('Price:')}} {{tc.price}}
+                                            {{_('Price:')}} {{tc.price|e}}
                                         </div>
                                     {% endif %}
                                 </div>
@@ -38,7 +38,7 @@
                                             {% for eid in tc.events %}
                                                 {% set event = barcamp.get_event(eid) %}
                                                 <span class="event-date">{{dateformat(event.date)}}</span>:
-                                                <span class="event-name">{{event.name}}</span>,
+                                                <span class="event-name">{{event.name|e}}</span>,
                                                 <span class="event-location">{{event.event_location.name}}</span>
                                             {% endfor %}
                                         </div>

@@ -58,7 +58,7 @@
     <div class="clearfix">
     {% for sponsor in view.sponsors %}
         <div class="sponsor clearfix">
-            {{sponsor.image}}
+            {{sponsor.image|safe}}
         </div>
     {% endfor %}
     </div>

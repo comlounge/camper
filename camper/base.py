@@ -19,6 +19,8 @@ import jinja2
 import logbook
 import weasyprint
 import cStringIO
+from jinja2 import Template
+import bleach
 
 
 from wtforms.ext.i18n.form import Form
@@ -265,21 +267,24 @@ class BarcampView(object):
 
     @property
     def sponsors(self):
+        tmpl = Template("""
+            <a href="{{name}}" href="{{url}}"><img alt="{{name}}" width=220 src="{{image_url}}"></a>
+        """)
         res = []
         i = 0
         for sponsor in self.barcamp.sponsors:
-            width = 220
-            tag = """<a title="%s" href="%s"><img alt="%s" width="%s" src="%s"></a>""" %(
-                sponsor['name'],
-                sponsor['url'],
-                sponsor['name'],
-                width,
-                self.handler.url_for("asset", asset_id = sponsor['logo']))
+            sp_html = tmpl.render(
+                s = sponsor,
+                url = bleach.clean(sponsor['url']),
+                name = bleach.clean(sponsor['name']),
+                image_url = self.handler.url_for("asset", asset_id = sponsor['logo']))
+
+            url = bleach.clean(sponsor['url'])
             res.append(
-                {'url'  : sponsor['url'],
+                {'url'  : url,
                  'name'  : sponsor['name'],
                  'idx'  : i,
-                 'image'  : tag
+                 'image'  : sp_html
                 })
             i=i+1
         return res
@@ -666,8 +671,11 @@ class BaseHandler(starflyer.Handler):
         query = urllib.quote(query.encode("utf-8"))
 
         url = "https://api.mapbox.com/v4/geocode/mapbox.places/%s.json?access_token=%s" %(query, self.config.mapbox_access_token)
-        data = requests.get(url).json()
-        data = data['features']
+        response = requests.get(url)
+        if response.status_code!=200:
+            raise LocationNotFound()
+
+        data = response.json()['features']
 
         if len(data)==0:
             query = u"%s, %s" %(city, country)
