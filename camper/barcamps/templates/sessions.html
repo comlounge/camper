@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <a title="{{session.user.fullname|e}}" class="media-left" href="{{url_for('profile', username = session.user.username)}}">
-                    {{userview(session.user).image_thumb_tag}}
+                    {{userview(session.user).image_thumb_tag|safe}}
                 </a>
                 <div class="media-body show-box">
                     <h3 class="media-heading">{{session.title|striptags}}</h3>
@@ -93,7 +93,7 @@
                                 <div class="media-left">
                                     {% if not comment.user.deleted %}
                                         <a title="{{comment.user.fullname|e}}" href="{{url_for("profile", username=comment.user.username)}}" class="pull-left">
-                                            {{userview(comment.user).image_thumb_tag}}
+                                            {{userview(comment.user).image_thumb_tag|safe}}
                                         </a>
                                     {% endif %}
                                 </div>
@@ -113,7 +113,7 @@
                             <div class="media comment">
                                 <div class="media-left">
                                     <a href="{{url_for("profile", username=user.username)}}" class="pull-left">
-                                        {{userview(user).image_thumb_tag}}
+                                        {{userview(user).image_thumb_tag|safe}}
                                     </a>
                                 </div>
                                 <div class="media-body">

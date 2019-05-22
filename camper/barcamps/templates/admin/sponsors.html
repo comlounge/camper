@@ -25,10 +25,10 @@
                         <span class="handle btn btn-xs btn-info"><i class="fa fa-arrows"></i></span>
                     </div>
                     <div class="sponsor-image">
-                        <a href="{{sponsor.url}}">{{sponsor.image}}</a>
+                        {{sponsor.image|safe}}
                     </div>
                     <div class="sponsor-description">
-                        <h5>{{sponsor.name|e}}</h5>
+                        <h5>{{sponsor.name}}</h5>
                         <a href="{{sponsor.url|e}}">{{sponsor.url|e}}</a>
                     </div>
                 </li>

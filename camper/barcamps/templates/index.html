@@ -15,8 +15,7 @@
                 <div class="gallery">
                     <ul class="gallery-pictures">
                         {% for image in view.gallery.images %}
-                        {{image}}
-                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image", alt=image.alt, title=image.title)  }}</li>
+                            <li class="gallery-picture">{{ image_tag(image.image, 'gallery', class="gallery-image", alt=image.alt, title=image.title)}}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -97,7 +96,7 @@
                     <hr>
                 {% endif %}
             <h2 class="sr-only">{{_('Description')}}</h2>
-            {{description2}}
+            {{description2|safe}}
             </div>
         </div>
     </div>

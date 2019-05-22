@@ -28,7 +28,7 @@
 
     <div id="imagelisting" class="container listing">
         {% for image in view.get_images('medium_user', class="gallery-image") %}
-            {{imageblock(image)}}
+            {{imageblock(image)|safe}}
         {% endfor %}
     </div>
         

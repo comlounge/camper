@@ -9,7 +9,7 @@
             <div class="inner">
                 {% if view.logo %}
                 <div class="logo">
-                    {{view.logo}}
+                    {{view.logo|safe}}
                 </div>
                 {% endif %}
                 <div class="description clearfix">

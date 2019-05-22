@@ -302,6 +302,10 @@ class CamperApp(Application):
         'textify' : textify,
     }
 
+    jinja_options = {
+        'autoescape' : True
+    }
+
     routes = [
         URL('/', 'index', handlers.index.IndexView),
         URL('/past', 'past_barcamps', handlers.index.PastBarcampsView),

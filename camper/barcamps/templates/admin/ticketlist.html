@@ -59,7 +59,7 @@
     {% for tc in ticket_classes %}
         <section class="panel panel-info ticket-user-list">
             <div class="panel-heading">
-                <h2 class="panel-title">{{tc.name}}</h2>
+                <h2 class="panel-title">{{tc.name|e}}</h2>
             </div>
 
             {% if tc.pending %}
