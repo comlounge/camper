@@ -7641,6 +7641,13 @@ form {
   position: relative;
   top: -1px;
 }
+#registration-wizard {
+  margin-bottom: 150px;
+}
+#registration-wizard .btn-primary {
+  margin-top: 20px;
+  float: none !important;
+}
 #registration-wizard fieldset {
   background: #f2f3f0;
   margin-bottom: 20px;
@@ -7663,8 +7670,8 @@ form {
   border-radius: 0px;
   border: 2px solid #555;
 }
-#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked,
-#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked {
+#registration-wizard fieldset #ticketlist .checkbox input[type="checkbox"]:checked,
+#registration-wizard fieldset #eventlist .checkbox input[type="checkbox"]:checked {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: 20px;
@@ -7677,8 +7684,8 @@ form {
   background: #303030;
   color: #f0f0f0;
 }
-#registration-wizard fieldset #ticketlist .checkbox input[type='checkbox']:checked:before,
-#registration-wizard fieldset #eventlist .checkbox input[type='checkbox']:checked:before {
+#registration-wizard fieldset #ticketlist .checkbox input[type="checkbox"]:checked:before,
+#registration-wizard fieldset #eventlist .checkbox input[type="checkbox"]:checked:before {
   content: "\f00c";
 }
 #registration-wizard fieldset #ticketlist .checkbox label,
