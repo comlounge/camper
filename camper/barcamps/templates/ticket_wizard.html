@@ -3,7 +3,7 @@
 {% macro ticketblock(ticket_classes, 
         active = True, 
         headline='Select tickets', 
-        description='Please select which tickets you want to register for',
+        description=_('Please select which tickets you want to register for'),
         css_id = "tickets") %}
     <fieldset id="{{css_id}}">
         <legend>{{headline}}</legend>
@@ -161,12 +161,12 @@
             {% if barcamp.paid_tickets %}
                 <div class="checkbox">
                     <label>
-                        <input required name="tos_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') %{'link': url_for('.tos', slug=slug)}}}.
+                        <input required name="tos_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') | format(link=url_for('.tos', slug=slug)) | safe}}.
                     </label>
                 </div>
                 <div class="checkbox">
                     <label>
-                        <input required name="cancel_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') %{'link': url_for('.cancellation', slug=slug)}}}.
+                        <input required name="cancel_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') | format(link=url_for('.cancellation', slug=slug)) | safe}}.
                     </label>
                 </div>
 
@@ -178,6 +178,7 @@
             <div class="jumbotron">
                 <h3>{{_('Unfortunately no tickets are available right now.')}}</h3>
                 <p>{{_('Please check back later.')}}</p>
+                <p>{{_('If you have bought tickets before you can access them at <a href="%(link)s">My Tickets</a>')|format(link=url_for('.mytickets', slug=slug)) |safe }}
             </div>
         {% endif %}
 

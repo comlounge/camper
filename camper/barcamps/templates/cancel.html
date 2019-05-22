@@ -3,5 +3,5 @@
 
 {% block main_content %}
     <h2>{{_('Cancellation and Refund Policy')}}</h2>
-    {{barcamp.cancel_policy}}
+    {{barcamp.cancel_policy|safe}}
 {% endblock %}
