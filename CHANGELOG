@@ -271,4 +271,17 @@ Bugfixes:
 - email field for deleting users was too small for some email addresses
 
 
+2.6.2
+=====
 
+- some security fixes and CSS fixes
+
+2.6.2.1
+=======
+
+- temporary fix for missing templates
+
+2.6.2.2
+=======
+
+- real fix for missing templates
