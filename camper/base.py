@@ -268,15 +268,15 @@ class BarcampView(object):
     @property
     def sponsors(self):
         tmpl = Template("""
-            <a href="{{name}}" href="{{url}}"><img alt="{{name}}" width=220 src="{{image_url}}"></a>
+            <a href="{{url}}" href="{{name}}"><img alt="{{name}}" width=220 src="{{image_url}}"></a>
         """)
         res = []
         i = 0
         for sponsor in self.barcamp.sponsors:
             sp_html = tmpl.render(
                 s = sponsor,
-                url = bleach.clean(sponsor['url']),
                 name = bleach.clean(sponsor['name']),
+                url = bleach.clean(sponsor['url']),
                 image_url = self.handler.url_for("asset", asset_id = sponsor['logo']))
 
             url = bleach.clean(sponsor['url'])
