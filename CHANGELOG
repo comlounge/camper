@@ -285,3 +285,13 @@ Bugfixes:
 =======
 
 - real fix for missing templates
+
+2.6.2.3
+=======
+
+- fixed sponsor url
+
+2.6.2.4
+=======
+
+- fixed problem sending admin mails for tickets if user is new
