@@ -1,10 +1,10 @@
 Ein neues Barcamp wurde soeben freigeschaltet:
 
-Name: {{barcamp.name}}
-URL: {{url}}
-Datum: {{date}}
+Name: {{barcamp.name|safe}}
+URL: {{url|safe}}
+Datum: {{date|safe}}
 
 Beschreibung:
 
-{{description}}
+{{description|safe|textify}}
 

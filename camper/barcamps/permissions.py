@@ -46,7 +46,7 @@ class Permissions(BarcampBaseHandler):
                 if self.barcamp.start_date and self.barcamp.end_date:
                     date = "%s - %s" %(
                         self.barcamp.start_date.strftime('%d.%m.%Y'),
-                        self.barcamp.end_date.strftime('%d.%m.%Y')),
+                        self.barcamp.end_date.strftime('%d.%m.%Y'))
                 else:
                     date = "TBA"
                 kwargs = dict(
