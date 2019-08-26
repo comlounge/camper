@@ -295,3 +295,8 @@ Bugfixes:
 =======
 
 - fixed problem sending admin mails for tickets if user is new
+
+2.6.2.5
+=======
+
+- fixed email layout for admin notifications
