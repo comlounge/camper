@@ -19,6 +19,7 @@
     "grunt-git": "^1.0.14",
     "grunt-mkdir": "^1.0.0",
     "handlebars": "^4.2.0",
+    "uglify-js" : "^2.6.0",
     "po2json": "^0.4.5"
   },
   "dependencies": {
