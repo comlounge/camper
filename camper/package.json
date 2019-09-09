@@ -4,24 +4,24 @@
   "homepage": "http://comlounge.net",
   "author": "COM.lounge GmbH",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-bower-concat": "^0.4.0",
-    "grunt-coffee-react": "^2.4.1",
-    "grunt-contrib-coffee": "^0.12.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-copy": "~0.5.0",
-    "grunt-contrib-cssmin": "~0.9.0",
-    "grunt-contrib-handlebars": "^0.10.2",
-    "grunt-contrib-jade": "~0.11.0",
-    "grunt-contrib-less": "~0.11.0",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-git": "^0.2.14",
-    "grunt-mkdir": "^0.1.2",
-    "handlebars": "^4.0.3",
-    "po2json": "^0.4.1"
+    "grunt": "^1.0.4",
+    "grunt-bower-concat": "^1.0.0",
+    "grunt-coffee-react": "^5.0.2",
+    "grunt-contrib-coffee": "^2.1.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "~1.0.0",
+    "grunt-contrib-cssmin": "~3.0.0",
+    "grunt-contrib-handlebars": "^1.0.0",
+    "grunt-contrib-jade": "~1.0.0",
+    "grunt-contrib-less": "~2.0.0",
+    "grunt-contrib-uglify": "~4.0.1",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-git": "^1.0.14",
+    "grunt-mkdir": "^1.0.0",
+    "handlebars": "^4.2.0",
+    "po2json": "^0.4.5"
   },
   "dependencies": {
-    "jed": "^1.1.0"
+    "jed": "^1.1.1"
   }
 }
