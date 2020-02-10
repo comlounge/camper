@@ -18,11 +18,13 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-git": "^1.0.14",
     "grunt-mkdir": "^1.0.0",
-    "handlebars": "^4.2.0",
+    "handlebars": "^4.3.0",
     "po2json": "^0.4.5",
     "uglify-js": "^2.6.0"
   },
   "dependencies": {
-    "jed": "^1.1.1"
+    "bower": "1.8.8",
+    "jed": "^1.1.1",
+    "lodash": "4.17.12"
   }
 }
