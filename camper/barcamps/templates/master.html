@@ -123,7 +123,7 @@
     <div class="bcdetail-bg" id="bc-header" role="banner">
         <div class="container">
             <div class="header action-container content-area">
-                {% if logo %}
+                {% if view.logo %}
                     {{view.logo|safe}}
                 {% else %}                
                     <h1 class="logo"><a href="{{url_for('barcamps.index', slug = barcamp.slug)}}">{{barcamp.name|e}}</a></h1>
