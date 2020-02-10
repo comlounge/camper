@@ -18,7 +18,7 @@
             </header>
             {{view.title_image(class="img-responsive blog-image pull-left")}}
             <div class="content">
-                {{view.entry.content}}
+                {{view.entry.content | safe}}
             </div>
             {% if is_admin %}
                 <div class="admin">
