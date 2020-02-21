@@ -113,10 +113,18 @@
                         {% if barcamp.ticketmode_enabled %}
                             <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">
                                 {{event.name|e}}
+                                <small>
+                                    {{event.start_time}} - 
+                                    {{event.end_time}}
+                                </small>
                             </a>
                         {% else %}
                             <a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">
                                 {{event.name|e}}
+                                <small>
+                                    {{event.start_time}} - 
+                                    {{event.end_time}}
+                                </small>
                             </a>
                         {% endif %}
                     </h4>
