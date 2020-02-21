@@ -312,3 +312,4 @@ Bugfixes:
 
 - fixed blog single layout
 - now showing date and start/end time on event detail page
+- event listing shows start and end times
