@@ -103,7 +103,13 @@
         <li class="active">{{active_event.name|e}}</li>
     </ol>
 
-    <h2>{{active_event.name|e}}</h2>
+    <h2>{{active_event.name|e}}
+    <small>
+    {{active_event.date.strftime("%d.%m.%Y") }},
+    {{active_event.start_time}} - 
+    {{active_event.end_time}}
+    </small>
+    </h2>
     <div class="description">{{active_event.description|safe}}</div>
 
     <div id="user-events-content">
