@@ -306,3 +306,9 @@ Bugfixes:
 
 - security updates
 - fixes for blog layout
+
+2.6.3
+=====
+
+- fixed blog single layout
+- now showing date and start/end time on event detail page
