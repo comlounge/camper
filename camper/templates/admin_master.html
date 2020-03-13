@@ -67,6 +67,7 @@
                     <li class="{{'active' if menu=='mail_templates'}}"><a href="{{url_for('barcamps.email_template_editor', slug=slug)}}"><i class="fa fa-envelope"></i> {{_('edit mail templates')}}</a></li>
                     <li><a href="{{url_for('barcamps.registration_data_export', slug=slug)}}"><i class="fa fa-download"></i> {{_('download participants')}}</a></li>
                     <li><a href="{{url_for('barcamps.admin_duplicate', slug=slug)}}"><i class="fa fa-copy"></i> {{_('duplicate barcamp')}}</a></li>
+                    <li><a href="{{url_for('barcamps.delete', slug=slug)}}"><i class="fa fa-trash"></i> {{_('Barcamp löschen')}}</a></li>
                 </ul>
             </nav>
         </div>
