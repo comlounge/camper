@@ -34,7 +34,7 @@ class SessionPad(BarcampBaseHandler):
             try:
                 self.config.etherpad.createPad(padID=pid, text=u"Planung")
             except Exception, e:
-                print "error", e
+                print "oh error", e
                 pass # guess it exists already
         session['pad'] = pid
         self.barcamp.events[eid] = event
@@ -46,7 +46,7 @@ class SessionPad(BarcampBaseHandler):
             fav_sessions = []
 
         try:
-            print self.render(
+            a= self.render(
                 session = session,
                 event = event,
                 pad = pid,
