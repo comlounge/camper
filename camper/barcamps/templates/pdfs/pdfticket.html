@@ -47,7 +47,7 @@
 
 <body>
     {% if barcamp.logo %}
-        {{view.logo}}
+        {{view.logo|safe}}
     {% else %}
         <h1 class="logo">{{barcamp.name|e}}</h1>
     {% endif %}
