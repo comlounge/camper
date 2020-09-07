@@ -2,6 +2,7 @@
 
 import copy
 import json
+import re
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
 from camper.handlers.forms import MultiCheckboxField
@@ -64,12 +65,13 @@ class NewsletterEditView(BarcampBaseHandler):
             # do we have to set a reply to?
             headers = {}
             replyto = self.barcamp.newsletter_reply_to
+            barcamp_name = re.sub('[\W_]+', '', self.barcamp.name.encode("utf8"))
             if replyto != "":
                 headers['Reply-To'] = replyto.encode("utf8")
             if st=="test":
                 if f['testmail'] != u'':
                     # send newsletter to test mail address
-                    mailer.mail(f['testmail'], f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
+                    mailer.mail(f['testmail'], f['subject'], f['body'], from_addr="noreply@barcamps.eu", from_name=barcamp_name, headers = headers)
                     self.flash("Newsletter Test-E-Mail versandt", category="info")
                 else:
                     self.flash("Bitte geben Sie eine Test-E-Mail-Adresse an", category="waring")
@@ -109,7 +111,7 @@ class NewsletterEditView(BarcampBaseHandler):
 
                 for user in users:
                     send_to = user.email
-                    mailer.mail(send_to, f['subject'], f['body'], from_name=self.barcamp.name.encode("utf8"), headers = headers)
+                    mailer.mail(send_to, f['subject'], f['body'], from_name=barcamp_name, headers = headers)
                 self.flash(self._("newsletter sent successfully"), category="info")
                 return redirect(self.url_for("barcamps.dashboard", slug = self.barcamp.slug))
 

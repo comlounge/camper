@@ -90,14 +90,17 @@ class RegistrationWizard(BarcampBaseHandler):
         userform = self.user_registration_form
 
         if not self.logged_in and not userform.validate():
+            print "user is not logged in and userform does not validate"
             raise ProcessingError("user is not logged in and userform does not validate")
 
         if not regform.validate():
+            print "registration form does not validate"
             raise ProcessingError("registration form does not validate")
         
         # do we have events? If not then this is not valid
         eids = self.request.form.getlist("_bcevents")
         if not eids:
+            print "no events selected"
             raise ProcessingError("no events selected")
 
 
@@ -131,6 +134,7 @@ class RegistrationWizard(BarcampBaseHandler):
                     reg.set_status(eid, "going")
                 except RegistrationError, e:
                     self.log.exception("a registration error occurred")
+                    print "unknown registration error"
                     raise ProcessingError(str(e))
                     return 
         else:
