@@ -140,9 +140,15 @@
         <footer role="contentinfo">
             <div class="container">
                 <ul class="list-inline">
-                    <li><a href="/impressum.html">Impressum der barcamptools.eu</a></li>
-                    <li><a href="https://blog.barcamptools.eu/nutzungsbedingungen/">Nutzungsbedingungen</a></li>
-                    <li><a href="https://blog.barcamptools.eu/datenschutzerklaerung/">Datenschutzerklärung</a></li>
+        	{% if locale == "de" %}
+                    <li><a href="/impressum.html">Impressum barcamps.eu</a></li>
+                    <li><a href="https://blog.barcamps.eu/nutzungsbedingungen/">Nutzungsbedingungen</a></li>
+                    <li><a href="https://blog.barcamps.eu/datenschutzerklaerung/">Datenschutzerklärung</a></li>
+        	{% else %}
+                    <li><a href="/impressum.html">Imprint barcamps.eu</a></li>
+                    <li><a href="https://blog.barcamps.eu/terms/">Terms of Use</a></li>
+                    <li><a href="https://blog.barcamps.eu/privacy/">Privacy Policy</a></li>
+        	{% endif %}
                 </ul>
             </div>
         </footer>
