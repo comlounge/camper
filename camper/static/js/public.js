@@ -74,12 +74,12 @@
         }
       });
       $(document).mouseup(function(event) {
-        var excess, releaseSpeed, s, targetImage, targetX, _i, _len;
+        var excess, j, len, releaseSpeed, s, targetImage, targetX;
         if (dragging) {
           dragging = false;
           releaseSpeed = 0;
-          for (_i = 0, _len = distLog.length; _i < _len; _i++) {
-            s = distLog[_i];
+          for (j = 0, len = distLog.length; j < len; j++) {
+            s = distLog[j];
             releaseSpeed += s;
           }
           releaseSpeed /= distLog.length;
@@ -138,7 +138,7 @@
       });
     };
     updateGalleryPos = function() {
-      var blur, speed, _currentImage;
+      var _currentImage, blur, speed;
       TweenMax.set($galleryPictures, {
         x: galleryPos.x + (($container.width() - imageWidth) / 2),
         force3D: true,
@@ -526,9 +526,9 @@
 }).call(this);
 
 (function() {
-  $.fn.eventlist = function(opts, _arg) {
+  $.fn.eventlist = function(opts, arg) {
     var change_status, data, dataurl, init, update_event;
-    _arg;
+    arg;
     dataurl = null;
     data = null;
     update_event = function(d) {
@@ -593,13 +593,13 @@
         url: dataurl,
         type: "GET",
         success: function(data) {
-          var d, _i, _len, _results;
-          _results = [];
-          for (_i = 0, _len = data.length; _i < _len; _i++) {
-            d = data[_i];
-            _results.push(update_event(d));
+          var d, i, len, results;
+          results = [];
+          for (i = 0, len = data.length; i < len; i++) {
+            d = data[i];
+            results.push(update_event(d));
           }
-          return _results;
+          return results;
         }
       });
       $(this).find(".actions > button").click(function() {

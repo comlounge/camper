@@ -146,9 +146,9 @@
   };
 
   Editable = (function() {
-    function Editable(elem, options) {
+    function Editable(elem, options1) {
       this.elem = elem;
-      this.options = options;
+      this.options = options1;
       this.state = "view";
       this.url = $(this.elem).closest("form").attr("action");
       return this;
@@ -788,7 +788,7 @@
 
 (function() {
   var LogoEditor,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   LogoEditor = (function() {
     LogoEditor.prototype.font_weight = 180;
@@ -800,8 +800,8 @@
     LogoEditor.prototype.icon_label_scale = 2;
 
     function LogoEditor() {
-      this.update = __bind(this.update, this);
-      this.init = __bind(this.init, this);
+      this.update = bind(this.update, this);
+      this.init = bind(this.init, this);
       this.canvas = $("#logocanvas")[0];
       this.final_canvas = $("#finalcanvas")[0];
       this.export_canvas = $("#exportcanvas")[0];
@@ -1019,7 +1019,7 @@
 
 (function() {
   var guid, init_i18n, s4,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   Array.prototype.toDict = function(key) {
     return this.reduce((function(dict, obj) {
@@ -1107,18 +1107,18 @@
     Plugin = (function() {
       function Plugin(element, options) {
         this.element = element;
-        this.del_session = __bind(this.del_session, this);
-        this.update_session = __bind(this.update_session, this);
-        this.add_session_modal = __bind(this.add_session_modal, this);
-        this.del_timeslot = __bind(this.del_timeslot, this);
-        this.add_timeslot = __bind(this.add_timeslot, this);
-        this.add_timeslot_modal = __bind(this.add_timeslot_modal, this);
-        this.edit_room = __bind(this.edit_room, this);
-        this.edit_room_modal = __bind(this.edit_room_modal, this);
-        this.del_room = __bind(this.del_room, this);
-        this.add_room = __bind(this.add_room, this);
-        this.add_room_modal = __bind(this.add_room_modal, this);
-        this.delete_all_sessions = __bind(this.delete_all_sessions, this);
+        this.del_session = bind(this.del_session, this);
+        this.update_session = bind(this.update_session, this);
+        this.add_session_modal = bind(this.add_session_modal, this);
+        this.del_timeslot = bind(this.del_timeslot, this);
+        this.add_timeslot = bind(this.add_timeslot, this);
+        this.add_timeslot_modal = bind(this.add_timeslot_modal, this);
+        this.edit_room = bind(this.edit_room, this);
+        this.edit_room_modal = bind(this.edit_room_modal, this);
+        this.del_room = bind(this.del_room, this);
+        this.add_room = bind(this.add_room, this);
+        this.add_room_modal = bind(this.add_room_modal, this);
+        this.delete_all_sessions = bind(this.delete_all_sessions, this);
         this.data = {};
         this.options = $.extend({}, defaults, options);
         this._defaults = defaults;
@@ -1198,20 +1198,20 @@
         
         It basically is a list of lists for each column and row
          */
-        var room, row, sid, slot, table, _i, _j, _len, _len1, _ref, _ref1;
+        var i, j, len, len1, ref, ref1, room, row, sid, slot, table;
         table = [];
-        _ref = this.data.timeslots;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          slot = _ref[_i];
+        ref = this.data.timeslots;
+        for (i = 0, len = ref.length; i < len; i++) {
+          slot = ref[i];
           row = {
             time: slot.time,
             blocked: slot.blocked,
             block_reason: slot.reason,
             slots: []
           };
-          _ref1 = this.data.rooms;
-          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-            room = _ref1[_j];
+          ref1 = this.data.rooms;
+          for (j = 0, len1 = ref1.length; j < len1; j++) {
+            room = ref1[j];
             sid = this.get_session_id(slot, room);
             if (this.data.sessions[sid]) {
               row.slots.push(this.data.sessions[sid]);
@@ -1326,7 +1326,7 @@
             parts = last_time.split(":");
             hour = parseInt(parts[0]) + 1;
             return $("#timepicker").timepicker('setTime', hour + ':' + parts[1]);
-          } catch (_error) {
+          } catch (error) {
 
           }
         } else {
@@ -1424,22 +1424,22 @@
           source: proposals.ttAdapter()
         }).bind("typeahead:select", (function(_this) {
           return function(obj, datum, name) {
-            var user, user_id, _i, _len, _ref, _results;
+            var i, len, ref, results, user, user_id;
             $("#session-description").text(datum.description);
             $("#ac-title").text(datum.value);
             user_id = datum.user_id;
-            _ref = _this.data.participants;
-            _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              user = _ref[_i];
+            ref = _this.data.participants;
+            results = [];
+            for (i = 0, len = ref.length; i < len; i++) {
+              user = ref[i];
               if (user._id === user_id) {
                 $('#moderator').tagsinput('removeAll');
-                _results.push($('#moderator').tagsinput('add', user.name));
+                results.push($('#moderator').tagsinput('add', user.name));
               } else {
-                _results.push(void 0);
+                results.push(void 0);
               }
             }
-            return _results;
+            return results;
           };
         })(this));
         $('#edit-session-modal').modal('show');
@@ -1466,6 +1466,7 @@
           title: fd.title,
           description: fd.description,
           interested: fd.interested,
+          confurl: fd.confurl,
           moderator: fd.moderator
         };
         this.data.sessions[fd.session_idx] = session;
@@ -1495,7 +1496,7 @@
         that = this;
         try {
           room_dict = this.data.rooms.toDict("id");
-        } catch (_error) {
+        } catch (error) {
           room_dict = {};
         }
         $("#roomcontainment").sortable({

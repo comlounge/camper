@@ -10,30 +10,39 @@
             <li><a href="{{url_for('.user_event', slug = slug, eid = event._id)}}#sessions">{{event.name}}</a></li>
             <li class="active">{{session.title}}</li>
         </ol>
-        <div class="fav-actions pull-right big"><a 
-            data-url="{{url_for('.toggle_fav', slug = slug, eid = event._id, sid = session.sid)}}" 
-            class="session-fav {{'active' if session.sid in fav_sessions}}" 
-            title="{{_('Mark Session as favourite')}}" href="#">
-            <span class="fav yes {{'active' if session.sid in fav_sessions}}">
-                <i class="fa fa-heart"></i>
-                <span class="sr-only">{{_("I like this session")}}</span>
-            </span>
-            <span class="fav no {{'active' if session.sid not in fav_sessions}}">
-                <i class="fa fa-heart-o"></i>
-                <span class="sr-only">{{_("I don't like this session")}}</span>
-            </span>
+        <div class="fav-actions pull-right big"><a
+                data-url="{{url_for('.toggle_fav', slug = slug, eid = event._id, sid = session.sid)}}"
+                class="session-fav {{'active' if session.sid in fav_sessions}}"
+                title="{{_('Mark Session as favourite')}}" href="#">
+                <span class="fav yes {{'active' if session.sid in fav_sessions}}" style="font-size: 24px; line-height: 1">
+                    <i class="fa fa-heart"></i>
+                    <span class="sr-only">{{_("I like this session")}}</span>
+                </span>
+                <span class="fav no {{'active' if session.sid not in fav_sessions}}" style="font-size: 24px; line-height: 1">
+                    <i class="fa fa-heart-o"></i>
+                    <span class="sr-only">{{_("I don't like this session")}}</span>
+                </span>
             </a>
 
         </div>
         <h1>{{session.title}}
-        <br>    
+            <br>
             <div class="authors">
                 {{_('by')}} {{session.moderator}}
             </div>
             <small>{{session.description}}</small>
         </h1>
     </div>
+    {% if confurl %}
+    <a target="_blank" href="{{confurl}}" class="btn btn-lg btn-primary">
+        <i class="fa fa-video-camera"></i>&nbsp;
+        {{_('Join video conference')}}
+    </a>
+
+    {% endif %}
     <h2>{{_('Documentation')}}</h2>
-    <iframe title="{{_('Session Documentation')}}" name='embed_readwrite' src='/_pads/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width="100%" height=500></iframe>
+    <iframe title="{{_('Session Documentation')}}" name='embed_readwrite'
+        src='/_pads/p/{{pad}}?showControls=true&showChat=true&showLineNumbers=true&useMonospaceFont=false' width="100%"
+        height=500></iframe>
 </div>
 {% endblock %}

@@ -15,6 +15,7 @@ class RoomForm(BaseForm):
     """form for adding a new room"""
     name                = TextField(T(u"Name"), [validators.Length(max=300), validators.Required()])
     capacity            = IntegerField(T(u"Capacity"), [validators.NumberRange(min=1), validators.Required()])
+    confurl             = TextField(T(u"Video conference URL"), [validators.Length(max=300)])
     description         = TextAreaField(T(u"Description"), [validators.Length(max=200)])
 
 
