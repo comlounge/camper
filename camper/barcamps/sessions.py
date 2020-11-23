@@ -26,16 +26,17 @@ class SessionList(BarcampBaseHandler):
         """return the list of sessions"""
         barcamp_id = self.barcamp._id
         sort = self.request.args.get("sort", "date")
+        sort_down = self.request.args.get("d", "down") == "down"
 
         sessions = list(self.config.dbs.sessions.find({'barcamp_id' : str(barcamp_id)}))
 
         def s(a,b):
             if sort=="votes":
-                return cmp(b.vote_count, a.vote_count)
+                return cmp(a.vote_count, b.vote_count) if not sort_down else cmp(b.vote_count, a.vote_count)
             elif sort=="title":
-                return cmp(a.title.lower(), b.title.lower())
+                return cmp(a.title.lower(), b.title.lower()) if sort_down else cmp(b.title.lower(), a.title.lower())
             elif sort=="date":
-                return cmp(b.created, a.created)
+                return cmp(a.created, b.created) if not sort_down else cmp(b.created, a.created)
             return 0
 
         sessions.sort(s)
@@ -59,7 +60,7 @@ class SessionList(BarcampBaseHandler):
                     session = session)
 
             return redirect(self.request.url)
-        return self.render(sessions = sessions, sort = sort, form = form, view = self.barcamp_view, **self.barcamp)
+        return self.render(sessions = sessions, sort = sort, sort_down=sort_down, form = form, view = self.barcamp_view, **self.barcamp)
 
     # TODO: Post should only work logged in!
     post = get
