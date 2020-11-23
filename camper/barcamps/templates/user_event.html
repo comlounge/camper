@@ -2,6 +2,7 @@
 {% set container_fluid = "fluid" %}
 {% extends "_m/barcamps/master.html" %}
 
+
 {% macro userlist(users) %}
     <ul class="participants">
     {% for myuser in users %}
@@ -97,6 +98,7 @@
 {% endmacro %}
 
 {% block outer_content %}
+
     <ol class="breadcrumb">
         <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
         <li><a href="{{url_for('.user_events', slug = slug)}}?at=timetable">{{_('Events')}}</a></li>

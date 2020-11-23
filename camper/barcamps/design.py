@@ -30,6 +30,11 @@ class DesignForm(BaseForm):
     navbar_hover_bg         = ColorField(T(u"Navbar Hover Background Color"), default='#d0d0d0')
     navbar_active_bg        = ColorField(T(u"Navbar Active Background Color"), default='#333')
 
+    sp_row_color            = ColorField(T(u"Row Text"), default='#fff')
+    sp_row_bg               = ColorField(T(u"Row Background"), default='#6aab58')
+    sp_column_color         = ColorField(T(u"Column Text"), default='#fff')
+    sp_column_bg            = ColorField(T(u"Column Background"), default='#333')
+
     hide_tabs               = MultiCheckboxField(T(u'Hide Navigation Tabs'), description=T(u'Select here which barcamp tabs not to show'),
                                 choices=[
                                     ('sessions', T('Session Proposals')),
