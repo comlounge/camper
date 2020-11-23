@@ -37,7 +37,7 @@ class BarcampEditForm(BaseForm):
     start_date          = DateField(T("start date"), [], format="%d.%m.%Y")
     end_date            = DateField(T("end date"), [], format="%d.%m.%Y")
 
-    imprint             = WYSIWYGField(T("Imprint"), [validators.Required(), validators.Length(max=2000)], description=T("Please describe in detail who is responsible for this barcamp."))
+    imprint             = WYSIWYGField(T("Imprint"), [validators.Required(), validators.Length(max=20000)], description=T("Please describe in detail who is responsible for this barcamp."))
     
     location_name                = TextField(T("name of location"), [], description = T('please enter the name of the venue here'),)
     location_street              = TextField(T("street and number "), [], description = T('street and number of the venue'),)

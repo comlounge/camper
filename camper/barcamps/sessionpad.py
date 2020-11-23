@@ -34,7 +34,7 @@ class SessionPad(BarcampBaseHandler):
             try:
                 self.config.etherpad.createPad(padID=pid, text=u"Planung")
             except Exception, e:
-                print "oh error", e
+                print "error creating session pad for Planung", pid
                 pass # guess it exists already
         session['pad'] = pid
         self.barcamp.events[eid] = event
