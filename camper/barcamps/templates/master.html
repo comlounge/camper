@@ -116,6 +116,20 @@
         #barcamppage .navbar-barcamp .navbar-nav > li:hover > a {
             background: {{barcamp.navbar_hover_bg}};
         }
+        #user-events-content .sessiontable .cell.timeslot {
+            background-color: {{barcamp.sp_column_bg or '#6aab58'}} !important;
+            border-color: #fcfbf9 !important;
+            color: {{barcamp.sp_column_color or '#fff'}} !important;
+        }
+        #user-events-content .sessiontable .cell.timeslot:hover {
+            background-color: {{barcamp.sp_column_bg or '#6aab58'}} !important;
+            filter: brightness(85%);
+        }
+        #user-events-content .sessiontable .cell.room {
+            background-color: {{barcamp.sp_row_bg or '#222222'}} !important;
+            border-color: #fcfbf9 !important;
+            color: {{barcamp.sp_row_color or '#fff'}} !important;
+        }
     </style>
 {% endblock %}
 

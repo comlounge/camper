@@ -172,6 +172,21 @@
                 {{ formmacros.form_field(form.navbar_active_bg, input_class="", required=True, placeholder=_('Active Background Color'))}}
             </div>
         </div>
+        <h4>{{_('Sessionplan colors')}}</h4>
+        <div class="row">
+            <div class="col-sm-3">
+                {{ formmacros.form_field(form.sp_row_bg, input_class="", required=True, placeholder=_('Row Background Color'))}}
+            </div>
+            <div class="col-sm-3">
+                {{ formmacros.form_field(form.sp_row_color, input_class="", required=True, placeholder=_('Row Text Color'))}}
+            </div>
+            <div class="col-sm-3">
+                {{ formmacros.form_field(form.sp_column_bg, input_class="", required=True, placeholder=_('Column Background Color'))}}
+            </div>
+            <div class="col-sm-3">
+                {{ formmacros.form_field(form.sp_column_color, input_class="", required=True, placeholder=_('Column Text Color'))}}
+            </div>
+        </div>
     </fieldset>
 
     <fieldset>
