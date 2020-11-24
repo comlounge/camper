@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2020-11-23 16:05+0100\n"
+"POT-Creation-Date: 2020-11-24 10:59+0100\n"
 "PO-Revision-Date: 2018-04-07 16:42+0200\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -156,7 +156,7 @@ msgstr "erinnere Dich an mich"
 #: barcamps/add.py:24 barcamps/customfields.py:15 barcamps/edit.py:27
 #: barcamps/events.py:25 barcamps/galleries.py:31 barcamps/sessionboard.py:19
 #: barcamps/ticketeditor.py:35 barcamps/templates/index.html:98
-#: barcamps/templates/sessions.html:140 barcamps/templates/admin/add.html:45
+#: barcamps/templates/sessions.html:191 barcamps/templates/admin/add.html:45
 #: barcamps/templates/admin/event_macros.html:88
 #: barcamps/templates/admin/gallery_macros.html:38
 #: static/templates/room-modal.hbs:33 static/templates/session-modal.hbs:24
@@ -211,7 +211,7 @@ msgstr ""
 "Vorschlägen."
 
 #: barcamps/add.py:37 barcamps/edit.py:40 barcamps/legaledit.py:20
-#: barcamps/templates/master.html:343 barcamps/templates/admin/add.html:84
+#: barcamps/templates/master.html:357 barcamps/templates/admin/add.html:84
 #: barcamps/templates/admin/legaledit.html:30
 msgid "Imprint"
 msgstr "Impressum"
@@ -572,7 +572,7 @@ msgid "The barcamp has been duplicated."
 msgstr "Das Barcamp wurde dupliziert."
 
 #: barcamps/edit.py:23 barcamps/galleries.py:29
-#: barcamps/templates/sessions.html:14 barcamps/templates/sessions.html:136
+#: barcamps/templates/sessions.html:23 barcamps/templates/sessions.html:186
 #: barcamps/templates/admin/add.html:23
 #: barcamps/templates/admin/event_macros.html:82
 #: barcamps/templates/admin/galleries.html:22
@@ -949,12 +949,12 @@ msgstr "max. Personenzahl "
 msgid "Video conference URL"
 msgstr "URL Video-Konferenz"
 
-#: barcamps/sessions.py:55
+#: barcamps/sessions.py:56
 #, python-format
 msgid "New session proposal for %s"
 msgstr "Neuer Sessionvorschlag für %s"
 
-#: barcamps/sessions.py:131
+#: barcamps/sessions.py:132
 msgid "your comment has been added."
 msgstr "Dein Kommentar wurde hinzugefügt."
 
@@ -1154,8 +1154,8 @@ msgstr "Widerrufsbelehrung"
 msgid "Blog Posts about the camp"
 msgstr "Blog-Artikel über das Barcamp"
 
-#: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:66
-#: barcamps/templates/sessions.html:89
+#: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:103
+#: barcamps/templates/sessions.html:133
 #: barcamps/templates/admin/participants_data_edit.html:46
 #: static/templates/sessiontest.hbs:19 templates/master.html:46
 msgid "Are you sure?"
@@ -1165,8 +1165,8 @@ msgstr "Bist Du sicher? (wirklich?)"
 msgid "Add new blog post"
 msgstr "Neuen Blogpost hinzufügen"
 
-#: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:145
-#: barcamps/templates/sessions.html:162 barcamps/templates/admin/design.html:97
+#: barcamps/templates/docs.html:34 barcamps/templates/sessions.html:196
+#: barcamps/templates/sessions.html:213 barcamps/templates/admin/design.html:97
 #: barcamps/templates/admin/edit.html:9
 #: barcamps/templates/admin/event_macros.html:181
 #: barcamps/templates/admin/gallery_macros.html:24
@@ -1180,7 +1180,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: barcamps/templates/docs.html:35 barcamps/templates/participant_data.html:25
-#: barcamps/templates/sessions.html:144
+#: barcamps/templates/sessions.html:195
 #: barcamps/templates/admin/design.html:197
 #: barcamps/templates/admin/galleryadmin.html:23
 #: barcamps/templates/admin/mails_edit.html:48
@@ -1194,25 +1194,25 @@ msgid "Running now"
 msgstr "Gerade läuft"
 
 #: barcamps/templates/index.html:65 barcamps/templates/sessionpad.html:16
-#: barcamps/templates/user_event.html:172
+#: barcamps/templates/user_event.html:174
 msgid "Mark Session as favourite"
 msgstr "Markiere Session als Favorit"
 
 #: barcamps/templates/index.html:68 barcamps/templates/sessionpad.html:19
-#: barcamps/templates/user_event.html:175
+#: barcamps/templates/user_event.html:177
 msgid "I like this session"
 msgstr "Ich liebe diese Session"
 
 #: barcamps/templates/index.html:72 barcamps/templates/sessionpad.html:23
-#: barcamps/templates/user_event.html:179
+#: barcamps/templates/user_event.html:181
 msgid "I don't like this session"
 msgstr "Ich mag die Session nicht"
 
-#: barcamps/templates/index.html:77 barcamps/templates/user_event.html:184
+#: barcamps/templates/index.html:77 barcamps/templates/user_event.html:186
 msgid "Documentation for"
 msgstr "Dokumentation für"
 
-#: barcamps/templates/index.html:82 barcamps/templates/user_event.html:189
+#: barcamps/templates/index.html:82 barcamps/templates/user_event.html:191
 msgid "Room:"
 msgstr "Raum:"
 
@@ -1270,20 +1270,20 @@ msgstr "Schließen"
 msgid "Open menu"
 msgstr "Menü"
 
-#: barcamps/templates/master.html:231 templates/admin_master.html:98
+#: barcamps/templates/master.html:245 templates/admin_master.html:98
 msgid "publish barcamp"
 msgstr "Barcamp veröffentlichen"
 
-#: barcamps/templates/master.html:232 templates/admin_master.html:99
+#: barcamps/templates/master.html:246 templates/admin_master.html:99
 msgid "this barcamp is not public"
 msgstr "Dieses Barcamp ist nicht öffentlich (schade)"
 
-#: barcamps/templates/master.html:239 barcamps/templates/admin/wizard.html:312
+#: barcamps/templates/master.html:253 barcamps/templates/admin/wizard.html:312
 #: barcamps/templates/admin/wizard.html:326 templates/admin_master.html:108
 msgid "open registration"
 msgstr "Eröffne die Registrierung"
 
-#: barcamps/templates/master.html:240 templates/admin_master.html:109
+#: barcamps/templates/master.html:254 templates/admin_master.html:109
 msgid "Registration for this barcamp is not yet open."
 msgstr "Die Registrierung für dieses Barcamp ist noch nicht eröffnet."
 
@@ -1295,8 +1295,8 @@ msgstr "Barcamp verwalten"
 msgid "Social Media"
 msgstr ""
 
-#: barcamps/templates/master.html:296 barcamps/templates/user_event.html:125
-#: barcamps/templates/user_event.html:210
+#: barcamps/templates/master.html:310 barcamps/templates/user_event.html:127
+#: barcamps/templates/user_event.html:212
 #: barcamps/templates/user_events.html:158 barcamps/templates/admin/add.html:94
 #: barcamps/templates/admin/event_macros.html:141
 msgid "Location"
@@ -1403,7 +1403,7 @@ msgstr "Bitte gebe hier Deine Daten für dieses Barcamp ein"
 msgid "Register for %s"
 msgstr "Registrieren für %s"
 
-#: barcamps/templates/registration.html:10 barcamps/templates/sessions.html:65
+#: barcamps/templates/registration.html:10 barcamps/templates/sessions.html:102
 #: barcamps/templates/admin/gallery_macros.html:49 blog/templates/add.html:19
 #: blog/templates/edit.html:19 blog/templates/edit.html:47
 #: blog/templates/entry.html:53 blog/templates/entry.html:55
@@ -1599,60 +1599,61 @@ msgstr "Session-Dokumentation"
 msgid "Sort by:"
 msgstr "Sortieren nach:"
 
-#: barcamps/templates/sessions.html:15
+#: barcamps/templates/sessions.html:34
 #: barcamps/templates/admin/event_macros.html:96
 #: barcamps/templates/admin/events.html:28
 #: barcamps/templates/admin/ticketeditor.html:63
 msgid "Date"
 msgstr "Datum"
 
-#: barcamps/templates/sessions.html:16 barcamps/templates/sessions.html:34
-#: barcamps/templates/sessions.html:74
+#: barcamps/templates/sessions.html:45 barcamps/templates/sessions.html:66
+#: barcamps/templates/sessions.html:115
 msgid "Votes"
 msgstr "Votes"
 
-#: barcamps/templates/sessions.html:22
+#: barcamps/templates/sessions.html:52
 msgid "Download as excel"
 msgstr "Als Excel herunterladen"
 
-#: barcamps/templates/sessions.html:31
+#: barcamps/templates/sessions.html:63
 msgid "You have voted for this proposal. Remove your vote."
 msgstr "Du hast für diesen Vorschlag gestimmt. Entferne Deine Stimme."
 
-#: barcamps/templates/sessions.html:31
+#: barcamps/templates/sessions.html:63
 msgid "You have not voted for this proposal"
 msgstr "Du hast nicht für diesen Vorschlag gestimmt"
 
-#: barcamps/templates/sessions.html:36 barcamps/templates/sessions.html:39
-#: barcamps/templates/sessions.html:76 barcamps/templates/sessions.html:79
+#: barcamps/templates/sessions.html:68 barcamps/templates/sessions.html:74
+#: barcamps/templates/sessions.html:117 barcamps/templates/sessions.html:123
 msgid "Vote for this proposal"
 msgstr "Stimme für diesen Vorschlag"
 
-#: barcamps/templates/sessions.html:36 barcamps/templates/sessions.html:76
+#: barcamps/templates/sessions.html:68 barcamps/templates/sessions.html:117
 msgid "Remove vote for this proposal"
 msgstr "Entferne Deine Stimme für diesen Vorschlag"
 
-#: barcamps/templates/sessions.html:39 barcamps/templates/sessions.html:79
+#: barcamps/templates/sessions.html:74 barcamps/templates/sessions.html:123
 msgid "Remove your vote."
 msgstr "Deine Stimme entfernen"
 
-#: barcamps/templates/sessions.html:51
+#: barcamps/templates/sessions.html:87
 msgid "added by"
 msgstr "hinzugefügt von"
 
-#: barcamps/templates/sessions.html:53
+#: barcamps/templates/sessions.html:89
 msgid "on"
 msgstr "am"
 
-#: barcamps/templates/sessions.html:63
+#: barcamps/templates/sessions.html:100
 msgid "Edit Session Proposal"
 msgstr "Sessionvorschlag bearbeiten"
 
-#: barcamps/templates/sessions.html:66
+#: barcamps/templates/sessions.html:105
 msgid "Delete Session Proposal"
 msgstr "Sessionvorschlag löschen"
 
-#: barcamps/templates/sessions.html:68 barcamps/templates/admin/design.html:119
+#: barcamps/templates/sessions.html:108
+#: barcamps/templates/admin/design.html:119
 #: barcamps/templates/admin/design.html:125
 #: barcamps/templates/admin/design.html:130
 #: barcamps/templates/admin/gallery_macros.html:50 blog/templates/edit.html:38
@@ -1661,39 +1662,39 @@ msgstr "Sessionvorschlag löschen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: barcamps/templates/sessions.html:89
+#: barcamps/templates/sessions.html:133
 msgid "Delete Comment"
 msgstr "Kommentar löschen"
 
-#: barcamps/templates/sessions.html:106
+#: barcamps/templates/sessions.html:153
 msgid "Deleted User"
 msgstr "Nutzer*in gelöscht"
 
-#: barcamps/templates/sessions.html:122
+#: barcamps/templates/sessions.html:170
 msgid "Comment"
 msgstr "Kommentar"
 
-#: barcamps/templates/sessions.html:123
+#: barcamps/templates/sessions.html:171
 msgid "Your comment"
 msgstr "Dein Kommentar"
 
-#: barcamps/templates/sessions.html:125
+#: barcamps/templates/sessions.html:174
 msgid "add your comment"
 msgstr "Füge Deinen Kommentar hinzu"
 
-#: barcamps/templates/sessions.html:155
+#: barcamps/templates/sessions.html:206
 msgid "Create proposal"
 msgstr "Neuer Sessionvorschlag"
 
-#: barcamps/templates/sessions.html:157
+#: barcamps/templates/sessions.html:208
 msgid "Your proposal"
 msgstr "Dein Vorschlag"
 
-#: barcamps/templates/sessions.html:163
+#: barcamps/templates/sessions.html:214
 msgid "Add proposal"
 msgstr "Vorschlag hinzufügen"
 
-#: barcamps/templates/sessions.html:169
+#: barcamps/templates/sessions.html:220
 msgid ""
 "In order to be able to create or vote for proposals, you need to be "
 "logged in."
@@ -1701,7 +1702,7 @@ msgstr ""
 "Um eigene Vorschläge hinzuzufügen oder bestehende zu bewerten, musst Du "
 "eingeloggt sein."
 
-#: barcamps/templates/sessions.html:170
+#: barcamps/templates/sessions.html:221
 msgid "you can log in and register here"
 msgstr "Du kannst Dich hier einloggen oder registrieren"
 
@@ -1804,30 +1805,30 @@ msgstr "Ich nehme teil"
 msgid "I am not attending this event"
 msgstr "Ich nehme nicht teil"
 
-#: barcamps/templates/user_event.html:93
+#: barcamps/templates/user_event.html:94
 #: barcamps/templates/user_events.html:195
 msgid "Add my registration data"
 msgstr "Meine Registrierungsdaten angeben"
 
-#: barcamps/templates/user_event.html:122
+#: barcamps/templates/user_event.html:124
 #: barcamps/templates/user_events.html:157
 #: barcamps/templates/admin/event_macros.html:12
 msgid "Timetable"
 msgstr "Zeitraster"
 
-#: barcamps/templates/user_event.html:137
+#: barcamps/templates/user_event.html:139
 msgid "Time Table"
 msgstr "Zeitraster"
 
-#: barcamps/templates/user_event.html:147 static/templates/sessiontest.hbs:24
+#: barcamps/templates/user_event.html:149 static/templates/sessiontest.hbs:24
 msgid "persons"
 msgstr "Personen"
 
-#: barcamps/templates/user_event.html:201
+#: barcamps/templates/user_event.html:203
 msgid "Toggle favourites"
 msgstr "Nur Favoriten anzeigen"
 
-#: barcamps/templates/user_event.html:204
+#: barcamps/templates/user_event.html:206
 msgid "Edit Sessions"
 msgstr "Sessions bearbeiten"
 
@@ -2153,21 +2154,21 @@ msgid "Sessionplan colors"
 msgstr "Farben des Sessionplans"
 
 #: barcamps/templates/admin/design.html:178
-msgid "Row Text Color"
-msgstr "Textfarbe Zeile"
-
-#: barcamps/templates/admin/design.html:181
 #, fuzzy
 msgid "Row Background Color"
 msgstr "Hintergrundfarbe Zeile"
 
-#: barcamps/templates/admin/design.html:184
-msgid "Column Text Color"
-msgstr "Textfarbe Spalte"
+#: barcamps/templates/admin/design.html:181
+msgid "Row Text Color"
+msgstr "Textfarbe Zeile"
 
-#: barcamps/templates/admin/design.html:187
+#: barcamps/templates/admin/design.html:184
 msgid "Column Background Color"
 msgstr "Hintergrundfarbe Spalte"
+
+#: barcamps/templates/admin/design.html:187
+msgid "Column Text Color"
+msgstr "Textfarbe Spalte"
 
 #: barcamps/templates/admin/design.html:193
 msgid "Advanced settings"
@@ -3458,29 +3459,29 @@ msgstr "Nö"
 msgid "Add new blog entry"
 msgstr "Neuen Blog-Artikel hinzufügen"
 
-#: db/barcamp.py:468
+#: db/barcamp.py:474
 msgid "Show on public participants list"
 msgstr "Zeige meinen Namen auf der öffentlichen Teilnehmerliste"
 
-#: db/barcamp.py:470
+#: db/barcamp.py:476
 msgid "Decide whether you want to be displayed on the public list of participants"
 msgstr ""
 "Bitte entscheide, ob Du auf der öffentlichen Teilnehmerliste erscheinen "
 "willst."
 
-#: db/barcamp.py:609
+#: db/barcamp.py:621
 msgid "The contact email is not set"
 msgstr "Die Kontakt-EMail wurde nicht angegeben"
 
-#: db/barcamp.py:614
+#: db/barcamp.py:626
 msgid "The Imprint is missing"
 msgstr "Das Impressum fehlt"
 
-#: db/barcamp.py:619
+#: db/barcamp.py:631
 msgid "The terms of service are missing"
 msgstr "Die AGB fehlen"
 
-#: db/barcamp.py:624
+#: db/barcamp.py:636
 msgid "The cancel policy is missing"
 msgstr "Die Angaben zum Widerruf fehlen"
 
