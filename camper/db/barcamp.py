@@ -413,10 +413,10 @@ class BarcampSchema(Schema):
     navbar_active_bg    = String() # bg color of active item
     navbar_hover_bg     = String() # bg color when hovering
 
-    sp_row_color        = String() # text color of session plan row
-    sp_row_bg           = String() # text color of session plan row
-    sp_column_color     = String() # text color of session plan col
-    sp_column_bg        = String() # text color of session plan col
+    sp_row_color        = String(default="#ffffff") # text color of session plan row
+    sp_row_bg           = String(default="#222222") # text color of session plan row
+    sp_column_color     = String(default="#ffffff") # text color of session plan col
+    sp_column_bg        = String(default="#6aab58") # text color of session plan col
 
     hide_tabs           = List(String(), default=[]) # list of tab ids to hide
 
@@ -491,9 +491,9 @@ class Barcamp(Record):
         'navbar_hover_bg'       : '#f8f8f8',
 
         'sp_row_color'        : "#ffffff",
-        'sp_row_bg'           : "#6aab58",
+        'sp_row_bg'           : "#222222",
         'sp_column_color'     : "#ffffff",
-        'sp_column_bg'        : "#333333",
+        'sp_column_bg'        : "#6aab58",
 
         'hide_tabs'             : [],
         'hide_barcamp'          : False,
