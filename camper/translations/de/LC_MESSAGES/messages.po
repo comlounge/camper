@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2020-11-24 10:59+0100\n"
+"POT-Creation-Date: 2020-11-24 11:01+0100\n"
 "PO-Revision-Date: 2018-04-07 16:42+0200\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -2154,7 +2154,6 @@ msgid "Sessionplan colors"
 msgstr "Farben des Sessionplans"
 
 #: barcamps/templates/admin/design.html:178
-#, fuzzy
 msgid "Row Background Color"
 msgstr "Hintergrundfarbe Zeile"
 
