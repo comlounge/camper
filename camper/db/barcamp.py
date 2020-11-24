@@ -132,12 +132,14 @@ class SessionSchema(Schema):
     sid                 = String(required = True)   # the actual unique id   
     slug                = String(required = True, max_length = 100)
     pad                 = String() # the pad id for the documentation
+    confurl             = String(max_length = 500) # video conf url
 
 class RoomSchema(Schema):
     """a room"""
     id                  = String(required = True)   # uuid
     name                = String(required = True, max_length = 100)
     capacity            = Integer(required = True, default = 20)
+    confurl             = String(max_length = 500)
     description         = String(max_length = 1000)
 
 class TimeSlotSchema(Schema):

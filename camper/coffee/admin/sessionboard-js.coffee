@@ -369,6 +369,7 @@ do ( $ = jQuery, window, document ) ->
                 title: fd.title
                 description: fd.description
                 interested: fd.interested
+                confurl: fd.confurl
                 moderator: fd.moderator
             @data.sessions[fd.session_idx] = session
             @update()

@@ -15,8 +15,13 @@ class SessionPad(BarcampBaseHandler):
 
         event = self.barcamp.get_event(eid)
         sessionplan = event.timetable.get('sessions', {})
+        rooms = event.timetable.get('rooms', [])
+
+        # create mapping from room to conf url
+        confmap = dict([(room['id'], room['confurl']) for room in rooms])
+        
         found = False
-        for session in sessionplan.values():
+        for sid, session in sessionplan.items():
             if session.get('slug','') == session_slug:
                 found = True
                 break
@@ -24,7 +29,7 @@ class SessionPad(BarcampBaseHandler):
             raise werkzeug.exceptions.NotFound()
 
         # create the etherpad
-        pid = slug+"_"+session_slug
+        pid = slug+"_"+session_slug        
 
         # check if the pad name is too long and hash it in this case
         if len(pid) > 50:
@@ -45,6 +50,21 @@ class SessionPad(BarcampBaseHandler):
         else:
             fav_sessions = []
 
+        # check if we have a video session
+        if self.logged_in:
+            allowed = str(self.user._id) in event.participants
+        else:
+            allowed = False
+        room_id = sid.split("@")[0]
+        
+        if allowed and session.get("confurl", ""):
+            confurl = session['confurl']
+        elif allowed and room_id in confmap:
+            confurl = confmap[room_id]
+        else:
+            confurl = None
+
+        
         try:
             a= self.render(
                 session = session,
@@ -52,12 +72,14 @@ class SessionPad(BarcampBaseHandler):
                 pad = pid,
                 view = self.barcamp_view,
                 barcamp = self.barcamp,
+                confurl = confurl,
                 fav_sessions = fav_sessions,
                 **self.barcamp)
         except Exception, e:
             print e
         return self.render(
             session = session,
+            confurl = confurl,
             event = event,
             pad = pid,
             view = self.barcamp_view,

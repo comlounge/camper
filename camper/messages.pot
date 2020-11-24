@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-11-23 16:05+0100\n"
+"POT-Creation-Date: 2020-11-24 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,12 +154,12 @@ msgid "remember me"
 msgstr ""
 
 #: barcamps/add.py:24 barcamps/customfields.py:15 barcamps/edit.py:27
-#: barcamps/events.py:25 barcamps/galleries.py:31 barcamps/sessionboard.py:18
+#: barcamps/events.py:25 barcamps/galleries.py:31 barcamps/sessionboard.py:19
 #: barcamps/ticketeditor.py:35 barcamps/templates/index.html:98
 #: barcamps/templates/sessions.html:140 barcamps/templates/admin/add.html:45
 #: barcamps/templates/admin/event_macros.html:88
 #: barcamps/templates/admin/gallery_macros.html:38
-#: static/templates/room-modal.hbs:27 static/templates/session-modal.hbs:24
+#: static/templates/room-modal.hbs:33 static/templates/session-modal.hbs:24
 msgid "Description"
 msgstr ""
 
@@ -201,7 +201,7 @@ msgid ""
 msgstr ""
 
 #: barcamps/add.py:37 barcamps/edit.py:40 barcamps/legaledit.py:20
-#: barcamps/templates/master.html:357 barcamps/templates/admin/add.html:84
+#: barcamps/templates/master.html:343 barcamps/templates/admin/add.html:84
 #: barcamps/templates/admin/legaledit.html:30
 msgid "Imprint"
 msgstr ""
@@ -902,6 +902,10 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
+#: barcamps/sessionboard.py:18 static/templates/room-modal.hbs:27
+msgid "Video conference URL"
+msgstr ""
+
 #: barcamps/sessions.py:55
 #, python-format
 msgid "New session proposal for %s"
@@ -1127,25 +1131,25 @@ msgid "Running now"
 msgstr ""
 
 #: barcamps/templates/index.html:65 barcamps/templates/sessionpad.html:16
-#: barcamps/templates/user_event.html:174
+#: barcamps/templates/user_event.html:172
 msgid "Mark Session as favourite"
 msgstr ""
 
 #: barcamps/templates/index.html:68 barcamps/templates/sessionpad.html:19
-#: barcamps/templates/user_event.html:177
+#: barcamps/templates/user_event.html:175
 msgid "I like this session"
 msgstr ""
 
 #: barcamps/templates/index.html:72 barcamps/templates/sessionpad.html:23
-#: barcamps/templates/user_event.html:181
+#: barcamps/templates/user_event.html:179
 msgid "I don't like this session"
 msgstr ""
 
-#: barcamps/templates/index.html:77 barcamps/templates/user_event.html:186
+#: barcamps/templates/index.html:77 barcamps/templates/user_event.html:184
 msgid "Documentation for"
 msgstr ""
 
-#: barcamps/templates/index.html:82 barcamps/templates/user_event.html:191
+#: barcamps/templates/index.html:82 barcamps/templates/user_event.html:189
 msgid "Room:"
 msgstr ""
 
@@ -1194,7 +1198,7 @@ msgstr ""
 
 #: barcamps/templates/master.html:183
 #: barcamps/templates/admin/event_macros.html:38
-#: static/templates/room-modal.hbs:39 static/templates/session-modal.hbs:64
+#: static/templates/room-modal.hbs:45 static/templates/session-modal.hbs:76
 #: static/templates/timeslot-modal.hbs:35
 msgid "Close"
 msgstr ""
@@ -1203,20 +1207,20 @@ msgstr ""
 msgid "Open menu"
 msgstr ""
 
-#: barcamps/templates/master.html:245 templates/admin_master.html:98
+#: barcamps/templates/master.html:231 templates/admin_master.html:98
 msgid "publish barcamp"
 msgstr ""
 
-#: barcamps/templates/master.html:246 templates/admin_master.html:99
+#: barcamps/templates/master.html:232 templates/admin_master.html:99
 msgid "this barcamp is not public"
 msgstr ""
 
-#: barcamps/templates/master.html:253 barcamps/templates/admin/wizard.html:312
+#: barcamps/templates/master.html:239 barcamps/templates/admin/wizard.html:312
 #: barcamps/templates/admin/wizard.html:326 templates/admin_master.html:108
 msgid "open registration"
 msgstr ""
 
-#: barcamps/templates/master.html:254 templates/admin_master.html:109
+#: barcamps/templates/master.html:240 templates/admin_master.html:109
 msgid "Registration for this barcamp is not yet open."
 msgstr ""
 
@@ -1228,8 +1232,8 @@ msgstr ""
 msgid "Social Media"
 msgstr ""
 
-#: barcamps/templates/master.html:310 barcamps/templates/user_event.html:127
-#: barcamps/templates/user_event.html:212
+#: barcamps/templates/master.html:296 barcamps/templates/user_event.html:125
+#: barcamps/templates/user_event.html:210
 #: barcamps/templates/user_events.html:158 barcamps/templates/admin/add.html:94
 #: barcamps/templates/admin/event_macros.html:141
 msgid "Location"
@@ -1499,11 +1503,15 @@ msgstr ""
 msgid "by"
 msgstr ""
 
-#: barcamps/templates/sessionpad.html:36
+#: barcamps/templates/sessionpad.html:39
+msgid "Join video conference"
+msgstr ""
+
+#: barcamps/templates/sessionpad.html:43
 msgid "Documentation"
 msgstr ""
 
-#: barcamps/templates/sessionpad.html:37
+#: barcamps/templates/sessionpad.html:44
 msgid "Session Documentation"
 msgstr ""
 
@@ -1705,30 +1713,30 @@ msgstr ""
 msgid "I am not attending this event"
 msgstr ""
 
-#: barcamps/templates/user_event.html:94
+#: barcamps/templates/user_event.html:93
 #: barcamps/templates/user_events.html:195
 msgid "Add my registration data"
 msgstr ""
 
-#: barcamps/templates/user_event.html:124
+#: barcamps/templates/user_event.html:122
 #: barcamps/templates/user_events.html:157
 #: barcamps/templates/admin/event_macros.html:12
 msgid "Timetable"
 msgstr ""
 
-#: barcamps/templates/user_event.html:139
+#: barcamps/templates/user_event.html:137
 msgid "Time Table"
 msgstr ""
 
-#: barcamps/templates/user_event.html:149 static/templates/sessiontest.hbs:24
+#: barcamps/templates/user_event.html:147 static/templates/sessiontest.hbs:24
 msgid "persons"
 msgstr ""
 
-#: barcamps/templates/user_event.html:203
+#: barcamps/templates/user_event.html:201
 msgid "Toggle favourites"
 msgstr ""
 
-#: barcamps/templates/user_event.html:206
+#: barcamps/templates/user_event.html:204
 msgid "Edit Sessions"
 msgstr ""
 
@@ -2300,7 +2308,7 @@ msgid "who should be credited?"
 msgstr ""
 
 #: barcamps/templates/admin/gallery_macros.html:23
-#: static/templates/room-modal.hbs:37 static/templates/session-modal.hbs:63
+#: static/templates/room-modal.hbs:43 static/templates/session-modal.hbs:75
 msgid "Update"
 msgstr ""
 
@@ -3217,27 +3225,27 @@ msgstr ""
 msgid "Add new blog entry"
 msgstr ""
 
-#: db/barcamp.py:472
+#: db/barcamp.py:468
 msgid "Show on public participants list"
 msgstr ""
 
-#: db/barcamp.py:474
+#: db/barcamp.py:470
 msgid "Decide whether you want to be displayed on the public list of participants"
 msgstr ""
 
-#: db/barcamp.py:619
+#: db/barcamp.py:609
 msgid "The contact email is not set"
 msgstr ""
 
-#: db/barcamp.py:624
+#: db/barcamp.py:614
 msgid "The Imprint is missing"
 msgstr ""
 
-#: db/barcamp.py:629
+#: db/barcamp.py:619
 msgid "The terms of service are missing"
 msgstr ""
 
-#: db/barcamp.py:634
+#: db/barcamp.py:624
 msgid "The cancel policy is missing"
 msgstr ""
 
@@ -3526,7 +3534,7 @@ msgstr ""
 msgid "Your Ticket Cancel Request"
 msgstr ""
 
-#: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:35
+#: static/templates/room-modal.hbs:7 static/templates/room-modal.hbs:41
 #: static/templates/sessiontest.hbs:76
 msgid "Add new room"
 msgstr ""
@@ -3535,7 +3543,7 @@ msgstr ""
 msgid "e.g. seminar room 1"
 msgstr ""
 
-#: static/templates/room-modal.hbs:29
+#: static/templates/room-modal.hbs:35
 msgid "e.g. beamer available"
 msgstr ""
 
@@ -3561,6 +3569,14 @@ msgstr ""
 
 #: static/templates/session-modal.hbs:48
 msgid "How many people are interested in this session?"
+msgstr ""
+
+#: static/templates/session-modal.hbs:61
+msgid "Video Conference URL"
+msgstr ""
+
+#: static/templates/session-modal.hbs:69
+msgid "https://..."
 msgstr ""
 
 #: static/templates/sessiontest.hbs:19
