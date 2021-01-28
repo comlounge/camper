@@ -18,7 +18,7 @@ class SessionPad(BarcampBaseHandler):
         rooms = event.timetable.get('rooms', [])
 
         # create mapping from room to conf url
-        confmap = dict([(room['id'], room['confurl']) for room in rooms])
+        confmap = dict([(room['id'], room.get('confurl','')) for room in rooms])
         
         found = False
         for sid, session in sessionplan.items():
