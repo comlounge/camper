@@ -318,8 +318,6 @@ bm(jQuery)
 
 $ ->
 
-    console.log("ok")
-
     $(".delete-tc").click (e) ->
         e.preventDefault()
         msg = $('body').data("i18n-areyousure")
@@ -461,7 +459,6 @@ $ ->
             excluded: "input[type=file]"
             errorsWrapper: "<span class='errors-block help-block'></span>"
             errorsContainer: (el) ->
-                console.log(el);
                 el.$element.closest("div")
         )
         .addAsyncValidator('bcslug', (xhr) ->
