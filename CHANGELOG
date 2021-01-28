@@ -318,3 +318,14 @@ Bugfixes:
 =======
 
 - now showing delete button in menu
+
+2.7
+===
+
+- added video conferening urls
+- better sorting of session proposals
+
+2.7.1
+=====
+
+- fixed mapbox problems in barcamp admin and public view
