@@ -1,4 +1,4 @@
-    #encoding=utf8
+#encoding=utf8
 
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler, is_admin, logged_in, ensure_barcamp
@@ -318,7 +318,6 @@ class GetLocation(BaseHandler):
     """retrieve a location by address and return json"""
 
     @logged_in()
-    @is_admin()
     @asjson()
     def get(self):
         """take the location data and return geo coords or an error"""
