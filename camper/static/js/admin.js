@@ -353,7 +353,7 @@
       this.$element = $(element);
       this.map = null;
       this.marker = null;
-      L.Icon.Default.imagePath = '/static/img';
+      L.Icon.Default.imagePath = '/static/img/';
       L.mapbox.accessToken = this.options.accesstoken;
       console.log("init");
       options = {
@@ -396,7 +396,6 @@
       if (this.marker) {
         this.map.removeLayer(this.marker);
       }
-      console.log(this.lat, this.lng);
       this.map.setView([this.lat, this.lng], 14);
       moptions = {};
       if (this.options.admin === 1) {
