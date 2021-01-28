@@ -359,7 +359,8 @@
       options = {
         zoom: 14
       };
-      this.map = L.mapbox.map(this.$element.attr('id'), this.options.mapid, options);
+      this.map = L.mapbox.map(this.$element.attr('id'));
+      this.map.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
       this.lat = null;
       this.lng = null;
       map = this.map;
@@ -395,7 +396,8 @@
       if (this.marker) {
         this.map.removeLayer(this.marker);
       }
-      this.map.setView([this.lat, this.lng]);
+      console.log(this.lat, this.lng);
+      this.map.setView([this.lat, this.lng], 14);
       moptions = {};
       if (this.options.admin === 1) {
         moptions = {
@@ -509,7 +511,6 @@
   bm(jQuery);
 
   $(function() {
-    console.log("ok");
     $(".delete-tc").click(function(e) {
       var msg, url;
       e.preventDefault();
@@ -640,7 +641,6 @@
         excluded: "input[type=file]",
         errorsWrapper: "<span class='errors-block help-block'></span>",
         errorsContainer: function(el) {
-          console.log(el);
           return el.$element.closest("div");
         }
       }).addAsyncValidator('bcslug', function(xhr) {

@@ -264,10 +264,10 @@ th {
   -moz-osx-font-smoothing: grayscale;
 }
 .glyphicon-asterisk:before {
-  content: "\2a";
+  content: "\002a";
 }
 .glyphicon-plus:before {
-  content: "\2b";
+  content: "\002b";
 }
 .glyphicon-euro:before,
 .glyphicon-eur:before {
@@ -1090,7 +1090,6 @@ a:focus {
   text-decoration: underline;
 }
 a:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2610,7 +2609,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -2654,6 +2652,10 @@ output {
 }
 .form-control::-webkit-input-placeholder {
   color: #999;
+}
+.form-control::-ms-expand {
+  border: 0;
+  background-color: transparent;
 }
 .form-control[disabled],
 .form-control[readonly],
@@ -3061,7 +3063,7 @@ select[multiple].input-lg {
 }
 @media (min-width: 768px) {
   .form-horizontal .form-group-lg .control-label {
-    padding-top: 14.3px;
+    padding-top: 11px;
     font-size: 18px;
   }
 }
@@ -3097,7 +3099,6 @@ select[multiple].input-lg {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -3168,9 +3169,6 @@ fieldset[disabled] a.btn {
 .open > .dropdown-toggle.btn-default {
   background-image: none;
 }
-.btn-default.disabled,
-.btn-default[disabled],
-fieldset[disabled] .btn-default,
 .btn-default.disabled:hover,
 .btn-default[disabled]:hover,
 fieldset[disabled] .btn-default:hover,
@@ -3179,13 +3177,7 @@ fieldset[disabled] .btn-default:hover,
 fieldset[disabled] .btn-default:focus,
 .btn-default.disabled.focus,
 .btn-default[disabled].focus,
-fieldset[disabled] .btn-default.focus,
-.btn-default.disabled:active,
-.btn-default[disabled]:active,
-fieldset[disabled] .btn-default:active,
-.btn-default.disabled.active,
-.btn-default[disabled].active,
-fieldset[disabled] .btn-default.active {
+fieldset[disabled] .btn-default.focus {
   background-color: #fff;
   border-color: #ccc;
 }
@@ -3234,9 +3226,6 @@ fieldset[disabled] .btn-default.active {
 .open > .dropdown-toggle.btn-primary {
   background-image: none;
 }
-.btn-primary.disabled,
-.btn-primary[disabled],
-fieldset[disabled] .btn-primary,
 .btn-primary.disabled:hover,
 .btn-primary[disabled]:hover,
 fieldset[disabled] .btn-primary:hover,
@@ -3245,13 +3234,7 @@ fieldset[disabled] .btn-primary:hover,
 fieldset[disabled] .btn-primary:focus,
 .btn-primary.disabled.focus,
 .btn-primary[disabled].focus,
-fieldset[disabled] .btn-primary.focus,
-.btn-primary.disabled:active,
-.btn-primary[disabled]:active,
-fieldset[disabled] .btn-primary:active,
-.btn-primary.disabled.active,
-.btn-primary[disabled].active,
-fieldset[disabled] .btn-primary.active {
+fieldset[disabled] .btn-primary.focus {
   background-color: #337ab7;
   border-color: #2e6da4;
 }
@@ -3300,9 +3283,6 @@ fieldset[disabled] .btn-primary.active {
 .open > .dropdown-toggle.btn-success {
   background-image: none;
 }
-.btn-success.disabled,
-.btn-success[disabled],
-fieldset[disabled] .btn-success,
 .btn-success.disabled:hover,
 .btn-success[disabled]:hover,
 fieldset[disabled] .btn-success:hover,
@@ -3311,13 +3291,7 @@ fieldset[disabled] .btn-success:hover,
 fieldset[disabled] .btn-success:focus,
 .btn-success.disabled.focus,
 .btn-success[disabled].focus,
-fieldset[disabled] .btn-success.focus,
-.btn-success.disabled:active,
-.btn-success[disabled]:active,
-fieldset[disabled] .btn-success:active,
-.btn-success.disabled.active,
-.btn-success[disabled].active,
-fieldset[disabled] .btn-success.active {
+fieldset[disabled] .btn-success.focus {
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -3366,9 +3340,6 @@ fieldset[disabled] .btn-success.active {
 .open > .dropdown-toggle.btn-info {
   background-image: none;
 }
-.btn-info.disabled,
-.btn-info[disabled],
-fieldset[disabled] .btn-info,
 .btn-info.disabled:hover,
 .btn-info[disabled]:hover,
 fieldset[disabled] .btn-info:hover,
@@ -3377,13 +3348,7 @@ fieldset[disabled] .btn-info:hover,
 fieldset[disabled] .btn-info:focus,
 .btn-info.disabled.focus,
 .btn-info[disabled].focus,
-fieldset[disabled] .btn-info.focus,
-.btn-info.disabled:active,
-.btn-info[disabled]:active,
-fieldset[disabled] .btn-info:active,
-.btn-info.disabled.active,
-.btn-info[disabled].active,
-fieldset[disabled] .btn-info.active {
+fieldset[disabled] .btn-info.focus {
   background-color: #b0e1ef;
   border-color: #9bd8eb;
 }
@@ -3432,9 +3397,6 @@ fieldset[disabled] .btn-info.active {
 .open > .dropdown-toggle.btn-warning {
   background-image: none;
 }
-.btn-warning.disabled,
-.btn-warning[disabled],
-fieldset[disabled] .btn-warning,
 .btn-warning.disabled:hover,
 .btn-warning[disabled]:hover,
 fieldset[disabled] .btn-warning:hover,
@@ -3443,13 +3405,7 @@ fieldset[disabled] .btn-warning:hover,
 fieldset[disabled] .btn-warning:focus,
 .btn-warning.disabled.focus,
 .btn-warning[disabled].focus,
-fieldset[disabled] .btn-warning.focus,
-.btn-warning.disabled:active,
-.btn-warning[disabled]:active,
-fieldset[disabled] .btn-warning:active,
-.btn-warning.disabled.active,
-.btn-warning[disabled].active,
-fieldset[disabled] .btn-warning.active {
+fieldset[disabled] .btn-warning.focus {
   background-color: #f0ad4e;
   border-color: #eea236;
 }
@@ -3498,9 +3454,6 @@ fieldset[disabled] .btn-warning.active {
 .open > .dropdown-toggle.btn-danger {
   background-image: none;
 }
-.btn-danger.disabled,
-.btn-danger[disabled],
-fieldset[disabled] .btn-danger,
 .btn-danger.disabled:hover,
 .btn-danger[disabled]:hover,
 fieldset[disabled] .btn-danger:hover,
@@ -3509,13 +3462,7 @@ fieldset[disabled] .btn-danger:hover,
 fieldset[disabled] .btn-danger:focus,
 .btn-danger.disabled.focus,
 .btn-danger[disabled].focus,
-fieldset[disabled] .btn-danger.focus,
-.btn-danger.disabled:active,
-.btn-danger[disabled]:active,
-fieldset[disabled] .btn-danger:active,
-.btn-danger.disabled.active,
-.btn-danger[disabled].active,
-fieldset[disabled] .btn-danger.active {
+fieldset[disabled] .btn-danger.focus {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -3886,13 +3833,15 @@ tbody.collapse.in {
 }
 .btn-group-vertical > .btn:first-child:not(:last-child) {
   border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .btn-group-vertical > .btn:last-child:not(:first-child) {
-  border-bottom-left-radius: 0px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
   border-radius: 0;
@@ -3948,6 +3897,9 @@ tbody.collapse.in {
   float: left;
   width: 100%;
   margin-bottom: 0;
+}
+.input-group .form-control:focus {
+  z-index: 3;
 }
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
@@ -4857,7 +4809,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  z-index: 3;
+  z-index: 2;
   color: #23527c;
   background-color: #eeeeee;
   border-color: #ddd;
@@ -4868,7 +4820,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-  z-index: 2;
+  z-index: 3;
   color: #fff;
   background-color: #337ab7;
   border-color: #337ab7;
@@ -5090,6 +5042,8 @@ a.badge:focus {
 .container .jumbotron,
 .container-fluid .jumbotron {
   border-radius: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .jumbotron .container {
   max-width: 100%;
@@ -6036,7 +5990,6 @@ button.close {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
-  min-height: 16.42857143px;
 }
 .modal-header .close {
   margin-top: -2px;
@@ -6428,6 +6381,7 @@ button.close {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
 }
 .carousel-control.left {
   background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
@@ -6537,16 +6491,16 @@ button.close {
   .carousel-control .icon-next {
     width: 30px;
     height: 30px;
-    margin-top: -15px;
+    margin-top: -10px;
     font-size: 30px;
   }
   .carousel-control .glyphicon-chevron-left,
   .carousel-control .icon-prev {
-    margin-left: -15px;
+    margin-left: -10px;
   }
   .carousel-control .glyphicon-chevron-right,
   .carousel-control .icon-next {
-    margin-right: -15px;
+    margin-right: -10px;
   }
   .carousel-caption {
     left: 20%;
@@ -6585,6 +6539,8 @@ button.close {
 .pager:after,
 .panel-body:before,
 .panel-body:after,
+.modal-header:before,
+.modal-header:after,
 .modal-footer:before,
 .modal-footer:after,
 .sponsor.action-container:before,
@@ -6606,6 +6562,7 @@ button.close {
 .navbar-collapse:after,
 .pager:after,
 .panel-body:after,
+.modal-header:after,
 .modal-footer:after,
 .sponsor.action-container:after {
   clear: both;
@@ -7000,7 +6957,6 @@ body.admin .big-button-panel.active:focus,
 body.admin .big-button-panel.focus,
 body.admin .big-button-panel:active.focus,
 body.admin .big-button-panel.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -7066,9 +7022,6 @@ body.admin .big-button-panel.active,
 .open > .dropdown-togglebody.admin .big-button-panel {
   background-image: none;
 }
-body.admin .big-button-panel.disabled,
-body.admin .big-button-panel[disabled],
-fieldset[disabled] body.admin .big-button-panel,
 body.admin .big-button-panel.disabled:hover,
 body.admin .big-button-panel[disabled]:hover,
 fieldset[disabled] body.admin .big-button-panel:hover,
@@ -7077,13 +7030,7 @@ body.admin .big-button-panel[disabled]:focus,
 fieldset[disabled] body.admin .big-button-panel:focus,
 body.admin .big-button-panel.disabled.focus,
 body.admin .big-button-panel[disabled].focus,
-fieldset[disabled] body.admin .big-button-panel.focus,
-body.admin .big-button-panel.disabled:active,
-body.admin .big-button-panel[disabled]:active,
-fieldset[disabled] body.admin .big-button-panel:active,
-body.admin .big-button-panel.disabled.active,
-body.admin .big-button-panel[disabled].active,
-fieldset[disabled] body.admin .big-button-panel.active {
+fieldset[disabled] body.admin .big-button-panel.focus {
   background-color: #b0e1ef;
   border-color: #9bd8eb;
 }
@@ -7143,9 +7090,6 @@ body.admin #sessionboard-container table th.time-slot.active,
 .open > .dropdown-togglebody.admin #sessionboard-container table th.time-slot {
   background-image: none;
 }
-body.admin #sessionboard-container table th.time-slot.disabled,
-body.admin #sessionboard-container table th.time-slot[disabled],
-fieldset[disabled] body.admin #sessionboard-container table th.time-slot,
 body.admin #sessionboard-container table th.time-slot.disabled:hover,
 body.admin #sessionboard-container table th.time-slot[disabled]:hover,
 fieldset[disabled] body.admin #sessionboard-container table th.time-slot:hover,
@@ -7154,13 +7098,7 @@ body.admin #sessionboard-container table th.time-slot[disabled]:focus,
 fieldset[disabled] body.admin #sessionboard-container table th.time-slot:focus,
 body.admin #sessionboard-container table th.time-slot.disabled.focus,
 body.admin #sessionboard-container table th.time-slot[disabled].focus,
-fieldset[disabled] body.admin #sessionboard-container table th.time-slot.focus,
-body.admin #sessionboard-container table th.time-slot.disabled:active,
-body.admin #sessionboard-container table th.time-slot[disabled]:active,
-fieldset[disabled] body.admin #sessionboard-container table th.time-slot:active,
-body.admin #sessionboard-container table th.time-slot.disabled.active,
-body.admin #sessionboard-container table th.time-slot[disabled].active,
-fieldset[disabled] body.admin #sessionboard-container table th.time-slot.active {
+fieldset[disabled] body.admin #sessionboard-container table th.time-slot.focus {
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -7913,9 +7851,6 @@ form {
 .open > .dropdown-toggle#user-events-content .sessiontable .cell.timeslot {
   background-image: none;
 }
-#user-events-content .sessiontable .cell.timeslot.disabled,
-#user-events-content .sessiontable .cell.timeslot[disabled],
-fieldset[disabled] #user-events-content .sessiontable .cell.timeslot,
 #user-events-content .sessiontable .cell.timeslot.disabled:hover,
 #user-events-content .sessiontable .cell.timeslot[disabled]:hover,
 fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:hover,
@@ -7924,13 +7859,7 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:hover,
 fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:focus,
 #user-events-content .sessiontable .cell.timeslot.disabled.focus,
 #user-events-content .sessiontable .cell.timeslot[disabled].focus,
-fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.focus,
-#user-events-content .sessiontable .cell.timeslot.disabled:active,
-#user-events-content .sessiontable .cell.timeslot[disabled]:active,
-fieldset[disabled] #user-events-content .sessiontable .cell.timeslot:active,
-#user-events-content .sessiontable .cell.timeslot.disabled.active,
-#user-events-content .sessiontable .cell.timeslot[disabled].active,
-fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
+fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.focus {
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -8136,9 +8065,6 @@ fieldset[disabled] #user-events-content .sessiontable .cell.timeslot.active {
 .open > .dropdown-toggle.toggle-favs.active {
   background-image: none;
 }
-.toggle-favs.active.disabled,
-.toggle-favs.active[disabled],
-fieldset[disabled] .toggle-favs.active,
 .toggle-favs.active.disabled:hover,
 .toggle-favs.active[disabled]:hover,
 fieldset[disabled] .toggle-favs.active:hover,
@@ -8147,13 +8073,7 @@ fieldset[disabled] .toggle-favs.active:hover,
 fieldset[disabled] .toggle-favs.active:focus,
 .toggle-favs.active.disabled.focus,
 .toggle-favs.active[disabled].focus,
-fieldset[disabled] .toggle-favs.active.focus,
-.toggle-favs.active.disabled:active,
-.toggle-favs.active[disabled]:active,
-fieldset[disabled] .toggle-favs.active:active,
-.toggle-favs.active.disabled.active,
-.toggle-favs.active[disabled].active,
-fieldset[disabled] .toggle-favs.active.active {
+fieldset[disabled] .toggle-favs.active.focus {
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -8500,7 +8420,6 @@ body#startpage article.barcamp.barcamp-small h3 {
 #barcamppage .attending a.focus,
 #barcamppage .attending a:active.focus,
 #barcamppage .attending a.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -8566,9 +8485,6 @@ fieldset[disabled] a#barcamppage .attending a {
 .open > .dropdown-toggle#barcamppage .attending a {
   background-image: none;
 }
-#barcamppage .attending a.disabled,
-#barcamppage .attending a[disabled],
-fieldset[disabled] #barcamppage .attending a,
 #barcamppage .attending a.disabled:hover,
 #barcamppage .attending a[disabled]:hover,
 fieldset[disabled] #barcamppage .attending a:hover,
@@ -8577,13 +8493,7 @@ fieldset[disabled] #barcamppage .attending a:hover,
 fieldset[disabled] #barcamppage .attending a:focus,
 #barcamppage .attending a.disabled.focus,
 #barcamppage .attending a[disabled].focus,
-fieldset[disabled] #barcamppage .attending a.focus,
-#barcamppage .attending a.disabled:active,
-#barcamppage .attending a[disabled]:active,
-fieldset[disabled] #barcamppage .attending a:active,
-#barcamppage .attending a.disabled.active,
-#barcamppage .attending a[disabled].active,
-fieldset[disabled] #barcamppage .attending a.active {
+fieldset[disabled] #barcamppage .attending a.focus {
   background-color: #fff;
   border-color: #ccc;
 }
@@ -8998,7 +8908,6 @@ h1.logo a:hover {
 .login-container .btn-signin.focus,
 .login-container .btn-signin:active.focus,
 .login-container .btn-signin.active.focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
@@ -9064,9 +8973,6 @@ fieldset[disabled] a.login-container .btn-signin {
 .open > .dropdown-toggle.login-container .btn-signin {
   background-image: none;
 }
-.login-container .btn-signin.disabled,
-.login-container .btn-signin[disabled],
-fieldset[disabled] .login-container .btn-signin,
 .login-container .btn-signin.disabled:hover,
 .login-container .btn-signin[disabled]:hover,
 fieldset[disabled] .login-container .btn-signin:hover,
@@ -9075,13 +8981,7 @@ fieldset[disabled] .login-container .btn-signin:hover,
 fieldset[disabled] .login-container .btn-signin:focus,
 .login-container .btn-signin.disabled.focus,
 .login-container .btn-signin[disabled].focus,
-fieldset[disabled] .login-container .btn-signin.focus,
-.login-container .btn-signin.disabled:active,
-.login-container .btn-signin[disabled]:active,
-fieldset[disabled] .login-container .btn-signin:active,
-.login-container .btn-signin.disabled.active,
-.login-container .btn-signin[disabled].active,
-fieldset[disabled] .login-container .btn-signin.active {
+fieldset[disabled] .login-container .btn-signin.focus {
   background-color: #f0ad4e;
   border-color: #eea236;
 }
@@ -9479,9 +9379,6 @@ img.flickr-embed-img {
 .open > .dropdown-toggle#add-to-calendar-container .btn-calendar {
   background-image: none;
 }
-#add-to-calendar-container .btn-calendar.disabled,
-#add-to-calendar-container .btn-calendar[disabled],
-fieldset[disabled] #add-to-calendar-container .btn-calendar,
 #add-to-calendar-container .btn-calendar.disabled:hover,
 #add-to-calendar-container .btn-calendar[disabled]:hover,
 fieldset[disabled] #add-to-calendar-container .btn-calendar:hover,
@@ -9490,13 +9387,7 @@ fieldset[disabled] #add-to-calendar-container .btn-calendar:hover,
 fieldset[disabled] #add-to-calendar-container .btn-calendar:focus,
 #add-to-calendar-container .btn-calendar.disabled.focus,
 #add-to-calendar-container .btn-calendar[disabled].focus,
-fieldset[disabled] #add-to-calendar-container .btn-calendar.focus,
-#add-to-calendar-container .btn-calendar.disabled:active,
-#add-to-calendar-container .btn-calendar[disabled]:active,
-fieldset[disabled] #add-to-calendar-container .btn-calendar:active,
-#add-to-calendar-container .btn-calendar.disabled.active,
-#add-to-calendar-container .btn-calendar[disabled].active,
-fieldset[disabled] #add-to-calendar-container .btn-calendar.active {
+fieldset[disabled] #add-to-calendar-container .btn-calendar.focus {
   background-color: #eae8e0;
   border-color: #c0c0c0;
 }

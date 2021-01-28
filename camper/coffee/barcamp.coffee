@@ -279,7 +279,7 @@ $ ->
         accesstoken = $(this).data("accesstoken")
         L.mapbox.accessToken = accesstoken
         if !map
-            map = L.mapbox.map('location-map', 'mapbox.streets')
+            map = L.mapbox.map('map').addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
 
         lat = $(this).data("lat")
         lng = $(this).data("lng")
@@ -323,7 +323,7 @@ $ ->
         L.mapbox.accessToken = accesstoken
 
         if !event_map
-            event_map = L.mapbox.map('event-location-map', 'mapbox.streets')
+            event_map = L.mapbox.map('event-location-map').addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
 
 
         event_map.setView([lat, lng], 14)

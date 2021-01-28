@@ -174,8 +174,12 @@ bm = ($) ->
 
         options =
             zoom: 14
-        this.map = L.mapbox.map(this.$element.attr('id'), this.options.mapid, options)
 
+        this.map = L.mapbox.map(this.$element.attr('id'))
+        this.map.addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'))
+
+        # this.map = L.mapbox.map(this.$element.attr('id'), this.options.mapid, options)
+        
         this.lat = null
         this.lng = null
 
@@ -212,7 +216,8 @@ bm = ($) ->
         that = this
         if this.marker
             this.map.removeLayer(this.marker)
-        this.map.setView([this.lat, this.lng])
+        console.log(this.lat, this.lng)
+        this.map.setView([this.lat, this.lng], 14)
         moptions = {}
         if this.options.admin==1
             moptions = { draggable: true }
