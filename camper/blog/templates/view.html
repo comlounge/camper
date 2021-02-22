@@ -16,7 +16,7 @@
                 </h2>
                 <div class="byline">{{dateformat(view.entry.published)}}</div>
             </header>
-            {{view.title_image(class="img-responsive blog-image pull-left")}}
+            {{view.title_image(class="img-responsive blog-image pull-left") | safe}}
             <div class="content">
                 {{view.entry.content | safe}}
             </div>
