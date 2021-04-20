@@ -40,7 +40,7 @@ pickleshare==0.7.5
 Pillow==6.2.2
 prompt-toolkit==1.0.16
 ptyprocess==0.6.0
-py==1.4.31
+py==1.10.0
 PyBabel-hbs==0.2.2
 pycountry==18.12.8
 pycparser==2.19
