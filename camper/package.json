@@ -18,7 +18,7 @@
     "grunt-contrib-watch": "^1.1.0",
     "grunt-git": "^1.0.14",
     "grunt-mkdir": "^1.0.0",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "po2json": "^0.4.5",
     "uglify-js": "^3.12.0"
   },
