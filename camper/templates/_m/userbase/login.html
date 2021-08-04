@@ -5,7 +5,7 @@
     <div class="container">
         {% for m in get_flashes(with_categories=True) %}
             <div class="alert alert-{{m[0]}}">
-            <strong>{{m[1]}}</strong><br>
+            <strong>{{m[1]|safe}}</strong><br>
             </div>
         {% endfor %}
     </div>
