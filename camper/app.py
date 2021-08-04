@@ -311,7 +311,7 @@ class CamperApp(Application):
         URL('/past', 'past_barcamps', handlers.index.PastBarcampsView),
         URL('/own', 'own_barcamps', handlers.index.OwnBarcampsView),
         URL('/login_success', 'login_success', handlers.index.LoginSuccess),
-        URL('/robots.txt', 'robots', RobotsTXT),
+        #URL('/robots.txt', 'robots', RobotsTXT),
         URL('/impressum.html', 'impressum', handlers.index.Impressum),
         URL('/', 'root', handlers.index.IndexView),
         URL('/', 'login', handlers.index.IndexView),
