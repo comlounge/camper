@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2020 ORGANIZATION
+# Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-11-24 11:01+0100\n"
+"POT-Creation-Date: 2021-08-04 12:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,7 +149,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: login.py:22 templates/M/userbase/login.html:27
+#: login.py:22
 msgid "remember me"
 msgstr ""
 
@@ -324,7 +324,7 @@ msgstr ""
 msgid "This name is already taken. Please choose a different one"
 msgstr ""
 
-#: barcamps/base.py:53 templates/master.html:63
+#: barcamps/base.py:53 templates/master.html:64
 msgid "Home"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgstr ""
 msgid "planning"
 msgstr ""
 
-#: barcamps/base.py:62 barcamps/design.py:42 templates/master.html:75
+#: barcamps/base.py:62 barcamps/design.py:42 templates/master.html:76
 msgid "Blog"
 msgstr ""
 
@@ -643,11 +643,11 @@ msgstr ""
 msgid "The event has been successfully updated"
 msgstr ""
 
-#: barcamps/events.py:332
+#: barcamps/events.py:331
 msgid "no full address was given"
 msgstr ""
 
-#: barcamps/events.py:338
+#: barcamps/events.py:337
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr ""
 
@@ -1094,7 +1094,7 @@ msgstr ""
 #: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:103
 #: barcamps/templates/sessions.html:133
 #: barcamps/templates/admin/participants_data_edit.html:46
-#: static/templates/sessiontest.hbs:19 templates/master.html:46
+#: static/templates/sessiontest.hbs:19 templates/master.html:47
 msgid "Are you sure?"
 msgstr ""
 
@@ -1183,8 +1183,7 @@ msgstr ""
 #: barcamps/templates/master.html:52 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:32 barcamps/templates/user_event.html:64
 #: barcamps/templates/user_event.html:94
-#: barcamps/templates/user_events.html:101 templates/master.html:91
-#: templates/M/userbase/registration.html:15
+#: barcamps/templates/user_events.html:101 templates/master.html:92
 msgid "Register"
 msgstr ""
 
@@ -1433,7 +1432,7 @@ msgid "If you already have a barcamptools.eu account please login."
 msgstr ""
 
 #: barcamps/templates/registration_wizard.html:25
-#: barcamps/templates/ticket_wizard.html:91 templates/master.html:90
+#: barcamps/templates/ticket_wizard.html:91 templates/master.html:91
 msgid "Login"
 msgstr ""
 
@@ -3784,31 +3783,31 @@ msgstr ""
 msgid "Really Delete?"
 msgstr ""
 
-#: templates/master.html:74 templates/past_barcamps.html:41
+#: templates/master.html:75 templates/past_barcamps.html:41
 msgid "Past Barcamps"
 msgstr ""
 
-#: templates/master.html:76
+#: templates/master.html:77
 msgid "Ideas / Feedback"
 msgstr ""
 
-#: templates/master.html:86
+#: templates/master.html:87
 msgid "ADMINISTRATION"
 msgstr ""
 
-#: templates/master.html:96
+#: templates/master.html:97
 msgid "my profile"
 msgstr ""
 
-#: templates/master.html:97
+#: templates/master.html:98
 msgid "Edit / Delete account"
 msgstr ""
 
-#: templates/master.html:98 templates/users/profile.html:45
+#: templates/master.html:99 templates/users/profile.html:45
 msgid "Change Password"
 msgstr ""
 
-#: templates/master.html:99
+#: templates/master.html:100
 msgid "Log out"
 msgstr ""
 
@@ -3829,42 +3828,6 @@ msgstr ""
 
 #: templates/sponsoring.html:18
 msgid "send request"
-msgstr ""
-
-#: templates/M/userbase/login.html:14
-msgid "Real camper log in!"
-msgstr ""
-
-#: templates/M/userbase/login.html:16
-msgid "username"
-msgstr ""
-
-#: templates/M/userbase/login.html:17
-msgid "password"
-msgstr ""
-
-#: templates/M/userbase/login.html:20
-msgid "login"
-msgstr ""
-
-#: templates/M/userbase/login.html:31
-msgid "password forgotten?"
-msgstr ""
-
-#: templates/M/userbase/login.html:34
-msgid "register a new user"
-msgstr ""
-
-#: templates/M/userbase/registration.html:7
-msgid "Please register"
-msgstr ""
-
-#: templates/M/userbase/registration.html:24
-msgid "missing activation email?"
-msgstr ""
-
-#: templates/M/userbase/registration.html:25
-msgid "Please send me a new activation code"
 msgstr ""
 
 #: templates/users/change_email.html:9

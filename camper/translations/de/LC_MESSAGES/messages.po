@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  0.1\n"
 "Report-Msgid-Bugs-To: cs@comlounge.net\n"
-"POT-Creation-Date: 2020-11-24 11:01+0100\n"
+"POT-Creation-Date: 2021-08-04 12:14+0200\n"
 "PO-Revision-Date: 2018-04-07 16:42+0200\n"
 "Last-Translator: Christian Scholz <cs@comlounge.net>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -65,7 +65,7 @@ msgid ""
 "href=\"%(url)s\">here</a> to get a new one."
 msgstr ""
 "Der Aktivierungscode ist nicht gültig. Bitte versuche es erneut oder "
-"klicke<a href=\"%(url)s\">hier</a>, um einen neuen Code zu erhalten."
+"klicke <a href=\"%(url)s\">hier</a>, um einen neuen Code zu erhalten."
 
 #: app.py:273
 msgid "A new activation code has been sent out, please check your email"
@@ -149,7 +149,7 @@ msgstr "E-Mail"
 msgid "Password"
 msgstr "Passwort"
 
-#: login.py:22 templates/M/userbase/login.html:27
+#: login.py:22
 msgid "remember me"
 msgstr "erinnere Dich an mich"
 
@@ -334,7 +334,7 @@ msgstr "%s wurde angelegt."
 msgid "This name is already taken. Please choose a different one"
 msgstr "Dieser Name ist schon vergeben, bitte versuche es mit einem anderen"
 
-#: barcamps/base.py:53 templates/master.html:63
+#: barcamps/base.py:53 templates/master.html:64
 msgid "Home"
 msgstr "Startseite"
 
@@ -350,7 +350,7 @@ msgstr "Veranstaltungen"
 msgid "planning"
 msgstr "Planung"
 
-#: barcamps/base.py:62 barcamps/design.py:42 templates/master.html:75
+#: barcamps/base.py:62 barcamps/design.py:42 templates/master.html:76
 msgid "Blog"
 msgstr "Blog"
 
@@ -670,11 +670,11 @@ msgstr "Die Veranstaltung wurde erstellt."
 msgid "The event has been successfully updated"
 msgstr "Veranstaltung erfolgreich aktualisiert"
 
-#: barcamps/events.py:332
+#: barcamps/events.py:331
 msgid "no full address was given"
 msgstr "Es wurde keine volle Adresse angegeben "
 
-#: barcamps/events.py:338
+#: barcamps/events.py:337
 msgid "we couldn't lookup a geo coordinates for this address"
 msgstr "Wir konnten keine Geo-Koordinaten für diese Adresse ermitteln."
 
@@ -1157,7 +1157,7 @@ msgstr "Blog-Artikel über das Barcamp"
 #: barcamps/templates/docs.html:16 barcamps/templates/sessions.html:103
 #: barcamps/templates/sessions.html:133
 #: barcamps/templates/admin/participants_data_edit.html:46
-#: static/templates/sessiontest.hbs:19 templates/master.html:46
+#: static/templates/sessiontest.hbs:19 templates/master.html:47
 msgid "Are you sure?"
 msgstr "Bist Du sicher? (wirklich?)"
 
@@ -1246,8 +1246,7 @@ msgstr "Klicke hier, um an diesem Barcamp teilzunehmen"
 #: barcamps/templates/master.html:52 barcamps/templates/registration.html:48
 #: barcamps/templates/user_event.html:32 barcamps/templates/user_event.html:64
 #: barcamps/templates/user_event.html:94
-#: barcamps/templates/user_events.html:101 templates/master.html:91
-#: templates/M/userbase/registration.html:15
+#: barcamps/templates/user_events.html:101 templates/master.html:92
 msgid "Register"
 msgstr "Registrieren"
 
@@ -1498,7 +1497,7 @@ msgid "If you already have a barcamptools.eu account please login."
 msgstr "Wenn Du schon einen barcamptools.eu-Account hast, logge Dich bitte ein."
 
 #: barcamps/templates/registration_wizard.html:25
-#: barcamps/templates/ticket_wizard.html:91 templates/master.html:90
+#: barcamps/templates/ticket_wizard.html:91 templates/master.html:91
 msgid "Login"
 msgstr "Einloggen"
 
@@ -4044,31 +4043,31 @@ msgstr "Dieses Feld muss angegeben werden"
 msgid "Really Delete?"
 msgstr "Wirklich löschen?"
 
-#: templates/master.html:74 templates/past_barcamps.html:41
+#: templates/master.html:75 templates/past_barcamps.html:41
 msgid "Past Barcamps"
 msgstr "Vergangene Barcamps"
 
-#: templates/master.html:76
+#: templates/master.html:77
 msgid "Ideas / Feedback"
 msgstr "Ideen / Feedback"
 
-#: templates/master.html:86
+#: templates/master.html:87
 msgid "ADMINISTRATION"
 msgstr "Verwaltung"
 
-#: templates/master.html:96
+#: templates/master.html:97
 msgid "my profile"
 msgstr "Mein Profil"
 
-#: templates/master.html:97
+#: templates/master.html:98
 msgid "Edit / Delete account"
 msgstr "Konto bearbeiten / löschen"
 
-#: templates/master.html:98 templates/users/profile.html:45
+#: templates/master.html:99 templates/users/profile.html:45
 msgid "Change Password"
 msgstr "Passwort ändern"
 
-#: templates/master.html:99
+#: templates/master.html:100
 msgid "Log out"
 msgstr "Ausloggen"
 
@@ -4095,42 +4094,6 @@ msgstr ""
 #: templates/sponsoring.html:18
 msgid "send request"
 msgstr "Anfrage absenden"
-
-#: templates/M/userbase/login.html:14
-msgid "Real camper log in!"
-msgstr "Bitte logge Dich zunächst ein!"
-
-#: templates/M/userbase/login.html:16
-msgid "username"
-msgstr "Benutzername"
-
-#: templates/M/userbase/login.html:17
-msgid "password"
-msgstr "Passwort"
-
-#: templates/M/userbase/login.html:20
-msgid "login"
-msgstr "Einloggen"
-
-#: templates/M/userbase/login.html:31
-msgid "password forgotten?"
-msgstr "Passwort vergessen?"
-
-#: templates/M/userbase/login.html:34
-msgid "register a new user"
-msgstr "Erstelle ein neues Konto"
-
-#: templates/M/userbase/registration.html:7
-msgid "Please register"
-msgstr "Registriere Dich"
-
-#: templates/M/userbase/registration.html:24
-msgid "missing activation email?"
-msgstr "Aktivierungsmail nicht gefunden?"
-
-#: templates/M/userbase/registration.html:25
-msgid "Please send me a new activation code"
-msgstr "Bitte sende mir einen neuen Aktivierungscode"
 
 #: templates/users/change_email.html:9
 msgid "Change your email address"
@@ -4256,7 +4219,7 @@ msgstr "E-Mail ändern"
 #~ msgstr "Session-Dokumentation"
 
 #~ msgid "Real camper log in!"
-#~ msgstr "Richtige Camper loggen sich ein!"
+#~ msgstr "Bitte logge Dich zunächst ein!"
 
 #~ msgid "username"
 #~ msgstr "Benutzername"
@@ -4265,19 +4228,19 @@ msgstr "E-Mail ändern"
 #~ msgstr "Passwort"
 
 #~ msgid "login"
-#~ msgstr "Login"
+#~ msgstr "Einloggen"
 
 #~ msgid "password forgotten?"
 #~ msgstr "Passwort vergessen?"
 
 #~ msgid "register a new user"
-#~ msgstr "Neuen Benutzer registrieren"
+#~ msgstr "Erstelle ein neues Konto"
 
 #~ msgid "Please register"
-#~ msgstr "Bitte registrieren"
+#~ msgstr "Registriere Dich"
 
 #~ msgid "missing activation email?"
-#~ msgstr "Fehlt dir die Aktivierungs-EMail?"
+#~ msgstr "Aktivierungsmail nicht gefunden?"
 
 #~ msgid "Please send me a new activation code"
 #~ msgstr "Bitte sende mir einen neuen Aktivierungscode"
