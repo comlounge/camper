@@ -1,3 +1,4 @@
+setuptools<40
 appnope==0.1.0
 awesome-slugify==1.6.5
 Babel==1.3
@@ -73,7 +74,7 @@ userbase==1.1.1
 wcwidth==0.1.7
 WeasyPrint==0.42.3
 webencodings==0.5.1
-Werkzeug
+Werkzeug<1
 WTForms==2.1
 xhtml2pdf==0.0.6
 xlwt==1.0.0
