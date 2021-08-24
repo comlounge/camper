@@ -414,7 +414,7 @@ class CamperApp(Application):
             raise BarcampNotFound(slug = slug)
         return barcamp
 
-from werkzeug import DebuggedApplication
+from werkzeug.debug import DebuggedApplication
 
 def test_app(config, **local_config):
     """return the app for testing"""
