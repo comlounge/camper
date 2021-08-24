@@ -7239,8 +7239,8 @@ body.admin .loader:after {
 body.admin .loader:before {
   right: 0;
   border-right-color: #ecf0f1;
-  -webkit-animation-delay: -0.25s;
-  animation-delay: -0.25s;
+  -webkit-animation-delay: 1s/-4;
+  animation-delay: 1s/-4;
 }
 body.admin .loader span {
   font-size: 20px;
