@@ -7,7 +7,7 @@
     "preinstall": "npm-force-resolutions"
   },
   "devDependencies": {
-    "grunt": "^1.4.1",
+    "grunt": "^1.5.2",
     "grunt-bower-concat": "^1.0.0",
     "grunt-coffee-react": "^5.0.2",
     "grunt-contrib-coffee": "^2.1.0",
