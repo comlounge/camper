@@ -45,7 +45,7 @@ py==1.10.0
 PyBabel-hbs==0.2.2
 pycountry==18.12.8
 pycparser==2.19
-Pygments==2.5.2
+Pygments==2.7.4
 pymongo==3.2.2
 pyparsing==2.4.7
 PyPDF2==1.25.1
