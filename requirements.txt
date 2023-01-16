@@ -48,7 +48,7 @@ pycparser==2.19
 Pygments==2.5.2
 pymongo==3.2.2
 pyparsing==2.4.7
-PyPDF2==1.25.1
+PyPDF2==1.27.5
 Pyphen==0.9.5
 pytest==2.8.5
 python-dateutil==2.4.2
