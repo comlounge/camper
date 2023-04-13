@@ -163,7 +163,9 @@ class RegistrationWizard(BarcampBaseHandler):
                 
         if self.request.method == "POST":
             try:
-                self.process_post_data()
+                # only process data if the barcamps is active. Otherwise do nothing and it's a honeypot.
+                if self.barcamp.registration_active:
+                    self.process_post_data()
             except ProcessingError, e:
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
                 print "error on processing post data", e
