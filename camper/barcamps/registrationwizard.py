@@ -6,6 +6,7 @@ from wtforms import *
 from camper.handlers.forms import *
 import werkzeug.exceptions
 import xlwt
+import random
 from cStringIO import StringIO
 import datetime
 
@@ -36,10 +37,25 @@ class RegistrationWizard(BarcampBaseHandler):
     LOGGER = "registration"
 
     @property
+    def captcha_form(self):
+        """do a super captcha"""
+
+        class CaptchaForm(BaseForm):#
+            pass
+
+        v1 = random.randint(1, 10)
+        v2 = random.randint(2, 10)
+        erg = v1 + v2
+
+        setattr(CaptchaForm, "numbars2", HiddenField("ergebniss"))
+        setattr(CaptchaForm, "numbars", TextField("%s+%s?" %(v1, v2), [validators.Required(), validators.Length(max = 10)]))
+        return CaptchaForm(prefix="captcha", numbars2 = str(erg))
+    
+    @property
     def registration_form(self):
         """create and return the registration form"""
 
-        class RegistrationForm(BaseForm):
+        class RegistrationForm(BaseForm):#
             pass
 
         for field in self.barcamp.registration_form:
@@ -57,7 +73,6 @@ class RegistrationWizard(BarcampBaseHandler):
                     choices = field['choices']))
             elif field['fieldtype'] == "checkbox":
                 setattr(RegistrationForm, field['name'], BooleanField(field['title'], vs, description = field['description'] or " "))
-
 
         # retrieve existing data if user is logged in
         if self.logged_in:
@@ -88,6 +103,13 @@ class RegistrationWizard(BarcampBaseHandler):
         # unfortunately it's doubled here. 
         regform = self.registration_form
         userform = self.user_registration_form
+        
+        captcha_soll = self.request.form['captcha-numbars2'].strip()
+        captcha_ist = self.request.form['captcha-numbars'].strip()
+
+        if captcha_soll != captcha_ist:
+            print "Captcha Fehler"
+            raise ProcessingError("Leider stimmt die Eingabe nicht. ")
 
         if not self.logged_in and not userform.validate():
             print "user is not logged in and userform does not validate"
@@ -157,6 +179,8 @@ class RegistrationWizard(BarcampBaseHandler):
         # show tickets instead if ticketmode is enabled
         if self.barcamp.ticketmode_enabled:
             return redirect(self.url_for(".tickets", slug=slug))
+        if not self.barcamp.registration_active:
+            raise werkzeug.exceptions.NotFound()
         
         regform = self.registration_form
         userform = self.user_registration_form
@@ -180,6 +204,7 @@ class RegistrationWizard(BarcampBaseHandler):
             barcamp = self.barcamp,
             title = self.barcamp.name,
             form = regform,
+            captcha = self.captcha_form,
             userform = userform,
             **self.barcamp)
 
