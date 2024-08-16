@@ -118,20 +118,28 @@ class AddView(BaseHandler):
                     form.data['location_street'],
                     form.data['location_city'],
                 )
-                data = requests.get(url).json()
+                try:
+                    data = requests.get(url).json()
+                except ValueError:
+                    data=[]
                 if len(data)==0:
                     # trying again but only with city
                     url = "http://nominatim.openstreetmap.org/search?q=%s&format=json&polygon=0&addressdetails=1" %(
                         form.data['location_city'],
                     )
-                    data = requests.get(url).json()
-                if len(data)==0:
-                    self.flash(self._("the city was not found in the geo database"), category="danger")
-                    return self.render(form = form)
-                # we have at least one entry, take the first one
-                result = data[0]
-                f['location']['lat'] = result['lat']
-                f['location']['lng'] = result['lon']
+                    try:
+                        data = requests.get(url).json()
+                    except ValueError:
+                        data=[]
+                if len(data)!=0:
+                    #self.flash(self._("the city was not found in the geo database"), category="danger")
+                    #return self.render(form = form)
+                    result = data[0]
+                    f['location']['lat'] = result['lat']
+                    f['location']['lng'] = result['lon']
+                else:
+                    f['location']['lat'] = 0
+                    f['location']['lng'] = 0
 
             # create and save the barcamp object
             barcamp = db.Barcamp(f, collection = self.config.dbs.barcamps)
