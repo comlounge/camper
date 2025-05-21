@@ -5,6 +5,9 @@ import locale
 import yaml
 import pkg_resources
 import werkzeug.exceptions
+from werkzeug.utils import redirect
+from werkzeug.datastructures import MultiDict
+
 
 from starflyer import Application, URL, AttributeMapper, Handler
 from sfext.uploader import upload_module, Assets, ImageSizeProcessor
@@ -22,6 +25,10 @@ from jinja2 import evalcontextfilter, Markup, escape
 from etherpad_lite import EtherpadLiteClient
 
 import userbase
+from userbase.hooks import Hooks
+from userbase.handlers.forms import BaseForm
+from wtforms import Form, TextField, PasswordField, BooleanField, validators, SelectMultipleField, widgets, HiddenField
+from wtforms import ValidationError
 import handlers
 import barcamps
 import db
@@ -29,6 +36,62 @@ import login
 import blog
 import pages
 
+import random
+from werkzeug.exceptions import BadRequest
+
+
+class EMailRegistrationForm(BaseForm):
+    email       = TextField('E-Mail',       [validators.Length(max=200), validators.Email(), validators.Required()])
+    password    = PasswordField('Password', [validators.Required(), validators.EqualTo('password2', message='Passwords must match')])
+    password2   = PasswordField('Password confirmation', [validators.Length(max=135), validators.Required()])
+    fullname    = TextField('Full name',    [validators.Length(max=200), validators.Required()])
+    captcha    = TextField('Captcha',    [])
+    captcha_expected    = HiddenField('Expected',    [])
+    captcha_title    = HiddenField('title',    [])
+    
+    def __init__(self, formdata=None, obj=None, prefix='', module=None, **kwargs):
+        """extend the form with a more data to be stored"""
+        print("init regform")
+        self.module = module
+
+        new_form = False
+        if len(formdata) == 0:
+            print("new form")
+            new_form = True
+            v1 = random.randint(1, 10)
+            v2 = random.randint(2, 10)
+            erg = v1 + v2
+            question = "Was ist %s+%s?" %(v1, v2)
+            kwargs['captcha_expected'] = str(erg)
+            kwargs['captcha_title'] = question
+        
+        super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
+        if new_form:
+            self.captcha.label.text = question
+        else:
+            self.captcha.label.text = self.captcha_title.data
+        
+    def validate_email(form, field):
+        if form.module.users.find({'email' : field.data}).count() > 0:
+            raise ValidationError(T('this email address is already taken'))
+        
+    def validate_captcha(form, field):
+        # Hier wird die Captcha-Validierung durchgeführt
+        captcha_answer = field.data.strip().lower()
+        captcha_expected = form.captcha_expected.data.strip().lower()
+        print("Captcha Input: Antwort='%s', Erwartet='%s'" % (captcha_answer, captcha_expected))
+        
+        if not captcha_answer or not captcha_expected:
+            raise ValidationError(u'Captcha fehlt')
+        
+        if captcha_answer != captcha_expected:
+            raise ValidationError(u'Captcha ungültig')
+        
+        # Wenn die Validierung erfolgreich war, können wir die Captcha-Daten entfernen
+        form.captcha.data = None
+        form.captcha_expected.data = None
+        
+            
 #
 # custom jinja filters
 #
@@ -250,6 +313,7 @@ class CamperApp(Application):
             user_class                  = db.CamperUser,
             use_remember                = True,
             login_form                  = login.EMailLoginForm,
+            registration_form           = EMailRegistrationForm,
             urls                        = {
                 'activation'            : {'endpoint' : 'activation'}, # we use our own activation handler 
                 'activation_success'    : {'endpoint' : 'index'},
@@ -384,12 +448,51 @@ class CamperApp(Application):
             handler,
         ])
 
+    def handle_exception(self, request, e):
+        """Handle all exceptions in the app including those from werkzeug"""
+        print "Exception abgefangen: %s (Typ: %s)" % (str(e), type(e).__name__)
+        print "Request path: %s, method: %s" % (request.path, request.method)
+        
+        # Wenn es eine BadRequest-Exception ist und sie durch eine Captcha-Validierung ausgelöst wurde
+        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Captcha ungültig"]:
+            print "BadRequest-Exception abgefangen: %s" % str(e)
+            
+            # Den Request wieder an den ursprünglichen Handler zurückgeben
+            url = request.path
+            if request.query_string:
+                url = url + '?' + request.query_string
+            
+            print "Leite um zu: %s" % url
+            
+            # Flash-Nachricht setzen
+            request.session.flash(str(e), category="danger")
+            return redirect(url)
+        
+        # Ansonsten die normale Exception-Behandlung nutzen
+        return super(CamperApp, self).handle_exception(request, e)
+        
     def handle_http_exception(self, request, e):
         """handle http exceptions"""
-
-        logger = logbook.Logger("error")
+        print "HTTP Exception: %s (Typ: %s)" % (str(e), type(e).__name__)
+        print "Request path: %s, method: %s, code: %s" % (request.path, request.method, getattr(e, 'code', 'unbekannt'))
+        
+        # Auch hier prüfen, ob es eine BadRequest-Exception ist, die vom Captcha stammt
+        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Captcha ungültig"]:
+            print "BadRequest-HTTP-Exception abgefangen: %s" % str(e)
+            
+            # Den Request wieder an den ursprünglichen Handler zurückgeben
+            url = request.path
+            if request.query_string:
+                url = url + '?' + request.query_string
+            
+            print "Leite HTTP um zu: %s" % url
+            
+            # Flash-Nachricht setzen
+            request.session.flash(str(e), category="danger")
+            return redirect(url)
+            
         if e.code != 404:
-            logger.warn("http error", code = e.code, url = request.path)
+            print "HTTP error", e.code, request.path
 
         # setup the request properly for handlers to use
         urls = self.create_url_adapter(request)
