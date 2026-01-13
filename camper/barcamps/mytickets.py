@@ -44,8 +44,21 @@ class MyTickets(BarcampBaseHandler):
         
         # a list of all ticket class objects
         ticketlist = self.barcamp.ticketlist
-        ticketservice = TicketService(self, self.user)                
-        
+        ticketservice = TicketService(self, self.user)
+
+        # Defensive check: user_id should always be set when user exists
+        if self.user and not self.user_id:
+            self.log.error(
+                "SECURITY: user_id is None despite user being logged in",
+                user_email=self.user.email,
+                user_id_from_object=str(self.user._id),
+                handler_user_id=self.user_id,
+                cookies=self.request.cookies.keys(),
+                session_keys=self.session.keys() if hasattr(self, 'session') else []
+            )
+            self.flash(self._('Session error. Please log out and log in again.'), category="danger")
+            return redirect(self.url_for("userbase.logout"))
+
         pending = ticketservice.get_tickets_for_user(self.user_id, "pending")
         cancel_request = ticketservice.get_tickets_for_user(self.user_id, "cancel_request")
         canceled = ticketservice.get_tickets_for_user(self.user_id, "canceled")
