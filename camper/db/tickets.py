@@ -122,7 +122,7 @@ class Tickets(Collection):
         if ticketclass_id:
             q['ticketclass_id'] = ticketclass_id
 
-        if user_id:
+        if user_id is not None:
             q['user_id'] = user_id
 
         return list(self.find(q))
