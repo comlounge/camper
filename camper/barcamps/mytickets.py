@@ -97,6 +97,7 @@ class TicketPDF(BarcampBaseHandler):
     """render a ticket pdf"""
 
     @ensure_barcamp()
+    @logged_in()
     @aspdf2()
     def get(self, slug = None, ticket_id = None):
         """print out a ticket as PDF"""
@@ -106,6 +107,14 @@ class TicketPDF(BarcampBaseHandler):
         ticket = tickets.find_one({'_id' : ObjectId(ticket_id)})
 
         if not ticket:
+            raise werkzeug.exceptions.NotFound()
+
+        # Ownership check: verify the ticket belongs to the requesting user
+        if ticket['user_id'] != self.user_id:
+            self.log.error("unauthorized ticket PDF access attempt",
+                          ticket_id=ticket_id,
+                          ticket_owner=ticket['user_id'],
+                          requesting_user=self.user_id)
             raise werkzeug.exceptions.NotFound()
 
         ticket_class = self.barcamp.get_ticket_class(ticket.ticketclass_id)
