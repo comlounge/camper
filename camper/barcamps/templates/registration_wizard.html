@@ -149,15 +149,20 @@
         </fieldset>
 
         <fieldset>
-            <div class="fs-content">
-                {{ formmacros.form_field(captcha.numbars2) }}
+                    <div class="fs-content">
+                        {{ formmacros.form_field(userform.captcha_expected, class="form-control", required=True) }}
+                        {{ formmacros.form_field(userform.captcha_title, class="form-control", required=True) }}
+                
                 <div style="max-width: 300px; padding-left: 15px">
-                    {{ formmacros.form_field(captcha.numbars, class="form-control", required=True) }}
+                        {{ formmacros.form_field(userform.captcha, class="form-control", required=True) }}
+                
                 </div>
                 
                 <input type="submit" value="{{_(" Register for this barcamp")}}"
                 class="btn btn-lg btn-primary">
             </div>
+
+                
         </fieldset>
 
 
