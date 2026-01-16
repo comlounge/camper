@@ -104,12 +104,12 @@ class RegistrationWizard(BarcampBaseHandler):
         regform = self.registration_form
         userform = self.user_registration_form
         
-        captcha_soll = self.request.form['captcha-numbars2'].strip()
-        captcha_ist = self.request.form['captcha-numbars'].strip()
+        # captcha_soll = self.request.form['captcha-numbars2'].strip()
+        # captcha_ist = self.request.form['captcha-numbars'].strip()
 
-        if captcha_soll != captcha_ist:
-            print "Captcha Fehler"
-            raise ProcessingError("Leider stimmt die Eingabe nicht. ")
+        # if captcha_soll != captcha_ist:
+        #     print "Captcha Fehler"
+        #     raise ProcessingError("Leider stimmt die Eingabe nicht. ")
 
         if not self.logged_in and not userform.validate():
             print "user is not logged in and userform does not validate"
@@ -206,7 +206,7 @@ class RegistrationWizard(BarcampBaseHandler):
             barcamp = self.barcamp,
             title = self.barcamp.name,
             form = regform,
-            captcha = self.captcha_form,
+            #captcha = self.captcha_form,
             userform = userform,
             **self.barcamp)
 
