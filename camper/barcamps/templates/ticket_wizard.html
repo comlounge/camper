@@ -158,6 +158,14 @@
                 </div>
                 
             {% endif %}
+                                    {{ formmacros.form_field(userform.captcha_expected, class="form-control", required=True) }}
+                        {{ formmacros.form_field(userform.captcha_title, class="form-control", required=True) }}
+                
+                <div style="max-width: 300px; padding-left: 15px">
+                        {{ formmacros.form_field(userform.captcha, class="form-control", required=True) }}
+                
+                </div>
+
             {% if barcamp.paid_tickets %}
                 <div class="checkbox">
                     <label>
