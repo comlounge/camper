@@ -5,7 +5,7 @@ backports.shutil-get-terminal-size==1.0.0
 bleach==3.3.1
 cairocffi==0.9.0
 CairoSVG==1.0.22
-certifi==2018.11.29
+certifi==2022.12.7
 cffi==1.12.2
 chardet==3.0.4
 colander==1.7.0
