@@ -77,7 +77,7 @@ def pytest_funcarg__bclient(request):
         email = "foo.bar@example.org",
         password = "bar"
     ), follow_redirects = True, base_url="http://dev.localhost")
-    resp  = client.post('/b/add', data=dict(
+    resp  = client.post('/b/add/free', data=dict(
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
@@ -85,6 +85,7 @@ def pytest_funcarg__bclient(request):
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
+        imprint = "Test Organizer",
     ))
     return client
 

@@ -1,13 +1,37 @@
 {% extends M.userbase.config.master_template %}
-{% import "macros.html" as formmacros with context %}                                                                                                           
+{% import "macros.html" as formmacros with context %}
 {% block content %}
+    <style>
+        /* Honeypot fields - hidden from human users, but bots will see them */
+        .form input[name="website"],
+        .form input[name="url"],
+        .form input[name="phone"],
+        .form div:has(input[name="website"]),
+        .form div:has(input[name="url"]),
+        .form div:has(input[name="phone"]),
+        .honeypot-field {
+            display: none !important;
+            position: absolute !important;
+            left: -9999px !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+    </style>
     <div id="main-content" class="row">
         <div class="col-lg-9" id="content-area">
             <div class="form">
                 <h2>{{_('Please register')}}</h2>
                 <form class="validate" method="POST" action="{{url}}" role="form">
                     {% for field in form %}
-                        {{ formmacros.form_field(field, required =field.flags.required)}}
+                        {% if field.name in ['website', 'url', 'phone'] %}
+                            <div class="honeypot-field">
+                                {{ formmacros.form_field(field, required=False)}}
+                            </div>
+                        {% else %}
+                            {{ formmacros.form_field(field, required=field.flags.required)}}
+                        {% endif %}
                     {% endfor %}
 
                     <fieldset class="form-actions">

@@ -1,5 +1,22 @@
 {% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
+
+{% block head %}
+{{ super() }}
+<style>
+    /* Honeypot fields - hidden from human users, but bots will see them */
+    .honeypot-field {
+        display: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+</style>
+{% endblock %}
+
 {% macro ticketblock(ticket_classes, 
         active = True, 
         headline='Select tickets', 
@@ -158,24 +175,46 @@
                 </div>
                 
             {% endif %}
-                                    {{ formmacros.form_field(userform.captcha_expected, class="form-control", required=True) }}
-                        {{ formmacros.form_field(userform.captcha_title, class="form-control", required=True) }}
-                
+
+                <!-- Hidden captcha ID field -->
+                {{ userform.captcha_id() }}
+
+                <!-- Honeypot fields - hidden from humans, bots will fill them -->
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.website, class="form-control") }}
+                </div>
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.url, class="form-control") }}
+                </div>
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.phone, class="form-control") }}
+                </div>
+
                 <div style="max-width: 300px; padding-left: 15px">
                         {{ formmacros.form_field(userform.captcha, class="form-control", required=True) }}
-                
+
                 </div>
 
             {% if barcamp.paid_tickets %}
-                <div class="checkbox">
+                <div class="checkbox {{'has-error' if termsform.tos_ok.errors}}" id="{{termsform.tos_ok.id}}-div">
                     <label>
-                        <input required name="tos_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') | format(link=url_for('.tos', slug=slug)) | safe}}.
+                        {{ termsform.tos_ok(class="required") }} {{_('I have read and accept the <a target="legal" href="%(link)s">Terms of Service</a>') | format(link=url_for('.tos', slug=slug)) | safe}}.
                     </label>
+                    {% if termsform.tos_ok.errors %}
+                        {%- for error in termsform.tos_ok.errors -%}
+                        <span class="label label-danger">{{ error }}</span>
+                        {%- endfor -%}
+                    {% endif %}
                 </div>
-                <div class="checkbox">
+                <div class="checkbox {{'has-error' if termsform.cancel_ok.errors}}" id="{{termsform.cancel_ok.id}}-div">
                     <label>
-                        <input required name="cancel_ok" type="checkbox"> {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') | format(link=url_for('.cancellation', slug=slug)) | safe}}.
+                        {{ termsform.cancel_ok(class="required") }} {{_('I have read and accept the <a target="legal" href="%(link)s">Cancellation and Refund policy</a>') | format(link=url_for('.cancellation', slug=slug)) | safe}}.
                     </label>
+                    {% if termsform.cancel_ok.errors %}
+                        {%- for error in termsform.cancel_ok.errors -%}
+                        <span class="label label-danger">{{ error }}</span>
+                        {%- endfor -%}
+                    {% endif %}
                 </div>
 
                 <input type="submit" value="{{_("Buy tickets")}}" class="btn btn-lg btn-primary pull-right">

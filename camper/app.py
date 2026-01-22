@@ -37,6 +37,7 @@ import blog
 import pages
 
 import random
+import uuid
 from werkzeug.exceptions import BadRequest
 
 
@@ -45,53 +46,258 @@ class EMailRegistrationForm(BaseForm):
     password    = PasswordField('Password', [validators.Required(), validators.EqualTo('password2', message='Passwords must match')])
     password2   = PasswordField('Password confirmation', [validators.Length(max=135), validators.Required()])
     fullname    = TextField('Full name',    [validators.Length(max=200), validators.Required()])
-    captcha    = TextField('Captcha',    [])
-    captcha_expected    = HiddenField('Expected',    [])
-    captcha_title    = HiddenField('title',    [])
-    
-    def __init__(self, formdata=None, obj=None, prefix='', module=None, **kwargs):
-        """extend the form with a more data to be stored"""
-        print("init regform")
-        self.module = module
+    captcha     = TextField('Captcha',      [validators.Required()])
+    captcha_id  = HiddenField('Captcha ID', [])
 
-        new_form = False
-        if len(formdata) == 0:
-            print("new form")
-            new_form = True
-            v1 = random.randint(1, 10)
-            v2 = random.randint(2, 10)
-            erg = v1 + v2
-            question = "Was ist %s+%s?" %(v1, v2)
-            kwargs['captcha_expected'] = str(erg)
-            kwargs['captcha_title'] = question
-        
+    # Honeypot fields - hidden via CSS, bots will fill these
+    website     = TextField('Website',      [])
+    url         = TextField('URL',          [])
+    phone       = TextField('Phone',        [])
+
+    def __init__(self, formdata=None, obj=None, prefix='', module=None, handler=None, **kwargs):
+        """extend the form with a more data to be stored"""
+        import datetime
+
+        # Store these temporarily (will be set again after super().__init__)
+        _module = module
+        _handler = handler
+
+        # Check if this is a GET request (new form load)
+        # formdata will be empty ImmutableMultiDict on GET, populated on POST
+        is_new_form = formdata is None or (hasattr(formdata, '__len__') and len(formdata) == 0)
+
+        # Generate captcha if:
+        # 1. Handler is available, AND
+        # 2. New form (GET request) OR no captcha_id in POST data
+        if _handler and hasattr(_handler, 'session'):
+            # Initialize captcha storage in session if not present
+            if 'registration_captchas' not in _handler.session:
+                _handler.session['registration_captchas'] = {}
+
+            # Check if this is a POST with an existing captcha_id
+            existing_captcha_id = None
+            if formdata and hasattr(formdata, 'get'):
+                existing_captcha_id = formdata.get('captcha_id')
+
+            # Generate new captcha if this is a new form or captcha_id is missing/invalid
+            if is_new_form or not existing_captcha_id or existing_captcha_id not in _handler.session['registration_captchas']:
+                # Generate unique ID for this form instance
+                captcha_id = str(uuid.uuid4())
+
+                v1 = random.randint(1, 10)
+                v2 = random.randint(2, 10)
+                answer = v1 + v2
+                question = "Was ist %s+%s?" %(v1, v2)
+
+                # Store captcha data in session with unique ID (server-side, secure)
+                _handler.session['registration_captchas'][captcha_id] = {
+                    'answer': str(answer),
+                    'question': question,
+                    'created': datetime.datetime.utcnow().isoformat(),
+                    'form_loaded': datetime.datetime.utcnow().isoformat()
+                }
+
+                # Set the captcha_id in kwargs so it gets populated in the hidden field
+                kwargs['captcha_id'] = captcha_id
+            else:
+                # Reusing existing captcha - WTForms will populate from formdata
+                # But we still need to pass it in kwargs for GET requests after failed POST
+                kwargs['captcha_id'] = existing_captcha_id
+
+            # Clean up old captchas (older than 1 hour)
+            current_time = datetime.datetime.utcnow()
+            captchas_to_remove = []
+            for cid, cdata in _handler.session['registration_captchas'].items():
+                try:
+                    created = datetime.datetime.strptime(cdata['created'], '%Y-%m-%dT%H:%M:%S.%f')
+                except:
+                    created = datetime.datetime.strptime(cdata['created'], '%Y-%m-%dT%H:%M:%S')
+                if (current_time - created).total_seconds() > 3600:  # 1 hour
+                    captchas_to_remove.append(cid)
+            for cid in captchas_to_remove:
+                del _handler.session['registration_captchas'][cid]
+
         super(BaseForm, self).__init__(formdata=formdata, obj=obj, prefix=prefix, **kwargs)
-        if new_form:
-            self.captcha.label.text = question
+
+        # IMPORTANT: Set these AFTER super().__init__() so they persist for validators
+        self.module = _module
+        self.handler = _handler
+
+        # CRITICAL FIX: After super().__init__(), check if the captcha_id is valid
+        # If it's expired/missing, generate a new one and update the field
+        if self.handler and hasattr(self.handler, 'session') and 'registration_captchas' in self.handler.session:
+            current_captcha_id = self.captcha_id.data
+            
+            # If the captcha_id from the form is not in session (expired), generate a new one
+            if not current_captcha_id or current_captcha_id not in self.handler.session['registration_captchas']:
+                
+                # Generate new captcha
+                new_captcha_id = str(uuid.uuid4())
+                v1 = random.randint(1, 10)
+                v2 = random.randint(2, 10)
+                answer = v1 + v2
+                question = "Was ist %s+%s?" %(v1, v2)
+
+                # IMPORTANT: Set form_loaded to 5 seconds in the past
+                # This prevents "too fast" errors when the user has already filled out the form
+                # and we're just regenerating the captcha due to expiration
+                form_loaded_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=5)
+
+                # Store in session
+                self.handler.session['registration_captchas'][new_captcha_id] = {
+                    'answer': str(answer),
+                    'question': question,
+                    'created': datetime.datetime.utcnow().isoformat(),
+                    'form_loaded': form_loaded_time.isoformat()
+                }
+
+                # CRITICAL: Update the form field with the new captcha_id
+                self.captcha_id.data = new_captcha_id
+                current_captcha_id = new_captcha_id
+
+        # Set the captcha question label and description from session
+        if self.handler and hasattr(self.handler, 'session') and 'registration_captchas' in self.handler.session:
+            captcha_id = self.captcha_id.data
+            if captcha_id and captcha_id in self.handler.session['registration_captchas']:
+                question_text = self.handler.session['registration_captchas'][captcha_id]['question']
+                self.captcha.label.text = question_text
+                self.captcha.description = u'Bitte berechne die Aufgabe und gib das Ergebnis ein'
+            else:
+                # Fallback if captcha_id is invalid
+                self.captcha.label.text = 'Captcha'
+                self.captcha.description = u'Bitte Captcha eingeben'
         else:
-            self.captcha.label.text = self.captcha_title.data
-        
+            # Fallback if no session (shouldn't happen in normal flow)
+            self.captcha.label.text = 'Captcha'
+            self.captcha.description = u'Bitte Captcha eingeben'
+
     def validate_email(form, field):
         if form.module.users.find({'email' : field.data}).count() > 0:
             raise ValidationError(T('this email address is already taken'))
-        
+
+    def validate_website(form, field):
+        """Honeypot field - should always be empty"""
+        if field.data:
+            raise ValidationError(u'Spam detected')
+
+    def validate_url(form, field):
+        """Honeypot field - should always be empty"""
+        if field.data:
+            raise ValidationError(u'Spam detected')
+
+    def validate_phone(form, field):
+        """Honeypot field - should always be empty"""
+        if field.data:
+            raise ValidationError(u'Spam detected')
+
     def validate_captcha(form, field):
-        # Hier wird die Captcha-Validierung durchgeführt
-        captcha_answer = field.data.strip().lower()
-        captcha_expected = form.captcha_expected.data.strip().lower()
-        print("Captcha Input: Antwort='%s', Erwartet='%s'" % (captcha_answer, captcha_expected))
-        
-        if not captcha_answer or not captcha_expected:
+        """Validate captcha against session-stored answer"""
+        import datetime
+
+        # Better error handling for missing handler
+        if not form.handler or not hasattr(form.handler, 'session'):
+            raise ValidationError(u'Captcha-Validierung fehlgeschlagen - bitte Formular neu laden')
+
+        # Check if captcha storage exists in session
+        if 'registration_captchas' not in form.handler.session:
+            raise ValidationError(u'Captcha abgelaufen - bitte neu laden')
+
+        # Get the captcha_id for this form instance
+        captcha_id = form.captcha_id.data
+
+        if not captcha_id:
+            raise ValidationError(u'Captcha-ID fehlt - bitte Formular neu laden')
+
+        # Check if this specific captcha exists
+        if captcha_id not in form.handler.session['registration_captchas']:
+            raise ValidationError(u'Captcha abgelaufen - bitte neu laden')
+
+        captcha_data = form.handler.session['registration_captchas'][captcha_id]
+
+        captcha_answer = field.data.strip() if field.data else ''
+        captcha_expected = captcha_data.get('answer', '').strip()
+
+        # Time-based validation: Check if form was submitted too quickly (< 2 seconds)
+        try:
+            form_loaded = datetime.datetime.strptime(captcha_data['form_loaded'], '%Y-%m-%dT%H:%M:%S.%f')
+        except:
+            # Fallback for format without microseconds
+            try:
+                form_loaded = datetime.datetime.strptime(captcha_data['form_loaded'], '%Y-%m-%dT%H:%M:%S')
+            except:
+                # If we can't parse the time, reject it
+                del form.handler.session['registration_captchas'][captcha_id]
+                raise ValidationError(u'Captcha-Fehler - bitte neu laden')
+
+        time_elapsed = (datetime.datetime.utcnow() - form_loaded).total_seconds()
+
+        if time_elapsed < 2:
+            # Too fast - likely a bot
+            # Clear this captcha so a new one is generated
+            del form.handler.session['registration_captchas'][captcha_id]
+            raise ValidationError(u'Bitte füllen Sie das Formular langsamer aus')
+
+        # Check if captcha is expired (> 30 minutes)
+        if time_elapsed > 1800:  # 30 minutes
+            # Clear expired captcha so a new one is generated
+            del form.handler.session['registration_captchas'][captcha_id]
+            raise ValidationError(u'Captcha abgelaufen - bitte neu laden')
+
+        # Validate the captcha answer
+        if not captcha_answer:
             raise ValidationError(u'Captcha fehlt')
-        
+
         if captcha_answer != captcha_expected:
-            raise ValidationError(u'Captcha ungültig')
-        
-        # Wenn die Validierung erfolgreich war, können wir die Captcha-Daten entfernen
-        form.captcha.data = None
-        form.captcha_expected.data = None
-        
-            
+            # Don't delete captcha on wrong answer - let user retry with same question
+            raise ValidationError(u'Leider ist die Antwort nicht korrekt')
+
+        # Success - clear this specific captcha from session (single-use)
+        del form.handler.session['registration_captchas'][captcha_id]
+
+
+###
+### Custom Registration Handler
+###
+
+# Import base handler from userbase
+from userbase.handlers.registration import RegistrationHandler as BaseRegistrationHandler
+
+class CamperRegistrationHandler(BaseRegistrationHandler):
+    """Custom registration handler that passes handler to form for spam protection"""
+
+    def get(self):
+        """show the registration form"""
+        cfg = self.module.config
+        mod = self.module
+        form_class = cfg.registration_form
+        obj_class = cfg.user_class
+
+        # Pass handler to form for session access (spam protection)
+        form = form_class(self.request.form, module=self.module, handler=self)
+
+        if self.request.method == 'POST':
+            if form.validate():
+                f = form.data
+                user = mod.register(f, create_pw=False)
+                if cfg.login_after_registration and not cfg.use_double_opt_in:
+                    user = mod.login(self, force=True, **f)
+                    self.flash(self._("Welcome, %(fullname)s") %user)
+                    url_for_params = cfg.urls.login_success
+                    url = self.url_for(**url_for_params)
+                    return redirect(url)
+                if cfg.use_double_opt_in:
+                    self.flash(self._(u'To finish the registration process please check your email with instructions on how to activate your account.') %user)
+                    url_for_params = cfg.urls.double_opt_in_pending
+                else:
+                    self.flash(self._(u'Your user registration has been successful') %user)
+                    url_for_params = cfg.urls.registration_success
+                url = self.url_for(**url_for_params)
+                return redirect(url)
+        return self.render(form=form, use_double_opt_in=cfg.use_double_opt_in)
+
+    post = get
+
+
 #
 # custom jinja filters
 #
@@ -350,7 +556,11 @@ class CamperApp(Application):
             permissions                 = AttributeMapper({
                 'userbase:admin'    : T("can manage users"),
                 'admin'             : T("main administrator"),
-            })
+            }),
+
+            # Custom registration handler for spam protection
+            # Note: Python 2.7 doesn't allow colons in keyword args, so we pass via **dict at the end
+            **{'handler:register': CamperRegistrationHandler}
         ),
         mail_module(debug=True),
         barcamps.barcamp_module(url_prefix="/"),
@@ -454,7 +664,7 @@ class CamperApp(Application):
         print "Request path: %s, method: %s" % (request.path, request.method)
         
         # Wenn es eine BadRequest-Exception ist und sie durch eine Captcha-Validierung ausgelöst wurde
-        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Captcha ungültig"]:
+        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Leider ist die Antwort nicht korrekt"]:
             print "BadRequest-Exception abgefangen: %s" % str(e)
             
             # Den Request wieder an den ursprünglichen Handler zurückgeben
@@ -477,7 +687,7 @@ class CamperApp(Application):
         print "Request path: %s, method: %s, code: %s" % (request.path, request.method, getattr(e, 'code', 'unbekannt'))
         
         # Auch hier prüfen, ob es eine BadRequest-Exception ist, die vom Captcha stammt
-        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Captcha ungültig"]:
+        if isinstance(e, BadRequest) and str(e) in ["Captcha fehlt", "Leider ist die Antwort nicht korrekt"]:
             print "BadRequest-HTTP-Exception abgefangen: %s" % str(e)
             
             # Den Request wieder an den ursprünglichen Handler zurückgeben

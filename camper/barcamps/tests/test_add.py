@@ -2,7 +2,7 @@
 
 def test_barcamp_add_without_login(client):
     """test adding a barcamp"""
-    resp  = client.post('/b/add', data=dict(
+    resp  = client.post('/b/add/free', data=dict(
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
@@ -17,7 +17,7 @@ def test_barcamp_add_without_login(client):
 
 def test_barcamp_add(logged_in_client):
     """test adding a barcamp"""
-    resp  = logged_in_client.post('/b/add', data=dict(
+    resp  = logged_in_client.post('/b/add/free', data=dict(
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
@@ -25,13 +25,14 @@ def test_barcamp_add(logged_in_client):
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
+        imprint = "Test Organizer",
     ))
     lh = logged_in_client.application.last_handler
     assert lh.get_flashes() == [u'Barcamp 1 has been created']
     
 def test_barcamp_initialadmin(logged_in_client):
     """test adding a barcamp"""
-    resp  = logged_in_client.post('/b/add', data=dict(
+    resp  = logged_in_client.post('/b/add/free', data=dict(
         name = "Barcamp 1",
         description = "this is barcamp 1",
         slug = "barcamp1",
@@ -39,6 +40,7 @@ def test_barcamp_initialadmin(logged_in_client):
         start_date = "17.8.2012",
         end_date = "17.9.2012",
         location = "Aachen",
+        imprint = "Test Organizer",
 
     ))
     app = logged_in_client.application

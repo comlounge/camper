@@ -1,6 +1,22 @@
 {% set active_action = "events" %}
 {% extends "_m/barcamps/master.html" %}
 
+{% block head %}
+{{ super() }}
+<style>
+    /* Honeypot fields - hidden from human users, but bots will see them */
+    .honeypot-field {
+        display: none !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+</style>
+{% endblock %}
+
 {% block headline %}
 <ol class="breadcrumb">
     <li><a href="{{url_for('.index', slug = slug)}}">{{_('Homepage')}}</a></li>
@@ -150,19 +166,31 @@
 
         <fieldset>
                     <div class="fs-content">
-                        {{ formmacros.form_field(userform.captcha_expected, class="form-control", required=True) }}
-                        {{ formmacros.form_field(userform.captcha_title, class="form-control", required=True) }}
-                
+
+                <!-- Hidden captcha ID field -->
+                {{ userform.captcha_id() }}
+
+                <!-- Honeypot fields - hidden from humans, bots will fill them -->
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.website, class="form-control") }}
+                </div>
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.url, class="form-control") }}
+                </div>
+                <div class="honeypot-field">
+                    {{ formmacros.form_field(userform.phone, class="form-control") }}
+                </div>
+
                 <div style="max-width: 300px; padding-left: 15px">
                         {{ formmacros.form_field(userform.captcha, class="form-control", required=True) }}
-                
+
                 </div>
-                
-                <input type="submit" value="{{_(" Register for this barcamp")}}"
+
+                <input type="submit" value="{{_("Register for this barcamp")}}"
                 class="btn btn-lg btn-primary">
             </div>
 
-                
+
         </fieldset>
 
 

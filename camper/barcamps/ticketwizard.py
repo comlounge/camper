@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from starflyer import Handler, redirect, asjson
 from camper import BaseForm, db, BaseHandler
 from camper import logged_in, is_admin, ensure_barcamp
@@ -78,23 +79,54 @@ class TicketWizard(BarcampBaseHandler):
         form = cfg.registration_form
         obj_class = cfg.user_class
 
-        form = form(self.request.form, module = mod)
+        form = form(self.request.form, module = mod, handler=self)
         return form
 
+    @property
+    def terms_form(self):
+        """create form for terms of service checkboxes"""
+        from camper import BaseForm
 
-    def process_post_data(self):
+        class TermsForm(BaseForm):
+            tos_ok = BooleanField(u'Ich habe die AGB gelesen und akzeptiert', [validators.Required(message=u'Sie müssen die AGB akzeptieren')])
+            cancel_ok = BooleanField(u'Ich habe die Widerrufs- und Rückerstattungsbedingungen gelesen und akzeptiert', [validators.Required(message=u'Sie müssen die Widerrufs- und Rückerstattungsbedingungen akzeptieren')])
+
+        return TermsForm(self.request.form, prefix="terms")
+
+
+    def process_post_data(self, regform=None, userform=None, termsform=None):
         """process all the incoming data. raises ProcessingError in case there is a failure.
-        This method should only be called on post"""
+        This method should only be called on post
+        Returns True if validation succeeds, False otherwise.
+        """
 
-        # unfortunately it's doubled here. 
-        regform = self.registration_form
-        userform = self.user_registration_form
+        # Use provided forms or create new ones (for backwards compatibility)
+        if regform is None:
+            regform = self.registration_form
+        if userform is None:
+            userform = self.user_registration_form
+        if termsform is None:
+            termsform = self.terms_form
 
-        if not self.logged_in and not userform.validate():
-            raise ProcessingError("user is not logged in and userform does not validate")
+        # Validate forms - but don't raise ProcessingError on validation failure
+        # This allows field-specific errors to be displayed to the user
+        user_valid = self.logged_in or userform.validate()
+        reg_valid = regform.validate()
 
-        if not regform.validate():
-            raise ProcessingError("registration form does not validate")
+        # Only validate terms form for paid tickets
+        if self.barcamp.paid_tickets:
+            terms_valid = termsform.validate()
+        else:
+            terms_valid = True
+
+        if not user_valid:
+            return False
+
+        if not reg_valid:
+            return False
+
+        if not terms_valid:
+            return False
         
         # do we have events? If not then this is not valid
         tc_ids = self.request.form.getlist("_tc")
@@ -151,29 +183,45 @@ class TicketWizard(BarcampBaseHandler):
     def get(self, slug = None):
         """show the complete registration form with registration data, user registration and more"""
 
-        
-        regform = self.registration_form
-        userform = self.user_registration_form
-
-        # a list of all ticket class objects
-        ticketlist = self.barcamp.ticketlist
-                
         if self.request.method == "POST":
+            # Create forms with POST data for validation
+            regform = self.registration_form
+            userform = self.user_registration_form
+            termsform = self.terms_form if self.barcamp.paid_tickets else None
+
+            validation_passed = False
             try:
-                self.process_post_data()
+                # Pass the forms so validation errors are preserved
+                result = self.process_post_data(regform=regform, userform=userform, termsform=termsform)
+                # If process_post_data returns False, validation failed
+                # The form will be re-rendered with field-specific errors
+                if result is False:
+                    validation_passed = False
+                    self.flash(self._("The form contains errors. Please correct them and try again."), category="danger")
+                else:
+                    validation_passed = True
             except ProcessingError, e:
                 self.log.exception()
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
             else:
-                if self.logged_in:
-                    if self.barcamp.paid_tickets:
-                        self.flash(self._("Your ticket reservations have been processed. Please check your email for information on how to pay for your ticket."), category="success")
+                if validation_passed:
+                    if self.logged_in:
+                        if self.barcamp.paid_tickets:
+                            self.flash(self._("Your ticket reservations have been processed. Please check your email for information on how to pay for your ticket."), category="success")
+                        else:
+                            self.flash(self._("Your ticket reservation was successful."), category="success")
+                        return redirect(self.url_for(".mytickets", slug = self.barcamp.slug))
                     else:
-                        self.flash(self._("Your ticket reservation was successful."), category="success")
-                    return redirect(self.url_for(".mytickets", slug = self.barcamp.slug))
-                else:
-                    self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
-                    return redirect(self.url_for(".index", slug = self.barcamp.slug))
+                        self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
+                        return redirect(self.url_for(".index", slug = self.barcamp.slug))
+        else:
+            # GET request - create fresh forms
+            regform = self.registration_form
+            userform = self.user_registration_form
+            termsform = self.terms_form if self.barcamp.paid_tickets else None
+
+        # a list of all ticket class objects
+        ticketlist = self.barcamp.ticketlist
 
         ticketservice = TicketService(self, self.user)
 
@@ -192,6 +240,7 @@ class TicketWizard(BarcampBaseHandler):
             title = self.barcamp.name,
             form = regform,
             userform = userform,
+            termsform = termsform,
             has_available = available_ticket_classes and tickets_left,
             available = available_ticket_classes,
             tickets_left = tickets_left,

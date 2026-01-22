@@ -92,37 +92,39 @@ class RegistrationWizard(BarcampBaseHandler):
         form = cfg.registration_form
         obj_class = cfg.user_class
 
-        form = form(self.request.form, module = mod)
+        form = form(self.request.form, module = mod, handler=self)
         return form
 
 
-    def process_post_data(self):
+    def process_post_data(self, regform=None, userform=None):
         """process all the incoming data. raises ProcessingError in case there is a failure.
-        This method should only be called on post"""
+        This method should only be called on post
+        Returns True if validation succeeds, False otherwise.
+        """
 
-        # unfortunately it's doubled here. 
-        regform = self.registration_form
-        userform = self.user_registration_form
-        
-        # captcha_soll = self.request.form['captcha-numbars2'].strip()
-        # captcha_ist = self.request.form['captcha-numbars'].strip()
+        # Use provided forms or create new ones (for backwards compatibility)
+        if regform is None:
+            regform = self.registration_form
+        if userform is None:
+            userform = self.user_registration_form
 
-        # if captcha_soll != captcha_ist:
-        #     print "Captcha Fehler"
-        #     raise ProcessingError("Leider stimmt die Eingabe nicht. ")
+        # Validate forms - but don't raise ProcessingError on validation failure
+        # This allows field-specific errors to be displayed to the user
+        user_valid = self.logged_in or userform.validate()
+        reg_valid = regform.validate()
 
-        if not self.logged_in and not userform.validate():
-            print "user is not logged in and userform does not validate"
-            raise ProcessingError("user is not logged in and userform does not validate")
+        if not user_valid:
+            self.log.warning("user is not logged in and userform does not validate")
+            return False
 
-        if not regform.validate():
-            print "registration form does not validate"
-            raise ProcessingError("registration form does not validate")
+        if not reg_valid:
+            self.log.warning("registration form does not validate")
+            return False
         
         # do we have events? If not then this is not valid
         eids = self.request.form.getlist("_bcevents")
         if not eids:
-            print "no events selected"
+            self.log.warning("no events selected")
             raise ProcessingError("no events selected")
 
 
@@ -156,7 +158,7 @@ class RegistrationWizard(BarcampBaseHandler):
                     reg.set_status(eid, "going")
                 except RegistrationError, e:
                     self.log.exception("a registration error occurred")
-                    print "unknown registration error"
+                    self.log.error("unknown registration error: %s" % str(e))
                     raise ProcessingError(str(e))
                     return 
         else:
@@ -181,25 +183,40 @@ class RegistrationWizard(BarcampBaseHandler):
             return redirect(self.url_for(".tickets", slug=slug))
         if not self.barcamp.registration_active:
             raise werkzeug.exceptions.NotFound()
-        
-        regform = self.registration_form
-        userform = self.user_registration_form
-                
+
         if self.request.method == "POST":
+            # Create forms with POST data for validation
+            regform = self.registration_form
+            userform = self.user_registration_form
+
+            validation_passed = False
             try:
                 # only process data if the barcamps is active. Otherwise do nothing and it's a honeypot.
                 if self.barcamp.registration_active:
-                    self.process_post_data()
+                    # Pass the forms so validation errors are preserved
+                    result = self.process_post_data(regform=regform, userform=userform)
+                    # If process_post_data returns False, validation failed
+                    # The form will be re-rendered with field-specific errors
+                    if result is False:
+                        validation_passed = False
+                        self.flash(self._("The form contains errors. Please correct them and try again."), category="danger")
+                    else:
+                        validation_passed = True
             except ProcessingError, e:
                 self.flash(self._("Unfortunately an error occurred when trying to register you. Please try again or contact the barcamptools administrator."), category="danger")
-                print "error on processing post data", e
+                self.log.error("error on processing post data: %s" % str(e))
             else:
-                if self.logged_in:
-                    self.flash(self._("You have been successfully registered. Please check your email."), category="success")
-                    return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
-                else:
-                    self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
-                    return redirect(self.url_for(".index", slug = self.barcamp.slug))
+                if validation_passed:
+                    if self.logged_in:
+                        self.flash(self._("You have been successfully registered. Please check your email."), category="success")
+                        return redirect(self.url_for(".user_events", slug = self.barcamp.slug))
+                    else:
+                        self.flash(self._("In order to finish your registration you have to activate your account. Please check your email."), category="success")
+                        return redirect(self.url_for(".index", slug = self.barcamp.slug))
+        else:
+            # GET request - create fresh forms
+            regform = self.registration_form
+            userform = self.user_registration_form
 
         return self.render(
             view = self.barcamp_view,

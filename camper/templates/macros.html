@@ -38,12 +38,13 @@
 {%- endmacro -%}
 
 {%- macro form_field_boolean(field, checkbox_class="", required = False, disabled = False) -%}
-<div class="checkbox {{checkbox_class}}" id="{{field.id}}-div">
+<div class="checkbox {{checkbox_class}} {{'has-error' if field.errors}}" id="{{field.id}}-div">
     <label>
         {{ field(class=""+(' required ' if required else ' ')+checkbox_class, required = required == True, disabled = disabled) }}
         {{ _(field.label.text) }}
         <p class="help-block">{{ _(field.description) }}</p>
     </label>
+    {{ form_field_errors(field) }}
 </div>
 {%- endmacro -%}
 
@@ -78,7 +79,7 @@
 {%- endmacro -%}
 
 {%- macro form_field(field, label_class="", input_class="", size="") -%}
-    <div class="form-group {{'error' if field.errors}}" id="field-{{field.id}}">
+    <div class="form-group {{'has-error' if field.errors}}" id="field-{{field.id}}">
     {% if field.type == 'HiddenField' %}
         {{ field() }}
     {% else %}

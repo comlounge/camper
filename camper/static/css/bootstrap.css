@@ -8150,6 +8150,46 @@ h6 {
   background: black;
   color: white;
 }
+.has-error .label-danger {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: normal;
+  background-color: #d9534f;
+  color: white;
+}
+.has-error .control-label {
+  color: #a94442;
+}
+.has-error .form-control {
+  border-color: #a94442;
+}
+.has-error .form-control:focus {
+  border-color: #843534;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
+}
+.checkbox.has-error .label-danger {
+  display: block !important;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.checkbox.has-error label {
+  color: #a94442 !important;
+  font-weight: bold;
+}
+.checkbox.has-error input[type="checkbox"] {
+  outline: 2px solid #a94442;
+  outline-offset: 2px;
+}
+.checkbox input[type="checkbox"]:invalid {
+  outline: 2px solid #a94442;
+  outline-offset: 2px;
+}
+.checkbox:has(input[type="checkbox"]:invalid) label {
+  color: #a94442 !important;
+  font-weight: bold;
+}
 #user-profile h2 {
   margin-top: 0;
 }
