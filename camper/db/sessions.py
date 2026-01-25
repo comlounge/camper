@@ -5,6 +5,16 @@ from mongogogo.schema import Filter
 
 __all__=["Session", "Sessions", "Comment", "Comments"]
 
+class AnonymousUser(object):
+    """Placeholder user object for deleted users (GDPR compliance)"""
+    def __init__(self):
+        self._id = None
+        self.username = 'anonymous'
+        self.fullname = 'Anonymous User'
+        self.deleted = True
+        self.image = None
+        self.tshirt = None
+
 class MLStripper(HTMLParser):
     """html parser for stripping all tags from a string"""
 
@@ -67,16 +77,20 @@ class Session(Record):
     @property
     def user(self):
         """return the user corresponding to the userid"""
-        return self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
+        user = self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
+        if user is None:
+            # Return anonymous user for deleted users (GDPR compliance)
+            return AnonymousUser()
+        return user
 
     @property
     def user_image(self):
-        """return the user corresponding to the userid"""
+        """return the user image URL"""
         u = self.user
         uf = self._collection.md.app.url_for
-        if u.image is not None and u.image!="":
+        if u and u.image is not None and u.image!="":
             return uf("asset", asset_id = self._collection.md.app.module_map.uploader.get(self.user.image).variants['thumb']._id)
-        else: 
+        else:
             return None
 
     def has_voted(self, user_id):
@@ -137,7 +151,11 @@ class Comment(Record):
     @property
     def user(self):
         """return the user corresponding to the userid"""
-        return self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
+        user = self._collection.md.app.module_map.userbase.get_user_by_id(self.user_id)
+        if user is None:
+            # Return anonymous user for deleted users (GDPR compliance)
+            return AnonymousUser()
+        return user
 
 
 class Comments(Collection):

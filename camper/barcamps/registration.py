@@ -276,6 +276,10 @@ class RegistrationDataExport(BarcampBaseHandler):
         def process_list(eid, userlist, state="going"):
             """process a user list"""
             for user in userlist:
+                # Skip deleted users (GDPR compliance)
+                if user is None:
+                    continue
+
                 uid = str(user._id)
                 if uid not in users:
                     # new user
