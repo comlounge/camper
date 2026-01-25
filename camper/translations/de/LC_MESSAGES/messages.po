@@ -4028,8 +4028,8 @@ msgid "I organize"
 msgstr "Ich organisiere"
 
 #: templates/index.html:87
-msgid "supported by"
-msgstr "gefördert durch"
+msgid "provided by"
+msgstr "angeboten durch"
 
 #: templates/index.html:91
 msgid "in cooperation with"
