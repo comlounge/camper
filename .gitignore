@@ -27,3 +27,6 @@ yarn.lock
 
 camper/\.vscode/
 camper/yarn.lock
+
+# Scripts: log files and temporary data files (may contain sensitive user data)
+scripts/gdpr_deletion_*.log
