@@ -372,6 +372,14 @@
         {% block footer %}
         <footer role="contentinfo">
             <div class="{{'container-fluid' if container_fluid else 'container'}}">
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-6" style="line-height: 60px;">
+                        barcamps.eu ist ein Angebot des <a href="https://python-verband.org/">Python Software Verband e.V.</a>
+                    </div>
+                    <div class="col-md-6" style="text-align:right">
+                        <a style="float:right" target="sponsor" href="https://python-verband.org/"><img style="height: 60px; padding: 5px;" alt="Logo Python Software Verband e.V." src="{{url_for('static', filename='img/pysv.png')}}" class="img-responsive"></a>
+                    </div>
+                </div>
                 <a href="/impressum.html">Impressum</a>
             </div>
         </footer>
