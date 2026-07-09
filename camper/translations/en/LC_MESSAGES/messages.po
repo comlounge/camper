@@ -3707,7 +3707,7 @@ msgid "duplicate barcamp"
 msgstr ""
 
 #: templates/admin_master.html:70
-msgid "Barcamp löschen"
+msgid "delete barcamp"
 msgstr ""
 
 #: templates/admin_master.html:79

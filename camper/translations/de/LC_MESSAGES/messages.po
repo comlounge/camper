@@ -3965,8 +3965,8 @@ msgid "duplicate barcamp"
 msgstr "Barcamp duplizieren"
 
 #: templates/admin_master.html:70
-msgid "Barcamp löschen"
-msgstr ""
+msgid "delete barcamp"
+msgstr "Barcamp löschen"
 
 #: templates/admin_master.html:79
 msgid "hide details"
