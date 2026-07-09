@@ -49,6 +49,8 @@ class SessionPad(BarcampBaseHandler):
             fav_sessions = self.app.config.dbs.userfavs.get_favs_for_bc(str(self.barcamp._id), self.user_id, eid)
         else:
             fav_sessions = []
+        
+        title = "%s - %s" % (session['title'], event['name'])
 
         # check if we have a video session
         if self.logged_in:
@@ -70,6 +72,7 @@ class SessionPad(BarcampBaseHandler):
                 session = session,
                 event = event,
                 pad = pid,
+                title = title,
                 view = self.barcamp_view,
                 barcamp = self.barcamp,
                 confurl = confurl,
@@ -82,6 +85,7 @@ class SessionPad(BarcampBaseHandler):
             confurl = confurl,
             event = event,
             pad = pid,
+            title = title,
             view = self.barcamp_view,
             barcamp = self.barcamp,
             fav_sessions = fav_sessions,
