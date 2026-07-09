@@ -24,7 +24,7 @@ iso8601==0.1.12
 isodate==0.5.4
 Jinja2==2.11.3
 Logbook==0.12.3
-lxml==4.6.3
+lxml==4.9.1
 Markdown==2.6.6
 MarkupSafe==0.23
 mongogogo==1.0.1
